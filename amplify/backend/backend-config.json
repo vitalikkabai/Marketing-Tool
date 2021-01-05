@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "marketingtool91f7f934": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
