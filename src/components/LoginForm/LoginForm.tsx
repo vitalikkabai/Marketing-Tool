@@ -1,4 +1,4 @@
-import React, {ReactElement, useState} from "react";
+import React, {useState} from "react";
 import {Button, Grid, Link, Paper, TextField, Typography} from "@material-ui/core";
 import classes from "./LoginForm.module.scss";
 import {Auth} from "aws-amplify";
@@ -6,23 +6,19 @@ import {Auth} from "aws-amplify";
 
 const LoginForm = () => {
 
-    const [userName, setUserName] = useState("");
+    const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmationCode, setConfirmationCode] = useState("");
     const [signedIn, setSignedIn] = useState(false);
 
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        //signIn(userName, password);
+        debugger; // eslint-disable-line no-debugger
         Auth.signIn({
-            username: userName,
+            username: username,
             password: password,
         }).then(() => alert("Signed In")).catch(err => console.log(err));
         setSignedIn(true);
-        Auth.confirmSignIn(userName, confirmationCode)
-            .then(() => console.log("confirmed"))
-            .catch(err => console.log(err));
     }
 
     return (
@@ -55,7 +51,7 @@ const LoginForm = () => {
                                             fullWidth
                                             name="username"
                                             variant="outlined"
-                                            value={userName}
+                                            value={username}
                                             onChange={(event) =>
                                                 setUserName(event.target.value)
                                             }

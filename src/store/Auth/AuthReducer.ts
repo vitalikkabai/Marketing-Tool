@@ -1,15 +1,13 @@
 import * as actions from './AuthActions';
 
 export const initialState = {
-    userName: "",
-    email: "",
-    password: "",
+
 };
 
 export const AuthReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
 
-        case 'SET-USER-DATA':
+        case 'SIGN-IN-REQUEST':
             return {
                 ...state,
                 ...action.payload
