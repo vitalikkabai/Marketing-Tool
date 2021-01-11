@@ -4,31 +4,32 @@ import './App.css';
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import { listAuthors } from './graphql/queries';
 import awsconfig from './aws-exports';
+
+import LoginForm from "./components/LoginForm/LoginForm";
+import { BrowserRouter } from "react-router-dom";
+import { Route, Switch } from "react-router";
+import RegisterForm from "./components/RegisterForm/RegisterForm";
+
+
 Amplify.configure(awsconfig);
 
 function App(): ReactElement {
 
-  useEffect(() => {
-    console.log("starting fetching authors");
-    const authors = async() => await API.graphql(graphqlOperation(listAuthors));
-    authors().then(res => console.log(res))
-    // authors.subscribe(() =>)
-  },[])
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    useEffect(() => {
+        console.log("starting fetching authors");
+        const authors = async () => await API.graphql(graphqlOperation(listAuthors));
+        authors().then(res => console.log(res))
+        // authors.subscribe(() =>)
+    }, [])
+
+    return (
+        <BrowserRouter>
+                <Switch>
+                    <Route path='/' exact component={LoginForm} />
+                    <Route path='/register' component={RegisterForm} />
+                </Switch>
+        </BrowserRouter>
+    );
 }
 
 export default App;
