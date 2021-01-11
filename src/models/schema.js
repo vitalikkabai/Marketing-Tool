@@ -1,5 +1,127 @@
 export const schema = {
     "models": {
+        "Business": {
+            "name": "Business",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "companyName": {
+                    "name": "companyName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "country": {
+                    "name": "country",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "city": {
+                    "name": "city",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "businessNumber": {
+                    "name": "businessNumber",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "haveExperienceSelling": {
+                    "name": "haveExperienceSelling",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "storeURL": {
+                    "name": "storeURL",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "haveWebsite": {
+                    "name": "haveWebsite",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "websiteURL": {
+                    "name": "websiteURL",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "ownerName": {
+                    "name": "ownerName",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "ownerEmailAddress": {
+                    "name": "ownerEmailAddress",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "businessType": {
+                    "name": "businessType",
+                    "isArray": false,
+                    "type": {
+                        "enum": "BusinessType"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "ownerUID": {
+                    "name": "ownerUID",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                }
+            },
+            "syncable": true,
+            "pluralName": "Businesses",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "Author": {
             "name": "Author",
             "fields": {
@@ -323,7 +445,16 @@ export const schema = {
             ]
         }
     },
-    "enums": {},
+    "enums": {
+        "BusinessType": {
+            "name": "BusinessType",
+            "values": [
+                "MANUFACTURER",
+                "TRADINGCOMPANY",
+                "MANUFACTURERANDTRADINGCOMPANY"
+            ]
+        }
+    },
     "nonModels": {},
-    "version": "fa35c697220cb61f72f275a50d1a94eb"
+    "version": "0b727ecf21a6a75608a8b94250a98ea0"
 };

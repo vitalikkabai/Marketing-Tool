@@ -1,17 +1,27 @@
-import React, {ReactElement, useState} from "react";
+import React, {useState} from "react";
 import {Button, Grid, Link, Paper, TextField, Typography} from "@material-ui/core";
 import classes from "./LoginForm.module.scss";
+import {Auth} from "aws-amplify";
 
 
 const LoginForm = () => {
 
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmationCode, setConfirmationCode] = useState("");
+    const [signedIn, setSignedIn] = useState(false);
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
+        Auth.signIn({
+            username: userName,
+            password: password,
+        }).then(() => alert("Signed In")).catch(err => console.log(err));
+        setSignedIn(true);
+        Auth.confirmSignIn(userName, confirmationCode)
+            .then(() => console.log("confirmed"))
+            .catch(err => console.log(err));
     }
-
     return (
         <Grid container justify="center" alignItems={"center"} className={classes.wrapper}>
             <Grid item>
@@ -27,7 +37,7 @@ const LoginForm = () => {
                         elevation={2}
                         className={classes.loginBackground}
                     >
-                        <Grid item>
+                        <Grid item className={classes.gridItem}>
                             <Typography component="h1" variant="h5">
                                 Sign in
                             </Typography>
@@ -77,7 +87,7 @@ const LoginForm = () => {
                                 </Grid>
                             </form>
                         </Grid>
-                        <Grid item>
+                        <Grid item style={{display: "flex", justifyContent: "flex-end"}}>
                             <Link href="#" variant="body2">
                                 Forgot Password?
                             </Link>
@@ -88,7 +98,6 @@ const LoginForm = () => {
         </Grid>
     );
 }
-
 
 
 export default LoginForm;

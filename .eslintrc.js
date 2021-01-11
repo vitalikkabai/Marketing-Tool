@@ -1,4 +1,4 @@
-module.exports = {
+export default  {
     "env": {
         "browser": true,
         "es2021": true
@@ -21,5 +21,8 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
+            "@typescript-eslint/explicit-function-return-type": "off",
+            "@typescript-eslint/explicit-module-boundary-types": "off",
+
     }
 };
