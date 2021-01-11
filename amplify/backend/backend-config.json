@@ -35,5 +35,12 @@
         }
       }
     }
+  },
+  "function": {
+    "confirm-new-user": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
   }
 }

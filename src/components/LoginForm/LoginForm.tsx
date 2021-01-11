@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {ReactElement, useState} from "react";
 import {Button, Grid, Link, Paper, TextField, Typography} from "@material-ui/core";
 import classes from "./LoginForm.module.scss";
 import {Auth} from "aws-amplify";
@@ -11,8 +11,10 @@ const LoginForm = () => {
     const [confirmationCode, setConfirmationCode] = useState("");
     const [signedIn, setSignedIn] = useState(false);
 
+
     const handleSubmit = (event: any) => {
         event.preventDefault();
+        //signIn(userName, password);
         Auth.signIn({
             username: userName,
             password: password,
@@ -22,6 +24,7 @@ const LoginForm = () => {
             .then(() => console.log("confirmed"))
             .catch(err => console.log(err));
     }
+
     return (
         <Grid container justify="center" alignItems={"center"} className={classes.wrapper}>
             <Grid item>
@@ -88,7 +91,11 @@ const LoginForm = () => {
                             </form>
                         </Grid>
                         <Grid item style={{display: "flex", justifyContent: "flex-end"}}>
-                            <Link href="#" variant="body2">
+                            <Link href="#" variant="body2" onClick={() => {
+                                Auth.currentUserInfo().then((userInfo) => {
+                                    console.log(userInfo);
+                                })
+                            }}>
                                 Forgot Password?
                             </Link>
                         </Grid>

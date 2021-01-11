@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Button, Grid, Link, Paper, TextField, Typography} from "@material-ui/core";
 import {Auth} from "aws-amplify"
 import classes from "./RegisterForm.module.scss";
+import {useHistory} from "react-router";
 
 
 const RegisterForm = () => {
@@ -11,6 +12,7 @@ const RegisterForm = () => {
     const [password, setPassword] = useState("");
     const [confirmationCode, setConfirmationCode] = useState("");
     const [signedUp, setSignedUp] = useState(false);
+    const history = useHistory();
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
@@ -21,15 +23,15 @@ const RegisterForm = () => {
                 attributes: {
                     email: email
                 }
-            }).then(() => alert("Signed Up")).catch(err => console.log(err));
+            }).then(() => console.log("signed up")).catch(err => console.log(err));
             setSignedUp(true);
         } else {
             Auth.confirmSignUp(userName, confirmationCode)
-                .then(() => console.log("confirmed"))
+                .then(() => history.push("login"))
                 .catch(err => console.log(err));
         }
-
     }
+
 
     if(!signedUp) {
         return (
@@ -194,8 +196,6 @@ const RegisterForm = () => {
             </Grid>
         )
     }
-
-
 }
 
 export default RegisterForm;
