@@ -9,6 +9,7 @@ import LoginForm from "./components/LoginForm/LoginForm";
 import { BrowserRouter } from "react-router-dom";
 import { Route, Switch } from "react-router";
 import RegisterForm from "./components/RegisterForm/RegisterForm";
+import Dashboard from './components/DashBoard/Dashboard';
 
 
 Amplify.configure(awsconfig);
@@ -27,6 +28,7 @@ function App(): ReactElement {
       <Switch>
         <Route path='/' exact component={LoginForm} />
         <Route path='/register' component={RegisterForm} />
+        <Route path='/dashboard' component={Dashboard} />
       </Switch>
     </BrowserRouter>
   );
