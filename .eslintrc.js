@@ -22,9 +22,10 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
-        "@typescript-eslint/explicit-function-return-type": ["warn", {
+        "@typescript-eslint/explicit-function-return-type": ["off", {
             "allowTypedFunctionExpressions": true
           }],
+          "@typescript-eslint/explicit-module-boundary-types": "off"
 
     }
 };

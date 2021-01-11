@@ -1,7 +1,7 @@
 import { applyMiddleware, combineReducers, createStore, compose } from "redux";
 import { combineEpics, createEpicMiddleware } from "redux-observable";
 import { businessEpic } from "./Business/BusinessEpic";
-import ExampleReducer from './Business/BusinessReducer';
+import BusinessReducer from './Business/BusinessReducer';
 import { catchError } from 'rxjs/operators';
 
 const rootEpic = (action$: any, store$: any, dependencies: any) =>
@@ -16,7 +16,7 @@ const rootEpic = (action$: any, store$: any, dependencies: any) =>
 const epicMiddleware = createEpicMiddleware();
 
 const rootReducer = combineReducers({
-    ExampleReducer
+    BusinessReducer
 })
 
 type RootReducerType = typeof rootReducer;
