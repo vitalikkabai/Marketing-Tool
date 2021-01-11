@@ -47,10 +47,11 @@ export const schema = {
                 },
                 "storeURL": {
                     "name": "storeURL",
-                    "isArray": false,
+                    "isArray": true,
                     "type": "String",
                     "isRequired": false,
-                    "attributes": []
+                    "attributes": [],
+                    "isArrayNullable": true
                 },
                 "haveWebsite": {
                     "name": "haveWebsite",
@@ -61,10 +62,11 @@ export const schema = {
                 },
                 "websiteURL": {
                     "name": "websiteURL",
-                    "isArray": false,
+                    "isArray": true,
                     "type": "String",
                     "isRequired": false,
-                    "attributes": []
+                    "attributes": [],
+                    "isArrayNullable": true
                 },
                 "ownerName": {
                     "name": "ownerName",

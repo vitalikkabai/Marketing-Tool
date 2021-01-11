@@ -1,7 +1,8 @@
-export default  {
+module.exports = {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "node": true
     },
     "extends": [
         "eslint:recommended",
@@ -21,8 +22,9 @@ export default  {
         "@typescript-eslint"
     ],
     "rules": {
-            "@typescript-eslint/explicit-function-return-type": "off",
-            "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/explicit-function-return-type": ["warn", {
+            "allowTypedFunctionExpressions": true
+          }],
 
     }
 };

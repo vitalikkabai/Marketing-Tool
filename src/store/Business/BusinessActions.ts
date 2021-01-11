@@ -1,5 +1,4 @@
 
-
 interface stepOne {
     companyName: string,
     country: string,
@@ -13,9 +12,9 @@ export const setStepOne = (stepOneData: stepOne) => ( {
 
 interface stepTwo {
     haveExperienceSelling: string,
-    storeURL: string,
+    storeURL: string[],
     haveWebsite: string,
-    websiteURL: string
+    websiteURL: string[]
 }
 export const setStepTwo = (stepTwoData: stepTwo) => ( {
     type: 'SET_STEP_TWO' as const,

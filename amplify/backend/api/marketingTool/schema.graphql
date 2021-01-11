@@ -5,9 +5,9 @@ type Business @model @auth(rules: [{allow: public}]) {
   city: String
   businessNumber: String
   haveExperienceSelling: Boolean
-  storeURL: String
+  storeURL: [String]
   haveWebsite: Boolean
-  websiteURL: String
+  websiteURL: [String]
   ownerName: String
   ownerEmailAddress: String
   businessType: BusinessType
