@@ -8,9 +8,9 @@ export const initialState: Business = {
     city: "",
     businessNumber: "",
     haveExperienceSelling: false,
-    storeURL: "",
+    storeURL: [],
     haveWebsite: false,
-    websiteURL: "",
+    websiteURL: [],
     ownerName: "",
     ownerEmailAddress: "",
     businessType: "MANUFACTURER",
@@ -24,7 +24,7 @@ export const BusinessReducer = (state = initialState, action: ActionTypes) => {
 
             return {
                 ...state,
-                ... action.payload
+                ...action.payload
             };
 
         default:

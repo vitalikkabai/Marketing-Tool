@@ -15,9 +15,9 @@ export declare class Business {
   readonly city?: string;
   readonly businessNumber?: string;
   readonly haveExperienceSelling?: boolean;
-  readonly storeURL?: string;
+  readonly storeURL?: (string | null)[];
   readonly haveWebsite?: boolean;
-  readonly websiteURL?: string;
+  readonly websiteURL?: (string | null)[];
   readonly ownerName?: string;
   readonly ownerEmailAddress?: string;
   readonly businessType?: BusinessType | keyof typeof BusinessType;
