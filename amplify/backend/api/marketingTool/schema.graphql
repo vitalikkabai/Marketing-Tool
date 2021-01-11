@@ -1,3 +1,25 @@
+type Business @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  companyName: String
+  country: String
+  city: String
+  businessNumber: String
+  haveExperienceSelling: Boolean
+  storeURL: String
+  haveWebsite: Boolean
+  websiteURL: String
+  ownerName: String
+  ownerEmailAddress: String
+  businessType: BusinessType
+  ownerUID: String
+}
+
+enum BusinessType {
+  MANUFACTURER
+  TRADINGCOMPANY
+  MANUFACTURERANDTRADINGCOMPANY
+}
+
 type Author @model @auth(rules: [{allow: public}]) {
   id: ID!
   Name: String
@@ -9,7 +31,7 @@ type Publisher @model @auth(rules: [{allow: public}]) {
   Books: [Book] @connection(keyName: "byPublisher", fields: ["id"])
 }
 
-type Book @model @auth(rules: [{allow: public}]) @key(name: "byPublisher", fields: ["publisherID"]) {
+type Book @model @key(name: "byPublisher", fields: ["publisherID"]) @auth(rules: [{allow: public}]) {
   id: ID!
   Cover: Cover @connection
   publisherID: ID!
@@ -28,3 +50,4 @@ type AuthorBook @model(queries: null) @key(name: "byAuthor", fields: ["authorID"
   author: Author! @connection(fields: ["authorID"])
   book: Book! @connection(fields: ["bookID"])
 }
+ 
