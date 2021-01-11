@@ -1,33 +1,30 @@
-// import {  Business } from "../../models/index";
+import {  Business } from "../../models/index";
 import * as actions from './BusinessActions';
 
-export const initialState: any = {
-    loading: false,
-    templates: [],
-    inputValues: [],
-    invitationMethod: 'CUSTOM',
-    celebrationType: 'Custom',
-    celebration: {
-        celebrationName: '',
-        celebrationDate: '',
-        celebrationTime: '',
-        celebrationAddress: '',
-        virtualCelebrationLink: '',
-        giftRegistryLink: '',
-    },
-    templateVariables: [
-        {variableName: 'familyName', variableValue: 'FamilyName'},
-        {variableName: 'brideName', variableValue: 'BrideName'},
-        {variableName: 'groomName', variableValue: 'GroomName'}
-    ]
+export const initialState: Business = {
+    id: "",
+    companyName: "",
+    country: "",
+    city: "",
+    businessNumber: "",
+    haveExperienceSelling: false,
+    storeURL: "",
+    haveWebsite: false,
+    websiteURL: "",
+    ownerName: "",
+    ownerEmailAddress: "",
+    businessType: "MANUFACTURER",
 };
 
 export const BusinessReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
-        case 'SET_COMPANY_NAME':
+        case 'SET_STEP_ONE':
+        case 'SET_STEP_TWO':
+        case 'SET_STEP_THREE':
+
             return {
                 ...state,
-                templates: action.payload,
+                ... action.payload
             };
 
         default:
