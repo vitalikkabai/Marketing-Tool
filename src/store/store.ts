@@ -1,8 +1,9 @@
 import { applyMiddleware, combineReducers, createStore, compose } from "redux";
 import { combineEpics, createEpicMiddleware } from "redux-observable";
 import { businessEpic } from "./Business/BusinessEpic";
-import ExampleReducer from './Business/BusinessReducer';
+import BusinessReducer from './Business/BusinessReducer';
 import { catchError } from 'rxjs/operators';
+import AuthReducer from "./Auth/AuthReducer";
 
 const rootEpic = (action$: any, store$: any, dependencies: any) =>
     combineEpics(businessEpic)(action$,store$,dependencies).pipe(
@@ -16,7 +17,8 @@ const rootEpic = (action$: any, store$: any, dependencies: any) =>
 const epicMiddleware = createEpicMiddleware();
 
 const rootReducer = combineReducers({
-    ExampleReducer
+    BusinessReducer,
+    AuthReducer
 })
 
 type RootReducerType = typeof rootReducer;

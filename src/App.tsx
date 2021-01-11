@@ -1,33 +1,30 @@
-import React, { ReactElement, useEffect } from 'react';
-import logo from './logo.svg';
+import React, { ReactElement } from 'react';
 import './App.css';
-import Amplify, { API, graphqlOperation } from 'aws-amplify';
-import { listAuthors } from './graphql/queries';
+import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
+import store from "./store/store";
+import { Provider } from "react-redux";
 
 import LoginForm from "./components/LoginForm/LoginForm";
 import { BrowserRouter } from "react-router-dom";
 import { Route, Switch } from "react-router";
 import RegisterForm from "./components/RegisterForm/RegisterForm";
+import LoginPage from "./pages/LoginPage/LoginPage";
 
 
 Amplify.configure(awsconfig);
 
 function App(): ReactElement {
 
-    useEffect(() => {
-        console.log("starting fetching authors");
-        const authors = async () => await API.graphql(graphqlOperation(listAuthors));
-        authors().then(res => console.log(res))
-        // authors.subscribe(() =>)
-    }, [])
-
     return (
         <BrowserRouter>
+            <Provider store={store}>
                 <Switch>
-                    <Route path='/' exact component={LoginForm} />
+                    <Route path='/' exact component={LoginPage} />
+                    <Route path='/login' component={LoginForm} />
                     <Route path='/register' component={RegisterForm} />
                 </Switch>
+            </Provider>
         </BrowserRouter>
     );
 }
