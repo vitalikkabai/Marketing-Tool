@@ -10,10 +10,10 @@ function App(): ReactElement {
 
   useEffect(() => {
     console.log("starting fetching authors");
-    const authors = async() => await API.graphql(graphqlOperation(listAuthors));
+    const authors = async () => await API.graphql(graphqlOperation(listAuthors));
     authors().then(res => console.log(res))
     // authors.subscribe(() =>)
-  },[])
+  }, [])
   return (
     <div className="App">
       <header className="App-header">
