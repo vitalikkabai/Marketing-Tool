@@ -19,14 +19,17 @@ export const initialState: Business = {
 export const BusinessReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
         case 'SET_STEP_ONE':
-        case 'SET_STEP_TWO':
-        case 'SET_STEP_THREE':
-
             return {
                 ...state,
-                ...action.payload
+                haveWebsite: action.payload.haveWebsite,
+                websiteURL: action.payload.websiteURL,
+                haveExperienceSelling: action.payload.haveExperienceSelling,
+                storeURL: action.payload.storeURL
             };
-
+            case 'SET_STEP_TWO':
+            return {
+                ...state
+            }
         default:
             return {
                 ...state,

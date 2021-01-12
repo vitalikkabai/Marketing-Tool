@@ -1,13 +1,14 @@
 import { ActionsObservable, ofType } from 'redux-observable';
 import { switchMap } from 'rxjs/operators';
-import { setStepThree } from './BusinessActions';
+import { saveBusinessToDB } from './BusinessActions';
+import { ActionTypes } from './BusinessReducer';
 
 
-export const businessEpic = (action$: ActionsObservable<any>) => action$.pipe(
-    ofType('SET_STEP_ONE'),
+export const businessEpic = (action$: ActionsObservable<ActionTypes>) => action$.pipe(
+    ofType('SAVE_BUSINESS_TO_DB'),
     switchMap(async () => {
         
-        return setStepThree({ownerName:"foo",ownerEmailAddress:"foo"})
+        return saveBusinessToDB();
 
     })
     // mapTo({ type: 'PONG' })

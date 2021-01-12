@@ -9,8 +9,8 @@ import LoginForm from "./components/LoginForm/LoginForm";
 import { BrowserRouter } from "react-router-dom";
 import { Route, Switch } from "react-router";
 import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
-import RegisterForm from "./components/RegisterForm/RegisterForm";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import OverridesCss from './material/themeProvider';
 
 
 Amplify.configure(awsconfig);
@@ -18,15 +18,18 @@ Amplify.configure(awsconfig);
 function App(): ReactElement {
 
     return (
-        <BrowserRouter>
-            <Provider store={store}>
-                <Switch>
-                    <Route path='/' exact component={LoginPage} />
-                    <Route path='/login' component={LoginForm} />
-                    <Route path='/register' component={RegistrationPage} />
-                </Switch>
-            </Provider>
-        </BrowserRouter>
+        <OverridesCss>
+            <BrowserRouter>
+                <Provider store={store}>
+                    <Switch>
+                        <Route path='/' exact component={LoginPage} />
+                        <Route path='/login' component={LoginForm} />
+                        <Route path='/register' component={RegistrationPage} />
+                    </Switch>
+                </Provider>
+            </BrowserRouter>
+        </OverridesCss>
+
     );
 }
 
