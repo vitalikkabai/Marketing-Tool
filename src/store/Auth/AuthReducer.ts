@@ -20,12 +20,6 @@ export const AuthReducer = (state = initialState, action: ActionTypes) => {
                 ...action.payload
             };
 
-        case "SIGN-OUT-FAILED":
-            return {
-                ...state,
-                ...action.payload
-            };
-
         case "AUTH-DATA-SUCCESS":
             return {
                 ...state,

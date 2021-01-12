@@ -16,7 +16,7 @@ const LoginForm: React.FC<PropsType> = (props) => {
     const [password, setPassword] = useState("");
     const history = useHistory();
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         props.signIn(username, password);
     }

@@ -9,6 +9,7 @@ import {
     signOutFailed,
     signOutSuccess
 } from "./AuthActions";
+import {ActionTypes} from "./AuthReducer";
 
 export const signInEpic = (action$: ActionsObservable<any>) => action$.pipe(
     ofType("SIGN-IN-REQUEST"),
@@ -25,7 +26,7 @@ export const signInEpic = (action$: ActionsObservable<any>) => action$.pipe(
     })
 );
 
-export const signOutEpic = (action$: ActionsObservable<any>) => action$.pipe(
+export const signOutEpic = (action$: ActionsObservable<ActionTypes>) => action$.pipe(
     ofType("SIGN-OUT-REQUEST"),
     switchMap(async () => {
         return Auth.signOut().then(() => {
@@ -37,7 +38,7 @@ export const signOutEpic = (action$: ActionsObservable<any>) => action$.pipe(
     })
 );
 
-export const getAuthDataEpic = (action$: ActionsObservable<any>) => action$.pipe(
+export const getAuthDataEpic = (action$: ActionsObservable<ActionTypes>) => action$.pipe(
     ofType("AUTH-DATA-REQUEST"),
     switchMap(async () => {
         return Auth.currentUserInfo().then((response) => {

@@ -4,7 +4,6 @@ import { Auth } from "aws-amplify"
 import classes from "./RegisterForm.module.scss";
 import { useHistory } from "react-router";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { AppStateType } from "../../store/store";
 
 const RegisterForm = () => {
 
@@ -32,7 +31,7 @@ const RegisterForm = () => {
             <Box className={classes.formContainer}>
                 <Typography>Do you already have experience selling online?</Typography>
                 <FormControl variant="outlined" className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-label"></InputLabel>
+                    <InputLabel id="demo-simple-select-label"/>
 
                     <Select
                         labelId="demo-simple-select-label"
@@ -71,7 +70,7 @@ const RegisterForm = () => {
                 }
                 <Typography>Do you already have a website?</Typography>
                 <FormControl variant="outlined" className={classes.formControl}>
-                    <InputLabel id="demo-simple-select-label"></InputLabel>
+                    <InputLabel id="demo-simple-select-label"/>
 
                     <Select
                         labelId="demo-simple-select-label"
@@ -125,7 +124,7 @@ const RegisterForm1 = () => {
     const [signedUp, setSignedUp] = useState(false);
     const history = useHistory();
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         if (!signedUp) {
             Auth.signUp({
