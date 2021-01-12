@@ -25,6 +25,7 @@ module.exports = {
         "@typescript-eslint/explicit-function-return-type": ["warn", {
             "allowTypedFunctionExpressions": true
           }],
-
+        "react/prop-types": 0,
+        "no-debugger": 0
     }
 };

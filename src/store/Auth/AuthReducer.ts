@@ -1,13 +1,31 @@
 import * as actions from './AuthActions';
 
 export const initialState = {
-
+    isAuth: false
 };
 
 export const AuthReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
 
-        case 'SIGN-IN-REQUEST':
+        case "SIGN-IN-SUCCESS":
+            return {
+                ...state,
+                ...action.payload
+            };
+
+        case "SIGN-OUT-SUCCESS":
+            return {
+                ...state,
+                ...action.payload
+            };
+
+        case "SIGN-OUT-FAILED":
+            return {
+                ...state,
+                ...action.payload
+            };
+
+        case "AUTH-DATA-SUCCESS":
             return {
                 ...state,
                 ...action.payload

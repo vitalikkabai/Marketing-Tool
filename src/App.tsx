@@ -4,12 +4,11 @@ import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
 import store from "./store/store";
 import { Provider } from "react-redux";
-
-import LoginForm from "./components/LoginForm/LoginForm";
 import { BrowserRouter } from "react-router-dom";
 import { Route, Switch } from "react-router";
 import RegisterForm from "./components/RegisterForm/RegisterForm";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import LoginFormContainer from "./components/LoginForm/LoginFormContainer";
 
 
 Amplify.configure(awsconfig);
@@ -21,7 +20,7 @@ function App(): ReactElement {
             <Provider store={store}>
                 <Switch>
                     <Route path='/' exact component={LoginPage} />
-                    <Route path='/login' component={LoginForm} />
+                    <Route path='/login' component={LoginFormContainer} />
                     <Route path='/register' component={RegisterForm} />
                 </Switch>
             </Provider>
