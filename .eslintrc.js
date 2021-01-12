@@ -25,7 +25,7 @@ module.exports = {
         "@typescript-eslint/explicit-function-return-type": ["off", {
             "allowTypedFunctionExpressions": true
           }],
-          "@typescript-eslint/explicit-module-boundary-types": "off"
-
+        "react/prop-types": 0,
+        "no-debugger": 0
     }
 };

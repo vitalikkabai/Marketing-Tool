@@ -1,24 +1,30 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Grid, Link, Paper, TextField, Typography} from "@material-ui/core";
 import classes from "./LoginForm.module.scss";
 import {Auth} from "aws-amplify";
+import {useHistory} from "react-router";
 
+type PropsType = {
+    isAuth: boolean
+    signIn: (username: string, password: string) => void
+    getAuthData: () => void
+}
 
-const LoginForm = () => {
+const LoginForm: React.FC<PropsType> = (props) => {
 
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
-    const [signedIn, setSignedIn] = useState(false);
+    const history = useHistory();
+
+    useEffect(()=>{
+        props.getAuthData();
+        if(props.isAuth) history.push("");
+    });
 
 
     const handleSubmit = (event: any) => {
         event.preventDefault();
-        debugger; // eslint-disable-line no-debugger
-        Auth.signIn({
-            username: username,
-            password: password,
-        }).then(() => alert("Signed In")).catch(err => console.log(err));
-        setSignedIn(true);
+        props.signIn(username, password);
     }
 
     return (
