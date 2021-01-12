@@ -17,7 +17,6 @@ const LoginForm: React.FC<PropsType> = (props) => {
     const history = useHistory();
 
     useEffect(()=>{
-        props.getAuthData();
         if(props.isAuth) history.push("");
     });
 

@@ -40,5 +40,4 @@ export const getAuthDataSuccess = (userData: string) => ({
 
 export const getAuthDataFailed = () => ({
     type: "AUTH-DATA-FAILED" as const,
-    payload: {isAuth: false}
 });

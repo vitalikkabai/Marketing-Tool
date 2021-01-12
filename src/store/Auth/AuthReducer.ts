@@ -1,7 +1,8 @@
 import * as actions from './AuthActions';
 
 export const initialState = {
-    isAuth: false
+    isAuth: false,
+    autoauthComplete: false
 };
 
 export const AuthReducer = (state = initialState, action: ActionTypes) => {
@@ -28,7 +29,13 @@ export const AuthReducer = (state = initialState, action: ActionTypes) => {
         case "AUTH-DATA-SUCCESS":
             return {
                 ...state,
-                ...action.payload
+                ...action.payload,
+                autoauthComplete: true
+            };
+        case "AUTH-DATA-FAILED":
+            return {
+                ...state,
+                autoauthComplete: true
             };
 
         default:
