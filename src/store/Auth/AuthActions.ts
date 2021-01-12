@@ -9,12 +9,7 @@ export const setUserData = (signUpData: userDataType) => ( {
     payload: signUpData
 });
 
-interface signInDataType {
-    username: string,
-    password: string
-}
-
-export const signIn = (signInData: signInDataType) => ({
+export const signIn = (username: string, password: string) => ({
     type: "SIGN-IN-REQUEST",
-    payload: signInData
+    payload: {username, password}
 });
