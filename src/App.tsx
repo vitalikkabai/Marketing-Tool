@@ -9,11 +9,9 @@ import {Route, Switch} from "react-router";
 import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
 import LoginPage from "./pages/LoginPage/LoginPage";
 import OverridesCss from './material/themeProvider';
-import LoginFormContainer from "./components/LoginForm/LoginFormContainer";
 import { Dispatch } from 'redux';
 import { getAuthData } from './store/Auth/AuthActions';
-import Dashboard from './components/DashBoard/Dashboard';
-import TempDashboard from "./pages/TempDashbord/TempDashboard";
+import MarketingToolPageContainer from "./pages/MarketingToolPageContainer/MarketingToolPageContainer";
 
 Amplify.configure(awsconfig);
 
@@ -31,10 +29,10 @@ function App(props: any): ReactElement {
 
     return (
         <Switch>
-            <Route path='/' exact component={TempDashboard}/>
+
+            <Route path='/' exact component={MarketingToolPageContainer}/>
             <Route path='/login' component={LoginPage}/>
             <Route path='/register' component={RegistrationPage}/>
-            <Route path='/dashboard' component={Dashboard} />
         </Switch>
     );
 }
