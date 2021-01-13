@@ -21,6 +21,28 @@
           "type": "manual"
         }
       }
+    },
+    "nonCFNdata": {
+      "function": {
+        "MTLamdaLayer": {
+          "layerVersionMap": {
+            "1": {
+              "permissions": [
+                {
+                  "type": "awsAccounts",
+                  "accounts": [
+                    "756472502459",
+                    "832442832011"
+                  ]
+                },
+                {
+                  "type": "private"
+                }
+              ]
+            }
+          }
+        }
+      }
     }
   }
 }
