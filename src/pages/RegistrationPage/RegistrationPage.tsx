@@ -3,12 +3,9 @@ import React, { FunctionComponent } from "react";
 import Header from "../../components/Header/Header";
 import classes from './RegistrationPage.module.scss';
 import { Route, Switch } from "react-router";
-import RegisterForm from "../../components/RegisterForm/RegisterForm";
-import RegisterFinForm from "../../components/RegisterForm/RegisterFinForm";
+import RegisterFormStepTwoContainer from "../../components/RegisterForm/RegisterFormStepTwoContainer";
+import RegisterFormContainer from "../../components/RegisterForm/RegisterFormContainer";
 
-// export interface RegistrationPageProps {
-
-// }
 
 const RegistrationPage: FunctionComponent = () => {
 
@@ -19,19 +16,13 @@ const RegistrationPage: FunctionComponent = () => {
                 <Grid container justify="center" alignItems="center" className={classes.registrationContainer}>
                     <Grid item sm={8}>
                         <Switch>
-                            <Route exact path='/register' component={RegisterForm} />
-                            <Route exact path='/register/fin' component={RegisterFinForm} />
-
+                            <Route exact path='/register' component={RegisterFormContainer} />
+                            <Route exact path='/register/2' component={RegisterFormStepTwoContainer} />
                         </Switch>
                     </Grid>
                 </Grid>
             </Container>
         </>
-        // <Switch>
-        //                         <Route path='/register/:id' component={RegistrationPage} />
-
-        // </Switch>
-        // <RegisterForm/>
     );
 }
 

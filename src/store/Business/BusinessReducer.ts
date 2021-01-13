@@ -1,34 +1,46 @@
-import {  Business } from "../../models/index";
 import * as actions from './BusinessActions';
 
-export const initialState: Business = {
+interface businessReducer {
+    id: string,
+    companyName: string,
+    country: string,
+    city: string,
+    businessNumber: string,
+    haveExperienceSelling: boolean,
+    storeURLs: string[],
+    haveWebsite: boolean,
+    websiteURLs: string[],
+    ownerName: string,
+    ownerEmailAddress: string,
+}
+export const initialState = {
     id: "",
     companyName: "",
     country: "",
     city: "",
     businessNumber: "",
     haveExperienceSelling: false,
-    storeURL: [],
+    storeURLs: [""],
     haveWebsite: false,
-    websiteURL: [],
+    websiteURLs: [""],
     ownerName: "",
-    ownerEmailAddress: "",
-    businessType: "MANUFACTURER",
+    ownerEmailAddress: ""
 };
 
-export const BusinessReducer = (state = initialState, action: ActionTypes) => {
+export const BusinessReducer = (state:businessReducer = initialState, action: ActionTypes):businessReducer => {
     switch (action.type) {
         case 'SET_STEP_ONE':
             return {
                 ...state,
                 haveWebsite: action.payload.haveWebsite,
-                websiteURL: action.payload.websiteURL,
+                websiteURLs: action.payload.websiteURLs,
                 haveExperienceSelling: action.payload.haveExperienceSelling,
-                storeURL: action.payload.storeURL
+                storeURLs: action.payload.storeURLs
             };
-            case 'SET_STEP_TWO':
+        case 'SET_STEP_TWO':
             return {
-                ...state
+                ...state,
+                companyName: action.payload.companyName
             }
         default:
             return {

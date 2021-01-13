@@ -1,16 +1,17 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-interface stepOne {
-    haveExperienceSelling: string,
-    storeURL: string[],
-    haveWebsite: string,
-    websiteURL: string[]
+export interface stepOneData {
+    haveExperienceSelling: boolean,
+    storeURLs: string[],
+    haveWebsite: boolean,
+    websiteURLs: string[]
 }
-export const setStepOne = (stepOneData: stepOne) => ( {
+export const setStepOne = (stepOneData: stepOneData) => ( {
     type: 'SET_STEP_ONE' as const,
     payload: stepOneData
 });
 
-interface stepTwo {
+export interface stepTwoData {
     companyName: string,
     country: string,
     city: string,
@@ -18,7 +19,7 @@ interface stepTwo {
     ownerName: string,
     ownerEmailAddress: string
 }
-export const setStepTwo = (stepTwoData: stepTwo) => ( {
+export const setStepTwo = (stepTwoData: stepTwoData) => ( {
     type: 'SET_STEP_TWO' as const,
     payload: stepTwoData
 });
