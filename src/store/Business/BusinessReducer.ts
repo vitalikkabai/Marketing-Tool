@@ -32,15 +32,12 @@ export const BusinessReducer = (state:businessReducer = initialState, action: Ac
         case 'SET_STEP_ONE':
             return {
                 ...state,
-                haveWebsite: action.payload.haveWebsite,
-                websiteURLs: action.payload.websiteURLs,
-                haveExperienceSelling: action.payload.haveExperienceSelling,
-                storeURLs: action.payload.storeURLs
+                ...action.payload
             };
         case 'SET_STEP_TWO':
             return {
                 ...state,
-                companyName: action.payload.companyName
+                ...action.payload
             }
         default:
             return {
