@@ -1,11 +1,11 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, {ReactElement, useEffect} from 'react';
 import './App.css';
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
-import store, { AppStateType } from "./store/store";
-import { connect, Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-import { Route, Switch } from "react-router";
+import store, {AppStateType} from "./store/store";
+import {connect, Provider} from "react-redux";
+import {BrowserRouter} from "react-router-dom";
+import {Route, Switch} from "react-router";
 import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
 import LoginPage from "./pages/LoginPage/LoginPage";
 import OverridesCss from './material/themeProvider';
@@ -13,64 +13,59 @@ import LoginFormContainer from "./components/LoginForm/LoginFormContainer";
 import { Dispatch } from 'redux';
 import { getAuthData } from './store/Auth/AuthActions';
 import Dashboard from './components/DashBoard/Dashboard';
-
-
+import TempDashboard from "./pages/TempDashbord/TempDashboard";
 
 Amplify.configure(awsconfig);
 
 function App(props: any): ReactElement {
 
-    useEffect(()=>{
+    useEffect(() => { // Start initialization
         props.getAuthData();
-    },[]);
+    }, []);
 
-    if(!props.autoauthComplete) {
+    if (!props.initialized) { //Show empty page while initialization isn't completed
         return (
-            <div>Loading...</div>
+            <div/>
         )
     }
-    return (
-        <OverridesCss>
-            <BrowserRouter>
-                <Provider store={store}>
-                    <Switch>
-                        <Route path='/' exact component={LoginPage} />
-                        <Route path='/login' component={LoginFormContainer} />
-                        <Route path='/register' component={RegistrationPage} />
-                        <Route path='/dashboard' component={Dashboard} />
-                    </Switch>
-                </Provider>
-            </BrowserRouter>
-        </OverridesCss>
 
+    return (
+        <Switch>
+            <Route path='/' exact component={TempDashboard}/>
+            <Route path='/login' component={LoginPage}/>
+            <Route path='/register' component={RegistrationPage}/>
+            <Route path='/dashboard' component={Dashboard} />
+        </Switch>
     );
+}
+
+type MapDispatchType = {
+    getAuthData: () => void
 }
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        autoauthComplete: state.AuthReducer.autoauthComplete
+        initialized: state.AuthReducer.initialized
     }
 };
-type MapDispatchType = {
-    getAuthData: () => void
-}
+
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
     return {
         getAuthData: () => dispatch(getAuthData())
     }
 };
 
-// export default connect(mapStateToProps)(App);
-const AppContainer = connect(mapStateToProps,mapDispatchToProps)(App);
-const AppWithRouter = () => {
+const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
+
+const AppWithRouter = () => { // Store render before App initialization
     return (
         <OverridesCss>
-        <BrowserRouter>
-            <Provider store={store}>
-                <AppContainer/>
-            </Provider>
-        </BrowserRouter>
-    </OverridesCss>
+            <BrowserRouter>
+                <Provider store={store}>
+                    <AppContainer/>
+                </Provider>
+            </BrowserRouter>
+        </OverridesCss>
     )
 }
 

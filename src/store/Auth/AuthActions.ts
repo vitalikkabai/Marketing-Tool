@@ -14,8 +14,7 @@ export const signInFailed = (signInError: string) => ({
 });
 
 export const signOut = () => ({
-    type: "SIGN-OUT-REQUEST" as const,
-    payload: {}
+    type: "SIGN-OUT-REQUEST" as const
 });
 
 export const signOutSuccess = () => ({
@@ -24,8 +23,7 @@ export const signOutSuccess = () => ({
 });
 
 export const signOutFailed = () => ({
-    type: "SIGN-OUT-FAILED" as const,
-    payload: {}
+    type: "SIGN-OUT-FAILED" as const
 });
 
 export const getAuthData = () => ({
@@ -39,5 +37,5 @@ export const getAuthDataSuccess = (userData: string) => ({
 });
 
 export const getAuthDataFailed = () => ({
-    type: "AUTH-DATA-FAILED" as const,
+    type: "AUTH-DATA-FAILED" as const
 });

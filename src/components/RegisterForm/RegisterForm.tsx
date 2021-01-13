@@ -43,7 +43,7 @@ const RegisterForm:React.FunctionComponent<FormContainerType> = (props) => {
 
                     <Typography>Do you already have experience selling online?</Typography>
                     <FormControl variant="outlined" className={classes.formControl}>
-                        <InputLabel id="demo-simple-select-label"></InputLabel>
+                        <InputLabel id="demo-simple-select-label"/>
 
                         <Select
                             labelId="demo-simple-select-label"
@@ -82,7 +82,7 @@ const RegisterForm:React.FunctionComponent<FormContainerType> = (props) => {
                     }
                     <Typography>Do you already have a website?</Typography>
                     <FormControl variant="outlined" className={classes.formControl}>
-                        <InputLabel id="demo-simple-select-label"></InputLabel>
+                        <InputLabel id="demo-simple-select-label"/>
 
                         <Select
                             labelId="demo-simple-select-label"
@@ -137,7 +137,7 @@ const RegisterForm1 = () => {
     const [signedUp, setSignedUp] = useState(false);
     const history = useHistory();
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         if (!signedUp) {
             Auth.signUp({

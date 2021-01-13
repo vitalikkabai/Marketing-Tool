@@ -2,7 +2,7 @@ import * as actions from './AuthActions';
 
 export const initialState = {
     isAuth: false,
-    autoauthComplete: false
+    initialized: false
 };
 
 export const AuthReducer = (state = initialState, action: ActionTypes) => {
@@ -20,22 +20,16 @@ export const AuthReducer = (state = initialState, action: ActionTypes) => {
                 ...action.payload
             };
 
-        case "SIGN-OUT-FAILED":
-            return {
-                ...state,
-                ...action.payload
-            };
-
         case "AUTH-DATA-SUCCESS":
             return {
                 ...state,
                 ...action.payload,
-                autoauthComplete: true
+                initialized: true
             };
         case "AUTH-DATA-FAILED":
             return {
                 ...state,
-                autoauthComplete: true
+                initialized: true
             };
 
         default:

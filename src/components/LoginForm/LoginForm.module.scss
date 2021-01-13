@@ -1,27 +1,43 @@
-.wrapper {
-  height: 100vh;
-
-  h1 {
-    padding-bottom: 20px;
-  }
-}
-
-.loginForm {
-  justify-content: center;
-  min-height: 90vh;
-}
-
-.gridItem {
+.loginSheet {
+  box-shadow: 0 4px 15px rgba(40, 47, 43, 0.1);
+  border-radius: 10px;
+  height: 553px;
+  position: relative;
   display: flex;
-  justify-content: center;
-}
+  flex-direction: column;
+  align-items: center;
 
-.buttonBlock {
-  width: 100%;
-}
+  .header {
+    margin-top: 104px;
+  }
 
-.loginBackground {
-  justify-content: center;
-  min-height: 30vh;
-  padding: 50px;
+  .backArrow {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    display: flex;
+    align-items: center;
+  }
+
+  .formContainer {
+    margin-top: 43px;
+  }
+
+  .loginButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+  }
+
+  .forgotPassword {
+    margin-top: 16px;
+  }
+
+  .createAccount {
+    margin-top: 48px;
+  }
+
+  .link {
+    cursor: pointer;
+  }
 }

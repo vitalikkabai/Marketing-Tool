@@ -1,49 +1,23 @@
-import React, {useEffect} from "react";
-import {Button} from "@material-ui/core";
-import {connect} from "react-redux";
-import {AppStateType} from "../../store/store";
-import {Dispatch} from "redux";
-import {signOut} from "../../store/Auth/AuthActions";
-import {useHistory} from "react-router";
+import { Container, Grid } from "@material-ui/core";
+import React, { FunctionComponent } from "react";
+import Header from "../../components/Header/Header";
+import classes from './LoginPage.module.scss';
+import LoginFormContainer from "../../components/LoginForm/LoginFormContainer";
 
-const LoginPage = (props: any) => {
+const LoginPage: FunctionComponent = () => {
 
-    const history = useHistory();
-
-    useEffect(()=>{
-        if(!props.isAuth) history.push("login")
-    })
-
-    return <div
-        style={{
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center"
-        }}>
-
-        <h1 style={{paddingTop: "100px"}}>Welcome to Dashboard</h1>
-        <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            onClick={()=>{props.signOut()}}
-        >
-            Log Out
-        </Button>
-    </div>
+    return (
+        <>
+            <Header />
+            <Container>
+                <Grid container justify="center" alignItems="center" className={classes.registrationContainer}>
+                    <Grid item sm={6}>
+                        <LoginFormContainer/>
+                    </Grid>
+                </Grid>
+            </Container>
+        </>
+    );
 }
 
-const mapStateToProps = (state: AppStateType) => {
-    return {
-        isAuth: state.AuthReducer.isAuth
-    }
-};
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-    return {
-        signOut: () => dispatch(signOut())
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
+export default LoginPage;
