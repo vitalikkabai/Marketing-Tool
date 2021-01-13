@@ -1,11 +1,11 @@
 import { ActionsObservable, ofType } from 'redux-observable';
 import { Action } from 'redux';
-import Observable from "rxjs/Observable";
-import { switchMap } from 'rxjs/operators';
+import { mergeMap, switchMap, map, catchError } from 'rxjs/operators';
 import {Auth} from "aws-amplify";
 import {
     getAuthDataFailed,
     getAuthDataSuccess,
+    signIn,
     signInFailed,
     signInSuccess,
     signOutFailed,
@@ -14,6 +14,8 @@ import {
     signUpFailed
 } from "./AuthActions";
 import {ActionTypes} from "./AuthReducer";
+import { from, of } from 'rxjs';
+import { saveBusinessToDB } from '../Business/BusinessActions';
 
 export const signInEpic = (action$: ActionsObservable<any>) => action$.pipe(
     ofType("SIGN-IN-REQUEST"),
@@ -22,6 +24,8 @@ export const signInEpic = (action$: ActionsObservable<any>) => action$.pipe(
             username: action.payload.username,
             password: action.payload.password,
         }).then((response) => {
+            console.log("signied in");
+            console.log(response)
             return signInSuccess(response);
         }).catch(err => {
            alert("Failed to Sign in");
@@ -33,19 +37,29 @@ export const signInEpic = (action$: ActionsObservable<any>) => action$.pipe(
 
 export const signUpEpic = (action$: ActionsObservable<any>) => action$.pipe(
     ofType("SIGN-UP-REQUEST"),
-    switchMap(async(action) => {
-        console.log("start signing up", action)
-       return Auth.signUp({
+    mergeMap(action => from(Auth.signUp({
             username: action.payload.username,
             password: action.payload.password,
-        }).then((response) => {
-            console.log(response)
-            return signUpSuccess(response);
-        }).catch(err => {
-           console.log(err)
-           return signUpFailed(err)
-        });
-    })
+        })).pipe(
+            mergeMap(res => of(
+            signUpSuccess(res),
+            saveBusinessToDB(),
+            signIn(action.payload.username, action.payload.password)
+            )),
+            catchError(err => of(signUpFailed(err)))
+        )
+        
+        // .then((response) => {
+        //     console.log(response)
+        //     return [signIn(action.payload.username, action.payload.password),
+        //         signUpSuccess(response),
+        //         saveBusinessToDB()
+        //     ];
+        // }).catch(err => {
+        //    console.log(err)
+        // //    return signUpFailed(err)
+        // });
+    )
 );
 
 export const signOutEpic = (action$: ActionsObservable<ActionTypes>) => action$.pipe(
