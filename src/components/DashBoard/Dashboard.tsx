@@ -6,7 +6,7 @@ const Dashboard = () => {
 
   return (
     <Grid container className={classes.dashboard}>
-        <Typography variant="h2">Content</Typography>
+        <Typography variant="h2">Dashboard Content</Typography>
     </Grid>
   )
 };

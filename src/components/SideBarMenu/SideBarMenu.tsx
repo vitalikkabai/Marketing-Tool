@@ -1,4 +1,4 @@
-import {Collapse, Grid, List, ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
+import {Collapse, Grid, List, ListItem, ListItemIcon, ListItemText, Typography} from '@material-ui/core';
 import React from 'react';
 import classes from './SideBarMenu.module.scss';
 import logo from '../../assets/images/headerLogo.svg';
@@ -31,13 +31,13 @@ const SideBarMenu = () => {
                     <ListItemIcon>
                         <DashboardIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Dashboard" />
+                    <ListItemText primary={<Typography variant="h6">Dashboard</Typography>}/>
                 </ListItem>
                 <ListItem button onClick={()=>{console.log("click")}}>
                     <ListItemIcon>
                         <AllInboxIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Products" />
+                    <ListItemText primary={<Typography variant="h6">Products</Typography>} />
                     {fakeOpen ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
 
@@ -45,7 +45,7 @@ const SideBarMenu = () => {
                     <ListItemIcon>
                         <ListAltIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Market Research" />
+                    <ListItemText primary={<Typography variant="h6">Market Research</Typography>} />
                     {fakeOpen ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
 
@@ -53,7 +53,7 @@ const SideBarMenu = () => {
                     <ListItemIcon>
                         <CreateIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Brand Creation" />
+                    <ListItemText primary={<Typography variant="h6">Brand Creation</Typography>} />
                     {open ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
                 <Collapse in={open} timeout="auto" unmountOnExit>
@@ -62,25 +62,25 @@ const SideBarMenu = () => {
                             <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon>
-                            <ListItemText primary="Item" />
+                            <ListItemText primary={<Typography variant="body1">Item</Typography>} />
                         </ListItem>
                         <ListItem button className={classes.nested}>
                             <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon>
-                            <ListItemText primary="Item" />
+                            <ListItemText primary={<Typography variant="body1">Item</Typography>} />
                         </ListItem>
                         <ListItem button className={classes.nested}>
                             <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon>
-                            <ListItemText primary="Item" />
+                            <ListItemText primary={<Typography variant="body1">Item</Typography>} />
                         </ListItem>
                         <ListItem button className={classes.nested}>
                             <ListItemIcon>
                                 <StarBorder />
                             </ListItemIcon>
-                            <ListItemText primary="Item" />
+                            <ListItemText primary={<Typography variant="body1">Item</Typography>} />
                         </ListItem>
                     </List>
                 </Collapse>
@@ -89,7 +89,7 @@ const SideBarMenu = () => {
                     <ListItemIcon>
                         <LocalOfferIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Sales Channels" />
+                    <ListItemText primary={<Typography variant="h6">Sales Channels</Typography>} />
                     {fakeOpen ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
             </List>

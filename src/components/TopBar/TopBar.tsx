@@ -5,8 +5,7 @@ import clock from "../../assets/images/clock.svg";
 
 const TopBar = (props: any) => {
 
-    //{ timeZone: 'Asia/Jerusalem' }) // this is Israel zone.
-    const israelTimeArr: string[] = new Date().toLocaleString('he-IL', {timeZone: 'Australia/Sydney'}).split(', ')[1].split(':');// change on Israel zone, Australia just from test
+    const israelTimeArr: string[] = new Date().toLocaleString('he-IL', {timeZone: 'Asia/Jerusalem'}).split(', ')[1].split(':');// change on Israel zone, Australia just from test
     const [currentTime, setCurrentTime] = useState(new Date());
     const [israelCurrentTime, setIsraelCurrentTime] = useState({
         hour: parseInt(israelTimeArr[0]),
@@ -17,13 +16,16 @@ const TopBar = (props: any) => {
         let prevTime = currentTime;
         const intervalId = setInterval(() => {
             const newTime = new Date();
-            const newIsraelTimeArr = new Date().toLocaleString('he-IL', {timeZone: 'Australia/Sydney'}).split(', ')[1].split(':');// change on Israel zone, Australia just from test
+            const newIsraelTimeArr = new Date().toLocaleString('he-IL', {timeZone: 'Asia/Jerusalem'}).split(', ')[1].split(':');// change on Israel zone, Australia just from test
             if (newTime.getMinutes() !== prevTime.getMinutes()) {
                 prevTime = newTime;
                 setIsraelCurrentTime({hour: parseInt(newIsraelTimeArr[0]), min: parseInt(newIsraelTimeArr[1])});
                 setCurrentTime(newTime);
             }
         }, 1000);
+        const date = new Date();
+        const offset = date.getTimezoneOffset();
+        console.log(offset)
 
         return () => clearInterval(intervalId);
     }, []);
@@ -50,7 +52,7 @@ const TopBar = (props: any) => {
                         <Typography className={classes.timeContainer}>
                             <img src={clock} alt="clock"/>
                             <Typography className={classes.time}>
-                                {israelCurrentTime && currentTime ? currentTime.getHours() - israelCurrentTime.hour + "h" : null}
+                                {israelCurrentTime && currentTime ? (2 + currentTime.getTimezoneOffset()/60) + "h" : null}
                             </Typography>
                         </Typography>
                     </Grid>
