@@ -12,6 +12,8 @@ import OverridesCss from './material/themeProvider';
 import LoginFormContainer from "./components/LoginForm/LoginFormContainer";
 import { Dispatch } from 'redux';
 import { getAuthData } from './store/Auth/AuthActions';
+import Dashboard from './components/DashBoard/Dashboard';
+
 
 
 Amplify.configure(awsconfig);
@@ -35,6 +37,7 @@ function App(props: any): ReactElement {
                         <Route path='/' exact component={LoginPage} />
                         <Route path='/login' component={LoginFormContainer} />
                         <Route path='/register' component={RegistrationPage} />
+                        <Route path='/dashboard' component={Dashboard} />
                     </Switch>
                 </Provider>
             </BrowserRouter>

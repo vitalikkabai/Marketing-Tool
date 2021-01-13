@@ -1,0 +1,55 @@
+.dashboard {
+  display: flex;
+  flex-direction: row;
+  .menu {
+    width: 235px;
+    height: 100vh;
+    background: #C4C4C4;
+
+    img {
+      padding-top: 23px;
+      padding-left: 28px;
+    }
+
+    li {
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    ul {
+      padding-left: 15px;
+    }
+  }
+
+  .content {
+    flex-grow: 4;
+    .header {
+      height: 139px;
+      .clockContainer {
+      display: flex;
+      flex-direction: row;
+      height: 45px;
+      padding-top: 16px;
+      .clock {
+        margin-left: 23px;
+
+        .time {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+    }
+    
+  }
+
+  .messenger {
+    width: 350px;
+    height: 100vh;
+    background: #9C9999;
+  }
+
+}
+
