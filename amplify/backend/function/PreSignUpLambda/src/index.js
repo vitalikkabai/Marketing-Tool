@@ -1,15 +1,9 @@
 
 
-exports.handler = async (event) => {
-    // TODO implement
-    const response = {
-        statusCode: 200,
-    //  Uncomment below to enable CORS requests
-    //  headers: {
-    //      "Access-Control-Allow-Origin": "*",
-    //      "Access-Control-Allow-Headers": "*"
-    //  }, 
-        body: JSON.stringify('Hello from Lambda!'),
-    };
-    return response;
+exports.handler = (event, context, callback) => {
+    // Set the user pool autoConfirmUser flag after validating the email domain
+    event.response.autoConfirmUser = true;
+
+    // Return to Amazon Cognito
+    callback(null, event);
 };

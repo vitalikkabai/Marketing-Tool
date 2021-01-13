@@ -20,6 +20,12 @@
           "appId": "d3b4yo10nua5y4",
           "type": "manual"
         }
+      },
+      "function": {
+        "MTLamdaLayer": {
+          "deploymentBucketName": "amplify-marketingtool-dev-172635-deployment",
+          "s3Key": "amplify-builds/MTLamdaLayer-build.zip"
+        }
       }
     },
     "nonCFNdata": {
@@ -38,7 +44,8 @@
                 {
                   "type": "private"
                 }
-              ]
+              ],
+              "hash": "WA7ifF3fry3Zgyj1nlgwepgxhvMKbuDxllQdC2DrcK0="
             }
           }
         }

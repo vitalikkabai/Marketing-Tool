@@ -47,21 +47,6 @@
       "service": "LambdaLayer",
       "build": true
     },
-    "preSignUpLambda": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "api",
-          "resourceName": "marketingTool",
-          "attributes": [
-            "GraphQLAPIIdOutput",
-            "GraphQLAPIEndpointOutput"
-          ]
-        }
-      ]
-    },
     "PreSignUpLambda": {
       "build": true,
       "providerPlugin": "awscloudformation",
