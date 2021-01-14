@@ -47,10 +47,9 @@ const LoginForm: React.FC<PropsType> = (props) => {
 									<CustomInput
 										type="email"
 										placeholder="Email"
-										lable="Email"
+										label="Email"
 										fullWidth
 										name="username"
-										variant="outline"
 										value={username}
 										onChange={(event: any) =>
 											setUserName(event.target.value)
@@ -64,10 +63,9 @@ const LoginForm: React.FC<PropsType> = (props) => {
 									<CustomInput
 										type="password"
 										placeholder="Password"
-										lable="Password"
+										label="Password"
 										fullWidth
 										name="password"
-										variant="outlined"
 										value={password}
 										onChange={(event: any) =>
 											setPassword(event.target.value)

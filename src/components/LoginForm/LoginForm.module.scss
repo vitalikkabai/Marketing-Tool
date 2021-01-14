@@ -18,6 +18,9 @@
     left: 16px;
     display: flex;
     align-items: center;
+    p {
+      line-height: 0;
+    }
   }
 
   .formContainer {
@@ -27,7 +30,7 @@
   .loginButton {
     display: flex;
     justify-content: center;
-    margin-top: 80px;
+    margin-top: 64px;
   }
 
   .forgotPassword {
