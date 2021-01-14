@@ -2,8 +2,7 @@ import {Dispatch} from "redux";
 import RegisterFormStepTwo from "./RegisterFormStepTwo";
 import {connect} from "react-redux";
 import {AppStateType} from "../../store/store";
-import {getAuthData, signIn} from "../../store/Auth/AuthActions";
-import { setStepTwo, stepTwoData, stepOneData } from '../../store/Business/BusinessActions';
+import { setStepTwo, stepTwoData } from '../../store/Business/BusinessActions';
 import { signUp } from '../../store/Auth/AuthActions';
 
 

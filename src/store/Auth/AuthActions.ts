@@ -20,9 +20,9 @@ export const signUp = (username: string, password: string) => ({
     payload: {username, password}
 });
 
-export const signUpSuccess = (signUpData: unknown) => ({
+export const signUpSuccess = (userID: string) => ({
     type: "SIGN-UP-SUCCESS" as const,
-    payload: {signUpData, isAuth: true}
+    payload: userID
 });
 
 export const signUpFailed = (signInError: string) => ({

@@ -1,6 +1,5 @@
 import { ActionsObservable, ofType } from 'redux-observable';
-import { Action } from 'redux';
-import { mergeMap, switchMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, switchMap, catchError } from 'rxjs/operators';
 import {Auth} from "aws-amplify";
 import {
     getAuthDataFailed,
@@ -41,24 +40,13 @@ export const signUpEpic = (action$: ActionsObservable<any>) => action$.pipe(
             username: action.payload.username,
             password: action.payload.password,
         })).pipe(
-            mergeMap(res => of(
-            signUpSuccess(res),
+            mergeMap(res => { console.log(res); return[
+            signUpSuccess(res.userSub),
             saveBusinessToDB(),
             signIn(action.payload.username, action.payload.password)
-            )),
+            ]}),
             catchError(err => of(signUpFailed(err)))
         )
-        
-        // .then((response) => {
-        //     console.log(response)
-        //     return [signIn(action.payload.username, action.payload.password),
-        //         signUpSuccess(response),
-        //         saveBusinessToDB()
-        //     ];
-        // }).catch(err => {
-        //    console.log(err)
-        // //    return signUpFailed(err)
-        // });
     )
 );
 
