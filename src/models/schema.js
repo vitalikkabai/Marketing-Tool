@@ -130,7 +130,8 @@ export const schema = {
                         "fields": [
                             "ownerUID",
                             "createdAt"
-                        ]
+                        ],
+                        "queryField": "byOwnerUidDate"
                     }
                 },
                 {
@@ -163,5 +164,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "bca3dd0d712b4c1a5024199d8cec76d9"
+    "version": "f76337e418dcf466bd2ea540e96efd23"
 };

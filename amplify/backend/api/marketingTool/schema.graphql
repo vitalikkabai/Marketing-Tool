@@ -1,6 +1,6 @@
 type Business @model 
     @key(name: "byOwnerId", fields: ["ownerUID"],queryField: "byOwnerUID")
-    @key(name: "byDate", fields: ["ownerUID", "createdAt"])
+    @key(name: "byDate", fields: ["ownerUID", "createdAt"],queryField: "byOwnerUidDate")
     @auth(rules: [{allow: public}]) {
   id: ID!
   ownerUID: String!

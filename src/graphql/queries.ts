@@ -98,6 +98,48 @@ export const byOwnerUid = /* GraphQL */ `
     }
   }
 `;
+export const byOwnerUidDate = /* GraphQL */ `
+  query ByOwnerUidDate(
+    $ownerUID: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelBusinessFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    byOwnerUidDate(
+      ownerUID: $ownerUID
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        ownerUID
+        companyName
+        country
+        city
+        businessNumber
+        haveExperienceSelling
+        storeURLs
+        haveWebsite
+        websiteURLs
+        ownerName
+        ownerEmailAddress
+        businessType
+        createdAt
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const syncBusinesses = /* GraphQL */ `
   query SyncBusinesses(
     $filter: ModelBusinessFilterInput

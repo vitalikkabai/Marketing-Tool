@@ -163,6 +163,16 @@ export enum ModelSortDirection {
 }
 
 
+export type ModelStringKeyConditionInput = {
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+};
+
 export type CreateBusinessMutationVariables = {
   input: CreateBusinessInput,
   condition?: ModelBusinessConditionInput | null,
@@ -323,6 +333,44 @@ export type ByOwnerUidQueryVariables = {
 
 export type ByOwnerUidQuery = {
   byOwnerUID:  {
+    __typename: "ModelBusinessConnection",
+    items:  Array< {
+      __typename: "Business",
+      id: string,
+      ownerUID: string,
+      companyName: string | null,
+      country: string | null,
+      city: string | null,
+      businessNumber: string | null,
+      haveExperienceSelling: boolean | null,
+      storeURLs: Array< string | null > | null,
+      haveWebsite: boolean | null,
+      websiteURLs: Array< string | null > | null,
+      ownerName: string | null,
+      ownerEmailAddress: string | null,
+      businessType: BusinessType | null,
+      createdAt: string | null,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
+      updatedAt: string,
+    } | null > | null,
+    nextToken: string | null,
+    startedAt: number | null,
+  } | null,
+};
+
+export type ByOwnerUidDateQueryVariables = {
+  ownerUID?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelBusinessFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ByOwnerUidDateQuery = {
+  byOwnerUidDate:  {
     __typename: "ModelBusinessConnection",
     items:  Array< {
       __typename: "Business",
