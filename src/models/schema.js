@@ -10,6 +10,13 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
+                "ownerUID": {
+                    "name": "ownerUID",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "companyName": {
                     "name": "companyName",
                     "isArray": false,
@@ -91,10 +98,10 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "ownerUID": {
-                    "name": "ownerUID",
+                "createdAt": {
+                    "name": "createdAt",
                     "isArray": false,
-                    "type": "String",
+                    "type": "AWSDateTime",
                     "isRequired": false,
                     "attributes": []
                 }
@@ -105,6 +112,26 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byOwnerId",
+                        "fields": [
+                            "ownerUID"
+                        ],
+                        "queryField": "byOwnerUID"
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byDate",
+                        "fields": [
+                            "ownerUID",
+                            "createdAt"
+                        ]
+                    }
                 },
                 {
                     "type": "auth",
@@ -136,5 +163,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "7c80cedcd9da56b087112aa5c91a1575"
+    "version": "bca3dd0d712b4c1a5024199d8cec76d9"
 };

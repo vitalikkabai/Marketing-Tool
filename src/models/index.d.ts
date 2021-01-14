@@ -10,6 +10,7 @@ export enum BusinessType {
 
 export declare class Business {
   readonly id: string;
+  readonly ownerUID: string;
   readonly companyName?: string;
   readonly country?: string;
   readonly city?: string;
@@ -21,7 +22,7 @@ export declare class Business {
   readonly ownerName?: string;
   readonly ownerEmailAddress?: string;
   readonly businessType?: BusinessType | keyof typeof BusinessType;
-  readonly ownerUID?: string;
+  readonly createdAt?: string;
   constructor(init: ModelInit<Business>);
   static copyOf(source: Business, mutator: (draft: MutableModel<Business>) => MutableModel<Business> | void): Business;
 }
