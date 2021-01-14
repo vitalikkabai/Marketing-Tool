@@ -35,39 +35,39 @@ const TopBar = (props: any) => {
             <Grid container alignItems={"center"} justify={"space-between"} className={classes.TopBarContent}>
                 <Grid item className={classes.clockContainer}>
                     <Grid className={classes.clock}>
-                        <Typography>TIME IN ISRAEL</Typography>
-                        <Typography className={classes.timeContainer}>
+                        <Typography variant="body1">TIME IN ISRAEL</Typography>
+                        <Box className={classes.timeContainer}>
                             <img src={clock} alt="clock"/>
                             {israelCurrentTime ?
-                                <Typography className={classes.time}>
+                                <Typography variant="body1" className={classes.time}>
                                     {israelCurrentTime.hour < 10 ? " 0" + israelCurrentTime.hour : israelCurrentTime.hour}:
                                     {israelCurrentTime.min < 10 ? " 0" + israelCurrentTime.min : israelCurrentTime.min}
                                 </Typography>
                                 : null
                             }
-                        </Typography>
+                        </Box>
                     </Grid>
                     <Grid className={classes.clock}>
-                        <Typography>TIME DIFFERENCE</Typography>
-                        <Typography className={classes.timeContainer}>
+                        <Typography variant="body1">TIME DIFFERENCE</Typography>
+                        <Box className={classes.timeContainer}>
                             <img src={clock} alt="clock"/>
-                            <Typography className={classes.time}>
+                            <Typography variant="body1" className={classes.time}>
                                 {israelCurrentTime && currentTime ? (2 + currentTime.getTimezoneOffset()/60) + "h" : null}
                             </Typography>
-                        </Typography>
+                        </Box>
                     </Grid>
                     <Grid className={classes.clock}>
-                        <Typography>YOUR TIME</Typography>
-                        <Typography className={classes.timeContainer}>
+                        <Typography variant="body1">YOUR TIME</Typography>
+                        <Box className={classes.timeContainer}>
                             <img src={clock} alt="clock"/>
                             {currentTime ?
-                                <Typography className={classes.time}>
+                                <Typography variant="body1" className={classes.time}>
                                     {currentTime.getHours() < 10 ? "0" + currentTime.getHours() : currentTime.getHours()}:
                                     {currentTime.getMinutes() < 10 ? "0" + currentTime.getMinutes() : currentTime.getMinutes()}
                                 </Typography>
                                 : null
                             }
-                        </Typography>
+                        </Box>
                     </Grid>
                 </Grid>
                 <Grid item/>
