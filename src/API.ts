@@ -2,16 +2,46 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateAuthorInput = {
+export type CreateBusinessInput = {
   id?: string | null,
-  Name?: string | null,
+  companyName?: string | null,
+  country?: string | null,
+  city?: string | null,
+  businessNumber?: string | null,
+  haveExperienceSelling?: boolean | null,
+  storeURLs?: Array< string | null > | null,
+  haveWebsite?: boolean | null,
+  websiteURLs?: Array< string | null > | null,
+  ownerName?: string | null,
+  ownerEmailAddress?: string | null,
+  businessType?: BusinessType | null,
+  ownerUID?: string | null,
+  _version?: number | null,
 };
 
-export type ModelAuthorConditionInput = {
-  Name?: ModelStringInput | null,
-  and?: Array< ModelAuthorConditionInput | null > | null,
-  or?: Array< ModelAuthorConditionInput | null > | null,
-  not?: ModelAuthorConditionInput | null,
+export enum BusinessType {
+  MANUFACTURER = "MANUFACTURER",
+  TRADINGCOMPANY = "TRADINGCOMPANY",
+  MANUFACTURERANDTRADINGCOMPANY = "MANUFACTURERANDTRADINGCOMPANY",
+}
+
+
+export type ModelBusinessConditionInput = {
+  companyName?: ModelStringInput | null,
+  country?: ModelStringInput | null,
+  city?: ModelStringInput | null,
+  businessNumber?: ModelStringInput | null,
+  haveExperienceSelling?: ModelBooleanInput | null,
+  storeURLs?: ModelStringInput | null,
+  haveWebsite?: ModelBooleanInput | null,
+  websiteURLs?: ModelStringInput | null,
+  ownerName?: ModelStringInput | null,
+  ownerEmailAddress?: ModelStringInput | null,
+  businessType?: ModelBusinessTypeInput | null,
+  ownerUID?: ModelStringInput | null,
+  and?: Array< ModelBusinessConditionInput | null > | null,
+  or?: Array< ModelBusinessConditionInput | null > | null,
+  not?: ModelBusinessConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -54,44 +84,57 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type UpdateAuthorInput = {
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type ModelBusinessTypeInput = {
+  eq?: BusinessType | null,
+  ne?: BusinessType | null,
+};
+
+export type UpdateBusinessInput = {
   id: string,
-  Name?: string | null,
+  companyName?: string | null,
+  country?: string | null,
+  city?: string | null,
+  businessNumber?: string | null,
+  haveExperienceSelling?: boolean | null,
+  storeURLs?: Array< string | null > | null,
+  haveWebsite?: boolean | null,
+  websiteURLs?: Array< string | null > | null,
+  ownerName?: string | null,
+  ownerEmailAddress?: string | null,
+  businessType?: BusinessType | null,
+  ownerUID?: string | null,
+  _version?: number | null,
 };
 
-export type DeleteAuthorInput = {
+export type DeleteBusinessInput = {
   id?: string | null,
+  _version?: number | null,
 };
 
-export type CreatePublisherInput = {
-  id?: string | null,
-};
-
-export type ModelPublisherConditionInput = {
-  and?: Array< ModelPublisherConditionInput | null > | null,
-  or?: Array< ModelPublisherConditionInput | null > | null,
-  not?: ModelPublisherConditionInput | null,
-};
-
-export type UpdatePublisherInput = {
-  id: string,
-};
-
-export type DeletePublisherInput = {
-  id?: string | null,
-};
-
-export type CreateBookInput = {
-  id?: string | null,
-  publisherID: string,
-  bookCoverId?: string | null,
-};
-
-export type ModelBookConditionInput = {
-  publisherID?: ModelIDInput | null,
-  and?: Array< ModelBookConditionInput | null > | null,
-  or?: Array< ModelBookConditionInput | null > | null,
-  not?: ModelBookConditionInput | null,
+export type ModelBusinessFilterInput = {
+  id?: ModelIDInput | null,
+  companyName?: ModelStringInput | null,
+  country?: ModelStringInput | null,
+  city?: ModelStringInput | null,
+  businessNumber?: ModelStringInput | null,
+  haveExperienceSelling?: ModelBooleanInput | null,
+  storeURLs?: ModelStringInput | null,
+  haveWebsite?: ModelBooleanInput | null,
+  websiteURLs?: ModelStringInput | null,
+  ownerName?: ModelStringInput | null,
+  ownerEmailAddress?: ModelStringInput | null,
+  businessType?: ModelBusinessTypeInput | null,
+  ownerUID?: ModelStringInput | null,
+  and?: Array< ModelBusinessFilterInput | null > | null,
+  or?: Array< ModelBusinessFilterInput | null > | null,
+  not?: ModelBusinessFilterInput | null,
 };
 
 export type ModelIDInput = {
@@ -110,814 +153,260 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type UpdateBookInput = {
+export type CreateBusinessMutationVariables = {
+  input: CreateBusinessInput,
+  condition?: ModelBusinessConditionInput | null,
+};
+
+export type CreateBusinessMutation = {
+  createBusiness:  {
+    __typename: "Business",
+    id: string,
+    companyName: string | null,
+    country: string | null,
+    city: string | null,
+    businessNumber: string | null,
+    haveExperienceSelling: boolean | null,
+    storeURLs: Array< string | null > | null,
+    haveWebsite: boolean | null,
+    websiteURLs: Array< string | null > | null,
+    ownerName: string | null,
+    ownerEmailAddress: string | null,
+    businessType: BusinessType | null,
+    ownerUID: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateBusinessMutationVariables = {
+  input: UpdateBusinessInput,
+  condition?: ModelBusinessConditionInput | null,
+};
+
+export type UpdateBusinessMutation = {
+  updateBusiness:  {
+    __typename: "Business",
+    id: string,
+    companyName: string | null,
+    country: string | null,
+    city: string | null,
+    businessNumber: string | null,
+    haveExperienceSelling: boolean | null,
+    storeURLs: Array< string | null > | null,
+    haveWebsite: boolean | null,
+    websiteURLs: Array< string | null > | null,
+    ownerName: string | null,
+    ownerEmailAddress: string | null,
+    businessType: BusinessType | null,
+    ownerUID: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteBusinessMutationVariables = {
+  input: DeleteBusinessInput,
+  condition?: ModelBusinessConditionInput | null,
+};
+
+export type DeleteBusinessMutation = {
+  deleteBusiness:  {
+    __typename: "Business",
+    id: string,
+    companyName: string | null,
+    country: string | null,
+    city: string | null,
+    businessNumber: string | null,
+    haveExperienceSelling: boolean | null,
+    storeURLs: Array< string | null > | null,
+    haveWebsite: boolean | null,
+    websiteURLs: Array< string | null > | null,
+    ownerName: string | null,
+    ownerEmailAddress: string | null,
+    businessType: BusinessType | null,
+    ownerUID: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type GetBusinessQueryVariables = {
   id: string,
-  publisherID?: string | null,
-  bookCoverId?: string | null,
 };
 
-export type DeleteBookInput = {
-  id?: string | null,
-};
-
-export type CreateCoverInput = {
-  id?: string | null,
-  PaintingDescription?: string | null,
-};
-
-export type ModelCoverConditionInput = {
-  PaintingDescription?: ModelStringInput | null,
-  and?: Array< ModelCoverConditionInput | null > | null,
-  or?: Array< ModelCoverConditionInput | null > | null,
-  not?: ModelCoverConditionInput | null,
-};
-
-export type UpdateCoverInput = {
-  id: string,
-  PaintingDescription?: string | null,
-};
-
-export type DeleteCoverInput = {
-  id?: string | null,
-};
-
-export type CreateAuthorBookInput = {
-  id?: string | null,
-  authorID: string,
-  bookID: string,
-};
-
-export type ModelAuthorBookConditionInput = {
-  authorID?: ModelIDInput | null,
-  bookID?: ModelIDInput | null,
-  and?: Array< ModelAuthorBookConditionInput | null > | null,
-  or?: Array< ModelAuthorBookConditionInput | null > | null,
-  not?: ModelAuthorBookConditionInput | null,
-};
-
-export type UpdateAuthorBookInput = {
-  id: string,
-  authorID?: string | null,
-  bookID?: string | null,
-};
-
-export type DeleteAuthorBookInput = {
-  id?: string | null,
-};
-
-export type ModelAuthorFilterInput = {
-  id?: ModelIDInput | null,
-  Name?: ModelStringInput | null,
-  and?: Array< ModelAuthorFilterInput | null > | null,
-  or?: Array< ModelAuthorFilterInput | null > | null,
-  not?: ModelAuthorFilterInput | null,
-};
-
-export type ModelPublisherFilterInput = {
-  id?: ModelIDInput | null,
-  and?: Array< ModelPublisherFilterInput | null > | null,
-  or?: Array< ModelPublisherFilterInput | null > | null,
-  not?: ModelPublisherFilterInput | null,
-};
-
-export type ModelBookFilterInput = {
-  id?: ModelIDInput | null,
-  publisherID?: ModelIDInput | null,
-  and?: Array< ModelBookFilterInput | null > | null,
-  or?: Array< ModelBookFilterInput | null > | null,
-  not?: ModelBookFilterInput | null,
-};
-
-export type ModelCoverFilterInput = {
-  id?: ModelIDInput | null,
-  PaintingDescription?: ModelStringInput | null,
-  and?: Array< ModelCoverFilterInput | null > | null,
-  or?: Array< ModelCoverFilterInput | null > | null,
-  not?: ModelCoverFilterInput | null,
-};
-
-export type CreateAuthorMutationVariables = {
-  input: CreateAuthorInput,
-  condition?: ModelAuthorConditionInput | null,
-};
-
-export type CreateAuthorMutation = {
-  createAuthor:  {
-    __typename: "Author",
+export type GetBusinessQuery = {
+  getBusiness:  {
+    __typename: "Business",
     id: string,
-    Name: string | null,
-    createdAt: string,
-    updatedAt: string,
-    AuthorBooks:  {
-      __typename: "ModelAuthorBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type UpdateAuthorMutationVariables = {
-  input: UpdateAuthorInput,
-  condition?: ModelAuthorConditionInput | null,
-};
-
-export type UpdateAuthorMutation = {
-  updateAuthor:  {
-    __typename: "Author",
-    id: string,
-    Name: string | null,
-    createdAt: string,
-    updatedAt: string,
-    AuthorBooks:  {
-      __typename: "ModelAuthorBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type DeleteAuthorMutationVariables = {
-  input: DeleteAuthorInput,
-  condition?: ModelAuthorConditionInput | null,
-};
-
-export type DeleteAuthorMutation = {
-  deleteAuthor:  {
-    __typename: "Author",
-    id: string,
-    Name: string | null,
-    createdAt: string,
-    updatedAt: string,
-    AuthorBooks:  {
-      __typename: "ModelAuthorBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type CreatePublisherMutationVariables = {
-  input: CreatePublisherInput,
-  condition?: ModelPublisherConditionInput | null,
-};
-
-export type CreatePublisherMutation = {
-  createPublisher:  {
-    __typename: "Publisher",
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-    Books:  {
-      __typename: "ModelBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type UpdatePublisherMutationVariables = {
-  input: UpdatePublisherInput,
-  condition?: ModelPublisherConditionInput | null,
-};
-
-export type UpdatePublisherMutation = {
-  updatePublisher:  {
-    __typename: "Publisher",
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-    Books:  {
-      __typename: "ModelBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type DeletePublisherMutationVariables = {
-  input: DeletePublisherInput,
-  condition?: ModelPublisherConditionInput | null,
-};
-
-export type DeletePublisherMutation = {
-  deletePublisher:  {
-    __typename: "Publisher",
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-    Books:  {
-      __typename: "ModelBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type CreateBookMutationVariables = {
-  input: CreateBookInput,
-  condition?: ModelBookConditionInput | null,
-};
-
-export type CreateBookMutation = {
-  createBook:  {
-    __typename: "Book",
-    id: string,
-    publisherID: string,
-    createdAt: string,
-    updatedAt: string,
-    Cover:  {
-      __typename: "Cover",
-      id: string,
-      PaintingDescription: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    authors:  {
-      __typename: "ModelAuthorBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type UpdateBookMutationVariables = {
-  input: UpdateBookInput,
-  condition?: ModelBookConditionInput | null,
-};
-
-export type UpdateBookMutation = {
-  updateBook:  {
-    __typename: "Book",
-    id: string,
-    publisherID: string,
-    createdAt: string,
-    updatedAt: string,
-    Cover:  {
-      __typename: "Cover",
-      id: string,
-      PaintingDescription: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    authors:  {
-      __typename: "ModelAuthorBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type DeleteBookMutationVariables = {
-  input: DeleteBookInput,
-  condition?: ModelBookConditionInput | null,
-};
-
-export type DeleteBookMutation = {
-  deleteBook:  {
-    __typename: "Book",
-    id: string,
-    publisherID: string,
-    createdAt: string,
-    updatedAt: string,
-    Cover:  {
-      __typename: "Cover",
-      id: string,
-      PaintingDescription: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    authors:  {
-      __typename: "ModelAuthorBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type CreateCoverMutationVariables = {
-  input: CreateCoverInput,
-  condition?: ModelCoverConditionInput | null,
-};
-
-export type CreateCoverMutation = {
-  createCover:  {
-    __typename: "Cover",
-    id: string,
-    PaintingDescription: string | null,
+    companyName: string | null,
+    country: string | null,
+    city: string | null,
+    businessNumber: string | null,
+    haveExperienceSelling: boolean | null,
+    storeURLs: Array< string | null > | null,
+    haveWebsite: boolean | null,
+    websiteURLs: Array< string | null > | null,
+    ownerName: string | null,
+    ownerEmailAddress: string | null,
+    businessType: BusinessType | null,
+    ownerUID: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type UpdateCoverMutationVariables = {
-  input: UpdateCoverInput,
-  condition?: ModelCoverConditionInput | null,
-};
-
-export type UpdateCoverMutation = {
-  updateCover:  {
-    __typename: "Cover",
-    id: string,
-    PaintingDescription: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteCoverMutationVariables = {
-  input: DeleteCoverInput,
-  condition?: ModelCoverConditionInput | null,
-};
-
-export type DeleteCoverMutation = {
-  deleteCover:  {
-    __typename: "Cover",
-    id: string,
-    PaintingDescription: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreateAuthorBookMutationVariables = {
-  input: CreateAuthorBookInput,
-  condition?: ModelAuthorBookConditionInput | null,
-};
-
-export type CreateAuthorBookMutation = {
-  createAuthorBook:  {
-    __typename: "AuthorBook",
-    id: string,
-    authorID: string,
-    bookID: string,
-    createdAt: string,
-    updatedAt: string,
-    author:  {
-      __typename: "Author",
-      id: string,
-      Name: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    book:  {
-      __typename: "Book",
-      id: string,
-      publisherID: string,
-      createdAt: string,
-      updatedAt: string,
-    },
-  } | null,
-};
-
-export type UpdateAuthorBookMutationVariables = {
-  input: UpdateAuthorBookInput,
-  condition?: ModelAuthorBookConditionInput | null,
-};
-
-export type UpdateAuthorBookMutation = {
-  updateAuthorBook:  {
-    __typename: "AuthorBook",
-    id: string,
-    authorID: string,
-    bookID: string,
-    createdAt: string,
-    updatedAt: string,
-    author:  {
-      __typename: "Author",
-      id: string,
-      Name: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    book:  {
-      __typename: "Book",
-      id: string,
-      publisherID: string,
-      createdAt: string,
-      updatedAt: string,
-    },
-  } | null,
-};
-
-export type DeleteAuthorBookMutationVariables = {
-  input: DeleteAuthorBookInput,
-  condition?: ModelAuthorBookConditionInput | null,
-};
-
-export type DeleteAuthorBookMutation = {
-  deleteAuthorBook:  {
-    __typename: "AuthorBook",
-    id: string,
-    authorID: string,
-    bookID: string,
-    createdAt: string,
-    updatedAt: string,
-    author:  {
-      __typename: "Author",
-      id: string,
-      Name: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    book:  {
-      __typename: "Book",
-      id: string,
-      publisherID: string,
-      createdAt: string,
-      updatedAt: string,
-    },
-  } | null,
-};
-
-export type ListAuthorsQueryVariables = {
-  filter?: ModelAuthorFilterInput | null,
+export type ListBusinesssQueryVariables = {
+  filter?: ModelBusinessFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListAuthorsQuery = {
-  listAuthors:  {
-    __typename: "ModelAuthorConnection",
+export type ListBusinesssQuery = {
+  listBusinesss:  {
+    __typename: "ModelBusinessConnection",
     items:  Array< {
-      __typename: "Author",
+      __typename: "Business",
       id: string,
-      Name: string | null,
+      companyName: string | null,
+      country: string | null,
+      city: string | null,
+      businessNumber: string | null,
+      haveExperienceSelling: boolean | null,
+      storeURLs: Array< string | null > | null,
+      haveWebsite: boolean | null,
+      websiteURLs: Array< string | null > | null,
+      ownerName: string | null,
+      ownerEmailAddress: string | null,
+      businessType: BusinessType | null,
+      ownerUID: string | null,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
     } | null > | null,
     nextToken: string | null,
+    startedAt: number | null,
   } | null,
 };
 
-export type GetAuthorQueryVariables = {
-  id: string,
-};
-
-export type GetAuthorQuery = {
-  getAuthor:  {
-    __typename: "Author",
-    id: string,
-    Name: string | null,
-    createdAt: string,
-    updatedAt: string,
-    AuthorBooks:  {
-      __typename: "ModelAuthorBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type GetPublisherQueryVariables = {
-  id: string,
-};
-
-export type GetPublisherQuery = {
-  getPublisher:  {
-    __typename: "Publisher",
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-    Books:  {
-      __typename: "ModelBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type ListPublishersQueryVariables = {
-  filter?: ModelPublisherFilterInput | null,
+export type SyncBusinessesQueryVariables = {
+  filter?: ModelBusinessFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
+  lastSync?: number | null,
 };
 
-export type ListPublishersQuery = {
-  listPublishers:  {
-    __typename: "ModelPublisherConnection",
+export type SyncBusinessesQuery = {
+  syncBusinesses:  {
+    __typename: "ModelBusinessConnection",
     items:  Array< {
-      __typename: "Publisher",
+      __typename: "Business",
       id: string,
+      companyName: string | null,
+      country: string | null,
+      city: string | null,
+      businessNumber: string | null,
+      haveExperienceSelling: boolean | null,
+      storeURLs: Array< string | null > | null,
+      haveWebsite: boolean | null,
+      websiteURLs: Array< string | null > | null,
+      ownerName: string | null,
+      ownerEmailAddress: string | null,
+      businessType: BusinessType | null,
+      ownerUID: string | null,
+      _version: number,
+      _deleted: boolean | null,
+      _lastChangedAt: number,
       createdAt: string,
       updatedAt: string,
     } | null > | null,
     nextToken: string | null,
+    startedAt: number | null,
   } | null,
 };
 
-export type ListBooksQueryVariables = {
-  filter?: ModelBookFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListBooksQuery = {
-  listBooks:  {
-    __typename: "ModelBookConnection",
-    items:  Array< {
-      __typename: "Book",
-      id: string,
-      publisherID: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken: string | null,
-  } | null,
-};
-
-export type GetBookQueryVariables = {
-  id: string,
-};
-
-export type GetBookQuery = {
-  getBook:  {
-    __typename: "Book",
+export type OnCreateBusinessSubscription = {
+  onCreateBusiness:  {
+    __typename: "Business",
     id: string,
-    publisherID: string,
-    createdAt: string,
-    updatedAt: string,
-    Cover:  {
-      __typename: "Cover",
-      id: string,
-      PaintingDescription: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    authors:  {
-      __typename: "ModelAuthorBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type ListCoversQueryVariables = {
-  filter?: ModelCoverFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListCoversQuery = {
-  listCovers:  {
-    __typename: "ModelCoverConnection",
-    items:  Array< {
-      __typename: "Cover",
-      id: string,
-      PaintingDescription: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null > | null,
-    nextToken: string | null,
-  } | null,
-};
-
-export type GetCoverQueryVariables = {
-  id: string,
-};
-
-export type GetCoverQuery = {
-  getCover:  {
-    __typename: "Cover",
-    id: string,
-    PaintingDescription: string | null,
+    companyName: string | null,
+    country: string | null,
+    city: string | null,
+    businessNumber: string | null,
+    haveExperienceSelling: boolean | null,
+    storeURLs: Array< string | null > | null,
+    haveWebsite: boolean | null,
+    websiteURLs: Array< string | null > | null,
+    ownerName: string | null,
+    ownerEmailAddress: string | null,
+    businessType: BusinessType | null,
+    ownerUID: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnCreateAuthorSubscription = {
-  onCreateAuthor:  {
-    __typename: "Author",
+export type OnUpdateBusinessSubscription = {
+  onUpdateBusiness:  {
+    __typename: "Business",
     id: string,
-    Name: string | null,
-    createdAt: string,
-    updatedAt: string,
-    AuthorBooks:  {
-      __typename: "ModelAuthorBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type OnUpdateAuthorSubscription = {
-  onUpdateAuthor:  {
-    __typename: "Author",
-    id: string,
-    Name: string | null,
-    createdAt: string,
-    updatedAt: string,
-    AuthorBooks:  {
-      __typename: "ModelAuthorBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type OnDeleteAuthorSubscription = {
-  onDeleteAuthor:  {
-    __typename: "Author",
-    id: string,
-    Name: string | null,
-    createdAt: string,
-    updatedAt: string,
-    AuthorBooks:  {
-      __typename: "ModelAuthorBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type OnCreatePublisherSubscription = {
-  onCreatePublisher:  {
-    __typename: "Publisher",
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-    Books:  {
-      __typename: "ModelBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type OnUpdatePublisherSubscription = {
-  onUpdatePublisher:  {
-    __typename: "Publisher",
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-    Books:  {
-      __typename: "ModelBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type OnDeletePublisherSubscription = {
-  onDeletePublisher:  {
-    __typename: "Publisher",
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-    Books:  {
-      __typename: "ModelBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type OnCreateBookSubscription = {
-  onCreateBook:  {
-    __typename: "Book",
-    id: string,
-    publisherID: string,
-    createdAt: string,
-    updatedAt: string,
-    Cover:  {
-      __typename: "Cover",
-      id: string,
-      PaintingDescription: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    authors:  {
-      __typename: "ModelAuthorBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type OnUpdateBookSubscription = {
-  onUpdateBook:  {
-    __typename: "Book",
-    id: string,
-    publisherID: string,
-    createdAt: string,
-    updatedAt: string,
-    Cover:  {
-      __typename: "Cover",
-      id: string,
-      PaintingDescription: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    authors:  {
-      __typename: "ModelAuthorBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type OnDeleteBookSubscription = {
-  onDeleteBook:  {
-    __typename: "Book",
-    id: string,
-    publisherID: string,
-    createdAt: string,
-    updatedAt: string,
-    Cover:  {
-      __typename: "Cover",
-      id: string,
-      PaintingDescription: string | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    authors:  {
-      __typename: "ModelAuthorBookConnection",
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type OnCreateCoverSubscription = {
-  onCreateCover:  {
-    __typename: "Cover",
-    id: string,
-    PaintingDescription: string | null,
+    companyName: string | null,
+    country: string | null,
+    city: string | null,
+    businessNumber: string | null,
+    haveExperienceSelling: boolean | null,
+    storeURLs: Array< string | null > | null,
+    haveWebsite: boolean | null,
+    websiteURLs: Array< string | null > | null,
+    ownerName: string | null,
+    ownerEmailAddress: string | null,
+    businessType: BusinessType | null,
+    ownerUID: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnUpdateCoverSubscription = {
-  onUpdateCover:  {
-    __typename: "Cover",
+export type OnDeleteBusinessSubscription = {
+  onDeleteBusiness:  {
+    __typename: "Business",
     id: string,
-    PaintingDescription: string | null,
+    companyName: string | null,
+    country: string | null,
+    city: string | null,
+    businessNumber: string | null,
+    haveExperienceSelling: boolean | null,
+    storeURLs: Array< string | null > | null,
+    haveWebsite: boolean | null,
+    websiteURLs: Array< string | null > | null,
+    ownerName: string | null,
+    ownerEmailAddress: string | null,
+    businessType: BusinessType | null,
+    ownerUID: string | null,
+    _version: number,
+    _deleted: boolean | null,
+    _lastChangedAt: number,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteCoverSubscription = {
-  onDeleteCover:  {
-    __typename: "Cover",
-    id: string,
-    PaintingDescription: string | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreateAuthorBookSubscription = {
-  onCreateAuthorBook:  {
-    __typename: "AuthorBook",
-    id: string,
-    authorID: string,
-    bookID: string,
-    createdAt: string,
-    updatedAt: string,
-    author:  {
-      __typename: "Author",
-      id: string,
-      Name: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    book:  {
-      __typename: "Book",
-      id: string,
-      publisherID: string,
-      createdAt: string,
-      updatedAt: string,
-    },
-  } | null,
-};
-
-export type OnUpdateAuthorBookSubscription = {
-  onUpdateAuthorBook:  {
-    __typename: "AuthorBook",
-    id: string,
-    authorID: string,
-    bookID: string,
-    createdAt: string,
-    updatedAt: string,
-    author:  {
-      __typename: "Author",
-      id: string,
-      Name: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    book:  {
-      __typename: "Book",
-      id: string,
-      publisherID: string,
-      createdAt: string,
-      updatedAt: string,
-    },
-  } | null,
-};
-
-export type OnDeleteAuthorBookSubscription = {
-  onDeleteAuthorBook:  {
-    __typename: "AuthorBook",
-    id: string,
-    authorID: string,
-    bookID: string,
-    createdAt: string,
-    updatedAt: string,
-    author:  {
-      __typename: "Author",
-      id: string,
-      Name: string | null,
-      createdAt: string,
-      updatedAt: string,
-    },
-    book:  {
-      __typename: "Book",
-      id: string,
-      publisherID: string,
-      createdAt: string,
-      updatedAt: string,
-    },
   } | null,
 };

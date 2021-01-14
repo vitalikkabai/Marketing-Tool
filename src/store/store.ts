@@ -4,11 +4,11 @@ import { businessEpic } from "./Business/BusinessEpic";
 import BusinessReducer from './Business/BusinessReducer';
 import { catchError } from 'rxjs/operators';
 import AuthReducer from "./Auth/AuthReducer";
-import {getAuthDataEpic, signInEpic, signOutEpic} from "./Auth/AuthEpic";
+import {getAuthDataEpic, signInEpic, signOutEpic, signUpEpic} from "./Auth/AuthEpic";
 
 
 const rootEpic = (action$: any, store$: any, dependencies: any) =>
-    combineEpics(businessEpic, signInEpic, signOutEpic, getAuthDataEpic)(action$,store$,dependencies).pipe(
+    combineEpics(businessEpic, signInEpic, signOutEpic, getAuthDataEpic, signUpEpic)(action$,store$,dependencies).pipe(
         catchError((error, source) => {
             console.error(error);
             return source;

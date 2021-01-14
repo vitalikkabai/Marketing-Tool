@@ -1,10 +1,9 @@
 import { Box, Button, TextField, Typography } from "@material-ui/core";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import classes from './RegisterForm.module.scss';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { FormStepTwoContainerType } from './RegisterFormStepTwoContainer';
 import { useHistory } from "react-router";
-import { setStepTwo } from "../../store/Business/BusinessActions";
 
 const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (props) => {
 
@@ -21,12 +20,19 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log("submited")
-
+        saveInputData();
+        props.signUp(ownerEmail,password);
     }
 
     const handleBackPressed = () => {
         console.log("here")
-        setStepTwo({
+        console.log(props.setStepTwo)
+        saveInputData();
+        history.push('/register')
+    }
+
+    const saveInputData = () => {
+        props.setStepTwo({
             companyName,
             country: countryName,
             city: cityName,
@@ -34,9 +40,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
             ownerName,
             ownerEmailAddress: ownerEmail,
         })
-        history.push('/register')
     }
-
 
     return (
         <Box className={classes.registrationSheet}>
@@ -115,7 +119,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                     />
 
                 </Box>
-                <Button>dashboard</Button>
+                <Button type="submit">dashboard</Button>
                 <Typography>Have an account already? Log in</Typography>
             </form>
 
