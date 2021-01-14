@@ -8,14 +8,9 @@ const BusinessType = {
   "MANUFACTURERANDTRADINGCOMPANY": "MANUFACTURERANDTRADINGCOMPANY"
 };
 
-const { Business, Author, AuthorBook, Book, Cover, Publisher } = initSchema(schema);
+const { Business } = initSchema(schema);
 
 export {
   Business,
-  Author,
-  AuthorBook,
-  Book,
-  Cover,
-  Publisher,
   BusinessType
 };

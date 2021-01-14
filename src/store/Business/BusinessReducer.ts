@@ -27,20 +27,25 @@ export const initialState = {
     ownerEmailAddress: ""
 };
 
-export const BusinessReducer = (state:businessReducer = initialState, action: ActionTypes):businessReducer => {
+export const BusinessReducer = (state: businessReducer = initialState, action: ActionTypes): businessReducer => {
     switch (action.type) {
         case 'SET_STEP_ONE':
             return {
                 ...state,
-                haveWebsite: action.payload.haveWebsite,
-                websiteURLs: action.payload.websiteURLs,
-                haveExperienceSelling: action.payload.haveExperienceSelling,
-                storeURLs: action.payload.storeURLs
+                ...action.payload
             };
         case 'SET_STEP_TWO':
             return {
                 ...state,
-                companyName: action.payload.companyName
+                ...action.payload
+            };
+        case 'SAVE_BUSINESS_TO_DB_SUCCESS':
+            return {
+                ...state
+            }
+        case 'SAVE_BUSINESS_TO_DB_FAILED':
+            return {
+                ...state
             }
         default:
             return {
@@ -48,9 +53,9 @@ export const BusinessReducer = (state:businessReducer = initialState, action: Ac
             };
     }
 };
-type InferValueTypes<T> = T extends { [key: string]: infer U} 
-? U
-: never
+type InferValueTypes<T> = T extends { [key: string]: infer U }
+    ? U
+    : never
 
 export type ActionTypes = ReturnType<InferValueTypes<typeof actions>>;
 

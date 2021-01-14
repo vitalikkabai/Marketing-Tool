@@ -26,4 +26,13 @@ export const setStepTwo = (stepTwoData: stepTwoData) => ( {
 
 export const saveBusinessToDB = () => ({
     type: 'SAVE_BUSINESS_TO_DB' as const
-})
+});
+
+export const saveBusinessToDBSucces = () => ({
+    type: 'SAVE_BUSINESS_TO_DB_SUCCESS' as const,
+});
+
+export const saveBusinessToDBFailed = (err: string) => ({
+    type: 'SAVE_BUSINESS_TO_DB_FAILED' as const,
+    payload: err
+});

@@ -2,12 +2,10 @@ import {Dispatch} from "redux";
 import RegisterFormStepTwo from "./RegisterFormStepTwo";
 import {connect} from "react-redux";
 import {AppStateType} from "../../store/store";
-import {getAuthData, signIn} from "../../store/Auth/AuthActions";
-import { setStepTwo, stepTwoData, stepOneData } from '../../store/Business/BusinessActions';
+import { setStepTwo, stepTwoData } from '../../store/Business/BusinessActions';
+import { signUp } from '../../store/Auth/AuthActions';
 
-type MapDispatchType = {
-    setStepTwo: (arg: stepTwoData) => void
-}
+
 export type FormStepTwoContainerType = MapDispatchType & stepTwoData;
 
 const mapStateToProps = (state: AppStateType):stepTwoData => {
@@ -22,9 +20,15 @@ const mapStateToProps = (state: AppStateType):stepTwoData => {
     }
 };
 
+type MapDispatchType = {
+    setStepTwo: (arg: stepTwoData) => void,
+    signUp: (email: string, password: string) => void
+}
+
 const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
     return {
-        setStepTwo: (stepTwoData) => dispatch(setStepTwo(stepTwoData))
+        setStepTwo: (stepTwoData) => dispatch(setStepTwo(stepTwoData)),
+        signUp: (email, password) => dispatch(signUp(email,password))
     }
 };
 

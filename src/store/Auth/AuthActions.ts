@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 export const signIn = (username: string, password: string) => ({
     type: "SIGN-IN-REQUEST" as const,
     payload: {username, password}
@@ -10,6 +12,21 @@ export const signInSuccess = (signInData: string) => ({
 
 export const signInFailed = (signInError: string) => ({
     type: "SIGN-IN-FAILED" as const,
+    payload: {signInError}
+});
+
+export const signUp = (username: string, password: string) => ({
+    type: "SIGN-UP-REQUEST" as const,
+    payload: {username, password}
+});
+
+export const signUpSuccess = (userID: string) => ({
+    type: "SIGN-UP-SUCCESS" as const,
+    payload: userID
+});
+
+export const signUpFailed = (signInError: string) => ({
+    type: "SIGN-UP-FAILED" as const,
     payload: {signInError}
 });
 
