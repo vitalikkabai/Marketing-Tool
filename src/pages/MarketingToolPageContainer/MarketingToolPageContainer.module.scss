@@ -1,0 +1,14 @@
+.wrapper {
+  min-height: calc(100vh - 32px);
+  margin: 16px 0;
+}
+
+.marketingContainer {
+  flex-grow: 2;
+}
+
+.contentContainer {
+  display: flex;
+  height: calc(100% - 72px);
+  padding-top: 16px;
+}

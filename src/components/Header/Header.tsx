@@ -1,5 +1,3 @@
-
-
 import { Container } from '@material-ui/core';
 import React from 'react';
 import classes from './Header.module.scss';
@@ -8,7 +6,7 @@ const Header = () => {
     return (
         <div className={classes.headerContainer}>
             <Container >
-                <img src={headerLogo} />
+                <img src={headerLogo} alt={"image"}/>
             </Container>
         </div>
 
