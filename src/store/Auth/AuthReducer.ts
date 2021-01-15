@@ -1,14 +1,29 @@
 import * as actions from './AuthActions';
 
+
+export interface UserAttributes{
+    userID: string,
+    email: string,
+    emailVerified: boolean,
+    userName: string
+}
 interface AuthReducerType {
     isAuth: boolean,
     initialized: boolean,
-    userID: string
+    userAttributes: UserAttributes
 }
-export const initialState = {
+
+const initialUserAttributes = {
+    userID: "",
+    email: "",
+    emailVerified: false,
+    userName: ""
+}
+const initialState = {
     isAuth: false,
     initialized: false,
-    userID: "",
+    userAttributes: initialUserAttributes
+
 };
 
 export const AuthReducer = (state: AuthReducerType = initialState, action: ActionTypes): AuthReducerType => {
@@ -17,19 +32,24 @@ export const AuthReducer = (state: AuthReducerType = initialState, action: Actio
         case "SIGN-IN-SUCCESS":
             return {
                 ...state,
-                ...action.payload,
+                isAuth: true,
+                initialized: true,
+                userAttributes: action.payload,
+                
             };
 
         case "SIGN-OUT-SUCCESS":
             return {
                 ...state,
-                ...action.payload
+                isAuth: false,
+                userAttributes: initialUserAttributes
             };
 
         case "SIGN-UP-SUCCESS":
             return {
                 ...state,
-                userID: action.payload
+                isAuth: true,
+                userAttributes: {...state.userAttributes, userID: action.payload}
             };
 
         case "SIGN-UP-FAILED":
@@ -41,7 +61,7 @@ export const AuthReducer = (state: AuthReducerType = initialState, action: Actio
         case "AUTH-DATA-SUCCESS":
             return {
                 ...state,
-                userID: action.payload,
+                userAttributes: action.payload,
                 initialized: true,
                 isAuth: true
             };

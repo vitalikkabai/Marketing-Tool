@@ -11,7 +11,7 @@ export const businessEpic = (action$: ActionsObservable<ActionTypes>, state$: St
     ofType('SAVE_BUSINESS_TO_DB'),
     map(() => {
         const businessData = state$.value.BusinessReducer;
-        const ownerUID = state$.value.AuthReducer.userID;
+        const ownerUID = state$.value.AuthReducer.userAttributes.userID;
         const businessObject = new Business({ ...businessData, ownerUID: ownerUID });
         return API.graphql(graphqlOperation(createBusiness, { input: businessObject }));
 

@@ -21,7 +21,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
         e.preventDefault();
         console.log("submited")
         saveInputData();
-        props.signUp(ownerEmail,password);
+        props.signUp(ownerEmail, password, ownerName);
     }
 
     const handleBackPressed = () => {
@@ -37,8 +37,6 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
             country: countryName,
             city: cityName,
             businessNumber,
-            ownerName,
-            ownerEmailAddress: ownerEmail,
         })
     }
 
