@@ -2,27 +2,36 @@ import React, { useState } from "react";
 import { Box, Button, Grid, Typography, Container } from "@material-ui/core";
 import classes from "./ResetPasswordPage.module.scss";
 import Header from "../../components/Header/Header";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { useHistory } from "react-router";
 import CustomInput from "../../components/common/Input/CustomInput";
+import GoBackButton from "../../components/common/Button/GoBackButton";
+import { ReactComponent as BigCheckMark } from "../../assets/images/bigCheckMark.svg";
 
 type PropsType = {
-  email: (email: string) => void
 }
 
 const ResetPasswordPage: React.FC<PropsType> = (props) => {
   const [email, setEmail] = useState("");
   const [isEmail, setIsEmail] = useState(false);
-  //const history = useHistory();
+  const [code, setCode] = useState("");
+  const [newPassword, SetNewPassword] = useState("");
+  const [retypePassword, setRetypePassword] = useState("");
+  const [isNewPassword, setIsNewPassword] = useState(false);
+  const history = useHistory();
 
   const handleSubmit = (event: React.FormEvent) => {
-    console.log(email);
     event.preventDefault();
-    if (email) {
+    if (email && !isNewPassword && !isEmail) {
+      console.log("I`m in email change")
       setIsEmail(!isEmail);
-      console.log(isEmail);
     }
-    // props.signIn(email);
+    if (code && newPassword && retypePassword) {
+      console.log("I`m in password change")
+      if (newPassword === retypePassword) {
+        setIsNewPassword(!isNewPassword)
+        console.log(code, newPassword, retypePassword);
+      }
+    }
   }
   return (
     <>
@@ -31,10 +40,7 @@ const ResetPasswordPage: React.FC<PropsType> = (props) => {
         <Grid container justify="center" alignItems="center" className={classes.registrationContainer}>
           <Grid item sm={6}>
             <Box className={classes.loginSheet}>
-              <Box className={classes.backArrow}>
-                <ArrowBackIcon />
-                <Typography> BACK</Typography>
-              </Box>
+              <GoBackButton onClick={() => { history.push("login") }} />
 
               <Grid item className={classes.gridItem}>
                 <Typography variant="h2" className={classes.header}>
@@ -79,15 +85,11 @@ const ResetPasswordPage: React.FC<PropsType> = (props) => {
       </Container>
       }
 
-      {isEmail && <Container>
+      {isEmail && !isNewPassword && <Container>
         <Grid container justify="center" alignItems="center" className={classes.registrationContainer}>
           <Grid item sm={6}>
             <Box className={classes.loginSheet}>
-              <Box className={classes.backArrow}>
-                <ArrowBackIcon />
-                <Typography> BACK</Typography>
-              </Box>
-
+              <GoBackButton onClick={() => { setIsEmail(!isEmail) }} />
               <Grid item className={classes.gridItem}>
                 <Typography variant="h2" className={classes.header}>
                   Reset password
@@ -104,7 +106,7 @@ const ResetPasswordPage: React.FC<PropsType> = (props) => {
                         name="email"
                         required
                         onChange={(event: any) =>
-                          setEmail(event.target.value)
+                          setCode(event.target.value)
                         }
                         color={"#9e9e9e"}
                         width={290}
@@ -116,10 +118,9 @@ const ResetPasswordPage: React.FC<PropsType> = (props) => {
                         label="New password"
                         fullWidth
                         name="password"
-                        // value={password}
-                        // onChange={(event: any) =>
-                        //   setPassword(event.target.value)
-                        // }
+                        onChange={(event: any) =>
+                          SetNewPassword(event.target.value)
+                        }
                         color={"#9e9e9e"}
                         width={290}
                         required />
@@ -130,10 +131,9 @@ const ResetPasswordPage: React.FC<PropsType> = (props) => {
                         label="Retype password"
                         fullWidth
                         name="password"
-                        // value={password}
-                        // onChange={(event: any) =>
-                        //   setPassword(event.target.value)
-                        // }
+                        onChange={(event: any) =>
+                          setRetypePassword(event.target.value)
+                        }
                         color={"#9e9e9e"}
                         width={290}
                         required />
@@ -151,6 +151,26 @@ const ResetPasswordPage: React.FC<PropsType> = (props) => {
           </Grid>
         </Grid>
       </Container>
+
+      }
+      {isNewPassword &&
+        <Container>
+          <Grid container justify="center" alignItems="center" className={classes.registrationContainer}>
+            <Grid item sm={6}>
+              <Box className={classes.loginSheet}>
+                <Grid item className={classes.bigCheckMark}>
+                  <BigCheckMark />
+                </Grid>
+
+                <Grid item>
+                  <Typography variant="h2" className={classes.checkHeadline}>
+                    Password Resent link was sent to your email
+                  </Typography>
+                </Grid>
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
 
       }
 
