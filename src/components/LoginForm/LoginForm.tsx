@@ -33,9 +33,9 @@ const LoginForm: React.FC<PropsType> = (props) => {
 				<Box className={classes.loginSheet}>
 					<GoBackButton onClick={()=>{console.log("Back Clicked")}}/>
 					<Grid item className={classes.gridItem}>
-						<Typography variant="h5" className={classes.header}>
+						<Typography variant="h2" className={classes.header}>
 							Login
-                        </Typography>
+            </Typography>
 					</Grid>
 					<Grid item className={classes.formContainer}>
 						<form onSubmit={handleSubmit}>
@@ -82,18 +82,21 @@ const LoginForm: React.FC<PropsType> = (props) => {
 						</form>
 					</Grid>
 					<Grid item className={classes.forgotPassword}>
-						<Link variant="body2" className={classes.link}>
+						<Link variant="body2" className={classes.link}
+							onClick={() => {
+								history.push("resetPassword")
+							}}>
 							Forgot your password?
-                        </Link>
+            </Link>
 					</Grid>
 					<Grid item className={classes.createAccount}>
 						<Typography variant={"subtitle1"}>Don’t have an account yet?&nbsp;
-                            <Link variant={"subtitle1"} className={classes.link}
+              <Link variant={"subtitle1"} className={classes.link}
 								onClick={() => {
 									history.push("register")
 								}}>
 								Register
-                            </Link>
+              </Link>
 						</Typography>
 					</Grid>
 				</Box>

@@ -1,7 +1,11 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, TextField } from "@material-ui/core";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
 import alert from "../../../assets/images/Error_outline.svg";
+import { ReactComponent as Visibility } from "../../../assets/images/eye.svg";
+import { ReactComponent as VisibilityOff } from "../../../assets/images/eyeOff.svg";
 
 interface CustomInputProps {
 	type?: string;
@@ -23,9 +27,12 @@ interface CustomInputProps {
 	autoFocus?: boolean;
 	label?: string;
 	margin?: string;
+	isShowPassword?: boolean;
 }
 
 const CustomInput: React.FC<CustomInputProps> = (props) => {
+
+	const [isShowPassword, setIsShowPassword] = useState(false)
 
 	const useStyles = makeStyles({
 		root: {
@@ -54,7 +61,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
 				fontWeight: 'normal',
 				fontSize: '16px',
 				lineHeight: '150%',
-				top: '-7px',
+				top: '-9px',
 			},
 			'& .MuiInputLabel-shrink': {
 				transform: 'translate(14px, -2px) scale(0.75)'
@@ -97,16 +104,34 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
 		},
 	});
 
+
+
 	const classes = useStyles();
+
+	const handleClickShowPassword = () => {
+		setIsShowPassword(!isShowPassword);
+	};
 
 	return <TextField error={props.error}
 		key={props.PassKey}
-		type={props.type}
+		type={props.name === "password" ? (isShowPassword ? "text" : "password") : props.type}
 		helperText={props.helperText}
 		fullWidth={props.fullWidth}
 		variant={"outlined"}
 		label={props.label}
-		inputProps={{
+		InputProps={{
+			endAdornment: (
+				<InputAdornment position="end" >
+					{props.name === "password" &&
+						<IconButton
+							aria-label="toggle password visibility"
+							onClick={handleClickShowPassword}
+						>
+							{isShowPassword ? <Visibility /> : <VisibilityOff />}
+						</IconButton>}
+
+				</ InputAdornment>
+			),
 			style: {
 				background: "white",
 				fontFamily: 'liberation-sans',
