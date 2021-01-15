@@ -1,4 +1,4 @@
-import {Box, Button, Grid, Typography} from "@material-ui/core";
+import {Box, Button, Grid, Link, Typography} from "@material-ui/core";
 import React, {useState} from 'react';
 import classes from './RegisterForm.module.scss';
 import {FormStepTwoContainerType} from './RegisterFormStepTwoContainer';
@@ -6,6 +6,7 @@ import {useHistory} from "react-router";
 import GoBackButton from "../common/Button/GoBackButton";
 import UxAssistant from "./UxAssistant";
 import CustomInput from "../common/Input/CustomInput";
+import CustomButton from "../common/Button/CustomButton";
 
 const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (props) => {
 
@@ -151,8 +152,14 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                             </Grid>
 
                         </Box>
-                        <Button type="submit">dashboard</Button>
-                        <Typography>Have an account already? Log in</Typography>
+                        <Grid item className={classes.nextContainer}>
+                            <CustomButton type={"submit"} className={classes.buttonBlock} text={"Dashboard"}/>
+                            <Typography variant={"subtitle1"}>Have an account already?&nbsp;
+                                <Link className={classes.link} onClick={() => {
+                                    history.push("login")
+                                }}>Log in</Link>
+                            </Typography>
+                        </Grid>
                     </form>
 
                 </Box>

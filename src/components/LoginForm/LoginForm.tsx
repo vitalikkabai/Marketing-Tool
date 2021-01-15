@@ -4,6 +4,7 @@ import classes from "./LoginForm.module.scss";
 import { useHistory } from "react-router";
 import CustomInput from "../common/Input/CustomInput"
 import GoBackButton from "../common/Button/GoBackButton";
+import CustomButton from "../common/Button/CustomButton";
 
 type PropsType = {
 	isAuth: boolean
@@ -72,11 +73,7 @@ const LoginForm: React.FC<PropsType> = (props) => {
 										required />
 								</Grid>
 								<Grid item className={classes.loginButton}>
-									<Button variant="contained" color="primary"
-										type="submit" className={classes.buttonBlock}>
-										Log In
-                  </Button>
-
+									<CustomButton type={"submit"} className={classes.buttonBlock} text={"Log in"}/>
 								</Grid>
 							</Grid>
 						</form>

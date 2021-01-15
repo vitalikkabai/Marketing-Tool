@@ -8,6 +8,7 @@ import CustomSelect from "../common/Select/CustomSelect";
 import GoBackButton from "../common/Button/GoBackButton";
 import plusIcon from "../../assets/images/formPlus.svg"
 import UxAssistant from "./UxAssistant";
+import CustomButton from "../common/Button/CustomButton";
 
 
 const RegisterForm: React.FunctionComponent<FormContainerType> = (props) => {
@@ -132,10 +133,7 @@ const RegisterForm: React.FunctionComponent<FormContainerType> = (props) => {
                                     </Box>
                                 </Grid>
                                 <Grid item className={classes.nextContainer}>
-                                    <Button variant="contained" color="primary"
-                                            type="submit" className={classes.buttonBlock}>
-                                        NEXT
-                                    </Button>
+                                    <CustomButton type={"submit"} className={classes.buttonBlock} text={"Next"}/>
                                     <Typography variant={"subtitle1"}>Have an account already?&nbsp;
                                         <Link className={classes.link} onClick={() => {
                                             history.push("login")
