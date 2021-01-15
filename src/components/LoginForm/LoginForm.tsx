@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Box, Button, Grid, Link, TextField, Typography } from "@material-ui/core";
+import { Box, Button, Grid, Link, Typography } from "@material-ui/core";
 import classes from "./LoginForm.module.scss";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { useHistory } from "react-router";
 import CustomInput from "../common/Input/CustomInput"
+import GoBackButton from "../common/Button/GoBackButton";
 
 type PropsType = {
 	isAuth: boolean
@@ -31,10 +31,7 @@ const LoginForm: React.FC<PropsType> = (props) => {
 		<Grid container justify="center" alignItems={"center"}>
 			<Grid container direction="column" justify="center" className={classes.loginForm}>
 				<Box className={classes.loginSheet}>
-					<Box className={classes.backArrow}>
-						<ArrowBackIcon />
-						<Typography> BACK</Typography>
-					</Box>
+					<GoBackButton onClick={()=>{console.log("Back Clicked")}}/>
 					<Grid item className={classes.gridItem}>
 						<Typography variant="h5" className={classes.header}>
 							Login

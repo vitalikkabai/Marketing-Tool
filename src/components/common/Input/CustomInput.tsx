@@ -1,6 +1,6 @@
 
 import React from "react";
-import { makeStyles, TextField, Typography } from "@material-ui/core";
+import { makeStyles, TextField } from "@material-ui/core";
 import alert from "../../../assets/images/Error_outline.svg";
 
 interface CustomInputProps {
@@ -10,7 +10,7 @@ interface CustomInputProps {
 	onFocus?: any;
 	value?: string;
 	color?: string;
-	width?: number;
+	width?: any;
 	name?: string;
 	placeholder?: string;
 	fullWidth?: boolean;
@@ -28,12 +28,11 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
 
 	const useStyles = makeStyles({
 		root: {
-			display: "-webkit-box",
 			'& .MuiOutlinedInput-root': {
 				width: props.width,
 				padding: 0,
 				'& .MuiOutlinedInput-input': {
-					// paddingLeft: 10,
+					paddingLeft: 10,
 				},
 
 				'& fieldset': {
