@@ -6,6 +6,8 @@ import { useHistory } from "react-router";
 import CustomInput from "../../components/common/Input/CustomInput";
 import GoBackButton from "../../components/common/Button/GoBackButton";
 import { ReactComponent as BigCheckMark } from "../../assets/images/bigCheckMark.svg";
+import CustomButton from "../../components/common/Button/CustomButton";
+
 
 type PropsType = {
 }
@@ -22,14 +24,11 @@ const ResetPasswordPage: React.FC<PropsType> = (props) => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (email && !isNewPassword && !isEmail) {
-      console.log("I`m in email change")
       setIsEmail(!isEmail);
     }
     if (code && newPassword && retypePassword) {
-      console.log("I`m in password change")
       if (newPassword === retypePassword) {
         setIsNewPassword(!isNewPassword)
-        console.log(code, newPassword, retypePassword);
       }
     }
   }
@@ -71,10 +70,7 @@ const ResetPasswordPage: React.FC<PropsType> = (props) => {
                         autoFocus />
                     </Grid>
                     <Grid item className={classes.loginButton}>
-                      <Button variant="contained" color="primary"
-                        type="submit" className={classes.buttonBlock}>
-                        Send
-                      </Button>
+                      <CustomButton className={classes.buttonBlock} type='submit' text="Send" />
                     </Grid>
                   </Grid>
                 </form>
@@ -138,11 +134,8 @@ const ResetPasswordPage: React.FC<PropsType> = (props) => {
                         width={290}
                         required />
                     </Grid>
-                    <Grid item className={classes.loginButton}>
-                      <Button variant="contained" color="primary"
-                        type="submit" className={classes.buttonBlock}>
-                        Send
-                      </Button>
+                    <Grid item className={classes.resetButtonSubmit}>
+                      <CustomButton type='submit' text="Send" />
                     </Grid>
                   </Grid>
                 </form>
@@ -153,7 +146,8 @@ const ResetPasswordPage: React.FC<PropsType> = (props) => {
       </Container>
 
       }
-      {isNewPassword &&
+      {
+        isNewPassword &&
         <Container>
           <Grid container justify="center" alignItems="center" className={classes.registrationContainer}>
             <Grid item sm={6}>
@@ -166,6 +160,9 @@ const ResetPasswordPage: React.FC<PropsType> = (props) => {
                   <Typography variant="h2" className={classes.checkHeadline}>
                     Password Resent link was sent to your email
                   </Typography>
+                </Grid>
+                <Grid item className={classes.closeButton}>
+                  <CustomButton onClick={() => { history.push("login") }} type='button' text="Close" />
                 </Grid>
               </Box>
             </Grid>

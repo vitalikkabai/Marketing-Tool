@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { makeStyles, TextField } from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
-import { makeStyles, TextField } from "@material-ui/core";
 import alert from "../../../assets/images/Error_outline.svg";
 import { ReactComponent as Visibility } from "../../../assets/images/eye.svg";
 import { ReactComponent as VisibilityOff } from "../../../assets/images/eyeOff.svg";
