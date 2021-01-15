@@ -29,6 +29,7 @@ const UxAssistant: React.FC<PropTypes> = (props) => {
                 <img src={assistantAvatar} alt={"image"}/>
                 <Box className={classes.assistantText}>
                     <Typography variant={"h6"}>{props.assistantText}</Typography>
+                    {props.stepNumber === 1? <Typography variant={"h6"}>Let’s get started</Typography> : null}
                 </Box>
             </Grid>
         </>
