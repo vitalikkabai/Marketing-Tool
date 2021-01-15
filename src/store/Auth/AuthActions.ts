@@ -48,9 +48,9 @@ export const getAuthData = () => ({
     payload: {}
 });
 
-export const getAuthDataSuccess = (userData: string) => ({
+export const getAuthDataSuccess = (userID: string) => ({
     type: "AUTH-DATA-SUCCESS" as const,
-    payload: {userData, isAuth: true}
+    payload: userID
 });
 
 export const getAuthDataFailed = () => ({

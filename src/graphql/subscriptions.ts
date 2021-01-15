@@ -6,6 +6,7 @@ export const onCreateBusiness = /* GraphQL */ `
   subscription OnCreateBusiness {
     onCreateBusiness {
       id
+      ownerUID
       companyName
       country
       city
@@ -17,11 +18,10 @@ export const onCreateBusiness = /* GraphQL */ `
       ownerName
       ownerEmailAddress
       businessType
-      ownerUID
+      createdAt
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -30,6 +30,7 @@ export const onUpdateBusiness = /* GraphQL */ `
   subscription OnUpdateBusiness {
     onUpdateBusiness {
       id
+      ownerUID
       companyName
       country
       city
@@ -41,11 +42,10 @@ export const onUpdateBusiness = /* GraphQL */ `
       ownerName
       ownerEmailAddress
       businessType
-      ownerUID
+      createdAt
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -54,6 +54,7 @@ export const onDeleteBusiness = /* GraphQL */ `
   subscription OnDeleteBusiness {
     onDeleteBusiness {
       id
+      ownerUID
       companyName
       country
       city
@@ -65,11 +66,10 @@ export const onDeleteBusiness = /* GraphQL */ `
       ownerName
       ownerEmailAddress
       businessType
-      ownerUID
+      createdAt
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }

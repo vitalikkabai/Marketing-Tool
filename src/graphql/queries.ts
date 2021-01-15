@@ -6,6 +6,7 @@ export const getBusiness = /* GraphQL */ `
   query GetBusiness($id: ID!) {
     getBusiness(id: $id) {
       id
+      ownerUID
       companyName
       country
       city
@@ -17,11 +18,10 @@ export const getBusiness = /* GraphQL */ `
       ownerName
       ownerEmailAddress
       businessType
-      ownerUID
+      createdAt
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -35,6 +35,7 @@ export const listBusinesss = /* GraphQL */ `
     listBusinesss(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        ownerUID
         companyName
         country
         city
@@ -46,11 +47,92 @@ export const listBusinesss = /* GraphQL */ `
         ownerName
         ownerEmailAddress
         businessType
-        ownerUID
+        createdAt
         _version
         _deleted
         _lastChangedAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const byOwnerUid = /* GraphQL */ `
+  query ByOwnerUid(
+    $ownerUID: String
+    $sortDirection: ModelSortDirection
+    $filter: ModelBusinessFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    byOwnerUID(
+      ownerUID: $ownerUID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        ownerUID
+        companyName
+        country
+        city
+        businessNumber
+        haveExperienceSelling
+        storeURLs
+        haveWebsite
+        websiteURLs
+        ownerName
+        ownerEmailAddress
+        businessType
         createdAt
+        _version
+        _deleted
+        _lastChangedAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
+export const byOwnerUidDate = /* GraphQL */ `
+  query ByOwnerUidDate(
+    $ownerUID: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelBusinessFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    byOwnerUidDate(
+      ownerUID: $ownerUID
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        ownerUID
+        companyName
+        country
+        city
+        businessNumber
+        haveExperienceSelling
+        storeURLs
+        haveWebsite
+        websiteURLs
+        ownerName
+        ownerEmailAddress
+        businessType
+        createdAt
+        _version
+        _deleted
+        _lastChangedAt
         updatedAt
       }
       nextToken
@@ -73,6 +155,7 @@ export const syncBusinesses = /* GraphQL */ `
     ) {
       items {
         id
+        ownerUID
         companyName
         country
         city
@@ -84,11 +167,10 @@ export const syncBusinesses = /* GraphQL */ `
         ownerName
         ownerEmailAddress
         businessType
-        ownerUID
+        createdAt
         _version
         _deleted
         _lastChangedAt
-        createdAt
         updatedAt
       }
       nextToken
