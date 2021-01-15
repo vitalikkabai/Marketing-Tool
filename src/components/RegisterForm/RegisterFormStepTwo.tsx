@@ -1,4 +1,4 @@
-import {Box, Button, Grid, Typography} from "@material-ui/core";
+import {Box, Button, Grid, Link, Typography} from "@material-ui/core";
 import React, {useState} from 'react';
 import classes from './RegisterForm.module.scss';
 import {FormStepTwoContainerType} from './RegisterFormStepTwoContainer';
@@ -6,6 +6,7 @@ import {useHistory} from "react-router";
 import GoBackButton from "../common/Button/GoBackButton";
 import UxAssistant from "./UxAssistant";
 import CustomInput from "../common/Input/CustomInput";
+import CustomButton from "../common/Button/CustomButton";
 
 const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (props) => {
 
@@ -23,7 +24,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
         e.preventDefault();
         console.log("submited")
         saveInputData();
-        props.signUp(ownerEmail, password);
+        props.signUp(ownerEmail, password, ownerName);
     }
 
     const handleBackPressed = () => {
@@ -37,8 +38,6 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
             country: countryName,
             city: cityName,
             businessNumber,
-            ownerName,
-            ownerEmailAddress: ownerEmail,
         })
     }
 
@@ -52,13 +51,14 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                         <Box className={classes.formContainer}>
                             <Grid container>
                                 <Grid item xs={1}/>
-                                <Grid item xs={4}>
+                                <Grid item xs={5} style={{paddingRight: "12px"}}>
                                     <CustomInput
                                         label="Company Name"
                                         placeholder={"Company Name"}
                                         fullWidth={true}
                                         variant="outlined"
                                         value={companyName}
+                                        margin={"0 0 16px 0"}
                                         onChange={(event:any) =>
                                             setCompanyName(event.target.value)
                                         }
@@ -69,6 +69,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         fullWidth={true}
                                         variant="outlined"
                                         value={countryName}
+                                        margin={"0 0 16px 0"}
                                         onChange={(event:any) =>
                                             setCountryName(event.target.value)
                                         }
@@ -79,6 +80,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         placeholder={"Company Name"}
                                         fullWidth={true}
                                         value={cityName}
+                                        margin={"0 0 16px 0"}
                                         onChange={(event:any) =>
                                             setCityName(event.target.value)
                                         }
@@ -94,14 +96,14 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         }
                                     />
                                 </Grid>
-                                <Grid item xs={1}/>
-                                <Grid item xs={4}>
+                                <Grid item xs={5} style={{paddingLeft: "12px"}}>
                                     <CustomInput
                                         label="Name"
                                         variant="outlined"
                                         placeholder={"Company Name"}
                                         fullWidth={true}
                                         value={ownerName}
+                                        margin={"0 0 16px 0"}
                                         onChange={(event:any) =>
                                             setOwnerName(event.target.value)
                                         }
@@ -113,6 +115,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         placeholder={"Company Name"}
                                         fullWidth={true}
                                         value={ownerEmail}
+                                        margin={"0 0 16px 0"}
                                         onChange={(event:any) =>
                                             setOwnerEmail(event.target.value)
                                         }
@@ -121,15 +124,18 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         type="password"
                                         label="Password"
                                         variant="outlined"
+                                        name="password"
                                         placeholder={"Company Name"}
                                         fullWidth={true}
                                         value={password}
+                                        margin={"0 0 16px 0"}
                                         onChange={(event:any) =>
                                             setPassword(event.target.value)
                                         }
                                     />
                                     <CustomInput
                                         type="password"
+                                        name="password"
                                         label="RepeatPassword"
                                         variant="outlined"
                                         placeholder={"Company Name"}
@@ -144,8 +150,14 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                             </Grid>
 
                         </Box>
-                        <Button type="submit">dashboard</Button>
-                        <Typography>Have an account already? Log in</Typography>
+                        <Grid item className={classes.nextContainer}>
+                            <CustomButton type={"submit"} className={classes.buttonBlock} text={"Dashboard"}/>
+                            <Typography variant={"subtitle1"}>Have an account already?&nbsp;
+                                <Link className={classes.link} onClick={() => {
+                                    history.push("login")
+                                }}>Log in</Link>
+                            </Typography>
+                        </Grid>
                     </form>
 
                 </Box>

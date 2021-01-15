@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
+import { UserAttributes } from "./AuthReducer";
+
 export const signIn = (username: string, password: string) => ({
     type: "SIGN-IN-REQUEST" as const,
     payload: {username, password}
 });
 
-export const signInSuccess = (signInData: string) => ({
+export const signInSuccess = (userAttributes: UserAttributes) => ({
     type: "SIGN-IN-SUCCESS" as const,
-    payload: {signInData, isAuth: true}
+    payload: userAttributes
 });
 
 export const signInFailed = (signInError: string) => ({
@@ -15,9 +17,9 @@ export const signInFailed = (signInError: string) => ({
     payload: {signInError}
 });
 
-export const signUp = (username: string, password: string) => ({
+export const signUp = (email: string, password: string, username: string) => ({
     type: "SIGN-UP-REQUEST" as const,
-    payload: {username, password}
+    payload: {email, password, username}
 });
 
 export const signUpSuccess = (userID: string) => ({
@@ -35,8 +37,7 @@ export const signOut = () => ({
 });
 
 export const signOutSuccess = () => ({
-    type: "SIGN-OUT-SUCCESS" as const,
-    payload: {isAuth: false}
+    type: "SIGN-OUT-SUCCESS" as const
 });
 
 export const signOutFailed = () => ({
@@ -48,9 +49,9 @@ export const getAuthData = () => ({
     payload: {}
 });
 
-export const getAuthDataSuccess = (userID: string) => ({
+export const getAuthDataSuccess = (userAttributes: UserAttributes) => ({
     type: "AUTH-DATA-SUCCESS" as const,
-    payload: userID
+    payload: userAttributes
 });
 
 export const getAuthDataFailed = () => ({

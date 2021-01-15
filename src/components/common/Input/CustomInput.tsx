@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import { makeStyles, TextField } from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles, TextField } from "@material-ui/core";
@@ -26,6 +27,7 @@ interface CustomInputProps {
 	variant?: string;
 	autoFocus?: boolean;
 	label?: string;
+	margin?: string;
 	isShowPassword?: boolean;
 }
 
@@ -36,6 +38,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
 	const useStyles = makeStyles({
 		root: {
 			'& .MuiOutlinedInput-root': {
+				margin: props.margin,
 				width: props.width,
 				padding: 0,
 				'& .MuiOutlinedInput-input': {
@@ -139,6 +142,11 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
 				lineHeight: '150%',
 			}
 		}}
+		// InputLabelProps={{
+		// 	style: {
+		// 		color: "red",
+		// 	}
+		// }}
 		classes={{
 			root: classes.root
 		}}

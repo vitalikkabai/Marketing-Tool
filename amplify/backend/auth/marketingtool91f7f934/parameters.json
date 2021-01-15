@@ -1,6 +1,6 @@
 {
     "identityPoolName": "marketingtool91f7f934_identitypool_91f7f934",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "market91f7f934",
     "userPoolName": "marketingtool91f7f934_userpool_91f7f934",
     "autoVerifiedAttributes": [

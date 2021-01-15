@@ -15,9 +15,7 @@ export interface stepTwoData {
     companyName: string,
     country: string,
     city: string,
-    businessNumber: string,
-    ownerName: string,
-    ownerEmailAddress: string
+    businessNumber: string
 }
 export const setStepTwo = (stepTwoData: stepTwoData) => ( {
     type: 'SET_STEP_TWO' as const,

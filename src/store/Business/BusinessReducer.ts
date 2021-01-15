@@ -9,9 +9,7 @@ interface businessReducer {
     haveExperienceSelling: boolean,
     storeURLs: string[],
     haveWebsite: boolean,
-    websiteURLs: string[],
-    ownerName: string,
-    ownerEmailAddress: string,
+    websiteURLs: string[]
 }
 export const initialState = {
     id: "",
@@ -22,9 +20,7 @@ export const initialState = {
     haveExperienceSelling: false,
     storeURLs: [""],
     haveWebsite: false,
-    websiteURLs: [""],
-    ownerName: "",
-    ownerEmailAddress: ""
+    websiteURLs: [""]
 };
 
 export const BusinessReducer = (state: businessReducer = initialState, action: ActionTypes): businessReducer => {

@@ -25,7 +25,12 @@ export const signInEpic = (action$: ActionsObservable<any>) => action$.pipe(
         }).then((response) => {
             console.log("signied in");
             console.log(response)
-            return signInSuccess(response);
+            return signInSuccess({
+                userID: response.attributes.sub,
+                email: response.attributes.email,
+                emailVerified: response.attributes.email_verified,
+                userName: response.attributes.given_name,
+            });
         }).catch(err => {
             alert("Failed to Sign in");
             console.log(err)
@@ -36,19 +41,25 @@ export const signInEpic = (action$: ActionsObservable<any>) => action$.pipe(
 
 export const signUpEpic = (action$: ActionsObservable<any>) => action$.pipe(
     ofType("SIGN-UP-REQUEST"),
-    mergeMap(action => from(Auth.signUp({
-        username: action.payload.username,
-        password: action.payload.password,
-    })).pipe(
-        mergeMap(res => {
-            console.log(res); return [
-                signUpSuccess(res.userSub),
-                saveBusinessToDB(),
-                signIn(action.payload.username, action.payload.password)
-            ]
-        }),
-        catchError(err => of(signUpFailed(err)))
-    )
+    mergeMap(action => {
+        console.log(action); return from(Auth.signUp({
+            username: action.payload.email,
+            password: action.payload.password,
+            attributes: {
+                email: action.payload.email,
+                given_name: action.payload.username
+            }
+        })).pipe(
+            mergeMap(res => {
+                console.log(res); return [
+                    signUpSuccess(res.userSub),
+                    saveBusinessToDB(),
+                    signIn(action.payload.email, action.payload.password)
+                ]
+            }),
+            catchError(err => of(signUpFailed(err)))
+        )
+    }
     )
 );
 
@@ -70,7 +81,13 @@ export const getAuthDataEpic = (action$: ActionsObservable<ActionTypes>) => acti
         return from(Auth.currentUserInfo());
     }),
     map(res => {
-        if (res) return getAuthDataSuccess(res.username);
+        console.log(res)
+        if (res) return getAuthDataSuccess({
+            userID: res.username,
+            email: res.attributes.email,
+            emailVerified: res.attributes.email_verified,
+            userName: res.attributes.given_name
+        });
         else return getAuthDataFailed();
     })
 );
