@@ -33,8 +33,7 @@ const ResetPasswordPage: React.FC<PropsType> = (props) => {
     }
   }
   return (
-    //TO DO fix problem with back button and registration
-    //Split code into component
+    //TO DO Split code into component
     <>
       <Header />
       {!isEmail && <Container>
