@@ -9,6 +9,7 @@ export const createBusiness = /* GraphQL */ `
   ) {
     createBusiness(input: $input, condition: $condition) {
       id
+      ownerUID
       companyName
       country
       city
@@ -20,11 +21,10 @@ export const createBusiness = /* GraphQL */ `
       ownerName
       ownerEmailAddress
       businessType
-      ownerUID
+      createdAt
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -36,6 +36,7 @@ export const updateBusiness = /* GraphQL */ `
   ) {
     updateBusiness(input: $input, condition: $condition) {
       id
+      ownerUID
       companyName
       country
       city
@@ -47,11 +48,10 @@ export const updateBusiness = /* GraphQL */ `
       ownerName
       ownerEmailAddress
       businessType
-      ownerUID
+      createdAt
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }
@@ -63,6 +63,7 @@ export const deleteBusiness = /* GraphQL */ `
   ) {
     deleteBusiness(input: $input, condition: $condition) {
       id
+      ownerUID
       companyName
       country
       city
@@ -74,11 +75,10 @@ export const deleteBusiness = /* GraphQL */ `
       ownerName
       ownerEmailAddress
       businessType
-      ownerUID
+      createdAt
       _version
       _deleted
       _lastChangedAt
-      createdAt
       updatedAt
     }
   }

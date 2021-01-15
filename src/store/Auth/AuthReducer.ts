@@ -41,8 +41,9 @@ export const AuthReducer = (state: AuthReducerType = initialState, action: Actio
         case "AUTH-DATA-SUCCESS":
             return {
                 ...state,
-                ...action.payload,
-                initialized: true
+                userID: action.payload,
+                initialized: true,
+                isAuth: true
             };
         case "AUTH-DATA-FAILED":
             return {
