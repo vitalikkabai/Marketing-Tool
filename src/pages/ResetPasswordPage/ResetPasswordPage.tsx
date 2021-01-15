@@ -33,13 +33,17 @@ const ResetPasswordPage: React.FC<PropsType> = (props) => {
     }
   }
   return (
+    //TO DO fix problem with back button and registration
+    //Split code into component
     <>
       <Header />
       {!isEmail && <Container>
         <Grid container justify="center" alignItems="center" className={classes.registrationContainer}>
           <Grid item sm={6}>
             <Box className={classes.loginSheet}>
-              <GoBackButton onClick={() => { history.push("login") }} />
+              <GoBackButton onClick={() => {
+                history.push("login");
+              }} />
 
               <Grid item className={classes.gridItem}>
                 <Typography variant="h2" className={classes.header}>
@@ -85,7 +89,12 @@ const ResetPasswordPage: React.FC<PropsType> = (props) => {
         <Grid container justify="center" alignItems="center" className={classes.registrationContainer}>
           <Grid item sm={6}>
             <Box className={classes.loginSheet}>
-              <GoBackButton onClick={() => { setIsEmail(!isEmail) }} />
+              <GoBackButton onClick={() => {
+                setCode("");
+                SetNewPassword("");
+                setRetypePassword("");
+                setIsEmail(!isEmail)
+              }} />
               <Grid item className={classes.gridItem}>
                 <Typography variant="h2" className={classes.header}>
                   Reset password
