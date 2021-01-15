@@ -52,13 +52,14 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                         <Box className={classes.formContainer}>
                             <Grid container>
                                 <Grid item xs={1}/>
-                                <Grid item xs={4}>
+                                <Grid item xs={5} style={{paddingRight: "12px"}}>
                                     <CustomInput
                                         label="Company Name"
                                         placeholder={"Company Name"}
                                         fullWidth={true}
                                         variant="outlined"
                                         value={companyName}
+                                        margin={"0 0 16px 0"}
                                         onChange={(event:any) =>
                                             setCompanyName(event.target.value)
                                         }
@@ -69,6 +70,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         fullWidth={true}
                                         variant="outlined"
                                         value={countryName}
+                                        margin={"0 0 16px 0"}
                                         onChange={(event:any) =>
                                             setCountryName(event.target.value)
                                         }
@@ -79,6 +81,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         placeholder={"Company Name"}
                                         fullWidth={true}
                                         value={cityName}
+                                        margin={"0 0 16px 0"}
                                         onChange={(event:any) =>
                                             setCityName(event.target.value)
                                         }
@@ -94,14 +97,14 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         }
                                     />
                                 </Grid>
-                                <Grid item xs={1}/>
-                                <Grid item xs={4}>
+                                <Grid item xs={5} style={{paddingLeft: "12px"}}>
                                     <CustomInput
                                         label="Name"
                                         variant="outlined"
                                         placeholder={"Company Name"}
                                         fullWidth={true}
                                         value={ownerName}
+                                        margin={"0 0 16px 0"}
                                         onChange={(event:any) =>
                                             setOwnerName(event.target.value)
                                         }
@@ -113,6 +116,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         placeholder={"Company Name"}
                                         fullWidth={true}
                                         value={ownerEmail}
+                                        margin={"0 0 16px 0"}
                                         onChange={(event:any) =>
                                             setOwnerEmail(event.target.value)
                                         }
@@ -121,15 +125,18 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         type="password"
                                         label="Password"
                                         variant="outlined"
+                                        name="password"
                                         placeholder={"Company Name"}
                                         fullWidth={true}
                                         value={password}
+                                        margin={"0 0 16px 0"}
                                         onChange={(event:any) =>
                                             setPassword(event.target.value)
                                         }
                                     />
                                     <CustomInput
                                         type="password"
+                                        name="password"
                                         label="RepeatPassword"
                                         variant="outlined"
                                         placeholder={"Company Name"}

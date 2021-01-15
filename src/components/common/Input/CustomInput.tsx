@@ -22,6 +22,7 @@ interface CustomInputProps {
 	variant?: string;
 	autoFocus?: boolean;
 	label?: string;
+	margin?: string;
 }
 
 const CustomInput: React.FC<CustomInputProps> = (props) => {
@@ -29,6 +30,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
 	const useStyles = makeStyles({
 		root: {
 			'& .MuiOutlinedInput-root': {
+				margin: props.margin,
 				width: props.width,
 				padding: 0,
 				'& .MuiOutlinedInput-input': {
