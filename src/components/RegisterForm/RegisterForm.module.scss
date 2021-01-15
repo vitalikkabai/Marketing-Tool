@@ -1,53 +1,159 @@
-.wrapper {
-  height: 100vh;
-
-  h1 {
-    padding-bottom: 20px;
-  }
-}
-
-.loginForm {
-  justify-content: center;
-  min-height: 90vh;
-}
-
-.gridItem {
-  display: flex;
-  justify-content: center;
-}
-
-.buttonBlock {
-  width: 100%;
-}
-
-.loginBackground {
-  justify-content: center;
-  min-height: 30vh;
-  padding: 50px;
-}
-
 .registrationSheet {
   box-shadow: 0 4px 15px rgba(40, 47, 43, 0.1);
   background: #FFF;
   border-radius: 10px;
-  margin-bottom: 50px;
   height: 553px;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 0;
 
   .header {
     margin-top: 40px;
   }
-  .backArrow {
-      position: absolute;
-      top: 16px;
-      left: 16px;
+
+  .registerForm {
+    position: relative;
   }
 
   .formContainer {
-      width: 100%;
-      height: 364px;
+    width: 100%;
+    margin-top: 32px;
+
+    .formSecondTitle {
+      margin-top: 24px;
+    }
+
+    .inputBox {
+      position: relative;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+
+      .plusIcon {
+        position: absolute;
+        right: 15px;
+        cursor: pointer;
+      }
+    }
   }
+
+  .formControl {
+    margin-right: 24px;
+  }
+}
+
+.progressContainer {
+  position: absolute;
+  top: -40px;
+
+  ul {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  img {
+    width: 14px;
+    height: 11px;
+  }
+
+  li {
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    line-height: 24px;
+    background: #EEEEEE;
+    margin: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: relative;
+    border-radius: 27px;
+  }
+
+  li::before {
+    content: '';
+    position: absolute;
+    top: 11px;
+    left: -50px;
+    height: 3px;
+    width: 60px;
+    background: #EEEEEE;
+    z-index: -1;
+  }
+
+
+  li:first-child::before {
+    display: none;
+  }
+
+  .active {
+    width: 27px;
+    height: 27px;
+    line-height: 24px;
+    background: #4285F4;
+    border: 3px solid #EEEEEE;
+  }
+}
+
+.assistantContainer {
+  margin-top: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 98px;
+    height: 98px;
+  }
+
+  .assistantText {
+    margin-left: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 200px;
+  }
+
+
+}
+
+.progressCircle {
+  width: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 27px;
+  line-height: 27px;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  background: #4285F4;
+  border: 3px solid #EEEEEE;
+}
+
+.nextContainer {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .link {
+    cursor: pointer;
+  }
+
+  .buttonBlock {
+    margin-bottom: 16px;
+  }
+}
+
+.thirdFromInput {
+  margin-bottom: 16px;
 }
