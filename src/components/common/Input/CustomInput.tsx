@@ -14,7 +14,7 @@ interface CustomInputProps {
 	onFocus?: any;
 	value?: string;
 	color?: string;
-	width?: number;
+	width?: any;
 	name?: string;
 	placeholder?: string;
 	fullWidth?: boolean;
@@ -35,7 +35,6 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
 
 	const useStyles = makeStyles({
 		root: {
-			display: "-webkit-box",
 			'& .MuiOutlinedInput-root': {
 				width: props.width,
 				padding: 0,
