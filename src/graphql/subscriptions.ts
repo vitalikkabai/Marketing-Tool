@@ -15,8 +15,6 @@ export const onCreateBusiness = /* GraphQL */ `
       storeURLs
       haveWebsite
       websiteURLs
-      ownerName
-      ownerEmailAddress
       businessType
       createdAt
       _version
@@ -39,8 +37,6 @@ export const onUpdateBusiness = /* GraphQL */ `
       storeURLs
       haveWebsite
       websiteURLs
-      ownerName
-      ownerEmailAddress
       businessType
       createdAt
       _version
@@ -63,8 +59,6 @@ export const onDeleteBusiness = /* GraphQL */ `
       storeURLs
       haveWebsite
       websiteURLs
-      ownerName
-      ownerEmailAddress
       businessType
       createdAt
       _version

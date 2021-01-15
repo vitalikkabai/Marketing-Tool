@@ -75,20 +75,6 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
-                "ownerName": {
-                    "name": "ownerName",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "ownerEmailAddress": {
-                    "name": "ownerEmailAddress",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "businessType": {
                     "name": "businessType",
                     "isArray": false,
@@ -164,5 +150,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "f76337e418dcf466bd2ea540e96efd23"
+    "version": "e5324c3788c3afd2ae881d78fd959239"
 };

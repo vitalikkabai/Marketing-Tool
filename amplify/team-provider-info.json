@@ -25,7 +25,8 @@
         "MTLamdaLayer": {
           "deploymentBucketName": "amplify-marketingtool-dev-172635-deployment",
           "s3Key": "amplify-builds/MTLamdaLayer-build.zip"
-        }
+        },
+        "confirm-new-user": {}
       }
     },
     "nonCFNdata": {

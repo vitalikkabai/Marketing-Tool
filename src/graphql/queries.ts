@@ -15,8 +15,6 @@ export const getBusiness = /* GraphQL */ `
       storeURLs
       haveWebsite
       websiteURLs
-      ownerName
-      ownerEmailAddress
       businessType
       createdAt
       _version
@@ -44,8 +42,6 @@ export const listBusinesss = /* GraphQL */ `
         storeURLs
         haveWebsite
         websiteURLs
-        ownerName
-        ownerEmailAddress
         businessType
         createdAt
         _version
@@ -84,8 +80,6 @@ export const byOwnerUid = /* GraphQL */ `
         storeURLs
         haveWebsite
         websiteURLs
-        ownerName
-        ownerEmailAddress
         businessType
         createdAt
         _version
@@ -126,8 +120,6 @@ export const byOwnerUidDate = /* GraphQL */ `
         storeURLs
         haveWebsite
         websiteURLs
-        ownerName
-        ownerEmailAddress
         businessType
         createdAt
         _version
@@ -164,8 +156,6 @@ export const syncBusinesses = /* GraphQL */ `
         storeURLs
         haveWebsite
         websiteURLs
-        ownerName
-        ownerEmailAddress
         businessType
         createdAt
         _version
