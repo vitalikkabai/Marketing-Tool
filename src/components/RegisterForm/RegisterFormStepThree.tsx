@@ -22,11 +22,23 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        history.push("3");
+        console.log("submited")
+        saveInputData();
+        props.signUp(ownerEmail, password, ownerName);
     }
 
     const handleBackPressed = () => {
-        history.goBack();
+        saveInputData();
+        history.goBack()
+    }
+
+    const saveInputData = () => {
+        props.setStepTwo({
+            companyName,
+            country: countryName,
+            city: cityName,
+            businessNumber,
+        })
     }
 
     return (
@@ -34,7 +46,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
             <Grid container direction="column" justify="center" className={classes.registerForm}>
                 <Box className={classes.registrationSheet}>
                     <GoBackButton onClick={handleBackPressed}/>
-                    <UxAssistant assistantText={"What are you in charge of?"} stepNumber={2}/>
+                    <UxAssistant assistantText={"Tell us about yourself"} stepNumber={3}/>
                     <form onSubmit={handleSubmit}>
                         <Box className={classes.formContainer}>
                             <Grid container>
@@ -139,7 +151,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
 
                         </Box>
                         <Grid item className={classes.nextContainer}>
-                            <CustomButton type={"submit"} className={classes.buttonBlock} text={"Next"}/>
+                            <CustomButton type={"submit"} className={classes.buttonBlock} text={"Dashboard"}/>
                             <Typography variant={"subtitle1"}>Have an account already?&nbsp;
                                 <Link className={classes.link} onClick={() => {
                                     history.push("login")
