@@ -9,6 +9,18 @@ Parameters:
     Type: String
 
   
+  
+  
+  functionmarketingtool2598d37ePreSignupArn:
+    Type: String
+    Default: functionmarketingtool2598d37ePreSignupArn
+  
+  functionmarketingtool2598d37ePreSignupName:
+    Type: String
+    Default: functionmarketingtool2598d37ePreSignupName
+  
+  
+  
 
     
   identityPoolName:
@@ -75,10 +87,10 @@ Parameters:
   userpoolClientGenerateSecret:
     Type: String
             
-    
   userpoolClientRefreshTokenValidity:
-    Type: Number
-          
+    Type: String
+  
+            
         
   userpoolClientWriteAttributes:
     Type: CommaDelimitedList
@@ -125,7 +137,6 @@ Parameters:
   userPoolGroupList:
     Type: CommaDelimitedList
       
-            
   serviceName:
     Type: String
   
@@ -146,6 +157,23 @@ Parameters:
   dependsOn:
     Type: CommaDelimitedList
       
+  
+  thirdPartyAuth:
+    Type: String
+            
+  
+  userPoolGroups:
+    Type: String
+            
+  
+  adminQueries:
+    Type: String
+            
+  
+  hostedUI:
+    Type: String
+            
+            
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
@@ -203,6 +231,19 @@ Resources:
         
       
       
+      LambdaConfig:
+        
+        
+        
+        
+        
+        
+        
+          PreSignUp: !Ref functionmarketingtool2598d37ePreSignupArn
+        
+        
+        
+      
       
       AutoVerifiedAttributes: !Ref autoVerifiedAttributes
       
@@ -233,6 +274,15 @@ Resources:
   
   
   
+  
+  UserPoolPreSignupLambdaInvokePermission:
+    Type: "AWS::Lambda::Permission"
+    DependsOn: UserPool
+    Properties:
+      Action: "lambda:invokeFunction"
+      Principal: "cognito-idp.amazonaws.com"
+      FunctionName: !Ref functionmarketingtool2598d37ePreSignupName
+      SourceArn: !GetAtt UserPool.Arn
   
   
   

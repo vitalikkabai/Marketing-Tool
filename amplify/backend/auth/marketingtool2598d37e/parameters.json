@@ -1,6 +1,6 @@
 {
     "identityPoolName": "marketingtool2598d37e_identitypool_2598d37e",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "market2598d37e",
     "userPoolName": "marketingtool2598d37e_userpool_2598d37e",
     "autoVerifiedAttributes": [
@@ -21,7 +21,7 @@
         "email"
     ],
     "userpoolClientGenerateSecret": true,
-    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientRefreshTokenValidity": "300",
     "userpoolClientWriteAttributes": [
         "email"
     ],
@@ -45,17 +45,33 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
+    "useDefault": "manual",
     "usernameAttributes": [
         "email"
     ],
-    "triggers": "{}",
-    "userPoolGroupList": [],
+    "triggers": "{\n  \"PreSignup\": [\n    \"custom\"\n  ]\n}",
+    "userPoolGroupList": [
+        "BusinessOwnersGroup"
+    ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
     "parentStack": {
         "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "dependsOn": []
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "marketingtool2598d37ePreSignup",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        }
+    ],
+    "thirdPartyAuth": false,
+    "userPoolGroups": true,
+    "adminQueries": false,
+    "hostedUI": false
 }
