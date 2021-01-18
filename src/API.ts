@@ -26,7 +26,6 @@ export enum BusinessType {
 
 
 export type ModelBusinessConditionInput = {
-  ownerUID?: ModelStringInput | null,
   companyName?: ModelStringInput | null,
   country?: ModelStringInput | null,
   city?: ModelStringInput | null,
@@ -96,7 +95,7 @@ export type ModelBusinessTypeInput = {
 
 export type UpdateBusinessInput = {
   id: string,
-  ownerUID?: string | null,
+  ownerUID: string,
   companyName?: string | null,
   country?: string | null,
   city?: string | null,
@@ -111,8 +110,19 @@ export type UpdateBusinessInput = {
 };
 
 export type DeleteBusinessInput = {
-  id?: string | null,
+  id: string,
+  ownerUID: string,
   _version?: number | null,
+};
+
+export type ModelStringKeyConditionInput = {
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
 };
 
 export type ModelBusinessFilterInput = {
@@ -154,16 +164,6 @@ export enum ModelSortDirection {
   DESC = "DESC",
 }
 
-
-export type ModelStringKeyConditionInput = {
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-};
 
 export type CreateBusinessMutationVariables = {
   input: CreateBusinessInput,
@@ -248,6 +248,7 @@ export type DeleteBusinessMutation = {
 
 export type GetBusinessQueryVariables = {
   id: string,
+  ownerUID: string,
 };
 
 export type GetBusinessQuery = {
@@ -273,84 +274,16 @@ export type GetBusinessQuery = {
 };
 
 export type ListBusinesssQueryVariables = {
+  id?: string | null,
+  ownerUID?: ModelStringKeyConditionInput | null,
   filter?: ModelBusinessFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
 };
 
 export type ListBusinesssQuery = {
   listBusinesss:  {
-    __typename: "ModelBusinessConnection",
-    items:  Array< {
-      __typename: "Business",
-      id: string,
-      ownerUID: string,
-      companyName: string | null,
-      country: string | null,
-      city: string | null,
-      businessNumber: string | null,
-      haveExperienceSelling: boolean | null,
-      storeURLs: Array< string | null > | null,
-      haveWebsite: boolean | null,
-      websiteURLs: Array< string | null > | null,
-      businessType: BusinessType | null,
-      createdAt: string | null,
-      _version: number,
-      _deleted: boolean | null,
-      _lastChangedAt: number,
-      updatedAt: string,
-    } | null > | null,
-    nextToken: string | null,
-    startedAt: number | null,
-  } | null,
-};
-
-export type ByOwnerUidQueryVariables = {
-  ownerUID?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelBusinessFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ByOwnerUidQuery = {
-  byOwnerUID:  {
-    __typename: "ModelBusinessConnection",
-    items:  Array< {
-      __typename: "Business",
-      id: string,
-      ownerUID: string,
-      companyName: string | null,
-      country: string | null,
-      city: string | null,
-      businessNumber: string | null,
-      haveExperienceSelling: boolean | null,
-      storeURLs: Array< string | null > | null,
-      haveWebsite: boolean | null,
-      websiteURLs: Array< string | null > | null,
-      businessType: BusinessType | null,
-      createdAt: string | null,
-      _version: number,
-      _deleted: boolean | null,
-      _lastChangedAt: number,
-      updatedAt: string,
-    } | null > | null,
-    nextToken: string | null,
-    startedAt: number | null,
-  } | null,
-};
-
-export type ByOwnerUidDateQueryVariables = {
-  ownerUID?: string | null,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelBusinessFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ByOwnerUidDateQuery = {
-  byOwnerUidDate:  {
     __typename: "ModelBusinessConnection",
     items:  Array< {
       __typename: "Business",

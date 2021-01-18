@@ -1,7 +1,5 @@
 type Business @model 
     @key(fields: ["id", "ownerUID"])
-    @key(name: "byOwnerId", fields: ["ownerUID"],queryField: "byOwnerUID")
-    @key(name: "byDate", fields: ["ownerUID", "createdAt"],queryField: "byOwnerUidDate")
     @auth(rules: [{allow: public}]) {
   id: ID!
   ownerUID: String!

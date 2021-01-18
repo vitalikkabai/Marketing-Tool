@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-marketingtool-dev-104149-authRole",
+      "UnauthRoleArn": "arn:aws:iam::756472502459:role/amplify-marketingtool-dev-104149-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::756472502459:role/amplify-marketingtool-dev-104149-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-marketingtool-dev-104149-deployment",
+      "UnauthRoleName": "amplify-marketingtool-dev-104149-unauthRole",
+      "StackName": "amplify-marketingtool-dev-104149",
+      "StackId": "arn:aws:cloudformation:eu-central-1:756472502459:stack/amplify-marketingtool-dev-104149/026406c0-5969-11eb-9bd3-028bc49454f2",
+      "AmplifyAppId": "dnf5wc8byga7o"
+    },
+    "categories": {
+      "auth": {
+        "marketingtool2598d37e": {}
+      }
+    }
+  }
+}

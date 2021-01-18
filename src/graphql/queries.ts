@@ -3,8 +3,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const getBusiness = /* GraphQL */ `
-  query GetBusiness($id: ID!) {
-    getBusiness(id: $id) {
+  query GetBusiness($id: ID!, $ownerUID: String!) {
+    getBusiness(id: $id, ownerUID: $ownerUID) {
       id
       ownerUID
       companyName
@@ -26,88 +26,20 @@ export const getBusiness = /* GraphQL */ `
 `;
 export const listBusinesss = /* GraphQL */ `
   query ListBusinesss(
+    $id: ID
+    $ownerUID: ModelStringKeyConditionInput
     $filter: ModelBusinessFilterInput
     $limit: Int
     $nextToken: String
-  ) {
-    listBusinesss(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        ownerUID
-        companyName
-        country
-        city
-        businessNumber
-        haveExperienceSelling
-        storeURLs
-        haveWebsite
-        websiteURLs
-        businessType
-        createdAt
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const byOwnerUid = /* GraphQL */ `
-  query ByOwnerUid(
-    $ownerUID: String
     $sortDirection: ModelSortDirection
-    $filter: ModelBusinessFilterInput
-    $limit: Int
-    $nextToken: String
   ) {
-    byOwnerUID(
+    listBusinesss(
+      id: $id
       ownerUID: $ownerUID
-      sortDirection: $sortDirection
       filter: $filter
       limit: $limit
       nextToken: $nextToken
-    ) {
-      items {
-        id
-        ownerUID
-        companyName
-        country
-        city
-        businessNumber
-        haveExperienceSelling
-        storeURLs
-        haveWebsite
-        websiteURLs
-        businessType
-        createdAt
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const byOwnerUidDate = /* GraphQL */ `
-  query ByOwnerUidDate(
-    $ownerUID: String
-    $createdAt: ModelStringKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelBusinessFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    byOwnerUidDate(
-      ownerUID: $ownerUID
-      createdAt: $createdAt
       sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
     ) {
       items {
         id
