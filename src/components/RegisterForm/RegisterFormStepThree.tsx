@@ -136,7 +136,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                     <CustomInput
                                         type="password"
                                         name="password"
-                                        label="RepeatPassword"
+                                        label="Repeat Password"
                                         variant="outlined"
                                         placeholder={"Company Name"}
                                         fullWidth={true}
@@ -148,7 +148,6 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                 </Grid>
                                 <Grid item xs={1}/>
                             </Grid>
-
                         </Box>
                         <Grid item className={classes.nextContainer}>
                             <CustomButton type={"submit"} className={classes.buttonBlock} text={"Dashboard"}/>
