@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
 import { UserAttributes } from "./AuthReducer";
 
 export const signIn = (username: string, password: string) => ({
     type: "SIGN-IN-REQUEST" as const,
-    payload: {username, password}
+    payload: { username, password }
 });
 
 export const signInSuccess = (userAttributes: UserAttributes) => ({
@@ -14,12 +12,12 @@ export const signInSuccess = (userAttributes: UserAttributes) => ({
 
 export const signInFailed = (signInError: string) => ({
     type: "SIGN-IN-FAILED" as const,
-    payload: {signInError}
+    payload: { signInError }
 });
 
 export const signUp = (email: string, password: string, username: string) => ({
     type: "SIGN-UP-REQUEST" as const,
-    payload: {email, password, username}
+    payload: { email, password, username }
 });
 
 export const signUpSuccess = (userID: string) => ({
@@ -29,7 +27,7 @@ export const signUpSuccess = (userID: string) => ({
 
 export const signUpFailed = (signInError: string) => ({
     type: "SIGN-UP-FAILED" as const,
-    payload: {signInError}
+    payload: { signInError }
 });
 
 export const signOut = () => ({
