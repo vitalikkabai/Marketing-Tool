@@ -1,4 +1,4 @@
-import {Box, Button, Grid, Link, Typography} from "@material-ui/core";
+import {Box, Grid, Link, Typography} from "@material-ui/core";
 import React, {useState} from 'react';
 import classes from './RegisterForm.module.scss';
 import {FormStepTwoContainerType} from './RegisterFormStepThreeContainer';
@@ -22,9 +22,9 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("submited")
         saveInputData();
         props.signUp(ownerEmail, password, ownerName);
+        history.push("");
     }
 
     const handleBackPressed = () => {
@@ -154,7 +154,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                             <CustomButton type={"submit"} className={classes.buttonBlock} text={"Dashboard"}/>
                             <Typography variant={"subtitle1"}>Have an account already?&nbsp;
                                 <Link className={classes.link} onClick={() => {
-                                    history.push("login")
+                                    history.replace("/login")
                                 }}>Log in</Link>
                             </Typography>
                         </Grid>
