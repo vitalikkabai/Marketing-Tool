@@ -15,24 +15,24 @@ import Chat from "../../components/Chat/Chat";
 const MarketingToolPageContainer = (props: any) => {
 
     return (
-        <Grid container className={classes.wrapper}>
+        <Box className={classes.wrapper}>
             <SideBarMenu/>
             <Box className={classes.marketingContainer}>
                 <TopBar signOut={props.signOut}/>
                 <Grid container className={classes.contentContainer}>
-                    <Grid xs={8} item>
+                    <Grid xs={8} xl={9} item>
                         <Switch>
                             <Route path='/' exact component={Dashboard}/>
                         </Switch>
                     </Grid>
-                    <Grid xs={4} item>
+                    <Grid xs={4} xl={3}
+                          item>
                         <Chat/>
                     </Grid>
-
                 </Grid>
             </Box>
 
-        </Grid>
+        </Box>
     );
 }
 
