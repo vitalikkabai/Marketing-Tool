@@ -17,10 +17,8 @@ export const getBusiness = /* GraphQL */ `
       websiteURLs
       businessType
       createdAt
-      _version
-      _deleted
-      _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
@@ -54,49 +52,10 @@ export const listBusinesss = /* GraphQL */ `
         websiteURLs
         businessType
         createdAt
-        _version
-        _deleted
-        _lastChangedAt
         updatedAt
+        owner
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncBusinesses = /* GraphQL */ `
-  query SyncBusinesses(
-    $filter: ModelBusinessFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncBusinesses(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        ownerUID
-        companyName
-        country
-        city
-        businessNumber
-        haveExperienceSelling
-        storeURLs
-        haveWebsite
-        websiteURLs
-        businessType
-        createdAt
-        _version
-        _deleted
-        _lastChangedAt
-        updatedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;

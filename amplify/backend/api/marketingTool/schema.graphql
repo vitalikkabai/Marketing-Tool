@@ -1,6 +1,6 @@
 type Business @model 
     @key(fields: ["id", "ownerUID"])
-    @auth(rules: [{allow: public}]) {
+    @auth(rules: [{ allow: owner, operations: [create, delete, update] }]) {
   id: ID!
   ownerUID: String!
   companyName: String

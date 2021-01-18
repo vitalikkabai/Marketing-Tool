@@ -20,10 +20,8 @@ export const createBusiness = /* GraphQL */ `
       websiteURLs
       businessType
       createdAt
-      _version
-      _deleted
-      _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
@@ -45,10 +43,8 @@ export const updateBusiness = /* GraphQL */ `
       websiteURLs
       businessType
       createdAt
-      _version
-      _deleted
-      _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
@@ -70,10 +66,8 @@ export const deleteBusiness = /* GraphQL */ `
       websiteURLs
       businessType
       createdAt
-      _version
-      _deleted
-      _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;

@@ -15,7 +15,6 @@ export type CreateBusinessInput = {
   websiteURLs?: Array< string | null > | null,
   businessType?: BusinessType | null,
   createdAt?: string | null,
-  _version?: number | null,
 };
 
 export enum BusinessType {
@@ -106,13 +105,11 @@ export type UpdateBusinessInput = {
   websiteURLs?: Array< string | null > | null,
   businessType?: BusinessType | null,
   createdAt?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteBusinessInput = {
   id: string,
   ownerUID: string,
-  _version?: number | null,
 };
 
 export type ModelStringKeyConditionInput = {
@@ -185,10 +182,8 @@ export type CreateBusinessMutation = {
     websiteURLs: Array< string | null > | null,
     businessType: BusinessType | null,
     createdAt: string | null,
-    _version: number,
-    _deleted: boolean | null,
-    _lastChangedAt: number,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
@@ -212,10 +207,8 @@ export type UpdateBusinessMutation = {
     websiteURLs: Array< string | null > | null,
     businessType: BusinessType | null,
     createdAt: string | null,
-    _version: number,
-    _deleted: boolean | null,
-    _lastChangedAt: number,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
@@ -239,10 +232,8 @@ export type DeleteBusinessMutation = {
     websiteURLs: Array< string | null > | null,
     businessType: BusinessType | null,
     createdAt: string | null,
-    _version: number,
-    _deleted: boolean | null,
-    _lastChangedAt: number,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
@@ -266,10 +257,8 @@ export type GetBusinessQuery = {
     websiteURLs: Array< string | null > | null,
     businessType: BusinessType | null,
     createdAt: string | null,
-    _version: number,
-    _deleted: boolean | null,
-    _lastChangedAt: number,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
@@ -299,47 +288,10 @@ export type ListBusinesssQuery = {
       websiteURLs: Array< string | null > | null,
       businessType: BusinessType | null,
       createdAt: string | null,
-      _version: number,
-      _deleted: boolean | null,
-      _lastChangedAt: number,
       updatedAt: string,
+      owner: string | null,
     } | null > | null,
     nextToken: string | null,
-    startedAt: number | null,
-  } | null,
-};
-
-export type SyncBusinessesQueryVariables = {
-  filter?: ModelBusinessFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncBusinessesQuery = {
-  syncBusinesses:  {
-    __typename: "ModelBusinessConnection",
-    items:  Array< {
-      __typename: "Business",
-      id: string,
-      ownerUID: string,
-      companyName: string | null,
-      country: string | null,
-      city: string | null,
-      businessNumber: string | null,
-      haveExperienceSelling: boolean | null,
-      storeURLs: Array< string | null > | null,
-      haveWebsite: boolean | null,
-      websiteURLs: Array< string | null > | null,
-      businessType: BusinessType | null,
-      createdAt: string | null,
-      _version: number,
-      _deleted: boolean | null,
-      _lastChangedAt: number,
-      updatedAt: string,
-    } | null > | null,
-    nextToken: string | null,
-    startedAt: number | null,
   } | null,
 };
 
@@ -358,10 +310,8 @@ export type OnCreateBusinessSubscription = {
     websiteURLs: Array< string | null > | null,
     businessType: BusinessType | null,
     createdAt: string | null,
-    _version: number,
-    _deleted: boolean | null,
-    _lastChangedAt: number,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
@@ -380,10 +330,8 @@ export type OnUpdateBusinessSubscription = {
     websiteURLs: Array< string | null > | null,
     businessType: BusinessType | null,
     createdAt: string | null,
-    _version: number,
-    _deleted: boolean | null,
-    _lastChangedAt: number,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
@@ -402,9 +350,7 @@ export type OnDeleteBusinessSubscription = {
     websiteURLs: Array< string | null > | null,
     businessType: BusinessType | null,
     createdAt: string | null,
-    _version: number,
-    _deleted: boolean | null,
-    _lastChangedAt: number,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
