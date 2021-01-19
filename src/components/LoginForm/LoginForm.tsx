@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Grid, Link, Typography } from "@material-ui/core";
 import classes from "./LoginForm.module.scss";
 import { useHistory } from "react-router";
 import CustomInput from "../common/Input/CustomInput"
 import GoBackButton from "../common/Button/GoBackButton";
 import CustomButton from "../common/Button/CustomButton";
-
+import { API, graphqlOperation } from "aws-amplify";
+import { getBusiness, listBusinesss } from "../../graphql/queries";
+import AUTH_TYPE from "../../../node_modules/aws-amplify/lib-esm"
 type PropsType = {
 	isAuth: boolean
 	signIn: (username: string, password: string) => void
@@ -27,6 +29,11 @@ const LoginForm: React.FC<PropsType> = (props) => {
 	if (props.isAuth) {
 		history.push("")
 	}
+
+	useEffect(() => {
+		(API.graphql({query: listBusinesss}) as Promise<any>)
+		.then((res)=> console.log(res)).catch(e => console.log("error" + e))
+	},[])
 
 	return (
 		<Grid container justify="center" alignItems={"center"}>

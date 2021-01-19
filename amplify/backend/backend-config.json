@@ -47,7 +47,7 @@
     }
   },
   "api": {
-    "marketingtool": {
+    "apiGraphqlNumber2": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -58,7 +58,15 @@
               "userPoolId": "authmarketingtool2598d37e"
             }
           },
-          "additionalAuthenticationProviders": []
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 365,
+                "description": "second api key"
+              }
+            }
+          ]
         }
       }
     }

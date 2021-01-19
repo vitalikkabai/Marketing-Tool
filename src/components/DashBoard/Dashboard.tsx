@@ -9,9 +9,12 @@ import classes from './Dashboard.module.scss';
 const Dashboard: FunctionComponent<{auth: any}> = (props) => {
   useEffect(()=> {
     console.log(props.auth);
-    (API.graphql(graphqlOperation(listBusinesss)) as Promise<any>)
-    .then((res)=> console.log(res)).catch(e => console.log(e))
+    (API.graphql(graphqlOperation(listBusinesss)
+    ) as Promise<any>)
+    .then((res)=> console.log(res)).catch(e => console.log(e));
     
+    (API.graphql(graphqlOperation(getBusiness,{ownerUID:"3df546a0-41fc-4fe8-ad8b-42519518d38c"})) as Promise<any>)
+		.then((res)=> console.log(res)).catch(e => console.log(e))
   },[])
   return (
     <Grid container className={classes.dashboard}>
