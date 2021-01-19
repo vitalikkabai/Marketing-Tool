@@ -18,14 +18,10 @@ export const createBusiness = /* GraphQL */ `
       storeURLs
       haveWebsite
       websiteURLs
-      ownerName
-      ownerEmailAddress
       businessType
       createdAt
-      _version
-      _deleted
-      _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
@@ -45,14 +41,10 @@ export const updateBusiness = /* GraphQL */ `
       storeURLs
       haveWebsite
       websiteURLs
-      ownerName
-      ownerEmailAddress
       businessType
       createdAt
-      _version
-      _deleted
-      _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
@@ -72,14 +64,10 @@ export const deleteBusiness = /* GraphQL */ `
       storeURLs
       haveWebsite
       websiteURLs
-      ownerName
-      ownerEmailAddress
       businessType
       createdAt
-      _version
-      _deleted
-      _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;

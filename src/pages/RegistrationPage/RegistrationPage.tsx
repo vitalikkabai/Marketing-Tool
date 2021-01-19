@@ -6,6 +6,7 @@ import { Route, Switch } from "react-router";
 import RegisterFormStepTwoContainer from "../../components/RegisterForm/RegisterFormStepTwoContainer";
 import RegisterFormContainer from "../../components/RegisterForm/RegisterFormContainer";
 import RegisterFormStepThreeContainer from "../../components/RegisterForm/RegisterFormStepThreeContainer";
+import { withNotAuthRedirect } from "../../hoc/withNotAuthRedirect";
 
 
 const RegistrationPage: FunctionComponent = () => {
@@ -28,4 +29,4 @@ const RegistrationPage: FunctionComponent = () => {
     );
 }
 
-export default RegistrationPage;
+export default withNotAuthRedirect(RegistrationPage);

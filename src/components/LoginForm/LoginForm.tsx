@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Grid, Link, Typography } from "@material-ui/core";
 import classes from "./LoginForm.module.scss";
 import { useHistory } from "react-router";
 import CustomInput from "../common/Input/CustomInput"
 import GoBackButton from "../common/Button/GoBackButton";
 import CustomButton from "../common/Button/CustomButton";
-
+import { API } from "aws-amplify";
 type PropsType = {
 	isAuth: boolean
 	signIn: (username: string, password: string) => void

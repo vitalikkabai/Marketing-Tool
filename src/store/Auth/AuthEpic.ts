@@ -1,5 +1,5 @@
 import { ActionsObservable, ofType } from 'redux-observable';
-import { mergeMap, switchMap, catchError, map } from 'rxjs/operators';
+import { mergeMap, switchMap, catchError, map, mapTo } from 'rxjs/operators';
 import { Auth } from "aws-amplify";
 import {
     getAuthDataFailed,
@@ -39,6 +39,29 @@ export const signInEpic = (action$: ActionsObservable<any>) => action$.pipe(
     })
 );
 
+// export const initialSignInEpic = (action$: ActionsObservable<ActionTypes>) => action$.pipe(
+//     ofType("INITIAL-SIGN-IN-REQUEST"),
+//     mergeMap(async (action) => {
+//         return Auth.signIn({
+//             username: action.payload.username,
+//             password: action.payload.password,
+//         }).then((response) => {
+//             console.log("signied in");
+//             console.log(response)
+//             return signInSuccess({
+//                 userID: response.attributes.sub,
+//                 email: response.attributes.email,
+//                 emailVerified: response.attributes.email_verified,
+//                 userName: response.attributes.given_name,
+//             });
+//         }).catch(err => {
+//             alert("Failed to Sign in");
+//             console.log(err)
+//             return signInFailed(err)
+//         });
+//     })
+// );
+
 export const signUpEpic = (action$: ActionsObservable<any>) => action$.pipe(
     ofType("SIGN-UP-REQUEST"),
     mergeMap(action => {
@@ -51,11 +74,25 @@ export const signUpEpic = (action$: ActionsObservable<any>) => action$.pipe(
             }
         })).pipe(
             mergeMap(res => {
-                console.log(res); return [
-                    signUpSuccess(res.userSub),
-                    saveBusinessToDB(),
-                    signIn(action.payload.email, action.payload.password)
-                ]
+                console.log(res); 
+                    // signUpSuccess(res.userSub),
+                    return from(Auth.signIn({
+                        username: action.payload.email, 
+                        password: action.payload.password
+                    })).pipe(
+                        catchError(err => of(signInFailed(err))),
+                        mergeMap((response) => {console.log(response); return [
+                            signInSuccess({
+                                userID: response.attributes.sub,
+                                email: response.attributes.email,
+                                emailVerified: response.attributes.email_verified,
+                                userName: response.attributes.given_name,
+                            }),
+                            saveBusinessToDB(),
+                        ]})
+                    )
+                    // InitialSignIn(action.payload.email, action.payload.password),
+                
             }),
             catchError(err => of(signUpFailed(err)))
         )

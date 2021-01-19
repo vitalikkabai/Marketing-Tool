@@ -11,9 +11,6 @@
     },
     "auth": {
       "enablecaseinsensitivity": true
-    },
-    "codegen": {
-      "useappsyncmodelgenplugin": true
     }
   }
 }
