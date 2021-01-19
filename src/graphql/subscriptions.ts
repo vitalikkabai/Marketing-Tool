@@ -15,14 +15,10 @@ export const onCreateBusiness = /* GraphQL */ `
       storeURLs
       haveWebsite
       websiteURLs
-      ownerName
-      ownerEmailAddress
       businessType
       createdAt
-      _version
-      _deleted
-      _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
@@ -39,14 +35,10 @@ export const onUpdateBusiness = /* GraphQL */ `
       storeURLs
       haveWebsite
       websiteURLs
-      ownerName
-      ownerEmailAddress
       businessType
       createdAt
-      _version
-      _deleted
-      _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;
@@ -63,14 +55,10 @@ export const onDeleteBusiness = /* GraphQL */ `
       storeURLs
       haveWebsite
       websiteURLs
-      ownerName
-      ownerEmailAddress
       businessType
       createdAt
-      _version
-      _deleted
-      _lastChangedAt
       updatedAt
+      owner
     }
   }
 `;

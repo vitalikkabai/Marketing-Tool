@@ -113,6 +113,15 @@ export const theme = createMuiTheme({
             lineHeight: '150%',
             letterSpacing: '0.03em',
         },
+        overline: {
+            fontFamily: 'liberation-sans',
+            fontStyle: 'normal',
+            fontWeight: 'normal',
+            fontSize: '10px',
+            lineHeight: '150%',
+            letterSpacing: '0.02em',
+            textTransform: "none"
+        },
     },
     palette: {
         primary: {

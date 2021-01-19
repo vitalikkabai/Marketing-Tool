@@ -1,7 +1,10 @@
 type Business @model 
-    @key(name: "byOwnerId", fields: ["ownerUID"],queryField: "byOwnerUID")
-    @key(name: "byDate", fields: ["ownerUID", "createdAt"],queryField: "byOwnerUidDate")
-    @auth(rules: [{allow: public}]) {
+    @key(fields: ["id", "ownerUID"])
+    @auth(rules: [
+          { allow: owner },
+          { allow: public, operations: [read]},
+          { allow: private, operations: [read] },
+      ]) {
   id: ID!
   ownerUID: String!
   companyName: String
@@ -12,8 +15,6 @@ type Business @model
   storeURLs: [String]
   haveWebsite: Boolean
   websiteURLs: [String]
-  ownerName: String
-  ownerEmailAddress: String
   businessType: BusinessType
   createdAt: AWSDateTime
 }

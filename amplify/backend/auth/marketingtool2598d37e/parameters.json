@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "marketingtool91f7f934_identitypool_91f7f934",
+    "identityPoolName": "marketingtool2598d37e_identitypool_2598d37e",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "market91f7f934",
-    "userPoolName": "marketingtool91f7f934_userpool_91f7f934",
+    "resourceNameTruncated": "market2598d37e",
+    "userPoolName": "marketingtool2598d37e_userpool_2598d37e",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -21,17 +21,17 @@
         "email"
     ],
     "userpoolClientGenerateSecret": true,
-    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientRefreshTokenValidity": "300",
     "userpoolClientWriteAttributes": [
         "email"
     ],
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "market91f7f934_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "market2598d37e_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "91f7f934",
-    "resourceName": "marketingtool91f7f934",
+    "sharedId": "2598d37e",
+    "resourceName": "marketingtool2598d37e",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -45,17 +45,33 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
+    "useDefault": "manual",
     "usernameAttributes": [
         "email"
     ],
-    "triggers": "{}",
-    "userPoolGroupList": [],
+    "triggers": "{\n  \"PreSignup\": [\n    \"custom\"\n  ]\n}",
+    "userPoolGroupList": [
+        "BusinessOwnersGroup"
+    ],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
     "parentStack": {
         "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "dependsOn": []
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "marketingtool2598d37ePreSignup",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        }
+    ],
+    "thirdPartyAuth": false,
+    "userPoolGroups": true,
+    "adminQueries": false,
+    "hostedUI": false
 }

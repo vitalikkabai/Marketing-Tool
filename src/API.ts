@@ -13,11 +13,8 @@ export type CreateBusinessInput = {
   storeURLs?: Array< string | null > | null,
   haveWebsite?: boolean | null,
   websiteURLs?: Array< string | null > | null,
-  ownerName?: string | null,
-  ownerEmailAddress?: string | null,
   businessType?: BusinessType | null,
   createdAt?: string | null,
-  _version?: number | null,
 };
 
 export enum BusinessType {
@@ -28,7 +25,6 @@ export enum BusinessType {
 
 
 export type ModelBusinessConditionInput = {
-  ownerUID?: ModelStringInput | null,
   companyName?: ModelStringInput | null,
   country?: ModelStringInput | null,
   city?: ModelStringInput | null,
@@ -37,8 +33,6 @@ export type ModelBusinessConditionInput = {
   storeURLs?: ModelStringInput | null,
   haveWebsite?: ModelBooleanInput | null,
   websiteURLs?: ModelStringInput | null,
-  ownerName?: ModelStringInput | null,
-  ownerEmailAddress?: ModelStringInput | null,
   businessType?: ModelBusinessTypeInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelBusinessConditionInput | null > | null,
@@ -100,7 +94,7 @@ export type ModelBusinessTypeInput = {
 
 export type UpdateBusinessInput = {
   id: string,
-  ownerUID?: string | null,
+  ownerUID: string,
   companyName?: string | null,
   country?: string | null,
   city?: string | null,
@@ -109,16 +103,23 @@ export type UpdateBusinessInput = {
   storeURLs?: Array< string | null > | null,
   haveWebsite?: boolean | null,
   websiteURLs?: Array< string | null > | null,
-  ownerName?: string | null,
-  ownerEmailAddress?: string | null,
   businessType?: BusinessType | null,
   createdAt?: string | null,
-  _version?: number | null,
 };
 
 export type DeleteBusinessInput = {
-  id?: string | null,
-  _version?: number | null,
+  id: string,
+  ownerUID: string,
+};
+
+export type ModelStringKeyConditionInput = {
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
 };
 
 export type ModelBusinessFilterInput = {
@@ -132,8 +133,6 @@ export type ModelBusinessFilterInput = {
   storeURLs?: ModelStringInput | null,
   haveWebsite?: ModelBooleanInput | null,
   websiteURLs?: ModelStringInput | null,
-  ownerName?: ModelStringInput | null,
-  ownerEmailAddress?: ModelStringInput | null,
   businessType?: ModelBusinessTypeInput | null,
   createdAt?: ModelStringInput | null,
   and?: Array< ModelBusinessFilterInput | null > | null,
@@ -163,16 +162,6 @@ export enum ModelSortDirection {
 }
 
 
-export type ModelStringKeyConditionInput = {
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-};
-
 export type CreateBusinessMutationVariables = {
   input: CreateBusinessInput,
   condition?: ModelBusinessConditionInput | null,
@@ -191,14 +180,10 @@ export type CreateBusinessMutation = {
     storeURLs: Array< string | null > | null,
     haveWebsite: boolean | null,
     websiteURLs: Array< string | null > | null,
-    ownerName: string | null,
-    ownerEmailAddress: string | null,
     businessType: BusinessType | null,
     createdAt: string | null,
-    _version: number,
-    _deleted: boolean | null,
-    _lastChangedAt: number,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
@@ -220,14 +205,10 @@ export type UpdateBusinessMutation = {
     storeURLs: Array< string | null > | null,
     haveWebsite: boolean | null,
     websiteURLs: Array< string | null > | null,
-    ownerName: string | null,
-    ownerEmailAddress: string | null,
     businessType: BusinessType | null,
     createdAt: string | null,
-    _version: number,
-    _deleted: boolean | null,
-    _lastChangedAt: number,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
@@ -249,19 +230,16 @@ export type DeleteBusinessMutation = {
     storeURLs: Array< string | null > | null,
     haveWebsite: boolean | null,
     websiteURLs: Array< string | null > | null,
-    ownerName: string | null,
-    ownerEmailAddress: string | null,
     businessType: BusinessType | null,
     createdAt: string | null,
-    _version: number,
-    _deleted: boolean | null,
-    _lastChangedAt: number,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
 export type GetBusinessQueryVariables = {
   id: string,
+  ownerUID: string,
 };
 
 export type GetBusinessQuery = {
@@ -277,21 +255,20 @@ export type GetBusinessQuery = {
     storeURLs: Array< string | null > | null,
     haveWebsite: boolean | null,
     websiteURLs: Array< string | null > | null,
-    ownerName: string | null,
-    ownerEmailAddress: string | null,
     businessType: BusinessType | null,
     createdAt: string | null,
-    _version: number,
-    _deleted: boolean | null,
-    _lastChangedAt: number,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
 export type ListBusinesssQueryVariables = {
+  id?: string | null,
+  ownerUID?: ModelStringKeyConditionInput | null,
   filter?: ModelBusinessFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
 };
 
 export type ListBusinesssQuery = {
@@ -309,128 +286,12 @@ export type ListBusinesssQuery = {
       storeURLs: Array< string | null > | null,
       haveWebsite: boolean | null,
       websiteURLs: Array< string | null > | null,
-      ownerName: string | null,
-      ownerEmailAddress: string | null,
       businessType: BusinessType | null,
       createdAt: string | null,
-      _version: number,
-      _deleted: boolean | null,
-      _lastChangedAt: number,
       updatedAt: string,
+      owner: string | null,
     } | null > | null,
     nextToken: string | null,
-    startedAt: number | null,
-  } | null,
-};
-
-export type ByOwnerUidQueryVariables = {
-  ownerUID?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelBusinessFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ByOwnerUidQuery = {
-  byOwnerUID:  {
-    __typename: "ModelBusinessConnection",
-    items:  Array< {
-      __typename: "Business",
-      id: string,
-      ownerUID: string,
-      companyName: string | null,
-      country: string | null,
-      city: string | null,
-      businessNumber: string | null,
-      haveExperienceSelling: boolean | null,
-      storeURLs: Array< string | null > | null,
-      haveWebsite: boolean | null,
-      websiteURLs: Array< string | null > | null,
-      ownerName: string | null,
-      ownerEmailAddress: string | null,
-      businessType: BusinessType | null,
-      createdAt: string | null,
-      _version: number,
-      _deleted: boolean | null,
-      _lastChangedAt: number,
-      updatedAt: string,
-    } | null > | null,
-    nextToken: string | null,
-    startedAt: number | null,
-  } | null,
-};
-
-export type ByOwnerUidDateQueryVariables = {
-  ownerUID?: string | null,
-  createdAt?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelBusinessFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ByOwnerUidDateQuery = {
-  byOwnerUidDate:  {
-    __typename: "ModelBusinessConnection",
-    items:  Array< {
-      __typename: "Business",
-      id: string,
-      ownerUID: string,
-      companyName: string | null,
-      country: string | null,
-      city: string | null,
-      businessNumber: string | null,
-      haveExperienceSelling: boolean | null,
-      storeURLs: Array< string | null > | null,
-      haveWebsite: boolean | null,
-      websiteURLs: Array< string | null > | null,
-      ownerName: string | null,
-      ownerEmailAddress: string | null,
-      businessType: BusinessType | null,
-      createdAt: string | null,
-      _version: number,
-      _deleted: boolean | null,
-      _lastChangedAt: number,
-      updatedAt: string,
-    } | null > | null,
-    nextToken: string | null,
-    startedAt: number | null,
-  } | null,
-};
-
-export type SyncBusinessesQueryVariables = {
-  filter?: ModelBusinessFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-  lastSync?: number | null,
-};
-
-export type SyncBusinessesQuery = {
-  syncBusinesses:  {
-    __typename: "ModelBusinessConnection",
-    items:  Array< {
-      __typename: "Business",
-      id: string,
-      ownerUID: string,
-      companyName: string | null,
-      country: string | null,
-      city: string | null,
-      businessNumber: string | null,
-      haveExperienceSelling: boolean | null,
-      storeURLs: Array< string | null > | null,
-      haveWebsite: boolean | null,
-      websiteURLs: Array< string | null > | null,
-      ownerName: string | null,
-      ownerEmailAddress: string | null,
-      businessType: BusinessType | null,
-      createdAt: string | null,
-      _version: number,
-      _deleted: boolean | null,
-      _lastChangedAt: number,
-      updatedAt: string,
-    } | null > | null,
-    nextToken: string | null,
-    startedAt: number | null,
   } | null,
 };
 
@@ -447,14 +308,10 @@ export type OnCreateBusinessSubscription = {
     storeURLs: Array< string | null > | null,
     haveWebsite: boolean | null,
     websiteURLs: Array< string | null > | null,
-    ownerName: string | null,
-    ownerEmailAddress: string | null,
     businessType: BusinessType | null,
     createdAt: string | null,
-    _version: number,
-    _deleted: boolean | null,
-    _lastChangedAt: number,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
@@ -471,14 +328,10 @@ export type OnUpdateBusinessSubscription = {
     storeURLs: Array< string | null > | null,
     haveWebsite: boolean | null,
     websiteURLs: Array< string | null > | null,
-    ownerName: string | null,
-    ownerEmailAddress: string | null,
     businessType: BusinessType | null,
     createdAt: string | null,
-    _version: number,
-    _deleted: boolean | null,
-    _lastChangedAt: number,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
@@ -495,13 +348,9 @@ export type OnDeleteBusinessSubscription = {
     storeURLs: Array< string | null > | null,
     haveWebsite: boolean | null,
     websiteURLs: Array< string | null > | null,
-    ownerName: string | null,
-    ownerEmailAddress: string | null,
     businessType: BusinessType | null,
     createdAt: string | null,
-    _version: number,
-    _deleted: boolean | null,
-    _lastChangedAt: number,
     updatedAt: string,
+    owner: string | null,
   } | null,
 };

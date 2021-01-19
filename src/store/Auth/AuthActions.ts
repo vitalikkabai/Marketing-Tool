@@ -5,6 +5,11 @@ export const signIn = (username: string, password: string) => ({
     payload: { username, password }
 });
 
+export const initialSignIn = (username: string, password: string) => ({
+    type: "INITIAL-SIGN-IN-REQUEST" as const,
+    payload: {username, password}
+});
+
 export const signInSuccess = (userAttributes: UserAttributes) => ({
     type: "SIGN-IN-SUCCESS" as const,
     payload: userAttributes

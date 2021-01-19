@@ -75,20 +75,6 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
-                "ownerName": {
-                    "name": "ownerName",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "ownerEmailAddress": {
-                    "name": "ownerEmailAddress",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "businessType": {
                     "name": "businessType",
                     "isArray": false,
@@ -116,22 +102,10 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "byOwnerId",
                         "fields": [
+                            "id",
                             "ownerUID"
-                        ],
-                        "queryField": "byOwnerUID"
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byDate",
-                        "fields": [
-                            "ownerUID",
-                            "createdAt"
-                        ],
-                        "queryField": "byOwnerUidDate"
+                        ]
                     }
                 },
                 {
@@ -164,5 +138,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "f76337e418dcf466bd2ea540e96efd23"
+    "version": "440b0f41f6231581609beb8784df6de9"
 };

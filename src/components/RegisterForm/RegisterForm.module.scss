@@ -61,12 +61,11 @@
   }
 
   li {
-    width: 24px;
-    height: 24px;
+    width: 27px;
+    height: 27px;
     text-align: center;
-    line-height: 24px;
+    line-height: 27px;
     background: #EEEEEE;
-    margin: 0 16px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -75,28 +74,28 @@
     border-radius: 27px;
   }
 
-  li::before {
-    content: '';
-    position: absolute;
-    top: 11px;
-    left: -50px;
-    height: 3px;
-    width: 60px;
-    background: #EEEEEE;
-    z-index: -1;
-  }
-
-
-  li:first-child::before {
-    display: none;
-  }
-
   .active {
     width: 27px;
     height: 27px;
     line-height: 24px;
     background: #4285F4;
-    border: 3px solid #EEEEEE;
+  }
+
+  .current {
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    background: #4285F4;
+  }
+
+  .line {
+    height: 3px;
+    width: 26px;
+    background: #EEEEEE;
+  }
+
+  .lineActive {
+    background: #4285F4;
   }
 }
 
@@ -121,21 +120,6 @@
 
 
 }
-
-.progressCircle {
-  width: 27px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 27px;
-  line-height: 27px;
-  border-radius: 50%;
-  color: #fff;
-  text-align: center;
-  background: #4285F4;
-  border: 3px solid #EEEEEE;
-}
-
 .nextContainer {
   position: absolute;
   bottom: 25px;
