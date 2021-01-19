@@ -71,5 +71,11 @@
       "providerPlugin": "awscloudformation",
       "type": "manual"
     }
+  },
+  "storage": {
+    "ContentStorage": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }
