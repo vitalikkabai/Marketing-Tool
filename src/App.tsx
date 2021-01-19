@@ -30,10 +30,10 @@ function App(props: any): ReactElement {
 
 	return (
 		<Switch>
-			<Route path='/' exact component={MarketingToolPageContainer} />
 			<Route path='/login' component={LoginPage} />
 			<Route path='/register' component={RegistrationPage} />
 			<Route path='/resetPassword' component={ResetPasswordPage} />
+			<Route path='/' component={MarketingToolPageContainer} />
 		</Switch>
 	);
 }

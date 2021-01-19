@@ -12,6 +12,7 @@ import classes from "./MarketingToolPageContainer.module.scss"
 import {Box, Grid} from "@material-ui/core";
 import Chat from "../../components/Chat/Chat";
 import UserDashboard from "../../components/DashBoard/UserDashBoard/UserDashboard";
+import PersonalProfile from "../PersonalProfile/PersonalProfile";
 
 const MarketingToolPageContainer = (props: any) => {
 
@@ -24,6 +25,7 @@ const MarketingToolPageContainer = (props: any) => {
                     <Grid xs={8} xl={9} item className={classes.content}>
                         <Switch>
                             <Route path='/' exact component={props.isAuth? UserDashboard : VisitorDashboard}/>
+                            <Route path='/personal-profile'  component={PersonalProfile}/>
                         </Switch>
                     </Grid>
                     <Grid xs={4} xl={3}

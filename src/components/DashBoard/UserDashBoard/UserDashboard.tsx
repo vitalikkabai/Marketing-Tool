@@ -12,7 +12,6 @@ const UserDashboard = () => {
             <Grid item className={classes.test}>
                 <Box className={classes.todoTitleBox}>
                     <Typography variant={"h2"}>Tasks</Typography>
-                    <img src="https://marketingtool08846cb44c384baaa30317ed9c043c9a104149-dev.s3.eu-central-1.amazonaws.com/public/images/logo512whiteBG.png"/>
                 </Box>
                 <Box className={classes.contentContainer}>
                     <Grid container>
