@@ -3,6 +3,7 @@ import React, { FunctionComponent } from "react";
 import Header from "../../components/Header/Header";
 import classes from './LoginPage.module.scss';
 import LoginFormContainer from "../../components/LoginForm/LoginFormContainer";
+import { withNotAuthRedirect } from "../../hoc/withNotAuthRedirect";
 
 const LoginPage: FunctionComponent = () => {
 
@@ -20,4 +21,4 @@ const LoginPage: FunctionComponent = () => {
     );
 }
 
-export default LoginPage;
+export default withNotAuthRedirect(LoginPage);
