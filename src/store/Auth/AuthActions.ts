@@ -7,7 +7,7 @@ export const signIn = (username: string, password: string) => ({
 
 export const initialSignIn = (username: string, password: string) => ({
     type: "INITIAL-SIGN-IN-REQUEST" as const,
-    payload: {username, password}
+    payload: { username, password }
 });
 
 export const signInSuccess = (userAttributes: UserAttributes) => ({
@@ -84,6 +84,6 @@ export const sendNewPasswordSuccess = () => ({
 });
 
 export const sendNewPasswordFailed = () => ({
-    type: "RESET-LINK-SUCCESS" as const,
+    type: "RESET-LINK-FAILED" as const,
 });
 
