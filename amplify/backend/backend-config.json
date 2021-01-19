@@ -34,12 +34,6 @@
     }
   },
   "function": {
-    "PreSignUpConfirmation": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": []
-    },
     "marketingtool2598d37ePreSignup": {
       "build": true,
       "providerPlugin": "awscloudformation",
