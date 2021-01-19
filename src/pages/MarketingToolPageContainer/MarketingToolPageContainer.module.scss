@@ -13,4 +13,8 @@
   display: flex;
   height: calc(100% - 72px);
   padding-top: 41px;
+
+  .content {
+    height: 100%;
+  }
 }

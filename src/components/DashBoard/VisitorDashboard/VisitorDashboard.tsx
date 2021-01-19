@@ -1,11 +1,11 @@
 import {Box, Grid, Typography} from '@material-ui/core';
 import React from 'react';
-import classes from './Dashboard.module.scss';
-import check from '../../assets/images/checkMark.svg'
-import dashboardImage from "../../assets/images/dashboardStepsImage.svg"
-import playIcon from "../../assets/images/playVideoIocn.svg"
+import classes from './VisitorDashboard.module.scss';
+import check from '../../../assets/images/checkMark.svg'
+import dashboardImage from "../../../assets/images/dashboardStepsImage.svg"
+import playIcon from "../../../assets/images/playVideoIocn.svg"
 
-const Dashboard = () => {
+const VisitorDashboard = () => {
 
     return (
         <Grid container className={classes.dashboard}>
@@ -147,5 +147,4 @@ const Dashboard = () => {
     )
 };
 
-
-export default Dashboard;
+export default VisitorDashboard;
