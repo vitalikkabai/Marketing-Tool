@@ -6,11 +6,11 @@
 
 .marketingContainer {
   width: auto;
-  overflow: hidden;
+  height: calc(100% - 8px);
 }
 
 .contentContainer {
   display: flex;
   height: calc(100% - 72px);
-  padding-top: 16px;
+  padding-top: 41px;
 }

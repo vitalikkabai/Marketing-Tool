@@ -3,14 +3,13 @@ import React from 'react';
 import classes from './Dashboard.module.scss';
 import check from '../../assets/images/checkMark.svg'
 import dashboardImage from "../../assets/images/dashboardStepsImage.svg"
-import CustomButton from "../common/Button/CustomButton";
 import playIcon from "../../assets/images/playVideoIocn.svg"
 
 const Dashboard = () => {
 
     return (
         <Grid container className={classes.dashboard}>
-            <Grid item xs={12}>
+            <Grid item className={classes.test}>
                 <Box className={classes.todoTitleBox}>
                     <Typography variant={"h2"}>To-do list</Typography>
                 </Box>
@@ -124,7 +123,9 @@ const Dashboard = () => {
                         </Grid>
                     </Grid>
                 </Box>
-                <Grid container alignItems={"center"} justify={"center"} className={classes.videoContainer}>
+            </Grid>
+            <Grid container direction={"column"} className={classes.videoContainer}>
+                <Grid container justify={"center"}>
                     <Grid item>
                         <Typography variant={"h6"}>
                             From the small stuff to the big picture
@@ -140,11 +141,10 @@ const Dashboard = () => {
                         </Box>
                     </Grid>
                 </Grid>
+
             </Grid>
         </Grid>
     )
 };
-
-//
 
 export default Dashboard;

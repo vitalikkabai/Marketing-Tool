@@ -294,8 +294,8 @@ const SideBarMenu = () => {
             <Box className={classes.bottomText + " " + classes.gridItem}>
                 <hr style={{border: "1px solid #F8F8F8", width: "236px", margin:"0 0 46px 0"}}/>
                 <Box>
-                    <Typography variant={"subtitle1"}>Pricing</Typography>
                     <Typography variant={"subtitle1"}>About us 关于我们</Typography>
+                    <Typography variant={"subtitle1"}>Pricing</Typography>
                 </Box>
             </Box>
         </Grid>
