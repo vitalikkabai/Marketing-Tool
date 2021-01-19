@@ -32,7 +32,7 @@ const LoginForm: React.FC<PropsType> = (props) => {
 		<Grid container justify="center" alignItems={"center"}>
 			<Grid container direction="column" justify="center" className={classes.loginForm}>
 				<Box className={classes.loginSheet}>
-					<GoBackButton onClick={()=>{console.log("Back Clicked")}}/>
+					<GoBackButton onClick={() => { console.log("Back Clicked") }} />
 					<Grid item className={classes.gridItem}>
 						<Typography variant="h2" className={classes.header}>
 							Login

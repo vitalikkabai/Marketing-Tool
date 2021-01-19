@@ -38,7 +38,7 @@ const RegisterForm: React.FunctionComponent<FormContainerType> = (props) => {
                     <GoBackButton onClick={() => {
                         history.push("login")
                     }}/>
-                    <UxAssistant assistantText={"Hey there, I’m Vika:)\nLet’s get started"} stepNumber={1}/>
+                    <UxAssistant assistantText={"Hey there, I’m Vika:)"} stepNumber={1}/>
                     <Grid item container alignItems={"center"} justify={"center"} className={classes.formContainer}>
                         <Grid container item xs={10} direction={"column"} className={classes.formText}>
                             <form onSubmit={handleSubmit}>

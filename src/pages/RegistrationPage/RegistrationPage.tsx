@@ -5,6 +5,7 @@ import classes from './RegistrationPage.module.scss';
 import { Route, Switch } from "react-router";
 import RegisterFormStepTwoContainer from "../../components/RegisterForm/RegisterFormStepTwoContainer";
 import RegisterFormContainer from "../../components/RegisterForm/RegisterFormContainer";
+import RegisterFormStepThreeContainer from "../../components/RegisterForm/RegisterFormStepThreeContainer";
 
 
 const RegistrationPage: FunctionComponent = () => {
@@ -18,6 +19,7 @@ const RegistrationPage: FunctionComponent = () => {
                         <Switch>
                             <Route exact path='/register' component={RegisterFormContainer} />
                             <Route exact path='/register/2' component={RegisterFormStepTwoContainer} />
+                            <Route exact path='/register/3' component={RegisterFormStepThreeContainer} />
                         </Switch>
                     </Grid>
                 </Grid>

@@ -1,7 +1,105 @@
 .dashboard {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 100%;
+
+  .todoTitleBox {
+    height: 56px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.contentContainer {
+  margin-top: 20px;
+  background: #FFF;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin-right: 24px;
+  padding: 16px 8px 8px 24px;
+
+  .imageGridItem {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    img {
+      width: 80%;
+
+      @media(min-width:1920px) {
+        width: 60%;
+      }
+    }
+  }
+
+  .stepTitle {
+    margin-bottom: 16px;
+  }
+
+  .test {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  }
+
+  .stepBox {
+    background: #FFFFFF;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 16px;
+
+    .stepRow {
+      display: flex;
+      justify-content: flex-start;
+
+      .tableTitleBox {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 10px;
+        margin-left: 10px;
+        border-radius: 5px;
+        width: 100%;
+        color: #4285F4;
+      }
+
+      .coloredBox {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px 0 6px;
+        margin-left: 10px;
+        margin-bottom: 8px;
+        border-radius: 5px;
+        background: #FAD61E;
+        color: white;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.videoContainer {
+  margin-top: 5px;
+
+  .bottomPlayBox {
+    display: flex;
+    align-items: center;
+
+    .videoBox {
+      display: flex;
+      align-items: center;
+      margin-left: 34px;
+
+      img {
+        margin-left: 8px;
+      }
+    }
+  }
+}
+
+.vl {
+  display: inline;
+  border-left: 1px solid white;
+  margin: 0 15px;
   height: 100%;
 }
 

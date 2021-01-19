@@ -52,7 +52,7 @@ const SideBarMenu = () => {
                 <ListItem button
                           selected={selected === "3"}
                           classes={{root: classes.item3, selected: classes.active3 }}
-                          onClick={()=>{setSelected("3"); setOpen("3")}}>
+                          onClick={()=>{setSelected("3"); open === "3" ? setOpen("") : setOpen("3")}}>
                     <ListItemIcon classes={{root: classes.listIconRoot}}>
                         <ListIcon className={classes.svgIcon}/>
                     </ListItemIcon>
@@ -84,7 +84,7 @@ const SideBarMenu = () => {
                 <ListItem button
                           selected={selected === "4"}
                           classes={{root: classes.item4, selected: classes.active4 }}
-                          onClick={()=>{setSelected("4"); setOpen("4")}}>
+                          onClick={()=>{setSelected("4"); open === "4" ? setOpen("") : setOpen("4")}}>
                     <ListItemIcon classes={{root: classes.listIconRoot}}>
                         <EditIcon className={classes.svgIcon}/>
                     </ListItemIcon>
@@ -123,7 +123,7 @@ const SideBarMenu = () => {
                 <ListItem button
                           selected={selected === "5"}
                           classes={{root: classes.item5, selected: classes.active5 }}
-                          onClick={()=>{setSelected("5"); setOpen("5")}}>
+                          onClick={()=>{setSelected("5"); open === "5" ? setOpen("") : setOpen("5")}}>
                     <ListItemIcon classes={{root: classes.listIconRoot}}>
                         <SaleIcon className={classes.svgIcon}/>
                     </ListItemIcon>
@@ -156,7 +156,7 @@ const SideBarMenu = () => {
                 <ListItem button
                           selected={selected === "6"}
                           classes={{root: classes.item6, selected: classes.active6 }}
-                          onClick={()=>{setSelected("6"); setOpen("6")}}>
+                          onClick={()=>{setSelected("6"); open === "6" ? setOpen("") : setOpen("6")}}>
                     <ListItemIcon classes={{root: classes.listIconRoot}}>
                         <SmileIcon className={classes.svgIcon}/>
                     </ListItemIcon>
@@ -195,7 +195,7 @@ const SideBarMenu = () => {
                 <ListItem button
                           selected={selected === "7"}
                           classes={{root: classes.item7, selected: classes.active7 }}
-                          onClick={()=>{setSelected("7"); setOpen("7")}}>
+                          onClick={()=>{setSelected("7"); open === "7" ? setOpen("") : setOpen("7")}}>
                     <ListItemIcon classes={{root: classes.listIconRoot}}>
                         <SpeakIcon className={classes.svgIcon}/>
                     </ListItemIcon>
@@ -228,7 +228,7 @@ const SideBarMenu = () => {
                 <ListItem button
                           selected={selected === "8"}
                           classes={{root: classes.item8, selected: classes.active8 }}
-                          onClick={()=>{setSelected("8"); setOpen("8")}}>
+                          onClick={()=>{setSelected("8"); open === "8" ? setOpen("") : setOpen("8")}}>
                     <ListItemIcon classes={{root: classes.listIconRoot}}>
                         <GraphIcon className={classes.svgIcon}/>
                     </ListItemIcon>
@@ -261,7 +261,7 @@ const SideBarMenu = () => {
                 <ListItem button
                           selected={selected === "9"}
                           classes={{root: classes.item9, selected: classes.active9 }}
-                          onClick={()=>{setSelected("9"); setOpen("9")}}>
+                          onClick={()=>{setSelected("9"); open === "9" ? setOpen("") : setOpen("9")}}>
                     <ListItemIcon classes={{root: classes.listIconRoot}}>
                         <StonksIcon className={classes.svgIcon}/>
                     </ListItemIcon>
@@ -294,8 +294,8 @@ const SideBarMenu = () => {
             <Box className={classes.bottomText + " " + classes.gridItem}>
                 <hr style={{border: "1px solid #F8F8F8", width: "236px", margin:"0 0 46px 0"}}/>
                 <Box>
-                    <Typography variant={"subtitle1"}>Pricing</Typography>
                     <Typography variant={"subtitle1"}>About us 关于我们</Typography>
+                    <Typography variant={"subtitle1"}>Pricing</Typography>
                 </Box>
             </Box>
         </Grid>
