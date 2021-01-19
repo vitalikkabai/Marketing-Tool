@@ -10,7 +10,12 @@ import {
     signOutFailed,
     signOutSuccess,
     signUpSuccess,
-    signUpFailed
+    signUpFailed,
+    ResetLinkSuccess,
+    ResetLinkFailed,
+    sendNewPasswordSuccess,
+    sendNewPasswordFailed,
+    getResetLink
 } from "./AuthActions";
 import { ActionTypes } from "./AuthReducer";
 import { from, of } from 'rxjs';
@@ -89,5 +94,37 @@ export const getAuthDataEpic = (action$: ActionsObservable<ActionTypes>) => acti
             userName: res.attributes.given_name
         });
         else return getAuthDataFailed();
+    })
+);
+
+export const SendResetLinkEpic = (action$: ActionsObservable<any>) => action$.pipe(
+    ofType("SEND-RESET-LINK"),
+    switchMap(async (action) => {
+        console.log("kek");
+        return Auth.forgotPassword(action.payload.email)
+            .then(data => {
+                console.log(data)
+                return ResetLinkSuccess({ data })
+            })
+            .catch(err => {
+                console.log(err);
+                return ResetLinkFailed({ err })
+            });
+    })
+);
+
+export const sendNewPasswordEpic = (action$: ActionsObservable<any>) => action$.pipe(
+    ofType("SEND-NEW-PASSWORD"),
+    switchMap(async (action) => {
+        console.log("kek");
+        return Auth.forgotPasswordSubmit(action.payload.email, action.payload.code, action.payload.newPassword)
+            .then(data => {
+                console.log(data)
+                return sendNewPasswordSuccess()
+            })
+            .catch(err => {
+                console.log(err);
+                return sendNewPasswordFailed()
+            });
     })
 );

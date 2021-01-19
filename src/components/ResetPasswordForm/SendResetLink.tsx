@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Grid, Typography, Container } from "@material-ui/core";
 import classes from "./ResetPasswordForm.module.scss";
 import { useHistory } from "react-router";
@@ -12,7 +12,7 @@ type PropsType = {
 }
 
 
-const SendResetLinkPage: React.FC<PropsType> = (props) => {
+const SendResetLink: React.FC<PropsType> = (props) => {
   const history = useHistory();
   return (
 
@@ -64,4 +64,4 @@ const SendResetLinkPage: React.FC<PropsType> = (props) => {
   )
 }
 
-export default SendResetLinkPage;
+export default SendResetLink;

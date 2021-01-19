@@ -1,7 +1,7 @@
 import * as actions from './AuthActions';
 
 
-export interface UserAttributes{
+export interface UserAttributes {
     userID: string,
     email: string,
     emailVerified: boolean,
@@ -35,7 +35,7 @@ export const AuthReducer = (state: AuthReducerType = initialState, action: Actio
                 isAuth: true,
                 initialized: true,
                 userAttributes: action.payload,
-                
+
             };
 
         case "SIGN-OUT-SUCCESS":
@@ -49,7 +49,7 @@ export const AuthReducer = (state: AuthReducerType = initialState, action: Actio
             return {
                 ...state,
                 isAuth: true,
-                userAttributes: {...state.userAttributes, userID: action.payload}
+                userAttributes: { ...state.userAttributes, userID: action.payload }
             };
 
         case "SIGN-UP-FAILED":

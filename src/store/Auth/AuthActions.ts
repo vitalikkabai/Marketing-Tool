@@ -55,3 +55,30 @@ export const getAuthDataSuccess = (userAttributes: UserAttributes) => ({
 export const getAuthDataFailed = () => ({
     type: "AUTH-DATA-FAILED" as const
 });
+
+export const getResetLink = (email: string) => ({
+    type: "SEND-RESET-LINK" as const,
+    payload: { email }
+});
+
+export const ResetLinkSuccess = (data: any) => ({
+    type: "RESET-LINK-SUCCESS" as const,
+});
+
+export const ResetLinkFailed = (err: any) => ({
+    type: "RESET-LINK-FAILED" as const,
+});
+
+export const sendNewPassword = (email: string, code: string, newPassword: string) => ({
+    type: "SEND-NEW-PASSWORD" as const,
+    payload: { email, code, newPassword }
+});
+
+export const sendNewPasswordSuccess = () => ({
+    type: "RESET-LINK-SUCCESS" as const,
+});
+
+export const sendNewPasswordFailed = () => ({
+    type: "RESET-LINK-SUCCESS" as const,
+});
+
