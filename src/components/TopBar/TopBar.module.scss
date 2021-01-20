@@ -30,4 +30,31 @@
   .personalInfo {
     margin-right: 24px;
   }
+
+  
 }
+.logOutDialog {
+    height: 553px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    padding: 56px 97px 0 97px !important;
+    img {
+      margin-bottom: 58px;
+      margin-top: 32px;
+    }
+    .buttonBox {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+
+    }
+  }
+
+  .backDrop {
+    backdrop-filter: blur(10px);
+    background: rgba(242, 247, 255, 0.1);
+  }
