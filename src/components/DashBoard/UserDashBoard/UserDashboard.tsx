@@ -1,11 +1,42 @@
 import { Box, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import classes from './UserDashboard.module.scss';
-import check from '../../../assets/images/checkMark.svg'
+import roundCheck from '../../../assets/images/roundCheckBoxIcon.svg'
 import dashboardImage from "../../../assets/images/dashboardStepsImage.svg"
 import playIcon from "../../../assets/images/playVideoIocn.svg"
 
 const UserDashboard = () => {
+
+    const getBackgroundColor = (colorId: number) => {
+        switch (colorId) {
+            case 1: return { background: "#4285F4" }
+            case 2: return { background: "#FFDC22" }
+            case 3: return { background: "#FFAB08" }
+            case 4: return { background: "#EE6B1D" }
+            case 5: return { background: "#43A047" }
+            case 6: return { background: "#0097A6" }
+            case 7: return { background: "#7B1FA2" }
+            case 8: return { background: "#C2185B" }
+            case 9: return { background: "#EA4335" }
+        }
+    }
+
+    const tasks = [
+        { id: 0, taskTitle: "Upload your photo", taskType: 1, status: false },
+        { id: 1, taskTitle: "Add products", taskType: 2, status: false },
+        { id: 2, taskTitle: "Improve yourself", taskType: 9, status: false },
+    ]
+
+    const TabTasks = tasks.map(el => (
+        <Grid key={el.id} item xs={12} className={classes.stepRow}>
+            <Box className={classes.coloredBox} style={getBackgroundColor(el.taskType)}>
+                <Typography variant={"h6"}>{el.taskTitle}</Typography>
+                <Box className={classes.tabTaskBox}>
+                    <Box className={classes.vlWhite} />
+                    <img src={roundCheck} alt={"check"} />
+                </Box>
+            </Box>
+        </Grid>));
 
     return (
         <Grid container className={classes.dashboard}>
