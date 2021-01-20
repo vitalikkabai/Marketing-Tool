@@ -96,7 +96,7 @@ const SideBarMenu = (props: any) => {
 					onClick={
 						() => {
 							setSelected("5");
-							props.isAuth ? history.push('/sales-channels') : history.push('/preview/sales-channels');
+							props.isAuth ? history.push('/customer-support') : history.push('/preview/customer-support');
 						}
 					}>
 					<ListItemIcon classes={{ root: classes.listIconRoot }}>
@@ -111,7 +111,7 @@ const SideBarMenu = (props: any) => {
 					onClick={
 						() => {
 							setSelected("6");
-							props.isAuth ? history.push('/customer-support') : history.push('/preview/customer-support');
+							props.isAuth ? history.push('/sales-channels') : history.push('/preview/sales-channels');
 						}
 					}>
 					<ListItemIcon classes={{ root: classes.listIconRoot }}>
@@ -141,7 +141,7 @@ const SideBarMenu = (props: any) => {
 					onClick={
 						() => {
 							setSelected("8");
-							props.isAuth ? history.push('/sales-statistics') : history.push('/preview/sales-statistics');
+							props.isAuth ? history.push('/improvements') : history.push('/preview/improvements');
 						}
 					}>
 					<ListItemIcon classes={{ root: classes.listIconRoot }}>
@@ -156,7 +156,7 @@ const SideBarMenu = (props: any) => {
 					onClick={
 						() => {
 							setSelected("9");
-							props.isAuth ? history.push('/improvements') : history.push('/preview/improvements');
+							props.isAuth ? history.push('/sales-statistics') : history.push('/preview/sales-statistics');
 						}
 					}>
 					<ListItemIcon classes={{ root: classes.listIconRoot }}>
