@@ -6,8 +6,9 @@ import { Business } from '../../models';
 import { AppStateType } from '../store';
 import { createBusiness } from '../../graphql/mutations';
 import { API, graphqlOperation } from 'aws-amplify';
+import { Observable } from 'rxjs';
 
-export const businessEpic = (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>) => action$.pipe(
+export const businessEpic = (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>):Observable<ActionTypes> => action$.pipe(
     ofType('SAVE_BUSINESS_TO_DB'),
     map(() => {
         const businessData = state$.value.BusinessReducer;
