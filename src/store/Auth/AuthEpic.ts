@@ -10,7 +10,12 @@ import {
     signOutFailed,
     signOutSuccess,
     signUpSuccess,
-    signUpFailed
+    signUpFailed,
+    ResetLinkSuccess,
+    ResetLinkFailed,
+    sendNewPasswordSuccess,
+    sendNewPasswordFailed,
+    getResetLink
 } from "./AuthActions";
 import { ActionTypes } from "./AuthReducer";
 import { from, of } from 'rxjs';
@@ -74,14 +79,15 @@ export const signUpEpic = (action$: ActionsObservable<any>) => action$.pipe(
             }
         })).pipe(
             mergeMap(res => {
-                console.log(res); 
-                    // signUpSuccess(res.userSub),
-                    return from(Auth.signIn({
-                        username: action.payload.email, 
-                        password: action.payload.password
-                    })).pipe(
-                        catchError(err => of(signInFailed(err))),
-                        mergeMap((response) => {console.log(response); return [
+                console.log(res);
+                // signUpSuccess(res.userSub),
+                return from(Auth.signIn({
+                    username: action.payload.email,
+                    password: action.payload.password
+                })).pipe(
+                    catchError(err => of(signInFailed(err))),
+                    mergeMap((response) => {
+                        console.log(response); return [
                             signInSuccess({
                                 userID: response.attributes.sub,
                                 email: response.attributes.email,
@@ -89,10 +95,11 @@ export const signUpEpic = (action$: ActionsObservable<any>) => action$.pipe(
                                 userName: response.attributes.given_name,
                             }),
                             saveBusinessToDB(),
-                        ]})
-                    )
-                    // InitialSignIn(action.payload.email, action.payload.password),
-                
+                        ]
+                    })
+                )
+                // InitialSignIn(action.payload.email, action.payload.password),
+
             }),
             catchError(err => of(signUpFailed(err)))
         )
@@ -126,5 +133,36 @@ export const getAuthDataEpic = (action$: ActionsObservable<ActionTypes>) => acti
             userName: res.attributes.given_name
         });
         else return getAuthDataFailed();
+    })
+);
+
+export const sendResetLinkEpic = (action$: ActionsObservable<any>) => action$.pipe(
+    ofType("SEND-RESET-LINK"),
+    switchMap(async (action) => {
+        console.log("kek");
+        return Auth.forgotPassword(action.payload.email)
+            .then(data => {
+                console.log(data)
+                return ResetLinkSuccess({ data })
+            })
+            .catch(err => {
+                console.log(err);
+                return ResetLinkFailed({ err })
+            });
+    })
+);
+
+export const sendNewPasswordEpic = (action$: ActionsObservable<any>) => action$.pipe(
+    ofType("SEND-NEW-PASSWORD"),
+    switchMap(async (action) => {
+        return Auth.forgotPasswordSubmit(action.payload.email, action.payload.code, action.payload.newPassword)
+            .then(data => {
+                console.log(data)
+                return sendNewPasswordSuccess()
+            })
+            .catch(err => {
+                console.log(err);
+                return sendNewPasswordFailed()
+            });
     })
 );

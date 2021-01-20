@@ -14,6 +14,7 @@ import { Dispatch } from 'redux';
 import { getAuthData } from './store/Auth/AuthActions';
 import MarketingToolPageContainer from "./pages/MarketingToolPageContainer/MarketingToolPageContainer";
 
+
 Amplify.configure(awsconfig);
 
 function App(props: any): ReactElement {
