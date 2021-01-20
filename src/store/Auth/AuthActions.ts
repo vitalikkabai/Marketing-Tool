@@ -1,15 +1,13 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
 import { UserAttributes } from "./AuthReducer";
 
 export const signIn = (username: string, password: string) => ({
     type: "SIGN-IN-REQUEST" as const,
-    payload: {username, password}
+    payload: { username, password }
 });
 
 export const initialSignIn = (username: string, password: string) => ({
     type: "INITIAL-SIGN-IN-REQUEST" as const,
-    payload: {username, password}
+    payload: { username, password }
 });
 
 export const signInSuccess = (userAttributes: UserAttributes) => ({
@@ -19,12 +17,12 @@ export const signInSuccess = (userAttributes: UserAttributes) => ({
 
 export const signInFailed = (signInError: string) => ({
     type: "SIGN-IN-FAILED" as const,
-    payload: {signInError}
+    payload: { signInError }
 });
 
 export const signUp = (email: string, password: string, username: string) => ({
     type: "SIGN-UP-REQUEST" as const,
-    payload: {email, password, username}
+    payload: { email, password, username }
 });
 
 export const signUpSuccess = (userID: string) => ({
@@ -34,7 +32,7 @@ export const signUpSuccess = (userID: string) => ({
 
 export const signUpFailed = (signInError: string) => ({
     type: "SIGN-UP-FAILED" as const,
-    payload: {signInError}
+    payload: { signInError }
 });
 
 export const signOut = () => ({
@@ -62,3 +60,30 @@ export const getAuthDataSuccess = (userAttributes: UserAttributes) => ({
 export const getAuthDataFailed = () => ({
     type: "AUTH-DATA-FAILED" as const
 });
+
+export const getResetLink = (email: string) => ({
+    type: "SEND-RESET-LINK" as const,
+    payload: { email }
+});
+
+export const ResetLinkSuccess = (data: any) => ({
+    type: "RESET-LINK-SUCCESS" as const,
+});
+
+export const ResetLinkFailed = (err: any) => ({
+    type: "RESET-LINK-FAILED" as const,
+});
+
+export const sendNewPassword = (email: string, code: string, newPassword: string) => ({
+    type: "SEND-NEW-PASSWORD" as const,
+    payload: { email, code, newPassword }
+});
+
+export const sendNewPasswordSuccess = () => ({
+    type: "RESET-LINK-SUCCESS" as const,
+});
+
+export const sendNewPasswordFailed = () => ({
+    type: "RESET-LINK-FAILED" as const,
+});
+
