@@ -23,7 +23,7 @@ const MarketingToolPageContainer = (props: any) => {
                 <Grid container className={classes.contentContainer}>
                     <Grid xs={8} xl={9} item className={classes.content}>
                         <Switch>
-                            <Route path='/' exact component={props.isAuth? UserDashboard : VisitorDashboard}/>
+                            <Route path='/' exact component={props.isAuth? VisitorDashboard : UserDashboard}/>
                         </Switch>
                     </Grid>
                     <Grid xs={4} xl={3}
