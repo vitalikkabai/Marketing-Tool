@@ -65,7 +65,7 @@ export const onDeleteBusiness = /* GraphQL */ `
 export const onCreateProfile = /* GraphQL */ `
   subscription OnCreateProfile {
     onCreateProfile {
-      id
+      ownerUID
       email
       name
       avatar {
@@ -75,6 +75,22 @@ export const onCreateProfile = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      business {
+        id
+        ownerUID
+        companyName
+        country
+        city
+        businessNumber
+        haveExperienceSelling
+        storeURLs
+        haveWebsite
+        websiteURLs
+        businessType
+        createdAt
+        updatedAt
+        owner
+      }
       owner
     }
   }
@@ -82,7 +98,7 @@ export const onCreateProfile = /* GraphQL */ `
 export const onUpdateProfile = /* GraphQL */ `
   subscription OnUpdateProfile {
     onUpdateProfile {
-      id
+      ownerUID
       email
       name
       avatar {
@@ -92,6 +108,22 @@ export const onUpdateProfile = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      business {
+        id
+        ownerUID
+        companyName
+        country
+        city
+        businessNumber
+        haveExperienceSelling
+        storeURLs
+        haveWebsite
+        websiteURLs
+        businessType
+        createdAt
+        updatedAt
+        owner
+      }
       owner
     }
   }
@@ -99,7 +131,7 @@ export const onUpdateProfile = /* GraphQL */ `
 export const onDeleteProfile = /* GraphQL */ `
   subscription OnDeleteProfile {
     onDeleteProfile {
-      id
+      ownerUID
       email
       name
       avatar {
@@ -109,6 +141,22 @@ export const onDeleteProfile = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      business {
+        id
+        ownerUID
+        companyName
+        country
+        city
+        businessNumber
+        haveExperienceSelling
+        storeURLs
+        haveWebsite
+        websiteURLs
+        businessType
+        createdAt
+        updatedAt
+        owner
+      }
       owner
     }
   }

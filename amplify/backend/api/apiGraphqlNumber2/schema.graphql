@@ -11,12 +11,11 @@ type Business @model
   country: String
   city: String
   businessNumber: String
-  haveExperienceSelling: Boolean
+  haveExperienceSelling: Boolean!
   storeURLs: [String]
-  haveWebsite: Boolean
+  haveWebsite: Boolean!
   websiteURLs: [String]
   businessType: BusinessType
-  createdAt: AWSDateTime
 }
 
 enum BusinessType {
@@ -32,14 +31,15 @@ type S3Object {
 }
 
 type Profile @model
-    @key(fields: ["id", "email"])
+    @key(fields: ["ownerUID", "email"])
     @auth(rules: [
       { allow: owner },
       { allow: public, operations: [read]},
       { allow: private, operations: [read] },
     ])  {
-  id: String!
+  ownerUID: ID!
   email: String!
-  name: String
+  name: String!
+  business: Business @connection
   avatar: S3Object
 }

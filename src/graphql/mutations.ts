@@ -77,7 +77,7 @@ export const createProfile = /* GraphQL */ `
     $condition: ModelProfileConditionInput
   ) {
     createProfile(input: $input, condition: $condition) {
-      id
+      ownerUID
       email
       name
       avatar {
@@ -87,6 +87,22 @@ export const createProfile = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      business {
+        id
+        ownerUID
+        companyName
+        country
+        city
+        businessNumber
+        haveExperienceSelling
+        storeURLs
+        haveWebsite
+        websiteURLs
+        businessType
+        createdAt
+        updatedAt
+        owner
+      }
       owner
     }
   }
@@ -97,7 +113,7 @@ export const updateProfile = /* GraphQL */ `
     $condition: ModelProfileConditionInput
   ) {
     updateProfile(input: $input, condition: $condition) {
-      id
+      ownerUID
       email
       name
       avatar {
@@ -107,6 +123,22 @@ export const updateProfile = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      business {
+        id
+        ownerUID
+        companyName
+        country
+        city
+        businessNumber
+        haveExperienceSelling
+        storeURLs
+        haveWebsite
+        websiteURLs
+        businessType
+        createdAt
+        updatedAt
+        owner
+      }
       owner
     }
   }
@@ -117,7 +149,7 @@ export const deleteProfile = /* GraphQL */ `
     $condition: ModelProfileConditionInput
   ) {
     deleteProfile(input: $input, condition: $condition) {
-      id
+      ownerUID
       email
       name
       avatar {
@@ -127,6 +159,22 @@ export const deleteProfile = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      business {
+        id
+        ownerUID
+        companyName
+        country
+        city
+        businessNumber
+        haveExperienceSelling
+        storeURLs
+        haveWebsite
+        websiteURLs
+        businessType
+        createdAt
+        updatedAt
+        owner
+      }
       owner
     }
   }

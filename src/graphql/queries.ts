@@ -2,26 +2,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getBusiness = /* GraphQL */ `
-  query GetBusiness($id: ID!, $ownerUID: String!) {
-    getBusiness(id: $id, ownerUID: $ownerUID) {
-      id
-      ownerUID
-      companyName
-      country
-      city
-      businessNumber
-      haveExperienceSelling
-      storeURLs
-      haveWebsite
-      websiteURLs
-      businessType
-      createdAt
-      updatedAt
-      owner
-    }
-  }
-`;
 export const listBusinesss = /* GraphQL */ `
   query ListBusinesss(
     $id: ID
@@ -59,10 +39,30 @@ export const listBusinesss = /* GraphQL */ `
     }
   }
 `;
-export const getProfile = /* GraphQL */ `
-  query GetProfile($id: String!, $email: String!) {
-    getProfile(id: $id, email: $email) {
+export const getBusiness = /* GraphQL */ `
+  query GetBusiness($id: ID!, $ownerUID: String!) {
+    getBusiness(id: $id, ownerUID: $ownerUID) {
       id
+      ownerUID
+      companyName
+      country
+      city
+      businessNumber
+      haveExperienceSelling
+      storeURLs
+      haveWebsite
+      websiteURLs
+      businessType
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const getProfile = /* GraphQL */ `
+  query GetProfile($ownerUID: ID!, $email: String!) {
+    getProfile(ownerUID: $ownerUID, email: $email) {
+      ownerUID
       email
       name
       avatar {
@@ -72,13 +72,29 @@ export const getProfile = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      business {
+        id
+        ownerUID
+        companyName
+        country
+        city
+        businessNumber
+        haveExperienceSelling
+        storeURLs
+        haveWebsite
+        websiteURLs
+        businessType
+        createdAt
+        updatedAt
+        owner
+      }
       owner
     }
   }
 `;
 export const listProfiles = /* GraphQL */ `
   query ListProfiles(
-    $id: String
+    $ownerUID: ID
     $email: ModelStringKeyConditionInput
     $filter: ModelProfileFilterInput
     $limit: Int
@@ -86,7 +102,7 @@ export const listProfiles = /* GraphQL */ `
     $sortDirection: ModelSortDirection
   ) {
     listProfiles(
-      id: $id
+      ownerUID: $ownerUID
       email: $email
       filter: $filter
       limit: $limit
@@ -94,7 +110,7 @@ export const listProfiles = /* GraphQL */ `
       sortDirection: $sortDirection
     ) {
       items {
-        id
+        ownerUID
         email
         name
         createdAt

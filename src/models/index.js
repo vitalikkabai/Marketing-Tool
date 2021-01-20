@@ -8,9 +8,11 @@ const BusinessType = {
   "MANUFACTURERANDTRADINGCOMPANY": "MANUFACTURERANDTRADINGCOMPANY"
 };
 
-const { Business } = initSchema(schema);
+const { Business, Profile, S3Object } = initSchema(schema);
 
 export {
   Business,
-  BusinessType
+  Profile,
+  BusinessType,
+  S3Object
 };
