@@ -17,9 +17,9 @@ export const initialState = {
     country: "",
     city: "",
     businessNumber: "",
-    haveExperienceSelling: false,
+    haveExperienceSelling: true,
     storeURLs: [""],
-    haveWebsite: false,
+    haveWebsite: true,
     websiteURLs: [""]
 };
 

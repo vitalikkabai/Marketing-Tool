@@ -71,13 +71,3 @@ const AppWithRouter = () => { // Store render before App initialization
 }
 
 export default AppWithRouter;
-
-{/* <Route path={['/',
-				'/products',
-				'/market-research',
-				'/brand-creation',
-				'/sales-channels',
-				'/customer-support',
-				'/brand-awareness',
-				'/sales-statistics',
-				'/improvements']} exact component={MarketingToolPageContainer} /> */}

@@ -2,7 +2,6 @@
   box-shadow: 0 4px 15px rgba(40, 47, 43, 0.1);
   background: #FFF;
   border-radius: 10px;
-  height: 553px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -45,8 +44,7 @@
 }
 
 .progressContainer {
-  position: absolute;
-  top: -40px;
+  margin-top: 22px;
 
   ul {
     padding: 0;
@@ -100,8 +98,9 @@
 }
 
 .assistantContainer {
-  margin-top: 34px;
+  margin-top: 20px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
@@ -111,7 +110,7 @@
   }
 
   .assistantText {
-    margin-left: 16px;
+    margin-top: 16px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -121,10 +120,7 @@
 
 }
 .nextContainer {
-  position: absolute;
-  bottom: 25px;
-  left: 50%;
-  transform: translate(-50%, 0);
+  margin-top: 106px;
   display: flex;
   flex-direction: column;
   align-items: center;

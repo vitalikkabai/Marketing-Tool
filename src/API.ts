@@ -9,12 +9,11 @@ export type CreateBusinessInput = {
   country?: string | null,
   city?: string | null,
   businessNumber?: string | null,
-  haveExperienceSelling?: boolean | null,
+  haveExperienceSelling: boolean,
   storeURLs?: Array< string | null > | null,
-  haveWebsite?: boolean | null,
+  haveWebsite: boolean,
   websiteURLs?: Array< string | null > | null,
   businessType?: BusinessType | null,
-  createdAt?: string | null,
 };
 
 export enum BusinessType {
@@ -34,7 +33,6 @@ export type ModelBusinessConditionInput = {
   haveWebsite?: ModelBooleanInput | null,
   websiteURLs?: ModelStringInput | null,
   businessType?: ModelBusinessTypeInput | null,
-  createdAt?: ModelStringInput | null,
   and?: Array< ModelBusinessConditionInput | null > | null,
   or?: Array< ModelBusinessConditionInput | null > | null,
   not?: ModelBusinessConditionInput | null,
@@ -104,12 +102,45 @@ export type UpdateBusinessInput = {
   haveWebsite?: boolean | null,
   websiteURLs?: Array< string | null > | null,
   businessType?: BusinessType | null,
-  createdAt?: string | null,
 };
 
 export type DeleteBusinessInput = {
   id: string,
   ownerUID: string,
+};
+
+export type CreateProfileInput = {
+  ownerUID: string,
+  email: string,
+  name: string,
+  avatar?: S3ObjectInput | null,
+  profileBusinessId?: string | null,
+};
+
+export type S3ObjectInput = {
+  bucket: string,
+  region: string,
+  key: string,
+};
+
+export type ModelProfileConditionInput = {
+  name?: ModelStringInput | null,
+  and?: Array< ModelProfileConditionInput | null > | null,
+  or?: Array< ModelProfileConditionInput | null > | null,
+  not?: ModelProfileConditionInput | null,
+};
+
+export type UpdateProfileInput = {
+  ownerUID: string,
+  email: string,
+  name?: string | null,
+  avatar?: S3ObjectInput | null,
+  profileBusinessId?: string | null,
+};
+
+export type DeleteProfileInput = {
+  ownerUID: string,
+  email: string,
 };
 
 export type ModelStringKeyConditionInput = {
@@ -134,7 +165,6 @@ export type ModelBusinessFilterInput = {
   haveWebsite?: ModelBooleanInput | null,
   websiteURLs?: ModelStringInput | null,
   businessType?: ModelBusinessTypeInput | null,
-  createdAt?: ModelStringInput | null,
   and?: Array< ModelBusinessFilterInput | null > | null,
   or?: Array< ModelBusinessFilterInput | null > | null,
   not?: ModelBusinessFilterInput | null,
@@ -162,6 +192,15 @@ export enum ModelSortDirection {
 }
 
 
+export type ModelProfileFilterInput = {
+  ownerUID?: ModelIDInput | null,
+  email?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  and?: Array< ModelProfileFilterInput | null > | null,
+  or?: Array< ModelProfileFilterInput | null > | null,
+  not?: ModelProfileFilterInput | null,
+};
+
 export type CreateBusinessMutationVariables = {
   input: CreateBusinessInput,
   condition?: ModelBusinessConditionInput | null,
@@ -176,12 +215,12 @@ export type CreateBusinessMutation = {
     country: string | null,
     city: string | null,
     businessNumber: string | null,
-    haveExperienceSelling: boolean | null,
+    haveExperienceSelling: boolean,
     storeURLs: Array< string | null > | null,
-    haveWebsite: boolean | null,
+    haveWebsite: boolean,
     websiteURLs: Array< string | null > | null,
     businessType: BusinessType | null,
-    createdAt: string | null,
+    createdAt: string,
     updatedAt: string,
     owner: string | null,
   } | null,
@@ -201,12 +240,12 @@ export type UpdateBusinessMutation = {
     country: string | null,
     city: string | null,
     businessNumber: string | null,
-    haveExperienceSelling: boolean | null,
+    haveExperienceSelling: boolean,
     storeURLs: Array< string | null > | null,
-    haveWebsite: boolean | null,
+    haveWebsite: boolean,
     websiteURLs: Array< string | null > | null,
     businessType: BusinessType | null,
-    createdAt: string | null,
+    createdAt: string,
     updatedAt: string,
     owner: string | null,
   } | null,
@@ -226,38 +265,133 @@ export type DeleteBusinessMutation = {
     country: string | null,
     city: string | null,
     businessNumber: string | null,
-    haveExperienceSelling: boolean | null,
+    haveExperienceSelling: boolean,
     storeURLs: Array< string | null > | null,
-    haveWebsite: boolean | null,
+    haveWebsite: boolean,
     websiteURLs: Array< string | null > | null,
     businessType: BusinessType | null,
-    createdAt: string | null,
+    createdAt: string,
     updatedAt: string,
     owner: string | null,
   } | null,
 };
 
-export type GetBusinessQueryVariables = {
-  id: string,
-  ownerUID: string,
+export type CreateProfileMutationVariables = {
+  input: CreateProfileInput,
+  condition?: ModelProfileConditionInput | null,
 };
 
-export type GetBusinessQuery = {
-  getBusiness:  {
-    __typename: "Business",
-    id: string,
+export type CreateProfileMutation = {
+  createProfile:  {
+    __typename: "Profile",
     ownerUID: string,
-    companyName: string | null,
-    country: string | null,
-    city: string | null,
-    businessNumber: string | null,
-    haveExperienceSelling: boolean | null,
-    storeURLs: Array< string | null > | null,
-    haveWebsite: boolean | null,
-    websiteURLs: Array< string | null > | null,
-    businessType: BusinessType | null,
-    createdAt: string | null,
+    email: string,
+    name: string,
+    avatar:  {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } | null,
+    createdAt: string,
     updatedAt: string,
+    business:  {
+      __typename: "Business",
+      id: string,
+      ownerUID: string,
+      companyName: string | null,
+      country: string | null,
+      city: string | null,
+      businessNumber: string | null,
+      haveExperienceSelling: boolean,
+      storeURLs: Array< string | null > | null,
+      haveWebsite: boolean,
+      websiteURLs: Array< string | null > | null,
+      businessType: BusinessType | null,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+    } | null,
+    owner: string | null,
+  } | null,
+};
+
+export type UpdateProfileMutationVariables = {
+  input: UpdateProfileInput,
+  condition?: ModelProfileConditionInput | null,
+};
+
+export type UpdateProfileMutation = {
+  updateProfile:  {
+    __typename: "Profile",
+    ownerUID: string,
+    email: string,
+    name: string,
+    avatar:  {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    business:  {
+      __typename: "Business",
+      id: string,
+      ownerUID: string,
+      companyName: string | null,
+      country: string | null,
+      city: string | null,
+      businessNumber: string | null,
+      haveExperienceSelling: boolean,
+      storeURLs: Array< string | null > | null,
+      haveWebsite: boolean,
+      websiteURLs: Array< string | null > | null,
+      businessType: BusinessType | null,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+    } | null,
+    owner: string | null,
+  } | null,
+};
+
+export type DeleteProfileMutationVariables = {
+  input: DeleteProfileInput,
+  condition?: ModelProfileConditionInput | null,
+};
+
+export type DeleteProfileMutation = {
+  deleteProfile:  {
+    __typename: "Profile",
+    ownerUID: string,
+    email: string,
+    name: string,
+    avatar:  {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    business:  {
+      __typename: "Business",
+      id: string,
+      ownerUID: string,
+      companyName: string | null,
+      country: string | null,
+      city: string | null,
+      businessNumber: string | null,
+      haveExperienceSelling: boolean,
+      storeURLs: Array< string | null > | null,
+      haveWebsite: boolean,
+      websiteURLs: Array< string | null > | null,
+      businessType: BusinessType | null,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+    } | null,
     owner: string | null,
   } | null,
 };
@@ -282,12 +416,102 @@ export type ListBusinesssQuery = {
       country: string | null,
       city: string | null,
       businessNumber: string | null,
-      haveExperienceSelling: boolean | null,
+      haveExperienceSelling: boolean,
       storeURLs: Array< string | null > | null,
-      haveWebsite: boolean | null,
+      haveWebsite: boolean,
       websiteURLs: Array< string | null > | null,
       businessType: BusinessType | null,
-      createdAt: string | null,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+    } | null > | null,
+    nextToken: string | null,
+  } | null,
+};
+
+export type GetBusinessQueryVariables = {
+  id: string,
+  ownerUID: string,
+};
+
+export type GetBusinessQuery = {
+  getBusiness:  {
+    __typename: "Business",
+    id: string,
+    ownerUID: string,
+    companyName: string | null,
+    country: string | null,
+    city: string | null,
+    businessNumber: string | null,
+    haveExperienceSelling: boolean,
+    storeURLs: Array< string | null > | null,
+    haveWebsite: boolean,
+    websiteURLs: Array< string | null > | null,
+    businessType: BusinessType | null,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type GetProfileQueryVariables = {
+  ownerUID: string,
+  email: string,
+};
+
+export type GetProfileQuery = {
+  getProfile:  {
+    __typename: "Profile",
+    ownerUID: string,
+    email: string,
+    name: string,
+    avatar:  {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    business:  {
+      __typename: "Business",
+      id: string,
+      ownerUID: string,
+      companyName: string | null,
+      country: string | null,
+      city: string | null,
+      businessNumber: string | null,
+      haveExperienceSelling: boolean,
+      storeURLs: Array< string | null > | null,
+      haveWebsite: boolean,
+      websiteURLs: Array< string | null > | null,
+      businessType: BusinessType | null,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+    } | null,
+    owner: string | null,
+  } | null,
+};
+
+export type ListProfilesQueryVariables = {
+  ownerUID?: string | null,
+  email?: ModelStringKeyConditionInput | null,
+  filter?: ModelProfileFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
+};
+
+export type ListProfilesQuery = {
+  listProfiles:  {
+    __typename: "ModelProfileConnection",
+    items:  Array< {
+      __typename: "Profile",
+      ownerUID: string,
+      email: string,
+      name: string,
+      createdAt: string,
       updatedAt: string,
       owner: string | null,
     } | null > | null,
@@ -304,12 +528,12 @@ export type OnCreateBusinessSubscription = {
     country: string | null,
     city: string | null,
     businessNumber: string | null,
-    haveExperienceSelling: boolean | null,
+    haveExperienceSelling: boolean,
     storeURLs: Array< string | null > | null,
-    haveWebsite: boolean | null,
+    haveWebsite: boolean,
     websiteURLs: Array< string | null > | null,
     businessType: BusinessType | null,
-    createdAt: string | null,
+    createdAt: string,
     updatedAt: string,
     owner: string | null,
   } | null,
@@ -324,12 +548,12 @@ export type OnUpdateBusinessSubscription = {
     country: string | null,
     city: string | null,
     businessNumber: string | null,
-    haveExperienceSelling: boolean | null,
+    haveExperienceSelling: boolean,
     storeURLs: Array< string | null > | null,
-    haveWebsite: boolean | null,
+    haveWebsite: boolean,
     websiteURLs: Array< string | null > | null,
     businessType: BusinessType | null,
-    createdAt: string | null,
+    createdAt: string,
     updatedAt: string,
     owner: string | null,
   } | null,
@@ -344,13 +568,118 @@ export type OnDeleteBusinessSubscription = {
     country: string | null,
     city: string | null,
     businessNumber: string | null,
-    haveExperienceSelling: boolean | null,
+    haveExperienceSelling: boolean,
     storeURLs: Array< string | null > | null,
-    haveWebsite: boolean | null,
+    haveWebsite: boolean,
     websiteURLs: Array< string | null > | null,
     businessType: BusinessType | null,
-    createdAt: string | null,
+    createdAt: string,
     updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type OnCreateProfileSubscription = {
+  onCreateProfile:  {
+    __typename: "Profile",
+    ownerUID: string,
+    email: string,
+    name: string,
+    avatar:  {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    business:  {
+      __typename: "Business",
+      id: string,
+      ownerUID: string,
+      companyName: string | null,
+      country: string | null,
+      city: string | null,
+      businessNumber: string | null,
+      haveExperienceSelling: boolean,
+      storeURLs: Array< string | null > | null,
+      haveWebsite: boolean,
+      websiteURLs: Array< string | null > | null,
+      businessType: BusinessType | null,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+    } | null,
+    owner: string | null,
+  } | null,
+};
+
+export type OnUpdateProfileSubscription = {
+  onUpdateProfile:  {
+    __typename: "Profile",
+    ownerUID: string,
+    email: string,
+    name: string,
+    avatar:  {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    business:  {
+      __typename: "Business",
+      id: string,
+      ownerUID: string,
+      companyName: string | null,
+      country: string | null,
+      city: string | null,
+      businessNumber: string | null,
+      haveExperienceSelling: boolean,
+      storeURLs: Array< string | null > | null,
+      haveWebsite: boolean,
+      websiteURLs: Array< string | null > | null,
+      businessType: BusinessType | null,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+    } | null,
+    owner: string | null,
+  } | null,
+};
+
+export type OnDeleteProfileSubscription = {
+  onDeleteProfile:  {
+    __typename: "Profile",
+    ownerUID: string,
+    email: string,
+    name: string,
+    avatar:  {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    business:  {
+      __typename: "Business",
+      id: string,
+      ownerUID: string,
+      companyName: string | null,
+      country: string | null,
+      city: string | null,
+      businessNumber: string | null,
+      haveExperienceSelling: boolean,
+      storeURLs: Array< string | null > | null,
+      haveWebsite: boolean,
+      websiteURLs: Array< string | null > | null,
+      businessType: BusinessType | null,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+    } | null,
     owner: string | null,
   } | null,
 };
