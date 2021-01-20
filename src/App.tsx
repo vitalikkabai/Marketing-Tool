@@ -13,7 +13,7 @@ import OverridesCss from './material/themeProvider';
 import { Dispatch } from 'redux';
 import { getAuthData } from './store/Auth/AuthActions';
 import MarketingToolPageContainer from "./pages/MarketingToolPageContainer/MarketingToolPageContainer";
-import SendResetLinkContainer from './components/ResetPasswordForm/ResetPasswordPageContainer';
+
 
 Amplify.configure(awsconfig);
 
@@ -31,10 +31,10 @@ function App(props: any): ReactElement {
 
 	return (
 		<Switch>
-			<Route path='/' exact component={MarketingToolPageContainer} />
 			<Route path='/login' component={LoginPage} />
 			<Route path='/register' component={RegistrationPage} />
-			<Route path='/resetPassword' component={SendResetLinkContainer} />
+			<Route path='/resetPassword' component={ResetPasswordPage} />
+			<Route path='/' component={MarketingToolPageContainer} />
 		</Switch>
 	);
 }

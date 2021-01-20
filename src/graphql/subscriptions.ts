@@ -62,3 +62,54 @@ export const onDeleteBusiness = /* GraphQL */ `
     }
   }
 `;
+export const onCreateProfile = /* GraphQL */ `
+  subscription OnCreateProfile {
+    onCreateProfile {
+      id
+      email
+      name
+      avatar {
+        bucket
+        region
+        key
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateProfile = /* GraphQL */ `
+  subscription OnUpdateProfile {
+    onUpdateProfile {
+      id
+      email
+      name
+      avatar {
+        bucket
+        region
+        key
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteProfile = /* GraphQL */ `
+  subscription OnDeleteProfile {
+    onDeleteProfile {
+      id
+      email
+      name
+      avatar {
+        bucket
+        region
+        key
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;

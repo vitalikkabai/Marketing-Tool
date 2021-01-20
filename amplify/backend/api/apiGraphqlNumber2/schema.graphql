@@ -24,3 +24,22 @@ enum BusinessType {
   TRADINGCOMPANY
   MANUFACTURERANDTRADINGCOMPANY
 }
+
+type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
+}
+
+type Profile @model
+    @key(fields: ["id", "email"])
+    @auth(rules: [
+      { allow: owner },
+      { allow: public, operations: [read]},
+      { allow: private, operations: [read] },
+    ])  {
+  id: String!
+  email: String!
+  name: String
+  avatar: S3Object
+}

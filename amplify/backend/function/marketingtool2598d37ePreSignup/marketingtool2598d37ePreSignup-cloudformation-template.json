@@ -109,7 +109,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-marketingtool-dev-104149-deployment",
-          "S3Key": "amplify-builds/marketingtool2598d37ePreSignup-5336682b32766f4f4a44-build.zip"
+          "S3Key": "amplify-builds/marketingtool2598d37ePreSignup-7769587969764a4e424f-build.zip"
         }
       }
     },

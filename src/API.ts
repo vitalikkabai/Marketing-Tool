@@ -112,6 +112,38 @@ export type DeleteBusinessInput = {
   ownerUID: string,
 };
 
+export type CreateProfileInput = {
+  id: string,
+  email: string,
+  name?: string | null,
+  avatar?: S3ObjectInput | null,
+};
+
+export type S3ObjectInput = {
+  bucket: string,
+  region: string,
+  key: string,
+};
+
+export type ModelProfileConditionInput = {
+  name?: ModelStringInput | null,
+  and?: Array< ModelProfileConditionInput | null > | null,
+  or?: Array< ModelProfileConditionInput | null > | null,
+  not?: ModelProfileConditionInput | null,
+};
+
+export type UpdateProfileInput = {
+  id: string,
+  email: string,
+  name?: string | null,
+  avatar?: S3ObjectInput | null,
+};
+
+export type DeleteProfileInput = {
+  id: string,
+  email: string,
+};
+
 export type ModelStringKeyConditionInput = {
   eq?: string | null,
   le?: string | null,
@@ -161,6 +193,15 @@ export enum ModelSortDirection {
   DESC = "DESC",
 }
 
+
+export type ModelProfileFilterInput = {
+  id?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  name?: ModelStringInput | null,
+  and?: Array< ModelProfileFilterInput | null > | null,
+  or?: Array< ModelProfileFilterInput | null > | null,
+  not?: ModelProfileFilterInput | null,
+};
 
 export type CreateBusinessMutationVariables = {
   input: CreateBusinessInput,
@@ -237,6 +278,75 @@ export type DeleteBusinessMutation = {
   } | null,
 };
 
+export type CreateProfileMutationVariables = {
+  input: CreateProfileInput,
+  condition?: ModelProfileConditionInput | null,
+};
+
+export type CreateProfileMutation = {
+  createProfile:  {
+    __typename: "Profile",
+    id: string,
+    email: string,
+    name: string | null,
+    avatar:  {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type UpdateProfileMutationVariables = {
+  input: UpdateProfileInput,
+  condition?: ModelProfileConditionInput | null,
+};
+
+export type UpdateProfileMutation = {
+  updateProfile:  {
+    __typename: "Profile",
+    id: string,
+    email: string,
+    name: string | null,
+    avatar:  {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type DeleteProfileMutationVariables = {
+  input: DeleteProfileInput,
+  condition?: ModelProfileConditionInput | null,
+};
+
+export type DeleteProfileMutation = {
+  deleteProfile:  {
+    __typename: "Profile",
+    id: string,
+    email: string,
+    name: string | null,
+    avatar:  {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
 export type GetBusinessQueryVariables = {
   id: string,
   ownerUID: string,
@@ -288,6 +398,54 @@ export type ListBusinesssQuery = {
       websiteURLs: Array< string | null > | null,
       businessType: BusinessType | null,
       createdAt: string | null,
+      updatedAt: string,
+      owner: string | null,
+    } | null > | null,
+    nextToken: string | null,
+  } | null,
+};
+
+export type GetProfileQueryVariables = {
+  id: string,
+  email: string,
+};
+
+export type GetProfileQuery = {
+  getProfile:  {
+    __typename: "Profile",
+    id: string,
+    email: string,
+    name: string | null,
+    avatar:  {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type ListProfilesQueryVariables = {
+  id?: string | null,
+  email?: ModelStringKeyConditionInput | null,
+  filter?: ModelProfileFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  sortDirection?: ModelSortDirection | null,
+};
+
+export type ListProfilesQuery = {
+  listProfiles:  {
+    __typename: "ModelProfileConnection",
+    items:  Array< {
+      __typename: "Profile",
+      id: string,
+      email: string,
+      name: string | null,
+      createdAt: string,
       updatedAt: string,
       owner: string | null,
     } | null > | null,
@@ -350,6 +508,60 @@ export type OnDeleteBusinessSubscription = {
     websiteURLs: Array< string | null > | null,
     businessType: BusinessType | null,
     createdAt: string | null,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type OnCreateProfileSubscription = {
+  onCreateProfile:  {
+    __typename: "Profile",
+    id: string,
+    email: string,
+    name: string | null,
+    avatar:  {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type OnUpdateProfileSubscription = {
+  onUpdateProfile:  {
+    __typename: "Profile",
+    id: string,
+    email: string,
+    name: string | null,
+    avatar:  {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type OnDeleteProfileSubscription = {
+  onDeleteProfile:  {
+    __typename: "Profile",
+    id: string,
+    email: string,
+    name: string | null,
+    avatar:  {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } | null,
+    createdAt: string,
     updatedAt: string,
     owner: string | null,
   } | null,

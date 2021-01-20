@@ -59,3 +59,49 @@ export const listBusinesss = /* GraphQL */ `
     }
   }
 `;
+export const getProfile = /* GraphQL */ `
+  query GetProfile($id: String!, $email: String!) {
+    getProfile(id: $id, email: $email) {
+      id
+      email
+      name
+      avatar {
+        bucket
+        region
+        key
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listProfiles = /* GraphQL */ `
+  query ListProfiles(
+    $id: String
+    $email: ModelStringKeyConditionInput
+    $filter: ModelProfileFilterInput
+    $limit: Int
+    $nextToken: String
+    $sortDirection: ModelSortDirection
+  ) {
+    listProfiles(
+      id: $id
+      email: $email
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
+      items {
+        id
+        email
+        name
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
