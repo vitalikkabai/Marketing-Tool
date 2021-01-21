@@ -20,6 +20,8 @@ import {
 import { ActionTypes } from "./AuthReducer";
 import { from, of } from 'rxjs';
 import { saveBusinessToDB } from '../Business/BusinessActions';
+import { initiateNewProfile, saveProfileToDB, setProfileID } from '../Profile/ProfileActions';
+import { Profile } from '../../models';
 
 export const signInEpic = (action$: ActionsObservable<any>) => action$.pipe(
     ofType("SIGN-IN-REQUEST"),
@@ -44,29 +46,6 @@ export const signInEpic = (action$: ActionsObservable<any>) => action$.pipe(
     })
 );
 
-// export const initialSignInEpic = (action$: ActionsObservable<ActionTypes>) => action$.pipe(
-//     ofType("INITIAL-SIGN-IN-REQUEST"),
-//     mergeMap(async (action) => {
-//         return Auth.signIn({
-//             username: action.payload.username,
-//             password: action.payload.password,
-//         }).then((response) => {
-//             console.log("signied in");
-//             console.log(response)
-//             return signInSuccess({
-//                 userID: response.attributes.sub,
-//                 email: response.attributes.email,
-//                 emailVerified: response.attributes.email_verified,
-//                 userName: response.attributes.given_name,
-//             });
-//         }).catch(err => {
-//             alert("Failed to Sign in");
-//             console.log(err)
-//             return signInFailed(err)
-//         });
-//     })
-// );
-
 export const signUpEpic = (action$: ActionsObservable<any>) => action$.pipe(
     ofType("SIGN-UP-REQUEST"),
     mergeMap(action => {
@@ -88,13 +67,14 @@ export const signUpEpic = (action$: ActionsObservable<any>) => action$.pipe(
                     catchError(err => of(signInFailed(err))),
                     mergeMap((response) => {
                         console.log(response); return [
+                            setProfileID(response.attributes.sub),
                             signInSuccess({
                                 userID: response.attributes.sub,
                                 email: response.attributes.email,
                                 emailVerified: response.attributes.email_verified,
                                 userName: response.attributes.given_name,
                             }),
-                            saveBusinessToDB(),
+                            initiateNewProfile(),
                         ]
                     })
                 )

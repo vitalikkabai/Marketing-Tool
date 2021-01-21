@@ -3,13 +3,14 @@ import * as actions from './ProfileActions';
 
 export interface ProfileType {
     profile: Profile,
-    avatarSrc: string
+    avatarSrc?: string
 }
 export const initialState = {
     profile: new Profile({
         ownerUID: "",
         email: "",
-        name: ""
+        name: "",
+        businessID: ""
     }),
     avatarSrc: ""
 }
@@ -20,7 +21,15 @@ export const ProfileReducer = (state: ProfileType = initialState, action: Action
         case 'SET_PROFILE_DATA':
             return {
                 ...state,
-                ...action.payload
+                profile: action.payload
+            };
+        case 'SET_PROFILE_ID':
+            return {
+                ...state,
+                profile: new Profile({
+                    ...state.profile,
+                    ownerUID: action.payload,
+                })
             };
         case 'SAVE_PROFILE_TO_DB_SUCCESS':
             return {

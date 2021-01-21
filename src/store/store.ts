@@ -8,6 +8,7 @@ import { getAuthDataEpic, sendResetLinkEpic, signInEpic, signOutEpic, signUpEpic
 import ProfileReducer from "./Profile/ProfileReducer";
 import ProfileEpics from "./Profile/ProfileEpic";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const rootEpic = (action$: any, store$: any, dependencies: any) =>
     combineEpics(businessEpic, signInEpic, signOutEpic, getAuthDataEpic, signUpEpic, sendResetLinkEpic, sendNewPasswordEpic, ...ProfileEpics)(action$, store$, dependencies).pipe(
         catchError((error, source) => {
@@ -28,6 +29,7 @@ type RootReducerType = typeof rootReducer;
 export type AppStateType = ReturnType<RootReducerType>;
 
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 
@@ -35,6 +37,7 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(epicMidd
 
 epicMiddleware.run(rootEpic);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (window as any).store = store;
 
 export default store;
