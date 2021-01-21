@@ -10,18 +10,11 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "ownerUID": {
-                    "name": "ownerUID",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": true,
-                    "attributes": []
-                },
                 "companyName": {
                     "name": "companyName",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "country": {
@@ -49,7 +42,7 @@ export const schema = {
                     "name": "haveExperienceSelling",
                     "isArray": false,
                     "type": "Boolean",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "storeURLs": {
@@ -64,7 +57,7 @@ export const schema = {
                     "name": "haveWebsite",
                     "isArray": false,
                     "type": "Boolean",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "websiteURLs": {
@@ -97,7 +90,7 @@ export const schema = {
                     "properties": {
                         "fields": [
                             "id",
-                            "ownerUID"
+                            "companyName"
                         ]
                     }
                 },
@@ -174,9 +167,16 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "profileBusinessId"
+                        "connectionType": "HAS_ONE",
+                        "associatedWith": "id"
                     }
+                },
+                "businessID": {
+                    "name": "businessID",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
                 },
                 "avatar": {
                     "name": "avatar",
@@ -199,9 +199,20 @@ export const schema = {
                     "type": "key",
                     "properties": {
                         "fields": [
-                            "ownerUID",
-                            "email"
+                            "id",
+                            "email",
+                            "name"
                         ]
+                    }
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "profileByOwnerUID",
+                        "fields": [
+                            "ownerUID"
+                        ],
+                        "queryField": "profileByOwnerUID"
                     }
                 },
                 {
@@ -276,5 +287,5 @@ export const schema = {
             }
         }
     },
-    "version": "427a193afda3370c5b514d469ab3671a"
+    "version": "c43520e41200c1a859f8d5d4228d46e8"
 };

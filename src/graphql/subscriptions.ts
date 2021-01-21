@@ -6,7 +6,6 @@ export const onCreateBusiness = /* GraphQL */ `
   subscription OnCreateBusiness {
     onCreateBusiness {
       id
-      ownerUID
       companyName
       country
       city
@@ -16,6 +15,9 @@ export const onCreateBusiness = /* GraphQL */ `
       haveWebsite
       websiteURLs
       businessType
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -26,7 +28,6 @@ export const onUpdateBusiness = /* GraphQL */ `
   subscription OnUpdateBusiness {
     onUpdateBusiness {
       id
-      ownerUID
       companyName
       country
       city
@@ -36,6 +37,9 @@ export const onUpdateBusiness = /* GraphQL */ `
       haveWebsite
       websiteURLs
       businessType
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -46,7 +50,6 @@ export const onDeleteBusiness = /* GraphQL */ `
   subscription OnDeleteBusiness {
     onDeleteBusiness {
       id
-      ownerUID
       companyName
       country
       city
@@ -56,6 +59,9 @@ export const onDeleteBusiness = /* GraphQL */ `
       haveWebsite
       websiteURLs
       businessType
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -65,19 +71,23 @@ export const onDeleteBusiness = /* GraphQL */ `
 export const onCreateProfile = /* GraphQL */ `
   subscription OnCreateProfile {
     onCreateProfile {
+      id
       ownerUID
       email
       name
+      businessID
       avatar {
         bucket
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       business {
         id
-        ownerUID
         companyName
         country
         city
@@ -87,6 +97,9 @@ export const onCreateProfile = /* GraphQL */ `
         haveWebsite
         websiteURLs
         businessType
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
         owner
@@ -98,19 +111,23 @@ export const onCreateProfile = /* GraphQL */ `
 export const onUpdateProfile = /* GraphQL */ `
   subscription OnUpdateProfile {
     onUpdateProfile {
+      id
       ownerUID
       email
       name
+      businessID
       avatar {
         bucket
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       business {
         id
-        ownerUID
         companyName
         country
         city
@@ -120,6 +137,9 @@ export const onUpdateProfile = /* GraphQL */ `
         haveWebsite
         websiteURLs
         businessType
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
         owner
@@ -131,19 +151,23 @@ export const onUpdateProfile = /* GraphQL */ `
 export const onDeleteProfile = /* GraphQL */ `
   subscription OnDeleteProfile {
     onDeleteProfile {
+      id
       ownerUID
       email
       name
+      businessID
       avatar {
         bucket
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       business {
         id
-        ownerUID
         companyName
         country
         city
@@ -153,6 +177,9 @@ export const onDeleteProfile = /* GraphQL */ `
         haveWebsite
         websiteURLs
         businessType
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
         owner

@@ -1,21 +1,22 @@
 type Business @model 
-    @key(fields: ["id", "ownerUID"])
+    @key(fields: ["id", "companyName"])
     @auth(rules: [
           { allow: owner },
           { allow: public, operations: [read]},
           { allow: private, operations: [read] },
       ]) {
   id: ID!
-  ownerUID: String!
-  companyName: String
+  companyName: String!
   country: String
   city: String
   businessNumber: String
-  haveExperienceSelling: Boolean!
+  haveExperienceSelling: Boolean
   storeURLs: [String]
-  haveWebsite: Boolean!
+  haveWebsite: Boolean
   websiteURLs: [String]
   businessType: BusinessType
+  # businessOwner: Profile @connection(fields: ["ownerUID"])
+  # ownerUID: ID!
 }
 
 enum BusinessType {
@@ -31,15 +32,18 @@ type S3Object {
 }
 
 type Profile @model
-    @key(fields: ["ownerUID", "email"])
+    @key(fields: ["id", "email", "name"])
+    @key(name: "profileByOwnerUID", fields: ["ownerUID"], queryField: "profileByOwnerUID")
     @auth(rules: [
       { allow: owner },
       { allow: public, operations: [read]},
       { allow: private, operations: [read] },
     ])  {
+  id: ID!
   ownerUID: ID!
   email: String!
   name: String!
-  business: Business @connection
+  business: Business @connection(fields: ["businessID"])
+  businessID: ID!
   avatar: S3Object
 }

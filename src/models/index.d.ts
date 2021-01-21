@@ -15,14 +15,13 @@ export declare class S3Object {
 
 export declare class Business {
   readonly id: string;
-  readonly ownerUID: string;
-  readonly companyName?: string;
+  readonly companyName: string;
   readonly country?: string;
   readonly city?: string;
   readonly businessNumber?: string;
-  readonly haveExperienceSelling: boolean;
+  readonly haveExperienceSelling?: boolean;
   readonly storeURLs?: (string | null)[];
-  readonly haveWebsite: boolean;
+  readonly haveWebsite?: boolean;
   readonly websiteURLs?: (string | null)[];
   readonly businessType?: BusinessType | keyof typeof BusinessType;
   constructor(init: ModelInit<Business>);
@@ -35,6 +34,7 @@ export declare class Profile {
   readonly email: string;
   readonly name: string;
   readonly business?: Business;
+  readonly businessID: string;
   readonly avatar?: S3Object;
   constructor(init: ModelInit<Profile>);
   static copyOf(source: Profile, mutator: (draft: MutableModel<Profile>) => MutableModel<Profile> | void): Profile;

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Grid, Link, Typography, Box, FormControl, MenuItem} from "@material-ui/core";
+import { Grid, Link, Typography, Box, FormControl, MenuItem} from "@material-ui/core";
 import classes from "./RegisterForm.module.scss";
 import {useHistory} from "react-router";
 import {FormContainerType} from './RegisterFormContainer';

@@ -1,12 +1,13 @@
-import {Box, Grid, Link, Typography} from "@material-ui/core";
-import React, {useState} from 'react';
+import { Box, Grid, Link, Typography } from "@material-ui/core";
+import React, { useState } from 'react';
 import classes from './RegisterForm.module.scss';
-import {FormStepTwoContainerType} from './RegisterFormStepThreeContainer';
-import {useHistory} from "react-router";
+import { FormStepTwoContainerType } from './RegisterFormStepThreeContainer';
+import { useHistory } from "react-router";
 import GoBackButton from "../common/Button/GoBackButton";
 import UxAssistant from "./UxAssistant";
 import CustomInput from "../common/Input/CustomInput";
 import CustomButton from "../common/Button/CustomButton";
+import { Profile } from "../../models";
 
 const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (props) => {
 
@@ -15,8 +16,8 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
     const [countryName, setCountryName] = useState(props.country);
     const [cityName, setCityName] = useState(props.city);
     const [businessNumber, setBusinessNumber] = useState(props.businessNumber);
-    const [ownerName, setOwnerName] = useState(props.ownerName);
-    const [ownerEmail, setOwnerEmail] = useState(props.ownerEmailAddress);
+    const [ownerName, setOwnerName] = useState(props.profile.name);
+    const [ownerEmail, setOwnerEmail] = useState(props.profile.email);
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -38,20 +39,26 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
             country: countryName,
             city: cityName,
             businessNumber,
-        })
+        });
+        props.setProfile(new Profile({
+            name: ownerName,
+            email: ownerEmail,
+            ownerUID: "",
+            businessID: ""
+        }))
     }
 
     return (
         <Grid container justify="center" alignItems={"center"}>
             <Grid container direction="column" justify="center" className={classes.registerForm}>
                 <Box className={classes.registrationSheet}>
-                    <GoBackButton onClick={handleBackPressed}/>
-                    <UxAssistant assistantText={"Tell us about yourself"} stepNumber={3}/>
+                    <GoBackButton onClick={handleBackPressed} />
+                    <UxAssistant assistantText={"Tell us about yourself"} stepNumber={3} />
                     <form onSubmit={handleSubmit}>
                         <Box className={classes.formContainer}>
                             <Grid container>
-                                <Grid item xs={1}/>
-                                <Grid item xs={5} style={{paddingRight: "12px"}}>
+                                <Grid item xs={1} />
+                                <Grid item xs={5} style={{ paddingRight: "12px" }}>
                                     <CustomInput
                                         label="Company Name"
                                         placeholder={"Company Name"}
@@ -59,7 +66,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         variant="outlined"
                                         value={companyName}
                                         margin={"0 0 16px 0"}
-                                        onChange={(event:any) =>
+                                        onChange={(event: any) =>
                                             setCompanyName(event.target.value)
                                         }
                                     />
@@ -70,7 +77,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         variant="outlined"
                                         value={countryName}
                                         margin={"0 0 16px 0"}
-                                        onChange={(event:any) =>
+                                        onChange={(event: any) =>
                                             setCountryName(event.target.value)
                                         }
                                     />
@@ -81,7 +88,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         fullWidth={true}
                                         value={cityName}
                                         margin={"0 0 16px 0"}
-                                        onChange={(event:any) =>
+                                        onChange={(event: any) =>
                                             setCityName(event.target.value)
                                         }
                                     />
@@ -91,12 +98,12 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         placeholder={"Company Name"}
                                         fullWidth={true}
                                         value={businessNumber}
-                                        onChange={(event:any) =>
+                                        onChange={(event: any) =>
                                             setBusinessNumber(event.target.value)
                                         }
                                     />
                                 </Grid>
-                                <Grid item xs={5} style={{paddingLeft: "12px"}}>
+                                <Grid item xs={5} style={{ paddingLeft: "12px" }}>
                                     <CustomInput
                                         label="Name"
                                         variant="outlined"
@@ -104,7 +111,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         fullWidth={true}
                                         value={ownerName}
                                         margin={"0 0 16px 0"}
-                                        onChange={(event:any) =>
+                                        onChange={(event: any) =>
                                             setOwnerName(event.target.value)
                                         }
                                     />
@@ -116,7 +123,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         fullWidth={true}
                                         value={ownerEmail}
                                         margin={"0 0 16px 0"}
-                                        onChange={(event:any) =>
+                                        onChange={(event: any) =>
                                             setOwnerEmail(event.target.value)
                                         }
                                     />
@@ -129,7 +136,7 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         fullWidth={true}
                                         value={password}
                                         margin={"0 0 16px 0"}
-                                        onChange={(event:any) =>
+                                        onChange={(event: any) =>
                                             setPassword(event.target.value)
                                         }
                                     />
@@ -141,16 +148,16 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
                                         placeholder={"Company Name"}
                                         fullWidth={true}
                                         value={confirmPassword}
-                                        onChange={(event:any) =>
+                                        onChange={(event: any) =>
                                             setConfirmPassword(event.target.value)
                                         }
                                     />
                                 </Grid>
-                                <Grid item xs={1}/>
+                                <Grid item xs={1} />
                             </Grid>
                         </Box>
                         <Grid item className={classes.nextContainer}>
-                            <CustomButton type={"submit"} className={classes.buttonBlock} text={"Dashboard"}/>
+                            <CustomButton type={"submit"} className={classes.buttonBlock} text={"Dashboard"} />
                             <Typography variant={"subtitle1"}>Have an account already?&nbsp;
                                 <Link className={classes.link} onClick={() => {
                                     history.replace("/login")

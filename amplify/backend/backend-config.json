@@ -41,7 +41,7 @@
     }
   },
   "api": {
-    "apiGraphqlNumber2": {
+    "marketingtool": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -57,7 +57,7 @@
               "authenticationType": "API_KEY",
               "apiKeyConfig": {
                 "apiKeyExpirationDays": 365,
-                "description": "second api key"
+                "description": "nice key"
               }
             }
           ]

@@ -9,7 +9,6 @@ export const createBusiness = /* GraphQL */ `
   ) {
     createBusiness(input: $input, condition: $condition) {
       id
-      ownerUID
       companyName
       country
       city
@@ -19,6 +18,9 @@ export const createBusiness = /* GraphQL */ `
       haveWebsite
       websiteURLs
       businessType
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -32,7 +34,6 @@ export const updateBusiness = /* GraphQL */ `
   ) {
     updateBusiness(input: $input, condition: $condition) {
       id
-      ownerUID
       companyName
       country
       city
@@ -42,6 +43,9 @@ export const updateBusiness = /* GraphQL */ `
       haveWebsite
       websiteURLs
       businessType
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -55,7 +59,6 @@ export const deleteBusiness = /* GraphQL */ `
   ) {
     deleteBusiness(input: $input, condition: $condition) {
       id
-      ownerUID
       companyName
       country
       city
@@ -65,6 +68,9 @@ export const deleteBusiness = /* GraphQL */ `
       haveWebsite
       websiteURLs
       businessType
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       owner
@@ -77,19 +83,23 @@ export const createProfile = /* GraphQL */ `
     $condition: ModelProfileConditionInput
   ) {
     createProfile(input: $input, condition: $condition) {
+      id
       ownerUID
       email
       name
+      businessID
       avatar {
         bucket
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       business {
         id
-        ownerUID
         companyName
         country
         city
@@ -99,6 +109,9 @@ export const createProfile = /* GraphQL */ `
         haveWebsite
         websiteURLs
         businessType
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
         owner
@@ -113,19 +126,23 @@ export const updateProfile = /* GraphQL */ `
     $condition: ModelProfileConditionInput
   ) {
     updateProfile(input: $input, condition: $condition) {
+      id
       ownerUID
       email
       name
+      businessID
       avatar {
         bucket
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       business {
         id
-        ownerUID
         companyName
         country
         city
@@ -135,6 +152,9 @@ export const updateProfile = /* GraphQL */ `
         haveWebsite
         websiteURLs
         businessType
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
         owner
@@ -149,19 +169,23 @@ export const deleteProfile = /* GraphQL */ `
     $condition: ModelProfileConditionInput
   ) {
     deleteProfile(input: $input, condition: $condition) {
+      id
       ownerUID
       email
       name
+      businessID
       avatar {
         bucket
         region
         key
       }
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
       business {
         id
-        ownerUID
         companyName
         country
         city
@@ -171,6 +195,9 @@ export const deleteProfile = /* GraphQL */ `
         haveWebsite
         websiteURLs
         businessType
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
         owner
