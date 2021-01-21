@@ -3,12 +3,12 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../store/store";
 import { setStepTwo, stepTwoData } from '../../store/Business/BusinessActions';
 import { signUp } from '../../store/Auth/AuthActions';
-import RegisterFormStepThree from "./RegisterFormStepThree";
+import RegisterFormImportantInfo from "./RegisterFormImportantInfo";
 import { ProfileType } from "../../store/Profile/ProfileReducer";
 import { setProfile } from "../../store/Profile/ProfileActions";
 import { Profile } from "../../models";
 
-export type FormStepTwoContainerType = MapDispatchType &
+export type RegisterFormImportantInfoContainerType = MapDispatchType &
     stepTwoData & ProfileType;
 
 const mapStateToProps = (state: AppStateType):stepTwoData & ProfileType => {
@@ -36,4 +36,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterFormStepThree)
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterFormImportantInfo)

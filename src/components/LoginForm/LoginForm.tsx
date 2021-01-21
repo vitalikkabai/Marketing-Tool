@@ -73,7 +73,7 @@ const LoginForm: React.FC<PropsType> = (props) => {
 										required />
 								</Grid>
 								<Grid item className={classes.loginButton}>
-									<CustomButton type={"submit"} className={classes.buttonBlock} text={"Log in"}/>
+									<CustomButton type={"submit"} className={classes.buttonBlock} text={"Log in"} />
 								</Grid>
 							</Grid>
 						</form>

@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import RegisterFormStepTwo from "./RegisterFormStepTwo";
+import RegisterFormChooseRole from "./RegisterFormChooseRole";
 import {connect} from "react-redux";
 import {AppStateType} from "../../store/store";
 import { setStepTwo, stepTwoData } from '../../store/Business/BusinessActions';
@@ -28,4 +28,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
 };
  */
 
-export default connect(null, null)(RegisterFormStepTwo)
+export default connect(null, null)(RegisterFormChooseRole)

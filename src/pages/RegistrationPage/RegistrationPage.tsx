@@ -1,11 +1,11 @@
-import { Box, Button, Container, Grid, Typography } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import React, { FunctionComponent } from "react";
 import Header from "../../components/Header/Header";
 import classes from './RegistrationPage.module.scss';
 import { Route, Switch } from "react-router";
-import RegisterFormStepTwoContainer from "../../components/RegisterForm/RegisterFormStepTwoContainer";
-import RegisterFormContainer from "../../components/RegisterForm/RegisterFormContainer";
-import RegisterFormStepThreeContainer from "../../components/RegisterForm/RegisterFormStepThreeContainer";
+import RegisterFormStepTwoContainer from "../../components/RegisterForm/RegisterFormChooseRoleContainer";
+import RegisterFormContainer from "../../components/RegisterForm/RegisterFormWebLinksContainer";
+import RegisterFormStepThreeContainer from "../../components/RegisterForm/RegisterFormImportantInfoContainer";
 import { withNotAuthRedirect } from "../../hoc/withNotAuthRedirect";
 
 
@@ -16,7 +16,7 @@ const RegistrationPage: FunctionComponent = () => {
             <Header />
             <Container>
                 <Grid container justify="center" alignItems="center" className={classes.registrationContainer}>
-                    <Grid item sm={8}>
+                    <Grid item sm={8} className={classes.registerItem}>
                         <Switch>
                             <Route exact path='/register' component={RegisterFormContainer} />
                             <Route exact path='/register/2' component={RegisterFormStepTwoContainer} />

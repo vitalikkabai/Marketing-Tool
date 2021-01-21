@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import { Grid, Link, Typography, Box, FormControl, MenuItem} from "@material-ui/core";
+import {Grid, Link, Typography, Box, FormControl, MenuItem} from "@material-ui/core";
 import classes from "./RegisterForm.module.scss";
 import {useHistory} from "react-router";
-import {FormContainerType} from './RegisterFormContainer';
+import {FormContainerType} from './RegisterFormWebLinksContainer';
 import CustomInput from "../common/Input/CustomInput";
 import CustomSelect from "../common/Select/CustomSelect";
 import GoBackButton from "../common/Button/GoBackButton";
@@ -11,7 +11,7 @@ import UxAssistant from "./UxAssistant";
 import CustomButton from "../common/Button/CustomButton";
 
 
-const RegisterForm: React.FunctionComponent<FormContainerType> = (props) => {
+const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props) => {
     const history = useHistory();
     const [hasExperienceSelling, setHasExperienceSelling] = useState(props.haveExperienceSelling);
     const [sellingURLs, setSellingURLs] = useState<string[]>(props.storeURLs);
@@ -149,4 +149,4 @@ const RegisterForm: React.FunctionComponent<FormContainerType> = (props) => {
     )
 }
 
-export default RegisterForm;
+export default RegisterFormWebLinks;

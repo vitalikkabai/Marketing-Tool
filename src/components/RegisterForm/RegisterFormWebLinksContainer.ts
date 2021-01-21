@@ -1,8 +1,7 @@
 import {Dispatch} from "redux";
-import RegisterForm from "./RegisterForm";
+import RegisterFormWebLinks from "./RegisterFormWebLinks";
 import {connect} from "react-redux";
 import {AppStateType} from "../../store/store";
-import {getAuthData, signIn} from "../../store/Auth/AuthActions";
 import { setStepOne, stepOneData } from '../../store/Business/BusinessActions';
 
 type MapDispatchType = {
@@ -26,4 +25,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm)
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterFormWebLinks)
