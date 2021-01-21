@@ -1,14 +1,14 @@
 import {Box, Grid, Link, Typography} from "@material-ui/core";
 import React, {useState} from 'react';
 import classes from './RegisterForm.module.scss';
-import {FormStepTwoContainerType} from './RegisterFormStepThreeContainer';
+import {RegisterFormImportantInfoContainerType} from './RegisterFormImportantInfoContainer';
 import {useHistory} from "react-router";
 import GoBackButton from "../common/Button/GoBackButton";
 import UxAssistant from "./UxAssistant";
 import CustomInput from "../common/Input/CustomInput";
 import CustomButton from "../common/Button/CustomButton";
 
-const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (props) => {
+const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantInfoContainerType> = (props) => {
 
     const history = useHistory();
     const [companyName, setCompanyName] = useState(props.companyName);
@@ -165,4 +165,4 @@ const RegisterFormStepTwo: React.FunctionComponent<FormStepTwoContainerType> = (
     );
 }
 
-export default RegisterFormStepTwo;
+export default RegisterFormImportantInfo;

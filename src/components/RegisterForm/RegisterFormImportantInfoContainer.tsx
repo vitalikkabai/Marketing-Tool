@@ -3,10 +3,10 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../store/store";
 import { setStepTwo, stepTwoData } from '../../store/Business/BusinessActions';
 import { signUp } from '../../store/Auth/AuthActions';
-import RegisterFormStepThree from "./RegisterFormStepThree";
+import RegisterFormImportantInfo from "./RegisterFormImportantInfo";
 
 
-export type FormStepTwoContainerType = MapDispatchType &
+export type RegisterFormImportantInfoContainerType = MapDispatchType &
     stepTwoData & {ownerName: string, ownerEmailAddress: string};
 
 const mapStateToProps = (state: AppStateType):stepTwoData & {ownerName: string, ownerEmailAddress: string} => {
@@ -33,4 +33,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterFormStepThree)
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterFormImportantInfo)
