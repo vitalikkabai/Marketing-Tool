@@ -22,7 +22,7 @@ const MarketingToolPageContainer = (props: any) => {
 		<Box className={classes.wrapper}>
 			<SideBarMenu isAuth={props.isAuth} />
 			<Box className={classes.marketingContainer}>
-				<TopBar signOut={props.signOut} />
+				<TopBar signOut={props.signOut} isAuth={props.isAuth}/>
 				<Grid container className={classes.contentContainer}>
 					<Grid xs={8} xl={9} item className={classes.content}>
 						<Switch>

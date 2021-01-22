@@ -1,26 +1,26 @@
 import { Dispatch } from "redux";
 import LoginForm from "./LoginForm";
-import { connect } from "react-redux";
+import {connect, ConnectedProps} from "react-redux";
 import { AppStateType } from "../../store/store";
-import { getAuthData, signIn } from "../../store/Auth/AuthActions";
-
-
-type MapDispatchType = {
-	signIn: (username: string, password: string) => void
-	getAuthData: () => void
-}
+import {cleanErrors, getAuthData, signIn} from "../../store/Auth/AuthActions";
 
 const mapStateToProps = (state: AppStateType) => {
 	return {
-		isAuth: state.AuthReducer.isAuth
+		isAuth: state.AuthReducer.isAuth,
+		errorText: state.AuthReducer.loginErrorMessage
 	}
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
 	return {
-		signIn: (username, password) => dispatch(signIn(username, password)),
+		signIn: (username: string, password: string) => dispatch(signIn(username, password)),
+		cleanErrors: () => dispatch(cleanErrors()),
 		getAuthData: () => dispatch(getAuthData())
 	}
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(LoginForm)

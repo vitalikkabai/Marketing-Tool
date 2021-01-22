@@ -7,11 +7,8 @@ export interface UserAttributes {
     emailVerified: boolean,
     userName: string
 }
-interface AuthReducerType {
-    isAuth: boolean,
-    initialized: boolean,
-    userAttributes: UserAttributes
-}
+
+export type InitialStateType = typeof initialState;
 
 const initialUserAttributes = {
     userID: "",
@@ -19,14 +16,19 @@ const initialUserAttributes = {
     emailVerified: false,
     userName: ""
 }
+
 const initialState = {
     isAuth: false,
     initialized: false,
-    userAttributes: initialUserAttributes
-
+    userAttributes: initialUserAttributes,
+    loginErrorMessage: {
+        code: "",
+        message: "",
+        name: "",
+    }
 };
 
-export const AuthReducer = (state: AuthReducerType = initialState, action: ActionTypes): AuthReducerType => {
+export const AuthReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
 
         case "SIGN-IN-SUCCESS":
@@ -35,7 +37,12 @@ export const AuthReducer = (state: AuthReducerType = initialState, action: Actio
                 isAuth: true,
                 initialized: true,
                 userAttributes: action.payload,
+            };
 
+        case "SIGN-IN-FAILED":
+            return {
+                ...state,
+                loginErrorMessage: action.payload.signInError,
             };
 
         case "SIGN-OUT-SUCCESS":
@@ -69,6 +76,15 @@ export const AuthReducer = (state: AuthReducerType = initialState, action: Actio
             return {
                 ...state,
                 initialized: true
+            };
+        case "CLEAN-ERROR-FIELDS":
+            return {
+                ...state,
+                loginErrorMessage: {
+                    code: "",
+                    message: "",
+                    name: "",
+                },
             };
 
         default:
