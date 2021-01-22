@@ -41,7 +41,7 @@
     }
   },
   "api": {
-    "marketingtool": {
+    "mtgraphql": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -56,8 +56,8 @@
             {
               "authenticationType": "API_KEY",
               "apiKeyConfig": {
-                "apiKeyExpirationDays": 365,
-                "description": "nice key"
+                "apiKeyExpirationDays": 35,
+                "description": "greay api"
               }
             }
           ]

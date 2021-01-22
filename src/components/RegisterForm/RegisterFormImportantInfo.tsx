@@ -43,8 +43,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
         props.setProfile(new Profile({
             name: ownerName,
             email: ownerEmail,
-            ownerUID: "",
-            businessID: ""
+            businessID: "",
         }))
     }
 

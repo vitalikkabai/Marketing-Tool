@@ -84,7 +84,7 @@ export const createProfile = /* GraphQL */ `
   ) {
     createProfile(input: $input, condition: $condition) {
       id
-      ownerUID
+      owner
       email
       name
       businessID
@@ -116,7 +116,6 @@ export const createProfile = /* GraphQL */ `
         updatedAt
         owner
       }
-      owner
     }
   }
 `;
@@ -127,7 +126,7 @@ export const updateProfile = /* GraphQL */ `
   ) {
     updateProfile(input: $input, condition: $condition) {
       id
-      ownerUID
+      owner
       email
       name
       businessID
@@ -159,7 +158,6 @@ export const updateProfile = /* GraphQL */ `
         updatedAt
         owner
       }
-      owner
     }
   }
 `;
@@ -170,7 +168,7 @@ export const deleteProfile = /* GraphQL */ `
   ) {
     deleteProfile(input: $input, condition: $condition) {
       id
-      ownerUID
+      owner
       email
       name
       businessID
@@ -202,7 +200,6 @@ export const deleteProfile = /* GraphQL */ `
         updatedAt
         owner
       }
-      owner
     }
   }
 `;

@@ -30,7 +30,7 @@ export declare class Business {
 
 export declare class Profile {
   readonly id: string;
-  readonly ownerUID: string;
+  readonly owner?: string;
   readonly email: string;
   readonly name: string;
   readonly business?: Business;

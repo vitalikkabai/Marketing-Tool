@@ -86,15 +86,6 @@ export const schema = {
                     "properties": {}
                 },
                 {
-                    "type": "key",
-                    "properties": {
-                        "fields": [
-                            "id",
-                            "companyName"
-                        ]
-                    }
-                },
-                {
                     "type": "auth",
                     "properties": {
                         "rules": [
@@ -137,11 +128,11 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "ownerUID": {
-                    "name": "ownerUID",
+                "owner": {
+                    "name": "owner",
                     "isArray": false,
                     "type": "ID",
-                    "isRequired": true,
+                    "isRequired": false,
                     "attributes": []
                 },
                 "email": {
@@ -198,21 +189,11 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
+                        "name": "profileByOwner",
                         "fields": [
-                            "id",
-                            "email",
-                            "name"
-                        ]
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "profileByOwnerUID",
-                        "fields": [
-                            "ownerUID"
+                            "owner"
                         ],
-                        "queryField": "profileByOwnerUID"
+                        "queryField": "profileByOwner"
                     }
                 },
                 {
@@ -287,5 +268,5 @@ export const schema = {
             }
         }
     },
-    "version": "c43520e41200c1a859f8d5d4228d46e8"
+    "version": "835375410705b1463643dbd264322f64"
 };

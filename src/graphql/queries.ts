@@ -4,21 +4,11 @@
 
 export const listBusinesss = /* GraphQL */ `
   query ListBusinesss(
-    $id: ID
-    $companyName: ModelStringKeyConditionInput
     $filter: ModelBusinessFilterInput
     $limit: Int
     $nextToken: String
-    $sortDirection: ModelSortDirection
   ) {
-    listBusinesss(
-      id: $id
-      companyName: $companyName
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      sortDirection: $sortDirection
-    ) {
+    listBusinesss(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         companyName
@@ -43,8 +33,8 @@ export const listBusinesss = /* GraphQL */ `
   }
 `;
 export const getBusiness = /* GraphQL */ `
-  query GetBusiness($id: ID!, $companyName: String!) {
-    getBusiness(id: $id, companyName: $companyName) {
+  query GetBusiness($id: ID!) {
+    getBusiness(id: $id) {
       id
       companyName
       country
@@ -101,10 +91,10 @@ export const syncBusinesses = /* GraphQL */ `
   }
 `;
 export const getProfile = /* GraphQL */ `
-  query GetProfile($id: ID!, $email: String!, $name: String!) {
-    getProfile(id: $id, email: $email, name: $name) {
+  query GetProfile($id: ID!) {
+    getProfile(id: $id) {
       id
-      ownerUID
+      owner
       email
       name
       businessID
@@ -136,78 +126,43 @@ export const getProfile = /* GraphQL */ `
         updatedAt
         owner
       }
-      owner
     }
   }
 `;
 export const listProfiles = /* GraphQL */ `
   query ListProfiles(
-    $id: ID
-    $emailName: ModelProfilePrimaryCompositeKeyConditionInput
     $filter: ModelProfileFilterInput
     $limit: Int
     $nextToken: String
-    $sortDirection: ModelSortDirection
   ) {
-    listProfiles(
-      id: $id
-      emailName: $emailName
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      sortDirection: $sortDirection
-    ) {
+    listProfiles(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        ownerUID
+        owner
         email
         name
         businessID
-        avatar {
-          bucket
-          region
-          key
-        }
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        business {
-          id
-          companyName
-          country
-          city
-          businessNumber
-          haveExperienceSelling
-          storeURLs
-          haveWebsite
-          websiteURLs
-          businessType
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          owner
-        }
-        owner
       }
       nextToken
       startedAt
     }
   }
 `;
-export const profileByOwnerUid = /* GraphQL */ `
-  query ProfileByOwnerUid(
-    $ownerUID: ID
+export const profileByOwner = /* GraphQL */ `
+  query ProfileByOwner(
+    $owner: ID
     $sortDirection: ModelSortDirection
     $filter: ModelProfileFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    profileByOwnerUID(
-      ownerUID: $ownerUID
+    profileByOwner(
+      owner: $owner
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -215,39 +170,15 @@ export const profileByOwnerUid = /* GraphQL */ `
     ) {
       items {
         id
-        ownerUID
+        owner
         email
         name
         businessID
-        avatar {
-          bucket
-          region
-          key
-        }
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        business {
-          id
-          companyName
-          country
-          city
-          businessNumber
-          haveExperienceSelling
-          storeURLs
-          haveWebsite
-          websiteURLs
-          businessType
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          owner
-        }
-        owner
       }
       nextToken
       startedAt
@@ -269,39 +200,15 @@ export const syncProfiles = /* GraphQL */ `
     ) {
       items {
         id
-        ownerUID
+        owner
         email
         name
         businessID
-        avatar {
-          bucket
-          region
-          key
-        }
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
-        business {
-          id
-          companyName
-          country
-          city
-          businessNumber
-          haveExperienceSelling
-          storeURLs
-          haveWebsite
-          websiteURLs
-          businessType
-          _version
-          _deleted
-          _lastChangedAt
-          createdAt
-          updatedAt
-          owner
-        }
-        owner
       }
       nextToken
       startedAt
