@@ -2,7 +2,7 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { API, graphqlOperation, Storage } from "aws-amplify";
-import React from "react";
+import React, { useEffect } from "react";
 import { updateProfile } from "../../graphql/mutations";
 import AvatarSelector from "./AvatarSelector/AvatarSelector";
 import classes from "./PersonalProfile.module.scss";
@@ -10,6 +10,10 @@ import config from '../../aws-exports'
 import { AppStateType } from "../../store/store";
 import { connect } from "react-redux";
 import { UserAttributes } from "../../store/Auth/AuthReducer";
+import { getProfile, listProfiles, profileByOwner } from "../../graphql/queries";
+import { Dispatch } from "redux";
+import { Profile, S3Object } from "../../models";
+import { saveProfileImage } from "../../store/Profile/ProfileActions";
 
 
 const {
@@ -18,34 +22,31 @@ const {
 } = config
 
 interface PropType {
-    userAttributes: UserAttributes
+    profile: Profile
 }
 
 const PersonalProfile: React.FunctionComponent<PropType> = (props) => {
 
     const saveImage = async (imageBase64: string) => {
-        console.log(props)
+        // console.log(props)
 
         const base64Data = new Buffer(imageBase64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
         console.log(base64Data)
-        const key = `images/${props.userAttributes.userID}_avatar.png`
+        const key = `images/${props.profile.owner}_avatar.png`
 
         const fileForUpload = {
             bucket,
             key,
             region,
         }
-        const inputData = { avatar: fileForUpload }
-        try {
-            await Storage.put(key, base64Data, {
-                contentType: 'image/png',
-                contentEncoding: 'base64'
-            })
-            await API.graphql(graphqlOperation(updateProfile, { input: inputData }))
-            console.log('successfully stored user data!')
-        } catch (err) {
-            console.log('error: ', err)
-        }
+        // const inputData = { avatar: fileForUpload }
+        props.saveProfileImage(fileForUpload, base64Data)
+        // try {
+        //     await 
+        //     console.log('successfully stored user data!')
+        // } catch (err) {
+        //     console.log('error: ', err)
+        // }
 
     }
 
@@ -72,10 +73,16 @@ const PersonalProfile: React.FunctionComponent<PropType> = (props) => {
         </Grid>
     );
 }
-    function mapStateToProps(state: AppStateType) {
-        return {
-            userAttributes: state.AuthReducer.userAttributes
-        }
+function mapStateToProps(state: AppStateType) {
+    return {
+        profile: state.ProfileReducer.profile
     }
+}
 
-export default connect(mapStateToProps)(PersonalProfile);
+function mapDispatchToProps(dispatch: Dispatch) {
+    return {
+        saveProfileImage: (s3: S3Object, bufferImg: Buffer) => dispatch(saveProfileImage(s3,bufferImg))
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(PersonalProfile);
