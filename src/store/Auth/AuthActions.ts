@@ -73,11 +73,11 @@ export const getResetLink = (email: string) => ({
     payload: { email }
 });
 
-export const ResetLinkSuccess = () => ({
+export const ResetLinkSuccess = (data: any) => ({
     type: "RESET-LINK-SUCCESS" as const,
 });
 
-export const ResetLinkFailed = () => ({
+export const ResetLinkFailed = (err: any) => ({
     type: "RESET-LINK-FAILED" as const,
 });
 
