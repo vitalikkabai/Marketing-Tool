@@ -8,7 +8,7 @@ import AvatarSelector from "./AvatarSelector/AvatarSelector";
 import classes from "./PersonalProfile.module.scss";
 import config from '../../aws-exports'
 import { AppStateType } from "../../store/store";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { UserAttributes } from "../../store/Auth/AuthReducer";
 import { getProfile, listProfiles, profileByOwner } from "../../graphql/queries";
 import { Dispatch } from "redux";
@@ -21,11 +21,8 @@ const {
     aws_user_files_s3_bucket: bucket
 } = config
 
-interface PropType {
-    profile: Profile
-}
 
-const PersonalProfile: React.FunctionComponent<PropType> = (props) => {
+const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 
     const saveImage = async (imageBase64: string) => {
         // console.log(props)
@@ -85,4 +82,7 @@ function mapDispatchToProps(dispatch: Dispatch) {
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(PersonalProfile);
+const connector = connect(mapStateToProps, mapDispatchToProps);
+export type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(PersonalProfile);
