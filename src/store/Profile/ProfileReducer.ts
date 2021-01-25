@@ -7,7 +7,6 @@ export interface ProfileType {
 }
 export const initialState = {
     profile: new Profile({
-        ownerUID: "",
         email: "",
         name: "",
         businessID: ""
@@ -24,21 +23,24 @@ export const ProfileReducer = (state: ProfileType = initialState, action: Action
                 profile: action.payload
             };
         case 'SET_PROFILE_ID':
+        case 'FETCH_PROFILE_BY_ID':
             return {
                 ...state,
-                profile: new Profile({
-                    ...state.profile,
-                    ownerUID: action.payload,
-                })
+                profile: {...state.profile, owner: action.payload}
             };
+        case 'FETCH_PROFILE_BY_ID_SUCCESS':
+            return {
+                ...state,
+                profile: {...action.payload}
+            }
+        case 'SET_PROFILE_IMAGE':
+            return {
+                ...state,
+                profile: {...state.profile, avatar: action.payload.s3}
+            };
+        case 'SAVE_PROFILE_TO_DB':
         case 'SAVE_PROFILE_TO_DB_SUCCESS':
-            return {
-                ...state
-            }
         case 'SAVE_PROFILE_TO_DB_FAILED':
-            return {
-                ...state
-            }
         default:
             return {
                 ...state,

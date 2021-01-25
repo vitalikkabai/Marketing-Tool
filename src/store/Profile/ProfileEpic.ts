@@ -1,14 +1,15 @@
 
 import { ActionsObservable, ofType, StateObservable } from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { saveProfileToDBFailed, saveProfileToDBSucces } from './ProfileActions';
+import { fetchProfileByIdSuccess, saveProfileToDBFailed, saveProfileToDBSucces } from './ProfileActions';
 import { ActionTypes } from './ProfileReducer';
 import { Business, Profile } from '../../models';
 import { AppStateType } from '../store';
-import { createBusiness, createProfile } from '../../graphql/mutations';
-import { API, graphqlOperation } from 'aws-amplify';
+import { createBusiness, createProfile, updateProfile } from '../../graphql/mutations';
+import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { from, Observable } from 'rxjs';
+import { getProfile, listProfiles, profileByOwner } from '../../graphql/queries';
 
 export default [
     (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
@@ -39,7 +40,7 @@ export default [
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
                     //  const business = res["[[PromiseResult]]"].data.createBusiness;
-                    const profile = new Profile({...state$.value.ProfileReducer.profile, id: "",
+                    const profile = new Profile({...state$.value.ProfileReducer.profile,
                      businessID: res.data.createBusiness.id
                     });
                     
@@ -48,7 +49,42 @@ export default [
             )
         }),
         
-        map(res => { console.log(res); return saveProfileToDBSucces() }),
+        map(res => { console.log(res);
+            return saveProfileToDBSucces() }),
+        catchError(err => { console.log(err); return [saveProfileToDBFailed(err)] })
+    ),
+
+    (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
+        ofType('FETCH_PROFILE_BY_ID'),
+        mergeMap((action : any) => {
+            console.log("action payload", action.payload)
+            return from(API.graphql(graphqlOperation(profileByOwner, { owner: action.payload })) as unknown as Promise<any>)
+        }),
+        
+        map(res => { console.log(res);
+            return fetchProfileByIdSuccess(res.data.profileByOwner.items[0]) }),
+        catchError(err => { console.log(err); return [saveProfileToDBFailed(err)] })
+    ),
+
+    (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
+        ofType('SET_PROFILE_IMAGE'),
+        mergeMap((action: any) => {
+            console.log("action payload")
+            action.payload.bufferImg
+            
+            return from(Storage.put(action.payload.s3.key, action.payload.bufferImg, {
+                contentType: 'image/png',
+                contentEncoding: 'base64'
+            }))
+            // return from(API.graphql(graphqlOperation(profileByOwner)) as unknown as Promise<any>)
+        }),
+        mergeMap(res => {
+            console.log(res);
+            const profile = new Profile({...state$.value.ProfileReducer.profile});
+            return from(API.graphql(graphqlOperation(updateProfile, { input: profile })) as unknown as Promise<any>);
+        }),
+        map(res => { console.log(res);
+            return fetchProfileByIdSuccess(res.data) }),
         catchError(err => { console.log(err); return [saveProfileToDBFailed(err)] })
     )
 ]

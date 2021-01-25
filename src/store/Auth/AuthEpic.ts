@@ -16,7 +16,8 @@ import {
 } from "./AuthActions";
 import { ActionTypes } from "./AuthReducer";
 import { from, of } from 'rxjs';
-import { initiateNewProfile, setProfileID } from '../Profile/ProfileActions';
+import { fetchProfileById, initiateNewProfile, setProfile, setProfileID } from '../Profile/ProfileActions';
+import { Profile } from '../../models';
 
 export const signInEpic = (action$: ActionsObservable<any>) => action$.pipe(
     ofType("SIGN-IN-REQUEST"),
@@ -61,7 +62,7 @@ export const signUpEpic = (action$: ActionsObservable<any>) => action$.pipe(
                     catchError(err => of(signInFailed(err))),
                     mergeMap((response) => {
                         console.log(response); return [
-                            setProfileID(response.attributes.sub),
+                            // setProfileID(response.attributes.sub),
                             signInSuccess({
                                 userID: response.attributes.sub,
                                 email: response.attributes.email,
@@ -98,15 +99,17 @@ export const getAuthDataEpic = (action$: ActionsObservable<ActionTypes>) => acti
     mergeMap(() => {
         return from(Auth.currentUserInfo());
     }),
-    map(res => {
+    mergeMap(res => {
         console.log(res)
-        if (res) return getAuthDataSuccess({
+        if (res) return [getAuthDataSuccess({
             userID: res.username,
             email: res.attributes.email,
             emailVerified: res.attributes.email_verified,
             userName: res.attributes.given_name
-        });
-        else return getAuthDataFailed();
+        }),
+        fetchProfileById(res.username)
+        ];
+        else return [getAuthDataFailed()];
     })
 );
 

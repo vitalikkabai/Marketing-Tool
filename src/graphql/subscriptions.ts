@@ -72,7 +72,7 @@ export const onCreateProfile = /* GraphQL */ `
   subscription OnCreateProfile {
     onCreateProfile {
       id
-      ownerUID
+      owner
       email
       name
       businessID
@@ -104,7 +104,6 @@ export const onCreateProfile = /* GraphQL */ `
         updatedAt
         owner
       }
-      owner
     }
   }
 `;
@@ -112,7 +111,7 @@ export const onUpdateProfile = /* GraphQL */ `
   subscription OnUpdateProfile {
     onUpdateProfile {
       id
-      ownerUID
+      owner
       email
       name
       businessID
@@ -144,7 +143,6 @@ export const onUpdateProfile = /* GraphQL */ `
         updatedAt
         owner
       }
-      owner
     }
   }
 `;
@@ -152,7 +150,7 @@ export const onDeleteProfile = /* GraphQL */ `
   subscription OnDeleteProfile {
     onDeleteProfile {
       id
-      ownerUID
+      owner
       email
       name
       businessID
@@ -184,7 +182,6 @@ export const onDeleteProfile = /* GraphQL */ `
         updatedAt
         owner
       }
-      owner
     }
   }
 `;
