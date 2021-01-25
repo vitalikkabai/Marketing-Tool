@@ -14,6 +14,7 @@ type Business @model
   haveWebsite: Boolean
   websiteURLs: [String]
   businessType: BusinessType
+  # _version: Int
 }
 
 enum BusinessType {
@@ -43,4 +44,5 @@ type Profile @model
   business: Business @connection(fields: ["businessID"])
   businessID: ID!
   avatar: S3Object
+  # _version: Int
 }

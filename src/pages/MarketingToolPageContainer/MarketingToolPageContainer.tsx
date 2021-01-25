@@ -22,7 +22,7 @@ const MarketingToolPageContainer = (props: any) => {
 		<Box className={classes.wrapper}>
 			<SideBarMenu isAuth={props.isAuth} />
 			<Box className={classes.marketingContainer}>
-				<TopBar signOut={props.signOut} isAuth={props.isAuth}/>
+				<TopBar/>
 				<Grid container className={classes.contentContainer}>
 					<Grid xs={8} xl={9} item className={classes.content}>
 						<Switch>
@@ -54,11 +54,7 @@ const mapStateToProps = (state: AppStateType) => {
 	}
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-	return {
-		signOut: () => dispatch(signOut())
-	}
-};
+
 
 
 const H1 = () => {
@@ -66,4 +62,4 @@ const H1 = () => {
 		<h1>hifffda adf adffda </h1>
 	)
 }
-export default compose(withAuthRedirect, connect(mapStateToProps, mapDispatchToProps))(MarketingToolPageContainer);
+export default compose(withAuthRedirect, connect(mapStateToProps))(MarketingToolPageContainer);

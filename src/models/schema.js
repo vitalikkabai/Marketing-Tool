@@ -76,6 +76,13 @@ export const schema = {
                     },
                     "isRequired": false,
                     "attributes": []
+                },
+                "_version": {
+                    "name": "_version",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -177,6 +184,13 @@ export const schema = {
                     },
                     "isRequired": false,
                     "attributes": []
+                },
+                "_version": {
+                    "name": "_version",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -268,5 +282,5 @@ export const schema = {
             }
         }
     },
-    "version": "835375410705b1463643dbd264322f64"
+    "version": "724f86adef6099ab8e8d5cec65222cb2"
 };

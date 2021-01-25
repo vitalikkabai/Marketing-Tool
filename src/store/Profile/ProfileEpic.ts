@@ -1,15 +1,14 @@
 
 import { ActionsObservable, ofType, StateObservable } from 'redux-observable';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap } from 'rxjs/operators';
 import { fetchProfileByIdSuccess, saveProfileToDBFailed, saveProfileToDBSucces } from './ProfileActions';
 import { ActionTypes } from './ProfileReducer';
 import { Business, Profile } from '../../models';
 import { AppStateType } from '../store';
 import { createBusiness, createProfile, updateProfile } from '../../graphql/mutations';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
-import { Action } from 'rxjs/internal/scheduler/Action';
 import { from, Observable } from 'rxjs';
-import { getProfile, listProfiles, profileByOwner } from '../../graphql/queries';
+import { profileByOwnerWithBusiness } from '../../graphql/custom';
 
 export default [
     (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
@@ -58,7 +57,7 @@ export default [
         ofType('FETCH_PROFILE_BY_ID'),
         mergeMap((action : any) => {
             console.log("action payload", action.payload)
-            return from(API.graphql(graphqlOperation(profileByOwner, { owner: action.payload })) as unknown as Promise<any>)
+            return from(API.graphql(graphqlOperation(profileByOwnerWithBusiness, { owner: action.payload })) as unknown as Promise<any>)
         }),
         
         map(res => { console.log(res);
@@ -67,24 +66,31 @@ export default [
     ),
 
     (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
-        ofType('SET_PROFILE_IMAGE'),
+        filter(action => action.type === 'SET_PROFILE_IMAGE'),
         mergeMap((action: any) => {
             console.log("action payload")
             action.payload.bufferImg
-            
+            if (state$.value.ProfileReducer.profile.avatar) {
+                Storage.remove(state$.value.ProfileReducer.profile.avatar.key)
+            }
             return from(Storage.put(action.payload.s3.key, action.payload.bufferImg, {
                 contentType: 'image/png',
                 contentEncoding: 'base64'
-            }))
-            // return from(API.graphql(graphqlOperation(profileByOwner)) as unknown as Promise<any>)
-        }),
-        mergeMap(res => {
-            console.log(res);
-            const profile = new Profile({...state$.value.ProfileReducer.profile});
-            return from(API.graphql(graphqlOperation(updateProfile, { input: profile })) as unknown as Promise<any>);
+            })).pipe(
+                mergeMap(res => {
+                    console.log(res);
+                    const profileAvatar = {
+                        id: state$.value.ProfileReducer.profile.id,
+                        avatar: action.payload.s3,
+                        _version: state$.value.ProfileReducer.profile._version,
+                    };
+                    console.log(profileAvatar)
+                    return from(API.graphql(graphqlOperation(updateProfile, { input: profileAvatar })) as unknown as Promise<any>);
+                }),
+            )
         }),
         map(res => { console.log(res);
-            return fetchProfileByIdSuccess(res.data) }),
+            return fetchProfileByIdSuccess(res.data.updateProfile) }),
         catchError(err => { console.log(err); return [saveProfileToDBFailed(err)] })
     )
 ]

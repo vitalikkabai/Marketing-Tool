@@ -174,6 +174,24 @@ export const profileByOwner = /* GraphQL */ `
         email
         name
         businessID
+        business {
+        id
+        companyName
+        country
+        city
+        businessNumber
+        haveExperienceSelling
+        storeURLs
+        haveWebsite
+        websiteURLs
+        businessType
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+      }
         _version
         _deleted
         _lastChangedAt

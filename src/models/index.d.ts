@@ -24,6 +24,7 @@ export declare class Business {
   readonly haveWebsite?: boolean;
   readonly websiteURLs?: (string | null)[];
   readonly businessType?: BusinessType | keyof typeof BusinessType;
+  readonly _version?: number;
   constructor(init: ModelInit<Business>);
   static copyOf(source: Business, mutator: (draft: MutableModel<Business>) => MutableModel<Business> | void): Business;
 }
@@ -36,6 +37,7 @@ export declare class Profile {
   readonly business?: Business;
   readonly businessID: string;
   readonly avatar?: S3Object;
+  readonly _version?: number;
   constructor(init: ModelInit<Profile>);
   static copyOf(source: Profile, mutator: (draft: MutableModel<Profile>) => MutableModel<Profile> | void): Profile;
 }

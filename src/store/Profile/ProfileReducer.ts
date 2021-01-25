@@ -1,6 +1,7 @@
 import { Profile } from '../../models';
 import * as actions from './ProfileActions';
 
+
 export interface ProfileType {
     profile: Profile,
     avatarSrc?: string
@@ -34,10 +35,6 @@ export const ProfileReducer = (state: ProfileType = initialState, action: Action
                 profile: {...action.payload}
             }
         case 'SET_PROFILE_IMAGE':
-            return {
-                ...state,
-                profile: {...state.profile, avatar: action.payload.s3}
-            };
         case 'SAVE_PROFILE_TO_DB':
         case 'SAVE_PROFILE_TO_DB_SUCCESS':
         case 'SAVE_PROFILE_TO_DB_FAILED':

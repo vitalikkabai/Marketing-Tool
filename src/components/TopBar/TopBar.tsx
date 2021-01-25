@@ -1,12 +1,18 @@
-import {Box, Button, Dialog, DialogContent, Grid, Typography} from '@material-ui/core';
+import {Avatar, Box, Button, Dialog, DialogContent, Grid, Typography} from '@material-ui/core';
 import React, {useEffect, useState} from 'react';
 import CustomButton from "../common/Button/CustomButton"
 import classes from './TopBar.module.scss';
 import clock from "../../assets/images/clock.svg";
 import logOutIcon from "../../assets/images/logOutConfirmIcon.svg"
 import {useHistory} from "react-router";
+import { connect, ConnectedProps } from 'react-redux';
+import { AppStateType } from '../../store/store';
+import { getS3ObjectSrc } from '../../utils/profile/profile';
+import { Dispatch } from 'redux';
+import { signOut } from '../../store/Auth/AuthActions';
+import AvatarSection from './AvatarSection/AvatarSection';
 
-const TopBar = (props: any) => {
+const TopBar = (props: PropsFromRedux) => {
 
     const israelTimeArr: string[] = new Date().toLocaleString('he-IL', {timeZone: 'Asia/Jerusalem'}).split(', ')[1].split(':');// change on Israel zone, Australia just from test
     const [currentTime, setCurrentTime] = useState(new Date());
@@ -34,7 +40,7 @@ const TopBar = (props: any) => {
 
         return () => clearInterval(intervalId);
     }, []);
-
+    console.log(props.profile)
     return (
         <Box className={classes.topBarContainer}>
             <Grid container alignItems={"center"} justify={"space-between"} className={classes.TopBarContent}>
@@ -78,17 +84,18 @@ const TopBar = (props: any) => {
                 <Grid item/>
                 <Grid item className={classes.personalInfo}>
                     {props.isAuth ?
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                            onClick={
-                                () => {
-                                    setIsOpen(!isOpen)
-                                }
-                            }>
-                            Log Out
-                        </Button>
+                        // <Button
+                        //     variant="contained"
+                        //     color="primary"
+                        //     type="submit"
+                        //     onClick={
+                        //         () => {
+                        //             setIsOpen(!isOpen)
+                        //         }
+                        //     }>
+                        //     Log Out
+                        // </Button>
+                        <AvatarSection profile={props.profile} signOut={props.signOut}/>
                         :
                         <Box className={classes.logInBox}>
                             <Typography variant={"subtitle2"} color={"primary"}
@@ -134,5 +141,20 @@ const TopBar = (props: any) => {
     );
 }
 
+const mapStateToProps = (state: AppStateType) => {
+	return {
+        isAuth: state.AuthReducer.isAuth,
+        profile: state.ProfileReducer.profile
+	}
+};
 
-export default TopBar;
+const mapDispatchToProps = (dispatch: Dispatch) => {
+	return {
+		signOut: () => dispatch(signOut())
+	}
+};
+
+const connector = connect(mapStateToProps,mapDispatchToProps)
+export type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(TopBar);
