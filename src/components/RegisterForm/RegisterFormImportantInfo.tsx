@@ -1,5 +1,5 @@
-import { Box, Grid, Link, Typography } from "@material-ui/core";
-import React, { useState } from 'react';
+import {Box, Grid, Link, Typography} from "@material-ui/core";
+import React, {useState} from 'react';
 import classes from './RegisterForm.module.scss';
 import {RegisterFormImportantInfoContainerType} from './RegisterFormImportantInfoContainer';
 import {useHistory} from "react-router";
@@ -7,13 +7,13 @@ import GoBackButton from "../common/Button/GoBackButton";
 import UxAssistant from "./UxAssistant";
 import CustomInput from "../common/Input/CustomInput";
 import CustomButton from "../common/Button/CustomButton";
-import { Profile } from "../../models";
-import {isEmpty, validateField} from "../../utils/validators/validators";
+import {Profile} from "../../models";
+import {isEmail, isMinLength, isPasswordsEqual, validateField} from "../../utils/validators/validators";
 
 const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantInfoContainerType> = (props) => {
 
     const history = useHistory();
-    const [isPending, setPending] = useState(false);
+    const [emptyFieldsError, setEmptyFieldsError] = useState(false);
     const [inputValue, setInputValue] = useState({ //For input values
         companyName: {value: props.companyName, touched: false, error: false, errorText: "", name: "COMPANY_NAME"},
         countryName: {value: props.country, touched: false, error: false, errorText: "", name: "COUNTRY_NAME"},
@@ -25,6 +25,37 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
         confirmPassword: {value: "", touched: false, error: false, errorText: "", name: "CONFIRM_PASSWORD"},
     });
 
+    const resetFieldErrors = () => {
+        setInputValue((prevInput) => {
+            const currInputValue = Object.assign({}, prevInput);
+            currInputValue.companyName.error = false;
+            currInputValue.companyName.errorText = "";
+
+            currInputValue.countryName.error = false;
+            currInputValue.countryName.errorText = "";
+
+            currInputValue.cityName.error = false;
+            currInputValue.cityName.errorText = "";
+
+            currInputValue.businessNumber.error = false;
+            currInputValue.businessNumber.errorText = "";
+
+            currInputValue.ownerName.error = false;
+            currInputValue.ownerName.errorText = "";
+
+            currInputValue.ownerEmail.error = false;
+            currInputValue.ownerEmail.errorText = "";
+
+            currInputValue.password.error = false;
+            currInputValue.password.errorText = "";
+
+            currInputValue.confirmPassword.error = false;
+            currInputValue.confirmPassword.errorText = "";
+
+            return currInputValue;
+        })
+    }
+
     const handleInput = (inputData: string, inputType: string) => {
         setInputValue((prevInput) => {
             const currInputValue = Object.assign({}, prevInput);
@@ -32,89 +63,160 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
                 case prevInput.companyName.name: {
                     currInputValue.companyName.value = inputData;
                     currInputValue.companyName.touched = true;
-                    const errorArray = validateField(inputData,
-                        isEmpty(inputData));
-                    currInputValue.companyName.error = !!errorArray[0];
-                    currInputValue.companyName.errorText = errorArray[0];
+                    currInputValue.companyName.error = false;
+                    currInputValue.companyName.errorText = "";
                     break;
                 }
                 case prevInput.countryName.name: {
                     currInputValue.countryName.value = inputData;
                     currInputValue.countryName.touched = true;
-                    const errorArray = validateField(inputData,
-                        isEmpty(inputData));
-                    currInputValue.countryName.error = !!errorArray[0];
-                    currInputValue.countryName.errorText = errorArray[0];
+                    currInputValue.countryName.error = false;
+                    currInputValue.countryName.errorText = "";
                     break;
                 }
                 case prevInput.cityName.name: {
                     currInputValue.cityName.value = inputData;
                     currInputValue.cityName.touched = true;
-                    const errorArray = validateField(inputData,
-                        isEmpty(inputData));
-                    currInputValue.cityName.error = !!errorArray[0];
-                    currInputValue.cityName.errorText = errorArray[0];
+                    currInputValue.cityName.error = false;
+                    currInputValue.cityName.errorText = "";
                     break;
                 }
                 case prevInput.businessNumber.name: {
                     currInputValue.businessNumber.value = inputData;
                     currInputValue.businessNumber.touched = true;
-                    const errorArray = validateField(inputData,
-                        isEmpty(inputData));
-                    currInputValue.businessNumber.error = !!errorArray[0];
-                    currInputValue.businessNumber.errorText = errorArray[0];
+                    currInputValue.businessNumber.error = false;
+                    currInputValue.businessNumber.errorText = "";
                     break;
                 }
                 case prevInput.ownerName.name: {
                     currInputValue.ownerName.value = inputData;
                     currInputValue.ownerName.touched = true;
-                    const errorArray = validateField(inputData,
-                        isEmpty(inputData));
-                    currInputValue.ownerName.error = !!errorArray[0];
-                    currInputValue.ownerName.errorText = errorArray[0];
+                    currInputValue.ownerName.error = false;
+                    currInputValue.ownerName.errorText = "";
                     break;
                 }
                 case prevInput.ownerEmail.name: {
                     currInputValue.ownerEmail.value = inputData;
                     currInputValue.ownerEmail.touched = true;
-                    const errorArray = validateField(inputData,
-                        isEmpty(inputData));
-                    currInputValue.ownerEmail.error = !!errorArray[0];
-                    currInputValue.ownerEmail.errorText = errorArray[0];
+                    currInputValue.ownerEmail.error = false;
+                    currInputValue.ownerEmail.errorText = "";
                     break;
                 }
                 case prevInput.password.name: {
                     currInputValue.password.value = inputData;
                     currInputValue.password.touched = true;
-                    const errorArray = validateField(inputData,
-                        isEmpty(inputData));
-                    currInputValue.password.error = !!errorArray[0];
-                    currInputValue.password.errorText = errorArray[0];
+                    currInputValue.password.error = false;
+                    currInputValue.password.errorText = "";
                     break;
                 }
-
                 case prevInput.confirmPassword.name: {
                     currInputValue.confirmPassword.value = inputData;
                     currInputValue.confirmPassword.touched = true;
-                    const errorArray = validateField(inputData,
-                        isEmpty(inputData));
-                    currInputValue.confirmPassword.error = !!errorArray[0];
-                    currInputValue.confirmPassword.errorText = errorArray[0];
+                    currInputValue.confirmPassword.error = false;
+                    currInputValue.confirmPassword.errorText = "";
                     break;
                 }
-
                 default:
                     break;
             }
+            const inputArray = Object.entries(inputValue);
+            const emptyInputNames: Array<string> = [];
+            inputArray.forEach((el, index) => {
+                if (inputArray[index][1].value == "") emptyInputNames.push(inputArray[index][0])
+            })
+            if (!emptyInputNames[0]) setEmptyFieldsError(false);
             return currInputValue
         })
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        alert("Signed up with credits: " + inputValue.ownerEmail.value + " " + inputValue.password.value +
-            " " + inputValue.ownerName.value);
+        resetFieldErrors();
+        setEmptyFieldsError(false);
+        const emptyMessage = "The input fields cannot be empty";
+        const passwordErrorArray = validateField(inputValue.password.value, isMinLength(inputValue.password.value));
+        const emailErrorArray = validateField(inputValue.ownerEmail.value, isEmail(inputValue.ownerEmail.value));
+        const confirmErrorArray = validateField(inputValue.confirmPassword.value, isPasswordsEqual(inputValue.password.value, inputValue.confirmPassword.value));
+        const inputArray = Object.entries(inputValue);
+        const emptyInputNames: Array<string> = [];
+        inputArray.forEach((el, index) => {
+            if (inputArray[index][1].value == "") emptyInputNames.push(inputArray[index][0])
+        })
 
+        if (emptyInputNames[0]) {// if any empty fields detected
+            if (!inputValue.companyName.value.replace(/\s/g, '')) {
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    companyName: {...prevStyle.companyName, error: true, errorText: emptyMessage},
+                }));
+            }
+            if (!inputValue.countryName.value.replace(/\s/g, '')) {
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    countryName: {...prevStyle.countryName, error: true, errorText: emptyMessage},
+                }));
+            }
+            if (!inputValue.cityName.value.replace(/\s/g, '')) {
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    cityName: {...prevStyle.cityName, error: true, errorText: emptyMessage},
+                }));
+            }
+            if (!inputValue.businessNumber.value.replace(/\s/g, '')) {
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    businessNumber: {...prevStyle.businessNumber, error: true, errorText: emptyMessage},
+                }));
+            }
+            if (!inputValue.ownerName.value.replace(/\s/g, '')) {
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    ownerName: {...prevStyle.ownerName, error: true, errorText: emptyMessage},
+                }));
+            }
+            if (!inputValue.ownerEmail.value.replace(/\s/g, '')) {
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    ownerEmail: {...prevStyle.ownerEmail, error: true, errorText: emptyMessage},
+                }));
+            }
+            if (!inputValue.password.value.replace(/\s/g, '')) {
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    password: {...prevStyle.password, error: true, errorText: emptyMessage},
+                }));
+            }
+            if (!inputValue.confirmPassword.value.replace(/\s/g, '')) {
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    confirmPassword: {...prevStyle.confirmPassword, error: true, errorText: emptyMessage},
+                }));
+            }
+            setEmptyFieldsError(true);
+            return;
+        } else { // if no empty fields detected
+            if (emailErrorArray[0]) {
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    ownerEmail: {...prevStyle.ownerEmail, error: true, errorText: emailErrorArray[0]},
+                }));
+                return;
+            } else if (passwordErrorArray[0]) {
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    password: {...prevStyle.password, error: true, errorText: passwordErrorArray[0]},
+                }));
+                return;
+            } else if (confirmErrorArray[0]) {
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    confirmPassword: {...prevStyle.confirmPassword, error: true, errorText: confirmErrorArray[0]},
+                }));
+                return;
+            } else {
+                alert("Signed up");
+            }
+        }
         /*
         saveInputData();
         props.signUp(inputValue.ownerEmail.value, inputValue.password.value, inputValue.ownerName.value);
@@ -129,9 +231,9 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
 
     const saveInputData = () => {
         props.setStepTwo({
-            companyName:  inputValue.companyName.value,
-            country:  inputValue.countryName.value,
-            city:  inputValue.cityName.value,
+            companyName: inputValue.companyName.value,
+            country: inputValue.countryName.value,
+            city: inputValue.cityName.value,
             businessNumber: inputValue.businessNumber.value,
         });
         props.setProfile(new Profile({
@@ -141,17 +243,25 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
         }))
     }
 
+    const getErrorMessage = () => {
+        if (emptyFieldsError) return "The input fields cannot be empty";
+        if (inputValue.password.errorText) return inputValue.password.errorText;
+        if (inputValue.confirmPassword.errorText) return inputValue.confirmPassword.errorText;
+        if (inputValue.ownerEmail.errorText) return inputValue.ownerEmail.errorText;
+        return "";
+    }
+
     return (
         <Grid container justify="center" alignItems={"center"}>
             <Grid container direction="column" justify="center" className={classes.registerForm}>
                 <Box className={classes.registrationSheet}>
-                    <GoBackButton onClick={handleBackPressed} />
-                    <UxAssistant assistantText={"Tell us about yourself"} stepNumber={3} />
+                    <GoBackButton onClick={handleBackPressed}/>
+                    <UxAssistant assistantText={"Tell us about yourself"} stepNumber={3}/>
                     <form onSubmit={handleSubmit}>
                         <Box className={classes.formContainer}>
                             <Grid container>
-                                <Grid item xs={1} />
-                                <Grid item xs={5} style={{ paddingRight: "12px" }}>
+                                <Grid item xs={1}/>
+                                <Grid item xs={5} style={{paddingRight: "12px"}}>
                                     <CustomInput
                                         label="Company Name"
                                         placeholder={"Company Name"}
@@ -200,7 +310,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
                                         }
                                     />
                                 </Grid>
-                                <Grid item xs={5} style={{ paddingLeft: "12px" }}>
+                                <Grid item xs={5} style={{paddingLeft: "12px"}}>
                                     <CustomInput
                                         label="Name"
                                         variant="outlined"
@@ -214,7 +324,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
                                         }
                                     />
                                     <CustomInput
-                                        type="email"
+                                        type="text"
                                         label="Email"
                                         variant="outlined"
                                         placeholder={"email"}
@@ -254,16 +364,16 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
                                         }
                                     />
                                 </Grid>
-                                <Grid item xs={1} />
+                                <Grid item xs={1}/>
                             </Grid>
                         </Box>
                         <Grid item className={classes.errorText}>
                             <Typography variant={"subtitle1"}>
-
+                                {getErrorMessage()}
                             </Typography>
                         </Grid>
                         <Grid item className={classes.nextContainer}>
-                            <CustomButton type={"submit"} className={classes.buttonBlock} text={"Dashboard"} />
+                            <CustomButton type={"submit"} className={classes.buttonBlock} text={"Dashboard"}/>
                             <Typography variant={"subtitle1"}>Have an account already?&nbsp;
                                 <Link className={classes.link} onClick={() => {
                                     history.replace("/login")

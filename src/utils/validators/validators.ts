@@ -1,11 +1,26 @@
 export const isEmpty = (value: string) => {
-    if(!value) return "Field cannot be empty";
+    if(!value.replace(/\s/g, '')) return "Field cannot be empty";
+    return ""
+}
+
+export const isFieldsEmpty = (arr: Array<string>) => {
+    if(arr.filter(item => item === "").length !== 0) return "This Fields cannot be empty";
     return ""
 }
 
 export const isEmail = (value: string) => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if(!re.test(String(value).toLowerCase())) return "Invalid email address";
+    return ""
+}
+
+export const isMinLength = (value: string) => {
+    if(value.length < 6) return "The password must be at least 6 characters";
+    return ""
+}
+
+export const isPasswordsEqual = (password: string, confirm: string) => {
+    if(password !== confirm) return "Password mismatched";
     return ""
 }
 
