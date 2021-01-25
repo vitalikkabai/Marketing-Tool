@@ -1,26 +1,22 @@
 import { ActionsObservable, ofType } from 'redux-observable';
-import { mergeMap, switchMap, catchError, map, mapTo } from 'rxjs/operators';
-import { API, Auth } from "aws-amplify";
+import { mergeMap, switchMap, catchError, map } from 'rxjs/operators';
+import { Auth } from "aws-amplify";
 import {
     getAuthDataFailed,
     getAuthDataSuccess,
-    signIn,
     signInFailed,
     signInSuccess,
     signOutFailed,
     signOutSuccess,
-    signUpSuccess,
     signUpFailed,
     ResetLinkSuccess,
     ResetLinkFailed,
     sendNewPasswordSuccess,
     sendNewPasswordFailed,
-    getResetLink
 } from "./AuthActions";
 import { ActionTypes } from "./AuthReducer";
 import { from, of } from 'rxjs';
-import { saveBusinessToDB } from '../Business/BusinessActions';
-import { fetchProfileById, initiateNewProfile, saveProfileToDB, setProfile, setProfileID } from '../Profile/ProfileActions';
+import { fetchProfileById, initiateNewProfile, setProfile, setProfileID } from '../Profile/ProfileActions';
 import { Profile } from '../../models';
 
 export const signInEpic = (action$: ActionsObservable<any>) => action$.pipe(
@@ -39,7 +35,6 @@ export const signInEpic = (action$: ActionsObservable<any>) => action$.pipe(
                 userName: response.attributes.given_name,
             });
         }).catch(err => {
-            alert("Failed to Sign in");
             console.log(err)
             return signInFailed(err)
         });

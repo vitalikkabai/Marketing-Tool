@@ -74,8 +74,8 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                                                                 return newURLs;
                                                             })
                                                         }
-                                                        required
-                                                        autoFocus
+                                                        required={true}
+                                                        autoFocus={true}
                                                     />
                                                 ))
                                                 :
@@ -120,7 +120,6 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                                                             })
                                                         }
                                                         required
-                                                        autoFocus
                                                     />
                                                 ))
                                                 : <Typography variant={"h6"}>Don’t worry, you will be there in no

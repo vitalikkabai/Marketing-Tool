@@ -135,7 +135,7 @@ export const theme = createMuiTheme({
         },
         error: {
             main: '#F44336'
-        }
+        },
     }
 });
 

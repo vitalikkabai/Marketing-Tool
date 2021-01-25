@@ -8,24 +8,118 @@ import UxAssistant from "./UxAssistant";
 import CustomInput from "../common/Input/CustomInput";
 import CustomButton from "../common/Button/CustomButton";
 import { Profile } from "../../models";
+import {isEmpty, validateField} from "../../utils/validators/validators";
 
 const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantInfoContainerType> = (props) => {
 
     const history = useHistory();
-    const [companyName, setCompanyName] = useState(props.companyName);
-    const [countryName, setCountryName] = useState(props.country);
-    const [cityName, setCityName] = useState(props.city);
-    const [businessNumber, setBusinessNumber] = useState(props.businessNumber);
-    const [ownerName, setOwnerName] = useState(props.profile.name);
-    const [ownerEmail, setOwnerEmail] = useState(props.profile.email);
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [isPending, setPending] = useState(false);
+    const [inputValue, setInputValue] = useState({ //For input values
+        companyName: {value: props.companyName, touched: false, error: false, errorText: "", name: "COMPANY_NAME"},
+        countryName: {value: props.country, touched: false, error: false, errorText: "", name: "COUNTRY_NAME"},
+        cityName: {value: props.city, touched: false, error: false, errorText: "", name: "CITY"},
+        businessNumber: {value: props.businessNumber, touched: false, error: false, errorText: "", name: "BUSINESS_NUMBER"},
+        ownerName: {value: props.profile.name, touched: false, error: false, errorText: "", name: "OWNER_NAME"},
+        ownerEmail: {value: props.profile.email, touched: false, error: false, errorText: "", name: "OWNER_EMAIL"},
+        password: {value: "", touched: false, error: false, errorText: "", name: "PASSWORD"},
+        confirmPassword: {value: "", touched: false, error: false, errorText: "", name: "CONFIRM_PASSWORD"},
+    });
+
+    const handleInput = (inputData: string, inputType: string) => {
+        setInputValue((prevInput) => {
+            const currInputValue = Object.assign({}, prevInput);
+            switch (inputType) {
+                case prevInput.companyName.name: {
+                    currInputValue.companyName.value = inputData;
+                    currInputValue.companyName.touched = true;
+                    const errorArray = validateField(inputData,
+                        isEmpty(inputData));
+                    currInputValue.companyName.error = !!errorArray[0];
+                    currInputValue.companyName.errorText = errorArray[0];
+                    break;
+                }
+                case prevInput.countryName.name: {
+                    currInputValue.countryName.value = inputData;
+                    currInputValue.countryName.touched = true;
+                    const errorArray = validateField(inputData,
+                        isEmpty(inputData));
+                    currInputValue.countryName.error = !!errorArray[0];
+                    currInputValue.countryName.errorText = errorArray[0];
+                    break;
+                }
+                case prevInput.cityName.name: {
+                    currInputValue.cityName.value = inputData;
+                    currInputValue.cityName.touched = true;
+                    const errorArray = validateField(inputData,
+                        isEmpty(inputData));
+                    currInputValue.cityName.error = !!errorArray[0];
+                    currInputValue.cityName.errorText = errorArray[0];
+                    break;
+                }
+                case prevInput.businessNumber.name: {
+                    currInputValue.businessNumber.value = inputData;
+                    currInputValue.businessNumber.touched = true;
+                    const errorArray = validateField(inputData,
+                        isEmpty(inputData));
+                    currInputValue.businessNumber.error = !!errorArray[0];
+                    currInputValue.businessNumber.errorText = errorArray[0];
+                    break;
+                }
+                case prevInput.ownerName.name: {
+                    currInputValue.ownerName.value = inputData;
+                    currInputValue.ownerName.touched = true;
+                    const errorArray = validateField(inputData,
+                        isEmpty(inputData));
+                    currInputValue.ownerName.error = !!errorArray[0];
+                    currInputValue.ownerName.errorText = errorArray[0];
+                    break;
+                }
+                case prevInput.ownerEmail.name: {
+                    currInputValue.ownerEmail.value = inputData;
+                    currInputValue.ownerEmail.touched = true;
+                    const errorArray = validateField(inputData,
+                        isEmpty(inputData));
+                    currInputValue.ownerEmail.error = !!errorArray[0];
+                    currInputValue.ownerEmail.errorText = errorArray[0];
+                    break;
+                }
+                case prevInput.password.name: {
+                    currInputValue.password.value = inputData;
+                    currInputValue.password.touched = true;
+                    const errorArray = validateField(inputData,
+                        isEmpty(inputData));
+                    currInputValue.password.error = !!errorArray[0];
+                    currInputValue.password.errorText = errorArray[0];
+                    break;
+                }
+
+                case prevInput.confirmPassword.name: {
+                    currInputValue.confirmPassword.value = inputData;
+                    currInputValue.confirmPassword.touched = true;
+                    const errorArray = validateField(inputData,
+                        isEmpty(inputData));
+                    currInputValue.confirmPassword.error = !!errorArray[0];
+                    currInputValue.confirmPassword.errorText = errorArray[0];
+                    break;
+                }
+
+                default:
+                    break;
+            }
+            return currInputValue
+        })
+    }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        alert("Signed up with credits: " + inputValue.ownerEmail.value + " " + inputValue.password.value +
+            " " + inputValue.ownerName.value);
+
+        /*
         saveInputData();
-        props.signUp(ownerEmail, password, ownerName);
+        props.signUp(inputValue.ownerEmail.value, inputValue.password.value, inputValue.ownerName.value);
         history.push("");
+         */
     }
 
     const handleBackPressed = () => {
@@ -35,15 +129,15 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
 
     const saveInputData = () => {
         props.setStepTwo({
-            companyName,
-            country: countryName,
-            city: cityName,
-            businessNumber,
+            companyName:  inputValue.companyName.value,
+            country:  inputValue.countryName.value,
+            city:  inputValue.cityName.value,
+            businessNumber: inputValue.businessNumber.value,
         });
         props.setProfile(new Profile({
-            name: ownerName,
-            email: ownerEmail,
-            businessID: "",
+            name: inputValue.ownerName.value,
+            email: inputValue.ownerEmail.value,
+            businessID: ""
         }))
     }
 
@@ -62,43 +156,47 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
                                         label="Company Name"
                                         placeholder={"Company Name"}
                                         fullWidth={true}
+                                        value={inputValue.companyName.value}
+                                        error={inputValue.companyName.error}
                                         variant="outlined"
-                                        value={companyName}
                                         margin={"0 0 16px 0"}
                                         onChange={(event: any) =>
-                                            setCompanyName(event.target.value)
+                                            handleInput(event.target.value, "COMPANY_NAME")
                                         }
                                     />
                                     <CustomInput
                                         label="Country"
-                                        placeholder={"Company Name"}
+                                        placeholder={"Country Name"}
                                         fullWidth={true}
+                                        value={inputValue.countryName.value}
+                                        error={inputValue.countryName.error}
                                         variant="outlined"
-                                        value={countryName}
                                         margin={"0 0 16px 0"}
                                         onChange={(event: any) =>
-                                            setCountryName(event.target.value)
+                                            handleInput(event.target.value, "COUNTRY_NAME")
                                         }
                                     />
                                     <CustomInput
                                         label="City"
                                         variant="outlined"
-                                        placeholder={"Company Name"}
+                                        placeholder={"City"}
                                         fullWidth={true}
-                                        value={cityName}
+                                        value={inputValue.cityName.value}
+                                        error={inputValue.cityName.error}
                                         margin={"0 0 16px 0"}
                                         onChange={(event: any) =>
-                                            setCityName(event.target.value)
+                                            handleInput(event.target.value, "CITY")
                                         }
                                     />
                                     <CustomInput
                                         label="Business Number"
                                         variant="outlined"
-                                        placeholder={"Company Name"}
+                                        placeholder={"Business Number"}
                                         fullWidth={true}
-                                        value={businessNumber}
+                                        value={inputValue.businessNumber.value}
+                                        error={inputValue.businessNumber.error}
                                         onChange={(event: any) =>
-                                            setBusinessNumber(event.target.value)
+                                            handleInput(event.target.value, "BUSINESS_NUMBER")
                                         }
                                     />
                                 </Grid>
@@ -106,24 +204,26 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
                                     <CustomInput
                                         label="Name"
                                         variant="outlined"
-                                        placeholder={"Company Name"}
+                                        placeholder={"Name"}
                                         fullWidth={true}
-                                        value={ownerName}
+                                        value={inputValue.ownerName.value}
+                                        error={inputValue.ownerName.error}
                                         margin={"0 0 16px 0"}
                                         onChange={(event: any) =>
-                                            setOwnerName(event.target.value)
+                                            handleInput(event.target.value, "OWNER_NAME")
                                         }
                                     />
                                     <CustomInput
                                         type="email"
                                         label="Email"
                                         variant="outlined"
-                                        placeholder={"Company Name"}
+                                        placeholder={"email"}
                                         fullWidth={true}
-                                        value={ownerEmail}
+                                        value={inputValue.ownerEmail.value}
+                                        error={inputValue.ownerEmail.error}
                                         margin={"0 0 16px 0"}
                                         onChange={(event: any) =>
-                                            setOwnerEmail(event.target.value)
+                                            handleInput(event.target.value, "OWNER_EMAIL")
                                         }
                                     />
                                     <CustomInput
@@ -131,12 +231,13 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
                                         label="Password"
                                         variant="outlined"
                                         name="password"
-                                        placeholder={"Company Name"}
+                                        placeholder={"Password"}
                                         fullWidth={true}
-                                        value={password}
+                                        value={inputValue.password.value}
+                                        error={inputValue.password.error}
                                         margin={"0 0 16px 0"}
                                         onChange={(event: any) =>
-                                            setPassword(event.target.value)
+                                            handleInput(event.target.value, "PASSWORD")
                                         }
                                     />
                                     <CustomInput
@@ -144,17 +245,23 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
                                         name="password"
                                         label="Repeat Password"
                                         variant="outlined"
-                                        placeholder={"Company Name"}
+                                        placeholder={"Repeat Password"}
                                         fullWidth={true}
-                                        value={confirmPassword}
+                                        value={inputValue.confirmPassword.value}
+                                        error={inputValue.confirmPassword.error}
                                         onChange={(event: any) =>
-                                            setConfirmPassword(event.target.value)
+                                            handleInput(event.target.value, "CONFIRM_PASSWORD")
                                         }
                                     />
                                 </Grid>
                                 <Grid item xs={1} />
                             </Grid>
                         </Box>
+                        <Grid item className={classes.errorText}>
+                            <Typography variant={"subtitle1"}>
+
+                            </Typography>
+                        </Grid>
                         <Grid item className={classes.nextContainer}>
                             <CustomButton type={"submit"} className={classes.buttonBlock} text={"Dashboard"} />
                             <Typography variant={"subtitle1"}>Have an account already?&nbsp;

@@ -16,7 +16,13 @@ export const signInSuccess = (userAttributes: UserAttributes) => ({
     payload: userAttributes
 });
 
-export const signInFailed = (signInError: string) => ({
+type signInErrorType = {
+    code: "" | "UserNotFoundException" | "NotAuthorizedException"
+    message: string
+    name: string
+}
+
+export const signInFailed = (signInError: signInErrorType) => ({
     type: "SIGN-IN-FAILED" as const,
     payload: { signInError }
 });
@@ -87,4 +93,9 @@ export const sendNewPasswordSuccess = () => ({
 export const sendNewPasswordFailed = () => ({
     type: "RESET-LINK-FAILED" as const,
 });
+
+export const cleanErrors = () => ({
+    type: "CLEAN-ERROR-FIELDS" as const,
+});
+
 

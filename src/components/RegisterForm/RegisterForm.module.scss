@@ -23,7 +23,7 @@
     margin-top: 32px;
 
     .formSecondTitle {
-      margin-top: 24px;
+      margin-top: 40px;
     }
 
     .inputBox {
@@ -141,6 +141,14 @@
 
 .thirdFromInput {
   margin-bottom: 16px;
+}
+
+.errorText {
+  position: absolute;
+  top: 278px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  color: #EA4335;
 }
 
 $color: rgba(66, 133, 244, 0.2);
