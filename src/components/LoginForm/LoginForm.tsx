@@ -69,7 +69,7 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
     }
 
     useEffect(() => {
-        if (props.errorText) setPending(false);
+        if (props.errorText.code) setPending(false);
         switch (props.errorText.code) {
             case "UserNotFoundException": {
                 setInputValue(prevStyle => ({
