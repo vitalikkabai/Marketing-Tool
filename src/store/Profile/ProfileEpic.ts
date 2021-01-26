@@ -1,7 +1,7 @@
 
 import { ActionsObservable, ofType, StateObservable } from 'redux-observable';
 import { catchError, filter, map, mergeMap } from 'rxjs/operators';
-import { fetchProfileByIdSuccess, saveProfileToDBFailed, saveProfileToDBSucces } from './ProfileActions';
+import { fetchProfileByIdSuccess, saveProfileToDBFailed, saveProfileToDBSucces, updateProfileSuccess } from './ProfileActions';
 import { ActionTypes } from './ProfileReducer';
 import { Business, Profile } from '../../models';
 import { AppStateType } from '../store';
@@ -17,29 +17,32 @@ export default [
             const businessData = state$.value.BusinessReducer;
             return from(API.graphql(graphqlOperation(createBusiness, { input: businessData })) as unknown as Promise<any>).pipe(
                 mergeMap(res => {
-                    const profile = new Profile({...state$.value.ProfileReducer.profile,
-                     businessID: res.data.createBusiness.id
+                    const profile = new Profile({
+                        ...state$.value.ProfileReducer.profile,
+                        businessID: res.data.createBusiness.id
                     });
-                    
+
                     return from(API.graphql(graphqlOperation(createProfile, { input: profile })) as unknown as Promise<any>);
                 }),
+                map(res => {
+                    return saveProfileToDBSucces(res.data.createProfile)
+                }),
+                catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
             )
         }),
-        
-        map(res => {
-            return saveProfileToDBSucces(res.data.createProfile) }),
-        catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
     ),
 
     (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
         ofType('FETCH_PROFILE_BY_ID'),
-        mergeMap((action : any) => {
+        mergeMap((action: any) => {
             return from(API.graphql(graphqlOperation(profileByOwner, { owner: action.payload })) as unknown as Promise<any>)
-        }),
-        
-        map(res => { 
-            return fetchProfileByIdSuccess(res.data.profileByOwner.items[0]) }),
-        catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
+                .pipe(
+                    map(res => {
+                        return fetchProfileByIdSuccess(res.data.profileByOwner.items[0])
+                    }),
+                    catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
+                )
+        })
     ),
 
     (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
@@ -60,10 +63,32 @@ export default [
                     };
                     return from(API.graphql(graphqlOperation(updateProfile, { input: profileAvatar })) as unknown as Promise<any>);
                 }),
+                map(res => {
+                    return updateProfileSuccess(res.data.updateProfile)
+                }),
+                catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
             )
+        })
+    ),
+
+    (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
+        ofType('UPDATE_PERSONAL_INFO'),
+        mergeMap((action: any) => {
+            const profile = {
+                id: state$.value.ProfileReducer.profile.id,
+                name: action.payload.name,
+                email: action.payload.email
+            }
+
+            return (from(API.graphql(graphqlOperation(updateProfile, { input: profile })) as unknown as Promise<any>).pipe(
+                map(res => {
+                    return updateProfileSuccess(res.data.updateProfile)
+                }),
+                catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
+            ))
         }),
-        map(res => {
-            return fetchProfileByIdSuccess(res.data.updateProfile) }),
-        catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
+
     )
+    // })
+    // )
 ]

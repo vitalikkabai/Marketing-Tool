@@ -29,7 +29,7 @@ export const ProfileReducer = (state: ProfileType = getInitialState(), action: A
             };
         case 'FETCH_PROFILE_BY_ID_SUCCESS':
         case 'SAVE_PROFILE_TO_DB_SUCCESS':
-
+        case 'UPDATE_PROFILE_SUCCESS':
             return {
                 ...state,
                 profile: { ...action.payload }
@@ -40,6 +40,7 @@ export const ProfileReducer = (state: ProfileType = getInitialState(), action: A
             }
         case 'SET_PROFILE_IMAGE':
         case 'SAVE_PROFILE_TO_DB_FAILED':
+        case 'UPDATE_PERSONAL_INFO':
         default:
             return {
                 ...state,

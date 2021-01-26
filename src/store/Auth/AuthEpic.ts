@@ -1,4 +1,4 @@
-import { ActionsObservable, ofType } from 'redux-observable';
+import { ActionsObservable, ofType, StateObservable } from 'redux-observable';
 import { mergeMap, switchMap, catchError, map } from 'rxjs/operators';
 import { Auth } from "aws-amplify";
 import {
@@ -18,9 +18,10 @@ import {
 import { ActionTypes } from "./AuthReducer";
 import { ActionTypes as ProfileActionTypes } from "../Profile/ProfileReducer";
 import { from, Observable, of } from 'rxjs';
-import { clearProfile, fetchProfileById, initiateNewProfile, setProfile, setProfileID } from '../Profile/ProfileActions';
+import { clearProfile, fetchProfileById, initiateNewProfile, setProfile, setProfileID, updatePersonalInfo } from '../Profile/ProfileActions';
 import { Profile } from '../../models';
 import { clearBusiness } from '../Business/BusinessActions';
+import { AppStateType } from '../store';
 
 export default [
     (action$: ActionsObservable<any>): Observable<ActionTypes | ProfileActionTypes> => action$.pipe(
@@ -157,17 +158,25 @@ export default [
                 )
         })
     ),
-    (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
+    (action$: ActionsObservable<any>, state$: StateObservable<AppStateType>): Observable<ActionTypes| ProfileActionTypes> => action$.pipe(
         ofType("CHANGE_PERSONAL_INFO"),
         mergeMap(action => {
             console.log("Changing")
+            if (action.payload.email === state$.value.ProfileReducer.profile.email) {
+                return [updatePersonalInfo(action.payload.name, action.payload.email)]
+            }
+
             return from(Auth.currentAuthenticatedUser())
                 .pipe(
                     mergeMap(user => {
                         console.log(user);
                         return from(Auth.updateUserAttributes(user, { email: action.payload.email }))
                     }),
-                    map(res => { console.log(res); return sendNewPasswordSuccess() }),
+                    mergeMap(res => { console.log(res);
+                        return [
+                            sendNewPasswordSuccess(),
+                            updatePersonalInfo(action.payload.name, action.payload.email)
+                        ] }),
                     catchError(err => of(signInFailed(err))),
                 )
         })

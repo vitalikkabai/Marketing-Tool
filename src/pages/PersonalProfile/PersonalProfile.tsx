@@ -58,6 +58,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 
     const [name, setName] = useState(props.profile.name)
     const [email, setEmail] = useState(props.profile.email)
+    console.log(name, email)
 
     const handleInfoUpdate = (e: FormEvent) => {
         e.preventDefault();
