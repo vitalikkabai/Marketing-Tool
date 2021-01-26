@@ -13,31 +13,34 @@ import {
     ResetLinkFailed,
     sendNewPasswordSuccess,
     sendNewPasswordFailed,
+    signUpSuccess,
 } from "./AuthActions";
 import { ActionTypes } from "./AuthReducer";
-import { from, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { fetchProfileById, initiateNewProfile, setProfile, setProfileID } from '../Profile/ProfileActions';
 import { Profile } from '../../models';
 
-export const signInEpic = (action$: ActionsObservable<any>) => action$.pipe(
+export const signInEpic = (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
     ofType("SIGN-IN-REQUEST"),
-    switchMap(async (action) => {
-        return Auth.signIn({
+    mergeMap(action => {
+        return from(Auth.signIn({
             username: action.payload.username,
             password: action.payload.password,
-        }).then((response) => {
-            console.log("signied in");
-            console.log(response)
-            return signInSuccess({
-                userID: response.attributes.sub,
-                email: response.attributes.email,
-                emailVerified: response.attributes.email_verified,
-                userName: response.attributes.given_name,
-            });
-        }).catch(err => {
-            console.log(err)
-            return signInFailed(err)
-        });
+        })).pipe(
+            mergeMap((response) => {
+                console.log("signied in");
+                console.log(response)
+                return [signInSuccess({
+                    userID: response.attributes.sub,
+                    email: response.attributes.email,
+                    emailVerified: response.attributes.email_verified,
+                    userName: response.attributes.given_name,
+                }),
+                fetchProfileById(response.attributes.sub)];
+
+            })
+        ),
+        catchError(err => of(signInFailed(err)))
     })
 );
 
@@ -110,7 +113,7 @@ export const getAuthDataEpic = (action$: ActionsObservable<ActionTypes>) => acti
         ];
         else return [getAuthDataFailed()];
     }),
-    catchError(err => {console.log(err); return [getAuthDataFailed()]})
+    catchError(err => { console.log(err); return [getAuthDataFailed()] })
 );
 
 export const sendResetLinkEpic = (action$: ActionsObservable<any>) => action$.pipe(

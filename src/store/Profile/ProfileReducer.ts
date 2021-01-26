@@ -27,16 +27,16 @@ export const ProfileReducer = (state: ProfileType = initialState, action: Action
         case 'FETCH_PROFILE_BY_ID':
             return {
                 ...state,
-                profile: {...state.profile, owner: action.payload}
+                profile: { ...state.profile, owner: action.payload }
             };
         case 'FETCH_PROFILE_BY_ID_SUCCESS':
+        case 'SAVE_PROFILE_TO_DB_SUCCESS':
+
             return {
                 ...state,
-                profile: {...action.payload}
+                profile: { ...action.payload }
             }
         case 'SET_PROFILE_IMAGE':
-        case 'SAVE_PROFILE_TO_DB':
-        case 'SAVE_PROFILE_TO_DB_SUCCESS':
         case 'SAVE_PROFILE_TO_DB_FAILED':
         default:
             return {

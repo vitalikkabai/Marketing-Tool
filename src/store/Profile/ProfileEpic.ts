@@ -12,29 +12,12 @@ import { profileByOwner } from '../../graphql/queries';
 
 export default [
     (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
-        ofType('SAVE_PROFILE_TO_DB'),
-        map(() => {
-            console.log("saving profile")
-            const businessData = state$.value.BusinessReducer;
-            const ownerUID = state$.value.AuthReducer.userAttributes.userID;
-            // const businessObject = new Business({ ...businessData });
-            // const profile = new Profile({...state$.value.ProfileReducer.profile,
-            //     business: businessObject})
-
-            // return API.graphql(graphqlOperation(createProfile, { input: profile }));
-
-        }),
-        map(res => { console.log(res); return saveProfileToDBSucces() }),
-        catchError(err => { console.log(err); return [saveProfileToDBFailed(err)] })
-    ),
-
-    (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
         ofType('INITIATE_NEW_PROFILE'),
         mergeMap(() => {
             const businessData = state$.value.BusinessReducer;
-            const businessObject = new Business({ ...businessData });
-            return from(API.graphql(graphqlOperation(createBusiness, { input: businessObject })) as unknown as Promise<any>).pipe(
-                map(res => {
+            // const businessObject = new Business({ ...businessData });
+            return from(API.graphql(graphqlOperation(createBusiness, { input: businessData })) as unknown as Promise<any>).pipe(
+                mergeMap(res => {
                     console.log(res.data.createBusiness.id)
                     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                     // @ts-ignore
@@ -42,15 +25,19 @@ export default [
                     const profile = new Profile({...state$.value.ProfileReducer.profile,
                      businessID: res.data.createBusiness.id
                     });
+                    // const profile = state$.value.ProfileReducer.profile
+                        //  businessID: res.data.createBusiness.id
+                        // };
+                        // profile.businessID = res.data.createBusiness.id;
                     
-                    return API.graphql(graphqlOperation(createProfile, { input: profile }));
+                    return from(API.graphql(graphqlOperation(createProfile, { input: profile })) as unknown as Promise<any>);
                 }),
             )
         }),
         
         map(res => { console.log(res);
-            return saveProfileToDBSucces() }),
-        catchError(err => { console.log(err); return [saveProfileToDBFailed(err)] })
+            return saveProfileToDBSucces(res.data.createProfile) }),
+        catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
     ),
 
     (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
@@ -62,7 +49,7 @@ export default [
         
         map(res => { console.log(res);
             return fetchProfileByIdSuccess(res.data.profileByOwner.items[0]) }),
-        catchError(err => { console.log(err); return [saveProfileToDBFailed(err)] })
+        catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
     ),
 
     (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
@@ -86,12 +73,12 @@ export default [
                         // _version: profile._version,
                     };
                     console.log(profileAvatar)
-                    return from(API.graphql(graphqlOperation(updateProfile, { input: state$.value.ProfileReducer.profile })) as unknown as Promise<any>);
+                    return from(API.graphql(graphqlOperation(updateProfile, { input: profileAvatar })) as unknown as Promise<any>);
                 }),
             )
         }),
         map(res => { console.log(res);
             return fetchProfileByIdSuccess(res.data.updateProfile) }),
-        catchError(err => { console.log(err); return [saveProfileToDBFailed(err)] })
+        catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
     )
 ]

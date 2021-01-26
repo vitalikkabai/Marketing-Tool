@@ -11,21 +11,21 @@ export const setProfileID = (profileID: string) => ({
     payload: profileID
 });
 
-export const saveProfileToDB = () => ({
-    type: 'SAVE_PROFILE_TO_DB' as const
-});
+// export const saveProfileToDB = () => ({
+//     type: 'SAVE_PROFILE_TO_DB' as const
+// });
 
 export const initiateNewProfile = () => ({
     type: 'INITIATE_NEW_PROFILE' as const
 });
 
-export const saveProfileToDBSucces = () => ({
+export const saveProfileToDBSucces = (profile: Profile) => ({
     type: 'SAVE_PROFILE_TO_DB_SUCCESS' as const,
+    payload: profile
 });
 
-export const saveProfileToDBFailed = (err: string) => ({
+export const saveProfileToDBFailed = () => ({
     type: 'SAVE_PROFILE_TO_DB_FAILED' as const,
-    payload: err
 });
 
 export const fetchProfileById = (id: string) => ({
