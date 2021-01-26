@@ -4,19 +4,17 @@ import * as actions from './ProfileActions';
 
 export interface ProfileType {
     profile: Profile,
-    avatarSrc?: string
 }
-export const initialState = {
+export const getInitialState = () => ({
     profile: new Profile({
         email: "",
         name: "",
         businessID: ""
-    }),
-    avatarSrc: ""
-}
+    })
+});
 
 
-export const ProfileReducer = (state: ProfileType = initialState, action: ActionTypes): ProfileType => {
+export const ProfileReducer = (state: ProfileType = getInitialState(), action: ActionTypes): ProfileType => {
     switch (action.type) {
         case 'SET_PROFILE_DATA':
             return {
@@ -35,6 +33,10 @@ export const ProfileReducer = (state: ProfileType = initialState, action: Action
             return {
                 ...state,
                 profile: { ...action.payload }
+            }
+        case 'CLEAR_PROFILE': 
+            return {
+                ...getInitialState()
             }
         case 'SET_PROFILE_IMAGE':
         case 'SAVE_PROFILE_TO_DB_FAILED':

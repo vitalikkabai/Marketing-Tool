@@ -19,6 +19,10 @@ export const initiateNewProfile = () => ({
     type: 'INITIATE_NEW_PROFILE' as const
 });
 
+export const clearProfile = () => ({
+    type: 'CLEAR_PROFILE' as const
+});
+
 export const saveProfileToDBSucces = (profile: Profile) => ({
     type: 'SAVE_PROFILE_TO_DB_SUCCESS' as const,
     payload: profile

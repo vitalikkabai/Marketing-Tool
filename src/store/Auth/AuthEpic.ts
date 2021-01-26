@@ -18,8 +18,9 @@ import {
 import { ActionTypes } from "./AuthReducer";
 import { ActionTypes as ProfileActionTypes} from "../Profile/ProfileReducer";
 import { from, Observable, of } from 'rxjs';
-import { fetchProfileById, initiateNewProfile, setProfile, setProfileID } from '../Profile/ProfileActions';
+import { clearProfile, fetchProfileById, initiateNewProfile, setProfile, setProfileID } from '../Profile/ProfileActions';
 import { Profile } from '../../models';
+import { clearBusiness } from '../Business/BusinessActions';
 
 export default [
     (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
@@ -80,14 +81,26 @@ export default [
     ),
     (action$: ActionsObservable<ActionTypes>) => action$.pipe(
         ofType("SIGN-OUT-REQUEST"),
-        switchMap(async () => {
-            return Auth.signOut().then(() => {
-                return signOutSuccess();
-            }).catch(() => {
-                alert("Failed to Sign Out");
-                return signOutFailed()
-            });
-        })
+        mergeMap(() => {
+            return from(Auth.signOut())
+            
+            
+            // .then(() => {
+            //     return signOutSuccess();
+            // }).catch(() => {
+            //     alert("Failed to Sign Out");
+            //     return signOutFailed()
+            // });
+        }),
+        mergeMap(res => {
+            return [
+                signOutSuccess(),
+                clearProfile(),
+                clearBusiness()
+            ]
+        }),
+        catchError(err => { console.log(err); return [signOutFailed()] })
+
     ),
     (action$: ActionsObservable<ActionTypes>) => action$.pipe(
         ofType("AUTH-DATA-REQUEST"),

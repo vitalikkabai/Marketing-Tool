@@ -14,7 +14,7 @@ import * as actions from './BusinessActions';
 //     websiteURLs: string[],
 //     roleTags: RoleTags
 // }
-export const initialState = new Business({
+export const getInitialState = ():Business => new Business({
     companyName: "",
     country: "",
     city: "",
@@ -33,7 +33,7 @@ export const initialState = new Business({
     }
 });
 
-export const BusinessReducer = (state: Business = initialState, action: ActionTypes): Business => {
+export const BusinessReducer = (state: Business = getInitialState(), action: ActionTypes): Business => {
     switch (action.type) {
         case 'SET_STEP_ONE':
             return {
@@ -56,6 +56,10 @@ export const BusinessReducer = (state: Business = initialState, action: ActionTy
         case 'SET_ROLE_TAGS':
             return {
                 ...state, roleTags: action.payload
+            }
+        case 'CLEAR_BUSINESS':
+            return {
+                ...getInitialState()
             }
         default:
             return {

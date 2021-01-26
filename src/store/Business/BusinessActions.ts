@@ -29,6 +29,10 @@ export const setRoleTags = (roleTags: RoleTags) => ( {
     payload: roleTags
 });
 
+export const clearBusiness = () => ({
+    type: 'CLEAR_BUSINESS' as const
+});
+
 export const saveBusinessToDB = () => ({
     type: 'SAVE_BUSINESS_TO_DB' as const
 });
