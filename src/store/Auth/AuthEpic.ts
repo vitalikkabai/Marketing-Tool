@@ -100,7 +100,6 @@ export const getAuthDataEpic = (action$: ActionsObservable<ActionTypes>) => acti
         return from(Auth.currentUserInfo());
     }),
     mergeMap(res => {
-        console.log(res)
         if (res) return [getAuthDataSuccess({
             userID: res.username,
             email: res.attributes.email,
@@ -110,7 +109,8 @@ export const getAuthDataEpic = (action$: ActionsObservable<ActionTypes>) => acti
         fetchProfileById(res.username)
         ];
         else return [getAuthDataFailed()];
-    })
+    }),
+    catchError(err => {console.log(err); return [getAuthDataFailed()]})
 );
 
 export const sendResetLinkEpic = (action$: ActionsObservable<any>) => action$.pipe(

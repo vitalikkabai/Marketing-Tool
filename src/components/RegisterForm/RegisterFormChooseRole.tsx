@@ -6,18 +6,39 @@ import GoBackButton from "../common/Button/GoBackButton";
 import UxAssistant from "./UxAssistant";
 import CustomButton from "../common/Button/CustomButton";
 import RoleBoxes from "../common/RoleBoxes/RoleBoxes";
+import { ChooseRoleProps } from "./RegisterFormChooseRoleContainer";
 
-const RegisterFormChooseRole: React.FunctionComponent = (props) => {
+const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (props) => {
 
     const history = useHistory();
-    const [selectedRole, setSelectedRole] = useState([false, false, false, false, false, false]);
+    const [selectedRole, setSelectedRole] = useState(props.roleTags ? [
+        props.roleTags.Sales,
+        props.roleTags.Marketing,
+        props.roleTags.Logistics,
+        props.roleTags.Accounting,
+        props.roleTags.Production,
+        props.roleTags.QC
+    ] : [false,false,false,false,false,false]);
+
+    const handleDataInput = () => {
+        props.setRoleTags({
+            Sales: selectedRole[0],
+            Marketing: selectedRole[1],
+            Logistics: selectedRole[2],
+            Accounting: selectedRole[3],
+            Production: selectedRole[4],
+            QC: selectedRole[5]
+        })
+    }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        handleDataInput();
         history.push("3");
     }
 
     const handleBackPressed = () => {
+        handleDataInput();
         history.goBack();
     }
 

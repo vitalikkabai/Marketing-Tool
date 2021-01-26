@@ -1,15 +1,15 @@
 import {Dispatch} from "redux";
 import RegisterFormWebLinks from "./RegisterFormWebLinks";
-import {connect} from "react-redux";
+import {connect, ConnectedProps} from "react-redux";
 import {AppStateType} from "../../store/store";
 import { setStepOne, stepOneData } from '../../store/Business/BusinessActions';
 
-type MapDispatchType = {
-    setStepOne: (arg: stepOneData) => void
-}
-export type FormContainerType = MapDispatchType & stepOneData;
+// type MapDispatchType = {
+//     setStepOne: (arg: stepOneData) => void
+// }
+// export type FormContainerType = MapDispatchType & stepOneData;
 
-const mapStateToProps = (state: AppStateType):stepOneData => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         haveExperienceSelling: state.BusinessReducer.haveExperienceSelling,
         storeURLs: state.BusinessReducer.storeURLs,
@@ -19,10 +19,14 @@ const mapStateToProps = (state: AppStateType):stepOneData => {
     }
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        setStepOne: (stepOneData) => dispatch(setStepOne(stepOneData))
+        setStepOne: (stepOneData: stepOneData) => dispatch(setStepOne(stepOneData))
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterFormWebLinks)
+const connector =  connect(mapStateToProps, mapDispatchToProps);
+
+export type FormContainerType = ConnectedProps<typeof connector>
+
+export default connector(RegisterFormWebLinks)

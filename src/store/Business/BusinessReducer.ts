@@ -1,18 +1,20 @@
+import { Business, RoleTags } from '../../models';
+import { InitialStateType } from '../Auth/AuthReducer';
 import * as actions from './BusinessActions';
 
-interface businessReducer {
-    id: string,
-    companyName: string,
-    country: string,
-    city: string,
-    businessNumber: string,
-    haveExperienceSelling: boolean,
-    storeURLs: string[],
-    haveWebsite: boolean,
-    websiteURLs: string[]
-}
-export const initialState = {
-    id: "",
+// interface businessReducer {
+//     id: string,
+//     companyName: string,
+//     country: string,
+//     city: string,
+//     businessNumber: string,
+//     haveExperienceSelling: boolean,
+//     storeURLs: string[],
+//     haveWebsite: boolean,
+//     websiteURLs: string[],
+//     roleTags: RoleTags
+// }
+export const initialState = new Business({
     companyName: "",
     country: "",
     city: "",
@@ -20,10 +22,18 @@ export const initialState = {
     haveExperienceSelling: true,
     storeURLs: [""],
     haveWebsite: true,
-    websiteURLs: [""]
-};
+    websiteURLs: [""],
+    roleTags: {
+        Sales: false,
+        Marketing: false,
+        Logistics: false,
+        Accounting: false,
+        Production: false,
+        QC: false
+    }
+});
 
-export const BusinessReducer = (state: businessReducer = initialState, action: ActionTypes): businessReducer => {
+export const BusinessReducer = (state: Business = initialState, action: ActionTypes): Business => {
     switch (action.type) {
         case 'SET_STEP_ONE':
             return {
@@ -42,6 +52,10 @@ export const BusinessReducer = (state: businessReducer = initialState, action: A
         case 'SAVE_BUSINESS_TO_DB_FAILED':
             return {
                 ...state
+            }
+        case 'SET_ROLE_TAGS':
+            return {
+                ...state, roleTags: action.payload
             }
         default:
             return {

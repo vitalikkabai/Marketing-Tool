@@ -1,31 +1,30 @@
 import {Dispatch} from "redux";
 import RegisterFormChooseRole from "./RegisterFormChooseRole";
-import {connect} from "react-redux";
+import {connect, ConnectedProps} from "react-redux";
 import {AppStateType} from "../../store/store";
-import { setStepTwo, stepTwoData } from '../../store/Business/BusinessActions';
+import { setRoleTags, setStepTwo, stepTwoData } from '../../store/Business/BusinessActions';
 import { signUp } from '../../store/Auth/AuthActions';
+import { RoleTags } from "../../models";
 
 
-/*export type FormStepTwoContainerType = MapDispatchType & stepTwoData;
 
-const mapStateToProps = (state: AppStateType):stepTwoData => {
+const mapStateToProps = (state: AppStateType) => {
     return {
-        companyName: state.BusinessReducer.companyName
+        roleTags: state.BusinessReducer.roleTags
     }
 };
 
-type MapDispatchType = {
-    setStepTwo: (arg: stepTwoData) => void,
-    signUp: (email: string, password: string) => void
-}
 
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        setStepTwo: (stepTwoData) => dispatch(setStepTwo(stepTwoData)),
-        signUp: (email, password) => dispatch(signUp(email,password))
+        setRoleTags: (roleTags:RoleTags) => dispatch(setRoleTags(roleTags))
     }
 };
- */
+ 
+const connector = connect(mapStateToProps,mapDispatchToProps);
 
-export default connect(null, null)(RegisterFormChooseRole)
+export type ChooseRoleProps = ConnectedProps<typeof connector>
+
+
+export default connector(RegisterFormChooseRole)

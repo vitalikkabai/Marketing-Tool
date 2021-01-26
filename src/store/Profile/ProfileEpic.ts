@@ -8,7 +8,7 @@ import { AppStateType } from '../store';
 import { createBusiness, createProfile, updateProfile } from '../../graphql/mutations';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { from, Observable } from 'rxjs';
-import { profileByOwnerWithBusiness } from '../../graphql/custom';
+import { profileByOwner } from '../../graphql/queries';
 
 export default [
     (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
@@ -57,7 +57,7 @@ export default [
         ofType('FETCH_PROFILE_BY_ID'),
         mergeMap((action : any) => {
             console.log("action payload", action.payload)
-            return from(API.graphql(graphqlOperation(profileByOwnerWithBusiness, { owner: action.payload })) as unknown as Promise<any>)
+            return from(API.graphql(graphqlOperation(profileByOwner, { owner: action.payload })) as unknown as Promise<any>)
         }),
         
         map(res => { console.log(res);
@@ -79,13 +79,14 @@ export default [
             })).pipe(
                 mergeMap(res => {
                     console.log(res);
+                    // const profile = new Profile(state$.value.ProfileReducer.profile)
                     const profileAvatar = {
                         id: state$.value.ProfileReducer.profile.id,
                         avatar: action.payload.s3,
-                        _version: state$.value.ProfileReducer.profile._version,
+                        // _version: profile._version,
                     };
                     console.log(profileAvatar)
-                    return from(API.graphql(graphqlOperation(updateProfile, { input: profileAvatar })) as unknown as Promise<any>);
+                    return from(API.graphql(graphqlOperation(updateProfile, { input: state$.value.ProfileReducer.profile })) as unknown as Promise<any>);
                 }),
             )
         }),

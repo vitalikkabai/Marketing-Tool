@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
+import { RoleTags } from "../../models";
+
 export interface stepOneData {
-    haveExperienceSelling: boolean,
+    haveExperienceSelling: boolean | undefined,
     storeURLs: string[],
-    haveWebsite: boolean,
+    haveWebsite: boolean | undefined,
     websiteURLs: string[]
 }
 export const setStepOne = (stepOneData: stepOneData) => ( {
@@ -20,6 +22,11 @@ export interface stepTwoData {
 export const setStepTwo = (stepTwoData: stepTwoData) => ( {
     type: 'SET_STEP_TWO' as const,
     payload: stepTwoData
+});
+
+export const setRoleTags = (roleTags: RoleTags) => ( {
+    type: 'SET_ROLE_TAGS' as const,
+    payload: roleTags
 });
 
 export const saveBusinessToDB = () => ({
