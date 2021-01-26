@@ -49,9 +49,9 @@ export const schema = {
                     "name": "storeURLs",
                     "isArray": true,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": [],
-                    "isArrayNullable": true
+                    "isArrayNullable": false
                 },
                 "haveWebsite": {
                     "name": "haveWebsite",
@@ -64,9 +64,9 @@ export const schema = {
                     "name": "websiteURLs",
                     "isArray": true,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": [],
-                    "isArrayNullable": true
+                    "isArrayNullable": false
                 },
                 "roleTags": {
                     "name": "roleTags",
@@ -235,8 +235,8 @@ export const schema = {
         "RoleTags": {
             "name": "RoleTags",
             "fields": {
-                "sales": {
-                    "name": "sales",
+                "Sales": {
+                    "name": "Sales",
                     "isArray": false,
                     "type": "Boolean",
                     "isRequired": true,
@@ -306,5 +306,5 @@ export const schema = {
             }
         }
     },
-    "version": "d49d79251c34d7134a0d26a50725fdd6"
+    "version": "1dcd26dc6f7dbfe114d581d1ebaa6264"
 };

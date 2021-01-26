@@ -20,7 +20,7 @@ export const listBusinesss = /* GraphQL */ `
         haveWebsite
         websiteURLs
         roleTags {
-          sales
+          Sales
           Marketing
           Logistics
           Accounting
@@ -48,7 +48,7 @@ export const getBusiness = /* GraphQL */ `
       haveWebsite
       websiteURLs
       roleTags {
-        sales
+        Sales
         Marketing
         Logistics
         Accounting
@@ -87,7 +87,7 @@ export const getProfile = /* GraphQL */ `
         haveWebsite
         websiteURLs
         roleTags {
-          sales
+          Sales
           Marketing
           Logistics
           Accounting

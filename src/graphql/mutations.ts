@@ -18,7 +18,7 @@ export const createBusiness = /* GraphQL */ `
       haveWebsite
       websiteURLs
       roleTags {
-        sales
+        Sales
         Marketing
         Logistics
         Accounting
@@ -47,7 +47,7 @@ export const updateBusiness = /* GraphQL */ `
       haveWebsite
       websiteURLs
       roleTags {
-        sales
+        Sales
         Marketing
         Logistics
         Accounting
@@ -76,7 +76,7 @@ export const deleteBusiness = /* GraphQL */ `
       haveWebsite
       websiteURLs
       roleTags {
-        sales
+        Sales
         Marketing
         Logistics
         Accounting
@@ -118,7 +118,7 @@ export const createProfile = /* GraphQL */ `
         haveWebsite
         websiteURLs
         roleTags {
-          sales
+          Sales
           Marketing
           Logistics
           Accounting
@@ -161,7 +161,7 @@ export const updateProfile = /* GraphQL */ `
         haveWebsite
         websiteURLs
         roleTags {
-          sales
+          Sales
           Marketing
           Logistics
           Accounting
@@ -204,7 +204,7 @@ export const deleteProfile = /* GraphQL */ `
         haveWebsite
         websiteURLs
         roleTags {
-          sales
+          Sales
           Marketing
           Logistics
           Accounting

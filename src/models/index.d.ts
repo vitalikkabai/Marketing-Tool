@@ -3,7 +3,7 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 export declare class RoleTags {
-  readonly sales: boolean;
+  readonly Sales: boolean;
   readonly Marketing: boolean;
   readonly Logistics: boolean;
   readonly Accounting: boolean;
@@ -26,9 +26,9 @@ export declare class Business {
   readonly city?: string;
   readonly businessNumber?: string;
   readonly haveExperienceSelling?: boolean;
-  readonly storeURLs?: (string | null)[];
+  readonly storeURLs: string[];
   readonly haveWebsite?: boolean;
-  readonly websiteURLs?: (string | null)[];
+  readonly websiteURLs: string[];
   readonly roleTags?: RoleTags;
   constructor(init: ModelInit<Business>);
   static copyOf(source: Business, mutator: (draft: MutableModel<Business>) => MutableModel<Business> | void): Business;
