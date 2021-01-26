@@ -36,11 +36,9 @@ const TopBar = (props: PropsFromRedux) => {
         }, 1000);
         const date = new Date();
         const offset = date.getTimezoneOffset();
-        console.log(offset)
 
         return () => clearInterval(intervalId);
     }, []);
-    console.log(props.profile)
     return (
         <Box className={classes.topBarContainer}>
             <Grid container alignItems={"center"} justify={"space-between"} className={classes.TopBarContent}>

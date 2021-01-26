@@ -16,6 +16,6 @@ export const businessEpic = (action$: ActionsObservable<ActionTypes>, state$: St
         return API.graphql(graphqlOperation(createBusiness, { input: businessObject }));
 
     }),
-    map(res => { console.log(res); return saveBusinessToDBSucces() }),
+    map(res => { return saveBusinessToDBSucces() }),
     catchError(err => { console.log(err); return [saveBusinessToDBFailed(err)] })
 );

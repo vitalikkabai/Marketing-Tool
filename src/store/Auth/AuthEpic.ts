@@ -28,8 +28,6 @@ export const signInEpic = (action$: ActionsObservable<any>): Observable<ActionTy
             password: action.payload.password,
         })).pipe(
             mergeMap((response) => {
-                console.log("signied in");
-                console.log(response)
                 return [signInSuccess({
                     userID: response.attributes.sub,
                     email: response.attributes.email,
@@ -47,7 +45,7 @@ export const signInEpic = (action$: ActionsObservable<any>): Observable<ActionTy
 export const signUpEpic = (action$: ActionsObservable<any>) => action$.pipe(
     ofType("SIGN-UP-REQUEST"),
     mergeMap(action => {
-        console.log(action); return from(Auth.signUp({
+         return from(Auth.signUp({
             username: action.payload.email,
             password: action.payload.password,
             attributes: {
@@ -56,15 +54,13 @@ export const signUpEpic = (action$: ActionsObservable<any>) => action$.pipe(
             }
         })).pipe(
             mergeMap(res => {
-                console.log(res);
-                // signUpSuccess(res.userSub),
                 return from(Auth.signIn({
                     username: action.payload.email,
                     password: action.payload.password
                 })).pipe(
                     catchError(err => of(signInFailed(err))),
                     mergeMap((response) => {
-                        console.log(response); return [
+                        return [
                             // setProfileID(response.attributes.sub),
                             signInSuccess({
                                 userID: response.attributes.sub,
@@ -113,20 +109,17 @@ export const getAuthDataEpic = (action$: ActionsObservable<ActionTypes>) => acti
         ];
         else return [getAuthDataFailed()];
     }),
-    catchError(err => { console.log(err); return [getAuthDataFailed()] })
+    catchError(err => { return [getAuthDataFailed()] })
 );
 
 export const sendResetLinkEpic = (action$: ActionsObservable<any>) => action$.pipe(
     ofType("SEND-RESET-LINK"),
     switchMap(async (action) => {
-        console.log("kek");
         return Auth.forgotPassword(action.payload.email)
             .then(data => {
-                console.log(data)
                 return ResetLinkSuccess({ data })
             })
             .catch(err => {
-                console.log(err);
                 return ResetLinkFailed({ err })
             });
     })
@@ -137,11 +130,9 @@ export const sendNewPasswordEpic = (action$: ActionsObservable<any>) => action$.
     switchMap(async (action) => {
         return Auth.forgotPasswordSubmit(action.payload.email, action.payload.code, action.payload.newPassword)
             .then(data => {
-                console.log(data)
                 return sendNewPasswordSuccess()
             })
             .catch(err => {
-                console.log(err);
                 return sendNewPasswordFailed()
             });
     })

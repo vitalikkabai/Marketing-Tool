@@ -33,7 +33,6 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 
     const saveImage = async (imageBase64: string) => {
         const base64Data = new Buffer(imageBase64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-        console.log(base64Data)
         const key = `images/${props.profile.owner}_${new Date().getTime()}_avatar.png`
 
         const fileForUpload = {
