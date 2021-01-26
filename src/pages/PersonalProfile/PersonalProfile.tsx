@@ -44,6 +44,10 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         setDialogOpen(false);
     }
 
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [retypePassword, setRetypePassword] = useState("");
+
     return (
         <Grid container className={classes.component}>
             <Grid item xs={6}>

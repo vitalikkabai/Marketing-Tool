@@ -43,7 +43,7 @@ export default [
     ),
 
     (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
-        filter(action => action.type === 'SET_PROFILE_IMAGE'),
+        ofType('SET_PROFILE_IMAGE'),
         mergeMap((action: any) => {
             action.payload.bufferImg
             if (state$.value.ProfileReducer.profile.avatar) {
