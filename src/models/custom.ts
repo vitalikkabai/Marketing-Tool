@@ -36,7 +36,14 @@ query ProfileByOwner(
         storeURLs
         haveWebsite
         websiteURLs
-        businessType
+        businessTypes {
+        sales
+        Marketing
+        Logistics
+        Accounting
+        Production
+        QC
+      }
         _version
         _deleted
         _lastChangedAt

@@ -1,6 +1,6 @@
 projects:
-  mtgraphql:
-    schemaPath: amplify/backend/api/mtgraphql/build/schema.graphql
+  marketingtool:
+    schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/**/*.ts
     excludes:
@@ -10,9 +10,3 @@ projects:
         codeGenTarget: typescript
         generatedFileName: src/API.ts
         docsFilePath: src/graphql
-        region: eu-central-1
-        apiId: null
-        maxDepth: 2
-extensions:
-  amplify:
-    version: 3

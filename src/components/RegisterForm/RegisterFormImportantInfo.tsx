@@ -217,11 +217,9 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
                 alert("Signed up");
             }
         }
-        /*
         saveInputData();
         props.signUp(inputValue.ownerEmail.value, inputValue.password.value, inputValue.ownerName.value);
         history.push("");
-         */
     }
 
     const handleBackPressed = () => {

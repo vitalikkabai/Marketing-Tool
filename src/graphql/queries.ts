@@ -19,16 +19,19 @@ export const listBusinesss = /* GraphQL */ `
         storeURLs
         haveWebsite
         websiteURLs
-        businessType
-        _version
-        _deleted
-        _lastChangedAt
+        roleTags {
+          sales
+          Marketing
+          Logistics
+          Accounting
+          Production
+          QC
+        }
         createdAt
         updatedAt
         owner
       }
       nextToken
-      startedAt
     }
   }
 `;
@@ -44,49 +47,17 @@ export const getBusiness = /* GraphQL */ `
       storeURLs
       haveWebsite
       websiteURLs
-      businessType
-      _version
-      _deleted
-      _lastChangedAt
+      roleTags {
+        sales
+        Marketing
+        Logistics
+        Accounting
+        Production
+        QC
+      }
       createdAt
       updatedAt
       owner
-    }
-  }
-`;
-export const syncBusinesses = /* GraphQL */ `
-  query SyncBusinesses(
-    $filter: ModelBusinessFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncBusinesses(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        companyName
-        country
-        city
-        businessNumber
-        haveExperienceSelling
-        storeURLs
-        haveWebsite
-        websiteURLs
-        businessType
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        owner
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -103,9 +74,6 @@ export const getProfile = /* GraphQL */ `
         region
         key
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       business {
@@ -118,10 +86,14 @@ export const getProfile = /* GraphQL */ `
         storeURLs
         haveWebsite
         websiteURLs
-        businessType
-        _version
-        _deleted
-        _lastChangedAt
+        roleTags {
+          sales
+          Marketing
+          Logistics
+          Accounting
+          Production
+          QC
+        }
         createdAt
         updatedAt
         owner
@@ -142,14 +114,29 @@ export const listProfiles = /* GraphQL */ `
         email
         name
         businessID
-        _version
-        _deleted
-        _lastChangedAt
+        avatar {
+          bucket
+          region
+          key
+        }
         createdAt
         updatedAt
+        business {
+          id
+          companyName
+          country
+          city
+          businessNumber
+          haveExperienceSelling
+          storeURLs
+          haveWebsite
+          websiteURLs
+          createdAt
+          updatedAt
+          owner
+        }
       }
       nextToken
-      startedAt
     }
   }
 `;
@@ -174,62 +161,29 @@ export const profileByOwner = /* GraphQL */ `
         email
         name
         businessID
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
         business {
-        id
-        companyName
-        country
-        city
-        businessNumber
-        haveExperienceSelling
-        storeURLs
-        haveWebsite
-        websiteURLs
-        businessType
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-        owner
-      }
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
+          id
+          companyName
+          country
+          city
+          businessNumber
+          haveExperienceSelling
+          storeURLs
+          haveWebsite
+          websiteURLs
+          createdAt
+          updatedAt
+          owner
+        }
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncProfiles = /* GraphQL */ `
-  query SyncProfiles(
-    $filter: ModelProfileFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncProfiles(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        owner
-        email
-        name
-        businessID
-        _version
-        _deleted
-        _lastChangedAt
-        createdAt
-        updatedAt
-      }
-      nextToken
-      startedAt
     }
   }
 `;

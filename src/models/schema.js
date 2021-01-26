@@ -68,19 +68,12 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": true
                 },
-                "businessType": {
-                    "name": "businessType",
+                "roleTags": {
+                    "name": "roleTags",
                     "isArray": false,
                     "type": {
-                        "enum": "BusinessType"
+                        "nonModel": "RoleTags"
                     },
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "_version": {
-                    "name": "_version",
-                    "isArray": false,
-                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 }
@@ -184,13 +177,6 @@ export const schema = {
                     },
                     "isRequired": false,
                     "attributes": []
-                },
-                "_version": {
-                    "name": "_version",
-                    "isArray": false,
-                    "type": "Int",
-                    "isRequired": false,
-                    "attributes": []
                 }
             },
             "syncable": true,
@@ -244,17 +230,55 @@ export const schema = {
             ]
         }
     },
-    "enums": {
-        "BusinessType": {
-            "name": "BusinessType",
-            "values": [
-                "MANUFACTURER",
-                "TRADINGCOMPANY",
-                "MANUFACTURERANDTRADINGCOMPANY"
-            ]
-        }
-    },
+    "enums": {},
     "nonModels": {
+        "RoleTags": {
+            "name": "RoleTags",
+            "fields": {
+                "sales": {
+                    "name": "sales",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "Marketing": {
+                    "name": "Marketing",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "Logistics": {
+                    "name": "Logistics",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "Accounting": {
+                    "name": "Accounting",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "Production": {
+                    "name": "Production",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "QC": {
+                    "name": "QC",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                }
+            }
+        },
         "S3Object": {
             "name": "S3Object",
             "fields": {
@@ -282,5 +306,5 @@ export const schema = {
             }
         }
     },
-    "version": "724f86adef6099ab8e8d5cec65222cb2"
+    "version": "d49d79251c34d7134a0d26a50725fdd6"
 };

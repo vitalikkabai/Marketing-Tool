@@ -13,20 +13,23 @@ type Business @model
   storeURLs: [String]
   haveWebsite: Boolean
   websiteURLs: [String]
-  businessType: BusinessType
+  roleTags: RoleTags
   # _version: Int
-}
-
-enum BusinessType {
-  MANUFACTURER
-  TRADINGCOMPANY
-  MANUFACTURERANDTRADINGCOMPANY
 }
 
 type S3Object {
   bucket: String!
   region: String!
   key: String!
+}
+
+type RoleTags {
+  sales: Boolean!
+  Marketing: Boolean!
+  Logistics: Boolean!
+  Accounting: Boolean!
+  Production: Boolean!
+  QC: Boolean!
 }
 
 type Profile @model
