@@ -35,6 +35,10 @@ export const getInitialState = ():Business => new Business({
 
 export const BusinessReducer = (state: Business = getInitialState(), action: ActionTypes): Business => {
     switch (action.type) {
+        case 'SET_BUSINESS':
+            return {
+                ...action.payload,
+            }
         case 'SET_STEP_ONE':
             return {
                 ...state,

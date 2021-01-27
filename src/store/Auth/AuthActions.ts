@@ -98,9 +98,9 @@ export const cleanErrors = () => ({
     type: "CLEAN-ERROR-FIELDS" as const,
 });
 
-export const changePassword = (oldPassword: string, newPassword: string) => ({
+export const changePassword = (oldPassword: string, newPassword: string, callback: () => void) => ({
     type: "CHANGE_PASSWORD" as const,
-    payload: {oldPassword, newPassword}
+    payload: {oldPassword, newPassword, callback}
 });
 
 export const changePasswordSucces = () => ({

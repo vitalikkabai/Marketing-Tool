@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import { RoleTags } from "../../models";
+import { Business, RoleTags } from "../../models";
 
 export interface stepOneData {
     haveExperienceSelling: boolean | undefined,
@@ -44,4 +44,9 @@ export const saveBusinessToDBSucces = () => ({
 export const saveBusinessToDBFailed = (err: string) => ({
     type: 'SAVE_BUSINESS_TO_DB_FAILED' as const,
     payload: err
+});
+
+export const setBusiness = (business: Business) => ( {
+    type: 'SET_BUSINESS' as const,
+    payload: business
 });
