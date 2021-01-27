@@ -2,12 +2,12 @@ import {Box, Grid, Link, Typography} from "@material-ui/core";
 import React, {useState} from 'react';
 import classes from './RegisterForm.module.scss';
 import {RegisterFormImportantInfoContainerType} from './RegisterFormImportantInfoContainer';
+import {Profile} from "../../models";
 import {useHistory} from "react-router";
 import GoBackButton from "../common/Button/GoBackButton";
 import UxAssistant from "./UxAssistant";
 import CustomInput from "../common/Input/CustomInput";
 import CustomButton from "../common/Button/CustomButton";
-import {Profile} from "../../models";
 import {isEmail, isMinLength, isPasswordsEqual, validateField} from "../../utils/validators/validators";
 
 const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantInfoContainerType> = (props) => {
@@ -267,7 +267,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
                                         value={inputValue.companyName.value}
                                         error={inputValue.companyName.error}
                                         variant="outlined"
-                                        margin={"0 0 16px 0"}
+                                        margin={"0 0 24px 0"}
                                         onChange={(event: any) =>
                                             handleInput(event.target.value, "COMPANY_NAME")
                                         }
@@ -279,7 +279,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
                                         value={inputValue.countryName.value}
                                         error={inputValue.countryName.error}
                                         variant="outlined"
-                                        margin={"0 0 16px 0"}
+                                        margin={"0 0 24px 0"}
                                         onChange={(event: any) =>
                                             handleInput(event.target.value, "COUNTRY_NAME")
                                         }
@@ -291,7 +291,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
                                         fullWidth={true}
                                         value={inputValue.cityName.value}
                                         error={inputValue.cityName.error}
-                                        margin={"0 0 16px 0"}
+                                        margin={"0 0 24px 0"}
                                         onChange={(event: any) =>
                                             handleInput(event.target.value, "CITY")
                                         }
@@ -316,7 +316,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
                                         fullWidth={true}
                                         value={inputValue.ownerName.value}
                                         error={inputValue.ownerName.error}
-                                        margin={"0 0 16px 0"}
+                                        margin={"0 0 24px 0"}
                                         onChange={(event: any) =>
                                             handleInput(event.target.value, "OWNER_NAME")
                                         }
@@ -329,7 +329,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
                                         fullWidth={true}
                                         value={inputValue.ownerEmail.value}
                                         error={inputValue.ownerEmail.error}
-                                        margin={"0 0 16px 0"}
+                                        margin={"0 0 24px 0"}
                                         onChange={(event: any) =>
                                             handleInput(event.target.value, "OWNER_EMAIL")
                                         }
@@ -343,7 +343,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
                                         fullWidth={true}
                                         value={inputValue.password.value}
                                         error={inputValue.password.error}
-                                        margin={"0 0 16px 0"}
+                                        margin={"0 0 24px 0"}
                                         onChange={(event: any) =>
                                             handleInput(event.target.value, "PASSWORD")
                                         }
@@ -370,7 +370,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
                                 {getErrorMessage()}
                             </Typography>
                         </Grid>
-                        <Grid item className={classes.nextContainer}>
+                        <Grid item className={classes.nextContainer + " " + classes.importantInfo}>
                             <CustomButton type={"submit"} className={classes.buttonBlock} text={"Dashboard"}/>
                             <Typography variant={"subtitle1"}>Have an account already?&nbsp;
                                 <Link className={classes.link} onClick={() => {

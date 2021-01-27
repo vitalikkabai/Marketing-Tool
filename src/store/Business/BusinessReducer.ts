@@ -1,6 +1,5 @@
-import { Business, RoleTags } from '../../models';
-import { InitialStateType } from '../Auth/AuthReducer';
 import * as actions from './BusinessActions';
+import {Business} from "../../models";
 
 // interface businessReducer {
 //     id: string,
@@ -20,9 +19,9 @@ export const getInitialState = ():Business => new Business({
     city: "",
     businessNumber: "",
     haveExperienceSelling: true,
-    storeURLs: [""],
+    storeURLs: [],
     haveWebsite: true,
-    websiteURLs: [""],
+    websiteURLs: [],
     roleTags: {
         Sales: false,
         Marketing: false,
