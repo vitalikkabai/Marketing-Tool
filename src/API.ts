@@ -70,7 +70,7 @@ export type DeleteBusinessInput = {
 };
 
 export type CreateProfileInput = {
-  owner: string,
+  id?: string | null,
   email: string,
   name: string,
   businessID: string,
@@ -87,12 +87,12 @@ export type S3ObjectInput = {
 };
 
 export type RoleTagsInput = {
-  Sales: boolean,
-  Marketing: boolean,
-  Logistics: boolean,
-  Accounting: boolean,
-  Production: boolean,
-  QC: boolean,
+  sales: boolean,
+  marketing: boolean,
+  logistics: boolean,
+  accounting: boolean,
+  production: boolean,
+  qualityControl: boolean,
 };
 
 export type CountryCodeInput = {
@@ -102,6 +102,7 @@ export type CountryCodeInput = {
 };
 
 export type ModelProfileConditionInput = {
+  email?: ModelStringInput | null,
   name?: ModelStringInput | null,
   businessID?: ModelIDInput | null,
   phoneNumber?: ModelStringInput | null,
@@ -127,8 +128,8 @@ export type ModelIDInput = {
 };
 
 export type UpdateProfileInput = {
-  owner: string,
-  email: string,
+  id: string,
+  email?: string | null,
   name?: string | null,
   businessID?: string | null,
   avatar?: S3ObjectInput | null,
@@ -138,8 +139,7 @@ export type UpdateProfileInput = {
 };
 
 export type DeleteProfileInput = {
-  owner: string,
-  email: string,
+  id?: string | null,
 };
 
 export type ModelBusinessFilterInput = {
@@ -152,18 +152,8 @@ export type ModelBusinessFilterInput = {
   not?: ModelBusinessFilterInput | null,
 };
 
-export type ModelStringKeyConditionInput = {
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-};
-
 export type ModelProfileFilterInput = {
-  owner?: ModelIDInput | null,
+  id?: ModelIDInput | null,
   email?: ModelStringInput | null,
   name?: ModelStringInput | null,
   businessID?: ModelIDInput | null,
@@ -198,7 +188,7 @@ export type CreateBusinessMutation = {
       __typename: "ModelProfileConnection",
       items:  Array< {
         __typename: "Profile",
-        owner: string,
+        id: string,
         email: string,
         name: string,
         businessID: string,
@@ -230,7 +220,7 @@ export type UpdateBusinessMutation = {
       __typename: "ModelProfileConnection",
       items:  Array< {
         __typename: "Profile",
-        owner: string,
+        id: string,
         email: string,
         name: string,
         businessID: string,
@@ -262,7 +252,7 @@ export type DeleteBusinessMutation = {
       __typename: "ModelProfileConnection",
       items:  Array< {
         __typename: "Profile",
-        owner: string,
+        id: string,
         email: string,
         name: string,
         businessID: string,
@@ -283,7 +273,7 @@ export type CreateProfileMutationVariables = {
 export type CreateProfileMutation = {
   createProfile:  {
     __typename: "Profile",
-    owner: string,
+    id: string,
     email: string,
     name: string,
     businessID: string,
@@ -295,12 +285,12 @@ export type CreateProfileMutation = {
     } | null,
     roleTags:  {
       __typename: "RoleTags",
-      Sales: boolean,
-      Marketing: boolean,
-      Logistics: boolean,
-      Accounting: boolean,
-      Production: boolean,
-      QC: boolean,
+      sales: boolean,
+      marketing: boolean,
+      logistics: boolean,
+      accounting: boolean,
+      production: boolean,
+      qualityControl: boolean,
     },
     countryCode:  {
       __typename: "CountryCode",
@@ -336,7 +326,7 @@ export type UpdateProfileMutationVariables = {
 export type UpdateProfileMutation = {
   updateProfile:  {
     __typename: "Profile",
-    owner: string,
+    id: string,
     email: string,
     name: string,
     businessID: string,
@@ -348,12 +338,12 @@ export type UpdateProfileMutation = {
     } | null,
     roleTags:  {
       __typename: "RoleTags",
-      Sales: boolean,
-      Marketing: boolean,
-      Logistics: boolean,
-      Accounting: boolean,
-      Production: boolean,
-      QC: boolean,
+      sales: boolean,
+      marketing: boolean,
+      logistics: boolean,
+      accounting: boolean,
+      production: boolean,
+      qualityControl: boolean,
     },
     countryCode:  {
       __typename: "CountryCode",
@@ -389,7 +379,7 @@ export type DeleteProfileMutationVariables = {
 export type DeleteProfileMutation = {
   deleteProfile:  {
     __typename: "Profile",
-    owner: string,
+    id: string,
     email: string,
     name: string,
     businessID: string,
@@ -401,12 +391,12 @@ export type DeleteProfileMutation = {
     } | null,
     roleTags:  {
       __typename: "RoleTags",
-      Sales: boolean,
-      Marketing: boolean,
-      Logistics: boolean,
-      Accounting: boolean,
-      Production: boolean,
-      QC: boolean,
+      sales: boolean,
+      marketing: boolean,
+      logistics: boolean,
+      accounting: boolean,
+      production: boolean,
+      qualityControl: boolean,
     },
     countryCode:  {
       __typename: "CountryCode",
@@ -479,7 +469,7 @@ export type GetBusinessQuery = {
       __typename: "ModelProfileConnection",
       items:  Array< {
         __typename: "Profile",
-        owner: string,
+        id: string,
         email: string,
         name: string,
         businessID: string,
@@ -493,14 +483,13 @@ export type GetBusinessQuery = {
 };
 
 export type GetProfileQueryVariables = {
-  owner: string,
-  email: string,
+  id: string,
 };
 
 export type GetProfileQuery = {
   getProfile:  {
     __typename: "Profile",
-    owner: string,
+    id: string,
     email: string,
     name: string,
     businessID: string,
@@ -512,12 +501,12 @@ export type GetProfileQuery = {
     } | null,
     roleTags:  {
       __typename: "RoleTags",
-      Sales: boolean,
-      Marketing: boolean,
-      Logistics: boolean,
-      Accounting: boolean,
-      Production: boolean,
-      QC: boolean,
+      sales: boolean,
+      marketing: boolean,
+      logistics: boolean,
+      accounting: boolean,
+      production: boolean,
+      qualityControl: boolean,
     },
     countryCode:  {
       __typename: "CountryCode",
@@ -546,12 +535,9 @@ export type GetProfileQuery = {
 };
 
 export type ListProfilesQueryVariables = {
-  owner?: string | null,
-  email?: ModelStringKeyConditionInput | null,
   filter?: ModelProfileFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
-  sortDirection?: ModelSortDirection | null,
 };
 
 export type ListProfilesQuery = {
@@ -559,7 +545,7 @@ export type ListProfilesQuery = {
     __typename: "ModelProfileConnection",
     items:  Array< {
       __typename: "Profile",
-      owner: string,
+      id: string,
       email: string,
       name: string,
       businessID: string,
@@ -571,12 +557,12 @@ export type ListProfilesQuery = {
       } | null,
       roleTags:  {
         __typename: "RoleTags",
-        Sales: boolean,
-        Marketing: boolean,
-        Logistics: boolean,
-        Accounting: boolean,
-        Production: boolean,
-        QC: boolean,
+        sales: boolean,
+        marketing: boolean,
+        logistics: boolean,
+        accounting: boolean,
+        production: boolean,
+        qualityControl: boolean,
       },
       countryCode:  {
         __typename: "CountryCode",
@@ -615,7 +601,7 @@ export type ProfileByBusinessQuery = {
     __typename: "ModelProfileConnection",
     items:  Array< {
       __typename: "Profile",
-      owner: string,
+      id: string,
       email: string,
       name: string,
       businessID: string,
@@ -627,12 +613,12 @@ export type ProfileByBusinessQuery = {
       } | null,
       roleTags:  {
         __typename: "RoleTags",
-        Sales: boolean,
-        Marketing: boolean,
-        Logistics: boolean,
-        Accounting: boolean,
-        Production: boolean,
-        QC: boolean,
+        sales: boolean,
+        marketing: boolean,
+        logistics: boolean,
+        accounting: boolean,
+        production: boolean,
+        qualityControl: boolean,
       },
       countryCode:  {
         __typename: "CountryCode",
@@ -672,7 +658,7 @@ export type OnCreateBusinessSubscription = {
       __typename: "ModelProfileConnection",
       items:  Array< {
         __typename: "Profile",
-        owner: string,
+        id: string,
         email: string,
         name: string,
         businessID: string,
@@ -699,7 +685,7 @@ export type OnUpdateBusinessSubscription = {
       __typename: "ModelProfileConnection",
       items:  Array< {
         __typename: "Profile",
-        owner: string,
+        id: string,
         email: string,
         name: string,
         businessID: string,
@@ -726,7 +712,7 @@ export type OnDeleteBusinessSubscription = {
       __typename: "ModelProfileConnection",
       items:  Array< {
         __typename: "Profile",
-        owner: string,
+        id: string,
         email: string,
         name: string,
         businessID: string,
@@ -742,7 +728,7 @@ export type OnDeleteBusinessSubscription = {
 export type OnCreateProfileSubscription = {
   onCreateProfile:  {
     __typename: "Profile",
-    owner: string,
+    id: string,
     email: string,
     name: string,
     businessID: string,
@@ -754,12 +740,12 @@ export type OnCreateProfileSubscription = {
     } | null,
     roleTags:  {
       __typename: "RoleTags",
-      Sales: boolean,
-      Marketing: boolean,
-      Logistics: boolean,
-      Accounting: boolean,
-      Production: boolean,
-      QC: boolean,
+      sales: boolean,
+      marketing: boolean,
+      logistics: boolean,
+      accounting: boolean,
+      production: boolean,
+      qualityControl: boolean,
     },
     countryCode:  {
       __typename: "CountryCode",
@@ -790,7 +776,7 @@ export type OnCreateProfileSubscription = {
 export type OnUpdateProfileSubscription = {
   onUpdateProfile:  {
     __typename: "Profile",
-    owner: string,
+    id: string,
     email: string,
     name: string,
     businessID: string,
@@ -802,12 +788,12 @@ export type OnUpdateProfileSubscription = {
     } | null,
     roleTags:  {
       __typename: "RoleTags",
-      Sales: boolean,
-      Marketing: boolean,
-      Logistics: boolean,
-      Accounting: boolean,
-      Production: boolean,
-      QC: boolean,
+      sales: boolean,
+      marketing: boolean,
+      logistics: boolean,
+      accounting: boolean,
+      production: boolean,
+      qualityControl: boolean,
     },
     countryCode:  {
       __typename: "CountryCode",
@@ -838,7 +824,7 @@ export type OnUpdateProfileSubscription = {
 export type OnDeleteProfileSubscription = {
   onDeleteProfile:  {
     __typename: "Profile",
-    owner: string,
+    id: string,
     email: string,
     name: string,
     businessID: string,
@@ -850,12 +836,12 @@ export type OnDeleteProfileSubscription = {
     } | null,
     roleTags:  {
       __typename: "RoleTags",
-      Sales: boolean,
-      Marketing: boolean,
-      Logistics: boolean,
-      Accounting: boolean,
-      Production: boolean,
-      QC: boolean,
+      sales: boolean,
+      marketing: boolean,
+      logistics: boolean,
+      accounting: boolean,
+      production: boolean,
+      qualityControl: boolean,
     },
     countryCode:  {
       __typename: "CountryCode",

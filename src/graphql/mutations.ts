@@ -17,7 +17,7 @@ export const createBusiness = /* GraphQL */ `
       owner
       profiles {
         items {
-          owner
+          id
           email
           name
           businessID
@@ -45,7 +45,7 @@ export const updateBusiness = /* GraphQL */ `
       owner
       profiles {
         items {
-          owner
+          id
           email
           name
           businessID
@@ -73,7 +73,7 @@ export const deleteBusiness = /* GraphQL */ `
       owner
       profiles {
         items {
-          owner
+          id
           email
           name
           businessID
@@ -92,7 +92,7 @@ export const createProfile = /* GraphQL */ `
     $condition: ModelProfileConditionInput
   ) {
     createProfile(input: $input, condition: $condition) {
-      owner
+      id
       email
       name
       businessID
@@ -102,12 +102,12 @@ export const createProfile = /* GraphQL */ `
         key
       }
       roleTags {
-        Sales
-        Marketing
-        Logistics
-        Accounting
-        Production
-        QC
+        sales
+        marketing
+        logistics
+        accounting
+        production
+        qualityControl
       }
       countryCode {
         code
@@ -138,7 +138,7 @@ export const updateProfile = /* GraphQL */ `
     $condition: ModelProfileConditionInput
   ) {
     updateProfile(input: $input, condition: $condition) {
-      owner
+      id
       email
       name
       businessID
@@ -148,12 +148,12 @@ export const updateProfile = /* GraphQL */ `
         key
       }
       roleTags {
-        Sales
-        Marketing
-        Logistics
-        Accounting
-        Production
-        QC
+        sales
+        marketing
+        logistics
+        accounting
+        production
+        qualityControl
       }
       countryCode {
         code
@@ -184,7 +184,7 @@ export const deleteProfile = /* GraphQL */ `
     $condition: ModelProfileConditionInput
   ) {
     deleteProfile(input: $input, condition: $condition) {
-      owner
+      id
       email
       name
       businessID
@@ -194,12 +194,12 @@ export const deleteProfile = /* GraphQL */ `
         key
       }
       roleTags {
-        Sales
-        Marketing
-        Logistics
-        Accounting
-        Production
-        QC
+        sales
+        marketing
+        logistics
+        accounting
+        production
+        qualityControl
       }
       countryCode {
         code

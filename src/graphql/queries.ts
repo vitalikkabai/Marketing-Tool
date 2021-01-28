@@ -37,7 +37,7 @@ export const getBusiness = /* GraphQL */ `
       owner
       profiles {
         items {
-          owner
+          id
           email
           name
           businessID
@@ -51,9 +51,9 @@ export const getBusiness = /* GraphQL */ `
   }
 `;
 export const getProfile = /* GraphQL */ `
-  query GetProfile($owner: ID!, $email: String!) {
-    getProfile(owner: $owner, email: $email) {
-      owner
+  query GetProfile($id: ID!) {
+    getProfile(id: $id) {
+      id
       email
       name
       businessID
@@ -63,12 +63,12 @@ export const getProfile = /* GraphQL */ `
         key
       }
       roleTags {
-        Sales
-        Marketing
-        Logistics
-        Accounting
-        Production
-        QC
+        sales
+        marketing
+        logistics
+        accounting
+        production
+        qualityControl
       }
       countryCode {
         code
@@ -95,23 +95,13 @@ export const getProfile = /* GraphQL */ `
 `;
 export const listProfiles = /* GraphQL */ `
   query ListProfiles(
-    $owner: ID
-    $email: ModelStringKeyConditionInput
     $filter: ModelProfileFilterInput
     $limit: Int
     $nextToken: String
-    $sortDirection: ModelSortDirection
   ) {
-    listProfiles(
-      owner: $owner
-      email: $email
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      sortDirection: $sortDirection
-    ) {
+    listProfiles(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        owner
+        id
         email
         name
         businessID
@@ -121,12 +111,12 @@ export const listProfiles = /* GraphQL */ `
           key
         }
         roleTags {
-          Sales
-          Marketing
-          Logistics
-          Accounting
-          Production
-          QC
+          sales
+          marketing
+          logistics
+          accounting
+          production
+          qualityControl
         }
         countryCode {
           code
@@ -166,7 +156,7 @@ export const profileByBusiness = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
-        owner
+        id
         email
         name
         businessID
@@ -176,12 +166,12 @@ export const profileByBusiness = /* GraphQL */ `
           key
         }
         roleTags {
-          Sales
-          Marketing
-          Logistics
-          Accounting
-          Production
-          QC
+          sales
+          marketing
+          logistics
+          accounting
+          production
+          qualityControl
         }
         countryCode {
           code

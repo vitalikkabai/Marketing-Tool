@@ -1,4 +1,4 @@
-type Business @model 
+type Business @model
     @auth(rules: [
           { allow: owner },
           { allow: public, operations: [read]},
@@ -13,13 +13,12 @@ type Business @model
 
 type Profile @model
     @key(name: "byBusiness", fields: ["businessID"], queryField: "profileByBusiness")
-    @key(fields: ["owner", "email"])
     @auth(rules: [
-      { allow: owner },
+      { allow: owner, ownerField: "id" },
       { allow: public, operations: [read]},
       { allow: private, operations: [read] },
     ])  {
-  owner: ID!
+  id: ID!
   email: String!
   name: String!
   businessID: ID!
@@ -37,12 +36,12 @@ type S3Object {
 }
 
 type RoleTags {
-  Sales: Boolean!
-  Marketing: Boolean!
-  Logistics: Boolean!
-  Accounting: Boolean!
-  Production: Boolean!
-  QC: Boolean!
+  sales: Boolean!
+  marketing: Boolean!
+  logistics: Boolean!
+  accounting: Boolean!
+  production: Boolean!
+  qualityControl: Boolean!
 }
 
 type CountryCode {

@@ -1,5 +1,5 @@
 projects:
-  mtgraphql:
+  mtgqlapi:
     schemaPath: src/graphql/schema.json
     includes:
       - src/graphql/**/*.ts
