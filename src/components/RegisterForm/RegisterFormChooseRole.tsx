@@ -1,5 +1,5 @@
 import {Box, Grid, Link, Typography} from "@material-ui/core";
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './RegisterForm.module.scss';
 import {useHistory} from "react-router";
 import GoBackButton from "../common/Button/GoBackButton";
@@ -30,12 +30,22 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (props)
             QC: selectedRole[5]
         })
     }
+    const [errorText, setErrorText] = useState("");
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         handleDataInput();
-        history.push("3");
+        if(selectedRole.includes(true)){
+            history.push("3");
+        }
+        else {
+            setErrorText("You must select at least one option")
+        }
     }
+
+    useEffect(()=>{
+        setErrorText("");
+    }, [selectedRole]);
 
     const handleBackPressed = () => {
         handleDataInput();
@@ -49,10 +59,15 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (props)
                     <GoBackButton onClick={handleBackPressed}/>
                     <UxAssistant assistantText={"What are you in charge of?"} stepNumber={2}/>
                     <form onSubmit={handleSubmit}>
-                        <Box className={classes.formContainer}>
+                        <Box className={classes.formContainer} style={{marginTop: "24px"}}>
                             <RoleBoxes selectedRole={selectedRole} setSelectedRole={setSelectedRole}/>
                         </Box>
-                        <Grid item className={classes.nextContainer}>
+                        <Grid item className={classes.errorText}>
+                            <Typography variant={"subtitle1"}>
+                                {errorText}
+                            </Typography>
+                        </Grid>
+                        <Grid item className={classes.nextContainer + " " + classes.roles}>
                             <CustomButton type={"submit"} className={classes.buttonBlock} text={"Next"}/>
                             <Typography variant={"subtitle1"}>Have an account already?&nbsp;
                                 <Link className={classes.link} onClick={() => {

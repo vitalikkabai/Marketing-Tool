@@ -2,9 +2,8 @@ import {Dispatch} from "redux";
 import RegisterFormChooseRole from "./RegisterFormChooseRole";
 import {connect, ConnectedProps} from "react-redux";
 import {AppStateType} from "../../store/store";
-import { setRoleTags, setStepTwo, stepTwoData } from '../../store/Business/BusinessActions';
-import { signUp } from '../../store/Auth/AuthActions';
-import { RoleTags } from "../../models";
+import { setRoleTags} from '../../store/Business/BusinessActions';
+import {RoleTags} from "../../models";
 
 
 
@@ -13,8 +12,6 @@ const mapStateToProps = (state: AppStateType) => {
         roleTags: state.BusinessReducer.roleTags
     }
 };
-
-
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
@@ -27,4 +24,4 @@ const connector = connect(mapStateToProps,mapDispatchToProps);
 export type ChooseRoleProps = ConnectedProps<typeof connector>
 
 
-export default connector(RegisterFormChooseRole)
+export default connector(RegisterFormChooseRole);
