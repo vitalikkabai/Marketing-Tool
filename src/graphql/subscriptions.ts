@@ -7,24 +7,51 @@ export const onCreateBusiness = /* GraphQL */ `
     onCreateBusiness {
       id
       companyName
-      country
-      city
-      businessNumber
-      haveExperienceSelling
       storeURLs
-      haveWebsite
       websiteURLs
-      roleTags {
-        Sales
-        Marketing
-        Logistics
-        Accounting
-        Production
-        QC
-      }
       createdAt
       updatedAt
       owner
+      profiles {
+        items {
+          id
+          owner
+          email
+          name
+          businessID
+          avatar {
+            bucket
+            region
+            key
+          }
+          roleTags {
+            Sales
+            Marketing
+            Logistics
+            Accounting
+            Production
+            QC
+          }
+          countryCode {
+            code
+            label
+            phone
+          }
+          phoneNumber
+          createdAt
+          updatedAt
+          business {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            createdAt
+            updatedAt
+            owner
+          }
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -33,24 +60,51 @@ export const onUpdateBusiness = /* GraphQL */ `
     onUpdateBusiness {
       id
       companyName
-      country
-      city
-      businessNumber
-      haveExperienceSelling
       storeURLs
-      haveWebsite
       websiteURLs
-      roleTags {
-        Sales
-        Marketing
-        Logistics
-        Accounting
-        Production
-        QC
-      }
       createdAt
       updatedAt
       owner
+      profiles {
+        items {
+          id
+          owner
+          email
+          name
+          businessID
+          avatar {
+            bucket
+            region
+            key
+          }
+          roleTags {
+            Sales
+            Marketing
+            Logistics
+            Accounting
+            Production
+            QC
+          }
+          countryCode {
+            code
+            label
+            phone
+          }
+          phoneNumber
+          createdAt
+          updatedAt
+          business {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            createdAt
+            updatedAt
+            owner
+          }
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -59,24 +113,51 @@ export const onDeleteBusiness = /* GraphQL */ `
     onDeleteBusiness {
       id
       companyName
-      country
-      city
-      businessNumber
-      haveExperienceSelling
       storeURLs
-      haveWebsite
       websiteURLs
-      roleTags {
-        Sales
-        Marketing
-        Logistics
-        Accounting
-        Production
-        QC
-      }
       createdAt
       updatedAt
       owner
+      profiles {
+        items {
+          id
+          owner
+          email
+          name
+          businessID
+          avatar {
+            bucket
+            region
+            key
+          }
+          roleTags {
+            Sales
+            Marketing
+            Logistics
+            Accounting
+            Production
+            QC
+          }
+          countryCode {
+            code
+            label
+            phone
+          }
+          phoneNumber
+          createdAt
+          updatedAt
+          business {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            createdAt
+            updatedAt
+            owner
+          }
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -93,29 +174,43 @@ export const onCreateProfile = /* GraphQL */ `
         region
         key
       }
+      roleTags {
+        Sales
+        Marketing
+        Logistics
+        Accounting
+        Production
+        QC
+      }
+      countryCode {
+        code
+        label
+        phone
+      }
+      phoneNumber
       createdAt
       updatedAt
       business {
         id
         companyName
-        country
-        city
-        businessNumber
-        haveExperienceSelling
         storeURLs
-        haveWebsite
         websiteURLs
-        roleTags {
-          Sales
-          Marketing
-          Logistics
-          Accounting
-          Production
-          QC
-        }
         createdAt
         updatedAt
         owner
+        profiles {
+          items {
+            id
+            owner
+            email
+            name
+            businessID
+            phoneNumber
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
       }
     }
   }
@@ -133,29 +228,43 @@ export const onUpdateProfile = /* GraphQL */ `
         region
         key
       }
+      roleTags {
+        Sales
+        Marketing
+        Logistics
+        Accounting
+        Production
+        QC
+      }
+      countryCode {
+        code
+        label
+        phone
+      }
+      phoneNumber
       createdAt
       updatedAt
       business {
         id
         companyName
-        country
-        city
-        businessNumber
-        haveExperienceSelling
         storeURLs
-        haveWebsite
         websiteURLs
-        roleTags {
-          Sales
-          Marketing
-          Logistics
-          Accounting
-          Production
-          QC
-        }
         createdAt
         updatedAt
         owner
+        profiles {
+          items {
+            id
+            owner
+            email
+            name
+            businessID
+            phoneNumber
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
       }
     }
   }
@@ -173,29 +282,43 @@ export const onDeleteProfile = /* GraphQL */ `
         region
         key
       }
+      roleTags {
+        Sales
+        Marketing
+        Logistics
+        Accounting
+        Production
+        QC
+      }
+      countryCode {
+        code
+        label
+        phone
+      }
+      phoneNumber
       createdAt
       updatedAt
       business {
         id
         companyName
-        country
-        city
-        businessNumber
-        haveExperienceSelling
         storeURLs
-        haveWebsite
         websiteURLs
-        roleTags {
-          Sales
-          Marketing
-          Logistics
-          Accounting
-          Production
-          QC
-        }
         createdAt
         updatedAt
         owner
+        profiles {
+          items {
+            id
+            owner
+            email
+            name
+            businessID
+            phoneNumber
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
       }
     }
   }

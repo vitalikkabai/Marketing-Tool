@@ -12,24 +12,24 @@ export const listBusinesss = /* GraphQL */ `
       items {
         id
         companyName
-        country
-        city
-        businessNumber
-        haveExperienceSelling
         storeURLs
-        haveWebsite
         websiteURLs
-        roleTags {
-          Sales
-          Marketing
-          Logistics
-          Accounting
-          Production
-          QC
-        }
         createdAt
         updatedAt
         owner
+        profiles {
+          items {
+            id
+            owner
+            email
+            name
+            businessID
+            phoneNumber
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
       }
       nextToken
     }
@@ -40,24 +40,51 @@ export const getBusiness = /* GraphQL */ `
     getBusiness(id: $id) {
       id
       companyName
-      country
-      city
-      businessNumber
-      haveExperienceSelling
       storeURLs
-      haveWebsite
       websiteURLs
-      roleTags {
-        Sales
-        Marketing
-        Logistics
-        Accounting
-        Production
-        QC
-      }
       createdAt
       updatedAt
       owner
+      profiles {
+        items {
+          id
+          owner
+          email
+          name
+          businessID
+          avatar {
+            bucket
+            region
+            key
+          }
+          roleTags {
+            Sales
+            Marketing
+            Logistics
+            Accounting
+            Production
+            QC
+          }
+          countryCode {
+            code
+            label
+            phone
+          }
+          phoneNumber
+          createdAt
+          updatedAt
+          business {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            createdAt
+            updatedAt
+            owner
+          }
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -74,29 +101,43 @@ export const getProfile = /* GraphQL */ `
         region
         key
       }
+      roleTags {
+        Sales
+        Marketing
+        Logistics
+        Accounting
+        Production
+        QC
+      }
+      countryCode {
+        code
+        label
+        phone
+      }
+      phoneNumber
       createdAt
       updatedAt
       business {
         id
         companyName
-        country
-        city
-        businessNumber
-        haveExperienceSelling
         storeURLs
-        haveWebsite
         websiteURLs
-        roleTags {
-          Sales
-          Marketing
-          Logistics
-          Accounting
-          Production
-          QC
-        }
         createdAt
         updatedAt
         owner
+        profiles {
+          items {
+            id
+            owner
+            email
+            name
+            businessID
+            phoneNumber
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
       }
     }
   }
@@ -119,29 +160,92 @@ export const listProfiles = /* GraphQL */ `
           region
           key
         }
+        roleTags {
+          Sales
+          Marketing
+          Logistics
+          Accounting
+          Production
+          QC
+        }
+        countryCode {
+          code
+          label
+          phone
+        }
+        phoneNumber
         createdAt
         updatedAt
         business {
           id
           companyName
-          country
-          city
-          businessNumber
-          haveExperienceSelling
           storeURLs
-          haveWebsite
           websiteURLs
-          roleTags {
-            Sales
-            Marketing
-            Logistics
-            Accounting
-            Production
-            QC
-          }
           createdAt
           updatedAt
           owner
+          profiles {
+            nextToken
+          }
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const byBusiness = /* GraphQL */ `
+  query ByBusiness(
+    $businessID: ID
+    $sortDirection: ModelSortDirection
+    $filter: ModelProfileFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    byBusiness(
+      businessID: $businessID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        owner
+        email
+        name
+        businessID
+        avatar {
+          bucket
+          region
+          key
+        }
+        roleTags {
+          Sales
+          Marketing
+          Logistics
+          Accounting
+          Production
+          QC
+        }
+        countryCode {
+          code
+          label
+          phone
+        }
+        phoneNumber
+        createdAt
+        updatedAt
+        business {
+          id
+          companyName
+          storeURLs
+          websiteURLs
+          createdAt
+          updatedAt
+          owner
+          profiles {
+            nextToken
+          }
         }
       }
       nextToken
@@ -174,29 +278,33 @@ export const profileByOwner = /* GraphQL */ `
           region
           key
         }
+        roleTags {
+          Sales
+          Marketing
+          Logistics
+          Accounting
+          Production
+          QC
+        }
+        countryCode {
+          code
+          label
+          phone
+        }
+        phoneNumber
         createdAt
         updatedAt
         business {
           id
           companyName
-          country
-          city
-          businessNumber
-          haveExperienceSelling
           storeURLs
-          haveWebsite
           websiteURLs
-          roleTags {
-            Sales
-            Marketing
-            Logistics
-            Accounting
-            Production
-            QC
-          }
           createdAt
           updatedAt
           owner
+          profiles {
+            nextToken
+          }
         }
       }
       nextToken
