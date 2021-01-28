@@ -16,3 +16,13 @@
     line-height: 0;
   }
 }
+
+.backArrow:hover {
+  svg {
+    fill: #2d2d2d;
+  }
+
+  p {
+    color: #2d2d2d;
+  }
+}

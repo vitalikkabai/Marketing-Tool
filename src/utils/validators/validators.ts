@@ -14,6 +14,11 @@ export const isEmail = (value: string) => {
     return ""
 }
 
+export const isPhone = (value: string) => {
+    if((/\D/.test(value)) || value.length > 9) return "Invalid phone number";
+    return ""
+}
+
 export const isMinLength = (value: string) => {
     if(value.length < 8) return "The password must be at least 8 characters";
     return ""
