@@ -34,6 +34,11 @@ export const getInitialState = ():Business => new Business({
 
 export const BusinessReducer = (state: Business = getInitialState(), action: ActionTypes): Business => {
     switch (action.type) {
+        case 'SET_BUSINESS':
+        case 'UPDATE_BUSINESS_SUCCESS':
+            return {
+                ...action.payload,
+            }
         case 'SET_STEP_ONE':
             return {
                 ...state,
@@ -41,14 +46,10 @@ export const BusinessReducer = (state: Business = getInitialState(), action: Act
             };
         case 'SET_STEP_TWO':
             return {
+                ...action.payload,
                 ...state,
-                ...action.payload
             };
-        case 'SAVE_BUSINESS_TO_DB_SUCCESS':
-            return {
-                ...state
-            }
-        case 'SAVE_BUSINESS_TO_DB_FAILED':
+        case 'UPDATE_BUSINESS_FAILED':
             return {
                 ...state
             }
@@ -60,6 +61,11 @@ export const BusinessReducer = (state: Business = getInitialState(), action: Act
             return {
                 ...getInitialState()
             }
+        case 'UPDATE_BUSINESS':
+            return {
+                ...state
+            }
+
         default:
             return {
                 ...state,

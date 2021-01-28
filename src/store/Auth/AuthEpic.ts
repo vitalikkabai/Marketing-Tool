@@ -68,21 +68,21 @@ export default [
                         password: action.payload.password
                     })
                 }),
+                mergeMap((response: any) => {
+                    return [
+                        // setProfileID(response.attributes.sub),
+                        signInSuccess({
+                            userID: response.attributes.sub,
+                            email: response.attributes.email,
+                            emailVerified: response.attributes.email_verified,
+                            userName: response.attributes.given_name,
+                        }),
+                        initiateNewProfile(),
+                    ]
+                }),
                 catchError(err => of(signUpFailed(err)))
             )
-        }),
-        mergeMap((response: any) => {
-            return [
-                // setProfileID(response.attributes.sub),
-                signInSuccess({
-                    userID: response.attributes.sub,
-                    email: response.attributes.email,
-                    emailVerified: response.attributes.email_verified,
-                    userName: response.attributes.given_name,
-                }),
-                initiateNewProfile(),
-            ]
-        }),
+        })
     ),
     (action$: ActionsObservable<ActionTypes>) => action$.pipe(
         ofType("SIGN-OUT-REQUEST"),
@@ -153,7 +153,7 @@ export default [
                         console.log(res);
                         return from(Auth.changePassword(res, action.payload.oldPassword, action.payload.newPassword))
                     }),
-                    map(res => { console.log(res); return sendNewPasswordSuccess() }),
+                    map(res => { console.log(res); action.payload.callback(); return sendNewPasswordSuccess() }),
                     catchError(err => of(signInFailed(err))),
                 )
         })

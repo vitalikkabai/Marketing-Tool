@@ -53,12 +53,25 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         console.log(oldPassword, newPassword, retypePassword);
-        props.changePassword(oldPassword, newPassword);
+        props.changePassword(oldPassword, newPassword, changePasswordSuccessCallback);
     }
 
     const [name, setName] = useState(props.profile.name)
     const [email, setEmail] = useState(props.profile.email)
     console.log(name, email)
+
+    const changePasswordSuccessCallback = () => {
+        console.log(oldPassword, newPassword, retypePassword)
+        setOldPassword(() => "");
+        setNewPassword(() => "");
+        setRetypePassword(() => "");
+        alert("Password Changed!")
+    }
+
+    useEffect(() => {
+        setName(props.profile.name);
+        setEmail(props.profile.email);
+    },[props.profile])
 
     const handleInfoUpdate = (e: FormEvent) => {
         e.preventDefault();
@@ -114,6 +127,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                     fullWidth
                                     name="password"
                                     required
+                                    value={oldPassword}
                                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                                         setOldPassword(event.target.value)
                                     }
@@ -127,6 +141,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                     label="New password"
                                     fullWidth
                                     name="password"
+                                    value={newPassword}
                                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                                         setNewPassword(event.target.value)
                                     }
@@ -140,6 +155,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                     label="Retype password"
                                     fullWidth
                                     name="password"
+                                    value={retypePassword}
                                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                                         setRetypePassword(event.target.value)
                                     }
@@ -195,7 +211,7 @@ function mapStateToProps(state: AppStateType) {
 function mapDispatchToProps(dispatch: Dispatch) {
     return {
         saveProfileImage: (s3: S3Object, bufferImg: Buffer) => dispatch(saveProfileImage(s3, bufferImg)),
-        changePassword: (oldPassword: string, newPassword: string) => dispatch(changePassword(oldPassword, newPassword)),
+        changePassword: (oldPassword: string, newPassword: string, callback: () => void) => dispatch(changePassword(oldPassword, newPassword, callback )),
         changePersonalInfo: (name:string, email: string) => dispatch(changePersonalInfo(name, email))
     }
 }

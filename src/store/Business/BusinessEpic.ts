@@ -1,21 +1,29 @@
-import { ActionsObservable, ofType, StateObservable } from 'redux-observable';
-import { catchError, map } from 'rxjs/operators';
-import { saveBusinessToDBFailed, saveBusinessToDBSucces } from './BusinessActions';
+import { ActionsObservable, Epic, ofType, StateObservable } from 'redux-observable';
+import { catchError, map, mergeMap } from 'rxjs/operators';
+import { updateBusinessInDBFailed, updateBusinessInDBSucces } from './BusinessActions';
 import { ActionTypes } from './BusinessReducer';
+import { ActionTypes as ProfileActionTypes } from '../Profile/ProfileReducer';
 import { Business } from '../../models';
 import { AppStateType } from '../store';
-import { createBusiness } from '../../graphql/mutations';
+import { createBusiness, updateBusiness } from '../../graphql/mutations';
 import { API, graphqlOperation } from 'aws-amplify';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
+import { setProfile } from '../Profile/ProfileActions';
 
-export const businessEpic = (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>):Observable<ActionTypes> => action$.pipe(
-    ofType('SAVE_BUSINESS_TO_DB'),
-    map(() => {
-        const businessData = state$.value.BusinessReducer;
-        const businessObject = new Business({ ...businessData });
-        return API.graphql(graphqlOperation(createBusiness, { input: businessObject }));
+export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
+    (action$, state$) => action$.pipe(
+    ofType('UPDATE_BUSINESS'),
+    mergeMap((action: any) => {
+        // const businessUpdates = {id: action.payload.id,};
+        // const businessObject = new Business({ ...businessData });
+        return from(API.graphql(graphqlOperation(updateBusiness, { input: action.payload })) as unknown as Promise<any>).pipe(
+            mergeMap(res => {console.log(res); return [
+                updateBusinessInDBSucces(res.data.updateBusiness),
+                setProfile({...state$.value.ProfileReducer.profile, business: res.data.updateBusiness})
+            ] }),
+            catchError(err => { console.log(err); return [updateBusinessInDBFailed(err)] })
+        )
 
-    }),
-    map(res => { return saveBusinessToDBSucces() }),
-    catchError(err => { console.log(err); return [saveBusinessToDBFailed(err)] })
-);
+    })
+)
+]

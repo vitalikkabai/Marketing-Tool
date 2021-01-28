@@ -5,15 +5,21 @@ import { fetchProfileByIdSuccess, saveProfileToDBFailed, saveProfileToDBSucces, 
 import { ActionTypes } from './ProfileReducer';
 import { Business, Profile } from '../../models';
 import { AppStateType } from '../store';
+import { ActionTypes as BusinessActionTypes } from '../Business/BusinessReducer';
 import { createBusiness, createProfile, updateProfile } from '../../graphql/mutations';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { from, Observable } from 'rxjs';
 import { profileByOwner } from '../../graphql/queries';
+import { setBusiness } from '../Business/BusinessActions';
 
 export default [
-    (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
+    (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes|BusinessActionTypes> => action$.pipe(
         ofType('INITIATE_NEW_PROFILE'),
-        mergeMap(() => {
+        filter(action => {switch (action.type) {
+            case 'INITIATE_NEW_PROFILE': return true;
+            default: return false;
+        }}),
+        mergeMap((action) => {
             const businessData = state$.value.BusinessReducer;
             return from(API.graphql(graphqlOperation(createBusiness, { input: businessData })) as unknown as Promise<any>).pipe(
                 mergeMap(res => {
@@ -24,21 +30,21 @@ export default [
 
                     return from(API.graphql(graphqlOperation(createProfile, { input: profile })) as unknown as Promise<any>);
                 }),
-                map(res => {
-                    return saveProfileToDBSucces(res.data.createProfile)
+                mergeMap(res => {
+                    return [saveProfileToDBSucces(res.data.createProfile), setBusiness(res.data.createProfile.business)]
                 }),
                 catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
             )
         }),
     ),
 
-    (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
+    (action$: ActionsObservable<ActionTypes>, state$: StateObservable<AppStateType>): Observable<ActionTypes| BusinessActionTypes> => action$.pipe(
         ofType('FETCH_PROFILE_BY_ID'),
         mergeMap((action: any) => {
             return from(API.graphql(graphqlOperation(profileByOwner, { owner: action.payload })) as unknown as Promise<any>)
                 .pipe(
-                    map(res => {
-                        return fetchProfileByIdSuccess(res.data.profileByOwner.items[0])
+                    mergeMap(res => {
+                        return [fetchProfileByIdSuccess(res.data.profileByOwner.items[0]),setBusiness(res.data.profileByOwner.items[0].business)]
                     }),
                     catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
                 )

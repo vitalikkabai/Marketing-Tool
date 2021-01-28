@@ -13,6 +13,7 @@ import { Box, Grid } from "@material-ui/core";
 import Chat from "../../components/Chat/Chat";
 import UserDashboard from "../../components/DashBoard/UserDashBoard/UserDashboard";
 import PersonalProfile from "../PersonalProfile/PersonalProfile";
+import BusinessProfile from "../BusinessProfile/BusinessProfile";
 
 
 const MarketingToolPageContainer = (props: any) => {
@@ -27,7 +28,8 @@ const MarketingToolPageContainer = (props: any) => {
 					<Grid xs={8} xl={9} item className={classes.content}>
 						<Switch>
 							<Route path={'/'} exact component={UserDashboard} />
-							<Route path='/personal-profile' component={PersonalProfile} />
+							<Route path={'/personal-profile'} exact component={PersonalProfile} />
+							<Route path={'/business-profile'} component={BusinessProfile} />
 							<Route path={'/products'} exact component={H1} />
 							<Route path={'/market-research'} exact component={VisitorDashboard} />
 							<Route path={'/brand-creation'} exact component={H1} />

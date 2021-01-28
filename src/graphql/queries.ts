@@ -131,6 +131,14 @@ export const listProfiles = /* GraphQL */ `
           storeURLs
           haveWebsite
           websiteURLs
+          roleTags {
+            Sales
+            Marketing
+            Logistics
+            Accounting
+            Production
+            QC
+          }
           createdAt
           updatedAt
           owner
@@ -178,6 +186,14 @@ export const profileByOwner = /* GraphQL */ `
           storeURLs
           haveWebsite
           websiteURLs
+          roleTags {
+            Sales
+            Marketing
+            Logistics
+            Accounting
+            Production
+            QC
+          }
           createdAt
           updatedAt
           owner

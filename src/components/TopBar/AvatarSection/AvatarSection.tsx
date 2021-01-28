@@ -15,7 +15,7 @@ import { signOut } from "../../../store/Auth/AuthActions";
 import { AppStateType } from "../../../store/store";
 import { getS3ObjectSrc } from "../../../utils/profile/profile";
 import classes from "./AvatarSection.module.scss";
-import {useHistory} from "react-router";
+import { useHistory } from "react-router";
 
 
 const AvatarSection: React.FunctionComponent<{ profile: Profile, signOut: () => void }> = (props) => {
@@ -36,7 +36,7 @@ const AvatarSection: React.FunctionComponent<{ profile: Profile, signOut: () => 
         setOpen((prevOpen) => !prevOpen);
     };
 
-    const writeInitials = ():string => {
+    const writeInitials = (): string => {
         if (props.profile.avatar) return "";
         const nameWords = props.profile.name.split(" ");
         let initials = ""
@@ -49,15 +49,15 @@ const AvatarSection: React.FunctionComponent<{ profile: Profile, signOut: () => 
     }
     return (
         <>
-        <div ref={anchorRef}           onClick={handleToggle}>
-            {
-                props.profile.avatar
-                ? <Avatar alt="avatar" src={getS3ObjectSrc(props.profile.avatar)}/>
-                : <Avatar className={classes.InitialsAvatar}>{writeInitials()}</Avatar>
+            <div ref={anchorRef} onClick={handleToggle}>
+                {
+                    props.profile.avatar
+                        ? <Avatar alt="avatar" src={getS3ObjectSrc(props.profile.avatar)} />
+                        : <Avatar className={classes.InitialsAvatar}>{writeInitials()}</Avatar>
 
-            }
+                }
 
-        </div>
+            </div>
             <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                 {({ TransitionProps, placement }) => (
                     <Grow
@@ -67,13 +67,18 @@ const AvatarSection: React.FunctionComponent<{ profile: Profile, signOut: () => 
                         <Paper>
                             <ClickAwayListener onClickAway={() => setOpen(false)}>
                                 <MenuList autoFocusItem={open} id="menu-list-grow">
-                                    <MenuItem onClick={() => setOpen(false)}>Business Profile</MenuItem>
                                     <MenuItem onClick={() => {
-                                      history.push("personal-profile");
-                                      setOpen(false)
-                                  }}>Personal Profile</MenuItem>
+                                        history.push("business-profile");
+                                        setOpen(false)
+                                    }}
+                                    >Business Profile</MenuItem>
+                                    <MenuItem onClick={() => {
+                                        history.push("personal-profile");
+                                        setOpen(false)
+                                    }}
+                                    >Personal Profile</MenuItem>
                                     <MenuItem onClick={() => setOpen(false)}>Staff Accounts</MenuItem>
-                                    <MenuItem onClick={()=>props.signOut()}>Logout</MenuItem>
+                                    <MenuItem onClick={() => props.signOut()}>Logout</MenuItem>
                                 </MenuList>
                             </ClickAwayListener>
                         </Paper>
