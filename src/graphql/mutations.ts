@@ -17,41 +17,13 @@ export const createBusiness = /* GraphQL */ `
       owner
       profiles {
         items {
-          id
           owner
           email
           name
           businessID
-          avatar {
-            bucket
-            region
-            key
-          }
-          roleTags {
-            Sales
-            Marketing
-            Logistics
-            Accounting
-            Production
-            QC
-          }
-          countryCode {
-            code
-            label
-            phone
-          }
           phoneNumber
           createdAt
           updatedAt
-          business {
-            id
-            companyName
-            storeURLs
-            websiteURLs
-            createdAt
-            updatedAt
-            owner
-          }
         }
         nextToken
       }
@@ -73,41 +45,13 @@ export const updateBusiness = /* GraphQL */ `
       owner
       profiles {
         items {
-          id
           owner
           email
           name
           businessID
-          avatar {
-            bucket
-            region
-            key
-          }
-          roleTags {
-            Sales
-            Marketing
-            Logistics
-            Accounting
-            Production
-            QC
-          }
-          countryCode {
-            code
-            label
-            phone
-          }
           phoneNumber
           createdAt
           updatedAt
-          business {
-            id
-            companyName
-            storeURLs
-            websiteURLs
-            createdAt
-            updatedAt
-            owner
-          }
         }
         nextToken
       }
@@ -129,41 +73,13 @@ export const deleteBusiness = /* GraphQL */ `
       owner
       profiles {
         items {
-          id
           owner
           email
           name
           businessID
-          avatar {
-            bucket
-            region
-            key
-          }
-          roleTags {
-            Sales
-            Marketing
-            Logistics
-            Accounting
-            Production
-            QC
-          }
-          countryCode {
-            code
-            label
-            phone
-          }
           phoneNumber
           createdAt
           updatedAt
-          business {
-            id
-            companyName
-            storeURLs
-            websiteURLs
-            createdAt
-            updatedAt
-            owner
-          }
         }
         nextToken
       }
@@ -176,7 +92,6 @@ export const createProfile = /* GraphQL */ `
     $condition: ModelProfileConditionInput
   ) {
     createProfile(input: $input, condition: $condition) {
-      id
       owner
       email
       name
@@ -211,16 +126,6 @@ export const createProfile = /* GraphQL */ `
         updatedAt
         owner
         profiles {
-          items {
-            id
-            owner
-            email
-            name
-            businessID
-            phoneNumber
-            createdAt
-            updatedAt
-          }
           nextToken
         }
       }
@@ -233,7 +138,6 @@ export const updateProfile = /* GraphQL */ `
     $condition: ModelProfileConditionInput
   ) {
     updateProfile(input: $input, condition: $condition) {
-      id
       owner
       email
       name
@@ -268,16 +172,6 @@ export const updateProfile = /* GraphQL */ `
         updatedAt
         owner
         profiles {
-          items {
-            id
-            owner
-            email
-            name
-            businessID
-            phoneNumber
-            createdAt
-            updatedAt
-          }
           nextToken
         }
       }
@@ -290,7 +184,6 @@ export const deleteProfile = /* GraphQL */ `
     $condition: ModelProfileConditionInput
   ) {
     deleteProfile(input: $input, condition: $condition) {
-      id
       owner
       email
       name
@@ -325,16 +218,6 @@ export const deleteProfile = /* GraphQL */ `
         updatedAt
         owner
         profiles {
-          items {
-            id
-            owner
-            email
-            name
-            businessID
-            phoneNumber
-            createdAt
-            updatedAt
-          }
           nextToken
         }
       }

@@ -18,16 +18,6 @@ export const listBusinesss = /* GraphQL */ `
         updatedAt
         owner
         profiles {
-          items {
-            id
-            owner
-            email
-            name
-            businessID
-            phoneNumber
-            createdAt
-            updatedAt
-          }
           nextToken
         }
       }
@@ -47,41 +37,13 @@ export const getBusiness = /* GraphQL */ `
       owner
       profiles {
         items {
-          id
           owner
           email
           name
           businessID
-          avatar {
-            bucket
-            region
-            key
-          }
-          roleTags {
-            Sales
-            Marketing
-            Logistics
-            Accounting
-            Production
-            QC
-          }
-          countryCode {
-            code
-            label
-            phone
-          }
           phoneNumber
           createdAt
           updatedAt
-          business {
-            id
-            companyName
-            storeURLs
-            websiteURLs
-            createdAt
-            updatedAt
-            owner
-          }
         }
         nextToken
       }
@@ -89,9 +51,8 @@ export const getBusiness = /* GraphQL */ `
   }
 `;
 export const getProfile = /* GraphQL */ `
-  query GetProfile($id: ID!) {
-    getProfile(id: $id) {
-      id
+  query GetProfile($owner: ID!, $email: String!) {
+    getProfile(owner: $owner, email: $email) {
       owner
       email
       name
@@ -126,16 +87,6 @@ export const getProfile = /* GraphQL */ `
         updatedAt
         owner
         profiles {
-          items {
-            id
-            owner
-            email
-            name
-            businessID
-            phoneNumber
-            createdAt
-            updatedAt
-          }
           nextToken
         }
       }
@@ -144,13 +95,22 @@ export const getProfile = /* GraphQL */ `
 `;
 export const listProfiles = /* GraphQL */ `
   query ListProfiles(
+    $owner: ID
+    $email: ModelStringKeyConditionInput
     $filter: ModelProfileFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listProfiles(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listProfiles(
+      owner: $owner
+      email: $email
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
-        id
         owner
         email
         name
@@ -184,24 +144,21 @@ export const listProfiles = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          profiles {
-            nextToken
-          }
         }
       }
       nextToken
     }
   }
 `;
-export const byBusiness = /* GraphQL */ `
-  query ByBusiness(
+export const profileByBusiness = /* GraphQL */ `
+  query ProfileByBusiness(
     $businessID: ID
     $sortDirection: ModelSortDirection
     $filter: ModelProfileFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    byBusiness(
+    profileByBusiness(
       businessID: $businessID
       sortDirection: $sortDirection
       filter: $filter
@@ -209,7 +166,6 @@ export const byBusiness = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
-        id
         owner
         email
         name
@@ -243,68 +199,6 @@ export const byBusiness = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          profiles {
-            nextToken
-          }
-        }
-      }
-      nextToken
-    }
-  }
-`;
-export const profileByOwner = /* GraphQL */ `
-  query ProfileByOwner(
-    $owner: ID
-    $sortDirection: ModelSortDirection
-    $filter: ModelProfileFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    profileByOwner(
-      owner: $owner
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        owner
-        email
-        name
-        businessID
-        avatar {
-          bucket
-          region
-          key
-        }
-        roleTags {
-          Sales
-          Marketing
-          Logistics
-          Accounting
-          Production
-          QC
-        }
-        countryCode {
-          code
-          label
-          phone
-        }
-        phoneNumber
-        createdAt
-        updatedAt
-        business {
-          id
-          companyName
-          storeURLs
-          websiteURLs
-          createdAt
-          updatedAt
-          owner
-          profiles {
-            nextToken
-          }
         }
       }
       nextToken

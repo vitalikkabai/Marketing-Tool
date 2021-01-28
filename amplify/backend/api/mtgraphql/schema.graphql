@@ -1,4 +1,5 @@
-type Business @model 
+type Business @model
+    @key(fields: ["id", "companyName"])
     @auth(rules: [
           { allow: owner },
           { allow: public, operations: [read]},
