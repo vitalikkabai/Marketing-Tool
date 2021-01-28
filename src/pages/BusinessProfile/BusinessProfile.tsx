@@ -6,63 +6,68 @@ import classes from "./BusinessProfile.module.scss";
 import { AppStateType } from "../../store/store";
 import { connect, ConnectedProps } from "react-redux";
 import { Dispatch } from "redux";
-import { Profile, S3Object } from "../../models";
+import { Business, Profile, RoleTags, S3Object } from "../../models";
 import { saveProfileImage } from "../../store/Profile/ProfileActions";
 import CustomInput from "../../components/common/Input/CustomInput";
 import { changePassword, changePersonalInfo } from "../../store/Auth/AuthActions";
 import RoleBoxes from "../../components/common/RoleBoxes/RoleBoxes";
+import CustomButton from "../../components/common/Button/CustomButton";
+import { updateBusinessInDB } from "../../store/Business/BusinessActions";
+import { UpdateBusinessInput } from "../../API";
 
 const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 
-
-    const [oldPassword, setOldPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [retypePassword, setRetypePassword] = useState("");
-
-
-    const [selectedRole, setSelectedRole] = useState(props.business.roleTags ? [
-        props.business.roleTags.Sales,
-        props.business.roleTags.Marketing,
-        props.business.roleTags.Logistics,
-        props.business.roleTags.Accounting,
-        props.business.roleTags.Production,
-        props.business.roleTags.QC
-    ] : [false,false,false,false,false,false]);
-
-
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        console.log(oldPassword, newPassword, retypePassword);
-        props.changePassword(oldPassword, newPassword, changePasswordSuccessCallback);
+    const roleTagsToSelectedRole = (roleTags: RoleTags|undefined):boolean[] => {
+        return roleTags ? [
+            roleTags.Sales,
+            roleTags.Marketing,
+            roleTags.Logistics,
+            roleTags.Accounting,
+            roleTags.Production,
+            roleTags.QC
+        ] : [false,false,false,false,false,false]
     }
 
-    const [name, setName] = useState(props.profile.name)
-    const [email, setEmail] = useState(props.profile.email)
-    console.log(name, email)
+    const [selectedRole, setSelectedRole] = useState(roleTagsToSelectedRole(props.business.roleTags));
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        props.updateBusinessInDB({
+            id: props.business.id,
+            companyName,
+            roleTags: {
+                Sales: selectedRole[0],
+                Marketing: selectedRole[1],
+                Logistics: selectedRole[2],
+                Accounting: selectedRole[3],
+                Production: selectedRole[4],
+                QC: selectedRole[5],
+            }
+        })
+        // console.log(oldPassword, newPassword, retypePassword);
+        // props.changePassword(oldPassword, newPassword, changePasswordSuccessCallback);
+    }
+    const [companyName, setCompanyName] = useState(props.business.companyName)
+    // const [email, setEmail] = useState(props.profile.email)
 
     const changePasswordSuccessCallback = () => {
-        console.log(oldPassword, newPassword, retypePassword)
-        setOldPassword(() => "");
-        setNewPassword(() => "");
-        setRetypePassword(() => "");
+
         alert("Password Changed!")
     }
 
     useEffect(() => {
-        setName(props.profile.name);
-        setEmail(props.profile.email);
-    }, [props.profile])
+        setCompanyName(props.business.companyName);
+        setSelectedRole(roleTagsToSelectedRole(props.business.roleTags));
+    }, [props.business])
 
-    const handleInfoUpdate = (e: FormEvent) => {
-        e.preventDefault();
-        console.log(name, email);
-        props.changePersonalInfo(name, email);
-    }
+    // const handleInfoUpdate = (e: FormEvent) => {
+    //     e.preventDefault();
+    //     // props.changePersonalInfo(name, email);
+    // }
 
     return (
         <Box className={classes.component}>
             <Typography variant={"h2"}>Business Profile</Typography>
-            <form onSubmit={handleInfoUpdate}>
+            <form onSubmit={handleSubmit}>
                 <Grid container className={classes.contentContainer}>
                     <Grid item xs={6}>
                         <Box >
@@ -72,53 +77,14 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 variant="outlined"
                                 placeholder={"Name"}
                                 fullWidth={true}
-                                value={name}
+                                value={companyName}
                                 // error={inputValue.ownerName.error}
                                 margin={"0 0 16px 0"}
                                 onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                                    setName(event.target.value)
+                                    setCompanyName(event.target.value)
                                 }
                             />
-                            <CustomInput
-                                type="text"
-                                label="Country"
-                                variant="outlined"
-                                placeholder={"email"}
-                                fullWidth={true}
-                                value={email}
-                                // error={inputValue.ownerEmail.error}
-                                margin={"0 0 16px 0"}
-                                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                                    setEmail(event.target.value)
-                                }
-                            />
-                            <CustomInput
-                                type="text"
-                                label="City"
-                                variant="outlined"
-                                placeholder={"email"}
-                                fullWidth={true}
-                                value={email}
-                                // error={inputValue.ownerEmail.error}
-                                margin={"0 0 16px 0"}
-                                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                                    setEmail(event.target.value)
-                                }
-                            />
-                            <CustomInput
-                                type="text"
-                                label="Business Number"
-                                variant="outlined"
-                                placeholder={"email"}
-                                fullWidth={true}
-                                value={email}
-                                // error={inputValue.ownerEmail.error}
-                                margin={"0 0 16px 0"}
-                                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                                    setEmail(event.target.value)
-                                }
-                            />
-                            {/* <CustomButton type='submit' text="Edit" /> */}
+                            
                         </Box>
                     </Grid>
                     <Grid item xs={6}>
@@ -129,6 +95,9 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                     </Grid>
                     <Grid item xs={6}>
                         4
+                    </Grid>
+                    <Grid item xs={12}>
+                            <CustomButton type='submit' text="Edit" />
                     </Grid>
                 </Grid>
             </form>
@@ -145,9 +114,7 @@ function mapStateToProps(state: AppStateType) {
 
 function mapDispatchToProps(dispatch: Dispatch) {
     return {
-        saveProfileImage: (s3: S3Object, bufferImg: Buffer) => dispatch(saveProfileImage(s3, bufferImg)),
-        changePassword: (oldPassword: string, newPassword: string, callback: () => void) => dispatch(changePassword(oldPassword, newPassword, callback)),
-        changePersonalInfo: (name: string, email: string) => dispatch(changePersonalInfo(name, email))
+        updateBusinessInDB: (business:UpdateBusinessInput) => dispatch(updateBusinessInDB(business))
     }
 }
 
