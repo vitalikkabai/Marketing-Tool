@@ -17,34 +17,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "country": {
-                    "name": "country",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "city": {
-                    "name": "city",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "businessNumber": {
-                    "name": "businessNumber",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "haveExperienceSelling": {
-                    "name": "haveExperienceSelling",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "storeURLs": {
                     "name": "storeURLs",
                     "isArray": true,
@@ -52,13 +24,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": [],
                     "isArrayNullable": false
-                },
-                "haveWebsite": {
-                    "name": "haveWebsite",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
                 },
                 "websiteURLs": {
                     "name": "websiteURLs",
@@ -68,14 +33,19 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": false
                 },
-                "roleTags": {
-                    "name": "roleTags",
-                    "isArray": false,
+                "profiles": {
+                    "name": "profiles",
+                    "isArray": true,
                     "type": {
-                        "nonModel": "RoleTags"
+                        "model": "Profile"
                     },
                     "isRequired": false,
-                    "attributes": []
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "business"
+                    }
                 }
             },
             "syncable": true,
@@ -158,16 +128,9 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "association": {
-                        "connectionType": "HAS_ONE",
-                        "associatedWith": "id"
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "businessID"
                     }
-                },
-                "businessID": {
-                    "name": "businessID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
                 },
                 "avatar": {
                     "name": "avatar",
@@ -177,6 +140,31 @@ export const schema = {
                     },
                     "isRequired": false,
                     "attributes": []
+                },
+                "roleTags": {
+                    "name": "roleTags",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "RoleTags"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "countryCode": {
+                    "name": "countryCode",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "CountryCode"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "phoneNumber": {
+                    "name": "phoneNumber",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
                 }
             },
             "syncable": true,
@@ -185,6 +173,16 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byBusiness",
+                        "fields": [
+                            "businessID"
+                        ],
+                        "queryField": "byBusiness"
+                    }
                 },
                 {
                     "type": "key",
@@ -232,6 +230,32 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {
+        "S3Object": {
+            "name": "S3Object",
+            "fields": {
+                "bucket": {
+                    "name": "bucket",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "region": {
+                    "name": "region",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "key": {
+                    "name": "key",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                }
+            }
+        },
         "RoleTags": {
             "name": "RoleTags",
             "fields": {
@@ -279,25 +303,25 @@ export const schema = {
                 }
             }
         },
-        "S3Object": {
-            "name": "S3Object",
+        "CountryCode": {
+            "name": "CountryCode",
             "fields": {
-                "bucket": {
-                    "name": "bucket",
+                "code": {
+                    "name": "code",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
                     "attributes": []
                 },
-                "region": {
-                    "name": "region",
+                "label": {
+                    "name": "label",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
                     "attributes": []
                 },
-                "key": {
-                    "name": "key",
+                "phone": {
+                    "name": "phone",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -306,5 +330,5 @@ export const schema = {
             }
         }
     },
-    "version": "1dcd26dc6f7dbfe114d581d1ebaa6264"
+    "version": "ac3bba843904e94f5290f64cf2a367e2"
 };

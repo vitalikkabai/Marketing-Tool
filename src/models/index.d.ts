@@ -2,6 +2,13 @@ import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplif
 
 
 
+export declare class S3Object {
+  readonly bucket: string;
+  readonly region: string;
+  readonly key: string;
+  constructor(init: ModelInit<S3Object>);
+}
+
 export declare class RoleTags {
   readonly Sales: boolean;
   readonly Marketing: boolean;
@@ -12,24 +19,19 @@ export declare class RoleTags {
   constructor(init: ModelInit<RoleTags>);
 }
 
-export declare class S3Object {
-  readonly bucket: string;
-  readonly region: string;
-  readonly key: string;
-  constructor(init: ModelInit<S3Object>);
+export declare class CountryCode {
+  readonly code: string;
+  readonly label: string;
+  readonly phone: string;
+  constructor(init: ModelInit<CountryCode>);
 }
 
 export declare class Business {
   readonly id: string;
   readonly companyName: string;
-  readonly country?: string;
-  readonly city?: string;
-  readonly businessNumber?: string;
-  readonly haveExperienceSelling?: boolean;
   readonly storeURLs: string[];
-  readonly haveWebsite?: boolean;
   readonly websiteURLs: string[];
-  readonly roleTags?: RoleTags;
+  readonly profiles?: (Profile | null)[];
   constructor(init: ModelInit<Business>);
   static copyOf(source: Business, mutator: (draft: MutableModel<Business>) => MutableModel<Business> | void): Business;
 }
@@ -40,8 +42,10 @@ export declare class Profile {
   readonly email: string;
   readonly name: string;
   readonly business?: Business;
-  readonly businessID: string;
   readonly avatar?: S3Object;
+  readonly roleTags: RoleTags;
+  readonly countryCode: CountryCode;
+  readonly phoneNumber: string;
   constructor(init: ModelInit<Profile>);
   static copyOf(source: Profile, mutator: (draft: MutableModel<Profile>) => MutableModel<Profile> | void): Profile;
 }
