@@ -9,7 +9,7 @@ import {RoleTags} from "../../models";
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        roleTags: state.ProfileReducer.profile.roleTags
+        roleTags: state.ProfileReducer.roleTags
     }
 };
 

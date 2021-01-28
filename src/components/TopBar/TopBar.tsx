@@ -142,7 +142,7 @@ const TopBar = (props: PropsFromRedux) => {
 const mapStateToProps = (state: AppStateType) => {
 	return {
         isAuth: state.AuthReducer.isAuth,
-        profile: state.ProfileReducer.profile
+        profile: state.ProfileReducer
 	}
 };
 

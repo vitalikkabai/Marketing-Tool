@@ -25,10 +25,10 @@ export const setStepTwo = (stepTwoData: stepTwoData) => ( {
     payload: stepTwoData
 });
 
-export const setRoleTags = (roleTags: RoleTags) => ( {
-    type: 'SET_ROLE_TAGS' as const,
-    payload: roleTags
-});
+export const setBusinessName = (businessName: string) => ({
+    type: 'SET_BUSINESS_NAME' as const,
+    payload: businessName
+})
 
 export const clearBusiness = () => ({
     type: 'CLEAR_BUSINESS' as const

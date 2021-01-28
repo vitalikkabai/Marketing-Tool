@@ -16,9 +16,10 @@ import { AppStateType } from "../../../store/store";
 import { getS3ObjectSrc } from "../../../utils/profile/profile";
 import classes from "./AvatarSection.module.scss";
 import { useHistory } from "react-router";
+import { CreateProfileInput } from "../../../API";
 
 
-const AvatarSection: React.FunctionComponent<{ profile: Profile, signOut: () => void }> = (props) => {
+const AvatarSection: React.FunctionComponent<{ profile: CreateProfileInput, signOut: () => void }> = (props) => {
 
     const history = useHistory();
     const [open, setOpen] = React.useState(false);

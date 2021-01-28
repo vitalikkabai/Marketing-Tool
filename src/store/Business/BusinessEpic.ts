@@ -19,7 +19,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
         return from(API.graphql(graphqlOperation(updateBusiness, { input: action.payload })) as unknown as Promise<any>).pipe(
             mergeMap(res => {console.log(res); return [
                 updateBusinessInDBSucces(res.data.updateBusiness),
-                setProfile({...state$.value.ProfileReducer.profile, business: res.data.updateBusiness})
+                // setProfile({...state$.value.ProfileReducer, business: res.data.updateBusiness})
             ] }),
             catchError(err => { console.log(err); return [updateBusinessInDBFailed(err)] })
         )

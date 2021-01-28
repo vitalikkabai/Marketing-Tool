@@ -19,29 +19,29 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 
     const roleTagsToSelectedRole = (roleTags: RoleTags|undefined):boolean[] => {
         return roleTags ? [
-            roleTags.Sales,
-            roleTags.Marketing,
-            roleTags.Logistics,
-            roleTags.Accounting,
-            roleTags.Production,
-            roleTags.QC
+            roleTags.sales,
+            roleTags.marketing,
+            roleTags.logistics,
+            roleTags.accounting,
+            roleTags.production,
+            roleTags.qualityControl
         ] : [false,false,false,false,false,false]
     }
 
-    const [selectedRole, setSelectedRole] = useState(roleTagsToSelectedRole(props.business.roleTags));
+    const [selectedRole, setSelectedRole] = useState(roleTagsToSelectedRole(props.profile.roleTags));
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         props.updateBusinessInDB({
-            id: props.business.id,
+            id: props.business.id as string,
             companyName,
-            roleTags: {
-                Sales: selectedRole[0],
-                Marketing: selectedRole[1],
-                Logistics: selectedRole[2],
-                Accounting: selectedRole[3],
-                Production: selectedRole[4],
-                QC: selectedRole[5],
-            }
+            // roleTags: {
+            //     Sales: selectedRole[0],
+            //     Marketing: selectedRole[1],
+            //     Logistics: selectedRole[2],
+            //     Accounting: selectedRole[3],
+            //     Production: selectedRole[4],
+            //     QC: selectedRole[5],
+            // }
         })
         // console.log(oldPassword, newPassword, retypePassword);
         // props.changePassword(oldPassword, newPassword, changePasswordSuccessCallback);
@@ -56,7 +56,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 
     useEffect(() => {
         setCompanyName(props.business.companyName);
-        setSelectedRole(roleTagsToSelectedRole(props.business.roleTags));
+        setSelectedRole(roleTagsToSelectedRole(props.profile.roleTags));
     }, [props.business])
 
     // const handleInfoUpdate = (e: FormEvent) => {
@@ -107,7 +107,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 }
 function mapStateToProps(state: AppStateType) {
     return {
-        profile: state.ProfileReducer.profile,
+        profile: state.ProfileReducer,
         business: state.BusinessReducer
     }
 }

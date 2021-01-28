@@ -1,7 +1,7 @@
 import {Box, Grid, Link, Typography} from "@material-ui/core";
 import React, {useState} from 'react';
 import classes from './RegisterForm.module.scss';
-import {RegisterFormImportantInfoContainerType} from './RegisterFormImportantInfoContainer';
+import { PropsFromRedux }  from './RegisterFormImportantInfoContainer';
 import {Profile} from "../../models";
 import {useHistory} from "react-router";
 import GoBackButton from "../common/Button/GoBackButton";
@@ -10,7 +10,7 @@ import CustomInput from "../common/Input/CustomInput";
 import CustomButton from "../common/Button/CustomButton";
 import {isEmail, isMinLength, isPasswordsEqual, validateField} from "../../utils/validators/validators";
 
-const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantInfoContainerType> = (props) => {
+const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (props) => {
 
     const history = useHistory();
     const [emptyFieldsError, setEmptyFieldsError] = useState(false);
@@ -228,17 +228,13 @@ const RegisterFormImportantInfo: React.FunctionComponent<RegisterFormImportantIn
     }
 
     const saveInputData = () => {
-        props.setStepTwo({
-            companyName: inputValue.companyName.value,
-            country: inputValue.countryName.value,
-            city: inputValue.cityName.value,
-            businessNumber: inputValue.businessNumber.value,
-        });
-        props.setProfile(new Profile({
+        props.setBusinessName(inputValue.companyName.value);
+        props.setProfile({
+            ...props.profile,
             name: inputValue.ownerName.value,
             email: inputValue.ownerEmail.value,
             businessID: ""
-        }))
+        })
     }
 
     const getErrorMessage = () => {

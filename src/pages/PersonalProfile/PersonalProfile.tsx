@@ -10,7 +10,7 @@ import config from '../../aws-exports'
 import { AppStateType } from "../../store/store";
 import { connect, ConnectedProps } from "react-redux";
 import { UserAttributes } from "../../store/Auth/AuthReducer";
-import { getProfile, listProfiles, profileByOwner } from "../../graphql/queries";
+import { getProfile, listProfiles } from "../../graphql/queries";
 import { Dispatch } from "redux";
 import { Profile, S3Object } from "../../models";
 import { saveProfileImage } from "../../store/Profile/ProfileActions";
@@ -35,7 +35,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 
     const saveImage = async (imageBase64: string) => {
         const base64Data = Buffer.from(imageBase64.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-        const key = `images/${props.profile.owner}_${new Date().getTime()}_avatar.png`
+        const key = `images/${props.profile.id}_${new Date().getTime()}_avatar.png`
 
         const fileForUpload = {
             bucket,
@@ -204,7 +204,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 }
 function mapStateToProps(state: AppStateType) {
     return {
-        profile: state.ProfileReducer.profile
+        profile: state.ProfileReducer
     }
 }
 

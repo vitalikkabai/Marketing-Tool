@@ -10,12 +10,12 @@ export declare class S3Object {
 }
 
 export declare class RoleTags {
-  readonly Sales: boolean;
-  readonly Marketing: boolean;
-  readonly Logistics: boolean;
-  readonly Accounting: boolean;
-  readonly Production: boolean;
-  readonly QC: boolean;
+  readonly sales: boolean;
+  readonly marketing: boolean;
+  readonly logistics: boolean;
+  readonly accounting: boolean;
+  readonly production: boolean;
+  readonly qualityControl: boolean;
   constructor(init: ModelInit<RoleTags>);
 }
 
@@ -38,7 +38,6 @@ export declare class Business {
 
 export declare class Profile {
   readonly id: string;
-  readonly owner?: string;
   readonly email: string;
   readonly name: string;
   readonly business?: Business;

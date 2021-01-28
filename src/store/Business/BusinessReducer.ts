@@ -1,5 +1,6 @@
 import * as actions from './BusinessActions';
 import {Business} from "../../models";
+import { CreateBusinessInput } from '../../API';
 
 // interface businessReducer {
 //     id: string,
@@ -13,26 +14,13 @@ import {Business} from "../../models";
 //     websiteURLs: string[],
 //     roleTags: RoleTags
 // }
-export const getInitialState = ():Business => new Business({
+export const initialState: CreateBusinessInput = {
     companyName: "",
-    country: "",
-    city: "",
-    businessNumber: "",
-    haveExperienceSelling: true,
     storeURLs: [],
-    haveWebsite: true,
     websiteURLs: [],
-    roleTags: {
-        Sales: false,
-        Marketing: false,
-        Logistics: false,
-        Accounting: false,
-        Production: false,
-        QC: false
-    }
-});
+};
 
-export const BusinessReducer = (state: Business = getInitialState(), action: ActionTypes): Business => {
+export const BusinessReducer = (state: CreateBusinessInput = initialState, action: ActionTypes): CreateBusinessInput => {
     switch (action.type) {
         case 'SET_BUSINESS':
         case 'UPDATE_BUSINESS_SUCCESS':
@@ -53,13 +41,13 @@ export const BusinessReducer = (state: Business = getInitialState(), action: Act
             return {
                 ...state
             }
-        case 'SET_ROLE_TAGS':
-            return {
-                ...state, roleTags: action.payload
-            }
+        // case 'SET_ROLE_TAGS':
+        //     return {
+        //         ...state, roleTags: action.payload
+        //     }
         case 'CLEAR_BUSINESS':
             return {
-                ...getInitialState()
+                ...initialState
             }
         case 'UPDATE_BUSINESS':
             return {

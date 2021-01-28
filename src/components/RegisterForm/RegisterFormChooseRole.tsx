@@ -12,22 +12,22 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (props)
 
     const history = useHistory();
     const [selectedRole, setSelectedRole] = useState(props.roleTags ? [
-        props.roleTags.Sales,
-        props.roleTags.Marketing,
-        props.roleTags.Logistics,
-        props.roleTags.Accounting,
-        props.roleTags.Production,
-        props.roleTags.QC
+        props.roleTags.sales,
+        props.roleTags.marketing,
+        props.roleTags.logistics,
+        props.roleTags.accounting,
+        props.roleTags.production,
+        props.roleTags.qualityControl
     ] : [false,false,false,false,false,false]);
 
     const handleDataInput = () => {
         props.setRoleTags({
-            Sales: selectedRole[0],
-            Marketing: selectedRole[1],
-            Logistics: selectedRole[2],
-            Accounting: selectedRole[3],
-            Production: selectedRole[4],
-            QC: selectedRole[5]
+            sales: selectedRole[0],
+            marketing: selectedRole[1],
+            logistics: selectedRole[2],
+            accounting: selectedRole[3],
+            production: selectedRole[4],
+            qualityControl: selectedRole[5]
         })
     }
     const [errorText, setErrorText] = useState("");

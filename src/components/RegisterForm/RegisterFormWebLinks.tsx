@@ -14,11 +14,11 @@ import {isValidUrl} from "../../utils/validators/validators";
 
 const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props) => {
     const history = useHistory();
-    const [hasExperienceSelling, setHasExperienceSelling] = useState(props.haveExperienceSelling);
+    const [hasExperienceSelling, setHasExperienceSelling] = useState(true);
     const [sellingURLs, setSellingURLs] = useState<string[]>(props.storeURLs);
     const [webInput, setWebInput] = useState("");
     const [sellingInput, setSellingInput] = useState("");
-    const [hasWebsite, setHasWebsite] = useState(props.haveWebsite);
+    const [hasWebsite, setHasWebsite] = useState(true);
     const [websiteURLs, setWebsiteURLs] = useState<string[]>(props.websiteURLs);
     const [webErrorText, setWebErrorText] = useState("");
     const [storeErrorText, setStoreErrorText] = useState("");

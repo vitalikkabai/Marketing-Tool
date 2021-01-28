@@ -98,13 +98,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "owner": {
-                    "name": "owner",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "email": {
                     "name": "email",
                     "isArray": false,
@@ -181,17 +174,7 @@ export const schema = {
                         "fields": [
                             "businessID"
                         ],
-                        "queryField": "byBusiness"
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "profileByOwner",
-                        "fields": [
-                            "owner"
-                        ],
-                        "queryField": "profileByOwner"
+                        "queryField": "profileByBusiness"
                     }
                 },
                 {
@@ -200,7 +183,7 @@ export const schema = {
                         "rules": [
                             {
                                 "provider": "userPools",
-                                "ownerField": "owner",
+                                "ownerField": "id",
                                 "allow": "owner",
                                 "identityClaim": "cognito:username",
                                 "operations": [
@@ -259,43 +242,43 @@ export const schema = {
         "RoleTags": {
             "name": "RoleTags",
             "fields": {
-                "Sales": {
-                    "name": "Sales",
+                "sales": {
+                    "name": "sales",
                     "isArray": false,
                     "type": "Boolean",
                     "isRequired": true,
                     "attributes": []
                 },
-                "Marketing": {
-                    "name": "Marketing",
+                "marketing": {
+                    "name": "marketing",
                     "isArray": false,
                     "type": "Boolean",
                     "isRequired": true,
                     "attributes": []
                 },
-                "Logistics": {
-                    "name": "Logistics",
+                "logistics": {
+                    "name": "logistics",
                     "isArray": false,
                     "type": "Boolean",
                     "isRequired": true,
                     "attributes": []
                 },
-                "Accounting": {
-                    "name": "Accounting",
+                "accounting": {
+                    "name": "accounting",
                     "isArray": false,
                     "type": "Boolean",
                     "isRequired": true,
                     "attributes": []
                 },
-                "Production": {
-                    "name": "Production",
+                "production": {
+                    "name": "production",
                     "isArray": false,
                     "type": "Boolean",
                     "isRequired": true,
                     "attributes": []
                 },
-                "QC": {
-                    "name": "QC",
+                "qualityControl": {
+                    "name": "qualityControl",
                     "isArray": false,
                     "type": "Boolean",
                     "isRequired": true,
@@ -330,5 +313,5 @@ export const schema = {
             }
         }
     },
-    "version": "ac3bba843904e94f5290f64cf2a367e2"
+    "version": "e743298749fc42e484b93f1588658bb3"
 };

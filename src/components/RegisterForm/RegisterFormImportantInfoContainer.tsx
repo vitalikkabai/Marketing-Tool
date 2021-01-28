@@ -1,39 +1,43 @@
 import {Dispatch} from "redux";
-import {connect} from "react-redux";
+import {connect, ConnectedProps} from "react-redux";
 import {AppStateType} from "../../store/store";
-import { setStepTwo, stepTwoData } from '../../store/Business/BusinessActions';
+import { setBusinessName } from '../../store/Business/BusinessActions';
 import { signUp } from '../../store/Auth/AuthActions';
 import RegisterFormImportantInfo from "./RegisterFormImportantInfo";
 import { ProfileType } from "../../store/Profile/ProfileReducer";
 import { setProfile } from "../../store/Profile/ProfileActions";
 import { Profile } from "../../models";
+import { CreateBusinessInput, CreateProfileInput } from "../../API";
 
-export type RegisterFormImportantInfoContainerType = MapDispatchType &
-    stepTwoData & ProfileType;
+// export type RegisterFormImportantInfoContainerType = MapDispatchType &
+//     stepTwoData & ProfileType;
 
-const mapStateToProps = (state: AppStateType):stepTwoData & ProfileType => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         companyName: state.BusinessReducer.companyName,
-        country: state.BusinessReducer.country || "",
-        city: state.BusinessReducer.city || "",
-        businessNumber: state.BusinessReducer.businessNumber || "",
-        profile: state.ProfileReducer.profile
-
+        profile: state.ProfileReducer,
+        country: "",
+        city: "",
+        businessNumber: ""
     }
 };
 
-type MapDispatchType = {
-    setStepTwo: (arg: stepTwoData) => void,
-    signUp: (email: string, password: string, userName: string) => void,
-    setProfile: (profile: Profile) => void
-}
+// type MapDispatchType = {
+//     setStepTwo: (arg: stepTwoData) => void,
+//     signUp: (email: string, password: string, userName: string) => void,
+//     setProfile: (profile: CreateProfileInput) => void
+// }
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        setStepTwo: (stepTwoData) => dispatch(setStepTwo(stepTwoData)),
-        signUp: (email, password, userName) => dispatch(signUp(email, password, userName)),
-        setProfile: (profile) => dispatch(setProfile(profile))
+        setBusinessName: (businessName: string) => dispatch(setBusinessName(businessName)),
+        signUp: (email:string, password:string, userName:string) => dispatch(signUp(email, password, userName)),
+        setProfile: (profile: CreateProfileInput) => dispatch(setProfile(profile))
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterFormImportantInfo)
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(RegisterFormImportantInfo)

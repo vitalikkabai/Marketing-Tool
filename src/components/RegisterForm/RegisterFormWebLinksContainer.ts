@@ -11,11 +11,8 @@ import { setStepOne, stepOneData } from '../../store/Business/BusinessActions';
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        haveExperienceSelling: state.BusinessReducer.haveExperienceSelling,
         storeURLs: state.BusinessReducer.storeURLs,
-        haveWebsite: state.BusinessReducer.haveWebsite,
         websiteURLs: state.BusinessReducer.websiteURLs
-
     }
 };
 
