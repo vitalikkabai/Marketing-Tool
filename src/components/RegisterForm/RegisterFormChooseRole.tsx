@@ -60,7 +60,7 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (props)
                     <UxAssistant assistantText={"What are you in charge of?"} stepNumber={2}/>
                     <form onSubmit={handleSubmit}>
                         <Box className={classes.formContainer} style={{marginTop: "24px"}}>
-                            <RoleBoxes selectedRole={selectedRole} setSelectedRole={setSelectedRole}/>
+                            <RoleBoxes selectedRole={selectedRole} setSelectedRole={setSelectedRole} />
                         </Box>
                         <Grid item className={classes.errorText}>
                             <Typography variant={"subtitle1"}>

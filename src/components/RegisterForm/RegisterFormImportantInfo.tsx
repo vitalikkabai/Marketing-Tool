@@ -8,7 +8,11 @@ import GoBackButton from "../common/Button/GoBackButton";
 import UxAssistant from "./UxAssistant";
 import CustomInput from "../common/Input/CustomInput";
 import CustomButton from "../common/Button/CustomButton";
-import {isEmail, isMinLength, isPasswordsEqual, validateField} from "../../utils/validators/validators";
+import {isEmail, isMinLength, isPasswordsEqual, isPhone, validateField} from "../../utils/validators/validators";
+import AutocompleteCustomInput from "../common/AutocompleteCustomInput/AutocompleteCustomInput";
+import data from "../../assets/dataset/country/countries";
+// @ts-ignore
+import ReactCountryFlag from "react-country-flag"
 
 const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (props) => {
 
@@ -16,14 +20,14 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
     const [emptyFieldsError, setEmptyFieldsError] = useState(false);
     const [inputValue, setInputValue] = useState({ //For input values
         companyName: {value: props.companyName, touched: false, error: false, errorText: "", name: "COMPANY_NAME"},
-        countryName: {value: props.country, touched: false, error: false, errorText: "", name: "COUNTRY_NAME"},
-        cityName: {value: props.city, touched: false, error: false, errorText: "", name: "CITY"},
-        businessNumber: {value: props.businessNumber, touched: false, error: false, errorText: "", name: "BUSINESS_NUMBER"},
+        countryCode: {value: {code: "", label: "", phone: ""}, touched: false, error: false, errorText: "", name: "COUNTRY_CODE"},
+        phoneNumber: {value: props.phoneNumber, touched: false, error: false, errorText: "", name: "PHONE_NUMBER"},
         ownerName: {value: props.profile.name, touched: false, error: false, errorText: "", name: "OWNER_NAME"},
         ownerEmail: {value: props.profile.email, touched: false, error: false, errorText: "", name: "OWNER_EMAIL"},
         password: {value: "", touched: false, error: false, errorText: "", name: "PASSWORD"},
         confirmPassword: {value: "", touched: false, error: false, errorText: "", name: "CONFIRM_PASSWORD"},
     });
+    const [flagCode, setFlagCode] = useState("");
 
     const resetFieldErrors = () => {
         setInputValue((prevInput) => {
@@ -31,14 +35,11 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
             currInputValue.companyName.error = false;
             currInputValue.companyName.errorText = "";
 
-            currInputValue.countryName.error = false;
-            currInputValue.countryName.errorText = "";
+            currInputValue.countryCode.error = false;
+            currInputValue.countryCode.errorText = "";
 
-            currInputValue.cityName.error = false;
-            currInputValue.cityName.errorText = "";
-
-            currInputValue.businessNumber.error = false;
-            currInputValue.businessNumber.errorText = "";
+            currInputValue.phoneNumber.error = false;
+            currInputValue.phoneNumber.errorText = "";
 
             currInputValue.ownerName.error = false;
             currInputValue.ownerName.errorText = "";
@@ -67,25 +68,11 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                     currInputValue.companyName.errorText = "";
                     break;
                 }
-                case prevInput.countryName.name: {
-                    currInputValue.countryName.value = inputData;
-                    currInputValue.countryName.touched = true;
-                    currInputValue.countryName.error = false;
-                    currInputValue.countryName.errorText = "";
-                    break;
-                }
-                case prevInput.cityName.name: {
-                    currInputValue.cityName.value = inputData;
-                    currInputValue.cityName.touched = true;
-                    currInputValue.cityName.error = false;
-                    currInputValue.cityName.errorText = "";
-                    break;
-                }
-                case prevInput.businessNumber.name: {
-                    currInputValue.businessNumber.value = inputData;
-                    currInputValue.businessNumber.touched = true;
-                    currInputValue.businessNumber.error = false;
-                    currInputValue.businessNumber.errorText = "";
+                case prevInput.phoneNumber.name: {
+                    currInputValue.phoneNumber.value = inputData;
+                    currInputValue.phoneNumber.touched = true;
+                    currInputValue.phoneNumber.error = false;
+                    currInputValue.phoneNumber.errorText = "";
                     break;
                 }
                 case prevInput.ownerName.name: {
@@ -136,7 +123,10 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
         const emptyMessage = "The input fields cannot be empty";
         const passwordErrorArray = validateField(inputValue.password.value, isMinLength(inputValue.password.value));
         const emailErrorArray = validateField(inputValue.ownerEmail.value, isEmail(inputValue.ownerEmail.value));
-        const confirmErrorArray = validateField(inputValue.confirmPassword.value, isPasswordsEqual(inputValue.password.value, inputValue.confirmPassword.value));
+        const phoneError = isPhone(inputValue.phoneNumber.value);
+        const confirmErrorArray = validateField(inputValue.confirmPassword.value,
+            isPasswordsEqual(inputValue.password.value, inputValue.confirmPassword.value));
+
         const inputArray = Object.entries(inputValue);
         const emptyInputNames: Array<string> = [];
         inputArray.forEach((el, index) => {
@@ -150,22 +140,16 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                     companyName: {...prevStyle.companyName, error: true, errorText: emptyMessage},
                 }));
             }
-            if (!inputValue.countryName.value.replace(/\s/g, '')) {
+            if (!inputValue.countryCode.value.code) {
                 setInputValue(prevStyle => ({
                     ...prevStyle,
-                    countryName: {...prevStyle.countryName, error: true, errorText: emptyMessage},
+                    countryCode: {...prevStyle.countryCode, error: true, errorText: emptyMessage},
                 }));
             }
-            if (!inputValue.cityName.value.replace(/\s/g, '')) {
+            if (!inputValue.phoneNumber.value.replace(/\s/g, '')) {
                 setInputValue(prevStyle => ({
                     ...prevStyle,
-                    cityName: {...prevStyle.cityName, error: true, errorText: emptyMessage},
-                }));
-            }
-            if (!inputValue.businessNumber.value.replace(/\s/g, '')) {
-                setInputValue(prevStyle => ({
-                    ...prevStyle,
-                    businessNumber: {...prevStyle.businessNumber, error: true, errorText: emptyMessage},
+                    phoneNumber: {...prevStyle.phoneNumber, error: true, errorText: emptyMessage},
                 }));
             }
             if (!inputValue.ownerName.value.replace(/\s/g, '')) {
@@ -201,6 +185,13 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                     ownerEmail: {...prevStyle.ownerEmail, error: true, errorText: emailErrorArray[0]},
                 }));
                 return;
+            } else
+            if (phoneError) {
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    phoneNumber: {...prevStyle.phoneNumber, error: true, errorText: phoneError},
+                }));
+                return;
             } else if (passwordErrorArray[0]) {
                 setInputValue(prevStyle => ({
                     ...prevStyle,
@@ -215,11 +206,11 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                 return;
             } else {
                 alert("Signed up");
+                /*saveInputData();
+                props.signUp(inputValue.ownerEmail.value, inputValue.password.value, inputValue.ownerName.value);
+                history.push("");*/
             }
         }
-        saveInputData();
-        props.signUp(inputValue.ownerEmail.value, inputValue.password.value, inputValue.ownerName.value);
-        history.push("");
     }
 
     const handleBackPressed = () => {
@@ -233,13 +224,16 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
             ...props.profile,
             name: inputValue.ownerName.value,
             email: inputValue.ownerEmail.value,
-            businessID: ""
+            businessID: "",
+            // countryCode: inputValue.countryCode.value.label,
+            phoneNumber: inputValue.phoneNumber.value,
         })
     }
 
     const getErrorMessage = () => {
         if (emptyFieldsError) return "The input fields cannot be empty";
         if (inputValue.password.errorText) return inputValue.password.errorText;
+        if (inputValue.phoneNumber.errorText) return inputValue.phoneNumber.errorText;
         if (inputValue.confirmPassword.errorText) return inputValue.confirmPassword.errorText;
         if (inputValue.ownerEmail.errorText) return inputValue.ownerEmail.errorText;
         return "";
@@ -257,56 +251,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                 <Grid item xs={1}/>
                                 <Grid item xs={5} style={{paddingRight: "12px"}}>
                                     <CustomInput
-                                        label="Company Name"
-                                        placeholder={"Company Name"}
-                                        fullWidth={true}
-                                        value={inputValue.companyName.value}
-                                        error={inputValue.companyName.error}
-                                        variant="outlined"
-                                        margin={"0 0 24px 0"}
-                                        onChange={(event: any) =>
-                                            handleInput(event.target.value, "COMPANY_NAME")
-                                        }
-                                    />
-                                    <CustomInput
-                                        label="Country"
-                                        placeholder={"Country Name"}
-                                        fullWidth={true}
-                                        value={inputValue.countryName.value}
-                                        error={inputValue.countryName.error}
-                                        variant="outlined"
-                                        margin={"0 0 24px 0"}
-                                        onChange={(event: any) =>
-                                            handleInput(event.target.value, "COUNTRY_NAME")
-                                        }
-                                    />
-                                    <CustomInput
-                                        label="City"
-                                        variant="outlined"
-                                        placeholder={"City"}
-                                        fullWidth={true}
-                                        value={inputValue.cityName.value}
-                                        error={inputValue.cityName.error}
-                                        margin={"0 0 24px 0"}
-                                        onChange={(event: any) =>
-                                            handleInput(event.target.value, "CITY")
-                                        }
-                                    />
-                                    <CustomInput
-                                        label="Business Number"
-                                        variant="outlined"
-                                        placeholder={"Business Number"}
-                                        fullWidth={true}
-                                        value={inputValue.businessNumber.value}
-                                        error={inputValue.businessNumber.error}
-                                        onChange={(event: any) =>
-                                            handleInput(event.target.value, "BUSINESS_NUMBER")
-                                        }
-                                    />
-                                </Grid>
-                                <Grid item xs={5} style={{paddingLeft: "12px"}}>
-                                    <CustomInput
-                                        label="Name"
+                                        label="Your name"
                                         variant="outlined"
                                         placeholder={"Name"}
                                         fullWidth={true}
@@ -318,16 +263,15 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                         }
                                     />
                                     <CustomInput
-                                        type="text"
-                                        label="Email"
-                                        variant="outlined"
-                                        placeholder={"email"}
+                                        label="Company Name"
+                                        placeholder={"Company Name"}
                                         fullWidth={true}
-                                        value={inputValue.ownerEmail.value}
-                                        error={inputValue.ownerEmail.error}
+                                        value={inputValue.companyName.value}
+                                        error={inputValue.companyName.error}
+                                        variant="outlined"
                                         margin={"0 0 24px 0"}
                                         onChange={(event: any) =>
-                                            handleInput(event.target.value, "OWNER_EMAIL")
+                                            handleInput(event.target.value, "COMPANY_NAME")
                                         }
                                     />
                                     <CustomInput
@@ -344,12 +288,137 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                             handleInput(event.target.value, "PASSWORD")
                                         }
                                     />
+                                </Grid>
+                                <Grid item xs={5} style={{paddingLeft: "12px"}}>
+                                    <Grid container className={classes.phoneContainer}>
+                                        <Grid item xs={4}>
+                                            <AutocompleteCustomInput
+                                                label={"Country"}
+                                                margin={"0 0 24px 0"}
+                                                option={data}
+                                                getOption={(option: any) => "+" + option.phone}
+                                                onInputChange={(event: any, newInputValue:any, reason: string) => {
+                                                    if(newInputValue.length === 0){
+                                                        console.log("In clear")
+                                                        setInputValue(
+                                                            prevStyle => ({
+                                                                ...prevStyle,
+                                                                countryCode: {
+                                                                    ...prevStyle.countryCode,
+                                                                    value: {...prevStyle.countryCode.value, code: ""}
+                                                                }
+                                                            }))
+                                                        setFlagCode("");
+                                                    }
+                                                    else
+                                                    if(newInputValue === ("+" + inputValue.countryCode.value.phone))
+                                                        setInputValue(
+                                                        prevStyle => ({
+                                                            ...prevStyle,
+                                                            countryCode: {
+                                                                ...prevStyle.countryCode,
+                                                                value: {...prevStyle.countryCode.value, code: flagCode}
+                                                            }
+                                                        }))
+                                                    else
+                                                    if(reason === "reset") setInputValue(
+                                                        prevStyle => ({
+                                                            ...prevStyle,
+                                                            countryCode: {
+                                                                ...prevStyle.countryCode,
+                                                                value: {...prevStyle.countryCode.value, code: flagCode}
+                                                            }
+                                                        }))
+                                                    else
+                                                    setInputValue(
+                                                        prevStyle => ({
+                                                            ...prevStyle,
+                                                            countryCode: {
+                                                                ...prevStyle.countryCode,
+                                                                value: {...prevStyle.countryCode.value, code: ""}
+                                                            }
+                                                        }))
+                                                }}
+                                                renderOption={
+                                                    (option: any) => (
+                                                        <React.Fragment>
+                                                            <ReactCountryFlag
+                                                                countryCode={option.code}
+                                                                svg
+                                                                title={option.code}
+                                                            />
+                                                            &nbsp;
+                                                            {option.phone}
+                                                        </React.Fragment>
+                                                    )
+                                                }
+                                                error={inputValue.countryCode.error}
+                                                onChange={
+                                                    (event: any, value: any) => {
+                                                        if(value) {
+                                                            setInputValue(
+                                                                prevStyle => ({
+                                                                    ...prevStyle,
+                                                                    countryCode: {
+                                                                        ...prevStyle.countryCode,
+                                                                        value: value,
+                                                                    }
+                                                                }))
+                                                            setFlagCode(value.code);
+                                                        }
+                                                    }
+                                                }/>
+                                        </Grid>
+                                        <Grid item xs={1}/>
+                                        <Grid item xs={7}>
+                                            <CustomInput
+                                                label="Phone Number"
+                                                variant="outlined"
+                                                placeholder={"Phone number"}
+                                                fullWidth={true}
+                                                value={inputValue.phoneNumber.value}
+                                                error={inputValue.phoneNumber.error}
+                                                onChange={(event: any) =>
+                                                    handleInput(event.target.value, "PHONE_NUMBER")
+                                                }
+                                            />
+                                        </Grid>
+                                        <Box className={classes.flagBox}>
+                                            {inputValue.countryCode.value.code &&
+                                                <ReactCountryFlag
+                                                    countryCode={inputValue.countryCode.value.code}
+                                                    svg
+                                                    style={{
+                                                        width: "auto",
+                                                        height: "100%",
+                                                        marginLeft: "-4px",
+                                                        marginBottom: "10px"
+                                                    }}
+                                                    title={inputValue.countryCode.value.code}
+                                                />
+                                            }
+
+                                        </Box>
+                                    </Grid>
+                                    <CustomInput
+                                        type="text"
+                                        label="Company email"
+                                        variant="outlined"
+                                        placeholder={"email"}
+                                        fullWidth={true}
+                                        value={inputValue.ownerEmail.value}
+                                        error={inputValue.ownerEmail.error}
+                                        margin={"0 0 24px 0"}
+                                        onChange={(event: any) =>
+                                            handleInput(event.target.value, "OWNER_EMAIL")
+                                        }
+                                    />
                                     <CustomInput
                                         type="password"
                                         name="password"
                                         label="Repeat Password"
                                         variant="outlined"
-                                        placeholder={"Repeat Password"}
+                                        placeholder={"Confirm password"}
                                         fullWidth={true}
                                         value={inputValue.confirmPassword.value}
                                         error={inputValue.confirmPassword.error}

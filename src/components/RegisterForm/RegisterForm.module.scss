@@ -57,6 +57,19 @@
   }
 }
 
+.phoneContainer{
+  position: relative;
+  .flagBox {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 27px;
+    height: 27px;
+    overflow: hidden;
+    border-radius: 50%;
+  }
+}
+
 .progressContainer {
   margin-top: 22px;
 
@@ -139,7 +152,7 @@
   align-items: center;
 
   &.importantInfo {
-    margin-top: 103px;
+    margin-top: 148px;
   }
 
   &.webLinks {
