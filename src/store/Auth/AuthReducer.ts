@@ -25,6 +25,11 @@ const initialState = {
         code: "",
         message: "",
         name: "",
+    },
+    registerErrorMessage: {
+        code: "",
+        message: "",
+        name: "",
     }
 };
 
@@ -62,7 +67,7 @@ export const AuthReducer = (state = initialState, action: ActionTypes): InitialS
         case "SIGN-UP-FAILED":
             return {
                 ...state,
-                ...action.payload
+                registerErrorMessage: action.payload.signUpError
             };
 
         case "AUTH-DATA-SUCCESS":

@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {connect} from "react-redux";
+import {connect, ConnectedProps} from "react-redux";
 import {AppStateType} from "../../store/store";
 import { setStepTwo, stepTwoData } from '../../store/Business/BusinessActions';
 import { signUp } from '../../store/Auth/AuthActions';
@@ -7,17 +7,18 @@ import RegisterFormImportantInfo from "./RegisterFormImportantInfo";
 import { ProfileType } from "../../store/Profile/ProfileReducer";
 import { setProfile } from "../../store/Profile/ProfileActions";
 import { Profile } from "../../models";
+import LoginForm from "../LoginForm/LoginForm";
 
 export type RegisterFormImportantInfoContainerType = MapDispatchType &
     stepTwoData & ProfileType;
 
-const mapStateToProps = (state: AppStateType):stepTwoData & ProfileType => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         companyName: state.BusinessReducer.companyName,
         countryCode: state.BusinessReducer.country || "",
         phoneNumber: state.BusinessReducer.businessNumber || "",
-        profile: state.ProfileReducer.profile
-
+        profile: state.ProfileReducer.profile,
+        registerErrorText: state.AuthReducer.registerErrorMessage
     }
 };
 
@@ -35,4 +36,8 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RegisterFormImportantInfo)
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(RegisterFormImportantInfo)
