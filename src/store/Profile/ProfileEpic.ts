@@ -15,11 +15,7 @@ import { setBusiness } from '../Business/BusinessActions';
 export default <Epic<ActionTypes, ActionTypes, AppStateType>[]> [
     (action$, state$) => action$.pipe(
         ofType('INITIATE_NEW_PROFILE'),
-        filter(action => {switch (action.type) {
-            case 'INITIATE_NEW_PROFILE': return true;
-            default: return false;
-        }}),
-        mergeMap((action) => {
+        mergeMap(() => {
             const businessData = state$.value.BusinessReducer;
             return from(API.graphql(graphqlOperation(createBusiness, { input: businessData })) as unknown as Promise<any>).pipe(
                 mergeMap(res => {
@@ -28,6 +24,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]> [
                     //     businessID: res.data.createBusiness.id
                     // });
                     profile.businessID = res.data.createBusiness.id;
+                    console.log("before setting profile ")
                     // profile.id = state$
                     return from(API.graphql(graphqlOperation(createProfile, { input: profile })) as unknown as Promise<any>);
                 }),
@@ -42,7 +39,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]> [
     (action$, state$) => action$.pipe(
         ofType('FETCH_PROFILE_BY_ID'),
         mergeMap((action: any) => {
-            return from(API.graphql(graphqlOperation(getProfile, { owner: action.payload })) as unknown as Promise<any>)
+            return from(API.graphql(graphqlOperation(getProfile, { id: action.payload })) as unknown as Promise<any>)
                 .pipe(
                     mergeMap(res => {
                         return [fetchProfileByIdSuccess(res.data.profileByOwner.items[0]),setBusiness(res.data.profileByOwner.items[0].business)]

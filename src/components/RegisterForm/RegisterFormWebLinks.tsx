@@ -37,12 +37,10 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
             return;
         }
         else {
-            props.setStepOne({
-                haveExperienceSelling: hasExperienceSelling,
-                storeURLs: sellingURLs,
-                haveWebsite: hasWebsite,
+            props.setBusinessUrls(
+                sellingURLs,
                 websiteURLs
-            });
+            );
             history.push("register/2")
         }
     }

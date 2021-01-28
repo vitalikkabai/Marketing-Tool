@@ -21,8 +21,9 @@ export const setRoleTags = (roleTags: RoleTags) => ( {
     payload: roleTags
 });
 
-export const initiateNewProfile = () => ({
-    type: 'INITIATE_NEW_PROFILE' as const
+export const initiateNewProfile = (id: string) => ({
+    type: 'INITIATE_NEW_PROFILE' as const,
+    payload: id
 });
 
 export const clearProfile = () => ({

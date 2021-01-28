@@ -206,9 +206,9 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                 return;
             } else {
                 alert("Signed up");
-                /*saveInputData();
+                saveInputData();
                 props.signUp(inputValue.ownerEmail.value, inputValue.password.value, inputValue.ownerName.value);
-                history.push("");*/
+                history.push("");
             }
         }
     }

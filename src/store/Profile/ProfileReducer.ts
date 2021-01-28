@@ -45,6 +45,7 @@ export const ProfileReducer = (state: CreateProfileInput = initialState, action:
             return {
                 ...state,
                 // profile: { ...state.profile, owner: action.payload }
+                id: action.payload
             };
         case 'FETCH_PROFILE_BY_ID_SUCCESS':
         case 'SAVE_PROFILE_TO_DB_SUCCESS':
@@ -52,6 +53,12 @@ export const ProfileReducer = (state: CreateProfileInput = initialState, action:
             return {
                 ...state,
                 ...action.payload
+            }
+        case 'INITIATE_NEW_PROFILE':
+            console.log("initiating", action.payload)
+            return {
+                ...state,
+                id: action.payload
             }
         case 'CLEAR_PROFILE': 
             return {

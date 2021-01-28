@@ -77,7 +77,7 @@ export default [
                             emailVerified: response.attributes.email_verified,
                             userName: response.attributes.given_name,
                         }),
-                        initiateNewProfile(),
+                        initiateNewProfile(response.attributes.sub),
                     ]
                 }),
                 catchError(err => of(signUpFailed(err)))

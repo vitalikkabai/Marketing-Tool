@@ -16,6 +16,7 @@ const mapStateToProps = (state: AppStateType) => {
     return {
         companyName: state.BusinessReducer.companyName,
         profile: state.ProfileReducer,
+        phoneNumber: state.ProfileReducer.phoneNumber,
         country: "",
         city: "",
         businessNumber: ""

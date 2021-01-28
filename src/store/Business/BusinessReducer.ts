@@ -27,10 +27,11 @@ export const BusinessReducer = (state: CreateBusinessInput = initialState, actio
             return {
                 ...action.payload,
             }
-        case 'SET_STEP_ONE':
+        case 'SET_BUSINESS_URLS':
             return {
                 ...state,
-                ...action.payload
+                storeURLs: action.payload.storeURLs,
+                websiteURLs: action.payload.websiteURLs
             };
         case 'SET_STEP_TWO':
             return {
