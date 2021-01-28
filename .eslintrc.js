@@ -24,8 +24,10 @@ module.exports = {
     "rules": {
         "@typescript-eslint/explicit-function-return-type": ["off", {
             "allowTypedFunctionExpressions": true
-          }],
+        }],
         "react/prop-types": 0,
-        "no-debugger": 0
+        "@typescript-eslint/ban-ts-comment": 0,
+        "no-debugger": 0,
+
     }
 };

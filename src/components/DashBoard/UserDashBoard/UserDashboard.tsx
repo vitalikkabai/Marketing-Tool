@@ -1,163 +1,224 @@
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Box, Grid, Typography, Tab, Badge } from '@material-ui/core';
 import React from 'react';
+import moment from "moment"
 import classes from './UserDashboard.module.scss';
-import roundCheck from '../../../assets/images/roundCheckBoxIcon.svg'
-import dashboardImage from "../../../assets/images/dashboardStepsImage.svg"
-import playIcon from "../../../assets/images/playVideoIocn.svg"
+import TabPanel from "../../common/TabPanel/TabPanel";
+import CustomAppBar from "../../common/TabPanel/CustomAppBar";
+import CustomBadge from '../../common/Badge/CustomBadge';
+import team1 from "../../../assets/images/Teammate1.svg";
+import team2 from "../../../assets/images/Teammate2.svg";
+import team3 from "../../../assets/images/Teammate3.svg";
+import team4 from "../../../assets/images/Teammate4.svg";
+import Chat from '../../Chat/Chat';
 
-const UserDashboard = () => {
 
-    const getBackgroundColor = (colorId: number) => {
-        switch (colorId) {
-            case 1: return { background: "#4285F4" }
-            case 2: return { background: "#FFDC22" }
-            case 3: return { background: "#FFAB08" }
-            case 4: return { background: "#EE6B1D" }
-            case 5: return { background: "#43A047" }
-            case 6: return { background: "#0097A6" }
-            case 7: return { background: "#7B1FA2" }
-            case 8: return { background: "#C2185B" }
-            case 9: return { background: "#EA4335" }
-        }
-    }
+moment.updateLocale('en', {
+	relativeTime: {
+		past: '%s',
+		s: 'just now',
+		ss: 'just now',
+		m: "%d min ago",
+		mm: "%d mins ago",
+		h: "%d hour ago",
+		hh: "%d hours ago",
+		d: "%d day ago",
+		dd: "%d days ago",
+		M: "%d month ago",
+		MM: "%d months ago",
+		y: "%d year ago",
+		yy: "%d years ago"
+	}
+});
 
-    const tasks = [
-        { id: 0, taskTitle: "Upload your photo", taskType: 1, status: false },
-        { id: 1, taskTitle: "Add products", taskType: 2, status: false },
-        { id: 2, taskTitle: "Improve yourself", taskType: 9, status: false },
-    ]
+function UserDashboard() {
+	const [value, setValue] = React.useState(0);
 
-    const TabTasks = tasks.map(el => (
-        <Grid key={el.id} item xs={12} className={classes.stepRow}>
-            <Box className={classes.coloredBox} style={getBackgroundColor(el.taskType)}>
-                <Typography variant={"h6"}>{el.taskTitle}</Typography>
-                <Box className={classes.tabTaskBox}>
-                    <Box className={classes.vlWhite} />
-                    <img src={roundCheck} alt={"check"} />
-                </Box>
-            </Box>
-        </Grid>));
+	const getBackgroundColor = (colorId: number) => {
+		switch (colorId) {
+			case 1: return { background: "#4285F4" };
+			case 2: return { background: "#FFDC22" };
+			case 3: return { background: "#FFAB08" };
+			case 4: return { background: "#EE6B1D" };
+			case 5: return { background: "#43A047" };
+			case 6: return { background: "#0097A6" };
+			case 7: return { background: "#7B1FA2" };
+			case 8: return { background: "#C2185B" };
+			case 9: return { background: "#EA4335" };
+		}
+	};
 
-    return (
-        <Grid container className={classes.dashboard}>
-            <Grid item className={classes.test}>
-                <Box className={classes.todoTitleBox}>
-                    <Typography variant={"h2"}>Tasks</Typography>
-                </Box>
-                <Box className={classes.contentContainer}>
-                    <Grid container>
-                        <Grid item xs={7} xl={6}>
-                            <Box className={classes.tabContentGridItem}>
-                                <Box className={classes.tabContent}>
-                                    <Grid container className={classes.stepBox}>
-                                        {TabTasks}
-                                    </Grid>
-                                </Box>
-                            </Box>
-                        </Grid>
-                        <Grid item xs={false} xl={1} />
-                        <Grid item xs={5} xl={4} className={classes.taskListGridItem}>
-                            <Grid container className={classes.stepBox}>
-                                <Grid item xs={12} className={classes.stepRow}>
-                                    <Box className={classes.tableTitleBox}>
-                                        <Typography variant={"overline"}>Steps</Typography>
-                                        <Box className={classes.checkJobBox}>
-                                            <Typography variant={"overline"}>Products</Typography>
-                                            <Typography variant={"overline"} style={{
-                                                marginLeft: "15px",
-                                                marginRight: "5px"
-                                            }}>Tasks</Typography>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={12} className={classes.stepRow}>
-                                    <Box className={classes.coloredBox} style={{ background: "#FFDC22" }}>
-                                        <Typography variant={"h6"}>Add products</Typography>
-                                        <Box className={classes.counterBox}>
-                                            <Typography variant={"h6"}>0</Typography>
-                                            <Box className={classes.vl} />
-                                            <Typography variant={"h6"}>0</Typography>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={12} className={classes.stepRow}>
-                                    <Box className={classes.coloredBox} style={{ background: "#FFAB08" }}>
-                                        <Typography variant={"h6"}>Market research</Typography>
-                                        <Box className={classes.counterBox}>
-                                            <Typography variant={"h6"}>0</Typography>
-                                            <Box className={classes.vl} />
-                                            <Typography variant={"h6"}>0</Typography>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={12} className={classes.stepRow}>
-                                    <Box className={classes.coloredBox} style={{ background: "#EE6B1D" }}>
-                                        <Typography variant={"h6"}>Brand creation</Typography>
-                                        <Box className={classes.counterBox}>
-                                            <Typography variant={"h6"}>0</Typography>
-                                            <Box className={classes.vl} />
-                                            <Typography variant={"h6"}>0</Typography>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={12} className={classes.stepRow}>
-                                    <Box className={classes.coloredBox} style={{ background: "#43A047" }}>
-                                        <Typography variant={"h6"}>Sales channels</Typography>
-                                        <Box className={classes.counterBox}>
-                                            <Typography variant={"h6"}>0</Typography>
-                                            <Box className={classes.vl} />
-                                            <Typography variant={"h6"}>0</Typography>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={12} className={classes.stepRow}>
-                                    <Box className={classes.coloredBox} style={{ background: "#0097A6" }}>
-                                        <Typography variant={"h6"}>Customer support</Typography>
-                                        <Box className={classes.counterBox}>
-                                            <Typography variant={"h6"}>0</Typography>
-                                            <Box className={classes.vl} />
-                                            <Typography variant={"h6"}>0</Typography>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={12} className={classes.stepRow}>
-                                    <Box className={classes.coloredBox} style={{ background: "#7B1FA2" }}>
-                                        <Typography variant={"h6"}>Brand awareness</Typography>
-                                        <Box className={classes.counterBox}>
-                                            <Typography variant={"h6"}>0</Typography>
-                                            <Box className={classes.vl} />
-                                            <Typography variant={"h6"}>0</Typography>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={12} className={classes.stepRow}>
-                                    <Box className={classes.coloredBox} style={{ background: "#C2185B" }}>
-                                        <Typography variant={"h6"}>Sales</Typography>
-                                        <Box className={classes.counterBox}>
-                                            <Typography variant={"h6"}>0</Typography>
-                                            <Box className={classes.vl} />
-                                            <Typography variant={"h6"}>0</Typography>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                                <Grid item xs={12} className={classes.stepRow}>
-                                    <Box className={classes.coloredBox}
-                                        style={{ marginBottom: "86px", background: "#EA4335" }}>
-                                        <Typography variant={"h6"}>Improvements</Typography>
-                                        <Box className={classes.counterBox}>
-                                            <Typography variant={"h6"}>0</Typography>
-                                            <Box className={classes.vl} />
-                                            <Typography variant={"h6"}>0</Typography>
-                                        </Box>
-                                    </Box>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </Grid>
-        </Grid>
-    )
-};
+	const tasks = [
+		{ id: 0, taskTitle: "Upload your photo", taskType: 1, status: false, timeAgo: 1611745499068 },
+		{ id: 1, taskTitle: "Add products", taskType: 2, status: false, timeAgo: 1585005499068 },
+		{ id: 2, taskTitle: "Improve yourself", taskType: 9, status: false, timeAgo: 1611828650507 },
+	];
+
+	const TabTasks = tasks.map((el, i) => (
+		<Grid key={el.id} item xs={12} xl={12} className={classes.stepRow}>
+			<Box className={classes.coloredTaskBox} style={getBackgroundColor(el.taskType)}>
+				<Typography variant={"h6"} className={classes.indexNum}>{i + 1}</Typography>
+				<Typography variant={"h6"}>{el.taskTitle}</Typography>
+			</Box>
+			<Box className={classes.agoTime}>
+				<Typography variant={"body1"}>
+					{moment(el.timeAgo).fromNow()}
+				</Typography>
+			</Box>
+		</Grid>));
+
+	return (
+		<Grid xs={12} xl={12} container className={classes.dashboard}>
+			<Box className={classes.todoTitleBox}>
+				<Grid className={classes.titleBox} container xs={8} xl={9} >
+					<Typography variant={"h2"}>To-do list</Typography>
+				</Grid>
+				<Grid item xs={4} xl={3} className={classes.teamContainer}>
+					<Box className={classes.teamAvatarBox}>
+						<img src={team4} alt={"avatar"} />
+						<img src={team2} alt={"avatar"} />
+						<img src={team3} alt={"avatar"} />
+						<img src={team1} alt={"avatar"} />
+					</Box>
+					<Typography color={"primary"}>View team</Typography>
+				</Grid>
+			</Box>
+			<Box className={classes.contentContainer}>
+				<Grid item className={classes.contentBox} container xs={8} xl={9} >
+					<CustomAppBar value={value} setValue={setValue}>
+						<Tab className={classes.Tab} label="Steps" />
+						<Tab icon={<CustomBadge />} />
+						<Tab icon={<img src={team4} alt={"avatar"} />} />
+					</CustomAppBar>
+					<TabPanel className={classes.tabPanelBox} index={0} value={value}>
+						<Grid item container className={classes.stepBox}>
+							<Grid item xs={12} className={classes.stepRow}>
+								<Box className={classes.tableTitleBox}>
+									<Box className={classes.checkJobBox}>
+										<Typography color={"primary"} variant={"body2"}>Products</Typography>
+										<Typography color={"primary"} variant={"body2"}>Tasks</Typography>
+									</Box>
+								</Box>
+							</Grid>
+							<Grid item xs={12} className={classes.stepRow}>
+								<Box className={classes.coloredBox} style={{ background: "#FFDC22" }}>
+									<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>Add products</Typography>
+									<Box className={classes.counterBox}>
+										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Box className={classes.vl} />
+										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+									</Box>
+								</Box>
+							</Grid>
+							<Grid item xs={12} className={classes.stepRow}>
+								<Box className={classes.coloredBox} style={{ background: "#FFAB08" }}>
+									<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>Market research</Typography>
+									<Box className={classes.counterBox}>
+										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Box className={classes.vl} />
+										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+									</Box>
+								</Box>
+							</Grid>
+							<Grid item xs={12} className={classes.stepRow}>
+								<Box className={classes.coloredBox} style={{ background: "#EE6B1D" }}>
+									<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>Brand creation</Typography>
+									<Box className={classes.counterBox}>
+										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Box className={classes.vl} />
+										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+									</Box>
+								</Box>
+							</Grid>
+							<Grid item xs={12} className={classes.stepRow}>
+								<Box className={classes.coloredBox} style={{ background: "#43A047" }}>
+									<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>Sales channels</Typography>
+									<Box className={classes.counterBox}>
+										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Box className={classes.vl} />
+										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+									</Box>
+								</Box>
+							</Grid>
+							<Grid item xs={12} className={classes.stepRow}>
+								<Box className={classes.coloredBox} style={{ background: "#0097A6" }}>
+									<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>Customer support</Typography>
+									<Box className={classes.counterBox}>
+										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Box className={classes.vl} />
+										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+									</Box>
+								</Box>
+							</Grid>
+							<Grid item xs={12} className={classes.stepRow}>
+								<Box className={classes.coloredBox} style={{ background: "#7B1FA2" }}>
+									<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>Brand awareness</Typography>
+									<Box className={classes.counterBox}>
+										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Box className={classes.vl} />
+										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+									</Box>
+								</Box>
+							</Grid>
+							<Grid item xs={12} className={classes.stepRow}>
+								<Box className={classes.coloredBox} style={{ background: "#C2185B" }}>
+									<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>Sales</Typography>
+									<Box className={classes.counterBox}>
+										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Box className={classes.vl} />
+										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+									</Box>
+								</Box>
+							</Grid>
+							<Grid item xs={12} className={classes.stepRow}>
+								<Box className={classes.coloredBox}
+									style={{ background: "#EA4335", textTransform: "uppercase" }}>
+									<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>Improvements</Typography>
+									<Box className={classes.counterBox}>
+										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Box className={classes.vl} />
+										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+									</Box>
+								</Box>
+							</Grid>
+						</Grid>
+					</TabPanel>
+					<TabPanel className={classes.tabPanelBox} index={1} value={value}>
+						<Grid item xs={12} xl={12} className={classes.taskContainer}>
+							<Grid container className={classes.stepBox}>
+								<Box className={classes.tasksTitle}>
+									<Typography color={"primary"} variant={"body2"}>Tasks</Typography>
+								</Box>
+								{TabTasks}
+							</Grid>
+						</Grid>
+					</TabPanel>
+					<TabPanel className={classes.tabPanelBox} index={2} value={value}>
+						<Grid item xs={12} xl={12} className={classes.taskContainer}>
+							<Box marginTop={"57px"} textAlign={"center"} className={classes.tasksTitle}>
+								<Typography variant={"body2"}>OUR TEAM IS WAITING FOR YOU <br />TO COMPLETE YOUR TASKS</Typography>
+							</Box>
+							<Box textAlign={"center"} justifyContent={"center"} alignItems={"center"} >
+								Empty
+							</Box>
+						</Grid>
+						{/* <Grid item xs={12} xl={12} className={classes.taskContainer}>
+							<Box marginTop={"57px"} textAlign={"center"} className={classes.tasksTitle}>
+							</Box>
+							<Box justifyContent={"center"} alignItems={"center"}>
+								<Typography variant={"body2"}>Empty</Typography>
+							</Box>
+
+						</Grid> */}
+					</TabPanel>
+				</Grid>
+				<Grid xs={4} xl={3}
+					item>
+					<Chat />
+				</Grid>
+			</Box>
+		</Grid >
+	);
+}
+
 
 export default UserDashboard;
