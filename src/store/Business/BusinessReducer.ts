@@ -1,30 +1,44 @@
 import * as actions from './BusinessActions';
+import {Business} from "../../models";
 
-interface businessReducer {
-    id: string,
-    companyName: string,
-    country: string,
-    city: string,
-    businessNumber: string,
-    haveExperienceSelling: boolean,
-    storeURLs: string[],
-    haveWebsite: boolean,
-    websiteURLs: string[]
-}
-export const initialState = {
-    id: "",
+// interface businessReducer {
+//     id: string,
+//     companyName: string,
+//     country: string,
+//     city: string,
+//     businessNumber: string,
+//     haveExperienceSelling: boolean,
+//     storeURLs: string[],
+//     haveWebsite: boolean,
+//     websiteURLs: string[],
+//     roleTags: RoleTags
+// }
+export const getInitialState = ():Business => new Business({
     companyName: "",
     country: "",
     city: "",
     businessNumber: "",
     haveExperienceSelling: true,
-    storeURLs: [""],
+    storeURLs: [],
     haveWebsite: true,
-    websiteURLs: [""]
-};
+    websiteURLs: [],
+    roleTags: {
+        Sales: false,
+        Marketing: false,
+        Logistics: false,
+        Accounting: false,
+        Production: false,
+        QC: false
+    }
+});
 
-export const BusinessReducer = (state: businessReducer = initialState, action: ActionTypes): businessReducer => {
+export const BusinessReducer = (state: Business = getInitialState(), action: ActionTypes): Business => {
     switch (action.type) {
+        case 'SET_BUSINESS':
+        case 'UPDATE_BUSINESS_SUCCESS':
+            return {
+                ...action.payload,
+            }
         case 'SET_STEP_ONE':
             return {
                 ...state,
@@ -32,17 +46,26 @@ export const BusinessReducer = (state: businessReducer = initialState, action: A
             };
         case 'SET_STEP_TWO':
             return {
+                ...action.payload,
                 ...state,
-                ...action.payload
             };
-        case 'SAVE_BUSINESS_TO_DB_SUCCESS':
+        case 'UPDATE_BUSINESS_FAILED':
             return {
                 ...state
             }
-        case 'SAVE_BUSINESS_TO_DB_FAILED':
+        case 'SET_ROLE_TAGS':
+            return {
+                ...state, roleTags: action.payload
+            }
+        case 'CLEAR_BUSINESS':
+            return {
+                ...getInitialState()
+            }
+        case 'UPDATE_BUSINESS':
             return {
                 ...state
             }
+
         default:
             return {
                 ...state,

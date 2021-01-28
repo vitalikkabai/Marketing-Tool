@@ -11,21 +11,25 @@ export const setProfileID = (profileID: string) => ({
     payload: profileID
 });
 
-export const saveProfileToDB = () => ({
-    type: 'SAVE_PROFILE_TO_DB' as const
-});
+// export const saveProfileToDB = () => ({
+//     type: 'SAVE_PROFILE_TO_DB' as const
+// });
 
 export const initiateNewProfile = () => ({
     type: 'INITIATE_NEW_PROFILE' as const
 });
 
-export const saveProfileToDBSucces = () => ({
-    type: 'SAVE_PROFILE_TO_DB_SUCCESS' as const,
+export const clearProfile = () => ({
+    type: 'CLEAR_PROFILE' as const
 });
 
-export const saveProfileToDBFailed = (err: string) => ({
+export const saveProfileToDBSucces = (profile: Profile) => ({
+    type: 'SAVE_PROFILE_TO_DB_SUCCESS' as const,
+    payload: profile
+});
+
+export const saveProfileToDBFailed = () => ({
     type: 'SAVE_PROFILE_TO_DB_FAILED' as const,
-    payload: err
 });
 
 export const fetchProfileById = (id: string) => ({
@@ -38,7 +42,17 @@ export const fetchProfileByIdSuccess = (profile: Profile) => ({
     payload: profile
 })
 
+export const updateProfileSuccess = (profile: Profile) => ({
+    type: 'UPDATE_PROFILE_SUCCESS' as const,
+    payload: profile
+})
+
 export const saveProfileImage = (s3: S3Object, bufferImg: Buffer) => ({
     type: 'SET_PROFILE_IMAGE' as const,
     payload: {s3, bufferImg}
+})
+
+export const updatePersonalInfo = (name: string, email: string) => ({
+    type: 'UPDATE_PERSONAL_INFO' as const,
+    payload: {name, email}
 })

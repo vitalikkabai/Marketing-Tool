@@ -14,9 +14,9 @@ export type RegisterFormImportantInfoContainerType = MapDispatchType &
 const mapStateToProps = (state: AppStateType):stepTwoData & ProfileType => {
     return {
         companyName: state.BusinessReducer.companyName,
-        country: state.BusinessReducer.country,
-        city: state.BusinessReducer.city,
-        businessNumber: state.BusinessReducer.businessNumber,
+        country: state.BusinessReducer.country || "",
+        city: state.BusinessReducer.city || "",
+        businessNumber: state.BusinessReducer.businessNumber || "",
         profile: state.ProfileReducer.profile
 
     }

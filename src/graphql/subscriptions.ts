@@ -14,10 +14,14 @@ export const onCreateBusiness = /* GraphQL */ `
       storeURLs
       haveWebsite
       websiteURLs
-      businessType
-      _version
-      _deleted
-      _lastChangedAt
+      roleTags {
+        Sales
+        Marketing
+        Logistics
+        Accounting
+        Production
+        QC
+      }
       createdAt
       updatedAt
       owner
@@ -36,10 +40,14 @@ export const onUpdateBusiness = /* GraphQL */ `
       storeURLs
       haveWebsite
       websiteURLs
-      businessType
-      _version
-      _deleted
-      _lastChangedAt
+      roleTags {
+        Sales
+        Marketing
+        Logistics
+        Accounting
+        Production
+        QC
+      }
       createdAt
       updatedAt
       owner
@@ -58,10 +66,14 @@ export const onDeleteBusiness = /* GraphQL */ `
       storeURLs
       haveWebsite
       websiteURLs
-      businessType
-      _version
-      _deleted
-      _lastChangedAt
+      roleTags {
+        Sales
+        Marketing
+        Logistics
+        Accounting
+        Production
+        QC
+      }
       createdAt
       updatedAt
       owner
@@ -81,9 +93,6 @@ export const onCreateProfile = /* GraphQL */ `
         region
         key
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       business {
@@ -96,10 +105,14 @@ export const onCreateProfile = /* GraphQL */ `
         storeURLs
         haveWebsite
         websiteURLs
-        businessType
-        _version
-        _deleted
-        _lastChangedAt
+        roleTags {
+          Sales
+          Marketing
+          Logistics
+          Accounting
+          Production
+          QC
+        }
         createdAt
         updatedAt
         owner
@@ -120,9 +133,6 @@ export const onUpdateProfile = /* GraphQL */ `
         region
         key
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       business {
@@ -135,10 +145,14 @@ export const onUpdateProfile = /* GraphQL */ `
         storeURLs
         haveWebsite
         websiteURLs
-        businessType
-        _version
-        _deleted
-        _lastChangedAt
+        roleTags {
+          Sales
+          Marketing
+          Logistics
+          Accounting
+          Production
+          QC
+        }
         createdAt
         updatedAt
         owner
@@ -159,9 +173,6 @@ export const onDeleteProfile = /* GraphQL */ `
         region
         key
       }
-      _version
-      _deleted
-      _lastChangedAt
       createdAt
       updatedAt
       business {
@@ -174,10 +185,14 @@ export const onDeleteProfile = /* GraphQL */ `
         storeURLs
         haveWebsite
         websiteURLs
-        businessType
-        _version
-        _deleted
-        _lastChangedAt
+        roleTags {
+          Sales
+          Marketing
+          Logistics
+          Accounting
+          Production
+          QC
+        }
         createdAt
         updatedAt
         owner

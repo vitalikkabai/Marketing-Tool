@@ -1,21 +1,20 @@
 import { Profile } from '../../models';
 import * as actions from './ProfileActions';
 
+
 export interface ProfileType {
     profile: Profile,
-    avatarSrc?: string
 }
-export const initialState = {
+export const getInitialState = () => ({
     profile: new Profile({
         email: "",
         name: "",
         businessID: ""
-    }),
-    avatarSrc: ""
-}
+    })
+});
 
 
-export const ProfileReducer = (state: ProfileType = initialState, action: ActionTypes): ProfileType => {
+export const ProfileReducer = (state: ProfileType = getInitialState(), action: ActionTypes): ProfileType => {
     switch (action.type) {
         case 'SET_PROFILE_DATA':
             return {
@@ -26,21 +25,22 @@ export const ProfileReducer = (state: ProfileType = initialState, action: Action
         case 'FETCH_PROFILE_BY_ID':
             return {
                 ...state,
-                profile: {...state.profile, owner: action.payload}
+                profile: { ...state.profile, owner: action.payload }
             };
         case 'FETCH_PROFILE_BY_ID_SUCCESS':
+        case 'SAVE_PROFILE_TO_DB_SUCCESS':
+        case 'UPDATE_PROFILE_SUCCESS':
             return {
                 ...state,
-                profile: {...action.payload}
+                profile: { ...action.payload }
+            }
+        case 'CLEAR_PROFILE': 
+            return {
+                ...getInitialState()
             }
         case 'SET_PROFILE_IMAGE':
-            return {
-                ...state,
-                profile: {...state.profile, avatar: action.payload.s3}
-            };
-        case 'SAVE_PROFILE_TO_DB':
-        case 'SAVE_PROFILE_TO_DB_SUCCESS':
         case 'SAVE_PROFILE_TO_DB_FAILED':
+        case 'UPDATE_PERSONAL_INFO':
         default:
             return {
                 ...state,

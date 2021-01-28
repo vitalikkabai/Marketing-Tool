@@ -1,16 +1,17 @@
 import { applyMiddleware, combineReducers, createStore, compose } from "redux";
 import { combineEpics, createEpicMiddleware } from "redux-observable";
-import { businessEpic } from "./Business/BusinessEpic";
+import businessEpic from "./Business/BusinessEpic";
 import BusinessReducer from './Business/BusinessReducer';
 import { catchError } from 'rxjs/operators';
 import AuthReducer from "./Auth/AuthReducer";
-import { getAuthDataEpic, sendResetLinkEpic, signInEpic, signOutEpic, signUpEpic, sendNewPasswordEpic } from "./Auth/AuthEpic";
+import AuthEpics from "./Auth/AuthEpic";
 import ProfileReducer from "./Profile/ProfileReducer";
 import ProfileEpics from "./Profile/ProfileEpic";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+const combinedEpics = [...businessEpic, ...AuthEpics, ...ProfileEpics];
 const rootEpic = (action$: any, store$: any, dependencies: any) =>
-    combineEpics(businessEpic, signInEpic, signOutEpic, getAuthDataEpic, signUpEpic, sendResetLinkEpic, sendNewPasswordEpic, ...ProfileEpics)(action$, store$, dependencies).pipe(
+    combineEpics(...businessEpic,...AuthEpics,...ProfileEpics)(action$, store$, dependencies).pipe(
         catchError((error, source) => {
             console.error(error);
             return source;

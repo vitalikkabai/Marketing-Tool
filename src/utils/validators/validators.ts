@@ -15,7 +15,7 @@ export const isEmail = (value: string) => {
 }
 
 export const isMinLength = (value: string) => {
-    if(value.length < 6) return "The password must be at least 6 characters";
+    if(value.length < 8) return "The password must be at least 8 characters";
     return ""
 }
 
@@ -31,6 +31,15 @@ export const validateField = (field: any, ...args: any) => { // Function for val
     errorArray = errorArray.filter(el => el); // Get rid of empty string values in array
     return errorArray;// returns array with errors
 }
+
+export const isValidUrl = (url:string) => {
+    try {
+        new URL(url);
+    } catch (e) {
+        return false;
+    }
+    return true;
+};
 
 /*
 

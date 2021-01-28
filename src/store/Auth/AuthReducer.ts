@@ -86,7 +86,14 @@ export const AuthReducer = (state = initialState, action: ActionTypes): InitialS
                     name: "",
                 },
             };
-
+        case "CHANGE_PASSWORD_FAILED": {
+            return {
+                ...state,
+            }
+        }
+        case "CHANGE_PASSWORD":
+        case "CHANGE_PASSWORD_SUCCESS":
+        case "CHANGE_PERSONAL_INFO":
         default:
             return {
                 ...state,

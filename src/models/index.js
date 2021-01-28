@@ -2,17 +2,13 @@
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
-const BusinessType = {
-  "MANUFACTURER": "MANUFACTURER",
-  "TRADINGCOMPANY": "TRADINGCOMPANY",
-  "MANUFACTURERANDTRADINGCOMPANY": "MANUFACTURERANDTRADINGCOMPANY"
-};
 
-const { Business, Profile, S3Object } = initSchema(schema);
+
+const { Business, Profile, RoleTags, S3Object } = initSchema(schema);
 
 export {
   Business,
   Profile,
-  BusinessType,
+  RoleTags,
   S3Object
 };

@@ -1,9 +1,7 @@
 import React, {useState} from "react";
-import {makeStyles, TextField} from "@material-ui/core";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import IconButton from "@material-ui/core/IconButton";
-import {ReactComponent as Visibility} from "../../../assets/images/eye.svg";
-import {ReactComponent as VisibilityOff} from "../../../assets/images/eyeOff.svg";
+import {makeStyles} from "@material-ui/core";
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import CustomInput from "../Input/CustomInput";
 
 interface CustomInputProps {
     type?: string;
@@ -27,9 +25,11 @@ interface CustomInputProps {
     margin?: string;
     paddingRight?: number;
     isShowPassword?: boolean;
+    data: any;
+    option: any;
 }
 
-const CustomInput: React.FC<CustomInputProps> = (props) => {
+const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
 
     const [isShowPassword, setIsShowPassword] = useState(false)
 
@@ -92,8 +92,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
             '&.MuiOutlinedInput-input': {
                 paddingLeft: "35px"
             },
-            '& .Mui-error': {
-            },
+            '& .Mui-error': {},
         },
         label: {
             textTransform: 'capitalize',
@@ -107,49 +106,10 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
         setIsShowPassword(!isShowPassword);
     };
 
-    return <TextField error={props.error}
-                      key={props.PassKey}
-                      type={props.name === "password" ? (isShowPassword ? "text" : "password") : props.type}
-                      helperText={props.helperText}
-                      fullWidth={props.fullWidth}
-                      variant={"outlined"}
-                      label={props.label}
-                      autoFocus={props.autoFocus}
-                      required={props.required}
-                      InputProps={{
-                          endAdornment: (
-                              <InputAdornment position="end">
-                                  {props.name === "password" &&
-                                  <IconButton
-                                      aria-label="toggle password visibility"
-                                      onClick={handleClickShowPassword}
-                                  >
-                                      {isShowPassword ? <Visibility/> : <VisibilityOff/>}
-                                  </IconButton>}
-
-                              </ InputAdornment>
-                          ),
-                          style: {
-                              background: "white",
-                              fontFamily: 'liberation-sans',
-                              fontStyle: 'normal',
-                              fontWeight: 'normal',
-                              fontSize: '16px',
-                              lineHeight: '150%',
-                          }
-                      }}
-        // InputLabelProps={{
-        // 	style: {
-        // 		color: "red",
-        // 	}
-        // }}
-                      classes={{
-                          root: classes.root
-                      }}
-                      onChange={props.onChange}
-                      onBlur={props.onBlur}
-                      onFocus={props.onFocus}
-                      value={props.value}/>
+    return <Autocomplete options={props.data}
+                         style={{ width: 300 }}
+                         getOptionLabel={props.option}
+                         renderInput={(params) => <CustomInput {...params}/>}/>
 }
 
-export default CustomInput;
+export default AutocompleteCustomInput;

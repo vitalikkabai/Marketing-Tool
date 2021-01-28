@@ -10,22 +10,26 @@ type Business @model
   city: String
   businessNumber: String
   haveExperienceSelling: Boolean
-  storeURLs: [String]
+  storeURLs: [String!]!
   haveWebsite: Boolean
-  websiteURLs: [String]
-  businessType: BusinessType
-}
-
-enum BusinessType {
-  MANUFACTURER
-  TRADINGCOMPANY
-  MANUFACTURERANDTRADINGCOMPANY
+  websiteURLs: [String!]!
+  roleTags: RoleTags
+  # _version: Int
 }
 
 type S3Object {
   bucket: String!
   region: String!
   key: String!
+}
+
+type RoleTags {
+  Sales: Boolean!
+  Marketing: Boolean!
+  Logistics: Boolean!
+  Accounting: Boolean!
+  Production: Boolean!
+  QC: Boolean!
 }
 
 type Profile @model
@@ -43,4 +47,5 @@ type Profile @model
   business: Business @connection(fields: ["businessID"])
   businessID: ID!
   avatar: S3Object
+  # _version: Int
 }

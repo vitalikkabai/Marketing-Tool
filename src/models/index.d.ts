@@ -1,9 +1,15 @@
 import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
 
-export enum BusinessType {
-  MANUFACTURER = "MANUFACTURER",
-  TRADINGCOMPANY = "TRADINGCOMPANY",
-  MANUFACTURERANDTRADINGCOMPANY = "MANUFACTURERANDTRADINGCOMPANY"
+
+
+export declare class RoleTags {
+  readonly Sales: boolean;
+  readonly Marketing: boolean;
+  readonly Logistics: boolean;
+  readonly Accounting: boolean;
+  readonly Production: boolean;
+  readonly QC: boolean;
+  constructor(init: ModelInit<RoleTags>);
 }
 
 export declare class S3Object {
@@ -20,10 +26,10 @@ export declare class Business {
   readonly city?: string;
   readonly businessNumber?: string;
   readonly haveExperienceSelling?: boolean;
-  readonly storeURLs?: (string | null)[];
+  readonly storeURLs: string[];
   readonly haveWebsite?: boolean;
-  readonly websiteURLs?: (string | null)[];
-  readonly businessType?: BusinessType | keyof typeof BusinessType;
+  readonly websiteURLs: string[];
+  readonly roleTags?: RoleTags;
   constructor(init: ModelInit<Business>);
   static copyOf(source: Business, mutator: (draft: MutableModel<Business>) => MutableModel<Business> | void): Business;
 }

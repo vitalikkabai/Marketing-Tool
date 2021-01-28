@@ -16,7 +16,7 @@ export const signInSuccess = (userAttributes: UserAttributes) => ({
     payload: userAttributes
 });
 
-type signInErrorType = {
+export type signInErrorType = {
     code: "" | "UserNotFoundException" | "NotAuthorizedException"
     message: string
     name: string
@@ -98,4 +98,27 @@ export const cleanErrors = () => ({
     type: "CLEAN-ERROR-FIELDS" as const,
 });
 
+export const changePassword = (oldPassword: string, newPassword: string, callback: () => void) => ({
+    type: "CHANGE_PASSWORD" as const,
+    payload: {oldPassword, newPassword, callback}
+});
+
+export const changePasswordSucces = () => ({
+    type: "CHANGE_PASSWORD_SUCCESS" as const
+});
+
+export type changePasswordErrorType = {
+    code: "" | "UserNotFoundException" | "NotAuthorizedException"
+    message: string
+    name: string
+}
+export const changePasswordFail = (error:changePasswordErrorType) => ({
+    type: "CHANGE_PASSWORD_FAILED" as const,
+    payload: error
+});
+
+export const changePersonalInfo = ( name: string, email: string,) =>  ({
+    type: "CHANGE_PERSONAL_INFO" as const,
+    payload: {name, email}
+})
 

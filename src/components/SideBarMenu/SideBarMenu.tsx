@@ -17,7 +17,6 @@ import { useHistory } from "react-router";
 const SideBarMenu = (props: any) => {
 	const [selected, setSelected] = React.useState("1");
 	const theme = useTheme();
-	console.log(theme);
 	const history = useHistory();
 	return (
 		<Grid container direction={"column"} alignItems={"flex-start"} className={classes.menu}>
