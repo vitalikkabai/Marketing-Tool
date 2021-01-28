@@ -1,5 +1,5 @@
 import {Box, Grid, Link, Typography} from "@material-ui/core";
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './RegisterForm.module.scss';
 import { PropsFromRedux }  from './RegisterFormImportantInfoContainer';
 import {Profile} from "../../models";
@@ -8,11 +8,19 @@ import GoBackButton from "../common/Button/GoBackButton";
 import UxAssistant from "./UxAssistant";
 import CustomInput from "../common/Input/CustomInput";
 import CustomButton from "../common/Button/CustomButton";
-import {isEmail, isMinLength, isPasswordsEqual, isPhone, validateField} from "../../utils/validators/validators";
+import {
+    isEmail,
+    isMinLength,
+    isNameValid,
+    isPasswordsEqual,
+    isPhone,
+    validateField
+} from "../../utils/validators/validators";
 import AutocompleteCustomInput from "../common/AutocompleteCustomInput/AutocompleteCustomInput";
 import data from "../../assets/dataset/country/countries";
 // @ts-ignore
 import ReactCountryFlag from "react-country-flag"
+import {PropsFromRedux} from "./RegisterFormImportantInfoContainer";
 
 const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (props) => {
 
@@ -20,7 +28,13 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
     const [emptyFieldsError, setEmptyFieldsError] = useState(false);
     const [inputValue, setInputValue] = useState({ //For input values
         companyName: {value: props.companyName, touched: false, error: false, errorText: "", name: "COMPANY_NAME"},
-        countryCode: {value: {code: "", label: "", phone: ""}, touched: false, error: false, errorText: "", name: "COUNTRY_CODE"},
+        countryCode: {
+            value: {code: "", label: "", phone: ""},
+            touched: false,
+            error: false,
+            errorText: "",
+            name: "COUNTRY_CODE"
+        },
         phoneNumber: {value: props.phoneNumber, touched: false, error: false, errorText: "", name: "PHONE_NUMBER"},
         ownerName: {value: props.profile.name, touched: false, error: false, errorText: "", name: "OWNER_NAME"},
         ownerEmail: {value: props.profile.email, touched: false, error: false, errorText: "", name: "OWNER_EMAIL"},
@@ -28,6 +42,22 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
         confirmPassword: {value: "", touched: false, error: false, errorText: "", name: "CONFIRM_PASSWORD"},
     });
     const [flagCode, setFlagCode] = useState("");
+
+    useEffect(() => {
+        console.log(props.registerErrorText)
+        switch (props.registerErrorText.code) {
+            case "UsernameExistsException": {
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    ownerEmail: {
+                        ...prevStyle.ownerEmail, error: true,
+                        errorText: props.registerErrorText.message.replace(/\.$/, "")
+                    },
+                }));
+                break;
+            }
+        }
+    }, [props.registerErrorText.code]);
 
     const resetFieldErrors = () => {
         setInputValue((prevInput) => {
@@ -121,16 +151,17 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
         resetFieldErrors();
         setEmptyFieldsError(false);
         const emptyMessage = "The input fields cannot be empty";
-        const passwordErrorArray = validateField(inputValue.password.value, isMinLength(inputValue.password.value));
-        const emailErrorArray = validateField(inputValue.ownerEmail.value, isEmail(inputValue.ownerEmail.value));
+        const passwordError = isMinLength(inputValue.password.value);
+        const emailError = isEmail(inputValue.ownerEmail.value);
         const phoneError = isPhone(inputValue.phoneNumber.value);
-        const confirmErrorArray = validateField(inputValue.confirmPassword.value,
-            isPasswordsEqual(inputValue.password.value, inputValue.confirmPassword.value));
+        const nameError = isNameValid(inputValue.ownerName.value);
+        const confirmError = isPasswordsEqual(inputValue.password.value, inputValue.confirmPassword.value);
 
         const inputArray = Object.entries(inputValue);
         const emptyInputNames: Array<string> = [];
         inputArray.forEach((el, index) => {
-            if (inputArray[index][1].value == "") emptyInputNames.push(inputArray[index][0])
+            if (inputArray[index][1].value.toString().replace(/\s/g, '') === "")
+                emptyInputNames.push(inputArray[index][0])
         })
 
         if (emptyInputNames[0]) {// if any empty fields detected
@@ -146,13 +177,13 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                     countryCode: {...prevStyle.countryCode, error: true, errorText: emptyMessage},
                 }));
             }
-            if (!inputValue.phoneNumber.value.replace(/\s/g, '')) {
+            if (!inputValue.phoneNumber.value.replaceAll(/\s/g, '')) {
                 setInputValue(prevStyle => ({
                     ...prevStyle,
                     phoneNumber: {...prevStyle.phoneNumber, error: true, errorText: emptyMessage},
                 }));
             }
-            if (!inputValue.ownerName.value.replace(/\s/g, '')) {
+            if (!inputValue.ownerName.value.replaceAll(/\s/g, '')) {
                 setInputValue(prevStyle => ({
                     ...prevStyle,
                     ownerName: {...prevStyle.ownerName, error: true, errorText: emptyMessage},
@@ -179,29 +210,34 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
             setEmptyFieldsError(true);
             return;
         } else { // if no empty fields detected
-            if (emailErrorArray[0]) {
+            if (emailError) {
                 setInputValue(prevStyle => ({
                     ...prevStyle,
-                    ownerEmail: {...prevStyle.ownerEmail, error: true, errorText: emailErrorArray[0]},
+                    ownerEmail: {...prevStyle.ownerEmail, error: true, errorText: emailError},
                 }));
                 return;
-            } else
-            if (phoneError) {
+            } else if (nameError) {
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    ownerName: {...prevStyle.ownerName, error: true, errorText: nameError},
+                }));
+                return;
+            } else if (phoneError) {
                 setInputValue(prevStyle => ({
                     ...prevStyle,
                     phoneNumber: {...prevStyle.phoneNumber, error: true, errorText: phoneError},
                 }));
                 return;
-            } else if (passwordErrorArray[0]) {
+            } else if (passwordError) {
                 setInputValue(prevStyle => ({
                     ...prevStyle,
-                    password: {...prevStyle.password, error: true, errorText: passwordErrorArray[0]},
+                    password: {...prevStyle.password, error: true, errorText: passwordError},
                 }));
                 return;
-            } else if (confirmErrorArray[0]) {
+            } else if (confirmError) {
                 setInputValue(prevStyle => ({
                     ...prevStyle,
-                    confirmPassword: {...prevStyle.confirmPassword, error: true, errorText: confirmErrorArray[0]},
+                    confirmPassword: {...prevStyle.confirmPassword, error: true, errorText: confirmError},
                 }));
                 return;
             } else {
@@ -236,6 +272,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
         if (inputValue.phoneNumber.errorText) return inputValue.phoneNumber.errorText;
         if (inputValue.confirmPassword.errorText) return inputValue.confirmPassword.errorText;
         if (inputValue.ownerEmail.errorText) return inputValue.ownerEmail.errorText;
+        if (inputValue.ownerName.errorText) return inputValue.ownerName.errorText;
         return "";
     }
 
@@ -297,8 +334,8 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                                 margin={"0 0 24px 0"}
                                                 option={data}
                                                 getOption={(option: any) => "+" + option.phone}
-                                                onInputChange={(event: any, newInputValue:any, reason: string) => {
-                                                    if(newInputValue.length === 0){
+                                                onInputChange={(event: any, newInputValue: any, reason: string) => {
+                                                    if (newInputValue.length === 0) {
                                                         console.log("In clear")
                                                         setInputValue(
                                                             prevStyle => ({
@@ -309,10 +346,19 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                                                 }
                                                             }))
                                                         setFlagCode("");
-                                                    }
-                                                    else
-                                                    if(newInputValue === ("+" + inputValue.countryCode.value.phone))
+                                                    } else if (newInputValue === ("+" + inputValue.countryCode.value.phone))
                                                         setInputValue(
+                                                            prevStyle => ({
+                                                                ...prevStyle,
+                                                                countryCode: {
+                                                                    ...prevStyle.countryCode,
+                                                                    value: {
+                                                                        ...prevStyle.countryCode.value,
+                                                                        code: flagCode
+                                                                    }
+                                                                }
+                                                            }))
+                                                    else if (reason === "reset") setInputValue(
                                                         prevStyle => ({
                                                             ...prevStyle,
                                                             countryCode: {
@@ -321,23 +367,14 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                                             }
                                                         }))
                                                     else
-                                                    if(reason === "reset") setInputValue(
-                                                        prevStyle => ({
-                                                            ...prevStyle,
-                                                            countryCode: {
-                                                                ...prevStyle.countryCode,
-                                                                value: {...prevStyle.countryCode.value, code: flagCode}
-                                                            }
-                                                        }))
-                                                    else
-                                                    setInputValue(
-                                                        prevStyle => ({
-                                                            ...prevStyle,
-                                                            countryCode: {
-                                                                ...prevStyle.countryCode,
-                                                                value: {...prevStyle.countryCode.value, code: ""}
-                                                            }
-                                                        }))
+                                                        setInputValue(
+                                                            prevStyle => ({
+                                                                ...prevStyle,
+                                                                countryCode: {
+                                                                    ...prevStyle.countryCode,
+                                                                    value: {...prevStyle.countryCode.value, code: ""}
+                                                                }
+                                                            }))
                                                 }}
                                                 renderOption={
                                                     (option: any) => (
@@ -355,7 +392,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                                 error={inputValue.countryCode.error}
                                                 onChange={
                                                     (event: any, value: any) => {
-                                                        if(value) {
+                                                        if (value) {
                                                             setInputValue(
                                                                 prevStyle => ({
                                                                     ...prevStyle,
@@ -385,17 +422,17 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                         </Grid>
                                         <Box className={classes.flagBox}>
                                             {inputValue.countryCode.value.code &&
-                                                <ReactCountryFlag
-                                                    countryCode={inputValue.countryCode.value.code}
-                                                    svg
-                                                    style={{
-                                                        width: "auto",
-                                                        height: "100%",
-                                                        marginLeft: "-4px",
-                                                        marginBottom: "10px"
-                                                    }}
-                                                    title={inputValue.countryCode.value.code}
-                                                />
+                                            <ReactCountryFlag
+                                                countryCode={inputValue.countryCode.value.code}
+                                                svg
+                                                style={{
+                                                    width: "auto",
+                                                    height: "100%",
+                                                    marginLeft: "-4px",
+                                                    marginBottom: "10px"
+                                                }}
+                                                title={inputValue.countryCode.value.code}
+                                            />
                                             }
 
                                         </Box>
@@ -436,7 +473,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                             </Typography>
                         </Grid>
                         <Grid item className={classes.nextContainer + " " + classes.importantInfo}>
-                            <CustomButton type={"submit"} className={classes.buttonBlock} text={"Dashboard"}/>
+                            <CustomButton type={"submit"} className={classes.buttonBlock} text={"Save"}/>
                             <Typography variant={"subtitle1"}>Have an account already?&nbsp;
                                 <Link className={classes.link} onClick={() => {
                                     history.replace("/login")

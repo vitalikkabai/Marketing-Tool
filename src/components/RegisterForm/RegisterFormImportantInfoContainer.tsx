@@ -8,6 +8,7 @@ import { ProfileType } from "../../store/Profile/ProfileReducer";
 import { setProfile } from "../../store/Profile/ProfileActions";
 import { Profile } from "../../models";
 import { CreateBusinessInput, CreateProfileInput } from "../../API";
+import LoginForm from "../LoginForm/LoginForm";
 
 // export type RegisterFormImportantInfoContainerType = MapDispatchType &
 //     stepTwoData & ProfileType;
@@ -19,7 +20,8 @@ const mapStateToProps = (state: AppStateType) => {
         phoneNumber: state.ProfileReducer.phoneNumber,
         country: "",
         city: "",
-        businessNumber: ""
+        businessNumber: "",
+        registerErrorText: state.AuthReducer.registerErrorMessage
     }
 };
 

@@ -27,7 +27,6 @@ export default [
     (action$: ActionsObservable<any>): Observable<ActionTypes | ProfileActionTypes> => action$.pipe(
         ofType("SIGN-IN-REQUEST"),
         mergeMap(action => {
-            console.log("Try to log")
             return from(Auth.signIn({
                 username: action.payload.username,
                 password: action.payload.password,
@@ -80,7 +79,7 @@ export default [
                         initiateNewProfile(response.attributes.sub),
                     ]
                 }),
-                catchError(err => of(signUpFailed(err)))
+                catchError(err => {return of(signUpFailed(err))})
             )
         })
     ),
