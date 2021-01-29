@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {Box, CircularProgress, Grid, Link, Typography} from "@material-ui/core";
 import classes from "./LoginForm.module.scss";
+import {PropsFromRedux} from "./LoginFormContainer";
+import {Box, CircularProgress, Grid, Link, Typography} from "@material-ui/core";
 import {useHistory} from "react-router";
 import CustomInput from "../common/Input/CustomInput"
 import GoBackButton from "../common/Button/GoBackButton";
 import CustomButton from "../common/Button/CustomButton";
-import {PropsFromRedux} from "./LoginFormContainer";
-import {isEmpty, validateField} from "../../utils/validators/validators";
+import {isEmail, isEmpty} from "../../utils/validators/validators";
 
 const LoginForm: React.FC<PropsFromRedux> = (props) => {
 
@@ -14,61 +14,10 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
         username: {value: "", touched: false, error: false, errorText: "", name: "USER_NAME"},
         password: {value: "", touched: false, error: false, errorText: "", name: "PASSWORD"}
     });
-
-    const handleInput = (inputData: string, inputType: string) => {
-        setInputValue((prevInput) => {
-            const currInputValue = Object.assign({}, prevInput);
-            switch (inputType) {
-                case prevInput.username.name: {
-                    currInputValue.username.value = inputData;
-                    currInputValue.username.touched = true;
-                    const errorArray = validateField(inputData,
-                        isEmpty(inputData));
-                    currInputValue.username.error = !!errorArray[0];
-                    currInputValue.username.errorText = errorArray[0];
-                    break;
-                }
-                case prevInput.password.name: {
-                    currInputValue.password.value = inputData;
-                    currInputValue.password.touched = true;
-                    const errorArray = validateField(inputData,
-                        isEmpty(inputData));
-                    currInputValue.password.error = !!errorArray[0];
-                    currInputValue.password.errorText = errorArray[0];
-                    break;
-                }
-
-                default:
-                    break;
-            }
-            return currInputValue
-        })
-    }
-
     const [isPending, setPending] = useState(false);
     const history = useHistory();
 
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
-        props.cleanErrors();
-        if (inputValue.username.value && inputValue.password.value) {
-            setPending(true);
-            props.signIn(inputValue.username.value, inputValue.password.value);
-        } else {
-            if(!inputValue.username.value)
-            setInputValue(prevStyle => ({
-                ...prevStyle,
-                username: {...prevStyle.username, error: true, errorText: "This field cannot be empty"}
-            }));
-            if(!inputValue.password.value)
-                setInputValue(prevStyle => ({
-                    ...prevStyle,
-                    password: {...prevStyle.password, error: true, errorText: "This field cannot be empty"}
-                }));
-        }
-    }
-
-    useEffect(() => {
+    useEffect(() => { //Detect async error status
         if (props.errorText.code) setPending(false);
         switch (props.errorText.code) {
             case "UserNotFoundException": {
@@ -91,24 +40,85 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
         }
     }, [props.errorText]);
 
-    useEffect(() => {
+    useEffect(() => { //CleanErrors on unmount
         return function cleanup() {
             props.cleanErrors();
         };
     }, [])
 
-    if (props.isAuth) {
+
+    const handleInput = (inputData: string, inputType: string) => {
+        props.cleanErrors();
+        setInputValue((prevInput) => {
+            const currInputValue = Object.assign({}, prevInput);
+            switch (inputType) {
+                case prevInput.username.name: {
+                    currInputValue.username.value = inputData;
+                    currInputValue.username.touched = true;
+                    const error = isEmpty(inputData);
+                    currInputValue.username.error = !!error;
+                    currInputValue.username.errorText = error;
+                    break;
+                }
+                case prevInput.password.name: {
+                    currInputValue.password.value = inputData;
+                    currInputValue.password.touched = true;
+                    const error = isEmpty(inputData);
+                    currInputValue.password.error = !!error;
+                    currInputValue.password.errorText = error;
+                    break;
+                }
+                default:
+                    break;
+            }
+            return currInputValue;
+        })
+    }
+
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        props.cleanErrors();
+        if (inputValue.username.value && inputValue.password.value && !isEmail(inputValue.username.value)) {
+            setPending(true);
+            props.signIn(inputValue.username.value, inputValue.password.value);
+        } else {//if fields is empty or email is invalid
+            if (isEmail(inputValue.username.value))
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    username: {...prevStyle.username, error: true, errorText: isEmail(inputValue.username.value)}
+                }));
+            if (!inputValue.username.value)
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    username: {...prevStyle.username, error: true, errorText: "This field cannot be empty"}
+                }));
+            if (!inputValue.password.value)
+                setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    password: {...prevStyle.password, error: true, errorText: "This field cannot be empty"}
+                }));
+        }
+    }
+
+    const getErrorMessage = () => { //Setting error messages
+        if (props.errorText.message) return props.errorText.message.replace(/\.$/, "");
+        if (inputValue.username.errorText) return inputValue.username.errorText;
+        if (inputValue.password.errorText) return inputValue.password.errorText;
+        return "";
+    }
+
+    if (props.isAuth) { //Redirect authorised user
         history.push("")
     }
 
     return (
         <Grid container justify="center" alignItems={"center"}>
-            <Grid container direction="column" justify="center" className={classes.loginForm}>
+            <Grid container direction="column" justify="center">
                 <Box className={classes.loginSheet}>
                     <GoBackButton onClick={() => {
                         history.push("/")
                     }}/>
-                    <Grid item className={classes.gridItem}>
+                    <Grid item>
                         <Typography variant="h2" className={classes.header}>
                             Login
                         </Typography>
@@ -118,7 +128,7 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                             <Grid container direction="column" spacing={2}>
                                 <Grid item>
                                     <CustomInput
-                                        type="email"
+                                        type="text"
                                         placeholder="Email"
                                         label="Email"
                                         error={inputValue.username.error}
@@ -149,7 +159,7 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                                 </Grid>
                                 <Grid item className={classes.loginButton}>
                                     <CustomButton type={"submit"} text={isPending ? "" : "Log in"}
-                                                  className={isPending ? classes.buttonBlock + " " + classes.disabledBtn : classes.buttonBlock}/>
+                                                  className={isPending ? classes.disabledBtn : ""}/>
                                     {isPending &&
                                     <CircularProgress size={24} className={classes.buttonProgress} color="secondary"/>}
                                 </Grid>
@@ -166,8 +176,7 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                     </Grid>
                     <Grid item className={classes.errorText}>
                         <Typography variant={"subtitle1"}>
-                            {props.errorText.message? props.errorText.message.replace(/\./g, '') :
-                            inputValue.username.errorText?inputValue.username.errorText:inputValue.password.errorText}
+                            {getErrorMessage()}
                         </Typography>
                     </Grid>
                     <Grid item className={classes.createAccount}>

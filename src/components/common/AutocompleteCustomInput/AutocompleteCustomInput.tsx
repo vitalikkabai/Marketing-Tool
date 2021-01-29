@@ -1,15 +1,15 @@
 import React, {useState} from "react";
-import {makeStyles} from "@material-ui/core";
+import {makeStyles, TextField} from "@material-ui/core";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CustomInput from "../Input/CustomInput";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
+import {ReactComponent as Visibility} from "../../../assets/images/eye.svg";
+import {ReactComponent as VisibilityOff} from "../../../assets/images/eyeOff.svg";
 
 interface CustomInputProps {
     type?: string;
     onChange?: any;
-    onBlur?: any;
-    onFocus?: any;
-    value?: string;
-    color?: string;
     width?: any; //ToDo change "any" types
     name?: string;
     placeholder?: string;
@@ -18,35 +18,28 @@ interface CustomInputProps {
     helperText?: string;
     PassKey?: string;
     fontSize?: string;
-    required?: boolean;
-    variant?: string;
-    autoFocus?: boolean;
     label?: string;
     margin?: string;
-    paddingRight?: number;
-    isShowPassword?: boolean;
-    data: any;
+    data?: any;
     option: any;
+    getOption: any;
+    renderOption?: any;
+    onInputChange?: any;
 }
 
 const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
 
-    const [isShowPassword, setIsShowPassword] = useState(false)
-
     const useStyles = makeStyles({
         root: {
             '& .MuiOutlinedInput-root': {
-                margin: props.margin,
                 width: props.width,
                 padding: 0,
                 '& .MuiOutlinedInput-input': {
-                    paddingLeft: 10,
-                    paddingRight: props.paddingRight,
+                    paddingLeft: 42,
                 },
 
                 '& fieldset': {
                     borderRadius: 10,
-                    borderColor: props.color,
                     borderWidth: 1,
                 },
                 '& input': {
@@ -102,14 +95,39 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
 
     const classes = useStyles();
 
-    const handleClickShowPassword = () => {
-        setIsShowPassword(!isShowPassword);
-    };
 
-    return <Autocomplete options={props.data}
-                         style={{ width: 300 }}
-                         getOptionLabel={props.option}
-                         renderInput={(params) => <CustomInput {...params}/>}/>
+    return <Autocomplete
+        id="custom-input-demo"
+        options={props.option}
+        onChange={props.onChange}
+        getOptionLabel={props.getOption}
+        renderOption={props.renderOption}
+        style={{margin: props.margin}}
+        onInputChange={props.onInputChange}
+        renderInput={(params) => (
+            <div ref={params.InputProps.ref}>
+                <TextField
+                    variant={"outlined"}
+                    fullWidth
+                    error={props.error}
+                    label={props.label}
+                    InputProps={{
+                        style: {
+                            background: "white",
+                            fontFamily: 'liberation-sans',
+                            fontStyle: 'normal',
+                            fontWeight: 'normal',
+                            fontSize: '16px',
+                            lineHeight: '150%',
+                        }
+                    }}
+                    classes={{
+                        root: classes.root
+                    }}
+                    {...params.inputProps} />
+            </div>
+        )}
+    />
 }
 
 export default AutocompleteCustomInput;

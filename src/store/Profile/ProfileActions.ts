@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Profile, S3Object } from "../../models";
+import { CreateProfileInput } from "../../API";
+import { Profile, RoleTags, S3Object } from "../../models";
 
-export const setProfile = (profileData: Profile) => ({
+export const setProfile = (profileData: CreateProfileInput) => ({
     type: 'SET_PROFILE_DATA' as const,
     payload: profileData
 });
@@ -15,15 +16,21 @@ export const setProfileID = (profileID: string) => ({
 //     type: 'SAVE_PROFILE_TO_DB' as const
 // });
 
-export const initiateNewProfile = () => ({
-    type: 'INITIATE_NEW_PROFILE' as const
+export const setRoleTags = (roleTags: RoleTags) => ( {
+    type: 'SET_ROLE_TAGS' as const,
+    payload: roleTags
+});
+
+export const initiateNewProfile = (id: string) => ({
+    type: 'INITIATE_NEW_PROFILE' as const,
+    payload: id
 });
 
 export const clearProfile = () => ({
     type: 'CLEAR_PROFILE' as const
 });
 
-export const saveProfileToDBSucces = (profile: Profile) => ({
+export const saveProfileToDBSucces = (profile: CreateProfileInput) => ({
     type: 'SAVE_PROFILE_TO_DB_SUCCESS' as const,
     payload: profile
 });
@@ -37,12 +44,12 @@ export const fetchProfileById = (id: string) => ({
     payload: id
 });
 
-export const fetchProfileByIdSuccess = (profile: Profile) => ({
+export const fetchProfileByIdSuccess = (profile: CreateProfileInput) => ({
     type: 'FETCH_PROFILE_BY_ID_SUCCESS' as const,
     payload: profile
 })
 
-export const updateProfileSuccess = (profile: Profile) => ({
+export const updateProfileSuccess = (profile: CreateProfileInput) => ({
     type: 'UPDATE_PROFILE_SUCCESS' as const,
     payload: profile
 })

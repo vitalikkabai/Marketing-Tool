@@ -7,24 +7,23 @@ export const onCreateBusiness = /* GraphQL */ `
     onCreateBusiness {
       id
       companyName
-      country
-      city
-      businessNumber
-      haveExperienceSelling
       storeURLs
-      haveWebsite
       websiteURLs
-      roleTags {
-        Sales
-        Marketing
-        Logistics
-        Accounting
-        Production
-        QC
-      }
       createdAt
       updatedAt
       owner
+      profiles {
+        items {
+          id
+          email
+          name
+          businessID
+          phoneNumber
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -33,24 +32,23 @@ export const onUpdateBusiness = /* GraphQL */ `
     onUpdateBusiness {
       id
       companyName
-      country
-      city
-      businessNumber
-      haveExperienceSelling
       storeURLs
-      haveWebsite
       websiteURLs
-      roleTags {
-        Sales
-        Marketing
-        Logistics
-        Accounting
-        Production
-        QC
-      }
       createdAt
       updatedAt
       owner
+      profiles {
+        items {
+          id
+          email
+          name
+          businessID
+          phoneNumber
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -59,24 +57,23 @@ export const onDeleteBusiness = /* GraphQL */ `
     onDeleteBusiness {
       id
       companyName
-      country
-      city
-      businessNumber
-      haveExperienceSelling
       storeURLs
-      haveWebsite
       websiteURLs
-      roleTags {
-        Sales
-        Marketing
-        Logistics
-        Accounting
-        Production
-        QC
-      }
       createdAt
       updatedAt
       owner
+      profiles {
+        items {
+          id
+          email
+          name
+          businessID
+          phoneNumber
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -84,7 +81,6 @@ export const onCreateProfile = /* GraphQL */ `
   subscription OnCreateProfile {
     onCreateProfile {
       id
-      owner
       email
       name
       businessID
@@ -93,29 +89,33 @@ export const onCreateProfile = /* GraphQL */ `
         region
         key
       }
+      roleTags {
+        sales
+        marketing
+        logistics
+        accounting
+        production
+        qualityControl
+      }
+      countryCode {
+        code
+        label
+        phone
+      }
+      phoneNumber
       createdAt
       updatedAt
       business {
         id
         companyName
-        country
-        city
-        businessNumber
-        haveExperienceSelling
         storeURLs
-        haveWebsite
         websiteURLs
-        roleTags {
-          Sales
-          Marketing
-          Logistics
-          Accounting
-          Production
-          QC
-        }
         createdAt
         updatedAt
         owner
+        profiles {
+          nextToken
+        }
       }
     }
   }
@@ -124,7 +124,6 @@ export const onUpdateProfile = /* GraphQL */ `
   subscription OnUpdateProfile {
     onUpdateProfile {
       id
-      owner
       email
       name
       businessID
@@ -133,29 +132,33 @@ export const onUpdateProfile = /* GraphQL */ `
         region
         key
       }
+      roleTags {
+        sales
+        marketing
+        logistics
+        accounting
+        production
+        qualityControl
+      }
+      countryCode {
+        code
+        label
+        phone
+      }
+      phoneNumber
       createdAt
       updatedAt
       business {
         id
         companyName
-        country
-        city
-        businessNumber
-        haveExperienceSelling
         storeURLs
-        haveWebsite
         websiteURLs
-        roleTags {
-          Sales
-          Marketing
-          Logistics
-          Accounting
-          Production
-          QC
-        }
         createdAt
         updatedAt
         owner
+        profiles {
+          nextToken
+        }
       }
     }
   }
@@ -164,7 +167,6 @@ export const onDeleteProfile = /* GraphQL */ `
   subscription OnDeleteProfile {
     onDeleteProfile {
       id
-      owner
       email
       name
       businessID
@@ -173,29 +175,33 @@ export const onDeleteProfile = /* GraphQL */ `
         region
         key
       }
+      roleTags {
+        sales
+        marketing
+        logistics
+        accounting
+        production
+        qualityControl
+      }
+      countryCode {
+        code
+        label
+        phone
+      }
+      phoneNumber
       createdAt
       updatedAt
       business {
         id
         companyName
-        country
-        city
-        businessNumber
-        haveExperienceSelling
         storeURLs
-        haveWebsite
         websiteURLs
-        roleTags {
-          Sales
-          Marketing
-          Logistics
-          Accounting
-          Production
-          QC
-        }
         createdAt
         updatedAt
         owner
+        profiles {
+          nextToken
+        }
       }
     }
   }

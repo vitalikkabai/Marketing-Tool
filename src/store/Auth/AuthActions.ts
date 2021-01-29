@@ -22,6 +22,12 @@ export type signInErrorType = {
     name: string
 }
 
+export type signUpErrorType = {
+    code: string
+    message: string
+    name: string
+}
+
 export const signInFailed = (signInError: signInErrorType) => ({
     type: "SIGN-IN-FAILED" as const,
     payload: { signInError }
@@ -37,9 +43,9 @@ export const signUpSuccess = (userID: string) => ({
     payload: userID
 });
 
-export const signUpFailed = (signInError: string) => ({
+export const signUpFailed = (signUpError: signUpErrorType) => ({
     type: "SIGN-UP-FAILED" as const,
-    payload: { signInError }
+    payload: { signUpError }
 });
 
 export const signOut = () => ({

@@ -27,7 +27,6 @@ export default [
     (action$: ActionsObservable<any>): Observable<ActionTypes | ProfileActionTypes> => action$.pipe(
         ofType("SIGN-IN-REQUEST"),
         mergeMap(action => {
-            console.log("Try to log")
             return from(Auth.signIn({
                 username: action.payload.username,
                 password: action.payload.password,
@@ -77,10 +76,10 @@ export default [
                             emailVerified: response.attributes.email_verified,
                             userName: response.attributes.given_name,
                         }),
-                        initiateNewProfile(),
+                        initiateNewProfile(response.attributes.sub),
                     ]
                 }),
-                catchError(err => of(signUpFailed(err)))
+                catchError(err => {return of(signUpFailed(err))})
             )
         })
     ),
@@ -162,7 +161,7 @@ export default [
         ofType("CHANGE_PERSONAL_INFO"),
         mergeMap(action => {
             console.log("Changing")
-            if (action.payload.email === state$.value.ProfileReducer.profile.email) {
+            if (action.payload.email === state$.value.ProfileReducer.email) {
                 return [updatePersonalInfo(action.payload.name, action.payload.email)]
             }
 

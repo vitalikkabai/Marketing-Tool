@@ -1,8 +1,8 @@
 import {Dispatch} from "redux";
 import RegisterFormWebLinks from "./RegisterFormWebLinks";
 import {connect, ConnectedProps} from "react-redux";
-import {AppStateType} from "../../store/store";
-import { setStepOne, stepOneData } from '../../store/Business/BusinessActions';
+import {AppStateType} from "../../../store/store";
+import { setBusinessUrls } from '../../../store/Business/BusinessActions';
 
 // type MapDispatchType = {
 //     setStepOne: (arg: stepOneData) => void
@@ -11,17 +11,14 @@ import { setStepOne, stepOneData } from '../../store/Business/BusinessActions';
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        haveExperienceSelling: state.BusinessReducer.haveExperienceSelling,
         storeURLs: state.BusinessReducer.storeURLs,
-        haveWebsite: state.BusinessReducer.haveWebsite,
         websiteURLs: state.BusinessReducer.websiteURLs
-
     }
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
-        setStepOne: (stepOneData: stepOneData) => dispatch(setStepOne(stepOneData))
+        setBusinessUrls: (storeURLs: string[], websiteURLs: string[]) => dispatch(setBusinessUrls(storeURLs, websiteURLs))
     }
 };
 

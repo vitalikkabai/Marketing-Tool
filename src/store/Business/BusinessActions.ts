@@ -4,31 +4,28 @@ import { UpdateBusinessInput } from "../../API";
 import { Business, RoleTags } from "../../models";
 
 export interface stepOneData {
-    haveExperienceSelling: boolean | undefined,
     storeURLs: string[],
-    haveWebsite: boolean | undefined,
     websiteURLs: string[]
 }
-export const setStepOne = (stepOneData: stepOneData) => ( {
-    type: 'SET_STEP_ONE' as const,
-    payload: stepOneData
+export const setBusinessUrls = (storeURLs: string[], websiteURLs: string[]) => ( {
+    type: 'SET_BUSINESS_URLS' as const,
+    payload: {storeURLs, websiteURLs}
 });
 
 export interface stepTwoData {
     companyName: string,
-    country: string,
-    city: string,
-    businessNumber: string
+    countryCode: string,
+    phoneNumber: string
 }
 export const setStepTwo = (stepTwoData: stepTwoData) => ( {
     type: 'SET_STEP_TWO' as const,
     payload: stepTwoData
 });
 
-export const setRoleTags = (roleTags: RoleTags) => ( {
-    type: 'SET_ROLE_TAGS' as const,
-    payload: roleTags
-});
+export const setBusinessName = (businessName: string) => ({
+    type: 'SET_BUSINESS_NAME' as const,
+    payload: businessName
+})
 
 export const clearBusiness = () => ({
     type: 'CLEAR_BUSINESS' as const

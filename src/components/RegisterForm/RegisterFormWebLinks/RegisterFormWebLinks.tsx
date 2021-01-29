@@ -1,24 +1,24 @@
 import React, {useState} from "react";
 import {Grid, Link, Typography, Box, FormControl, MenuItem, Chip} from "@material-ui/core";
-import classes from "./RegisterForm.module.scss";
+import classes from "../RegisterForm.module.scss";
 import {useHistory} from "react-router";
 import {FormContainerType} from './RegisterFormWebLinksContainer';
-import CustomInput from "../common/Input/CustomInput";
-import CustomSelect from "../common/Select/CustomSelect";
-import GoBackButton from "../common/Button/GoBackButton";
-import plusIcon from "../../assets/images/formPlus.svg"
-import UxAssistant from "./UxAssistant";
-import CustomButton from "../common/Button/CustomButton";
-import {isValidUrl} from "../../utils/validators/validators";
+import CustomInput from "../../common/Input/CustomInput";
+import CustomSelect from "../../common/Select/CustomSelect";
+import GoBackButton from "../../common/Button/GoBackButton";
+import plusIcon from "../../../assets/images/formPlus.svg"
+import UxAssistant from "../UxAssistant/UxAssistant";
+import CustomButton from "../../common/Button/CustomButton";
+import {isValidUrl} from "../../../utils/validators/validators";
 
 
 const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props) => {
     const history = useHistory();
-    const [hasExperienceSelling, setHasExperienceSelling] = useState(props.haveExperienceSelling);
+    const [hasExperienceSelling, setHasExperienceSelling] = useState(true);
     const [sellingURLs, setSellingURLs] = useState<string[]>(props.storeURLs);
     const [webInput, setWebInput] = useState("");
     const [sellingInput, setSellingInput] = useState("");
-    const [hasWebsite, setHasWebsite] = useState(props.haveWebsite);
+    const [hasWebsite, setHasWebsite] = useState(true);
     const [websiteURLs, setWebsiteURLs] = useState<string[]>(props.websiteURLs);
     const [webErrorText, setWebErrorText] = useState("");
     const [storeErrorText, setStoreErrorText] = useState("");
@@ -37,12 +37,10 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
             return;
         }
         else {
-            props.setStepOne({
-                haveExperienceSelling: hasExperienceSelling,
-                storeURLs: sellingURLs,
-                haveWebsite: hasWebsite,
+            props.setBusinessUrls(
+                sellingURLs,
                 websiteURLs
-            });
+            );
             history.push("register/2")
         }
     }

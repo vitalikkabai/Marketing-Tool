@@ -1,10 +1,11 @@
 .backArrow {
   position: absolute;
-  top: 16px;
-  left: 16px;
+  top: 8px;
+  left: 8px;
   display: flex;
   align-items: center;
   cursor: pointer;
+  padding: 8px;
 
   svg {
     fill: #9E9E9E;
@@ -14,5 +15,18 @@
     color: #9E9E9E;
     font-weight: bold;
     line-height: 0;
+  }
+}
+
+.backArrow:hover {
+  background: rgba(21,27,38,.04);
+  border-radius: 10px;
+  padding: 8px;
+  path {
+    fill: #2d2d2d;
+  }
+
+  p {
+    color: #2d2d2d;
   }
 }

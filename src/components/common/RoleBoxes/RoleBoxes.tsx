@@ -11,15 +11,16 @@ import React from "react";
 type PropsType = {
     selectedRole: boolean[];
     setSelectedRole: React.Dispatch<React.SetStateAction<boolean[]>>;
+    displayInRow?: boolean
 }
 
-const RoleBoxes: React.FC<PropsType> = ({selectedRole, setSelectedRole}) => {
+const RoleBoxes: React.FC<PropsType> = ({selectedRole, setSelectedRole, displayInRow}) => {
 
     return (
         <Grid container justify={"center"}>
-            <Grid item className={classes.roleGridItem} xs={12} style={{paddingBottom: "24px"}}>
+            <Grid item className={classes.roleGridItem} xs={displayInRow? 6 : 12} style={displayInRow?{paddingBottom: "0"}:{paddingBottom: "24px"}}>
                 <Box
-                    className={selectedRole[0] ? classes.roleContainer + " " + classes.role1Hover + " " + classes.roleContainer1Active
+                    className={selectedRole[0] ? classes.roleContainer + " " + classes.role1Hover
                         : classes.roleContainer + " " + classes.role1Hover}
                     onClick={() => {
                         setSelectedRole(roles => roles.map((elem, index) => index === 0 ? !elem : elem));
@@ -32,7 +33,7 @@ const RoleBoxes: React.FC<PropsType> = ({selectedRole, setSelectedRole}) => {
                                 className={classes.roleTitle}>Sales</Typography>
                 </Box>
                 <Box
-                    className={selectedRole[1] ? classes.roleContainer + " " + classes.role2Hover + " " + classes.roleContainer2Active
+                    className={selectedRole[1] ? classes.roleContainer + " " + classes.role2Hover
                         : classes.roleContainer + " " + classes.role2Hover}
                     onClick={() => {
                         setSelectedRole(roles => roles.map((elem, index) => index === 1 ? !elem : elem));
@@ -47,7 +48,7 @@ const RoleBoxes: React.FC<PropsType> = ({selectedRole, setSelectedRole}) => {
                                 className={classes.roleTitle}>Marketing</Typography>
                 </Box>
                 <Box
-                    className={selectedRole[2] ? classes.roleContainer + " " + classes.role3Hover + " " + classes.roleContainer3Active
+                    className={selectedRole[2] ? classes.roleContainer + " " + classes.role3Hover
                         : classes.roleContainer + " " + classes.role3Hover}
                     onClick={() => {
                         setSelectedRole(roles => roles.map((elem, index) => index === 2 ? !elem : elem));
@@ -60,13 +61,14 @@ const RoleBoxes: React.FC<PropsType> = ({selectedRole, setSelectedRole}) => {
                                 className={classes.roleTitle}>Logistics</Typography>
                 </Box>
             </Grid>
-            <Grid item className={classes.roleGridItem} xs={12}>
+            <Grid item className={classes.roleGridItem} xs={displayInRow? 6 : 12}>
                 <Box
-                    className={selectedRole[3] ? classes.roleContainer + " " + classes.role4Hover + " " + classes.roleContainer4Active
+                    className={selectedRole[3] ? classes.roleContainer + " " + classes.role4Hover
                         : classes.roleContainer + " " + classes.role4Hover}
                     onClick={() => {
                         setSelectedRole(roles => roles.map((elem, index) => index === 3 ? !elem : elem));
-                    }}>
+                    }}
+                    style={displayInRow?{marginLeft: "24px"}:{marginLeft: "0"}}>
                     <Box
                         className={selectedRole[3] ? classes.roleBox4Active : classes.roleBox}>
                         <AccountingRoleIcon/>
@@ -75,7 +77,7 @@ const RoleBoxes: React.FC<PropsType> = ({selectedRole, setSelectedRole}) => {
                                 className={classes.roleTitle}>Accounting</Typography>
                 </Box>
                 <Box
-                    className={selectedRole[4] ? classes.roleContainer + " " + classes.role5Hover + " " + classes.roleContainer5Active
+                    className={selectedRole[4] ? classes.roleContainer + " " + classes.role5Hover
                         : classes.roleContainer + " " + classes.role5Hover}
                     style={{margin: "0 24px"}}
                     onClick={() => {
@@ -89,7 +91,7 @@ const RoleBoxes: React.FC<PropsType> = ({selectedRole, setSelectedRole}) => {
                                 className={classes.roleTitle}>Production</Typography>
                 </Box>
                 <Box
-                    className={selectedRole[5] ? classes.roleContainer + " " + classes.role6Hover + " " + classes.roleContainer6Active
+                    className={selectedRole[5] ? classes.roleContainer + " " + classes.role6Hover
                         : classes.roleContainer + " " + classes.role6Hover}
                     onClick={() => {
                         setSelectedRole(roles => roles.map((elem, index) => index === 5 ? !elem : elem));

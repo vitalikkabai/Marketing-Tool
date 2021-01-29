@@ -1,33 +1,33 @@
 import {Box, Grid, Link, Typography} from "@material-ui/core";
 import React, {useEffect, useState} from 'react';
-import classes from './RegisterForm.module.scss';
+import classes from '../RegisterForm.module.scss';
 import {useHistory} from "react-router";
-import GoBackButton from "../common/Button/GoBackButton";
-import UxAssistant from "./UxAssistant";
-import CustomButton from "../common/Button/CustomButton";
-import RoleBoxes from "../common/RoleBoxes/RoleBoxes";
+import GoBackButton from "../../common/Button/GoBackButton";
+import UxAssistant from "../UxAssistant/UxAssistant";
+import CustomButton from "../../common/Button/CustomButton";
+import RoleBoxes from "../../common/RoleBoxes/RoleBoxes";
 import { ChooseRoleProps } from "./RegisterFormChooseRoleContainer";
 
 const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (props) => {
 
     const history = useHistory();
     const [selectedRole, setSelectedRole] = useState(props.roleTags ? [
-        props.roleTags.Sales,
-        props.roleTags.Marketing,
-        props.roleTags.Logistics,
-        props.roleTags.Accounting,
-        props.roleTags.Production,
-        props.roleTags.QC
+        props.roleTags.sales,
+        props.roleTags.marketing,
+        props.roleTags.logistics,
+        props.roleTags.accounting,
+        props.roleTags.production,
+        props.roleTags.qualityControl
     ] : [false,false,false,false,false,false]);
 
     const handleDataInput = () => {
         props.setRoleTags({
-            Sales: selectedRole[0],
-            Marketing: selectedRole[1],
-            Logistics: selectedRole[2],
-            Accounting: selectedRole[3],
-            Production: selectedRole[4],
-            QC: selectedRole[5]
+            sales: selectedRole[0],
+            marketing: selectedRole[1],
+            logistics: selectedRole[2],
+            accounting: selectedRole[3],
+            production: selectedRole[4],
+            qualityControl: selectedRole[5]
         })
     }
     const [errorText, setErrorText] = useState("");
@@ -60,7 +60,7 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (props)
                     <UxAssistant assistantText={"What are you in charge of?"} stepNumber={2}/>
                     <form onSubmit={handleSubmit}>
                         <Box className={classes.formContainer} style={{marginTop: "24px"}}>
-                            <RoleBoxes selectedRole={selectedRole} setSelectedRole={setSelectedRole}/>
+                            <RoleBoxes selectedRole={selectedRole} setSelectedRole={setSelectedRole} />
                         </Box>
                         <Grid item className={classes.errorText}>
                             <Typography variant={"subtitle1"}>

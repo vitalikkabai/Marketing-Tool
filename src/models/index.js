@@ -4,11 +4,12 @@ import { schema } from './schema';
 
 
 
-const { Business, Profile, RoleTags, S3Object } = initSchema(schema);
+const { Business, Profile, S3Object, RoleTags, CountryCode } = initSchema(schema);
 
 export {
   Business,
   Profile,
+  S3Object,
   RoleTags,
-  S3Object
+  CountryCode
 };

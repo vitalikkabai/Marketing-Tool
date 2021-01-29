@@ -1,3 +1,4 @@
+import { CreateProfileInput } from '../../API';
 import { Profile } from '../../models';
 import * as actions from './ProfileActions';
 
@@ -5,38 +6,63 @@ import * as actions from './ProfileActions';
 export interface ProfileType {
     profile: Profile,
 }
-export const getInitialState = () => ({
-    profile: new Profile({
+// export const getInitialState = () => ({
+//     profile: new Profile({
+//         email: "",
+//         name: "",
+//         businessID: ""
+//     })
+// });
+const initialState: CreateProfileInput = {
         email: "",
         name: "",
-        businessID: ""
-    })
-});
+        businessID: "",
+        roleTags: {
+           sales: false,
+           marketing: false,
+           logistics: false,
+           accounting: false,
+           production: false,
+           qualityControl: false 
+        },
+        phoneNumber: "",
+        countryCode: {
+            code: "",
+            label: "",
+            phone: ""
+        }
+};
 
-
-export const ProfileReducer = (state: ProfileType = getInitialState(), action: ActionTypes): ProfileType => {
+export const ProfileReducer = (state: CreateProfileInput = initialState, action: ActionTypes): CreateProfileInput => {
     switch (action.type) {
         case 'SET_PROFILE_DATA':
             return {
                 ...state,
-                profile: action.payload
+                ...action.payload
             };
         case 'SET_PROFILE_ID':
         case 'FETCH_PROFILE_BY_ID':
             return {
                 ...state,
-                profile: { ...state.profile, owner: action.payload }
+                // profile: { ...state.profile, owner: action.payload }
+                id: action.payload
             };
         case 'FETCH_PROFILE_BY_ID_SUCCESS':
         case 'SAVE_PROFILE_TO_DB_SUCCESS':
         case 'UPDATE_PROFILE_SUCCESS':
             return {
                 ...state,
-                profile: { ...action.payload }
+                ...action.payload
+            }
+        case 'INITIATE_NEW_PROFILE':
+            console.log("initiating", action.payload)
+            return {
+                ...state,
+                id: action.payload
             }
         case 'CLEAR_PROFILE': 
             return {
-                ...getInitialState()
+                ...initialState
             }
         case 'SET_PROFILE_IMAGE':
         case 'SAVE_PROFILE_TO_DB_FAILED':

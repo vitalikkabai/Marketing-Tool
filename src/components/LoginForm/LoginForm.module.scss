@@ -12,30 +12,32 @@
     margin-top: 40px;
   }
 
-  .backArrow {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    display: flex;
-    align-items: center;
-    p {
-      line-height: 0;
-    }
-  }
-
   .formContainer {
     margin-top: 56px;
 
     .passwordGridItem {
       margin-top: 8px;
     }
-  }
 
-  .loginButton {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    margin-top: 145px;
+    .loginButton {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      margin-top: 145px;
+
+      .disabledBtn {
+        pointer-events: none;
+      }
+
+      .buttonProgress {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -12px;
+        margin-left: -12px;
+        color: white;
+      }
+    }
   }
 
   .forgotPassword {
@@ -49,19 +51,6 @@
     left: 50%;
     transform: translate(-50%, 0);
     color: #EA4335;
-  }
-
-  .buttonProgress {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -12px;
-    margin-left: -12px;
-    color: white;
-  }
-
-  .disabledBtn {
-    pointer-events: none;
   }
 
   .createAccount {

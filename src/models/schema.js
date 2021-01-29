@@ -17,34 +17,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "country": {
-                    "name": "country",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "city": {
-                    "name": "city",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "businessNumber": {
-                    "name": "businessNumber",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "haveExperienceSelling": {
-                    "name": "haveExperienceSelling",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "storeURLs": {
                     "name": "storeURLs",
                     "isArray": true,
@@ -52,13 +24,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": [],
                     "isArrayNullable": false
-                },
-                "haveWebsite": {
-                    "name": "haveWebsite",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
                 },
                 "websiteURLs": {
                     "name": "websiteURLs",
@@ -68,14 +33,19 @@ export const schema = {
                     "attributes": [],
                     "isArrayNullable": false
                 },
-                "roleTags": {
-                    "name": "roleTags",
-                    "isArray": false,
+                "profiles": {
+                    "name": "profiles",
+                    "isArray": true,
                     "type": {
-                        "nonModel": "RoleTags"
+                        "model": "Profile"
                     },
                     "isRequired": false,
-                    "attributes": []
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "business"
+                    }
                 }
             },
             "syncable": true,
@@ -128,13 +98,6 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "owner": {
-                    "name": "owner",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "email": {
                     "name": "email",
                     "isArray": false,
@@ -158,16 +121,9 @@ export const schema = {
                     "isRequired": false,
                     "attributes": [],
                     "association": {
-                        "connectionType": "HAS_ONE",
-                        "associatedWith": "id"
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "businessID"
                     }
-                },
-                "businessID": {
-                    "name": "businessID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
                 },
                 "avatar": {
                     "name": "avatar",
@@ -176,6 +132,31 @@ export const schema = {
                         "nonModel": "S3Object"
                     },
                     "isRequired": false,
+                    "attributes": []
+                },
+                "roleTags": {
+                    "name": "roleTags",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "RoleTags"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "countryCode": {
+                    "name": "countryCode",
+                    "isArray": false,
+                    "type": {
+                        "nonModel": "CountryCode"
+                    },
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "phoneNumber": {
+                    "name": "phoneNumber",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
                     "attributes": []
                 }
             },
@@ -189,11 +170,11 @@ export const schema = {
                 {
                     "type": "key",
                     "properties": {
-                        "name": "profileByOwner",
+                        "name": "byBusiness",
                         "fields": [
-                            "owner"
+                            "businessID"
                         ],
-                        "queryField": "profileByOwner"
+                        "queryField": "profileByBusiness"
                     }
                 },
                 {
@@ -202,7 +183,7 @@ export const schema = {
                         "rules": [
                             {
                                 "provider": "userPools",
-                                "ownerField": "owner",
+                                "ownerField": "id",
                                 "allow": "owner",
                                 "identityClaim": "cognito:username",
                                 "operations": [
@@ -232,53 +213,6 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {
-        "RoleTags": {
-            "name": "RoleTags",
-            "fields": {
-                "Sales": {
-                    "name": "Sales",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "Marketing": {
-                    "name": "Marketing",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "Logistics": {
-                    "name": "Logistics",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "Accounting": {
-                    "name": "Accounting",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "Production": {
-                    "name": "Production",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "QC": {
-                    "name": "QC",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": true,
-                    "attributes": []
-                }
-            }
-        },
         "S3Object": {
             "name": "S3Object",
             "fields": {
@@ -304,7 +238,80 @@ export const schema = {
                     "attributes": []
                 }
             }
+        },
+        "RoleTags": {
+            "name": "RoleTags",
+            "fields": {
+                "sales": {
+                    "name": "sales",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "marketing": {
+                    "name": "marketing",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "logistics": {
+                    "name": "logistics",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "accounting": {
+                    "name": "accounting",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "production": {
+                    "name": "production",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "qualityControl": {
+                    "name": "qualityControl",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                }
+            }
+        },
+        "CountryCode": {
+            "name": "CountryCode",
+            "fields": {
+                "code": {
+                    "name": "code",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "label": {
+                    "name": "label",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "phone": {
+                    "name": "phone",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                }
+            }
         }
     },
-    "version": "1dcd26dc6f7dbfe114d581d1ebaa6264"
+    "version": "e743298749fc42e484b93f1588658bb3"
 };

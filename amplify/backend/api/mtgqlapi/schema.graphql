@@ -1,0 +1,52 @@
+type Business @model
+    @auth(rules: [
+          { allow: owner },
+          { allow: public, operations: [read]},
+          { allow: private, operations: [read] },
+      ]) {
+  id: ID!
+  companyName: String!
+  storeURLs: [String!]!
+  websiteURLs: [String!]!
+  profiles: [Profile] @connection(keyName: "byBusiness", fields: ["id"])
+}
+
+type Profile @model
+    @key(name: "byBusiness", fields: ["businessID"], queryField: "profileByBusiness")
+    @auth(rules: [
+      { allow: owner, ownerField: "id" },
+      { allow: public, operations: [read]},
+      { allow: private, operations: [read] },
+    ])  {
+  id: ID!
+  email: String!
+  name: String!
+  businessID: ID!
+  business: Business @connection(fields: ["businessID"])
+  avatar: S3Object,
+  roleTags: RoleTags!,
+  countryCode: CountryCode!
+  phoneNumber: String!
+}
+
+type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
+}
+
+type RoleTags {
+  sales: Boolean!
+  marketing: Boolean!
+  logistics: Boolean!
+  accounting: Boolean!
+  production: Boolean!
+  qualityControl: Boolean!
+}
+
+type CountryCode {
+  code: String!
+  label: String!
+  phone: String!
+}
+

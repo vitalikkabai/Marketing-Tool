@@ -1,8 +1,8 @@
 import React from "react";
-import classes from "./RegisterForm.module.scss";
+import classes from "../RegisterForm.module.scss";
 import {Box, Grid, Typography} from "@material-ui/core";
-import check from "../../assets/images/checkMark.svg";
-import assistantAvatar from "../../assets/images/avatar.png";
+import check from "../../../assets/images/checkMark.svg";
+import assistantAvatar from "../../../assets/images/avatar.png";
 
 interface PropTypes {
     stepNumber: number

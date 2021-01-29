@@ -12,24 +12,14 @@ export const listBusinesss = /* GraphQL */ `
       items {
         id
         companyName
-        country
-        city
-        businessNumber
-        haveExperienceSelling
         storeURLs
-        haveWebsite
         websiteURLs
-        roleTags {
-          Sales
-          Marketing
-          Logistics
-          Accounting
-          Production
-          QC
-        }
         createdAt
         updatedAt
         owner
+        profiles {
+          nextToken
+        }
       }
       nextToken
     }
@@ -40,24 +30,23 @@ export const getBusiness = /* GraphQL */ `
     getBusiness(id: $id) {
       id
       companyName
-      country
-      city
-      businessNumber
-      haveExperienceSelling
       storeURLs
-      haveWebsite
       websiteURLs
-      roleTags {
-        Sales
-        Marketing
-        Logistics
-        Accounting
-        Production
-        QC
-      }
       createdAt
       updatedAt
       owner
+      profiles {
+        items {
+          id
+          email
+          name
+          businessID
+          phoneNumber
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
     }
   }
 `;
@@ -65,7 +54,6 @@ export const getProfile = /* GraphQL */ `
   query GetProfile($id: ID!) {
     getProfile(id: $id) {
       id
-      owner
       email
       name
       businessID
@@ -74,29 +62,33 @@ export const getProfile = /* GraphQL */ `
         region
         key
       }
+      roleTags {
+        sales
+        marketing
+        logistics
+        accounting
+        production
+        qualityControl
+      }
+      countryCode {
+        code
+        label
+        phone
+      }
+      phoneNumber
       createdAt
       updatedAt
       business {
         id
         companyName
-        country
-        city
-        businessNumber
-        haveExperienceSelling
         storeURLs
-        haveWebsite
         websiteURLs
-        roleTags {
-          Sales
-          Marketing
-          Logistics
-          Accounting
-          Production
-          QC
-        }
         createdAt
         updatedAt
         owner
+        profiles {
+          nextToken
+        }
       }
     }
   }
@@ -110,7 +102,6 @@ export const listProfiles = /* GraphQL */ `
     listProfiles(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        owner
         email
         name
         businessID
@@ -119,26 +110,27 @@ export const listProfiles = /* GraphQL */ `
           region
           key
         }
+        roleTags {
+          sales
+          marketing
+          logistics
+          accounting
+          production
+          qualityControl
+        }
+        countryCode {
+          code
+          label
+          phone
+        }
+        phoneNumber
         createdAt
         updatedAt
         business {
           id
           companyName
-          country
-          city
-          businessNumber
-          haveExperienceSelling
           storeURLs
-          haveWebsite
           websiteURLs
-          roleTags {
-            Sales
-            Marketing
-            Logistics
-            Accounting
-            Production
-            QC
-          }
           createdAt
           updatedAt
           owner
@@ -148,16 +140,16 @@ export const listProfiles = /* GraphQL */ `
     }
   }
 `;
-export const profileByOwner = /* GraphQL */ `
-  query ProfileByOwner(
-    $owner: ID
+export const profileByBusiness = /* GraphQL */ `
+  query ProfileByBusiness(
+    $businessID: ID
     $sortDirection: ModelSortDirection
     $filter: ModelProfileFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    profileByOwner(
-      owner: $owner
+    profileByBusiness(
+      businessID: $businessID
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -165,7 +157,6 @@ export const profileByOwner = /* GraphQL */ `
     ) {
       items {
         id
-        owner
         email
         name
         businessID
@@ -174,26 +165,27 @@ export const profileByOwner = /* GraphQL */ `
           region
           key
         }
+        roleTags {
+          sales
+          marketing
+          logistics
+          accounting
+          production
+          qualityControl
+        }
+        countryCode {
+          code
+          label
+          phone
+        }
+        phoneNumber
         createdAt
         updatedAt
         business {
           id
           companyName
-          country
-          city
-          businessNumber
-          haveExperienceSelling
           storeURLs
-          haveWebsite
           websiteURLs
-          roleTags {
-            Sales
-            Marketing
-            Logistics
-            Accounting
-            Production
-            QC
-          }
           createdAt
           updatedAt
           owner
