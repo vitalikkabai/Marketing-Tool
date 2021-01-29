@@ -6,173 +6,129 @@
     align-items: center;
     height: 56px;
     margin-right: 24px;
+    .titleBox {
+      margin-right: 24px;
+    }
+    .teamContainer {
+      height: 56px;
+      padding: 0 24px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: #FFF;
+      .teamAvatarBox {
+        display: flex;
+        align-items: center;
+        img {
+          margin-right: 20px;
+        }
+      }
+    }
   }
-}
-
-
-.contentBox::-webkit-scrollbar {
-  display: none;
-}
-
-.titleBox {
-  margin-right: 24px;
-}
-
-.counterBox {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 234px;
-  justify-content: space-evenly;
-}
-
-.checkJobBox {
-    display: flex;
-    width: 234px;
-    justify-content: space-around;
-    margin-right: 10px;
-  }
-
-  .checkJobBox * {
-    width: 80px;
-    text-align: center;
-  }
-
-.contentContainer {
-  height: calc(100vh - 228px);
-  margin-top: 20px;
-  margin-right: 24px;
-  display: flex;
-  width: 100%;
-  .contentBox {
-    background: #fff;
-    border-radius: 10px;
+  .contentContainer {
+    height: calc(100vh - 228px);
+    margin-top: 20px;
     margin-right: 24px;
-    display: block;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-    overflow: auto;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-
-.tabContentGridItem {
-  border-radius: 10px;
-  padding: 36px 58px 58px 24px;
-  margin-right: 24px;
-  .tabContent {
-    width: 100%;
-  }
-  }
-
-  .taskListGridItem {
-    background: #FFF;
-    border-radius: 10px;
-}
-
-.tabTaskBox {
-  display: flex;
-}
-
-.stepBox {
-  background: #FFFFFF;
-  border-radius: 0 0 10px 10px;
-  padding: 14px 24px 67px 24px;
-
-  .tasksTitle {
-    margin: -4px 0 24px 8px;
-  }
-  
-
-  .stepRow {
-    width: 100%;
     display: flex;
-    height: 45px;
-    justify-content: flex-start;
-    margin-bottom: 16px;
-    .indexNum {
-      margin-right: 14px;
+    width: 100%;
+    .contentBox::-webkit-scrollbar {
+      display: none;
     }
-    .agoTime {
-      display: flex;
-      align-items: center;
-      p {
-        text-align: end;
-        width: 89px;
-        margin-left: 16px;
-        color: #9E9E9E;
+    .contentBox {
+      background: #fff;
+      border-radius: 10px;
+      margin-right: 24px;
+      display: block;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+      overflow: auto;
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
+      .tabPanelBox {
+        height: calc(100% - 57px);
       }
     }
-
-    .tableTitleBox {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      border-radius: 5px;
-      width: 100%;
-      margin-bottom: 24px;
-    }
-
-    .coloredBox {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 10px 0 36px;
-      border-radius: 10px;
-      color: white;
-      width: 100%;
-      height: 45px;
-    }
-
-    .coloredTaskBox {
-      width: 100%;
-      height: 45px;
-      display: flex;
-      align-items: center;
-      color: white;
-      border-radius: 10px;
-      margin-bottom: 16px;
-      padding-left: 8px;
-    }
-    }
-  }
-}
-
-.vl {
-  display: inline;
-  background: #fff;
-  width: 2px;
-  height: 45px;
-}
-
-.vlWhite {
-  background: #fff;
-  width: 2px;
-}
-
-.teamContainer {
-  height: 56px;
-  padding: 0 24px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background: #FFF;
-
-  .teamAvatarBox {
-    display: flex;
-    align-items: center;
-
-      img {
-        margin-right: 20px;
+    .stepBox {
+      background: #FFFFFF;
+      border-radius: 0 0 10px 10px;
+      padding: 14px 24px 67px 24px;
+      .tasksTitle {
+        margin: -4px 0 24px 8px;
       }
+      .stepRow {
+        width: 100%;
+        display: flex;
+        height: 45px;
+        justify-content: flex-start;
+        margin-bottom: 16px;
+        .indexNum {
+          margin-right: 14px;
+        }
+        .agoTime {
+          display: flex;
+          align-items: center;
+          p {
+            text-align: end;
+            width: 89px;
+            margin-left: 16px;
+            color: #9E9E9E;
+          }
+        }
+        .tableTitleBox {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          border-radius: 5px;
+          width: 100%;
+          margin-bottom: 24px;
+          .checkJobBox {
+            display: flex;
+            width: 234px;
+            justify-content: space-around;
+            margin-right: 10px;
+          }
+          .checkJobBox * {
+            width: 80px;
+            text-align: center;
+          }
+        }
+        .coloredBox {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0 10px 0 36px;
+          border-radius: 10px;
+          color: white;
+          width: 100%;
+          height: 45px;
+          .counterBox {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 234px;
+            justify-content: space-evenly;
+            .vl {
+              display: inline;
+              background: #fff;
+              width: 2px;
+              height: 45px;
+            }
+          }
+        }
+        .coloredTaskBox {
+          width: 100%;
+          height: 45px;
+          display: flex;
+          align-items: center;
+          color: white;
+          border-radius: 10px;
+          margin-bottom: 16px;
+          padding-left: 8px;
+        }
+      }
+    }
   }
 }
-
-
-.tabPanelBox {
-  height: calc(100% - 57px);
-}
-
-
-
