@@ -49,11 +49,6 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     const [companyName, setCompanyName] = useState(props.business.companyName)
     // const [email, setEmail] = useState(props.profile.email)
 
-    const changePasswordSuccessCallback = () => {
-
-        alert("Password Changed!")
-    }
-
     useEffect(() => {
         setCompanyName(props.business.companyName);
         setSelectedRole(roleTagsToSelectedRole(props.profile.roleTags));

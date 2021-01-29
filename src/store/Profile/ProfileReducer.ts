@@ -59,6 +59,11 @@ export const ProfileReducer = (state: CreateProfileInput = initialState, action:
             return {
                 ...state,
                 id: action.payload
+            };
+        case 'SET_ROLE_TAGS':
+            return {
+                ...state,
+                roleTags: action.payload
             }
         case 'CLEAR_PROFILE': 
             return {
