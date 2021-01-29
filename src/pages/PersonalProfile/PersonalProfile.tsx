@@ -71,11 +71,11 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     useEffect(() => {
         setName(props.profile.name);
         setEmail(props.profile.email);
-    },[props.profile])
+    }, [props.profile])
 
     const handleInfoUpdate = (e: FormEvent) => {
         e.preventDefault();
-        console.log(name,email);
+        console.log(name, email);
         props.changePersonalInfo(name, email);
     }
 
@@ -131,7 +131,6 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                                         setOldPassword(event.target.value)
                                     }
-                                    color={"#9e9e9e"}
                                     width={290}
                                     autoFocus />
                             </Grid>
@@ -145,7 +144,6 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                                         setNewPassword(event.target.value)
                                     }
-                                    color={"#9e9e9e"}
                                     width={290}
                                     required />
                             </Grid>
@@ -159,7 +157,6 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                                         setRetypePassword(event.target.value)
                                     }
-                                    color={"#9e9e9e"}
                                     width={290}
                                     required />
                             </Grid>
@@ -211,8 +208,8 @@ function mapStateToProps(state: AppStateType) {
 function mapDispatchToProps(dispatch: Dispatch) {
     return {
         saveProfileImage: (s3: S3Object, bufferImg: Buffer) => dispatch(saveProfileImage(s3, bufferImg)),
-        changePassword: (oldPassword: string, newPassword: string, callback: () => void) => dispatch(changePassword(oldPassword, newPassword, callback )),
-        changePersonalInfo: (name:string, email: string) => dispatch(changePersonalInfo(name, email))
+        changePassword: (oldPassword: string, newPassword: string, callback: () => void) => dispatch(changePassword(oldPassword, newPassword, callback)),
+        changePersonalInfo: (name: string, email: string) => dispatch(changePersonalInfo(name, email))
     }
 }
 

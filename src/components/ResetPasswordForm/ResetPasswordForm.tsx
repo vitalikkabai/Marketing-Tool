@@ -44,7 +44,6 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                       onChange={(event: any) =>
                         props.setCode(event.target.value)
                       }
-                      color={"#9e9e9e"}
                       width={290}
                       autoFocus />
                   </Grid>
@@ -57,7 +56,6 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                       onChange={(event: any) =>
                         props.setNewPassword(event.target.value)
                       }
-                      color={"#9e9e9e"}
                       width={290}
                       required />
                   </Grid>
@@ -70,7 +68,6 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                       onChange={(event: any) =>
                         props.setRetypePassword(event.target.value)
                       }
-                      color={"#9e9e9e"}
                       width={290}
                       required />
                   </Grid>

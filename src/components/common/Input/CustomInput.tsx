@@ -34,6 +34,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
 
   const useStyles = makeStyles({
     root: {
+
       '& .MuiOutlinedInput-root': {
         margin: props.margin,
         width: props.width,
@@ -42,16 +43,18 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
           paddingLeft: 10,
           paddingRight: props.paddingRight,
         },
-
         '& fieldset': {
           borderRadius: 10,
-          borderColor: props.color,
-          borderWidth: 1,
+          borderColor: props.error ? "#F44336" : props.value ? "#4285F4" : props.color,
+          borderWidth: props.value ? 1 : 1,
         },
         '& input': {
           borderRadius: 10,
           height: 45,
           padding: 0,
+        },
+        '& label': {
+          color: props.error ? "#F44336" : props.value ? "#4285F4" : props.color,
         },
       },
       '& .MuiInputLabel-outlined': {
@@ -61,6 +64,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
         fontSize: '16px',
         lineHeight: '150%',
         top: '-9px',
+        color: props.error ? "#F44336" : props.value ? "#4285F4" : props.color,
       },
       '& .MuiInputLabel-shrink': {
         transform: 'translate(14px, -2px) scale(0.75)'
@@ -88,6 +92,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
           position: "absolute",
         }
       },
+
       '&.MuiOutlinedInput-input': {
         paddingLeft: "35px"
       },
