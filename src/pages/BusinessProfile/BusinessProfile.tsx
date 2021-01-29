@@ -6,11 +6,8 @@ import classes from "./BusinessProfile.module.scss";
 import { AppStateType } from "../../store/store";
 import { connect, ConnectedProps } from "react-redux";
 import { Dispatch } from "redux";
-import { Business, Profile, RoleTags, S3Object } from "../../models";
-import { saveProfileImage } from "../../store/Profile/ProfileActions";
+import { RoleTags } from "../../models";
 import CustomInput from "../../components/common/Input/CustomInput";
-import { changePassword, changePersonalInfo } from "../../store/Auth/AuthActions";
-import RoleBoxes from "../../components/common/RoleBoxes/RoleBoxes";
 import CustomButton from "../../components/common/Button/CustomButton";
 import { updateBusinessInDB } from "../../store/Business/BusinessActions";
 import { UpdateBusinessInput } from "../../API";
@@ -34,14 +31,6 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         props.updateBusinessInDB({
             id: props.business.id as string,
             companyName,
-            // roleTags: {
-            //     Sales: selectedRole[0],
-            //     Marketing: selectedRole[1],
-            //     Logistics: selectedRole[2],
-            //     Accounting: selectedRole[3],
-            //     Production: selectedRole[4],
-            //     QC: selectedRole[5],
-            // }
         })
         // console.log(oldPassword, newPassword, retypePassword);
         // props.changePassword(oldPassword, newPassword, changePasswordSuccessCallback);
@@ -50,7 +39,6 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     // const [email, setEmail] = useState(props.profile.email)
 
     const changePasswordSuccessCallback = () => {
-
         alert("Password Changed!")
     }
 
@@ -88,7 +76,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                         </Box>
                     </Grid>
                     <Grid item xs={6}>
-                        <RoleBoxes selectedRole={selectedRole} setSelectedRole={setSelectedRole}/>
+                        {/*<RoleBoxes selectedRole={selectedRole} setSelectedRole={setSelectedRole}/>*/}
                     </Grid>
                     <Grid item xs={6}>
                         3

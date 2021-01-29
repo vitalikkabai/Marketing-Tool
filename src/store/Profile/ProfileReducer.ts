@@ -23,7 +23,7 @@ const initialState: CreateProfileInput = {
            logistics: false,
            accounting: false,
            production: false,
-           qualityControl: false 
+           qualityControl: false
         },
         phoneNumber: "",
         countryCode: {
@@ -40,6 +40,13 @@ export const ProfileReducer = (state: CreateProfileInput = initialState, action:
                 ...state,
                 ...action.payload
             };
+
+        case 'SET_ROLE_TAGS':
+            return {
+                ...state,
+                roleTags: action.payload
+            };
+
         case 'SET_PROFILE_ID':
         case 'FETCH_PROFILE_BY_ID':
             return {

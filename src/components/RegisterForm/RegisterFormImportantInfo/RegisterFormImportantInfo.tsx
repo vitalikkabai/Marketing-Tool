@@ -1,4 +1,4 @@
-import {Box, Grid, Link, Typography} from "@material-ui/core";
+import {Box, CircularProgress, Grid, Link, Typography} from "@material-ui/core";
 import React, {useEffect, useState} from 'react';
 import classes from '../RegisterForm.module.scss';
 import {useHistory} from "react-router";
@@ -16,7 +16,8 @@ import {
 import AutocompleteCustomInput from "../../common/AutocompleteCustomInput/AutocompleteCustomInput";
 import data from "../../../assets/dataset/country/countries";
 import {PropsFromRedux} from "./RegisterFormImportantInfoContainer";
-const ReactCountryFlag = require("react-country-flag");
+// @ts-ignore
+import ReactCountryFlag from "react-country-flag"
 
 const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (props) => {
 
@@ -37,10 +38,11 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
         password: {value: "", touched: false, error: false, errorText: "", name: "PASSWORD"},
         confirmPassword: {value: "", touched: false, error: false, errorText: "", name: "CONFIRM_PASSWORD"},
     });
+    const [isPending, setPending] = useState(false);
     const [flagCode, setFlagCode] = useState("");
 
     useEffect(() => {
-        console.log(props.registerErrorText)
+        if (props.registerErrorText.code) setPending(false);
         switch (props.registerErrorText.code) {
             case "UsernameExistsException": {
                 setInputValue(prevStyle => ({
@@ -144,6 +146,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setPending(true);
         resetFieldErrors();
         setEmptyFieldsError(false);
         const emptyMessage = "The input fields cannot be empty";
@@ -237,10 +240,8 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                 }));
                 return;
             } else {
-                alert("Signed up");
                 saveInputData();
                 props.signUp(inputValue.ownerEmail.value, inputValue.password.value, inputValue.ownerName.value);
-                history.push("");
             }
         }
     }
@@ -468,7 +469,10 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                             </Typography>
                         </Grid>
                         <Grid item className={classes.nextContainer + " " + classes.importantInfo}>
-                            <CustomButton type={"submit"} className={classes.buttonBlock} text={"Save"}/>
+                            <CustomButton type={"submit"} text={isPending ? "" : "Save"}
+                                          className={isPending ? classes.disabledBtn + " " + classes.buttonBlock : classes.buttonBlock}/>
+                            {isPending &&
+                            <CircularProgress size={24} className={classes.buttonProgress} color="secondary"/>}
                             <Typography variant={"subtitle1"}>Have an account already?&nbsp;
                                 <Link className={classes.link} onClick={() => {
                                     history.replace("/login")

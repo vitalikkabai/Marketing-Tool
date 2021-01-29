@@ -58,8 +58,10 @@ $role6BackColor: #F9EBFF;
   justify-content: center;
   width: 130px;
   height: 160px;
+  margin: 0 14px;
   border-radius: 5px;
   cursor: pointer;
+  user-select: none;
   transition-duration: 0.2s;
 
   .roleTitle {
