@@ -42,10 +42,11 @@ export const BusinessReducer = (state: CreateBusinessInput = initialState, actio
             return {
                 ...state
             }
-        // case 'SET_ROLE_TAGS':
-        //     return {
-        //         ...state, roleTags: action.payload
-        //     }
+        case 'SET_BUSINESS_NAME':
+            return {
+                ...state,
+                companyName: action.payload
+            }
         case 'CLEAR_BUSINESS':
             return {
                 ...initialState

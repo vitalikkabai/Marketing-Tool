@@ -42,7 +42,8 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]> [
             return from(API.graphql(graphqlOperation(getProfile, { id: action.payload })) as unknown as Promise<any>)
                 .pipe(
                     mergeMap(res => {
-                        return [fetchProfileByIdSuccess(res.data.profileByOwner.items[0]),setBusiness(res.data.profileByOwner.items[0].business)]
+                        console.log(res)
+                        return [fetchProfileByIdSuccess(res.data.getProfile),setBusiness(res.data.getProfile.business)]
                     }),
                     catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
                 )

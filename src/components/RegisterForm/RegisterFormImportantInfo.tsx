@@ -1,8 +1,6 @@
 import {Box, Grid, Link, Typography} from "@material-ui/core";
 import React, {useEffect, useState} from 'react';
 import classes from './RegisterForm.module.scss';
-import { PropsFromRedux }  from './RegisterFormImportantInfoContainer';
-import {Profile} from "../../models";
 import {useHistory} from "react-router";
 import GoBackButton from "../common/Button/GoBackButton";
 import UxAssistant from "./UxAssistant";
@@ -260,7 +258,6 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
             ...props.profile,
             name: inputValue.ownerName.value,
             email: inputValue.ownerEmail.value,
-            businessID: "",
             // countryCode: inputValue.countryCode.value.label,
             phoneNumber: inputValue.phoneNumber.value,
         })
