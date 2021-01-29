@@ -1,11 +1,11 @@
 import {Box, Grid, Link, Typography} from "@material-ui/core";
 import React, {useEffect, useState} from 'react';
-import classes from './RegisterForm.module.scss';
+import classes from '../RegisterForm.module.scss';
 import {useHistory} from "react-router";
-import GoBackButton from "../common/Button/GoBackButton";
-import UxAssistant from "./UxAssistant";
-import CustomButton from "../common/Button/CustomButton";
-import RoleBoxes from "../common/RoleBoxes/RoleBoxes";
+import GoBackButton from "../../common/Button/GoBackButton";
+import UxAssistant from "../UxAssistant/UxAssistant";
+import CustomButton from "../../common/Button/CustomButton";
+import RoleBoxes from "../../common/RoleBoxes/RoleBoxes";
 import { ChooseRoleProps } from "./RegisterFormChooseRoleContainer";
 
 const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (props) => {

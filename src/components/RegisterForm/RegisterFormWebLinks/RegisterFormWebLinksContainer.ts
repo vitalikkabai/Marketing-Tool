@@ -1,8 +1,8 @@
 import {Dispatch} from "redux";
 import RegisterFormWebLinks from "./RegisterFormWebLinks";
 import {connect, ConnectedProps} from "react-redux";
-import {AppStateType} from "../../store/store";
-import { setBusinessUrls } from '../../store/Business/BusinessActions';
+import {AppStateType} from "../../../store/store";
+import { setBusinessUrls } from '../../../store/Business/BusinessActions';
 
 // type MapDispatchType = {
 //     setStepOne: (arg: stepOneData) => void

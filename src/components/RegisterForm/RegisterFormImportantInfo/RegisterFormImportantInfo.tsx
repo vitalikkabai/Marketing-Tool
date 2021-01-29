@@ -1,24 +1,22 @@
 import {Box, Grid, Link, Typography} from "@material-ui/core";
 import React, {useEffect, useState} from 'react';
-import classes from './RegisterForm.module.scss';
+import classes from '../RegisterForm.module.scss';
 import {useHistory} from "react-router";
-import GoBackButton from "../common/Button/GoBackButton";
-import UxAssistant from "./UxAssistant";
-import CustomInput from "../common/Input/CustomInput";
-import CustomButton from "../common/Button/CustomButton";
+import GoBackButton from "../../common/Button/GoBackButton";
+import UxAssistant from "../UxAssistant/UxAssistant";
+import CustomInput from "../../common/Input/CustomInput";
+import CustomButton from "../../common/Button/CustomButton";
 import {
     isEmail,
     isMinLength,
     isNameValid,
     isPasswordsEqual,
-    isPhone,
-    validateField
-} from "../../utils/validators/validators";
-import AutocompleteCustomInput from "../common/AutocompleteCustomInput/AutocompleteCustomInput";
-import data from "../../assets/dataset/country/countries";
-// @ts-ignore
-import ReactCountryFlag from "react-country-flag"
+    isPhone
+} from "../../../utils/validators/validators";
+import AutocompleteCustomInput from "../../common/AutocompleteCustomInput/AutocompleteCustomInput";
+import data from "../../../assets/dataset/country/countries";
 import {PropsFromRedux} from "./RegisterFormImportantInfoContainer";
+const ReactCountryFlag = require("react-country-flag");
 
 const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (props) => {
 

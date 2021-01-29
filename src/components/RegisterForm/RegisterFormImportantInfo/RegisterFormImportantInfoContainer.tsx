@@ -1,14 +1,11 @@
 import {Dispatch} from "redux";
 import {connect, ConnectedProps} from "react-redux";
-import {AppStateType} from "../../store/store";
-import { setBusinessName } from '../../store/Business/BusinessActions';
-import { signUp } from '../../store/Auth/AuthActions';
+import {AppStateType} from "../../../store/store";
+import { setBusinessName } from '../../../store/Business/BusinessActions';
+import { signUp } from '../../../store/Auth/AuthActions';
 import RegisterFormImportantInfo from "./RegisterFormImportantInfo";
-import { ProfileType } from "../../store/Profile/ProfileReducer";
-import { setProfile } from "../../store/Profile/ProfileActions";
-import { Profile } from "../../models";
-import { CreateBusinessInput, CreateProfileInput } from "../../API";
-import LoginForm from "../LoginForm/LoginForm";
+import { setProfile } from "../../../store/Profile/ProfileActions";
+import { CreateProfileInput } from "../../../API";
 
 // export type RegisterFormImportantInfoContainerType = MapDispatchType &
 //     stepTwoData & ProfileType;
