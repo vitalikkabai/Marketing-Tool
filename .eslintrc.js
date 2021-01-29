@@ -27,7 +27,6 @@ module.exports = {
     }],
     "@typescript-eslint/ban-ts-comment": 0,
     "react/prop-types": 0,
-    "@typescript-eslint/ban-ts-comment": 0,
     "no-debugger": 0,
 
   }
