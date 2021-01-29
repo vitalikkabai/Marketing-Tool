@@ -3,6 +3,7 @@ import React from 'react';
 import moment from "moment"
 import classes from './UserDashboard.module.scss';
 import TabPanel from "../../common/TabPanel/TabPanel";
+import Blob from "../../../assets/images/Blob.png"
 import CustomAppBar from "../../common/TabPanel/CustomAppBar";
 import CustomBadge from '../../common/Badge/CustomBadge';
 import team1 from "../../../assets/images/Teammate1.svg";
@@ -85,7 +86,7 @@ function UserDashboard() {
 			<Box className={classes.contentContainer}>
 				<Grid item className={classes.contentBox} container xs={8} xl={9} >
 					<CustomAppBar value={value} setValue={setValue}>
-						<Tab className={classes.Tab} label="Steps" />
+						<Tab label="Steps" />
 						<Tab icon={<CustomBadge />} />
 						<Tab icon={<img src={team4} alt={"avatar"} />} />
 					</CustomAppBar>
@@ -198,17 +199,9 @@ function UserDashboard() {
 								<Typography variant={"body2"}>OUR TEAM IS WAITING FOR YOU <br />TO COMPLETE YOUR TASKS</Typography>
 							</Box>
 							<Box textAlign={"center"} justifyContent={"center"} alignItems={"center"} >
-								Empty
+								<img src={Blob} />
 							</Box>
 						</Grid>
-						{/* <Grid item xs={12} xl={12} className={classes.taskContainer}>
-							<Box marginTop={"57px"} textAlign={"center"} className={classes.tasksTitle}>
-							</Box>
-							<Box justifyContent={"center"} alignItems={"center"}>
-								<Typography variant={"body2"}>Empty</Typography>
-							</Box>
-
-						</Grid> */}
 					</TabPanel>
 				</Grid>
 				<Grid xs={4} xl={3}

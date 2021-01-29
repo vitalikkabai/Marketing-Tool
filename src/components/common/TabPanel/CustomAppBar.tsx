@@ -20,6 +20,7 @@ const CustomAppBar = (props: AppBarProps) => {
 
   return (<AppBar
     classes={{ root: classes.rootTabsBar }}
+    className={classes.Tab}
     position="static"
     key="appbar">
     <Tabs
