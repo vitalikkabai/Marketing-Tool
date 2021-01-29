@@ -39,7 +39,6 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     // const [email, setEmail] = useState(props.profile.email)
 
     const changePasswordSuccessCallback = () => {
-
         alert("Password Changed!")
     }
 
