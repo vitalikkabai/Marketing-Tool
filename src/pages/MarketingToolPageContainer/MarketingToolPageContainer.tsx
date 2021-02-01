@@ -10,7 +10,6 @@ import TopBar from "../../components/TopBar/TopBar";
 import SideBarMenu from "../../components/SideBarMenu/SideBarMenu";
 import classes from "./MarketingToolPageContainer.module.scss"
 import { Box, Grid } from "@material-ui/core";
-import Chat from "../../components/Chat/Chat";
 import UserDashboard from "../../components/DashBoard/UserDashBoard/UserDashboard";
 import PersonalProfile from "../PersonalProfile/PersonalProfile";
 import BusinessProfile from "../BusinessProfile/BusinessProfile";
@@ -23,9 +22,9 @@ const MarketingToolPageContainer = (props: any) => {
 		<Box className={classes.wrapper}>
 			<SideBarMenu isAuth={props.isAuth} />
 			<Box className={classes.marketingContainer}>
-				<TopBar/>
+				<TopBar />
 				<Grid container className={classes.contentContainer}>
-					<Grid xs={8} xl={9} item className={classes.content}>
+					<Grid xs={12} xl={12} item className={classes.content}>
 						<Switch>
 							<Route path={'/'} exact component={UserDashboard} />
 							<Route path={'/personal-profile'} exact component={PersonalProfile} />
@@ -39,10 +38,6 @@ const MarketingToolPageContainer = (props: any) => {
 							<Route path={'/sales-statistics'} exact component={H1} />
 							<Route path={'/improvements'} exact component={VisitorDashboard} />
 						</Switch>
-					</Grid>
-					<Grid xs={4} xl={3}
-						item>
-						<Chat />
 					</Grid>
 				</Grid>
 			</Box>

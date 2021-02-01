@@ -47,7 +47,6 @@ const SendResetLink: React.FC<PropsType> = (props) => {
                       onChange={(event: any) =>
                         props.setEmail(event.target.value)
                       }
-                      color={"#9e9e9e"}
                       width={290}
                       autoFocus />
                   </Grid>

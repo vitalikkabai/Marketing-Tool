@@ -1,4 +1,4 @@
-import {Avatar, Box, Button, Dialog, DialogContent, Grid, Typography} from '@material-ui/core';
+import {Box, Button, Dialog, DialogContent, Grid, Typography} from '@material-ui/core';
 import React, {useEffect, useState} from 'react';
 import CustomButton from "../common/Button/CustomButton"
 import classes from './TopBar.module.scss';
@@ -7,7 +7,6 @@ import logOutIcon from "../../assets/images/logOutConfirmIcon.svg"
 import {useHistory} from "react-router";
 import { connect, ConnectedProps } from 'react-redux';
 import { AppStateType } from '../../store/store';
-import { getS3ObjectSrc } from '../../utils/profile/profile';
 import { Dispatch } from 'redux';
 import { signOut } from '../../store/Auth/AuthActions';
 import AvatarSection from './AvatarSection/AvatarSection';
@@ -34,9 +33,6 @@ const TopBar = (props: PropsFromRedux) => {
                 setCurrentTime(newTime);
             }
         }, 1000);
-        const date = new Date();
-        const offset = date.getTimezoneOffset();
-
         return () => clearInterval(intervalId);
     }, []);
     return (
@@ -44,11 +40,11 @@ const TopBar = (props: PropsFromRedux) => {
             <Grid container alignItems={"center"} justify={"space-between"} className={classes.TopBarContent}>
                 <Grid item className={classes.clockContainer}>
                     <Grid className={classes.clock}>
-                        <Typography variant="body1">TIME IN ISRAEL</Typography>
+                        <Typography variant="body1">Time in israel</Typography>
                         <Box className={classes.timeContainer}>
                             <img src={clock} alt="clock"/>
                             {israelCurrentTime ?
-                                <Typography variant="body1" className={classes.time}>
+                                <Typography variant="caption" className={classes.time}>
                                     {israelCurrentTime.hour < 10 ? " 0" + israelCurrentTime.hour : israelCurrentTime.hour}:
                                     {israelCurrentTime.min < 10 ? " 0" + israelCurrentTime.min : israelCurrentTime.min}
                                 </Typography>
@@ -57,20 +53,20 @@ const TopBar = (props: PropsFromRedux) => {
                         </Box>
                     </Grid>
                     <Grid className={classes.clock}>
-                        <Typography variant="body1">TIME DIFFERENCE</Typography>
+                        <Typography variant="body1">Time Difference</Typography>
                         <Box className={classes.timeContainer}>
                             <img src={clock} alt="clock"/>
-                            <Typography variant="body1" className={classes.time}>
+                            <Typography variant="caption" className={classes.time}>
                                 {israelCurrentTime && currentTime ? (2 + currentTime.getTimezoneOffset() / 60) + "h" : null}
                             </Typography>
                         </Box>
                     </Grid>
                     <Grid className={classes.clock}>
-                        <Typography variant="body1">YOUR TIME</Typography>
+                        <Typography variant="body1">Your time</Typography>
                         <Box className={classes.timeContainer}>
                             <img src={clock} alt="clock"/>
                             {currentTime ?
-                                <Typography variant="body1" className={classes.time}>
+                                <Typography variant="caption" className={classes.time}>
                                     {currentTime.getHours() < 10 ? "0" + currentTime.getHours() : currentTime.getHours()}:
                                     {currentTime.getMinutes() < 10 ? "0" + currentTime.getMinutes() : currentTime.getMinutes()}
                                 </Typography>

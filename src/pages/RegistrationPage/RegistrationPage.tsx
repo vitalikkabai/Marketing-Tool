@@ -3,9 +3,9 @@ import React, { FunctionComponent } from "react";
 import Header from "../../components/Header/Header";
 import classes from './RegistrationPage.module.scss';
 import { Route, Switch } from "react-router";
-import RegisterFormStepTwoContainer from "../../components/RegisterForm/RegisterFormChooseRoleContainer";
-import RegisterFormContainer from "../../components/RegisterForm/RegisterFormWebLinksContainer";
-import RegisterFormStepThreeContainer from "../../components/RegisterForm/RegisterFormImportantInfoContainer";
+import RegisterFormStepTwoContainer from "../../components/RegisterForm/RegisterFormChooseRole/RegisterFormChooseRoleContainer";
+import RegisterFormContainer from "../../components/RegisterForm/RegisterFormWebLinks/RegisterFormWebLinksContainer";
+import RegisterFormStepThreeContainer from "../../components/RegisterForm/RegisterFormImportantInfo/RegisterFormImportantInfoContainer";
 import { withNotAuthRedirect } from "../../hoc/withNotAuthRedirect";
 
 

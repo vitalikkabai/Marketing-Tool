@@ -1,41 +1,57 @@
 import {Box, Grid, Link, Typography} from "@material-ui/core";
 import React, {useEffect, useState} from 'react';
-import classes from './RegisterForm.module.scss';
+import classes from '../RegisterForm.module.scss';
 import {useHistory} from "react-router";
-import GoBackButton from "../common/Button/GoBackButton";
-import UxAssistant from "./UxAssistant";
-import CustomButton from "../common/Button/CustomButton";
-import RoleBoxes from "../common/RoleBoxes/RoleBoxes";
+import GoBackButton from "../../common/Button/GoBackButton";
+import UxAssistant from "../UxAssistant/UxAssistant";
+import CustomButton from "../../common/Button/CustomButton";
+import RoleBoxes from "../../common/RoleBoxes/RoleBoxes";
 import { ChooseRoleProps } from "./RegisterFormChooseRoleContainer";
 
 const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (props) => {
 
     const history = useHistory();
-    const [selectedRole, setSelectedRole] = useState(props.roleTags ? [
-        props.roleTags.sales,
-        props.roleTags.marketing,
-        props.roleTags.logistics,
-        props.roleTags.accounting,
-        props.roleTags.production,
-        props.roleTags.qualityControl
-    ] : [false,false,false,false,false,false]);
+
+    const [selectedRole, setSelectedRole] = useState( [
+        {id:"sales_role", title:"Sales", selected: props.roleTags.sales},
+        {id:"marketing_role", title:"Marketing", selected: props.roleTags.marketing},
+        {id:"logistic_role", title:"Logistics", selected: props.roleTags.logistics},
+        {id:"accounting_role", title:"Accounting", selected:  props.roleTags.accounting},
+        {id:"production_role", title:"Production", selected: props.roleTags.production},
+        {id:"quality_role", title:"QC", selected: props.roleTags.qualityControl},
+    ]);
+
+    //.sort((a,b) => (a.selected < b.selected) ? 1 : ((b.selected < a.selected) ? -1 : 0))
 
     const handleDataInput = () => {
+        const saleRole = selectedRole.find(element => element.id === "sales_role");
+        const marketingRole = selectedRole.find(element => element.id === "marketing_role");
+        const logisticRole = selectedRole.find(element => element.id === "logistic_role");
+        const accountRole = selectedRole.find(element => element.id === "accounting_role");
+        const productRole = selectedRole.find(element => element.id === "production_role");
+        const qcRole = selectedRole.find(element => element.id === "quality_role");
         props.setRoleTags({
-            sales: selectedRole[0],
-            marketing: selectedRole[1],
-            logistics: selectedRole[2],
-            accounting: selectedRole[3],
-            production: selectedRole[4],
-            qualityControl: selectedRole[5]
+            sales: saleRole? saleRole.selected : true,
+            marketing: marketingRole? marketingRole.selected : true,
+            logistics: logisticRole? logisticRole.selected : false,
+            accounting: accountRole? accountRole.selected : false,
+            production: productRole? productRole.selected : false,
+            qualityControl: qcRole? qcRole.selected : false
         })
     }
+
     const [errorText, setErrorText] = useState("");
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         handleDataInput();
-        if(selectedRole.includes(true)){
+        const rolesArray = Object.entries(selectedRole);
+        const selectedRoles: Array<string> = [];
+        rolesArray.forEach((el, index) => {
+            if (rolesArray[index][1].selected)
+                selectedRoles.push(rolesArray[index][0])
+        })
+        if(selectedRoles[0]){
             history.push("3");
         }
         else {

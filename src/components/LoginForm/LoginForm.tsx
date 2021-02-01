@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./LoginForm.module.scss";
-import {PropsFromRedux} from "./LoginFormContainer";
-import {Box, CircularProgress, Grid, Link, Typography} from "@material-ui/core";
-import {useHistory} from "react-router";
+import { PropsFromRedux } from "./LoginFormContainer";
+import { Box, CircularProgress, Grid, Link, Typography } from "@material-ui/core";
+import { useHistory } from "react-router";
 import CustomInput from "../common/Input/CustomInput"
 import GoBackButton from "../common/Button/GoBackButton";
 import CustomButton from "../common/Button/CustomButton";
-import {isEmail, isEmpty} from "../../utils/validators/validators";
+import { isEmail, isEmpty } from "../../utils/validators/validators";
 
 const LoginForm: React.FC<PropsFromRedux> = (props) => {
 
     const [inputValue, setInputValue] = useState({ //For input values
-        username: {value: "", touched: false, error: false, errorText: "", name: "USER_NAME"},
-        password: {value: "", touched: false, error: false, errorText: "", name: "PASSWORD"}
+        username: { value: "", touched: false, error: false, errorText: "", name: "USER_NAME" },
+        password: { value: "", touched: false, error: false, errorText: "", name: "PASSWORD" }
     });
     const [isPending, setPending] = useState(false);
     const history = useHistory();
@@ -23,8 +23,8 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
             case "UserNotFoundException": {
                 setInputValue(prevStyle => ({
                     ...prevStyle,
-                    username: {...prevStyle.username, error: true},
-                    password: {...prevStyle.password, error: false},
+                    username: { ...prevStyle.username, error: true },
+                    password: { ...prevStyle.password, error: false },
                 }));
                 break;
             }
@@ -32,8 +32,8 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
             case "NotAuthorizedException": {
                 setInputValue(prevStyle => ({
                     ...prevStyle,
-                    username: {...prevStyle.username, error: true},
-                    password: {...prevStyle.password, error: true},
+                    username: { ...prevStyle.username, error: true },
+                    password: { ...prevStyle.password, error: true },
                 }));
                 break;
             }
@@ -85,17 +85,17 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
             if (isEmail(inputValue.username.value))
                 setInputValue(prevStyle => ({
                     ...prevStyle,
-                    username: {...prevStyle.username, error: true, errorText: isEmail(inputValue.username.value)}
+                    username: { ...prevStyle.username, error: true, errorText: isEmail(inputValue.username.value) }
                 }));
             if (!inputValue.username.value)
                 setInputValue(prevStyle => ({
                     ...prevStyle,
-                    username: {...prevStyle.username, error: true, errorText: "This field cannot be empty"}
+                    username: { ...prevStyle.username, error: true, errorText: "This field cannot be empty" }
                 }));
             if (!inputValue.password.value)
                 setInputValue(prevStyle => ({
                     ...prevStyle,
-                    password: {...prevStyle.password, error: true, errorText: "This field cannot be empty"}
+                    password: { ...prevStyle.password, error: true, errorText: "This field cannot be empty" }
                 }));
         }
     }
@@ -117,7 +117,7 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                 <Box className={classes.loginSheet}>
                     <GoBackButton onClick={() => {
                         history.push("/")
-                    }}/>
+                    }} />
                     <Grid item>
                         <Typography variant="h2" className={classes.header}>
                             Login
@@ -138,9 +138,8 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                                         onChange={(event: any) =>
                                             handleInput(event.target.value, "USER_NAME")
                                         }
-                                        color={"#9e9e9e"}
                                         width={290}
-                                        autoFocus/>
+                                        autoFocus />
                                 </Grid>
                                 <Grid item className={classes.passwordGridItem}>
                                     <CustomInput
@@ -154,23 +153,23 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                                         onChange={(event: any) =>
                                             handleInput(event.target.value, "PASSWORD")
                                         }
-                                        color={"#9e9e9e"}
-                                        width={290}/>
+
+                                        width={290} />
                                 </Grid>
                                 <Grid item className={classes.loginButton}>
                                     <CustomButton type={"submit"} text={isPending ? "" : "Log in"}
-                                                  className={isPending ? classes.disabledBtn : ""}/>
+                                        className={isPending ? classes.disabledBtn : ""} />
                                     {isPending &&
-                                    <CircularProgress size={24} className={classes.buttonProgress} color="secondary"/>}
+                                        <CircularProgress size={24} className={classes.buttonProgress} color="secondary" />}
                                 </Grid>
                             </Grid>
                         </form>
                     </Grid>
                     <Grid item className={classes.forgotPassword}>
                         <Typography variant="subtitle1"
-                                    onClick={() => {
-                                        history.push("resetPassword")
-                                    }}>
+                            onClick={() => {
+                                history.push("resetPassword")
+                            }}>
                             Forgot your password?
                         </Typography>
                     </Grid>
@@ -182,9 +181,9 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                     <Grid item className={classes.createAccount}>
                         <Typography variant={"subtitle1"}>Don’t have an account yet?&nbsp;
                             <Link variant={"subtitle1"} className={classes.link}
-                                  onClick={() => {
-                                      history.push("register")
-                                  }}>
+                                onClick={() => {
+                                    history.push("register")
+                                }}>
                                 Register
                             </Link>
                         </Typography>

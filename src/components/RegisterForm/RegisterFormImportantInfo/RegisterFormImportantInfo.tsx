@@ -1,24 +1,23 @@
-import {Box, Grid, Link, Typography} from "@material-ui/core";
+import {Box, CircularProgress, Grid, Link, Typography} from "@material-ui/core";
 import React, {useEffect, useState} from 'react';
-import classes from './RegisterForm.module.scss';
+import classes from '../RegisterForm.module.scss';
 import {useHistory} from "react-router";
-import GoBackButton from "../common/Button/GoBackButton";
-import UxAssistant from "./UxAssistant";
-import CustomInput from "../common/Input/CustomInput";
-import CustomButton from "../common/Button/CustomButton";
+import GoBackButton from "../../common/Button/GoBackButton";
+import UxAssistant from "../UxAssistant/UxAssistant";
+import CustomInput from "../../common/Input/CustomInput";
+import CustomButton from "../../common/Button/CustomButton";
 import {
     isEmail,
     isMinLength,
     isNameValid,
     isPasswordsEqual,
-    isPhone,
-    validateField
-} from "../../utils/validators/validators";
-import AutocompleteCustomInput from "../common/AutocompleteCustomInput/AutocompleteCustomInput";
-import data from "../../assets/dataset/country/countries";
+    isPhone
+} from "../../../utils/validators/validators";
+import AutocompleteCustomInput from "../../common/AutocompleteCustomInput/AutocompleteCustomInput";
+import data from "../../../assets/dataset/country/countries";
+import {PropsFromRedux} from "./RegisterFormImportantInfoContainer";
 // @ts-ignore
 import ReactCountryFlag from "react-country-flag"
-import {PropsFromRedux} from "./RegisterFormImportantInfoContainer";
 
 const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (props) => {
 
@@ -39,10 +38,11 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
         password: {value: "", touched: false, error: false, errorText: "", name: "PASSWORD"},
         confirmPassword: {value: "", touched: false, error: false, errorText: "", name: "CONFIRM_PASSWORD"},
     });
+    const [isPending, setPending] = useState(false);
     const [flagCode, setFlagCode] = useState("");
 
     useEffect(() => {
-        console.log(props.registerErrorText)
+        if (props.registerErrorText.code) setPending(false);
         switch (props.registerErrorText.code) {
             case "UsernameExistsException": {
                 setInputValue(prevStyle => ({
@@ -160,9 +160,10 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
         inputArray.forEach((el, index) => {
             if (inputArray[index][1].value.toString().replace(/\s/g, '') === "")
                 emptyInputNames.push(inputArray[index][0])
-        })
+        });
 
-        if (emptyInputNames[0]) {// if any empty fields detected
+        //ToDo find another way to validate empty fields
+        if (emptyInputNames[0] || !inputValue.countryCode.value.code) {// if any empty fields detected
             if (!inputValue.companyName.value.replace(/\s/g, '')) {
                 setInputValue(prevStyle => ({
                     ...prevStyle,
@@ -239,10 +240,9 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                 }));
                 return;
             } else {
-                alert("Signed up");
                 saveInputData();
+                setPending(true);
                 props.signUp(inputValue.ownerEmail.value, inputValue.password.value, inputValue.ownerName.value);
-                history.push("");
             }
         }
     }
@@ -330,10 +330,10 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                                 label={"Country"}
                                                 margin={"0 0 24px 0"}
                                                 option={data}
+                                                value={inputValue.countryCode.value}
                                                 getOption={(option: any) => "+" + option.phone}
                                                 onInputChange={(event: any, newInputValue: any, reason: string) => {
                                                     if (newInputValue.length === 0) {
-                                                        console.log("In clear")
                                                         setInputValue(
                                                             prevStyle => ({
                                                                 ...prevStyle,
@@ -470,7 +470,10 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                             </Typography>
                         </Grid>
                         <Grid item className={classes.nextContainer + " " + classes.importantInfo}>
-                            <CustomButton type={"submit"} className={classes.buttonBlock} text={"Save"}/>
+                            <CustomButton type={"submit"} text={isPending ? "" : "Save"}
+                                          className={isPending ? classes.disabledBtn + " " + classes.buttonBlock : classes.buttonBlock}/>
+                            {isPending &&
+                            <CircularProgress size={24} className={classes.buttonProgress} color="secondary"/>}
                             <Typography variant={"subtitle1"}>Have an account already?&nbsp;
                                 <Link className={classes.link} onClick={() => {
                                     history.replace("/login")
