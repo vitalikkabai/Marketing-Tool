@@ -40,13 +40,13 @@ export const saveProfileToDBFailed = () => ({
     type: 'SAVE_PROFILE_TO_DB_FAILED' as const,
 });
 
-export const fetchProfileById = (id: string) => ({
-    type: 'FETCH_PROFILE_BY_ID' as const,
+export const fetchEmployeeById = (id: string) => ({
+    type: 'FETCH_EMPLOYEE_BY_ID' as const,
     payload: id
 });
 
-export const fetchProfileByIdSuccess = (profile: CreateProfileInput) => ({
-    type: 'FETCH_PROFILE_BY_ID_SUCCESS' as const,
+export const fetchEmployeeByIdSuccess = (profile: CreateEmployeeInput) => ({
+    type: 'FETCH_EMPLOYEE_BY_ID_SUCCESS' as const,
     payload: profile
 })
 

@@ -16,10 +16,10 @@ export const setProfileID = (profileID: string) => ({
 //     type: 'SAVE_PROFILE_TO_DB' as const
 // });
 
-// export const setRoleTags = (roleTags: RoleTags) => ( {
-//     type: 'SET_ROLE_TAGS' as const,
-//     payload: roleTags
-// });
+export const setRoleTags = (roleTags: RoleTags) => ( {
+    type: 'SET_ROLE_TAGS' as const,
+    payload: roleTags
+});
 
 export const initiateNewProfile = (id: string) => ({
     type: 'INITIATE_NEW_PROFILE' as const,

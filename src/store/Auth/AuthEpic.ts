@@ -21,7 +21,7 @@ import { clearProfile, fetchProfileById, initiateNewProfile, setProfile, setProf
 import { Profile } from '../../models';
 import { clearBusiness } from '../Business/BusinessActions';
 import { AppStateType } from '../store';
-import { initiateNewEmployee } from '../Employee/EmployeeActions';
+import { fetchEmployeeById, initiateNewEmployee } from '../Employee/EmployeeActions';
 
 export default [
     (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
@@ -109,7 +109,7 @@ export default [
                         emailVerified: res.attributes.email_verified,
                         userName: res.attributes.given_name
                     }),
-                    fetchProfileById(res.username)
+                    fetchEmployeeById(res.username)
                     ];
                     else return [getAuthDataFailed()];
                 }),

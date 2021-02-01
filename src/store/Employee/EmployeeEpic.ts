@@ -3,13 +3,13 @@ import { createEmployee } from './../../graphql/mutations';
 
 import { Epic, ofType } from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { fetchProfileByIdSuccess, saveProfileToDBFailed, saveProfileToDBSucces, setEmployee, updateProfileSuccess } from './EmployeeActions';
+import { fetchEmployeeByIdSuccess, saveProfileToDBFailed, saveProfileToDBSucces, setEmployee, updateProfileSuccess } from './EmployeeActions';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
 import { createBusiness, createProfile, updateProfile } from '../../graphql/mutations';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { forkJoin, from } from 'rxjs';
-import { getProfile } from '../../graphql/queries';
+import { getEmployee, getProfile } from '../../graphql/queries';
 import { setBusiness } from '../Business/BusinessActions';
 
 const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
@@ -46,13 +46,17 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     ),
 
     (action$, state$) => action$.pipe(
-        ofType('FETCH_PROFILE_BY_ID'),
+        ofType('FETCH_EMPLOYEE_BY_ID'),
         mergeMap((action: any) => {
-            return from(API.graphql(graphqlOperation(getProfile, { id: action.payload })) as unknown as Promise<any>)
+            return from(API.graphql(graphqlOperation(getEmployee, { id: action.payload })) as unknown as Promise<any>)
                 .pipe(
                     mergeMap(res => {
                         console.log(res)
-                        return [fetchProfileByIdSuccess(res.data.getProfile),setBusiness(res.data.getProfile.business)]
+                        return [
+                            fetchEmployeeByIdSuccess(res.data.getEmployee),
+                            updateProfileSuccess(res.data.getEmployee.profile),
+                            setBusiness(res.data.getEmployee.business)
+                        ]
                     }),
                     catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
                 )
