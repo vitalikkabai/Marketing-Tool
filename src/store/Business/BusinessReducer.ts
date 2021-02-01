@@ -1,6 +1,7 @@
 import * as actions from './BusinessActions';
 import {Business} from "../../models";
 import { CreateBusinessInput } from '../../API';
+import store from '../store';
 
 // interface businessReducer {
 //     id: string,
@@ -18,6 +19,7 @@ export const initialState: CreateBusinessInput = {
     companyName: "",
     storeURLs: [],
     websiteURLs: [],
+    managerID: ""
 };
 
 export const BusinessReducer = (state: CreateBusinessInput = initialState, action: ActionTypes): CreateBusinessInput => {
@@ -25,6 +27,7 @@ export const BusinessReducer = (state: CreateBusinessInput = initialState, actio
         case 'SET_BUSINESS':
         case 'UPDATE_BUSINESS_SUCCESS':
             return {
+                ...state,
                 ...action.payload,
             }
         case 'SET_BUSINESS_URLS':

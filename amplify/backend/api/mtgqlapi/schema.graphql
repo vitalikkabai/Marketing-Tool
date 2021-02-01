@@ -1,4 +1,5 @@
 type Business @model
+    @key(name: "byManager", fields: ["managerID", "companyName"], queryField: "byManagerAndCompany")
     @auth(rules: [
           { allow: owner },
           { allow: public, operations: [read]},
@@ -8,11 +9,39 @@ type Business @model
   companyName: String!
   storeURLs: [String!]!
   websiteURLs: [String!]!
-  profiles: [Profile] @connection(keyName: "byBusiness", fields: ["id"])
+  employees: [Employee] @connection(keyName: "byBusiness", fields: ["id"])
+  manager: Manager @connection(fields: ["managerID"])
+  managerID: ID!
+}
+
+type Employee @model
+    @key(name: "byBusiness", fields: ["businessID"], queryField: "employeeByBusinessAndName")
+    @auth(rules: [
+      { allow: owner, ownerField: "id" },
+      { allow: public, operations: [read]},
+      { allow: private, operations: [read] },
+    ])  {
+  id: ID!
+  profile: Profile @connection(fields: ["id"])
+  business: Business @connection(fields: ["businessID"])
+  businessID: ID!
+  roleTags: RoleTags!
+  countryCode: CountryCode!
+  phoneNumber: String!
+}
+
+type Manager @model
+    @auth(rules: [
+      { allow: owner, ownerField: "id" },
+      { allow: public, operations: [read]},
+      { allow: private, operations: [read] },
+      ])  {
+  id: ID!
+  profile: Profile @connection(fields: ["id"])
+  businesses: [Business] @connection(keyName: "byManager", fields: ["id"])
 }
 
 type Profile @model
-    @key(name: "byBusiness", fields: ["businessID"], queryField: "profileByBusiness")
     @auth(rules: [
       { allow: owner, ownerField: "id" },
       { allow: public, operations: [read]},
@@ -21,12 +50,41 @@ type Profile @model
   id: ID!
   email: String!
   name: String!
-  businessID: ID!
-  business: Business @connection(fields: ["businessID"])
-  avatar: S3Object,
-  roleTags: RoleTags!,
-  countryCode: CountryCode!
-  phoneNumber: String!
+  avatar: S3Object
+  initiatedConversations: [Conversation] @connection(keyName: "byInitiatedProfile", fields: ["id"])
+  repliedConversations: [Conversation] @connection(keyName: "byRepliedProfile", fields: ["id"])
+
+}
+type Conversation @model
+    @key(name: "byInitiatedProfile", fields: ["initiatedProfileID", "subjectId","stage"], queryField:"byInitiatedProfile")
+    @key(name: "byRepliedProfile", fields: ["repliedProfileID", "subjectId","stage"], queryField:"byRepliedProfile")
+    @auth(rules: [
+      { allow: owner },
+      { allow: private, operations: [read] }
+      ])  {
+  id: ID!
+  stage: Stage!
+  subjectId: ID!
+  initiatedProfile: Profile @connection(fields:["initiatedProfileID"])
+  initiatedProfileID: ID!
+  repliedProfile: Profile @connection(fields: ["repliedProfileID"])
+  repliedProfileID: ID!
+  messages: [Message] @connection(keyName: "byConversation", fields: ["id"])
+}
+
+type Message @model
+    @key(name: "byConversation", fields: ["conversationID", "content"], queryField: "byConversationAndContent")
+    @auth(rules: [
+      { allow: private }
+      ])  {
+  id: ID!
+  conversationID: ID!
+  owner: ID
+  content: String!
+  seen: Boolean!
+  attachment: S3Object
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
 }
 
 type S3Object {
@@ -50,3 +108,14 @@ type CountryCode {
   phone: String!
 }
 
+enum Stage {
+    UNASSIGNED
+    PRODUCTS
+    MARKET_RESEARCH
+    BRAND_CREATION
+    SALES_CHANNELS
+    CUSTOMER_SUPPORT
+    BRAND_AWARENESS
+    SALES_STATISTICS
+    IMPROVEMENTS
+}

@@ -1,7 +1,7 @@
 
 import { Epic, ofType } from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { fetchProfileByIdSuccess, saveProfileToDBFailed, saveProfileToDBSucces, updateProfileSuccess } from './ProfileActions';
+import { fetchProfileByIdSuccess, saveProfileToDBFailed, saveProfileToDBSucces, updateProfileSuccess } from './EmployeeActions';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
 import { createBusiness, createProfile, updateProfile } from '../../graphql/mutations';
