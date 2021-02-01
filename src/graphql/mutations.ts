@@ -179,12 +179,6 @@ export const createEmployee = /* GraphQL */ `
           region
           key
         }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -241,12 +235,6 @@ export const updateEmployee = /* GraphQL */ `
           bucket
           region
           key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
         }
         createdAt
         updatedAt
@@ -305,12 +293,6 @@ export const deleteEmployee = /* GraphQL */ `
           region
           key
         }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -347,12 +329,6 @@ export const createManager = /* GraphQL */ `
           bucket
           region
           key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
         }
         createdAt
         updatedAt
@@ -391,12 +367,6 @@ export const updateManager = /* GraphQL */ `
           region
           key
         }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -434,12 +404,6 @@ export const deleteManager = /* GraphQL */ `
           region
           key
         }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -460,32 +424,6 @@ export const createProfile = /* GraphQL */ `
         region
         key
       }
-      initiatedConversations {
-        items {
-          id
-          stage
-          subjectId
-          initiatedProfileID
-          repliedProfileID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      repliedConversations {
-        items {
-          id
-          stage
-          subjectId
-          initiatedProfileID
-          repliedProfileID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -504,32 +442,6 @@ export const updateProfile = /* GraphQL */ `
         bucket
         region
         key
-      }
-      initiatedConversations {
-        items {
-          id
-          stage
-          subjectId
-          initiatedProfileID
-          repliedProfileID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      repliedConversations {
-        items {
-          id
-          stage
-          subjectId
-          initiatedProfileID
-          repliedProfileID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
       }
       createdAt
       updatedAt
@@ -550,229 +462,8 @@ export const deleteProfile = /* GraphQL */ `
         region
         key
       }
-      initiatedConversations {
-        items {
-          id
-          stage
-          subjectId
-          initiatedProfileID
-          repliedProfileID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      repliedConversations {
-        items {
-          id
-          stage
-          subjectId
-          initiatedProfileID
-          repliedProfileID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
-    }
-  }
-`;
-export const createConversation = /* GraphQL */ `
-  mutation CreateConversation(
-    $input: CreateConversationInput!
-    $condition: ModelConversationConditionInput
-  ) {
-    createConversation(input: $input, condition: $condition) {
-      id
-      stage
-      subjectId
-      initiatedProfileID
-      repliedProfileID
-      messages {
-        items {
-          id
-          conversationID
-          owner
-          content
-          seen
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-      initiatedProfile {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      repliedProfile {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      owner
-    }
-  }
-`;
-export const updateConversation = /* GraphQL */ `
-  mutation UpdateConversation(
-    $input: UpdateConversationInput!
-    $condition: ModelConversationConditionInput
-  ) {
-    updateConversation(input: $input, condition: $condition) {
-      id
-      stage
-      subjectId
-      initiatedProfileID
-      repliedProfileID
-      messages {
-        items {
-          id
-          conversationID
-          owner
-          content
-          seen
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-      initiatedProfile {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      repliedProfile {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      owner
-    }
-  }
-`;
-export const deleteConversation = /* GraphQL */ `
-  mutation DeleteConversation(
-    $input: DeleteConversationInput!
-    $condition: ModelConversationConditionInput
-  ) {
-    deleteConversation(input: $input, condition: $condition) {
-      id
-      stage
-      subjectId
-      initiatedProfileID
-      repliedProfileID
-      messages {
-        items {
-          id
-          conversationID
-          owner
-          content
-          seen
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-      initiatedProfile {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      repliedProfile {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      owner
     }
   }
 `;
@@ -783,8 +474,10 @@ export const createMessage = /* GraphQL */ `
   ) {
     createMessage(input: $input, condition: $condition) {
       id
-      conversationID
-      owner
+      stage
+      subjectId
+      senderID
+      receiverID
       content
       seen
       attachment {
@@ -794,6 +487,30 @@ export const createMessage = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      sender {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+      receiver {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -804,8 +521,10 @@ export const updateMessage = /* GraphQL */ `
   ) {
     updateMessage(input: $input, condition: $condition) {
       id
-      conversationID
-      owner
+      stage
+      subjectId
+      senderID
+      receiverID
       content
       seen
       attachment {
@@ -815,6 +534,30 @@ export const updateMessage = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      sender {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+      receiver {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -825,8 +568,10 @@ export const deleteMessage = /* GraphQL */ `
   ) {
     deleteMessage(input: $input, condition: $condition) {
       id
-      conversationID
-      owner
+      stage
+      subjectId
+      senderID
+      receiverID
       content
       seen
       attachment {
@@ -836,6 +581,30 @@ export const deleteMessage = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      sender {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+      receiver {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
     }
   }
 `;

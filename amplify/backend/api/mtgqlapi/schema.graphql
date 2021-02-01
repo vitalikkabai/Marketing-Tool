@@ -51,35 +51,42 @@ type Profile @model
   email: String!
   name: String!
   avatar: S3Object
-  initiatedConversations: [Conversation] @connection(keyName: "byInitiatedProfile", fields: ["id"])
-  repliedConversations: [Conversation] @connection(keyName: "byRepliedProfile", fields: ["id"])
+  # initiatedConversations: [Conversation] @connection(keyName: "byInitiatedProfile", fields: ["id"])
+  # repliedConversations: [Conversation] @connection(keyName: "byRepliedProfile", fields: ["id"])
 
 }
-type Conversation @model
-    @key(name: "byInitiatedProfile", fields: ["initiatedProfileID", "subjectId","stage"], queryField:"byInitiatedProfile")
-    @key(name: "byRepliedProfile", fields: ["repliedProfileID", "subjectId","stage"], queryField:"byRepliedProfile")
-    @auth(rules: [
-      { allow: owner },
-      { allow: private, operations: [read] }
-      ])  {
-  id: ID!
-  stage: Stage!
-  subjectId: ID!
-  initiatedProfile: Profile @connection(fields:["initiatedProfileID"])
-  initiatedProfileID: ID!
-  repliedProfile: Profile @connection(fields: ["repliedProfileID"])
-  repliedProfileID: ID!
-  messages: [Message] @connection(keyName: "byConversation", fields: ["id"])
-}
+# type Conversation @model
+#     @key(name: "byInitiatedProfile", fields: ["initiatedProfileID", "subjectId","stage"], queryField:"byInitiatedProfile")
+#     @key(name: "byRepliedProfile", fields: ["repliedProfileID", "subjectId","stage"], queryField:"byRepliedProfile")
+#     @auth(rules: [
+#       { allow: owner },
+#       { allow: private, operations: [read] }
+#       ])  {
+#   id: ID!
+#   stage: Stage!
+#   subjectId: ID!
+#   initiatedProfile: Profile @connection(fields:["initiatedProfileID"])
+#   initiatedProfileID: ID!
+#   repliedProfile: Profile @connection(fields: ["repliedProfileID"])
+#   repliedProfileID: ID!
+#   messages: [Message] @connection(keyName: "byConversation", fields: ["id"])
+# }
 
 type Message @model
-    @key(name: "byConversation", fields: ["conversationID", "content"], queryField: "byConversationAndContent")
+    @key(name: "bySender", fields: ["senderID", "subjectId","stage"], queryField:"bySender")
+    @key(name: "byReceiver", fields: ["receiverID", "subjectId","stage"], queryField:"byReceiver")
+
+    # @key(name: "byConversation", fields: ["conversationID", "content"], queryField: "byConversationAndContent")
     @auth(rules: [
       { allow: private }
       ])  {
   id: ID!
-  conversationID: ID!
-  owner: ID
+  stage: Stage!
+  subjectId: ID!
+  sender: Profile @connection(fields: ["senderID"])
+  senderID: ID!
+  receiver: Profile @connection(fields: ["receiverID"])
+  receiverID: ID!
   content: String!
   seen: Boolean!
   attachment: S3Object

@@ -170,6 +170,30 @@ export type ModelProfileConditionInput = {
   not?: ModelProfileConditionInput | null,
 };
 
+export type UpdateProfileInput = {
+  id: string,
+  email?: string | null,
+  name?: string | null,
+  avatar?: S3ObjectInput | null,
+};
+
+export type DeleteProfileInput = {
+  id?: string | null,
+};
+
+export type CreateMessageInput = {
+  id?: string | null,
+  stage: Stage,
+  subjectId: string,
+  senderID: string,
+  receiverID: string,
+  content: string,
+  seen: boolean,
+  attachment?: S3ObjectInput | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
+};
+
 export enum Stage {
   UNASSIGNED = "UNASSIGNED",
   PRODUCTS = "PRODUCTS",
@@ -183,66 +207,11 @@ export enum Stage {
 }
 
 
-export type UpdateProfileInput = {
-  id: string,
-  email?: string | null,
-  name?: string | null,
-  avatar?: S3ObjectInput | null,
-};
-
-export type DeleteProfileInput = {
-  id?: string | null,
-};
-
-export type CreateConversationInput = {
-  id?: string | null,
-  stage: Stage,
-  subjectId: string,
-  initiatedProfileID: string,
-  repliedProfileID: string,
-};
-
-export type ModelConversationConditionInput = {
+export type ModelMessageConditionInput = {
   stage?: ModelStageInput | null,
   subjectId?: ModelIDInput | null,
-  initiatedProfileID?: ModelIDInput | null,
-  repliedProfileID?: ModelIDInput | null,
-  and?: Array< ModelConversationConditionInput | null > | null,
-  or?: Array< ModelConversationConditionInput | null > | null,
-  not?: ModelConversationConditionInput | null,
-};
-
-export type ModelStageInput = {
-  eq?: Stage | null,
-  ne?: Stage | null,
-};
-
-export type UpdateConversationInput = {
-  id: string,
-  stage?: Stage | null,
-  subjectId?: string | null,
-  initiatedProfileID?: string | null,
-  repliedProfileID?: string | null,
-};
-
-export type DeleteConversationInput = {
-  id?: string | null,
-};
-
-export type CreateMessageInput = {
-  id?: string | null,
-  conversationID: string,
-  owner?: string | null,
-  content: string,
-  seen: boolean,
-  attachment?: S3ObjectInput | null,
-  createdAt?: string | null,
-  updatedAt?: string | null,
-};
-
-export type ModelMessageConditionInput = {
-  conversationID?: ModelIDInput | null,
-  owner?: ModelIDInput | null,
+  senderID?: ModelIDInput | null,
+  receiverID?: ModelIDInput | null,
   content?: ModelStringInput | null,
   seen?: ModelBooleanInput | null,
   createdAt?: ModelStringInput | null,
@@ -250,6 +219,11 @@ export type ModelMessageConditionInput = {
   and?: Array< ModelMessageConditionInput | null > | null,
   or?: Array< ModelMessageConditionInput | null > | null,
   not?: ModelMessageConditionInput | null,
+};
+
+export type ModelStageInput = {
+  eq?: Stage | null,
+  ne?: Stage | null,
 };
 
 export type ModelBooleanInput = {
@@ -261,8 +235,10 @@ export type ModelBooleanInput = {
 
 export type UpdateMessageInput = {
   id: string,
-  conversationID?: string | null,
-  owner?: string | null,
+  stage?: Stage | null,
+  subjectId?: string | null,
+  senderID?: string | null,
+  receiverID?: string | null,
   content?: string | null,
   seen?: boolean | null,
   attachment?: S3ObjectInput | null,
@@ -274,21 +250,12 @@ export type DeleteMessageInput = {
   id?: string | null,
 };
 
-export type ModelConversationFilterInput = {
+export type ModelMessageFilterInput = {
   id?: ModelIDInput | null,
   stage?: ModelStageInput | null,
   subjectId?: ModelIDInput | null,
-  initiatedProfileID?: ModelIDInput | null,
-  repliedProfileID?: ModelIDInput | null,
-  and?: Array< ModelConversationFilterInput | null > | null,
-  or?: Array< ModelConversationFilterInput | null > | null,
-  not?: ModelConversationFilterInput | null,
-};
-
-export type ModelMessageFilterInput = {
-  id?: ModelIDInput | null,
-  conversationID?: ModelIDInput | null,
-  owner?: ModelIDInput | null,
+  senderID?: ModelIDInput | null,
+  receiverID?: ModelIDInput | null,
   content?: ModelStringInput | null,
   seen?: ModelBooleanInput | null,
   createdAt?: ModelStringInput | null,
@@ -298,17 +265,17 @@ export type ModelMessageFilterInput = {
   not?: ModelMessageFilterInput | null,
 };
 
-export type ModelConversationByInitiatedProfileCompositeKeyConditionInput = {
-  eq?: ModelConversationByInitiatedProfileCompositeKeyInput | null,
-  le?: ModelConversationByInitiatedProfileCompositeKeyInput | null,
-  lt?: ModelConversationByInitiatedProfileCompositeKeyInput | null,
-  ge?: ModelConversationByInitiatedProfileCompositeKeyInput | null,
-  gt?: ModelConversationByInitiatedProfileCompositeKeyInput | null,
-  between?: Array< ModelConversationByInitiatedProfileCompositeKeyInput | null > | null,
-  beginsWith?: ModelConversationByInitiatedProfileCompositeKeyInput | null,
+export type ModelMessageBySenderCompositeKeyConditionInput = {
+  eq?: ModelMessageBySenderCompositeKeyInput | null,
+  le?: ModelMessageBySenderCompositeKeyInput | null,
+  lt?: ModelMessageBySenderCompositeKeyInput | null,
+  ge?: ModelMessageBySenderCompositeKeyInput | null,
+  gt?: ModelMessageBySenderCompositeKeyInput | null,
+  between?: Array< ModelMessageBySenderCompositeKeyInput | null > | null,
+  beginsWith?: ModelMessageBySenderCompositeKeyInput | null,
 };
 
-export type ModelConversationByInitiatedProfileCompositeKeyInput = {
+export type ModelMessageBySenderCompositeKeyInput = {
   subjectId?: string | null,
   stage?: Stage | null,
 };
@@ -319,29 +286,19 @@ export enum ModelSortDirection {
 }
 
 
-export type ModelConversationByRepliedProfileCompositeKeyConditionInput = {
-  eq?: ModelConversationByRepliedProfileCompositeKeyInput | null,
-  le?: ModelConversationByRepliedProfileCompositeKeyInput | null,
-  lt?: ModelConversationByRepliedProfileCompositeKeyInput | null,
-  ge?: ModelConversationByRepliedProfileCompositeKeyInput | null,
-  gt?: ModelConversationByRepliedProfileCompositeKeyInput | null,
-  between?: Array< ModelConversationByRepliedProfileCompositeKeyInput | null > | null,
-  beginsWith?: ModelConversationByRepliedProfileCompositeKeyInput | null,
+export type ModelMessageByReceiverCompositeKeyConditionInput = {
+  eq?: ModelMessageByReceiverCompositeKeyInput | null,
+  le?: ModelMessageByReceiverCompositeKeyInput | null,
+  lt?: ModelMessageByReceiverCompositeKeyInput | null,
+  ge?: ModelMessageByReceiverCompositeKeyInput | null,
+  gt?: ModelMessageByReceiverCompositeKeyInput | null,
+  between?: Array< ModelMessageByReceiverCompositeKeyInput | null > | null,
+  beginsWith?: ModelMessageByReceiverCompositeKeyInput | null,
 };
 
-export type ModelConversationByRepliedProfileCompositeKeyInput = {
+export type ModelMessageByReceiverCompositeKeyInput = {
   subjectId?: string | null,
   stage?: Stage | null,
-};
-
-export type ModelStringKeyConditionInput = {
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
 };
 
 export type ModelBusinessFilterInput = {
@@ -353,6 +310,16 @@ export type ModelBusinessFilterInput = {
   and?: Array< ModelBusinessFilterInput | null > | null,
   or?: Array< ModelBusinessFilterInput | null > | null,
   not?: ModelBusinessFilterInput | null,
+};
+
+export type ModelStringKeyConditionInput = {
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
 };
 
 export type ModelEmployeeFilterInput = {
@@ -587,14 +554,6 @@ export type CreateEmployeeMutation = {
         region: string,
         key: string,
       } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -660,14 +619,6 @@ export type UpdateEmployeeMutation = {
         bucket: string,
         region: string,
         key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -735,14 +686,6 @@ export type DeleteEmployeeMutation = {
         region: string,
         key: string,
       } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -785,14 +728,6 @@ export type CreateManagerMutation = {
         bucket: string,
         region: string,
         key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -837,14 +772,6 @@ export type UpdateManagerMutation = {
         region: string,
         key: string,
       } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -888,14 +815,6 @@ export type DeleteManagerMutation = {
         region: string,
         key: string,
       } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -919,36 +838,6 @@ export type CreateProfileMutation = {
       region: string,
       key: string,
     } | null,
-    initiatedConversations:  {
-      __typename: "ModelConversationConnection",
-      items:  Array< {
-        __typename: "Conversation",
-        id: string,
-        stage: Stage,
-        subjectId: string,
-        initiatedProfileID: string,
-        repliedProfileID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    repliedConversations:  {
-      __typename: "ModelConversationConnection",
-      items:  Array< {
-        __typename: "Conversation",
-        id: string,
-        stage: Stage,
-        subjectId: string,
-        initiatedProfileID: string,
-        repliedProfileID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -970,36 +859,6 @@ export type UpdateProfileMutation = {
       bucket: string,
       region: string,
       key: string,
-    } | null,
-    initiatedConversations:  {
-      __typename: "ModelConversationConnection",
-      items:  Array< {
-        __typename: "Conversation",
-        id: string,
-        stage: Stage,
-        subjectId: string,
-        initiatedProfileID: string,
-        repliedProfileID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    repliedConversations:  {
-      __typename: "ModelConversationConnection",
-      items:  Array< {
-        __typename: "Conversation",
-        id: string,
-        stage: Stage,
-        subjectId: string,
-        initiatedProfileID: string,
-        repliedProfileID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-      } | null > | null,
-      nextToken: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1023,269 +882,8 @@ export type DeleteProfileMutation = {
       region: string,
       key: string,
     } | null,
-    initiatedConversations:  {
-      __typename: "ModelConversationConnection",
-      items:  Array< {
-        __typename: "Conversation",
-        id: string,
-        stage: Stage,
-        subjectId: string,
-        initiatedProfileID: string,
-        repliedProfileID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    repliedConversations:  {
-      __typename: "ModelConversationConnection",
-      items:  Array< {
-        __typename: "Conversation",
-        id: string,
-        stage: Stage,
-        subjectId: string,
-        initiatedProfileID: string,
-        repliedProfileID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type CreateConversationMutationVariables = {
-  input: CreateConversationInput,
-  condition?: ModelConversationConditionInput | null,
-};
-
-export type CreateConversationMutation = {
-  createConversation:  {
-    __typename: "Conversation",
-    id: string,
-    stage: Stage,
-    subjectId: string,
-    initiatedProfileID: string,
-    repliedProfileID: string,
-    messages:  {
-      __typename: "ModelMessageConnection",
-      items:  Array< {
-        __typename: "Message",
-        id: string,
-        conversationID: string,
-        owner: string | null,
-        content: string,
-        seen: boolean,
-        createdAt: string | null,
-        updatedAt: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    initiatedProfile:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    repliedProfile:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    owner: string | null,
-  } | null,
-};
-
-export type UpdateConversationMutationVariables = {
-  input: UpdateConversationInput,
-  condition?: ModelConversationConditionInput | null,
-};
-
-export type UpdateConversationMutation = {
-  updateConversation:  {
-    __typename: "Conversation",
-    id: string,
-    stage: Stage,
-    subjectId: string,
-    initiatedProfileID: string,
-    repliedProfileID: string,
-    messages:  {
-      __typename: "ModelMessageConnection",
-      items:  Array< {
-        __typename: "Message",
-        id: string,
-        conversationID: string,
-        owner: string | null,
-        content: string,
-        seen: boolean,
-        createdAt: string | null,
-        updatedAt: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    initiatedProfile:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    repliedProfile:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    owner: string | null,
-  } | null,
-};
-
-export type DeleteConversationMutationVariables = {
-  input: DeleteConversationInput,
-  condition?: ModelConversationConditionInput | null,
-};
-
-export type DeleteConversationMutation = {
-  deleteConversation:  {
-    __typename: "Conversation",
-    id: string,
-    stage: Stage,
-    subjectId: string,
-    initiatedProfileID: string,
-    repliedProfileID: string,
-    messages:  {
-      __typename: "ModelMessageConnection",
-      items:  Array< {
-        __typename: "Message",
-        id: string,
-        conversationID: string,
-        owner: string | null,
-        content: string,
-        seen: boolean,
-        createdAt: string | null,
-        updatedAt: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    initiatedProfile:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    repliedProfile:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    owner: string | null,
   } | null,
 };
 
@@ -1298,8 +896,10 @@ export type CreateMessageMutation = {
   createMessage:  {
     __typename: "Message",
     id: string,
-    conversationID: string,
-    owner: string | null,
+    stage: Stage,
+    subjectId: string,
+    senderID: string,
+    receiverID: string,
     content: string,
     seen: boolean,
     attachment:  {
@@ -1310,6 +910,34 @@ export type CreateMessageMutation = {
     } | null,
     createdAt: string | null,
     updatedAt: string | null,
+    sender:  {
+      __typename: "Profile",
+      id: string,
+      email: string,
+      name: string,
+      avatar:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    receiver:  {
+      __typename: "Profile",
+      id: string,
+      email: string,
+      name: string,
+      avatar:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
   } | null,
 };
 
@@ -1322,8 +950,10 @@ export type UpdateMessageMutation = {
   updateMessage:  {
     __typename: "Message",
     id: string,
-    conversationID: string,
-    owner: string | null,
+    stage: Stage,
+    subjectId: string,
+    senderID: string,
+    receiverID: string,
     content: string,
     seen: boolean,
     attachment:  {
@@ -1334,6 +964,34 @@ export type UpdateMessageMutation = {
     } | null,
     createdAt: string | null,
     updatedAt: string | null,
+    sender:  {
+      __typename: "Profile",
+      id: string,
+      email: string,
+      name: string,
+      avatar:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    receiver:  {
+      __typename: "Profile",
+      id: string,
+      email: string,
+      name: string,
+      avatar:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
   } | null,
 };
 
@@ -1346,8 +1004,10 @@ export type DeleteMessageMutation = {
   deleteMessage:  {
     __typename: "Message",
     id: string,
-    conversationID: string,
-    owner: string | null,
+    stage: Stage,
+    subjectId: string,
+    senderID: string,
+    receiverID: string,
     content: string,
     seen: boolean,
     attachment:  {
@@ -1358,38 +1018,7 @@ export type DeleteMessageMutation = {
     } | null,
     createdAt: string | null,
     updatedAt: string | null,
-  } | null,
-};
-
-export type GetConversationQueryVariables = {
-  id: string,
-};
-
-export type GetConversationQuery = {
-  getConversation:  {
-    __typename: "Conversation",
-    id: string,
-    stage: Stage,
-    subjectId: string,
-    initiatedProfileID: string,
-    repliedProfileID: string,
-    messages:  {
-      __typename: "ModelMessageConnection",
-      items:  Array< {
-        __typename: "Message",
-        id: string,
-        conversationID: string,
-        owner: string | null,
-        content: string,
-        seen: boolean,
-        createdAt: string | null,
-        updatedAt: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    initiatedProfile:  {
+    sender:  {
       __typename: "Profile",
       id: string,
       email: string,
@@ -1400,18 +1029,10 @@ export type GetConversationQuery = {
         region: string,
         key: string,
       } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
-    repliedProfile:  {
+    receiver:  {
       __typename: "Profile",
       id: string,
       email: string,
@@ -1422,62 +1043,9 @@ export type GetConversationQuery = {
         region: string,
         key: string,
       } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
-    owner: string | null,
-  } | null,
-};
-
-export type ListConversationsQueryVariables = {
-  filter?: ModelConversationFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListConversationsQuery = {
-  listConversations:  {
-    __typename: "ModelConversationConnection",
-    items:  Array< {
-      __typename: "Conversation",
-      id: string,
-      stage: Stage,
-      subjectId: string,
-      initiatedProfileID: string,
-      repliedProfileID: string,
-      messages:  {
-        __typename: "ModelMessageConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      initiatedProfile:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      repliedProfile:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      owner: string | null,
-    } | null > | null,
-    nextToken: string | null,
   } | null,
 };
 
@@ -1489,8 +1057,10 @@ export type GetMessageQuery = {
   getMessage:  {
     __typename: "Message",
     id: string,
-    conversationID: string,
-    owner: string | null,
+    stage: Stage,
+    subjectId: string,
+    senderID: string,
+    receiverID: string,
     content: string,
     seen: boolean,
     attachment:  {
@@ -1501,6 +1071,34 @@ export type GetMessageQuery = {
     } | null,
     createdAt: string | null,
     updatedAt: string | null,
+    sender:  {
+      __typename: "Profile",
+      id: string,
+      email: string,
+      name: string,
+      avatar:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    receiver:  {
+      __typename: "Profile",
+      id: string,
+      email: string,
+      name: string,
+      avatar:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
   } | null,
 };
 
@@ -1516,8 +1114,10 @@ export type ListMessagesQuery = {
     items:  Array< {
       __typename: "Message",
       id: string,
-      conversationID: string,
-      owner: string | null,
+      stage: Stage,
+      subjectId: string,
+      senderID: string,
+      receiverID: string,
       content: string,
       seen: boolean,
       attachment:  {
@@ -1528,122 +1128,46 @@ export type ListMessagesQuery = {
       } | null,
       createdAt: string | null,
       updatedAt: string | null,
+      sender:  {
+        __typename: "Profile",
+        id: string,
+        email: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      receiver:  {
+        __typename: "Profile",
+        id: string,
+        email: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
     } | null > | null,
     nextToken: string | null,
   } | null,
 };
 
-export type ByInitiatedProfileQueryVariables = {
-  initiatedProfileID?: string | null,
-  subjectIdStage?: ModelConversationByInitiatedProfileCompositeKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelConversationFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ByInitiatedProfileQuery = {
-  byInitiatedProfile:  {
-    __typename: "ModelConversationConnection",
-    items:  Array< {
-      __typename: "Conversation",
-      id: string,
-      stage: Stage,
-      subjectId: string,
-      initiatedProfileID: string,
-      repliedProfileID: string,
-      messages:  {
-        __typename: "ModelMessageConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      initiatedProfile:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      repliedProfile:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      owner: string | null,
-    } | null > | null,
-    nextToken: string | null,
-  } | null,
-};
-
-export type ByRepliedProfileQueryVariables = {
-  repliedProfileID?: string | null,
-  subjectIdStage?: ModelConversationByRepliedProfileCompositeKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelConversationFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ByRepliedProfileQuery = {
-  byRepliedProfile:  {
-    __typename: "ModelConversationConnection",
-    items:  Array< {
-      __typename: "Conversation",
-      id: string,
-      stage: Stage,
-      subjectId: string,
-      initiatedProfileID: string,
-      repliedProfileID: string,
-      messages:  {
-        __typename: "ModelMessageConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      initiatedProfile:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      repliedProfile:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      owner: string | null,
-    } | null > | null,
-    nextToken: string | null,
-  } | null,
-};
-
-export type ByConversationAndContentQueryVariables = {
-  conversationID?: string | null,
-  content?: ModelStringKeyConditionInput | null,
+export type BySenderQueryVariables = {
+  senderID?: string | null,
+  subjectIdStage?: ModelMessageBySenderCompositeKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelMessageFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ByConversationAndContentQuery = {
-  byConversationAndContent:  {
+export type BySenderQuery = {
+  bySender:  {
     __typename: "ModelMessageConnection",
     items:  Array< {
       __typename: "Message",
       id: string,
-      conversationID: string,
-      owner: string | null,
+      stage: Stage,
+      subjectId: string,
+      senderID: string,
+      receiverID: string,
       content: string,
       seen: boolean,
       attachment:  {
@@ -1654,6 +1178,72 @@ export type ByConversationAndContentQuery = {
       } | null,
       createdAt: string | null,
       updatedAt: string | null,
+      sender:  {
+        __typename: "Profile",
+        id: string,
+        email: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      receiver:  {
+        __typename: "Profile",
+        id: string,
+        email: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+    } | null > | null,
+    nextToken: string | null,
+  } | null,
+};
+
+export type ByReceiverQueryVariables = {
+  receiverID?: string | null,
+  subjectIdStage?: ModelMessageByReceiverCompositeKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelMessageFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ByReceiverQuery = {
+  byReceiver:  {
+    __typename: "ModelMessageConnection",
+    items:  Array< {
+      __typename: "Message",
+      id: string,
+      stage: Stage,
+      subjectId: string,
+      senderID: string,
+      receiverID: string,
+      content: string,
+      seen: boolean,
+      attachment:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string | null,
+      updatedAt: string | null,
+      sender:  {
+        __typename: "Profile",
+        id: string,
+        email: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      receiver:  {
+        __typename: "Profile",
+        id: string,
+        email: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
     } | null > | null,
     nextToken: string | null,
   } | null,
@@ -1836,14 +1426,6 @@ export type GetEmployeeQuery = {
         bucket: string,
         region: string,
         key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -2030,14 +1612,6 @@ export type GetManagerQuery = {
         region: string,
         key: string,
       } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -2064,14 +1638,6 @@ export type ListProfilesQuery = {
         region: string,
         key: string,
       } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null > | null,
@@ -2095,254 +1661,8 @@ export type GetProfileQuery = {
       region: string,
       key: string,
     } | null,
-    initiatedConversations:  {
-      __typename: "ModelConversationConnection",
-      items:  Array< {
-        __typename: "Conversation",
-        id: string,
-        stage: Stage,
-        subjectId: string,
-        initiatedProfileID: string,
-        repliedProfileID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    repliedConversations:  {
-      __typename: "ModelConversationConnection",
-      items:  Array< {
-        __typename: "Conversation",
-        id: string,
-        stage: Stage,
-        subjectId: string,
-        initiatedProfileID: string,
-        repliedProfileID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
-  } | null,
-};
-
-export type OnCreateConversationSubscription = {
-  onCreateConversation:  {
-    __typename: "Conversation",
-    id: string,
-    stage: Stage,
-    subjectId: string,
-    initiatedProfileID: string,
-    repliedProfileID: string,
-    messages:  {
-      __typename: "ModelMessageConnection",
-      items:  Array< {
-        __typename: "Message",
-        id: string,
-        conversationID: string,
-        owner: string | null,
-        content: string,
-        seen: boolean,
-        createdAt: string | null,
-        updatedAt: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    initiatedProfile:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    repliedProfile:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    owner: string | null,
-  } | null,
-};
-
-export type OnUpdateConversationSubscription = {
-  onUpdateConversation:  {
-    __typename: "Conversation",
-    id: string,
-    stage: Stage,
-    subjectId: string,
-    initiatedProfileID: string,
-    repliedProfileID: string,
-    messages:  {
-      __typename: "ModelMessageConnection",
-      items:  Array< {
-        __typename: "Message",
-        id: string,
-        conversationID: string,
-        owner: string | null,
-        content: string,
-        seen: boolean,
-        createdAt: string | null,
-        updatedAt: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    initiatedProfile:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    repliedProfile:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    owner: string | null,
-  } | null,
-};
-
-export type OnDeleteConversationSubscription = {
-  onDeleteConversation:  {
-    __typename: "Conversation",
-    id: string,
-    stage: Stage,
-    subjectId: string,
-    initiatedProfileID: string,
-    repliedProfileID: string,
-    messages:  {
-      __typename: "ModelMessageConnection",
-      items:  Array< {
-        __typename: "Message",
-        id: string,
-        conversationID: string,
-        owner: string | null,
-        content: string,
-        seen: boolean,
-        createdAt: string | null,
-        updatedAt: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    initiatedProfile:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    repliedProfile:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    owner: string | null,
   } | null,
 };
 
@@ -2350,8 +1670,10 @@ export type OnCreateMessageSubscription = {
   onCreateMessage:  {
     __typename: "Message",
     id: string,
-    conversationID: string,
-    owner: string | null,
+    stage: Stage,
+    subjectId: string,
+    senderID: string,
+    receiverID: string,
     content: string,
     seen: boolean,
     attachment:  {
@@ -2362,6 +1684,34 @@ export type OnCreateMessageSubscription = {
     } | null,
     createdAt: string | null,
     updatedAt: string | null,
+    sender:  {
+      __typename: "Profile",
+      id: string,
+      email: string,
+      name: string,
+      avatar:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    receiver:  {
+      __typename: "Profile",
+      id: string,
+      email: string,
+      name: string,
+      avatar:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
   } | null,
 };
 
@@ -2369,8 +1719,10 @@ export type OnUpdateMessageSubscription = {
   onUpdateMessage:  {
     __typename: "Message",
     id: string,
-    conversationID: string,
-    owner: string | null,
+    stage: Stage,
+    subjectId: string,
+    senderID: string,
+    receiverID: string,
     content: string,
     seen: boolean,
     attachment:  {
@@ -2381,6 +1733,34 @@ export type OnUpdateMessageSubscription = {
     } | null,
     createdAt: string | null,
     updatedAt: string | null,
+    sender:  {
+      __typename: "Profile",
+      id: string,
+      email: string,
+      name: string,
+      avatar:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    receiver:  {
+      __typename: "Profile",
+      id: string,
+      email: string,
+      name: string,
+      avatar:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
   } | null,
 };
 
@@ -2388,8 +1768,10 @@ export type OnDeleteMessageSubscription = {
   onDeleteMessage:  {
     __typename: "Message",
     id: string,
-    conversationID: string,
-    owner: string | null,
+    stage: Stage,
+    subjectId: string,
+    senderID: string,
+    receiverID: string,
     content: string,
     seen: boolean,
     attachment:  {
@@ -2400,6 +1782,34 @@ export type OnDeleteMessageSubscription = {
     } | null,
     createdAt: string | null,
     updatedAt: string | null,
+    sender:  {
+      __typename: "Profile",
+      id: string,
+      email: string,
+      name: string,
+      avatar:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+    receiver:  {
+      __typename: "Profile",
+      id: string,
+      email: string,
+      name: string,
+      avatar:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
   } | null,
 };
 
@@ -2590,14 +2000,6 @@ export type OnCreateEmployeeSubscription = {
         region: string,
         key: string,
       } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -2658,14 +2060,6 @@ export type OnUpdateEmployeeSubscription = {
         bucket: string,
         region: string,
         key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -2728,14 +2122,6 @@ export type OnDeleteEmployeeSubscription = {
         region: string,
         key: string,
       } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -2773,14 +2159,6 @@ export type OnCreateManagerSubscription = {
         bucket: string,
         region: string,
         key: string,
-      } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
@@ -2820,14 +2198,6 @@ export type OnUpdateManagerSubscription = {
         region: string,
         key: string,
       } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -2866,14 +2236,6 @@ export type OnDeleteManagerSubscription = {
         region: string,
         key: string,
       } | null,
-      initiatedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
-      repliedConversations:  {
-        __typename: "ModelConversationConnection",
-        nextToken: string | null,
-      } | null,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -2892,36 +2254,6 @@ export type OnCreateProfileSubscription = {
       region: string,
       key: string,
     } | null,
-    initiatedConversations:  {
-      __typename: "ModelConversationConnection",
-      items:  Array< {
-        __typename: "Conversation",
-        id: string,
-        stage: Stage,
-        subjectId: string,
-        initiatedProfileID: string,
-        repliedProfileID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    repliedConversations:  {
-      __typename: "ModelConversationConnection",
-      items:  Array< {
-        __typename: "Conversation",
-        id: string,
-        stage: Stage,
-        subjectId: string,
-        initiatedProfileID: string,
-        repliedProfileID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2939,36 +2271,6 @@ export type OnUpdateProfileSubscription = {
       region: string,
       key: string,
     } | null,
-    initiatedConversations:  {
-      __typename: "ModelConversationConnection",
-      items:  Array< {
-        __typename: "Conversation",
-        id: string,
-        stage: Stage,
-        subjectId: string,
-        initiatedProfileID: string,
-        repliedProfileID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    repliedConversations:  {
-      __typename: "ModelConversationConnection",
-      items:  Array< {
-        __typename: "Conversation",
-        id: string,
-        stage: Stage,
-        subjectId: string,
-        initiatedProfileID: string,
-        repliedProfileID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -2985,36 +2287,6 @@ export type OnDeleteProfileSubscription = {
       bucket: string,
       region: string,
       key: string,
-    } | null,
-    initiatedConversations:  {
-      __typename: "ModelConversationConnection",
-      items:  Array< {
-        __typename: "Conversation",
-        id: string,
-        stage: Stage,
-        subjectId: string,
-        initiatedProfileID: string,
-        repliedProfileID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    repliedConversations:  {
-      __typename: "ModelConversationConnection",
-      items:  Array< {
-        __typename: "Conversation",
-        id: string,
-        stage: Stage,
-        subjectId: string,
-        initiatedProfileID: string,
-        repliedProfileID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-      } | null > | null,
-      nextToken: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,

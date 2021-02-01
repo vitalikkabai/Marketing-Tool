@@ -2,112 +2,14 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getConversation = /* GraphQL */ `
-  query GetConversation($id: ID!) {
-    getConversation(id: $id) {
-      id
-      stage
-      subjectId
-      initiatedProfileID
-      repliedProfileID
-      messages {
-        items {
-          id
-          conversationID
-          owner
-          content
-          seen
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-      initiatedProfile {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      repliedProfile {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      owner
-    }
-  }
-`;
-export const listConversations = /* GraphQL */ `
-  query ListConversations(
-    $filter: ModelConversationFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listConversations(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        stage
-        subjectId
-        initiatedProfileID
-        repliedProfileID
-        messages {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        initiatedProfile {
-          id
-          email
-          name
-          createdAt
-          updatedAt
-        }
-        repliedProfile {
-          id
-          email
-          name
-          createdAt
-          updatedAt
-        }
-        owner
-      }
-      nextToken
-    }
-  }
-`;
 export const getMessage = /* GraphQL */ `
   query GetMessage($id: ID!) {
     getMessage(id: $id) {
       id
-      conversationID
-      owner
+      stage
+      subjectId
+      senderID
+      receiverID
       content
       seen
       attachment {
@@ -117,6 +19,30 @@ export const getMessage = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      sender {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+      receiver {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -129,8 +55,10 @@ export const listMessages = /* GraphQL */ `
     listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        conversationID
-        owner
+        stage
+        subjectId
+        senderID
+        receiverID
         content
         seen
         attachment {
@@ -140,119 +68,37 @@ export const listMessages = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        sender {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
+        receiver {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
       }
       nextToken
     }
   }
 `;
-export const byInitiatedProfile = /* GraphQL */ `
-  query ByInitiatedProfile(
-    $initiatedProfileID: ID
-    $subjectIdStage: ModelConversationByInitiatedProfileCompositeKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelConversationFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    byInitiatedProfile(
-      initiatedProfileID: $initiatedProfileID
-      subjectIdStage: $subjectIdStage
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        stage
-        subjectId
-        initiatedProfileID
-        repliedProfileID
-        messages {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        initiatedProfile {
-          id
-          email
-          name
-          createdAt
-          updatedAt
-        }
-        repliedProfile {
-          id
-          email
-          name
-          createdAt
-          updatedAt
-        }
-        owner
-      }
-      nextToken
-    }
-  }
-`;
-export const byRepliedProfile = /* GraphQL */ `
-  query ByRepliedProfile(
-    $repliedProfileID: ID
-    $subjectIdStage: ModelConversationByRepliedProfileCompositeKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelConversationFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    byRepliedProfile(
-      repliedProfileID: $repliedProfileID
-      subjectIdStage: $subjectIdStage
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        stage
-        subjectId
-        initiatedProfileID
-        repliedProfileID
-        messages {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        initiatedProfile {
-          id
-          email
-          name
-          createdAt
-          updatedAt
-        }
-        repliedProfile {
-          id
-          email
-          name
-          createdAt
-          updatedAt
-        }
-        owner
-      }
-      nextToken
-    }
-  }
-`;
-export const byConversationAndContent = /* GraphQL */ `
-  query ByConversationAndContent(
-    $conversationID: ID
-    $content: ModelStringKeyConditionInput
+export const bySender = /* GraphQL */ `
+  query BySender(
+    $senderID: ID
+    $subjectIdStage: ModelMessageBySenderCompositeKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelMessageFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    byConversationAndContent(
-      conversationID: $conversationID
-      content: $content
+    bySender(
+      senderID: $senderID
+      subjectIdStage: $subjectIdStage
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -260,8 +106,10 @@ export const byConversationAndContent = /* GraphQL */ `
     ) {
       items {
         id
-        conversationID
-        owner
+        stage
+        subjectId
+        senderID
+        receiverID
         content
         seen
         attachment {
@@ -271,6 +119,71 @@ export const byConversationAndContent = /* GraphQL */ `
         }
         createdAt
         updatedAt
+        sender {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
+        receiver {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const byReceiver = /* GraphQL */ `
+  query ByReceiver(
+    $receiverID: ID
+    $subjectIdStage: ModelMessageByReceiverCompositeKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    byReceiver(
+      receiverID: $receiverID
+      subjectIdStage: $subjectIdStage
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        stage
+        subjectId
+        senderID
+        receiverID
+        content
+        seen
+        attachment {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+        sender {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
+        receiver {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
       }
       nextToken
     }
@@ -430,12 +343,6 @@ export const getEmployee = /* GraphQL */ `
           bucket
           region
           key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
         }
         createdAt
         updatedAt
@@ -601,12 +508,6 @@ export const getManager = /* GraphQL */ `
           region
           key
         }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -629,12 +530,6 @@ export const listProfiles = /* GraphQL */ `
           region
           key
         }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -652,32 +547,6 @@ export const getProfile = /* GraphQL */ `
         bucket
         region
         key
-      }
-      initiatedConversations {
-        items {
-          id
-          stage
-          subjectId
-          initiatedProfileID
-          repliedProfileID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      repliedConversations {
-        items {
-          id
-          stage
-          subjectId
-          initiatedProfileID
-          repliedProfileID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
       }
       createdAt
       updatedAt

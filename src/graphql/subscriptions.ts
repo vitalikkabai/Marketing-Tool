@@ -2,198 +2,14 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateConversation = /* GraphQL */ `
-  subscription OnCreateConversation {
-    onCreateConversation {
-      id
-      stage
-      subjectId
-      initiatedProfileID
-      repliedProfileID
-      messages {
-        items {
-          id
-          conversationID
-          owner
-          content
-          seen
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-      initiatedProfile {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      repliedProfile {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      owner
-    }
-  }
-`;
-export const onUpdateConversation = /* GraphQL */ `
-  subscription OnUpdateConversation {
-    onUpdateConversation {
-      id
-      stage
-      subjectId
-      initiatedProfileID
-      repliedProfileID
-      messages {
-        items {
-          id
-          conversationID
-          owner
-          content
-          seen
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-      initiatedProfile {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      repliedProfile {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      owner
-    }
-  }
-`;
-export const onDeleteConversation = /* GraphQL */ `
-  subscription OnDeleteConversation {
-    onDeleteConversation {
-      id
-      stage
-      subjectId
-      initiatedProfileID
-      repliedProfileID
-      messages {
-        items {
-          id
-          conversationID
-          owner
-          content
-          seen
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-      initiatedProfile {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      repliedProfile {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      owner
-    }
-  }
-`;
 export const onCreateMessage = /* GraphQL */ `
   subscription OnCreateMessage {
     onCreateMessage {
       id
-      conversationID
-      owner
+      stage
+      subjectId
+      senderID
+      receiverID
       content
       seen
       attachment {
@@ -203,6 +19,30 @@ export const onCreateMessage = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      sender {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+      receiver {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -210,8 +50,10 @@ export const onUpdateMessage = /* GraphQL */ `
   subscription OnUpdateMessage {
     onUpdateMessage {
       id
-      conversationID
-      owner
+      stage
+      subjectId
+      senderID
+      receiverID
       content
       seen
       attachment {
@@ -221,6 +63,30 @@ export const onUpdateMessage = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      sender {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+      receiver {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -228,8 +94,10 @@ export const onDeleteMessage = /* GraphQL */ `
   subscription OnDeleteMessage {
     onDeleteMessage {
       id
-      conversationID
-      owner
+      stage
+      subjectId
+      senderID
+      receiverID
       content
       seen
       attachment {
@@ -239,6 +107,30 @@ export const onDeleteMessage = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      sender {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+      receiver {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -407,12 +299,6 @@ export const onCreateEmployee = /* GraphQL */ `
           region
           key
         }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -466,12 +352,6 @@ export const onUpdateEmployee = /* GraphQL */ `
           bucket
           region
           key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
         }
         createdAt
         updatedAt
@@ -527,12 +407,6 @@ export const onDeleteEmployee = /* GraphQL */ `
           region
           key
         }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -566,12 +440,6 @@ export const onCreateManager = /* GraphQL */ `
           bucket
           region
           key
-        }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
         }
         createdAt
         updatedAt
@@ -607,12 +475,6 @@ export const onUpdateManager = /* GraphQL */ `
           region
           key
         }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -647,12 +509,6 @@ export const onDeleteManager = /* GraphQL */ `
           region
           key
         }
-        initiatedConversations {
-          nextToken
-        }
-        repliedConversations {
-          nextToken
-        }
         createdAt
         updatedAt
       }
@@ -670,32 +526,6 @@ export const onCreateProfile = /* GraphQL */ `
         region
         key
       }
-      initiatedConversations {
-        items {
-          id
-          stage
-          subjectId
-          initiatedProfileID
-          repliedProfileID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      repliedConversations {
-        items {
-          id
-          stage
-          subjectId
-          initiatedProfileID
-          repliedProfileID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -712,32 +542,6 @@ export const onUpdateProfile = /* GraphQL */ `
         region
         key
       }
-      initiatedConversations {
-        items {
-          id
-          stage
-          subjectId
-          initiatedProfileID
-          repliedProfileID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      repliedConversations {
-        items {
-          id
-          stage
-          subjectId
-          initiatedProfileID
-          repliedProfileID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -753,32 +557,6 @@ export const onDeleteProfile = /* GraphQL */ `
         bucket
         region
         key
-      }
-      initiatedConversations {
-        items {
-          id
-          stage
-          subjectId
-          initiatedProfileID
-          repliedProfileID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
-      repliedConversations {
-        items {
-          id
-          stage
-          subjectId
-          initiatedProfileID
-          repliedProfileID
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
       }
       createdAt
       updatedAt
