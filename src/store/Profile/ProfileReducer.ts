@@ -1,39 +1,12 @@
 import { CreateProfileInput } from '../../API';
-import { Profile } from '../../models';
 import * as actions from './ProfileActions';
 
-
-export interface ProfileType {
-    profile: Profile,
-}
-// export const getInitialState = () => ({
-//     profile: new Profile({
-//         email: "",
-//         name: "",
-//         businessID: ""
-//     })
-// });
 const initialState: CreateProfileInput = {
         email: "",
         name: "",
-        businessID: "",
-        roleTags: {
-           sales: false,
-           marketing: false,
-           logistics: false,
-           accounting: false,
-           production: false,
-           qualityControl: false 
-        },
-        phoneNumber: "",
-        countryCode: {
-            code: "",
-            label: "",
-            phone: ""
-        }
 };
 
-export const ProfileReducer = (state: CreateProfileInput = initialState, action: ActionTypes): CreateProfileInput => {
+export const ProfileReducer = (state = initialState, action: ActionTypes): CreateProfileInput => {
     switch (action.type) {
         case 'SET_PROFILE_DATA':
             return {
@@ -60,11 +33,6 @@ export const ProfileReducer = (state: CreateProfileInput = initialState, action:
                 ...state,
                 id: action.payload
             };
-        case 'SET_ROLE_TAGS':
-            return {
-                ...state,
-                roleTags: action.payload
-            }
         case 'CLEAR_PROFILE': 
             return {
                 ...initialState
