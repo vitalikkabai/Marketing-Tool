@@ -68,9 +68,9 @@ function UserDashboard() {
 		</Grid>));
 
 	return (
-		<Grid xs={12} xl={12} container className={classes.dashboard}>
+		<Grid container className={classes.dashboard}>
 			<Box className={classes.todoTitleBox}>
-				<Grid className={classes.titleBox} container xs={8} xl={9} >
+				<Grid className={classes.titleBox} container item xs={8} xl={9} >
 					<Typography variant={"h2"}>To-do list</Typography>
 				</Grid>
 				<Grid item xs={4} xl={3} className={classes.teamContainer}>

@@ -19,9 +19,9 @@ const MarketingToolPagePreviewContainer = (props: any) => {
 		<Box className={classes.wrapper}>
 			<SideBarMenu isAuth={props.isAuth} />
 			<Box className={classes.marketingContainer}>
-				<TopBar/>
+				<TopBar />
 				<Grid container className={classes.contentContainer}>
-					<Grid xs={8} xl={9} item className={classes.content}>
+					<Grid xs={12} xl={12} item className={classes.content}>
 						<Switch>
 							<Route path={'/preview/'} exact component={VisitorDashboard} />
 							<Route path={'/preview/products'} exact component={H1} />
@@ -33,10 +33,6 @@ const MarketingToolPagePreviewContainer = (props: any) => {
 							<Route path={'/preview/sales-statistics'} exact component={H1} />
 							<Route path={'/preview/improvements'} exact component={VisitorDashboard} />
 						</Switch>
-					</Grid>
-					<Grid xs={4} xl={3}
-						item>
-						<Chat />
 					</Grid>
 				</Grid>
 			</Box>
