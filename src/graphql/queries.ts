@@ -217,6 +217,7 @@ export const getBusiness = /* GraphQL */ `
         businesses {
           nextToken
         }
+        owner
         profile {
           id
           email
@@ -251,6 +252,7 @@ export const listBusinesss = /* GraphQL */ `
           id
           createdAt
           updatedAt
+          owner
         }
       }
       nextToken
@@ -290,6 +292,7 @@ export const byManagerAndCompany = /* GraphQL */ `
           id
           createdAt
           updatedAt
+          owner
         }
       }
       nextToken
@@ -333,6 +336,7 @@ export const getEmployee = /* GraphQL */ `
           id
           createdAt
           updatedAt
+          owner
         }
       }
       profile {
@@ -468,6 +472,7 @@ export const listManagers = /* GraphQL */ `
         businesses {
           nextToken
         }
+        owner
         profile {
           id
           email
@@ -499,6 +504,7 @@ export const getManager = /* GraphQL */ `
         }
         nextToken
       }
+      owner
       profile {
         id
         email
