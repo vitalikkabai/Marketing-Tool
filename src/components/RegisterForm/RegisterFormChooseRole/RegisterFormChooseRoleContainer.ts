@@ -1,3 +1,4 @@
+import { EmployeeReducer } from './../../../store/Employee/EmployeeReducer';
 import {Dispatch} from "redux";
 import RegisterFormChooseRole from "./RegisterFormChooseRole";
 import {connect, ConnectedProps} from "react-redux";
@@ -10,7 +11,7 @@ import {RoleTags} from "../../../models";
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        roleTags: state.ProfileReducer.roleTags
+        roleTags: state.EmployeeReducer.roleTags
     }
 };
 

@@ -19,7 +19,7 @@ const initialState: CreateEmployeeInput = {
         }
 };
 
-export const ProfileReducer = (state = initialState, action: ActionTypes): CreateEmployeeInput => {
+export const EmployeeReducer = (state = initialState, action: ActionTypes): CreateEmployeeInput => {
     switch (action.type) {
 
         default:
@@ -34,4 +34,4 @@ type InferValueTypes<T> = T extends { [key: string]: infer U }
 
 export type ActionTypes = ReturnType<InferValueTypes<typeof actions>>;
 
-export default ProfileReducer;
+export default EmployeeReducer;

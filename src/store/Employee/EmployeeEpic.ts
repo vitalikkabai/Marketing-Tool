@@ -1,7 +1,7 @@
 
 import { Epic, ofType } from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { fetchProfileByIdSuccess, saveProfileToDBFailed, saveProfileToDBSucces, updateProfileSuccess } from './ProfileActions';
+import { fetchProfileByIdSuccess, saveProfileToDBFailed, saveProfileToDBSucces, updateProfileSuccess } from './EmployeeActions';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
 import { createBusiness, createProfile, updateProfile } from '../../graphql/mutations';
@@ -21,7 +21,7 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                     //     ...state$.value.ProfileReducer,
                     //     businessID: res.data.createBusiness.id
                     // });
-                    profile.businessID = res.data.createBusiness.id;
+                    // profile.businessID = res.data.createBusiness.id;
                     console.log("before setting profile ")
                     // profile.id = state$
                     return from(API.graphql(graphqlOperation(createProfile, { input: profile })) as unknown as Promise<any>);

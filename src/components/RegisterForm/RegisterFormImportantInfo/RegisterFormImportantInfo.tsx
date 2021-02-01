@@ -259,7 +259,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
             name: inputValue.ownerName.value,
             email: inputValue.ownerEmail.value,
             // countryCode: inputValue.countryCode.value.label,
-            phoneNumber: inputValue.phoneNumber.value,
+            // phoneNumber: inputValue.phoneNumber.value,
         })
     }
 

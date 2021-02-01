@@ -21,7 +21,7 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                     //     ...state$.value.ProfileReducer,
                     //     businessID: res.data.createBusiness.id
                     // });
-                    profile.businessID = res.data.createBusiness.id;
+                    // profile.businessID = res.data.createBusiness.id;
                     console.log("before setting profile ")
                     // profile.id = state$
                     return from(API.graphql(graphqlOperation(createProfile, { input: profile })) as unknown as Promise<any>);

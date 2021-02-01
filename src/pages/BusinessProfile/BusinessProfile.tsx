@@ -25,7 +25,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         ] : [false,false,false,false,false,false]
     }
 
-    const [selectedRole, setSelectedRole] = useState(roleTagsToSelectedRole(props.profile.roleTags));
+    const [selectedRole, setSelectedRole] = useState(roleTagsToSelectedRole(props.roleTags));
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         props.updateBusinessInDB({
@@ -40,7 +40,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 
     useEffect(() => {
         setCompanyName(props.business.companyName);
-        setSelectedRole(roleTagsToSelectedRole(props.profile.roleTags));
+        setSelectedRole(roleTagsToSelectedRole(props.roleTags));
     }, [props.business])
 
     // const handleInfoUpdate = (e: FormEvent) => {
@@ -92,6 +92,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 function mapStateToProps(state: AppStateType) {
     return {
         profile: state.ProfileReducer,
+        roleTags: state.EmployeeReducer.roleTags,
         business: state.BusinessReducer
     }
 }

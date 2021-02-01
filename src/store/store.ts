@@ -1,3 +1,4 @@
+import { EmployeeReducer } from './Employee/EmployeeReducer';
 import { applyMiddleware, combineReducers, createStore, compose } from "redux";
 import { combineEpics, createEpicMiddleware } from "redux-observable";
 import businessEpic from "./Business/BusinessEpic";
@@ -21,6 +22,7 @@ const rootEpic = (action$: any, store$: any, dependencies: any) =>
 const epicMiddleware = createEpicMiddleware();
 
 const rootReducer = combineReducers({
+    EmployeeReducer,
     BusinessReducer,
     AuthReducer,
     ProfileReducer

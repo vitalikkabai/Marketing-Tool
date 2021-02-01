@@ -3,22 +3,7 @@ import * as actions from './ProfileActions';
 
 const initialState: CreateProfileInput = {
         email: "",
-        name: "",
-        businessID: "",
-        roleTags: {
-           sales: false,
-           marketing: false,
-           logistics: false,
-           accounting: false,
-           production: false,
-           qualityControl: false
-        },
-        phoneNumber: "",
-        countryCode: {
-            code: "",
-            label: "",
-            phone: ""
-        }
+        name: ""
 };
 
 export const ProfileReducer = (state = initialState, action: ActionTypes): CreateProfileInput => {
@@ -29,11 +14,11 @@ export const ProfileReducer = (state = initialState, action: ActionTypes): Creat
                 ...action.payload
             };
 
-        case 'SET_ROLE_TAGS':
-            return {
-                ...state,
-                roleTags: action.payload
-            };
+        // case 'SET_ROLE_TAGS':
+        //     return {
+        //         ...state,
+        //         roleTags: action.payload
+        //     };
 
         case 'SET_PROFILE_ID':
         case 'FETCH_PROFILE_BY_ID':
