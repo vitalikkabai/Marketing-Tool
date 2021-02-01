@@ -31,6 +31,10 @@ export const EmployeeReducer = (state = initialState, action: ActionTypes): Crea
                 ...state,
                 roleTags: action.payload
             };
+        case 'CLEAR_EMPLOYEE':
+            return {
+                ...initialState
+            }
         case 'FETCH_EMPLOYEE_BY_ID':
         default:
             return {

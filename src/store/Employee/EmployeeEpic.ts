@@ -3,14 +3,15 @@ import { createEmployee } from './../../graphql/mutations';
 
 import { Epic, ofType } from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { fetchEmployeeByIdSuccess, saveProfileToDBFailed, saveProfileToDBSucces, setEmployee, updateProfileSuccess } from './EmployeeActions';
+import { fetchEmployeeByIdSuccess, saveProfileToDBFailed } from './EmployeeActions';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
 import { createBusiness, createProfile, updateProfile } from '../../graphql/mutations';
-import { API, graphqlOperation, Storage } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 import { forkJoin, from } from 'rxjs';
-import { getEmployee, getProfile } from '../../graphql/queries';
+import { getEmployee } from '../../graphql/queries';
 import { setBusiness } from '../Business/BusinessActions';
+import { saveProfileToDBSucces, updateProfileSuccess } from '../Profile/ProfileActions';
 
 const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     (action$, state$) => action$.pipe(
@@ -62,35 +63,8 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                 )
         })
     ),
-
     (action$, state$) => action$.pipe(
-        ofType('SET_PROFILE_IMAGE'),
-        mergeMap((action: any) => {
-            action.payload.bufferImg
-            if (state$.value.ProfileReducer.avatar) {
-                Storage.remove(state$.value.ProfileReducer.avatar.key)
-            }
-            return from(Storage.put(action.payload.s3.key, action.payload.bufferImg, {
-                contentType: 'image/png',
-                contentEncoding: 'base64'
-            })).pipe(
-                mergeMap(res => {
-                    const profileAvatar = {
-                        id: state$.value.ProfileReducer.id,
-                        avatar: action.payload.s3,
-                    };
-                    return from(API.graphql(graphqlOperation(updateProfile, { input: profileAvatar })) as unknown as Promise<any>);
-                }),
-                map(res => {
-                    return updateProfileSuccess(res.data.updateProfile)
-                }),
-                catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
-            )
-        })
-    ),
-
-    (action$, state$) => action$.pipe(
-        ofType('UPDATE_PERSONAL_INFO'),
+        ofType('UPDATE_EMPLOYEE_INFO'),
         mergeMap((action: any) => {
             const profile = {
                 id: state$.value.ProfileReducer.id,

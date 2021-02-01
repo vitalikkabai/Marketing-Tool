@@ -21,7 +21,7 @@ import { clearProfile, fetchProfileById, initiateNewProfile, setProfile, setProf
 import { Profile } from '../../models';
 import { clearBusiness } from '../Business/BusinessActions';
 import { AppStateType } from '../store';
-import { fetchEmployeeById, initiateNewEmployee } from '../Employee/EmployeeActions';
+import { clearEmployee, fetchEmployeeById, initiateNewEmployee } from '../Employee/EmployeeActions';
 
 export default [
     (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
@@ -91,7 +91,8 @@ export default [
                     return [
                         signOutSuccess(),
                         clearProfile(),
-                        clearBusiness()
+                        clearBusiness(),
+                        clearEmployee()
                     ]
                 }),
                 catchError(err => { console.log(err); return [signOutFailed()] })

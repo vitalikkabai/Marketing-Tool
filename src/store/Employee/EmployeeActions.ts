@@ -27,13 +27,8 @@ export const initiateNewEmployee = (id: string) => ({
     payload: id
 });
 
-export const clearProfile = () => ({
-    type: 'CLEAR_PROFILE' as const
-});
-
-export const saveProfileToDBSucces = (profile: CreateProfileInput) => ({
-    type: 'SAVE_PROFILE_TO_DB_SUCCESS' as const,
-    payload: profile
+export const clearEmployee = () => ({
+    type: 'CLEAR_EMPLOYEE' as const
 });
 
 export const saveProfileToDBFailed = () => ({
@@ -50,17 +45,12 @@ export const fetchEmployeeByIdSuccess = (profile: CreateEmployeeInput) => ({
     payload: profile
 })
 
-export const updateProfileSuccess = (profile: CreateProfileInput) => ({
+export const updateEmployeeSuccess = (profile: CreateProfileInput) => ({
     type: 'UPDATE_PROFILE_SUCCESS' as const,
     payload: profile
 })
 
-export const saveProfileImage = (s3: S3Object, bufferImg: Buffer) => ({
-    type: 'SET_PROFILE_IMAGE' as const,
-    payload: {s3, bufferImg}
-})
-
-export const updatePersonalInfo = (name: string, email: string) => ({
-    type: 'UPDATE_PERSONAL_INFO' as const,
+export const updateEmployeeInfo = (name: string, email: string) => ({
+    type: 'UPDATE_EMPLOYEE_INFO' as const,
     payload: {name, email}
 })
