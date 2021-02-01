@@ -26,13 +26,13 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
     const [inputValue, setInputValue] = useState({ //For input values
         companyName: {value: props.companyName, touched: false, error: false, errorText: "", name: "COMPANY_NAME"},
         countryCode: {
-            value: {code: "", label: "", phone: ""},
+            value: props.employee.countryCode,
             touched: false,
             error: false,
             errorText: "",
             name: "COUNTRY_CODE"
         },
-        phoneNumber: {value: props.phoneNumber, touched: false, error: false, errorText: "", name: "PHONE_NUMBER"},
+        phoneNumber: {value: props.employee.phoneNumber, touched: false, error: false, errorText: "", name: "PHONE_NUMBER"},
         ownerName: {value: props.profile.name, touched: false, error: false, errorText: "", name: "OWNER_NAME"},
         ownerEmail: {value: props.profile.email, touched: false, error: false, errorText: "", name: "OWNER_EMAIL"},
         password: {value: "", touched: false, error: false, errorText: "", name: "PASSWORD"},
@@ -253,7 +253,13 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
     }
 
     const saveInputData = () => {
+        console.log(inputValue.countryCode)
         props.setBusinessName(inputValue.companyName.value);
+        props.setEmployee({
+            ...props.employee,
+            countryCode:  inputValue.countryCode.value,
+            phoneNumber:    inputValue.phoneNumber.value
+        });
         props.setProfile({
             ...props.profile,
             name: inputValue.ownerName.value,

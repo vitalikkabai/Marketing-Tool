@@ -1,3 +1,4 @@
+import { CreateProfileInput, UpdateProfileInput } from './../../API';
 
 import { Epic, ofType } from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
@@ -77,8 +78,10 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     (action$, state$) => action$.pipe(
         ofType('UPDATE_PERSONAL_INFO'),
         mergeMap((action: any) => {
-            const profile = {
-                id: state$.value.ProfileReducer.id,
+            const id = state$.value.ProfileReducer.id;
+            if (!id) throw("No profile ID")
+            const profile: UpdateProfileInput = {
+                id,
                 name: action.payload.name,
                 email: action.payload.email
             }

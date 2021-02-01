@@ -21,7 +21,15 @@ const initialState: CreateEmployeeInput = {
 
 export const EmployeeReducer = (state = initialState, action: ActionTypes): CreateEmployeeInput => {
     switch (action.type) {
-
+        case 'SET_EMPLOYEE_DATA':
+            return {
+                ...state, ...action.payload
+            }
+        case 'SET_ROLE_TAGS':
+            return {
+                ...state,
+                roleTags: action.payload
+            };
         default:
             return {
                 ...state,

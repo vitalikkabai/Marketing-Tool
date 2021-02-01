@@ -3,7 +3,7 @@ import {Dispatch} from "redux";
 import RegisterFormChooseRole from "./RegisterFormChooseRole";
 import {connect, ConnectedProps} from "react-redux";
 import {AppStateType} from "../../../store/store";
-import { setRoleTags } from '../../../store/Profile/ProfileActions';
+import { setRoleTags } from '../../../store/Employee/EmployeeActions';
 import {RoleTags} from "../../../models";
 
 

@@ -19,7 +19,7 @@ export const initialState: CreateBusinessInput = {
     companyName: "",
     storeURLs: [],
     websiteURLs: [],
-    managerID: ""
+    managerID: "c64a0e39-bf2c-4749-8493-788d911b78a2"
 };
 
 export const BusinessReducer = (state: CreateBusinessInput = initialState, action: ActionTypes): CreateBusinessInput => {

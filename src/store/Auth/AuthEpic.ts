@@ -15,16 +15,16 @@ import {
     sendNewPasswordFailed,
     signUpSuccess,
 } from "./AuthActions";
-import { ActionTypes } from "./AuthReducer";
-import { ActionTypes as ProfileActionTypes } from "../Profile/ProfileReducer";
+import { ActionTypes } from "../storeTypes";
 import { from, Observable, of } from 'rxjs';
 import { clearProfile, fetchProfileById, initiateNewProfile, setProfile, setProfileID, updatePersonalInfo } from '../Profile/ProfileActions';
 import { Profile } from '../../models';
 import { clearBusiness } from '../Business/BusinessActions';
 import { AppStateType } from '../store';
+import { initiateNewEmployee } from '../Employee/EmployeeActions';
 
 export default [
-    (action$: ActionsObservable<any>): Observable<ActionTypes | ProfileActionTypes> => action$.pipe(
+    (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
         ofType("SIGN-IN-REQUEST"),
         mergeMap(action => {
             return from(Auth.signIn({
@@ -49,7 +49,7 @@ export default [
         // map((res: any) => {console.log(res); return signInFailed(res)})
 
     ),
-    (action$: ActionsObservable<any>): Observable<ActionTypes | ProfileActionTypes> => action$.pipe(
+    (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
         ofType("SIGN-UP-REQUEST"),
         mergeMap(action => {
             return from(Auth.signUp({
@@ -76,7 +76,7 @@ export default [
                             emailVerified: response.attributes.email_verified,
                             userName: response.attributes.given_name,
                         }),
-                        initiateNewProfile(response.attributes.sub),
+                        initiateNewEmployee(response.attributes.sub),
                     ]
                 }),
                 catchError(err => {return of(signUpFailed(err))})
@@ -157,7 +157,7 @@ export default [
                 )
         })
     ),
-    (action$: ActionsObservable<any>, state$: StateObservable<AppStateType>): Observable<ActionTypes| ProfileActionTypes> => action$.pipe(
+    (action$: ActionsObservable<any>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
         ofType("CHANGE_PERSONAL_INFO"),
         mergeMap(action => {
             console.log("Changing")
