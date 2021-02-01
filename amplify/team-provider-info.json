@@ -14,7 +14,8 @@
     "categories": {
       "auth": {
         "marketingtoolcc44d25a": {},
-        "marketingtool2598d37e": {}
+        "marketingtool2598d37e": {},
+        "userPoolGroups": {}
       },
       "function": {
         "marketingtool2598d37ePreSignup": {}
