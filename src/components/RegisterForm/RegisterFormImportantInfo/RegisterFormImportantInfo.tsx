@@ -146,7 +146,6 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setPending(true);
         resetFieldErrors();
         setEmptyFieldsError(false);
         const emptyMessage = "The input fields cannot be empty";
@@ -161,9 +160,10 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
         inputArray.forEach((el, index) => {
             if (inputArray[index][1].value.toString().replace(/\s/g, '') === "")
                 emptyInputNames.push(inputArray[index][0])
-        })
+        });
 
-        if (emptyInputNames[0]) {// if any empty fields detected
+        //ToDo find another way to validate empty fields
+        if (emptyInputNames[0] || !inputValue.countryCode.value.code) {// if any empty fields detected
             if (!inputValue.companyName.value.replace(/\s/g, '')) {
                 setInputValue(prevStyle => ({
                     ...prevStyle,
@@ -241,6 +241,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                 return;
             } else {
                 saveInputData();
+                setPending(true);
                 props.signUp(inputValue.ownerEmail.value, inputValue.password.value, inputValue.ownerName.value);
             }
         }
@@ -329,10 +330,10 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                                 label={"Country"}
                                                 margin={"0 0 24px 0"}
                                                 option={data}
+                                                value={inputValue.countryCode.value}
                                                 getOption={(option: any) => "+" + option.phone}
                                                 onInputChange={(event: any, newInputValue: any, reason: string) => {
                                                     if (newInputValue.length === 0) {
-                                                        console.log("In clear")
                                                         setInputValue(
                                                             prevStyle => ({
                                                                 ...prevStyle,
