@@ -8,18 +8,13 @@ import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
-import { connect, ConnectedProps } from "react-redux";
-import { Dispatch } from "redux";
-import { Profile } from "../../../models";
-import { signOut } from "../../../store/Auth/AuthActions";
-import { AppStateType } from "../../../store/store";
 import { getS3ObjectSrc } from "../../../utils/profile/profile";
 import classes from "./AvatarSection.module.scss";
 import { useHistory } from "react-router";
 import { CreateProfileInput } from "../../../API";
 
 
-const AvatarSection: React.FunctionComponent<{ profile: CreateProfileInput, signOut: () => void }> = (props) => {
+const AvatarSection: React.FunctionComponent<{ profile: CreateProfileInput, signOut: () => void, userAttributes: any }> = (props) => {
 
     const history = useHistory();
     const [open, setOpen] = React.useState(false);
@@ -39,7 +34,7 @@ const AvatarSection: React.FunctionComponent<{ profile: CreateProfileInput, sign
 
     const writeInitials = (): string => {
         if (props.profile.avatar) return "";
-        const nameWords = props.profile.name.split(" ");
+        const nameWords = props.userAttributes.userName.split(" ");
         let initials = ""
         if (nameWords.length > 1) {
             initials = (nameWords[0].charAt(0)).concat(nameWords[1].charAt(0)).toUpperCase()
@@ -48,16 +43,17 @@ const AvatarSection: React.FunctionComponent<{ profile: CreateProfileInput, sign
         }
         return initials;
     }
+
     return (
-        <>
+        <Box className={classes.avatarSectionContainer}>
             <div ref={anchorRef} onClick={handleToggle}>
                 {
                     props.profile.avatar
                         ? <Avatar alt="avatar" src={getS3ObjectSrc(props.profile.avatar)} />
-                        : <Avatar className={classes.InitialsAvatar}>{writeInitials()}</Avatar>
-
+                        : <Avatar className={classes.InitialsAvatar}>
+                            <Typography variant={"subtitle2"} className={classes.imageText}>{writeInitials()}</Typography>
+                    </Avatar>
                 }
-
             </div>
             <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                 {({ TransitionProps, placement }) => (
@@ -86,8 +82,10 @@ const AvatarSection: React.FunctionComponent<{ profile: CreateProfileInput, sign
                     </Grow>
                 )}
             </Popper>
-            <Typography>Hi, {props.profile.name}</Typography>
-        </>
+            <Typography variant={"subtitle2"} color={"primary"} className={classes.greetingText}>
+                Hi, {props.userAttributes.userName}
+            </Typography>
+        </Box>
     );
 }
 

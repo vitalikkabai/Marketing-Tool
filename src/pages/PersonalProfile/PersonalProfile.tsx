@@ -94,7 +94,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                             value={name}
                             // error={inputValue.ownerName.error}
                             margin={"0 0 16px 0"}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                            onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                 setName(event.target.value)
                             }
                         />
@@ -107,7 +107,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                             value={email}
                             // error={inputValue.ownerEmail.error}
                             margin={"0 0 16px 0"}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                            onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                 setEmail(event.target.value)
                             }
                         />
@@ -128,7 +128,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                     name="password"
                                     required
                                     value={oldPassword}
-                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                         setOldPassword(event.target.value)
                                     }
                                     width={290}
@@ -141,7 +141,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                     fullWidth
                                     name="password"
                                     value={newPassword}
-                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                         setNewPassword(event.target.value)
                                     }
                                     width={290}
@@ -154,7 +154,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                     fullWidth
                                     name="password"
                                     value={retypePassword}
-                                    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                         setRetypePassword(event.target.value)
                                     }
                                     width={290}

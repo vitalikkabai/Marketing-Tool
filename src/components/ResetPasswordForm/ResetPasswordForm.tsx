@@ -41,7 +41,7 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                       fullWidth
                       name="email"
                       required
-                      onChange={(event: any) =>
+                      onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                         props.setCode(event.target.value)
                       }
                       width={290}
@@ -53,7 +53,7 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                       label="New password"
                       fullWidth
                       name="password"
-                      onChange={(event: any) =>
+                      onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                         props.setNewPassword(event.target.value)
                       }
                       width={290}
@@ -65,7 +65,7 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                       label="Retype password"
                       fullWidth
                       name="password"
-                      onChange={(event: any) =>
+                      onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                         props.setRetypePassword(event.target.value)
                       }
                       width={290}

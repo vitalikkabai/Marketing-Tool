@@ -27,13 +27,22 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setWebErrorText("");
-        setStoreErrorText("")//hasWebsite && websiteURLs.length > 0
-        if(hasWebsite && websiteURLs.length === 0) {
+        setStoreErrorText("") //hasWebsite && websiteURLs.length > 0
+        if(hasWebsite && (websiteURLs.length === 0 && webInput.length === 0)) {
+            console.log(webInput);
             setWebErrorText("Enter at least one URL")
             return;
         }
-        if(hasExperienceSelling && sellingURLs.length === 0) {
+        if(hasExperienceSelling && (sellingURLs.length === 0 && sellingInput.length === 0)) {
             setStoreErrorText("Enter at least one URL")
+            return;
+        }
+        if(hasWebsite && !isValidUrl(webInput)) {
+            setWebErrorText("Please enter valid URL")
+            return;
+        }
+        if(hasExperienceSelling && !isValidUrl(sellingInput)) {
+            setStoreErrorText("Please enter valid URL")
             return;
         }
         else {
@@ -85,7 +94,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                                                             label="Website URL address"
                                                             value={webInput}
                                                             error={!!webErrorText}
-                                                            onChange={(event: any) =>{
+                                                            onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>{
                                                                 setWebErrorText("");
                                                                 setWebInput(event.target.value);
                                                             }
@@ -149,7 +158,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                                                             label="Store URL address"
                                                             value={sellingInput}
                                                             error={!!storeErrorText}
-                                                            onChange={(event: any) => {
+                                                            onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
                                                                 setSellingInput(event.target.value)
                                                                 setStoreErrorText("");
                                                             }

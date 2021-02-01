@@ -44,7 +44,7 @@ const SendResetLink: React.FC<PropsType> = (props) => {
                       fullWidth
                       name="email"
                       required
-                      onChange={(event: any) =>
+                      onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                         props.setEmail(event.target.value)
                       }
                       width={290}
