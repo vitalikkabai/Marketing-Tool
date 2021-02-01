@@ -5,11 +5,8 @@ import classes from './TopBar.module.scss';
 import clock from "../../assets/images/clock.svg";
 import logOutIcon from "../../assets/images/logOutConfirmIcon.svg"
 import {useHistory} from "react-router";
-import { connect, ConnectedProps } from 'react-redux';
-import { AppStateType } from '../../store/store';
-import { Dispatch } from 'redux';
-import { signOut } from '../../store/Auth/AuthActions';
 import AvatarSection from './AvatarSection/AvatarSection';
+import {PropsFromRedux} from "./TopBarContainer";
 
 const TopBar = (props: PropsFromRedux) => {
 
@@ -35,6 +32,7 @@ const TopBar = (props: PropsFromRedux) => {
         }, 1000);
         return () => clearInterval(intervalId);
     }, []);
+
     return (
         <Box className={classes.topBarContainer}>
             <Grid container alignItems={"center"} justify={"space-between"} className={classes.TopBarContent}>
@@ -78,18 +76,7 @@ const TopBar = (props: PropsFromRedux) => {
                 <Grid item/>
                 <Grid item className={classes.personalInfo}>
                     {props.isAuth ?
-                        // <Button
-                        //     variant="contained"
-                        //     color="primary"
-                        //     type="submit"
-                        //     onClick={
-                        //         () => {
-                        //             setIsOpen(!isOpen)
-                        //         }
-                        //     }>
-                        //     Log Out
-                        // </Button>
-                        <AvatarSection profile={props.profile} signOut={props.signOut}/>
+                        <AvatarSection profile={props.profile} userAttributes={props.userAttributes} signOut={props.signOut}/>
                         :
                         <Box className={classes.logInBox}>
                             <Typography variant={"subtitle2"} color={"primary"}
@@ -135,20 +122,4 @@ const TopBar = (props: PropsFromRedux) => {
     );
 }
 
-const mapStateToProps = (state: AppStateType) => {
-	return {
-        isAuth: state.AuthReducer.isAuth,
-        profile: state.ProfileReducer
-	}
-};
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-	return {
-		signOut: () => dispatch(signOut())
-	}
-};
-
-const connector = connect(mapStateToProps,mapDispatchToProps)
-export type PropsFromRedux = ConnectedProps<typeof connector>
-
-export default connector(TopBar);
+export default TopBar;
