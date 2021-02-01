@@ -85,7 +85,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                                                             label="Website URL address"
                                                             value={webInput}
                                                             error={!!webErrorText}
-                                                            onChange={(event: any) =>{
+                                                            onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>{
                                                                 setWebErrorText("");
                                                                 setWebInput(event.target.value);
                                                             }
@@ -149,7 +149,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                                                             label="Store URL address"
                                                             value={sellingInput}
                                                             error={!!storeErrorText}
-                                                            onChange={(event: any) => {
+                                                            onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
                                                                 setSellingInput(event.target.value)
                                                                 setStoreErrorText("");
                                                             }

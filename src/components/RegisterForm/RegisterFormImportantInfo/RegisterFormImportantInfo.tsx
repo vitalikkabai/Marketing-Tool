@@ -292,7 +292,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                         value={inputValue.ownerName.value}
                                         error={inputValue.ownerName.error}
                                         margin={"0 0 24px 0"}
-                                        onChange={(event: any) =>
+                                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                             handleInput(event.target.value, "OWNER_NAME")
                                         }
                                     />
@@ -304,7 +304,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                         error={inputValue.companyName.error}
                                         variant="outlined"
                                         margin={"0 0 24px 0"}
-                                        onChange={(event: any) =>
+                                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                             handleInput(event.target.value, "COMPANY_NAME")
                                         }
                                     />
@@ -318,7 +318,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                         value={inputValue.password.value}
                                         error={inputValue.password.error}
                                         margin={"0 0 24px 0"}
-                                        onChange={(event: any) =>
+                                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                             handleInput(event.target.value, "PASSWORD")
                                         }
                                     />
@@ -331,8 +331,8 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                                 margin={"0 0 24px 0"}
                                                 option={data}
                                                 value={inputValue.countryCode.value}
-                                                getOption={(option: any) => "+" + option.phone}
-                                                onInputChange={(event: any, newInputValue: any, reason: string) => {
+                                                getOption={(option:{code: string, phone: string, label: string}) => "+" + option.phone}
+                                                onInputChange={(event: Record<string, unknown>, newInputValue: string, reason: string) => {
                                                     if (newInputValue.length === 0) {
                                                         setInputValue(
                                                             prevStyle => ({
@@ -388,7 +388,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                                 }
                                                 error={inputValue.countryCode.error}
                                                 onChange={
-                                                    (event: any, value: any) => {
+                                                    (event: Record<string, unknown>, value: any) => {
                                                         if (value) {
                                                             setInputValue(
                                                                 prevStyle => ({
@@ -412,7 +412,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                                 fullWidth={true}
                                                 value={inputValue.phoneNumber.value}
                                                 error={inputValue.phoneNumber.error}
-                                                onChange={(event: any) =>
+                                                onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                                     handleInput(event.target.value, "PHONE_NUMBER")
                                                 }
                                             />
@@ -443,7 +443,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                         value={inputValue.ownerEmail.value}
                                         error={inputValue.ownerEmail.error}
                                         margin={"0 0 24px 0"}
-                                        onChange={(event: any) =>
+                                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                             handleInput(event.target.value, "OWNER_EMAIL")
                                         }
                                     />
@@ -456,7 +456,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                         fullWidth={true}
                                         value={inputValue.confirmPassword.value}
                                         error={inputValue.confirmPassword.error}
-                                        onChange={(event: any) =>
+                                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                             handleInput(event.target.value, "CONFIRM_PASSWORD")
                                         }
                                     />

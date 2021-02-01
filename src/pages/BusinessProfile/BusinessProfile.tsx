@@ -68,7 +68,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 value={companyName}
                                 // error={inputValue.ownerName.error}
                                 margin={"0 0 16px 0"}
-                                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                                onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                     setCompanyName(event.target.value)
                                 }
                             />

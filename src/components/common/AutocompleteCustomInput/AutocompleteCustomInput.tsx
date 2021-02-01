@@ -5,7 +5,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 interface CustomInputProps {
     type?: string;
     onChange?: any;
-    width?: any; //ToDo change "any" types
+    width?: number;
     name?: string;
     value?: any;
     color?: string;
@@ -17,11 +17,11 @@ interface CustomInputProps {
     fontSize?: string;
     label?: string;
     margin?: string;
-    data?: any;
-    option: any;
-    getOption: any;
+    data?: Record<string, unknown>;
+    option: (any)[];
+    getOption: (option: any) => string;
     renderOption?: any;
-    onInputChange?: any;
+    onInputChange?: (event: any, value: string, reason: string) => void;
 }
 
 const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {

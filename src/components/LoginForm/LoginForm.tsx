@@ -135,7 +135,7 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                                         fullWidth
                                         name="username"
                                         value={inputValue.username.value}
-                                        onChange={(event: any) =>
+                                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                             handleInput(event.target.value, "USER_NAME")
                                         }
                                         width={290}
@@ -150,7 +150,7 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                                         fullWidth
                                         name="password"
                                         value={inputValue.password.value}
-                                        onChange={(event: any) =>
+                                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                             handleInput(event.target.value, "PASSWORD")
                                         }
 
