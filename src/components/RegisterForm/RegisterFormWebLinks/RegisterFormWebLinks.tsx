@@ -27,13 +27,22 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setWebErrorText("");
-        setStoreErrorText("")//hasWebsite && websiteURLs.length > 0
-        if(hasWebsite && websiteURLs.length === 0) {
+        setStoreErrorText("") //hasWebsite && websiteURLs.length > 0
+        if(hasWebsite && (websiteURLs.length === 0 && webInput.length === 0)) {
+            console.log(webInput);
             setWebErrorText("Enter at least one URL")
             return;
         }
-        if(hasExperienceSelling && sellingURLs.length === 0) {
+        if(hasExperienceSelling && (sellingURLs.length === 0 && sellingInput.length === 0)) {
             setStoreErrorText("Enter at least one URL")
+            return;
+        }
+        if(hasWebsite && !isValidUrl(webInput)) {
+            setWebErrorText("Please enter valid URL")
+            return;
+        }
+        if(hasExperienceSelling && !isValidUrl(sellingInput)) {
+            setStoreErrorText("Please enter valid URL")
             return;
         }
         else {
