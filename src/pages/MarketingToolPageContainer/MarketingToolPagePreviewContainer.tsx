@@ -6,11 +6,11 @@ import { signOut } from "../../store/Auth/AuthActions";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import VisitorDashboard from "../../components/DashBoard/VisitorDashboard/VisitorDashboard";
 import { Route, Switch } from "react-router";
-import TopBar from "../../components/TopBar/TopBar";
 import SideBarMenu from "../../components/SideBarMenu/SideBarMenu";
 import classes from "./MarketingToolPageContainer.module.scss"
 import { Box, Grid } from "@material-ui/core";
 import Chat from "../../components/Chat/Chat";
+import TopBarContainer from "../../components/TopBar/TopBarContainer";
 
 const MarketingToolPagePreviewContainer = (props: any) => {
 
@@ -19,7 +19,7 @@ const MarketingToolPagePreviewContainer = (props: any) => {
 		<Box className={classes.wrapper}>
 			<SideBarMenu isAuth={props.isAuth} />
 			<Box className={classes.marketingContainer}>
-				<TopBar />
+				<TopBarContainer />
 				<Grid container className={classes.contentContainer}>
 					<Grid xs={12} xl={12} item className={classes.content}>
 						<Switch>

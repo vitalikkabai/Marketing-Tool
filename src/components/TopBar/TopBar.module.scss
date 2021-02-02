@@ -15,10 +15,12 @@
 
     .clock {
       margin-left: 23px;
+      text-transform: capitalize;
 
       .timeContainer {
         display: flex;
         align-items: flex-end;
+        margin-top: 4px;
 
         .time {
           margin-left: 5px;

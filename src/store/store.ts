@@ -1,6 +1,8 @@
+import { EmployeeReducer } from './Employee/EmployeeReducer';
 import { applyMiddleware, combineReducers, createStore, compose } from "redux";
 import { combineEpics, createEpicMiddleware } from "redux-observable";
 import businessEpic from "./Business/BusinessEpic";
+import EmployeeEpics from "./Employee/EmployeeEpic";
 import BusinessReducer from './Business/BusinessReducer';
 import { catchError } from 'rxjs/operators';
 import AuthReducer from "./Auth/AuthReducer";
@@ -11,7 +13,7 @@ import ProfileEpics from "./Profile/ProfileEpic";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const combinedEpics = [...businessEpic, ...AuthEpics, ...ProfileEpics];
 const rootEpic = (action$: any, store$: any, dependencies: any) =>
-    combineEpics(...businessEpic,...AuthEpics,...ProfileEpics)(action$, store$, dependencies).pipe(
+    combineEpics(...businessEpic,...AuthEpics,...ProfileEpics,...EmployeeEpics)(action$, store$, dependencies).pipe(
         catchError((error, source) => {
             console.error(error);
             return source;
@@ -21,6 +23,7 @@ const rootEpic = (action$: any, store$: any, dependencies: any) =>
 const epicMiddleware = createEpicMiddleware();
 
 const rootReducer = combineReducers({
+    EmployeeReducer,
     BusinessReducer,
     AuthReducer,
     ProfileReducer

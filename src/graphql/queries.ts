@@ -2,23 +2,187 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const listBusinesss = /* GraphQL */ `
-  query ListBusinesss(
-    $filter: ModelBusinessFilterInput
+export const getMessage = /* GraphQL */ `
+  query GetMessage($id: ID!) {
+    getMessage(id: $id) {
+      id
+      stage
+      subjectId
+      senderID
+      receiverID
+      content
+      seen
+      attachment {
+        bucket
+        region
+        key
+      }
+      createdAt
+      updatedAt
+      sender {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+      receiver {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const listMessages = /* GraphQL */ `
+  query ListMessages(
+    $filter: ModelMessageFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listBusinesss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listMessages(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        companyName
-        storeURLs
-        websiteURLs
+        stage
+        subjectId
+        senderID
+        receiverID
+        content
+        seen
+        attachment {
+          bucket
+          region
+          key
+        }
         createdAt
         updatedAt
-        owner
-        profiles {
-          nextToken
+        sender {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
+        receiver {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const bySender = /* GraphQL */ `
+  query BySender(
+    $senderID: ID
+    $subjectIdStage: ModelMessageBySenderCompositeKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    bySender(
+      senderID: $senderID
+      subjectIdStage: $subjectIdStage
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        stage
+        subjectId
+        senderID
+        receiverID
+        content
+        seen
+        attachment {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+        sender {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
+        receiver {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const byReceiver = /* GraphQL */ `
+  query ByReceiver(
+    $receiverID: ID
+    $subjectIdStage: ModelMessageByReceiverCompositeKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    byReceiver(
+      receiverID: $receiverID
+      subjectIdStage: $subjectIdStage
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        stage
+        subjectId
+        senderID
+        receiverID
+        content
+        seen
+        attachment {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+        sender {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
+        receiver {
+          id
+          email
+          name
+          createdAt
+          updatedAt
         }
       }
       nextToken
@@ -32,14 +196,13 @@ export const getBusiness = /* GraphQL */ `
       companyName
       storeURLs
       websiteURLs
+      managerID
       createdAt
       updatedAt
       owner
-      profiles {
+      employees {
         items {
           id
-          email
-          name
           businessID
           phoneNumber
           createdAt
@@ -47,21 +210,100 @@ export const getBusiness = /* GraphQL */ `
         }
         nextToken
       }
+      manager {
+        id
+        createdAt
+        updatedAt
+        businesses {
+          nextToken
+        }
+        owner
+        profile {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
+      }
     }
   }
 `;
-export const getProfile = /* GraphQL */ `
-  query GetProfile($id: ID!) {
-    getProfile(id: $id) {
-      id
-      email
-      name
-      businessID
-      avatar {
-        bucket
-        region
-        key
+export const listBusinesss = /* GraphQL */ `
+  query ListBusinesss(
+    $filter: ModelBusinessFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBusinesss(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        companyName
+        storeURLs
+        websiteURLs
+        managerID
+        createdAt
+        updatedAt
+        owner
+        employees {
+          nextToken
+        }
+        manager {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
       }
+      nextToken
+    }
+  }
+`;
+export const byManagerAndCompany = /* GraphQL */ `
+  query ByManagerAndCompany(
+    $managerID: ID
+    $companyName: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelBusinessFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    byManagerAndCompany(
+      managerID: $managerID
+      companyName: $companyName
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        companyName
+        storeURLs
+        websiteURLs
+        managerID
+        createdAt
+        updatedAt
+        owner
+        employees {
+          nextToken
+        }
+        manager {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const getEmployee = /* GraphQL */ `
+  query GetEmployee($id: ID!) {
+    getEmployee(id: $id) {
+      id
+      businessID
       roleTags {
         sales
         marketing
@@ -83,12 +325,197 @@ export const getProfile = /* GraphQL */ `
         companyName
         storeURLs
         websiteURLs
+        managerID
         createdAt
         updatedAt
         owner
-        profiles {
+        employees {
           nextToken
         }
+        manager {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+      }
+      profile {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const listEmployees = /* GraphQL */ `
+  query ListEmployees(
+    $filter: ModelEmployeeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listEmployees(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        businessID
+        roleTags {
+          sales
+          marketing
+          logistics
+          accounting
+          production
+          qualityControl
+        }
+        countryCode {
+          code
+          label
+          phone
+        }
+        phoneNumber
+        createdAt
+        updatedAt
+        business {
+          id
+          companyName
+          storeURLs
+          websiteURLs
+          managerID
+          createdAt
+          updatedAt
+          owner
+        }
+        profile {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const employeeByBusinessAndName = /* GraphQL */ `
+  query EmployeeByBusinessAndName(
+    $businessID: ID
+    $sortDirection: ModelSortDirection
+    $filter: ModelEmployeeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    employeeByBusinessAndName(
+      businessID: $businessID
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        businessID
+        roleTags {
+          sales
+          marketing
+          logistics
+          accounting
+          production
+          qualityControl
+        }
+        countryCode {
+          code
+          label
+          phone
+        }
+        phoneNumber
+        createdAt
+        updatedAt
+        business {
+          id
+          companyName
+          storeURLs
+          websiteURLs
+          managerID
+          createdAt
+          updatedAt
+          owner
+        }
+        profile {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const listManagers = /* GraphQL */ `
+  query ListManagers(
+    $filter: ModelManagerFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listManagers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        createdAt
+        updatedAt
+        businesses {
+          nextToken
+        }
+        owner
+        profile {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const getManager = /* GraphQL */ `
+  query GetManager($id: ID!) {
+    getManager(id: $id) {
+      id
+      createdAt
+      updatedAt
+      businesses {
+        items {
+          id
+          companyName
+          storeURLs
+          websiteURLs
+          managerID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      owner
+      profile {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
       }
     }
   }
@@ -104,94 +531,31 @@ export const listProfiles = /* GraphQL */ `
         id
         email
         name
-        businessID
         avatar {
           bucket
           region
           key
         }
-        roleTags {
-          sales
-          marketing
-          logistics
-          accounting
-          production
-          qualityControl
-        }
-        countryCode {
-          code
-          label
-          phone
-        }
-        phoneNumber
         createdAt
         updatedAt
-        business {
-          id
-          companyName
-          storeURLs
-          websiteURLs
-          createdAt
-          updatedAt
-          owner
-        }
       }
       nextToken
     }
   }
 `;
-export const profileByBusiness = /* GraphQL */ `
-  query ProfileByBusiness(
-    $businessID: ID
-    $sortDirection: ModelSortDirection
-    $filter: ModelProfileFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    profileByBusiness(
-      businessID: $businessID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        email
-        name
-        businessID
-        avatar {
-          bucket
-          region
-          key
-        }
-        roleTags {
-          sales
-          marketing
-          logistics
-          accounting
-          production
-          qualityControl
-        }
-        countryCode {
-          code
-          label
-          phone
-        }
-        phoneNumber
-        createdAt
-        updatedAt
-        business {
-          id
-          companyName
-          storeURLs
-          websiteURLs
-          createdAt
-          updatedAt
-          owner
-        }
+export const getProfile = /* GraphQL */ `
+  query GetProfile($id: ID!) {
+    getProfile(id: $id) {
+      id
+      email
+      name
+      avatar {
+        bucket
+        region
+        key
       }
-      nextToken
+      createdAt
+      updatedAt
     }
   }
 `;

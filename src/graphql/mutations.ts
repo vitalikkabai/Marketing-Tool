@@ -12,20 +12,35 @@ export const createBusiness = /* GraphQL */ `
       companyName
       storeURLs
       websiteURLs
+      managerID
       createdAt
       updatedAt
       owner
-      profiles {
+      employees {
         items {
           id
-          email
-          name
           businessID
           phoneNumber
           createdAt
           updatedAt
         }
         nextToken
+      }
+      manager {
+        id
+        createdAt
+        updatedAt
+        businesses {
+          nextToken
+        }
+        owner
+        profile {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
       }
     }
   }
@@ -40,20 +55,35 @@ export const updateBusiness = /* GraphQL */ `
       companyName
       storeURLs
       websiteURLs
+      managerID
       createdAt
       updatedAt
       owner
-      profiles {
+      employees {
         items {
           id
-          email
-          name
           businessID
           phoneNumber
           createdAt
           updatedAt
         }
         nextToken
+      }
+      manager {
+        id
+        createdAt
+        updatedAt
+        businesses {
+          nextToken
+        }
+        owner
+        profile {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
       }
     }
   }
@@ -68,20 +98,323 @@ export const deleteBusiness = /* GraphQL */ `
       companyName
       storeURLs
       websiteURLs
+      managerID
       createdAt
       updatedAt
       owner
-      profiles {
+      employees {
         items {
           id
-          email
-          name
           businessID
           phoneNumber
           createdAt
           updatedAt
         }
         nextToken
+      }
+      manager {
+        id
+        createdAt
+        updatedAt
+        businesses {
+          nextToken
+        }
+        owner
+        profile {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
+      }
+    }
+  }
+`;
+export const createEmployee = /* GraphQL */ `
+  mutation CreateEmployee(
+    $input: CreateEmployeeInput!
+    $condition: ModelEmployeeConditionInput
+  ) {
+    createEmployee(input: $input, condition: $condition) {
+      id
+      businessID
+      roleTags {
+        sales
+        marketing
+        logistics
+        accounting
+        production
+        qualityControl
+      }
+      countryCode {
+        code
+        label
+        phone
+      }
+      phoneNumber
+      createdAt
+      updatedAt
+      business {
+        id
+        companyName
+        storeURLs
+        websiteURLs
+        managerID
+        createdAt
+        updatedAt
+        owner
+        employees {
+          nextToken
+        }
+        manager {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+      }
+      profile {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const updateEmployee = /* GraphQL */ `
+  mutation UpdateEmployee(
+    $input: UpdateEmployeeInput!
+    $condition: ModelEmployeeConditionInput
+  ) {
+    updateEmployee(input: $input, condition: $condition) {
+      id
+      businessID
+      roleTags {
+        sales
+        marketing
+        logistics
+        accounting
+        production
+        qualityControl
+      }
+      countryCode {
+        code
+        label
+        phone
+      }
+      phoneNumber
+      createdAt
+      updatedAt
+      business {
+        id
+        companyName
+        storeURLs
+        websiteURLs
+        managerID
+        createdAt
+        updatedAt
+        owner
+        employees {
+          nextToken
+        }
+        manager {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+      }
+      profile {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const deleteEmployee = /* GraphQL */ `
+  mutation DeleteEmployee(
+    $input: DeleteEmployeeInput!
+    $condition: ModelEmployeeConditionInput
+  ) {
+    deleteEmployee(input: $input, condition: $condition) {
+      id
+      businessID
+      roleTags {
+        sales
+        marketing
+        logistics
+        accounting
+        production
+        qualityControl
+      }
+      countryCode {
+        code
+        label
+        phone
+      }
+      phoneNumber
+      createdAt
+      updatedAt
+      business {
+        id
+        companyName
+        storeURLs
+        websiteURLs
+        managerID
+        createdAt
+        updatedAt
+        owner
+        employees {
+          nextToken
+        }
+        manager {
+          id
+          createdAt
+          updatedAt
+          owner
+        }
+      }
+      profile {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const createManager = /* GraphQL */ `
+  mutation CreateManager(
+    $input: CreateManagerInput!
+    $condition: ModelManagerConditionInput
+  ) {
+    createManager(input: $input, condition: $condition) {
+      id
+      createdAt
+      updatedAt
+      businesses {
+        items {
+          id
+          companyName
+          storeURLs
+          websiteURLs
+          managerID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      owner
+      profile {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const updateManager = /* GraphQL */ `
+  mutation UpdateManager(
+    $input: UpdateManagerInput!
+    $condition: ModelManagerConditionInput
+  ) {
+    updateManager(input: $input, condition: $condition) {
+      id
+      createdAt
+      updatedAt
+      businesses {
+        items {
+          id
+          companyName
+          storeURLs
+          websiteURLs
+          managerID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      owner
+      profile {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const deleteManager = /* GraphQL */ `
+  mutation DeleteManager(
+    $input: DeleteManagerInput!
+    $condition: ModelManagerConditionInput
+  ) {
+    deleteManager(input: $input, condition: $condition) {
+      id
+      createdAt
+      updatedAt
+      businesses {
+        items {
+          id
+          companyName
+          storeURLs
+          websiteURLs
+          managerID
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      owner
+      profile {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
       }
     }
   }
@@ -95,40 +428,13 @@ export const createProfile = /* GraphQL */ `
       id
       email
       name
-      businessID
       avatar {
         bucket
         region
         key
       }
-      roleTags {
-        sales
-        marketing
-        logistics
-        accounting
-        production
-        qualityControl
-      }
-      countryCode {
-        code
-        label
-        phone
-      }
-      phoneNumber
       createdAt
       updatedAt
-      business {
-        id
-        companyName
-        storeURLs
-        websiteURLs
-        createdAt
-        updatedAt
-        owner
-        profiles {
-          nextToken
-        }
-      }
     }
   }
 `;
@@ -141,40 +447,13 @@ export const updateProfile = /* GraphQL */ `
       id
       email
       name
-      businessID
       avatar {
         bucket
         region
         key
       }
-      roleTags {
-        sales
-        marketing
-        logistics
-        accounting
-        production
-        qualityControl
-      }
-      countryCode {
-        code
-        label
-        phone
-      }
-      phoneNumber
       createdAt
       updatedAt
-      business {
-        id
-        companyName
-        storeURLs
-        websiteURLs
-        createdAt
-        updatedAt
-        owner
-        profiles {
-          nextToken
-        }
-      }
     }
   }
 `;
@@ -187,39 +466,153 @@ export const deleteProfile = /* GraphQL */ `
       id
       email
       name
-      businessID
       avatar {
         bucket
         region
         key
       }
-      roleTags {
-        sales
-        marketing
-        logistics
-        accounting
-        production
-        qualityControl
-      }
-      countryCode {
-        code
-        label
-        phone
-      }
-      phoneNumber
       createdAt
       updatedAt
-      business {
+    }
+  }
+`;
+export const createMessage = /* GraphQL */ `
+  mutation CreateMessage(
+    $input: CreateMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    createMessage(input: $input, condition: $condition) {
+      id
+      stage
+      subjectId
+      senderID
+      receiverID
+      content
+      seen
+      attachment {
+        bucket
+        region
+        key
+      }
+      createdAt
+      updatedAt
+      sender {
         id
-        companyName
-        storeURLs
-        websiteURLs
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
         createdAt
         updatedAt
-        owner
-        profiles {
-          nextToken
+      }
+      receiver {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
         }
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const updateMessage = /* GraphQL */ `
+  mutation UpdateMessage(
+    $input: UpdateMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    updateMessage(input: $input, condition: $condition) {
+      id
+      stage
+      subjectId
+      senderID
+      receiverID
+      content
+      seen
+      attachment {
+        bucket
+        region
+        key
+      }
+      createdAt
+      updatedAt
+      sender {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+      receiver {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+export const deleteMessage = /* GraphQL */ `
+  mutation DeleteMessage(
+    $input: DeleteMessageInput!
+    $condition: ModelMessageConditionInput
+  ) {
+    deleteMessage(input: $input, condition: $condition) {
+      id
+      stage
+      subjectId
+      senderID
+      receiverID
+      content
+      seen
+      attachment {
+        bucket
+        region
+        key
+      }
+      createdAt
+      updatedAt
+      sender {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+      receiver {
+        id
+        email
+        name
+        avatar {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
       }
     }
   }

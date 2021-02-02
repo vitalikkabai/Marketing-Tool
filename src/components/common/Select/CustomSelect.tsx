@@ -3,7 +3,7 @@ import {makeStyles, Select} from "@material-ui/core";
 import styles from "./CustomSelect.module.scss"
 
 interface CustomInputProps {
-    onChange?: any;
+    onChange?: (event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>, child?: React.ReactNode) => void | undefined,
     value?: any;
     items: any
 }

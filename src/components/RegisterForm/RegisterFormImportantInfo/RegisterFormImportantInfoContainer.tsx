@@ -5,7 +5,8 @@ import { setBusinessName } from '../../../store/Business/BusinessActions';
 import { signUp } from '../../../store/Auth/AuthActions';
 import RegisterFormImportantInfo from "./RegisterFormImportantInfo";
 import { setProfile } from "../../../store/Profile/ProfileActions";
-import { CreateProfileInput } from "../../../API";
+import { CreateEmployeeInput, CreateProfileInput } from "../../../API";
+import { setEmployee } from "../../../store/Employee/EmployeeActions";
 
 // export type RegisterFormImportantInfoContainerType = MapDispatchType &
 //     stepTwoData & ProfileType;
@@ -14,11 +15,12 @@ const mapStateToProps = (state: AppStateType) => {
     return {
         companyName: state.BusinessReducer.companyName,
         profile: state.ProfileReducer,
-        phoneNumber: state.ProfileReducer.phoneNumber,
+        phoneNumber: state.EmployeeReducer.phoneNumber,
         country: "",
         city: "",
         businessNumber: "",
-        registerErrorText: state.AuthReducer.registerErrorMessage
+        registerErrorText: state.AuthReducer.registerErrorMessage,
+        employee: state.EmployeeReducer
     }
 };
 
@@ -32,7 +34,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         setBusinessName: (businessName: string) => dispatch(setBusinessName(businessName)),
         signUp: (email:string, password:string, userName:string) => dispatch(signUp(email, password, userName)),
-        setProfile: (profile: CreateProfileInput) => dispatch(setProfile(profile))
+        setProfile: (profile: CreateProfileInput) => dispatch(setProfile(profile)),
+        setEmployee: (employee: CreateEmployeeInput) => dispatch(setEmployee(employee))
     }
 };
 

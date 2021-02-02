@@ -7,12 +7,10 @@ import { ReactComponent as VisibilityOff } from "../../../assets/images/eyeOff.s
 
 interface CustomInputProps {
   type?: string;
-  onChange?: any;
-  onBlur?: any;
-  onFocus?: any;
+  onChange?: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
   value?: string;
   color?: string;
-  width?: any; //ToDo change "any" types
+  width?: number;
   name?: string;
   placeholder?: string;
   fullWidth?: boolean;
@@ -151,8 +149,6 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
       root: classes.root
     }}
     onChange={props.onChange}
-    onBlur={props.onBlur}
-    onFocus={props.onFocus}
     value={props.value} />
 }
 

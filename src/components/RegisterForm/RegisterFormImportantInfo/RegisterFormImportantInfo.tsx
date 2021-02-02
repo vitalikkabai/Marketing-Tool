@@ -26,13 +26,13 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
     const [inputValue, setInputValue] = useState({ //For input values
         companyName: {value: props.companyName, touched: false, error: false, errorText: "", name: "COMPANY_NAME"},
         countryCode: {
-            value: {code: "", label: "", phone: ""},
+            value: props.employee.countryCode,
             touched: false,
             error: false,
             errorText: "",
             name: "COUNTRY_CODE"
         },
-        phoneNumber: {value: props.phoneNumber, touched: false, error: false, errorText: "", name: "PHONE_NUMBER"},
+        phoneNumber: {value: props.employee.phoneNumber, touched: false, error: false, errorText: "", name: "PHONE_NUMBER"},
         ownerName: {value: props.profile.name, touched: false, error: false, errorText: "", name: "OWNER_NAME"},
         ownerEmail: {value: props.profile.email, touched: false, error: false, errorText: "", name: "OWNER_EMAIL"},
         password: {value: "", touched: false, error: false, errorText: "", name: "PASSWORD"},
@@ -146,7 +146,6 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setPending(true);
         resetFieldErrors();
         setEmptyFieldsError(false);
         const emptyMessage = "The input fields cannot be empty";
@@ -161,9 +160,10 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
         inputArray.forEach((el, index) => {
             if (inputArray[index][1].value.toString().replace(/\s/g, '') === "")
                 emptyInputNames.push(inputArray[index][0])
-        })
+        });
 
-        if (emptyInputNames[0]) {// if any empty fields detected
+        //ToDo find another way to validate empty fields
+        if (emptyInputNames[0] || !inputValue.countryCode.value.code) {// if any empty fields detected
             if (!inputValue.companyName.value.replace(/\s/g, '')) {
                 setInputValue(prevStyle => ({
                     ...prevStyle,
@@ -241,6 +241,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                 return;
             } else {
                 saveInputData();
+                setPending(true);
                 props.signUp(inputValue.ownerEmail.value, inputValue.password.value, inputValue.ownerName.value);
             }
         }
@@ -252,13 +253,19 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
     }
 
     const saveInputData = () => {
+        console.log(inputValue.countryCode)
         props.setBusinessName(inputValue.companyName.value);
+        props.setEmployee({
+            ...props.employee,
+            countryCode:  inputValue.countryCode.value,
+            phoneNumber:    inputValue.phoneNumber.value
+        });
         props.setProfile({
             ...props.profile,
             name: inputValue.ownerName.value,
             email: inputValue.ownerEmail.value,
             // countryCode: inputValue.countryCode.value.label,
-            phoneNumber: inputValue.phoneNumber.value,
+            // phoneNumber: inputValue.phoneNumber.value,
         })
     }
 
@@ -291,7 +298,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                         value={inputValue.ownerName.value}
                                         error={inputValue.ownerName.error}
                                         margin={"0 0 24px 0"}
-                                        onChange={(event: any) =>
+                                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                             handleInput(event.target.value, "OWNER_NAME")
                                         }
                                     />
@@ -303,7 +310,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                         error={inputValue.companyName.error}
                                         variant="outlined"
                                         margin={"0 0 24px 0"}
-                                        onChange={(event: any) =>
+                                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                             handleInput(event.target.value, "COMPANY_NAME")
                                         }
                                     />
@@ -317,7 +324,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                         value={inputValue.password.value}
                                         error={inputValue.password.error}
                                         margin={"0 0 24px 0"}
-                                        onChange={(event: any) =>
+                                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                             handleInput(event.target.value, "PASSWORD")
                                         }
                                     />
@@ -329,10 +336,10 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                                 label={"Country"}
                                                 margin={"0 0 24px 0"}
                                                 option={data}
-                                                getOption={(option: any) => "+" + option.phone}
-                                                onInputChange={(event: any, newInputValue: any, reason: string) => {
+                                                value={inputValue.countryCode.value}
+                                                getOption={(option:{code: string, phone: string, label: string}) => "+" + option.phone}
+                                                onInputChange={(event: Record<string, unknown>, newInputValue: string, reason: string) => {
                                                     if (newInputValue.length === 0) {
-                                                        console.log("In clear")
                                                         setInputValue(
                                                             prevStyle => ({
                                                                 ...prevStyle,
@@ -387,7 +394,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                                 }
                                                 error={inputValue.countryCode.error}
                                                 onChange={
-                                                    (event: any, value: any) => {
+                                                    (event: Record<string, unknown>, value: any) => {
                                                         if (value) {
                                                             setInputValue(
                                                                 prevStyle => ({
@@ -411,7 +418,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                                 fullWidth={true}
                                                 value={inputValue.phoneNumber.value}
                                                 error={inputValue.phoneNumber.error}
-                                                onChange={(event: any) =>
+                                                onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                                     handleInput(event.target.value, "PHONE_NUMBER")
                                                 }
                                             />
@@ -442,7 +449,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                         value={inputValue.ownerEmail.value}
                                         error={inputValue.ownerEmail.error}
                                         margin={"0 0 24px 0"}
-                                        onChange={(event: any) =>
+                                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                             handleInput(event.target.value, "OWNER_EMAIL")
                                         }
                                     />
@@ -455,7 +462,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                         fullWidth={true}
                                         value={inputValue.confirmPassword.value}
                                         error={inputValue.confirmPassword.error}
-                                        onChange={(event: any) =>
+                                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                             handleInput(event.target.value, "CONFIRM_PASSWORD")
                                         }
                                     />

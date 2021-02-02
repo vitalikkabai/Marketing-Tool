@@ -1,17 +1,14 @@
-import React, {useState} from "react";
+import React from "react";
 import {makeStyles, TextField} from "@material-ui/core";
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import CustomInput from "../Input/CustomInput";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import IconButton from "@material-ui/core/IconButton";
-import {ReactComponent as Visibility} from "../../../assets/images/eye.svg";
-import {ReactComponent as VisibilityOff} from "../../../assets/images/eyeOff.svg";
 
 interface CustomInputProps {
     type?: string;
     onChange?: any;
-    width?: any; //ToDo change "any" types
+    width?: number;
     name?: string;
+    value?: any;
+    color?: string;
     placeholder?: string;
     fullWidth?: boolean;
     error?: boolean;
@@ -20,11 +17,11 @@ interface CustomInputProps {
     fontSize?: string;
     label?: string;
     margin?: string;
-    data?: any;
-    option: any;
-    getOption: any;
+    data?: Record<string, unknown>;
+    option: (any)[];
+    getOption: (option: any) => string;
     renderOption?: any;
-    onInputChange?: any;
+    onInputChange?: (event: any, value: string, reason: string) => void;
 }
 
 const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
@@ -39,6 +36,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
                 },
 
                 '& fieldset': {
+                    borderColor: props.error ? "#F44336" : props.value.code ? "#4285F4" : props.color,
                     borderRadius: 10,
                     borderWidth: 1,
                 },
@@ -46,6 +44,9 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
                     borderRadius: 10,
                     height: 45,
                     padding: 0,
+                },
+                '& label': {
+                    color: props.error ? "#F44336" : props.value.code ? "#4285F4" : props.color,
                 },
             },
             '& .MuiInputLabel-outlined': {
@@ -55,6 +56,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
                 fontSize: '16px',
                 lineHeight: '150%',
                 top: '-9px',
+                color: props.error ? "#F44336" : props.value.code ? "#4285F4" : props.color,
             },
             '& .MuiInputLabel-shrink': {
                 transform: 'translate(14px, -2px) scale(0.75)'
@@ -95,7 +97,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
 
     const classes = useStyles();
 
-
+    //ToDo Fix bug with country code color
     return <Autocomplete
         id="custom-input-demo"
         options={props.option}

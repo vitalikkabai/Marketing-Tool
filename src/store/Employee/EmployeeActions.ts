@@ -1,10 +1,11 @@
+import { CreateEmployeeInput } from './../../API';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CreateProfileInput } from "../../API";
 import { Profile, RoleTags, S3Object } from "../../models";
 
-export const setProfile = (profileData: CreateProfileInput) => ({
-    type: 'SET_PROFILE_DATA' as const,
-    payload: profileData
+export const setEmployee = (employee: CreateEmployeeInput) => ({
+    type: 'SET_EMPLOYEE_DATA' as const,
+    payload: employee
 });
 
 export const setProfileID = (profileID: string) => ({
@@ -16,13 +17,13 @@ export const setProfileID = (profileID: string) => ({
 //     type: 'SAVE_PROFILE_TO_DB' as const
 // });
 
-// export const setRoleTags = (roleTags: RoleTags) => ( {
-//     type: 'SET_ROLE_TAGS' as const,
-//     payload: roleTags
-// });
+export const setRoleTags = (roleTags: RoleTags) => ( {
+    type: 'SET_ROLE_TAGS' as const,
+    payload: roleTags
+});
 
-export const initiateNewProfile = (id: string) => ({
-    type: 'INITIATE_NEW_PROFILE' as const,
+export const initiateNewEmployee = (id: string) => ({
+    type: 'INITIATE_NEW_EMPLOYEE' as const,
     payload: id
 });
 
