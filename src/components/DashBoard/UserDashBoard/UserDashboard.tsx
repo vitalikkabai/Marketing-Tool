@@ -104,9 +104,9 @@ function UserDashboard() {
 								<Box className={classes.coloredBox} style={{ background: "#FFDC22" }}>
 									<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>Add products</Typography>
 									<Box className={classes.counterBox}>
-										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Typography variant={"subtitle2"} className={classes.taskValue}>0</Typography>
 										<Box className={classes.vl} />
-										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Typography variant={"subtitle2"} className={classes.taskValue}>0</Typography>
 									</Box>
 								</Box>
 							</Grid>
@@ -114,9 +114,9 @@ function UserDashboard() {
 								<Box className={classes.coloredBox} style={{ background: "#FFAB08" }}>
 									<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>Market research</Typography>
 									<Box className={classes.counterBox}>
-										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Typography variant={"subtitle2"} className={classes.taskValue}>0</Typography>
 										<Box className={classes.vl} />
-										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Typography variant={"subtitle2"} className={classes.taskValue}>0</Typography>
 									</Box>
 								</Box>
 							</Grid>
@@ -124,9 +124,9 @@ function UserDashboard() {
 								<Box className={classes.coloredBox} style={{ background: "#EE6B1D" }}>
 									<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>Brand creation</Typography>
 									<Box className={classes.counterBox}>
-										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Typography variant={"subtitle2"} className={classes.taskValue}>0</Typography>
 										<Box className={classes.vl} />
-										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Typography variant={"subtitle2"} className={classes.taskValue}>0</Typography>
 									</Box>
 								</Box>
 							</Grid>
@@ -134,9 +134,9 @@ function UserDashboard() {
 								<Box className={classes.coloredBox} style={{ background: "#43A047" }}>
 									<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>Sales channels</Typography>
 									<Box className={classes.counterBox}>
-										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Typography variant={"subtitle2"} className={classes.taskValue}>0</Typography>
 										<Box className={classes.vl} />
-										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Typography variant={"subtitle2"} className={classes.taskValue}>0</Typography>
 									</Box>
 								</Box>
 							</Grid>
@@ -144,9 +144,9 @@ function UserDashboard() {
 								<Box className={classes.coloredBox} style={{ background: "#0097A6" }}>
 									<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>Customer support</Typography>
 									<Box className={classes.counterBox}>
-										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Typography variant={"subtitle2"} className={classes.taskValue}>0</Typography>
 										<Box className={classes.vl} />
-										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Typography variant={"subtitle2"} className={classes.taskValue}>0</Typography>
 									</Box>
 								</Box>
 							</Grid>
@@ -154,9 +154,9 @@ function UserDashboard() {
 								<Box className={classes.coloredBox} style={{ background: "#7B1FA2" }}>
 									<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>Brand awareness</Typography>
 									<Box className={classes.counterBox}>
-										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Typography variant={"subtitle2"} className={classes.taskValue}>0</Typography>
 										<Box className={classes.vl} />
-										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Typography variant={"subtitle2"} className={classes.taskValue}>0</Typography>
 									</Box>
 								</Box>
 							</Grid>
@@ -164,9 +164,9 @@ function UserDashboard() {
 								<Box className={classes.coloredBox} style={{ background: "#C2185B" }}>
 									<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>Sales</Typography>
 									<Box className={classes.counterBox}>
-										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Typography variant={"subtitle2"} className={classes.taskValue}>0</Typography>
 										<Box className={classes.vl} />
-										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Typography variant={"subtitle2"} className={classes.taskValue}>0</Typography>
 									</Box>
 								</Box>
 							</Grid>
@@ -175,9 +175,9 @@ function UserDashboard() {
 									style={{ background: "#EA4335", textTransform: "uppercase" }}>
 									<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>Improvements</Typography>
 									<Box className={classes.counterBox}>
-										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Typography variant={"subtitle2"} className={classes.taskValue}>0</Typography>
 										<Box className={classes.vl} />
-										<Typography variant={"subtitle2"} style={{ textTransform: "uppercase" }}>0</Typography>
+										<Typography variant={"subtitle2"} className={classes.taskValue}>0</Typography>
 									</Box>
 								</Box>
 							</Grid>
