@@ -22,7 +22,7 @@ const initialState: CreateEmployeeInput = {
 export const EmployeeReducer = (state = initialState, action: ActionTypes): CreateEmployeeInput => {
     switch (action.type) {
         case 'SET_EMPLOYEE_DATA':
-        case 'FETCH_EMPLOYEE_BY_ID_SUCCESS':
+        case 'FETCH_EMPLOYEE_SUCCESS':
             return {
                 ...state, ...action.payload
             }

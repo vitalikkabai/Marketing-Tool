@@ -3,7 +3,7 @@ import { createEmployee } from './../../graphql/mutations';
 
 import { Epic, ofType } from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { fetchEmployeeByIdSuccess, saveProfileToDBFailed } from './EmployeeActions';
+import { fetchEmployeeSuccess, saveProfileToDBFailed } from './EmployeeActions';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
 import { createBusiness, createProfile, updateProfile } from '../../graphql/mutations';
@@ -38,8 +38,9 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                 }),
                 mergeMap((res: any) => {
                     console.log(res)
-                    return [saveProfileToDBSucces(res.data.createProfile),
-                        setBusiness(res.data.createProfile.business),
+                    return [saveProfileToDBSucces(res[0].data.createProfile),
+                        setBusiness(res[1].data.createEmployee.business),
+                        fetchEmployeeSuccess(res[1].data.createEmployee)
                     ]                }),
                 catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
             )
@@ -54,7 +55,7 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                     mergeMap(res => {
                         console.log(res)
                         return [
-                            fetchEmployeeByIdSuccess(res.data.getEmployee),
+                            fetchEmployeeSuccess(res.data.getEmployee),
                             updateProfileSuccess(res.data.getEmployee.profile),
                             setBusiness(res.data.getEmployee.business)
                         ]

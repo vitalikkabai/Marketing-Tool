@@ -40,9 +40,9 @@ export const fetchEmployeeById = (id: string) => ({
     payload: id
 });
 
-export const fetchEmployeeByIdSuccess = (profile: CreateEmployeeInput) => ({
-    type: 'FETCH_EMPLOYEE_BY_ID_SUCCESS' as const,
-    payload: profile
+export const fetchEmployeeSuccess = (employee: CreateEmployeeInput) => ({
+    type: 'FETCH_EMPLOYEE_SUCCESS' as const,
+    payload: employee
 })
 
 export const updateEmployeeSuccess = (profile: CreateProfileInput) => ({
