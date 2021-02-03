@@ -162,7 +162,6 @@ export const onCreateBusiness = /* GraphQL */ `
         businesses {
           nextToken
         }
-        owner
         profile {
           id
           email
@@ -202,7 +201,6 @@ export const onUpdateBusiness = /* GraphQL */ `
         businesses {
           nextToken
         }
-        owner
         profile {
           id
           email
@@ -242,7 +240,6 @@ export const onDeleteBusiness = /* GraphQL */ `
         businesses {
           nextToken
         }
-        owner
         profile {
           id
           email
@@ -291,7 +288,6 @@ export const onCreateEmployee = /* GraphQL */ `
           id
           createdAt
           updatedAt
-          owner
         }
       }
       profile {
@@ -346,7 +342,6 @@ export const onUpdateEmployee = /* GraphQL */ `
           id
           createdAt
           updatedAt
-          owner
         }
       }
       profile {
@@ -401,7 +396,6 @@ export const onDeleteEmployee = /* GraphQL */ `
           id
           createdAt
           updatedAt
-          owner
         }
       }
       profile {
@@ -438,7 +432,6 @@ export const onCreateManager = /* GraphQL */ `
         }
         nextToken
       }
-      owner
       profile {
         id
         email
@@ -473,7 +466,6 @@ export const onUpdateManager = /* GraphQL */ `
         }
         nextToken
       }
-      owner
       profile {
         id
         email
@@ -508,7 +500,6 @@ export const onDeleteManager = /* GraphQL */ `
         }
         nextToken
       }
-      owner
       profile {
         id
         email

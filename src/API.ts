@@ -384,7 +384,6 @@ export type CreateBusinessMutation = {
         __typename: "ModelBusinessConnection",
         nextToken: string | null,
       } | null,
-      owner: string | null,
       profile:  {
         __typename: "Profile",
         id: string,
@@ -434,7 +433,6 @@ export type UpdateBusinessMutation = {
         __typename: "ModelBusinessConnection",
         nextToken: string | null,
       } | null,
-      owner: string | null,
       profile:  {
         __typename: "Profile",
         id: string,
@@ -484,7 +482,6 @@ export type DeleteBusinessMutation = {
         __typename: "ModelBusinessConnection",
         nextToken: string | null,
       } | null,
-      owner: string | null,
       profile:  {
         __typename: "Profile",
         id: string,
@@ -544,7 +541,6 @@ export type CreateEmployeeMutation = {
         id: string,
         createdAt: string,
         updatedAt: string,
-        owner: string | null,
       } | null,
     } | null,
     profile:  {
@@ -611,7 +607,6 @@ export type UpdateEmployeeMutation = {
         id: string,
         createdAt: string,
         updatedAt: string,
-        owner: string | null,
       } | null,
     } | null,
     profile:  {
@@ -678,7 +673,6 @@ export type DeleteEmployeeMutation = {
         id: string,
         createdAt: string,
         updatedAt: string,
-        owner: string | null,
       } | null,
     } | null,
     profile:  {
@@ -724,7 +718,6 @@ export type CreateManagerMutation = {
       } | null > | null,
       nextToken: string | null,
     } | null,
-    owner: string | null,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -768,7 +761,6 @@ export type UpdateManagerMutation = {
       } | null > | null,
       nextToken: string | null,
     } | null,
-    owner: string | null,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -812,7 +804,6 @@ export type DeleteManagerMutation = {
       } | null > | null,
       nextToken: string | null,
     } | null,
-    owner: string | null,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -1294,7 +1285,6 @@ export type GetBusinessQuery = {
         __typename: "ModelBusinessConnection",
         nextToken: string | null,
       } | null,
-      owner: string | null,
       profile:  {
         __typename: "Profile",
         id: string,
@@ -1335,7 +1325,6 @@ export type ListBusinesssQuery = {
         id: string,
         createdAt: string,
         updatedAt: string,
-        owner: string | null,
       } | null,
     } | null > | null,
     nextToken: string | null,
@@ -1373,7 +1362,6 @@ export type ByManagerAndCompanyQuery = {
         id: string,
         createdAt: string,
         updatedAt: string,
-        owner: string | null,
       } | null,
     } | null > | null,
     nextToken: string | null,
@@ -1426,7 +1414,6 @@ export type GetEmployeeQuery = {
         id: string,
         createdAt: string,
         updatedAt: string,
-        owner: string | null,
       } | null,
     } | null,
     profile:  {
@@ -1576,7 +1563,6 @@ export type ListManagersQuery = {
         __typename: "ModelBusinessConnection",
         nextToken: string | null,
       } | null,
-      owner: string | null,
       profile:  {
         __typename: "Profile",
         id: string,
@@ -1615,7 +1601,6 @@ export type GetManagerQuery = {
       } | null > | null,
       nextToken: string | null,
     } | null,
-    owner: string | null,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -1860,7 +1845,6 @@ export type OnCreateBusinessSubscription = {
         __typename: "ModelBusinessConnection",
         nextToken: string | null,
       } | null,
-      owner: string | null,
       profile:  {
         __typename: "Profile",
         id: string,
@@ -1905,7 +1889,6 @@ export type OnUpdateBusinessSubscription = {
         __typename: "ModelBusinessConnection",
         nextToken: string | null,
       } | null,
-      owner: string | null,
       profile:  {
         __typename: "Profile",
         id: string,
@@ -1950,7 +1933,6 @@ export type OnDeleteBusinessSubscription = {
         __typename: "ModelBusinessConnection",
         nextToken: string | null,
       } | null,
-      owner: string | null,
       profile:  {
         __typename: "Profile",
         id: string,
@@ -2005,7 +1987,6 @@ export type OnCreateEmployeeSubscription = {
         id: string,
         createdAt: string,
         updatedAt: string,
-        owner: string | null,
       } | null,
     } | null,
     profile:  {
@@ -2067,7 +2048,6 @@ export type OnUpdateEmployeeSubscription = {
         id: string,
         createdAt: string,
         updatedAt: string,
-        owner: string | null,
       } | null,
     } | null,
     profile:  {
@@ -2129,7 +2109,6 @@ export type OnDeleteEmployeeSubscription = {
         id: string,
         createdAt: string,
         updatedAt: string,
-        owner: string | null,
       } | null,
     } | null,
     profile:  {
@@ -2170,7 +2149,6 @@ export type OnCreateManagerSubscription = {
       } | null > | null,
       nextToken: string | null,
     } | null,
-    owner: string | null,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -2209,7 +2187,6 @@ export type OnUpdateManagerSubscription = {
       } | null > | null,
       nextToken: string | null,
     } | null,
-    owner: string | null,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -2248,7 +2225,6 @@ export type OnDeleteManagerSubscription = {
       } | null > | null,
       nextToken: string | null,
     } | null,
-    owner: string | null,
     profile:  {
       __typename: "Profile",
       id: string,

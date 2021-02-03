@@ -21,6 +21,16 @@ Parameters:
   
   
   
+  functionmarketingtool2598d37ePostConfirmationArn:
+    Type: String
+    Default: functionmarketingtool2598d37ePostConfirmationArn
+  
+  functionmarketingtool2598d37ePostConfirmationName:
+    Type: String
+    Default: functionmarketingtool2598d37ePostConfirmationName
+  
+  
+  
 
     
   identityPoolName:
@@ -237,6 +247,8 @@ Resources:
         
         
         
+          PostConfirmation: !Ref functionmarketingtool2598d37ePostConfirmationArn
+        
         
         
           PreSignUp: !Ref functionmarketingtool2598d37ePreSignupArn
@@ -272,6 +284,15 @@ Resources:
   
   
   
+  
+  UserPoolPostConfirmationLambdaInvokePermission:
+    Type: "AWS::Lambda::Permission"
+    DependsOn: UserPool
+    Properties:
+      Action: "lambda:invokeFunction"
+      Principal: "cognito-idp.amazonaws.com"
+      FunctionName: !Ref functionmarketingtool2598d37ePostConfirmationName
+      SourceArn: !GetAtt UserPool.Arn
   
   
   

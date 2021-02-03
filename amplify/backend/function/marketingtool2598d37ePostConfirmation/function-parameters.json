@@ -1,0 +1,16 @@
+{
+  "trigger": true,
+  "modules": [
+    "custom"
+  ],
+  "parentResource": "marketingtool2598d37e",
+  "functionName": "marketingtool2598d37ePostConfirmation",
+  "resourceName": "marketingtool2598d37ePostConfirmation",
+  "parentStack": "auth",
+  "triggerEnvs": [],
+  "triggerDir": "/home/yevhen/.nvm/versions/node/v14.8.0/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/triggers/PostConfirmation",
+  "triggerTemplate": "PostConfirmation.json.ejs",
+  "roleName": "marketingtool2598d37ePostConfirmation",
+  "skipEdit": true,
+  "enableCors": false
+}

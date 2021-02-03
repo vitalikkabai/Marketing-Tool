@@ -41,15 +41,15 @@
     },
     "Resources": {
     
-        "BusinessOwnersGroupGroup": {
+        "AdminsGroup": {
           "Type" : "AWS::Cognito::UserPoolGroup",
           "Properties" : {
-              "GroupName" : "BusinessOwnersGroup",
+              "GroupName" : "Admins",
               "Precedence" : 1,
               
               "RoleArn" : {
                 "Fn::GetAtt": [
-                    "BusinessOwnersGroupGroupRole",
+                    "AdminsGroupRole",
                     "Arn"
                 ]
               },
@@ -60,7 +60,7 @@
             }
         },
         
-        "BusinessOwnersGroupGroupRole": {
+        "AdminsGroupRole": {
             "Type": "AWS::IAM::Role",
             "Properties": {
                 "RoleName":{
@@ -70,7 +70,169 @@
                           {
                             "Ref": "authmarketingtool2598d37eUserPoolId"
                           },
-                          "-BusinessOwnersGroupGroupRole"
+                          "-AdminsGroupRole"
+                        ]
+                    ]
+                },
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Sid": "",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Federated": "cognito-identity.amazonaws.com"
+                            },
+                            "Action": "sts:AssumeRoleWithWebIdentity",
+                            "Condition": {
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmarketingtool2598d37eIdentityPoolId"}},
+                              "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+     
+    
+        "ManagersGroup": {
+          "Type" : "AWS::Cognito::UserPoolGroup",
+          "Properties" : {
+              "GroupName" : "Managers",
+              "Precedence" : 2,
+              
+              "RoleArn" : {
+                "Fn::GetAtt": [
+                    "ManagersGroupRole",
+                    "Arn"
+                ]
+              },
+              
+              "UserPoolId" : {
+                "Ref": "authmarketingtool2598d37eUserPoolId"
+              } 
+            }
+        },
+        
+        "ManagersGroupRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "RoleName":{
+                    "Fn::Join": [
+                        "",
+                        [
+                          {
+                            "Ref": "authmarketingtool2598d37eUserPoolId"
+                          },
+                          "-ManagersGroupRole"
+                        ]
+                    ]
+                },
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Sid": "",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Federated": "cognito-identity.amazonaws.com"
+                            },
+                            "Action": "sts:AssumeRoleWithWebIdentity",
+                            "Condition": {
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmarketingtool2598d37eIdentityPoolId"}},
+                              "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+     
+    
+        "FreelancersGroup": {
+          "Type" : "AWS::Cognito::UserPoolGroup",
+          "Properties" : {
+              "GroupName" : "Freelancers",
+              "Precedence" : 3,
+              
+              "RoleArn" : {
+                "Fn::GetAtt": [
+                    "FreelancersGroupRole",
+                    "Arn"
+                ]
+              },
+              
+              "UserPoolId" : {
+                "Ref": "authmarketingtool2598d37eUserPoolId"
+              } 
+            }
+        },
+        
+        "FreelancersGroupRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "RoleName":{
+                    "Fn::Join": [
+                        "",
+                        [
+                          {
+                            "Ref": "authmarketingtool2598d37eUserPoolId"
+                          },
+                          "-FreelancersGroupRole"
+                        ]
+                    ]
+                },
+                "AssumeRolePolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Sid": "",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Federated": "cognito-identity.amazonaws.com"
+                            },
+                            "Action": "sts:AssumeRoleWithWebIdentity",
+                            "Condition": {
+                              "StringEquals": {"cognito-identity.amazonaws.com:aud": {"Ref":"authmarketingtool2598d37eIdentityPoolId"}},
+                              "ForAnyValue:StringLike": {"cognito-identity.amazonaws.com:amr": "authenticated"}
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+     
+    
+        "EmployeesGroup": {
+          "Type" : "AWS::Cognito::UserPoolGroup",
+          "Properties" : {
+              "GroupName" : "Employees",
+              "Precedence" : 4,
+              
+              "RoleArn" : {
+                "Fn::GetAtt": [
+                    "EmployeesGroupRole",
+                    "Arn"
+                ]
+              },
+              
+              "UserPoolId" : {
+                "Ref": "authmarketingtool2598d37eUserPoolId"
+              } 
+            }
+        },
+        
+        "EmployeesGroupRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "RoleName":{
+                    "Fn::Join": [
+                        "",
+                        [
+                          {
+                            "Ref": "authmarketingtool2598d37eUserPoolId"
+                          },
+                          "-EmployeesGroupRole"
                         ]
                     ]
                 },
@@ -295,10 +457,43 @@
     
     "Outputs": {
       
-        "BusinessOwnersGroupGroupRole": {
+        "AdminsGroupRole": {
             "Value": {
                 "Fn::GetAtt": [
-                    "BusinessOwnersGroupGroupRole",
+                    "AdminsGroupRole",
+                    "Arn"
+                ]
+            }
+         
+        },
+        
+      
+        "ManagersGroupRole": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "ManagersGroupRole",
+                    "Arn"
+                ]
+            }
+         
+        },
+        
+      
+        "FreelancersGroupRole": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "FreelancersGroupRole",
+                    "Arn"
+                ]
+            }
+         
+        },
+        
+      
+        "EmployeesGroupRole": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "EmployeesGroupRole",
                     "Arn"
                 ]
             }
