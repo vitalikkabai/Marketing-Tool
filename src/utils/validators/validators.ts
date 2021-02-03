@@ -25,7 +25,7 @@ export const isPhone = (value: string) => {
 }
 
 export const isMinLength = (value: string) => {
-    if(value.length < 8) return "The password must be at least 8 characters";
+    if(value.length < 6) return "The password must be at least 6 characters";
     return ""
 }
 
