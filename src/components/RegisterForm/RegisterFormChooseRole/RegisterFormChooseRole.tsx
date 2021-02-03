@@ -52,7 +52,7 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (props)
                 selectedRoles.push(rolesArray[index][0])
         })
         if(selectedRoles[0]){
-            history.push("3");
+            history.push("/register/3");
         }
         else {
             setErrorText("You must select at least one option")
@@ -87,7 +87,7 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (props)
                             <CustomButton type={"submit"} className={classes.buttonBlock} text={"Next"}/>
                             <Typography variant={"subtitle1"}>Have an account already?&nbsp;
                                 <Link className={classes.link} onClick={() => {
-                                    history.replace("/login")
+                                    history.push("/login")
                                 }}>Log in</Link>
                             </Typography>
                         </Grid>
