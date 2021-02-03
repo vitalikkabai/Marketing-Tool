@@ -49,9 +49,9 @@ function UserDashboard() {
 	};
 
 	const tasks = [
-		{ id: 0, taskTitle: "Upload your photo", taskType: 1, status: false, timeAgo: 1611745499068 },
-		{ id: 1, taskTitle: "Add products", taskType: 2, status: false, timeAgo: 1585005499068 },
-		{ id: 2, taskTitle: "Improve yourself", taskType: 9, status: false, timeAgo: 1611828650507 },
+		{ id: 0, taskTitle: "Upload your photo", taskType: 1, status: false, timeAgo: 1611425499068 },
+		{ id: 1, taskTitle: "Add products", taskType: 2, status: false, timeAgo: 1611425499068 },
+		{ id: 2, taskTitle: "Improve yourself", taskType: 9, status: false, timeAgo: 1611745499068 },
 	];
 
 	const TabTasks = tasks.map((el, i) => (

@@ -7,10 +7,13 @@ import CustomButton from "../common/Button/CustomButton";
 const Chat = () => {
     return <Box className={classes.mainContainer}>
         <Grid item className={classes.chatContainer}>
-            <CustomInput />
-            <br/><br/>
-            <CustomButton type={"button"} text={"send"}/>
-            <Typography>Chat</Typography>
+            <Box>
+                <Typography>Place for chat</Typography>
+            </Box>
+            <Box className={classes.chatInput}>
+                <CustomInput />
+                <CustomButton type={"button"} text={"send"} width={"120px"}/>
+            </Box>
         </Grid>
     </Box>
 }
