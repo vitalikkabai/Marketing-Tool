@@ -25,13 +25,13 @@ const MarketingToolPagePreviewContainer = (props: any) => {
 						<Switch>
 							<Route path={'/preview/'} exact component={VisitorDashboard} />
 							<Route path={'/preview/products'} exact component={H1} />
-							<Route path={'/preview/market-research'} exact component={VisitorDashboard} />
+							<Route path={'/preview/market-research'} exact component={H1} />
 							<Route path={'/preview/brand-creation'} exact component={H1} />
-							<Route path={'/preview/sales-channels'} exact component={VisitorDashboard} />
+							<Route path={'/preview/sales-channels'} exact component={H1} />
 							<Route path={'/preview/customer-support'} exact component={H1} />
-							<Route path={'/preview/brand-awareness'} exact component={VisitorDashboard} />
+							<Route path={'/preview/brand-awareness'} exact component={H1} />
 							<Route path={'/preview/sales-statistics'} exact component={H1} />
-							<Route path={'/preview/improvements'} exact component={VisitorDashboard} />
+							<Route path={'/preview/improvements'} exact component={H1} />
 						</Switch>
 					</Grid>
 				</Grid>
@@ -55,7 +55,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
 
 const H1 = () => {
 	return (
-		<h1>Hello user </h1>
+		<h1 style={{width: "100%", height: "10vh", display: "flex", justifyContent: "center", alignItems: "center"}}>Coming soon</h1>
 	)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MarketingToolPagePreviewContainer);

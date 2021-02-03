@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Tab, Badge } from '@material-ui/core';
+import {Box, Grid, Typography, Tab, Badge, Hidden} from '@material-ui/core';
 import React from 'react';
 import moment from "moment"
 import classes from './UserDashboard.module.scss';
@@ -78,7 +78,12 @@ function UserDashboard() {
 						<img src={team4} alt={"avatar"} />
 						<img src={team2} alt={"avatar"} />
 						<img src={team3} alt={"avatar"} />
-						<img src={team1} alt={"avatar"} />
+						<Hidden mdDown>
+							<img src={team1} alt={"avatar"} />
+						</Hidden>
+						<Hidden lgDown>
+							<img src={team4} alt={"avatar"} />
+						</Hidden>
 					</Box>
 					<Typography color={"primary"}>View team</Typography>
 				</Grid>
