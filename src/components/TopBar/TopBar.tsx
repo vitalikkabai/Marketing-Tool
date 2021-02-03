@@ -1,16 +1,16 @@
-import {Box, Button, Dialog, DialogContent, Grid, Typography} from '@material-ui/core';
-import React, {useEffect, useState} from 'react';
+import { Box, Button, Dialog, DialogContent, Grid, Typography } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
 import CustomButton from "../common/Button/CustomButton"
 import classes from './TopBar.module.scss';
 import clock from "../../assets/images/clock.svg";
 import logOutIcon from "../../assets/images/logOutConfirmIcon.svg"
-import {useHistory} from "react-router";
+import { useHistory } from "react-router";
 import AvatarSection from './AvatarSection/AvatarSection';
-import {PropsFromRedux} from "./TopBarContainer";
+import { PropsFromRedux } from "./TopBarContainer";
 
 const TopBar = (props: PropsFromRedux) => {
 
-    const israelTimeArr: string[] = new Date().toLocaleString('he-IL', {timeZone: 'Asia/Jerusalem'}).split(', ')[1].split(':');// change on Israel zone, Australia just from test
+    const israelTimeArr: string[] = new Date().toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem' }).split(', ')[1].split(':');// change on Israel zone, Australia just from test
     const [currentTime, setCurrentTime] = useState(new Date());
     const [isOpen, setIsOpen] = React.useState(false);
     const [israelCurrentTime, setIsraelCurrentTime] = useState({
@@ -23,10 +23,10 @@ const TopBar = (props: PropsFromRedux) => {
         let prevTime = currentTime;
         const intervalId = setInterval(() => {
             const newTime = new Date();
-            const newIsraelTimeArr = new Date().toLocaleString('he-IL', {timeZone: 'Asia/Jerusalem'}).split(', ')[1].split(':');// change on Israel zone, Australia just from test
+            const newIsraelTimeArr = new Date().toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem' }).split(', ')[1].split(':');// change on Israel zone, Australia just from test
             if (newTime.getMinutes() !== prevTime.getMinutes()) {
                 prevTime = newTime;
-                setIsraelCurrentTime({hour: parseInt(newIsraelTimeArr[0]), min: parseInt(newIsraelTimeArr[1])});
+                setIsraelCurrentTime({ hour: parseInt(newIsraelTimeArr[0]), min: parseInt(newIsraelTimeArr[1]) });
                 setCurrentTime(newTime);
             }
         }, 1000);
@@ -40,7 +40,7 @@ const TopBar = (props: PropsFromRedux) => {
                     <Grid className={classes.clock}>
                         <Typography variant="body1">Time in israel</Typography>
                         <Box className={classes.timeContainer}>
-                            <img src={clock} alt="clock"/>
+                            <img src={clock} alt="clock" />
                             {israelCurrentTime ?
                                 <Typography variant="caption" className={classes.time}>
                                     {israelCurrentTime.hour < 10 ? " 0" + israelCurrentTime.hour : israelCurrentTime.hour}:
@@ -53,7 +53,7 @@ const TopBar = (props: PropsFromRedux) => {
                     <Grid className={classes.clock}>
                         <Typography variant="body1">Time Difference</Typography>
                         <Box className={classes.timeContainer}>
-                            <img src={clock} alt="clock"/>
+                            <img src={clock} alt="clock" />
                             <Typography variant="caption" className={classes.time}>
                                 {israelCurrentTime && currentTime ? (2 + currentTime.getTimezoneOffset() / 60) + "h" : null}
                             </Typography>
@@ -62,7 +62,7 @@ const TopBar = (props: PropsFromRedux) => {
                     <Grid className={classes.clock}>
                         <Typography variant="body1">Your time</Typography>
                         <Box className={classes.timeContainer}>
-                            <img src={clock} alt="clock"/>
+                            <img src={clock} alt="clock" />
                             {currentTime ?
                                 <Typography variant="caption" className={classes.time}>
                                     {currentTime.getHours() < 10 ? "0" + currentTime.getHours() : currentTime.getHours()}:
@@ -73,22 +73,22 @@ const TopBar = (props: PropsFromRedux) => {
                         </Box>
                     </Grid>
                 </Grid>
-                <Grid item/>
+                <Grid item />
                 <Grid item className={classes.personalInfo}>
                     {props.isAuth ?
-                        <AvatarSection profile={props.profile} userAttributes={props.userAttributes} signOut={props.signOut}/>
+                        <AvatarSection openDialogue={setIsOpen} profile={props.profile} userAttributes={props.userAttributes} signOut={props.signOut} />
                         :
                         <Box className={classes.logInBox}>
                             <Typography variant={"subtitle2"} color={"primary"}
-                                        className={classes.logInText}
-                                        onClick={()=>history.push("/login")}>
+                                className={classes.logInText}
+                                onClick={() => history.push("/login")}>
                                 Log In
                             </Typography>
                             <Button
                                 variant="contained"
                                 color="primary"
                                 type="submit"
-                                onClick={()=>history.push("/register")}>
+                                onClick={() => history.push("/register")}>
                                 Get Started
                             </Button>
                         </Box>
@@ -105,15 +105,15 @@ const TopBar = (props: PropsFromRedux) => {
                     }}
                 >
                     <DialogContent className={classes.logOutDialog}>
-                        <Typography variant="h3" align="center">Are you sure you want to <br/> log out?</Typography>
-                        <img src={logOutIcon} alt="image"/>
+                        <Typography variant="h3" align="center">Are you sure you want to <br /> log out?</Typography>
+                        <img src={logOutIcon} alt="image" />
                         <Box className={classes.buttonBox}>
                             <CustomButton type="button" onClick={() => {
                                 setIsOpen(!isOpen)
-                            }} text="NO"/>
+                            }} text="NO" />
                             <CustomButton type="button" onClick={() => {
                                 props.signOut()
-                            }} text="YES"/>
+                            }} text="YES" />
                         </Box>
                     </DialogContent>
                 </Dialog>

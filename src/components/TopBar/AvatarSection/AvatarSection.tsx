@@ -12,21 +12,23 @@ import { getS3ObjectSrc } from "../../../utils/profile/profile";
 import classes from "./AvatarSection.module.scss";
 import { useHistory } from "react-router";
 import { CreateProfileInput } from "../../../API";
+import { Dispatch } from "react";
+import { SetStateAction } from "react";
 
 
-const AvatarSection: React.FunctionComponent<{ profile: CreateProfileInput, signOut: () => void, userAttributes: any }> = (props) => {
+const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAction<boolean>>, profile: CreateProfileInput, signOut: () => void, userAttributes: any }> = (props) => {
 
     const history = useHistory();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef<HTMLDivElement>(null);
 
-    // const handleClose = (event: React.MouseEvent<EventTarget>) => {
-    //     if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
-    //         return;
-    //     }
+    const handleClose = (event: React.MouseEvent<EventTarget>) => {
+        if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
+            return;
+        }
 
-    //     setOpen(false);
-    // };
+        setOpen(false);
+    };
 
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -46,15 +48,6 @@ const AvatarSection: React.FunctionComponent<{ profile: CreateProfileInput, sign
 
     return (
         <Box className={classes.avatarSectionContainer}>
-            <div ref={anchorRef} onClick={handleToggle}>
-                {
-                    props.profile.avatar
-                        ? <Avatar alt="avatar" src={getS3ObjectSrc(props.profile.avatar)} />
-                        : <Avatar className={classes.InitialsAvatar}>
-                            <Typography variant={"subtitle2"} className={classes.imageText}>{writeInitials()}</Typography>
-                    </Avatar>
-                }
-            </div>
             <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                 {({ TransitionProps, placement }) => (
                     <Grow
@@ -75,7 +68,7 @@ const AvatarSection: React.FunctionComponent<{ profile: CreateProfileInput, sign
                                     }}
                                     >Personal Profile</MenuItem>
                                     <MenuItem onClick={() => setOpen(false)}>Staff Accounts</MenuItem>
-                                    <MenuItem onClick={() => props.signOut()}>Logout</MenuItem>
+                                    <MenuItem onClick={() => props.openDialogue(true)}>Logout</MenuItem>
                                 </MenuList>
                             </ClickAwayListener>
                         </Paper>
@@ -85,6 +78,15 @@ const AvatarSection: React.FunctionComponent<{ profile: CreateProfileInput, sign
             <Typography variant={"subtitle2"} color={"primary"} className={classes.greetingText}>
                 Hi, {props.userAttributes.userName}
             </Typography>
+            <div ref={anchorRef} onClick={handleToggle}>
+                {
+                    props.profile.avatar
+                        ? <Avatar alt="avatar" src={getS3ObjectSrc(props.profile.avatar)} />
+                        : <Avatar className={classes.InitialsAvatar}>
+                            <Typography variant={"subtitle2"} className={classes.imageText}>{writeInitials()}</Typography>
+                        </Avatar>
+                }
+            </div>
         </Box>
     );
 }

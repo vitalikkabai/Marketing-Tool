@@ -1,17 +1,13 @@
 .avatarSectionContainer {
-    display: flex;
-    align-items: center;
-
-    .InitialsAvatar {
-        background-color: #4285F4;
-        margin-right: 32px;
-    }
-
-    .imageText {
-        font-weight: normal;
-    }
-
-    .greetingText {
-        margin-right: 24px;
-    }
+  display: flex;
+  align-items: center;
+  .InitialsAvatar {
+    background-color: #4285F4;
+  }
+  .imageText {
+    font-weight: normal;
+  }
+  .greetingText {
+    margin-right: 48px;
+  }
 }
