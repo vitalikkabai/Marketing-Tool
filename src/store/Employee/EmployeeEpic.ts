@@ -3,14 +3,15 @@ import { createEmployee } from './../../graphql/mutations';
 
 import { Epic, ofType } from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { fetchProfileByIdSuccess, saveProfileToDBFailed, saveProfileToDBSucces, setEmployee, updateProfileSuccess } from './EmployeeActions';
+import { fetchEmployeeSuccess, saveProfileToDBFailed } from './EmployeeActions';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
 import { createBusiness, createProfile, updateProfile } from '../../graphql/mutations';
-import { API, graphqlOperation, Storage } from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 import { forkJoin, from } from 'rxjs';
-import { getProfile } from '../../graphql/queries';
+import { getEmployee } from '../../graphql/queries';
 import { setBusiness } from '../Business/BusinessActions';
+import { saveProfileToDBSucces, updateProfileSuccess } from '../Profile/ProfileActions';
 
 const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     (action$, state$) => action$.pipe(
@@ -37,8 +38,9 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                 }),
                 mergeMap((res: any) => {
                     console.log(res)
-                    return [saveProfileToDBSucces(res.data.createProfile),
-                        setBusiness(res.data.createProfile.business),
+                    return [saveProfileToDBSucces(res[0].data.createProfile),
+                        setBusiness(res[1].data.createEmployee.business),
+                        fetchEmployeeSuccess(res[1].data.createEmployee)
                     ]                }),
                 catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
             )
@@ -46,47 +48,24 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     ),
 
     (action$, state$) => action$.pipe(
-        ofType('FETCH_PROFILE_BY_ID'),
+        ofType('FETCH_EMPLOYEE_BY_ID'),
         mergeMap((action: any) => {
-            return from(API.graphql(graphqlOperation(getProfile, { id: action.payload })) as unknown as Promise<any>)
+            return from(API.graphql(graphqlOperation(getEmployee, { id: action.payload })) as unknown as Promise<any>)
                 .pipe(
                     mergeMap(res => {
                         console.log(res)
-                        return [fetchProfileByIdSuccess(res.data.getProfile),setBusiness(res.data.getProfile.business)]
+                        return [
+                            fetchEmployeeSuccess(res.data.getEmployee),
+                            updateProfileSuccess(res.data.getEmployee.profile),
+                            setBusiness(res.data.getEmployee.business)
+                        ]
                     }),
                     catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
                 )
         })
     ),
-
     (action$, state$) => action$.pipe(
-        ofType('SET_PROFILE_IMAGE'),
-        mergeMap((action: any) => {
-            action.payload.bufferImg
-            if (state$.value.ProfileReducer.avatar) {
-                Storage.remove(state$.value.ProfileReducer.avatar.key)
-            }
-            return from(Storage.put(action.payload.s3.key, action.payload.bufferImg, {
-                contentType: 'image/png',
-                contentEncoding: 'base64'
-            })).pipe(
-                mergeMap(res => {
-                    const profileAvatar = {
-                        id: state$.value.ProfileReducer.id,
-                        avatar: action.payload.s3,
-                    };
-                    return from(API.graphql(graphqlOperation(updateProfile, { input: profileAvatar })) as unknown as Promise<any>);
-                }),
-                map(res => {
-                    return updateProfileSuccess(res.data.updateProfile)
-                }),
-                catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
-            )
-        })
-    ),
-
-    (action$, state$) => action$.pipe(
-        ofType('UPDATE_PERSONAL_INFO'),
+        ofType('UPDATE_EMPLOYEE_INFO'),
         mergeMap((action: any) => {
             const profile = {
                 id: state$.value.ProfileReducer.id,
