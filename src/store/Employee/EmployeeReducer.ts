@@ -19,7 +19,25 @@ const initialState: CreateEmployeeInput = {
         }
 };
 
-export const EmployeeReducer = (state = initialState, action: ActionTypes): CreateEmployeeInput => {
+const initialPresetState: CreateEmployeeInput = {
+    businessID: "",
+    roleTags: {
+       sales: false,
+       marketing: false,
+       logistics: true,
+       accounting: true,
+       production: false,
+       qualityControl: false 
+    },
+    phoneNumber: "3434343434",
+    countryCode: {
+        code: "UA",
+        label: "Ukraine",
+        phone: "380"
+    }
+};
+
+export const EmployeeReducer = (state = initialPresetState, action: ActionTypes): CreateEmployeeInput => {
     switch (action.type) {
         case 'SET_EMPLOYEE_DATA':
         case 'FETCH_EMPLOYEE_SUCCESS':

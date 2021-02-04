@@ -63,3 +63,12 @@ export const updatePersonalInfo = (name: string, email: string) => ({
     type: 'UPDATE_PERSONAL_INFO' as const,
     payload: {name, email}
 })
+
+export const setAvatarUrl = (avatarUrl: string) => ({
+    type: 'SET_PROFILE_AVATAR_URL' as const,
+    payload: avatarUrl
+})
+
+export const setAvatarUrlFailed = () => ({
+    type: 'SET_PROFILE_AVATAR_URL_FAILED' as const,
+})

@@ -170,7 +170,7 @@ export default [
         ofType("CHANGE_PERSONAL_INFO"),
         mergeMap(action => {
             console.log("Changing")
-            if (action.payload.email === state$.value.ProfileReducer.email) {
+            if (action.payload.email === state$.value.ProfileReducer.profile.email) {
                 return [updatePersonalInfo(action.payload.name, action.payload.email)]
             }
 

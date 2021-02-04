@@ -14,7 +14,7 @@ import { setEmployee } from "../../../store/Employee/EmployeeActions";
 const mapStateToProps = (state: AppStateType) => {
     return {
         companyName: state.BusinessReducer.companyName,
-        profile: state.ProfileReducer,
+        profile: state.ProfileReducer.profile,
         phoneNumber: state.EmployeeReducer.phoneNumber,
         country: "",
         city: "",

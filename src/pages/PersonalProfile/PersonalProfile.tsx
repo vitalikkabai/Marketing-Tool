@@ -18,7 +18,6 @@ import { DialogContent } from "@material-ui/core";
 import CustomButton from "../../components/common/Button/CustomButton";
 import Dialog from "@material-ui/core/Dialog";
 import Avatar from "@material-ui/core/Avatar";
-import { getS3ObjectSrc } from "../../utils/profile/profile";
 import CustomInput from "../../components/common/Input/CustomInput";
 import { changePassword, changePersonalInfo } from "../../store/Auth/AuthActions";
 
@@ -174,7 +173,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
             <Grid item xs={6}>
                 <Typography variant="h2">Upload Photo</Typography>
                 <Box className={classes.contentContainer}>
-                    <Avatar alt="avatar" src={getS3ObjectSrc(props.profile.avatar)} />
+                    <Avatar alt="avatar" src={props.avatarURL} />
 
                     <CustomButton onClick={() => setDialogOpen(true)} type={"button"} text="CHANGE" />
                 </Box>
@@ -201,7 +200,8 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 }
 function mapStateToProps(state: AppStateType) {
     return {
-        profile: state.ProfileReducer
+        profile: state.ProfileReducer.profile,
+        avatarURL: state.ProfileReducer.avatarURL
     }
 }
 

@@ -91,7 +91,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 }
 function mapStateToProps(state: AppStateType) {
     return {
-        profile: state.ProfileReducer,
+        profile: state.ProfileReducer.profile,
         roleTags: state.EmployeeReducer.roleTags,
         business: state.BusinessReducer
     }

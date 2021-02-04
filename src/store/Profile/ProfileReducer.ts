@@ -1,12 +1,27 @@
 import { CreateProfileInput } from '../../API';
 import * as actions from './ProfileActions';
 
-const initialState: CreateProfileInput = {
-        email: "",
-        name: ""
+type ProfileReducerType = {
+    profile: CreateProfileInput,
+    avatarURL: string
+}
+const initialState: ProfileReducerType = {
+        profile: {
+            name: "",
+            email: ""
+        },
+        avatarURL: ""
 };
 
-export const ProfileReducer = (state = initialState, action: ActionTypes): CreateProfileInput => {
+const initialPresetState: ProfileReducerType = {
+    profile: {
+        email: "def@ault.email",
+        name: "Default name"
+    },
+    avatarURL: ""
+};
+
+export const ProfileReducer = (state = initialPresetState, action: ActionTypes): ProfileReducerType => {
     switch (action.type) {
         case 'SET_PROFILE_DATA':
             return {
@@ -22,24 +37,23 @@ export const ProfileReducer = (state = initialState, action: ActionTypes): Creat
 
         case 'SET_PROFILE_ID':
         case 'FETCH_PROFILE_BY_ID':
+        case 'INITIATE_NEW_PROFILE':
             return {
                 ...state,
-                // profile: { ...state.profile, owner: action.payload }
-                id: action.payload
+                profile: { ...state.profile, id: action.payload }
             };
         case 'FETCH_PROFILE_BY_ID_SUCCESS':
         case 'SAVE_PROFILE_TO_DB_SUCCESS':
         case 'UPDATE_PROFILE_SUCCESS':
             return {
                 ...state,
-                ...action.payload
+                profile: {...action.payload}
             }
-        case 'INITIATE_NEW_PROFILE':
-            console.log("initiating", action.payload)
+        case 'SET_PROFILE_AVATAR_URL':
             return {
                 ...state,
-                id: action.payload
-            };
+                avatarURL: action.payload
+            }
         case 'CLEAR_PROFILE': 
             return {
                 ...initialState
@@ -47,6 +61,7 @@ export const ProfileReducer = (state = initialState, action: ActionTypes): Creat
         case 'SET_PROFILE_IMAGE':
         case 'SAVE_PROFILE_TO_DB_FAILED':
         case 'UPDATE_PERSONAL_INFO':
+        case 'SET_PROFILE_AVATAR_URL_FAILED':
         default:
             return {
                 ...state,
