@@ -11,8 +11,10 @@
 
 .contentContainer {
   display: flex;
-  height: calc(100% - 72px);
+  height: calc(100% - 70px);
   padding-top: 41px;
+  overflow: auto;
+  padding-right: 24px;
 
   .content {
     height: 100%;

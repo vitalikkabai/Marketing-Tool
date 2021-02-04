@@ -68,7 +68,7 @@ const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAc
                                     }}
                                     >Personal Profile</MenuItem>
                                     <MenuItem onClick={() => setOpen(false)}>Staff Accounts</MenuItem>
-                                    <MenuItem onClick={() => props.openDialogue(true)}>Logout</MenuItem>
+                                    <MenuItem onClick={() => props.openDialogue(true)}>Log Out</MenuItem>
                                 </MenuList>
                             </ClickAwayListener>
                         </Paper>

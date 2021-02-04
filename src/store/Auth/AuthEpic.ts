@@ -21,7 +21,7 @@ import { clearProfile, fetchProfileById, initiateNewProfile, setProfile, setProf
 import { Profile } from '../../models';
 import { clearBusiness } from '../Business/BusinessActions';
 import { AppStateType } from '../store';
-import { initiateNewEmployee } from '../Employee/EmployeeActions';
+import { clearEmployee, fetchEmployeeById, initiateNewEmployee } from '../Employee/EmployeeActions';
 
 export default [
     (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
@@ -38,6 +38,7 @@ export default [
                         email: response.attributes.email,
                         emailVerified: response.attributes.email_verified,
                         userName: response.attributes.given_name,
+                        occupation: response.attributes.occupation
                     }),
                     fetchProfileById(response.attributes.sub)];
 
@@ -49,7 +50,7 @@ export default [
         // map((res: any) => {console.log(res); return signInFailed(res)})
 
     ),
-    (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
+    (action$: ActionsObservable<any>,state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
         ofType("SIGN-UP-REQUEST"),
         mergeMap(action => {
             return from(Auth.signUp({
@@ -57,7 +58,8 @@ export default [
                 password: action.payload.password,
                 attributes: {
                     email: action.payload.email,
-                    given_name: action.payload.username
+                    given_name: action.payload.username,
+                    'custom:occupation': state$.value.AuthReducer.userAttributes.occupation
                 }
             })).pipe(
                 mergeMap(res => {
@@ -75,6 +77,7 @@ export default [
                             email: response.attributes.email,
                             emailVerified: response.attributes.email_verified,
                             userName: response.attributes.given_name,
+                            occupation: response.attributes.occupation
                         }),
                         initiateNewEmployee(response.attributes.sub),
                     ]
@@ -91,7 +94,8 @@ export default [
                     return [
                         signOutSuccess(),
                         clearProfile(),
-                        clearBusiness()
+                        clearBusiness(),
+                        clearEmployee()
                     ]
                 }),
                 catchError(err => { console.log(err); return [signOutFailed()] })
@@ -103,17 +107,19 @@ export default [
         mergeMap(() => {
             return from(Auth.currentUserInfo()).pipe(
                 mergeMap(res => {
+                    console.log(res)
                     if (res) return [getAuthDataSuccess({
                         userID: res.username,
                         email: res.attributes.email,
                         emailVerified: res.attributes.email_verified,
-                        userName: res.attributes.given_name
+                        userName: res.attributes.given_name,
+                        occupation: res.attributes.occupation
                     }),
-                    fetchProfileById(res.username)
+                    fetchEmployeeById(res.username)
                     ];
                     else return [getAuthDataFailed()];
                 }),
-                catchError(err => { return [getAuthDataFailed()] })
+                catchError(err => {console.log(err); return [getAuthDataFailed()] })
             )
         }),
     ),

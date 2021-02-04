@@ -50,7 +50,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                 sellingURLs,
                 websiteURLs
             );
-            history.push("register/2")
+            history.push("/register/2")
         }
     }
 
@@ -60,7 +60,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
             <Grid container direction="column" justify="center" className={classes.registerForm}>
                 <Box className={classes.registrationSheet} >
                     <GoBackButton onClick={() => {
-                        history.push("login")
+                        history.push("/login")
                     }}/>
                     <UxAssistant assistantText={"Hey there, I’m Vika:)"} stepNumber={1}/>
                     <Grid item container alignItems={"center"} justify={"center"} className={classes.formContainer}>
@@ -204,7 +204,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                                     <CustomButton type={"submit"} className={classes.buttonBlock} text={"Next"}/>
                                     <Typography variant={"subtitle1"} >Have an account already?&nbsp;
                                         <Link className={classes.link} onClick={() => {
-                                            history.push("login")
+                                            history.push("/login")
                                         }}>Log in</Link>
                                     </Typography>
                                 </Grid>

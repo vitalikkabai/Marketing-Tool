@@ -2,11 +2,16 @@ import * as actions from './AuthActions';
 import SendResetLink from './../../components/ResetPasswordForm/SendResetLink';
 
 
+enum Occupation {
+    EMPLOYEE,
+    MANAGER
+}
 export interface UserAttributes {
     userID: string,
     email: string,
     emailVerified: boolean,
-    userName: string
+    userName: string,
+    occupation: Occupation
 }
 
 export type InitialStateType = typeof initialState;
@@ -15,7 +20,8 @@ const initialUserAttributes = {
     userID: "",
     email: "",
     emailVerified: false,
-    userName: ""
+    userName: "",
+    occupation: Occupation.EMPLOYEE
 }
 
 const initialState = {
