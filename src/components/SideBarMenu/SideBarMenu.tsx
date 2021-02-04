@@ -168,7 +168,7 @@ const SideBarMenu = (props: any) => {
 			<Box className={classes.bottomText + " " + classes.gridItem}>
 				<hr style={{ border: "1px solid #F8F8F8", width: "236px", margin: "0 0 46px 0" }} />
 				<Box>
-					<Typography variant={"subtitle1"} color={"primary"}>+ Invite</Typography>
+					<Typography variant={"subtitle1"} color={"primary"} style={{cursor: "pointer"}}>+ Invite</Typography>
 					<Typography variant={"subtitle1"}>Pricing</Typography>
 				</Box>
 			</Box>
