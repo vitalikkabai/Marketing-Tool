@@ -18,7 +18,8 @@
         "userPoolGroups": {}
       },
       "function": {
-        "marketingtool2598d37ePreSignup": {}
+        "marketingtool2598d37ePreSignup": {},
+        "marketingtool2598d37ePostConfirmation": {}
       },
       "hosting": {
         "amplifyhosting": {
