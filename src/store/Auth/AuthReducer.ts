@@ -1,9 +1,11 @@
 import * as actions from './AuthActions';
 
 
-enum Occupation {
-    EMPLOYEE,
-    MANAGER
+export enum Occupation {
+    EMPLOYEE = 0,
+    MANAGER = 1,
+    FREELANCERS = 2,
+    ADMINS = 3
 }
 export interface UserAttributes {
     userID: string,

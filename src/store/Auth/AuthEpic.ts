@@ -22,6 +22,7 @@ import { Profile } from '../../models';
 import { clearBusiness } from '../Business/BusinessActions';
 import { AppStateType } from '../store';
 import { clearEmployee, fetchEmployeeById, initiateNewEmployee } from '../Employee/EmployeeActions';
+import { Occupation } from './AuthReducer';
 
 export default [
     (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
@@ -53,13 +54,14 @@ export default [
     (action$: ActionsObservable<any>,state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
         ofType("SIGN-UP-REQUEST"),
         mergeMap(action => {
+            console.log(state$.value.AuthReducer.userAttributes.occupation)
             return from(Auth.signUp({
                 username: action.payload.email,
                 password: action.payload.password,
                 attributes: {
                     email: action.payload.email,
                     given_name: action.payload.username,
-                    'custom:occupation': state$.value.AuthReducer.userAttributes.occupation
+                    'custom:occupation': state$.value.AuthReducer.userAttributes.occupation.toString()
                 }
             })).pipe(
                 mergeMap(res => {
@@ -77,12 +79,13 @@ export default [
                             email: response.attributes.email,
                             emailVerified: response.attributes.email_verified,
                             userName: response.attributes.given_name,
-                            occupation: response.attributes.occupation
+                            occupation: Number(response.attributes["custom:occupation"])
                         }),
                         initiateNewEmployee(response.attributes.sub),
                     ]
                 }),
-                catchError(err => {return of(signUpFailed(err))})
+                catchError(err => {console.log(err); return of(signUpFailed(err))})
+
             )
         })
     ),
@@ -113,7 +116,7 @@ export default [
                         email: res.attributes.email,
                         emailVerified: res.attributes.email_verified,
                         userName: res.attributes.given_name,
-                        occupation: res.attributes.occupation
+                        occupation: Number(res.attributes["custom:occupation"])
                     }),
                     fetchEmployeeById(res.username)
                     ];
