@@ -102,7 +102,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-marketingtool-stage-121331-deployment",
-          "S3Key": "amplify-builds/marketingtool2598d37ePostConfirmation-4b5142576b2f73754779-build.zip"
+          "S3Key": "amplify-builds/marketingtool2598d37ePostConfirmation-4c59386748535a2f6e4d-build.zip"
         }
       }
     },
@@ -144,8 +144,7 @@
           ]
         }
       }
-    }
-    ,
+    },
     "assignusergrouppolicy": {
       "DependsOn": [
         "LambdaExecutionRole"
@@ -165,7 +164,7 @@
               "Effect": "Allow",
               "Action": [
                 "cognito-idp:AdminAddUserToGroup"
-              ],  
+              ],
               "Resource": {
                 "Fn::Sub": [
                   "arn:aws:cognito-idp:${region}:${account}:userpool/${region}*",
