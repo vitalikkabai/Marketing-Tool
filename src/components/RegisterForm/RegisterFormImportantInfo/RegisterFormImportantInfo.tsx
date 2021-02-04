@@ -7,11 +7,11 @@ import UxAssistant from "../UxAssistant/UxAssistant";
 import CustomInput from "../../common/Input/CustomInput";
 import CustomButton from "../../common/Button/CustomButton";
 import {
-    isEmail,
-    isMinLength,
-    isNameValid,
-    isPasswordsEqual,
-    isPhone
+    isNotEmail,
+    isNotMinLength,
+    isNameNotValid,
+    isPasswordsNotEqual,
+    isNotPhone
 } from "../../../utils/validators/validators";
 import AutocompleteCustomInput from "../../common/AutocompleteCustomInput/AutocompleteCustomInput";
 import data from "../../../assets/dataset/country/countries";
@@ -153,11 +153,11 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
         resetFieldErrors();
         setEmptyFieldsError(false);
         const emptyMessage = "The input fields cannot be empty";
-        const passwordError = isMinLength(inputValue.password.value);
-        const emailError = isEmail(inputValue.ownerEmail.value);
-        const phoneError = isPhone(inputValue.phoneNumber.value);
-        const nameError = isNameValid(inputValue.ownerName.value);
-        const confirmError = isPasswordsEqual(inputValue.password.value, inputValue.confirmPassword.value);
+        const passwordError = isNotMinLength(inputValue.password.value);
+        const emailError = isNotEmail(inputValue.ownerEmail.value);
+        const phoneError = isNotPhone(inputValue.phoneNumber.value);
+        const nameError = isNameNotValid(inputValue.ownerName.value);
+        const confirmError = isPasswordsNotEqual(inputValue.password.value, inputValue.confirmPassword.value);
 
         const inputArray = Object.entries(inputValue);
         const emptyInputNames: Array<string> = [];

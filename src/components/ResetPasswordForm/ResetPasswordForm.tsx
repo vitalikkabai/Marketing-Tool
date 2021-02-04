@@ -7,11 +7,13 @@ import CustomButton from "../common/Button/CustomButton";
 
 
 type PropsType = {
-  handleSubmit: any
-  setCode: any
-  setNewPassword: any
-  setRetypePassword: any
-  setIsEmail: any
+  code:  {value: string, touched: boolean, error: boolean, errorText: string, name: string}
+  newPassword:  {value: string, touched: boolean, error: boolean, errorText: string, name: string}
+  retypePassword:  {value: string, touched: boolean, error: boolean, errorText: string, name: string}
+  errorMessage: string
+  handleInput: (inputData: string, inputType: string) => void
+  handleSubmit: (event: React.FormEvent<Element>) => void
+  cleanSuccess: () => {type: string}
 }
 
 const ResetPasswordForm: React.FC<PropsType> = (props) => {
@@ -21,10 +23,10 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
         <Grid item sm={6}>
           <Box className={classes.loginSheet}>
             <GoBackButton onClick={() => {
-              props.setCode("");
-              props.setNewPassword("");
-              props.setRetypePassword("");
-              props.setIsEmail(false)
+              props.handleInput("", "CODE")
+              props.handleInput("", "NEW_PASSWORD")
+              props.handleInput("", "CONFIRM_PASSWORD")
+              props.cleanSuccess();
             }} />
             <Grid item className={classes.gridItem}>
               <Typography variant="h2" className={classes.header}>
@@ -39,12 +41,13 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                       type="text"
                       label="Code"
                       fullWidth
-                      name="email"
-                      required
+                      name="code"
+                      value={props.code.value}
                       onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
-                        props.setCode(event.target.value)
+                          props.handleInput(event.target.value, "CODE")
                       }
                       width={290}
+                      error={props.code.error}
                       autoFocus />
                   </Grid>
                   <Grid item>
@@ -54,10 +57,11 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                       fullWidth
                       name="password"
                       onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
-                        props.setNewPassword(event.target.value)
+                          props.handleInput(event.target.value, "NEW_PASSWORD")
                       }
                       width={290}
-                      required />
+                      error={props.newPassword.error}
+                      value={props.newPassword.value} />
                   </Grid>
                   <Grid item>
                     <CustomInput
@@ -66,10 +70,16 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                       fullWidth
                       name="password"
                       onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
-                        props.setRetypePassword(event.target.value)
+                          props.handleInput(event.target.value, "CONFIRM_PASSWORD")
                       }
                       width={290}
-                      required />
+                      error={props.retypePassword.error}
+                      value={props.retypePassword.value} />
+                  </Grid>
+                  <Grid item className={classes.errorText}>
+                    <Typography variant={"subtitle1"}>
+                      {props.errorMessage}
+                    </Typography>
                   </Grid>
                   <Grid item className={classes.resetButtonSubmit}>
                     <CustomButton type='submit' text="Send" />
