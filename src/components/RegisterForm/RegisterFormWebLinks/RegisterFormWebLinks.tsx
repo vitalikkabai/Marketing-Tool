@@ -37,11 +37,11 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
             setStoreErrorText("Enter at least one URL")
             return;
         }
-        if(hasWebsite && !isValidUrl(webInput)) {
+        if(hasWebsite && webInput && !isValidUrl(webInput)) {
             setWebErrorText("Please enter valid URL")
             return;
         }
-        if(hasExperienceSelling && !isValidUrl(sellingInput)) {
+        if(hasExperienceSelling && sellingInput && !isValidUrl(sellingInput)) {
             setStoreErrorText("Please enter valid URL")
             return;
         }
