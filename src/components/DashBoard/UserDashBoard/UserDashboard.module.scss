@@ -5,7 +5,7 @@
     justify-content: space-between;
     align-items: center;
     height: 56px;
-    margin-right: 24px;
+
     .titleBox {
       margin-right: 24px;
     }
@@ -30,7 +30,6 @@
   .contentContainer {
     height: calc(100vh - 228px);
     margin-top: 20px;
-    margin-right: 24px;
     display: flex;
     width: 100%;
     .contentBox::-webkit-scrollbar {
