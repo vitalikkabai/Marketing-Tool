@@ -85,7 +85,6 @@ export default [
                     ]
                 }),
                 catchError(err => {console.log(err); return of(signUpFailed(err))})
-
             )
         })
     ),
