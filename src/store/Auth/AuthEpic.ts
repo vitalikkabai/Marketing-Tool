@@ -79,7 +79,7 @@ export default [
                         initiateNewEmployee(response.attributes.sub),
                     ]
                 }),
-                catchError(err => {return of(signUpFailed(err))})
+                catchError(err => { return of(signUpFailed(err)) })
             )
         })
     ),
@@ -116,30 +116,39 @@ export default [
                 catchError(err => { return [getAuthDataFailed()] })
             )
         }),
-
     ),
-    (action$: ActionsObservable<any>) => action$.pipe(
+
+
+
+    (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
         ofType("SEND-RESET-LINK"),
-        switchMap(async (action) => {
-            return Auth.forgotPassword(action.payload.email)
-                .then(data => {
-                    return ResetLinkSuccess({ data })
-                })
-                .catch(err => {
-                    return ResetLinkFailed({ err })
-                });
+        mergeMap((action) => {
+            return from(Auth.forgotPassword(action.payload.email)).pipe(
+                mergeMap(res => {
+                    console.log(res)
+                    return [
+                        ResetLinkSuccess()
+                    ]
+                }),
+                catchError(err => { console.log(err); return [ResetLinkFailed(err)] })
+            )
         })
     ),
-    (action$: ActionsObservable<any>) => action$.pipe(
+
+
+
+    (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
         ofType("SEND-NEW-PASSWORD"),
-        switchMap(async (action) => {
-            return Auth.forgotPasswordSubmit(action.payload.email, action.payload.code, action.payload.newPassword)
-                .then(data => {
-                    return sendNewPasswordSuccess()
-                })
-                .catch(err => {
-                    return sendNewPasswordFailed()
-                });
+        mergeMap((action) => {
+            return from(Auth.forgotPasswordSubmit(action.payload.email, action.payload.code, action.payload.newPassword)).pipe(
+                mergeMap(res => {
+                    console.log(res)
+                    return [
+                        sendNewPasswordSuccess()
+                    ]
+                }),
+                catchError(err => { console.log(err); return [sendNewPasswordFailed()] })
+            )
         })
     ),
     (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
@@ -171,11 +180,13 @@ export default [
                         console.log(user);
                         return from(Auth.updateUserAttributes(user, { email: action.payload.email }))
                     }),
-                    mergeMap(res => { console.log(res);
+                    mergeMap(res => {
+                        console.log(res);
                         return [
                             sendNewPasswordSuccess(),
                             updatePersonalInfo(action.payload.name, action.payload.email)
-                        ] }),
+                        ]
+                    }),
                     catchError(err => of(signInFailed(err))),
                 )
         })

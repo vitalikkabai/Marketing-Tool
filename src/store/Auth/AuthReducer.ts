@@ -1,4 +1,5 @@
 import * as actions from './AuthActions';
+import SendResetLink from './../../components/ResetPasswordForm/SendResetLink';
 
 
 export interface UserAttributes {
@@ -20,6 +21,7 @@ const initialUserAttributes = {
 const initialState = {
     isAuth: false,
     initialized: false,
+    isSendResetLinkSuccess: false,
     userAttributes: initialUserAttributes,
     loginErrorMessage: {
         code: "",
@@ -27,6 +29,11 @@ const initialState = {
         name: "",
     },
     registerErrorMessage: {
+        code: "",
+        message: "",
+        name: "",
+    },
+    sendResetLinkError: {
         code: "",
         message: "",
         name: "",
@@ -90,12 +97,30 @@ export const AuthReducer = (state = initialState, action: ActionTypes): InitialS
                     message: "",
                     name: "",
                 },
+                registerErrorMessage: {
+                    code: "",
+                    message: "",
+                    name: "",
+                },
+                sendResetLinkError: {
+                    code: "",
+                    message: "",
+                    name: "",
+                }
             };
-        case "CHANGE_PASSWORD_FAILED": {
+        case "RESET-LINK-SUCCESS": {
             return {
                 ...state,
+                isSendResetLinkSuccess: true
             }
         }
+        case "RESET-LINK-FAILED": {
+            return {
+                ...state,
+                sendResetLinkError: action.payload.resetLinkError,
+            }
+        }
+        case "CHANGE_PASSWORD_FAILED":
         case "CHANGE_PASSWORD":
         case "CHANGE_PASSWORD_SUCCESS":
         case "CHANGE_PERSONAL_INFO":

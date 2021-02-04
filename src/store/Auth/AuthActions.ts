@@ -79,12 +79,13 @@ export const getResetLink = (email: string) => ({
     payload: { email }
 });
 
-export const ResetLinkSuccess = (data: any) => ({
+export const ResetLinkSuccess = () => ({
     type: "RESET-LINK-SUCCESS" as const,
 });
 
-export const ResetLinkFailed = (err: any) => ({
+export const ResetLinkFailed = (resetLinkError: any) => ({
     type: "RESET-LINK-FAILED" as const,
+    payload: { resetLinkError }
 });
 
 export const sendNewPassword = (email: string, code: string, newPassword: string) => ({
@@ -93,11 +94,11 @@ export const sendNewPassword = (email: string, code: string, newPassword: string
 });
 
 export const sendNewPasswordSuccess = () => ({
-    type: "RESET-LINK-SUCCESS" as const,
+    type: "SEND-NEW-PASSWORD-SUCCESS" as const,
 });
 
 export const sendNewPasswordFailed = () => ({
-    type: "RESET-LINK-FAILED" as const,
+    type: "SEND-NEW-PASSWORD-FAILED" as const,
 });
 
 export const cleanErrors = () => ({
@@ -106,7 +107,7 @@ export const cleanErrors = () => ({
 
 export const changePassword = (oldPassword: string, newPassword: string, callback: () => void) => ({
     type: "CHANGE_PASSWORD" as const,
-    payload: {oldPassword, newPassword, callback}
+    payload: { oldPassword, newPassword, callback }
 });
 
 export const changePasswordSucces = () => ({
@@ -118,13 +119,13 @@ export type changePasswordErrorType = {
     message: string
     name: string
 }
-export const changePasswordFail = (error:changePasswordErrorType) => ({
+export const changePasswordFail = (error: changePasswordErrorType) => ({
     type: "CHANGE_PASSWORD_FAILED" as const,
     payload: error
 });
 
-export const changePersonalInfo = ( name: string, email: string,) =>  ({
+export const changePersonalInfo = (name: string, email: string,) => ({
     type: "CHANGE_PERSONAL_INFO" as const,
-    payload: {name, email}
+    payload: { name, email }
 })
 
