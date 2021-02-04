@@ -1,25 +1,16 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { API, graphqlOperation, Storage } from "aws-amplify";
 import React, { FormEvent, useEffect, useState } from "react";
-import { updateProfile } from "../../graphql/mutations";
 import AvatarSelector from "./AvatarSelector/AvatarSelector";
 import classes from "./PersonalProfile.module.scss";
 import config from '../../aws-exports'
-import { AppStateType } from "../../store/store";
-import { connect, ConnectedProps } from "react-redux";
-import { UserAttributes } from "../../store/Auth/AuthReducer";
-import { getProfile, listProfiles } from "../../graphql/queries";
-import { Dispatch } from "redux";
-import { Profile, S3Object } from "../../models";
-import { saveProfileImage } from "../../store/Profile/ProfileActions";
 import { DialogContent } from "@material-ui/core";
 import CustomButton from "../../components/common/Button/CustomButton";
 import Dialog from "@material-ui/core/Dialog";
 import Avatar from "@material-ui/core/Avatar";
 import CustomInput from "../../components/common/Input/CustomInput";
-import { changePassword, changePersonalInfo } from "../../store/Auth/AuthActions";
+import {PropsFromRedux} from "./PersonalProfileContainer";
 
 
 const {
@@ -79,43 +70,52 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     }
 
     return (
-        <Grid container className={classes.component}>
-            <Grid item xs={6}>
-                <Typography variant="h2">Personal Profile</Typography>
-                <Box className={classes.contentContainer}>
-                    <form onSubmit={handleInfoUpdate}>
-
-                        <CustomInput
-                            label="Name"
-                            variant="outlined"
-                            placeholder={"Name"}
-                            fullWidth={true}
-                            value={name}
-                            // error={inputValue.ownerName.error}
-                            margin={"0 0 16px 0"}
-                            onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
-                                setName(event.target.value)
-                            }
-                        />
-                        <CustomInput
-                            type="text"
-                            label="Email"
-                            variant="outlined"
-                            placeholder={"email"}
-                            fullWidth={true}
-                            value={email}
-                            // error={inputValue.ownerEmail.error}
-                            margin={"0 0 16px 0"}
-                            onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
-                                setEmail(event.target.value)
-                            }
-                        />
-                        <CustomButton type='submit' text="Edit" />
+        <Grid container className={classes.component} spacing={3}>
+            <Grid item xs={6} className={classes.gridItem}>
+                <Box className={classes.mainTitleBox}>
+                    <Typography variant="h2">Personal Profile</Typography>
+                </Box>
+                <Box >
+                    <form onSubmit={handleInfoUpdate} className={classes.contentContainer}>
+                        <Grid item xs={8}>
+                            <CustomInput
+                                label="Name"
+                                variant="outlined"
+                                placeholder={"Name"}
+                                fullWidth={true}
+                                value={name}
+                                // error={inputValue.ownerName.error}
+                                margin={"0 0 16px 0"}
+                                onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+                                    setName(event.target.value)
+                                }
+                            />
+                            <CustomInput
+                                type="text"
+                                label="Email"
+                                variant="outlined"
+                                placeholder={"email"}
+                                fullWidth={true}
+                                value={email}
+                                // error={inputValue.ownerEmail.error}
+                                margin={"0 0 16px 0"}
+                                onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
+                                    setEmail(event.target.value)
+                                }
+                            />
+                        </Grid>
+                        <Grid xs={4}/>
+                        <Box className={classes.buttonBox}>
+                            <CustomButton type='submit' text="Edit"/>
+                        </Box>
                     </form>
                 </Box>
             </Grid>
-            <Grid item xs={6}>
-                <Typography variant="h2">Change Password</Typography>
+            <Grid item xs={6} className={classes.gridItem}>
+                <Box className={classes.mainTitleBox}>
+                    <Typography variant="h2">Change Password</Typography>
+                </Box>
+
                 <Box className={classes.contentContainer}>
                     <form onSubmit={handleSubmit}>
                         <Grid container direction="column" spacing={2}>
@@ -166,12 +166,16 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                     </form>
                 </Box>
             </Grid>
-            <Grid item xs={6}>
-                <Typography variant="h2">Personal Profile</Typography>
+            <Grid item xs={6} className={classes.gridItem}>
+                <Box className={classes.mainTitleBox}>
+                    <Typography variant="h2">Personal Profile</Typography>
+                </Box>
                 <Box className={classes.contentContainer}></Box>
             </Grid>
-            <Grid item xs={6}>
-                <Typography variant="h2">Upload Photo</Typography>
+            <Grid item xs={6} className={classes.gridItem}>
+                <Box className={classes.mainTitleBox}>
+                    <Typography variant="h2">Upload Photo</Typography>
+                </Box>
                 <Box className={classes.contentContainer}>
                     <Avatar alt="avatar" src={props.avatarURL} />
 
@@ -198,22 +202,5 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         </Grid>
     );
 }
-function mapStateToProps(state: AppStateType) {
-    return {
-        profile: state.ProfileReducer.profile,
-        avatarURL: state.ProfileReducer.avatarURL
-    }
-}
 
-function mapDispatchToProps(dispatch: Dispatch) {
-    return {
-        saveProfileImage: (s3: S3Object, bufferImg: Buffer) => dispatch(saveProfileImage(s3, bufferImg)),
-        changePassword: (oldPassword: string, newPassword: string, callback: () => void) => dispatch(changePassword(oldPassword, newPassword, callback)),
-        changePersonalInfo: (name: string, email: string) => dispatch(changePersonalInfo(name, email))
-    }
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-export type PropsFromRedux = ConnectedProps<typeof connector>
-
-export default connector(PersonalProfile);
+export default PersonalProfile;

@@ -1,19 +1,27 @@
 import { Dispatch } from "redux";
 import ResetPasswordPage from "../../pages/ResetPasswordPage/ResetPasswordPage";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
+import { AppStateType } from "../../store/store";
 import { getResetLink, sendNewPassword } from "../../store/Auth/AuthActions";
+import { cleanErrors } from "../../store/Auth/AuthActions";
 
 
-type MapDispatchType = {
-  sendEmail: (email: string) => void;
-  sendNewPassword: (email: string, code: string, newPassword: string) => void
-}
-
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
+const mapStateToProps = (state: AppStateType) => {
   return {
-    sendEmail: (email) => dispatch(getResetLink(email)),
-    sendNewPassword: (email, code, newPassword) => dispatch(sendNewPassword(email, code, newPassword)),
+    errorText: state.AuthReducer.sendResetLinkError,
+    isSendResetLinkSuccess: state.AuthReducer.isSendResetLinkSuccess
   }
 };
 
-export default connect(null, mapDispatchToProps)(ResetPasswordPage);
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return {
+    sendEmail: (email: string) => dispatch(getResetLink(email)),
+    sendNewPassword: (email: string, code: string, newPassword: string) => dispatch(sendNewPassword(email, code, newPassword)),
+    cleanErrors: () => dispatch(cleanErrors()),
+  }
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+export type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(ResetPasswordPage);

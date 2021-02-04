@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Tab, Badge } from '@material-ui/core';
+import {Box, Grid, Typography, Tab, Badge, Hidden} from '@material-ui/core';
 import React from 'react';
 import moment from "moment"
 import classes from './UserDashboard.module.scss';
@@ -49,9 +49,9 @@ function UserDashboard() {
 	};
 
 	const tasks = [
-		{ id: 0, taskTitle: "Upload your photo", taskType: 1, status: false, timeAgo: 1611745499068 },
-		{ id: 1, taskTitle: "Add products", taskType: 2, status: false, timeAgo: 1585005499068 },
-		{ id: 2, taskTitle: "Improve yourself", taskType: 9, status: false, timeAgo: 1611828650507 },
+		{ id: 0, taskTitle: "Upload your photo", taskType: 1, status: false, timeAgo: 1611425499068 },
+		{ id: 1, taskTitle: "Add products", taskType: 2, status: false, timeAgo: 1611425499068 },
+		{ id: 2, taskTitle: "Improve yourself", taskType: 9, status: false, timeAgo: 1611745499068 },
 	];
 
 	const TabTasks = tasks.map((el, i) => (
@@ -78,7 +78,12 @@ function UserDashboard() {
 						<img src={team4} alt={"avatar"} />
 						<img src={team2} alt={"avatar"} />
 						<img src={team3} alt={"avatar"} />
-						<img src={team1} alt={"avatar"} />
+						<Hidden mdDown>
+							<img src={team1} alt={"avatar"} />
+						</Hidden>
+						<Hidden lgDown>
+							<img src={team4} alt={"avatar"} />
+						</Hidden>
 					</Box>
 					<Typography color={"primary"}>View team</Typography>
 				</Grid>

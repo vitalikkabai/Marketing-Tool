@@ -26,7 +26,11 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
     const [inputValue, setInputValue] = useState({ //For input values
         companyName: {value: props.companyName, touched: false, error: false, errorText: "", name: "COMPANY_NAME"},
         countryCode: {
-            value: props.employee.countryCode,
+            value: {
+                code: "",
+                label: "",
+                phone: ""
+            },
             touched: false,
             error: false,
             errorText: "",
