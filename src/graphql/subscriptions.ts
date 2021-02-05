@@ -10,6 +10,7 @@ export const onCreateMessage = /* GraphQL */ `
       subjectId
       senderID
       receiverID
+      sharedID
       content
       seen
       attachment {
@@ -54,6 +55,7 @@ export const onUpdateMessage = /* GraphQL */ `
       subjectId
       senderID
       receiverID
+      sharedID
       content
       seen
       attachment {
@@ -98,6 +100,7 @@ export const onDeleteMessage = /* GraphQL */ `
       subjectId
       senderID
       receiverID
+      sharedID
       content
       seen
       attachment {

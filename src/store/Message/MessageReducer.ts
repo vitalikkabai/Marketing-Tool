@@ -1,17 +1,21 @@
-import { CreateMessageInput, Stage } from '../../API';
+import { CreateMessageInput, CreateProfileInput, Stage } from '../../API';
 import * as actions from './MessageActions';
 
 type MessageReducer = {
     activeConversation: {
         stage: Stage,
-        messages: CreateMessageInput[]
+        productId: string,
+        messages: CreateMessageInput[],
+        interlocutor: CreateProfileInput
     }
 }
 
 const initialState: MessageReducer = {
         activeConversation: {
             stage: Stage.UNASSIGNED,
-            messages: []
+            productId: 'unassigned',
+            messages: [],
+            interlocutor: {email: "default", name: "default"}
         }
         
 };

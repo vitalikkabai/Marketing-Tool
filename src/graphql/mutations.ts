@@ -478,6 +478,7 @@ export const createMessage = /* GraphQL */ `
       subjectId
       senderID
       receiverID
+      sharedID
       content
       seen
       attachment {
@@ -525,6 +526,7 @@ export const updateMessage = /* GraphQL */ `
       subjectId
       senderID
       receiverID
+      sharedID
       content
       seen
       attachment {
@@ -572,6 +574,7 @@ export const deleteMessage = /* GraphQL */ `
       subjectId
       senderID
       receiverID
+      sharedID
       content
       seen
       attachment {

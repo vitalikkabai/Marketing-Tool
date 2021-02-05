@@ -187,6 +187,7 @@ export type CreateMessageInput = {
   subjectId: string,
   senderID: string,
   receiverID: string,
+  sharedID: string,
   content: string,
   seen: boolean,
   attachment?: S3ObjectInput | null,
@@ -212,6 +213,7 @@ export type ModelMessageConditionInput = {
   subjectId?: ModelIDInput | null,
   senderID?: ModelIDInput | null,
   receiverID?: ModelIDInput | null,
+  sharedID?: ModelIDInput | null,
   content?: ModelStringInput | null,
   seen?: ModelBooleanInput | null,
   createdAt?: ModelStringInput | null,
@@ -239,6 +241,7 @@ export type UpdateMessageInput = {
   subjectId?: string | null,
   senderID?: string | null,
   receiverID?: string | null,
+  sharedID?: string | null,
   content?: string | null,
   seen?: boolean | null,
   attachment?: S3ObjectInput | null,
@@ -256,6 +259,7 @@ export type ModelMessageFilterInput = {
   subjectId?: ModelIDInput | null,
   senderID?: ModelIDInput | null,
   receiverID?: ModelIDInput | null,
+  sharedID?: ModelIDInput | null,
   content?: ModelStringInput | null,
   seen?: ModelBooleanInput | null,
   createdAt?: ModelStringInput | null,
@@ -297,6 +301,21 @@ export type ModelMessageByReceiverCompositeKeyConditionInput = {
 };
 
 export type ModelMessageByReceiverCompositeKeyInput = {
+  subjectId?: string | null,
+  stage?: Stage | null,
+};
+
+export type ModelMessageGetDialogCompositeKeyConditionInput = {
+  eq?: ModelMessageGetDialogCompositeKeyInput | null,
+  le?: ModelMessageGetDialogCompositeKeyInput | null,
+  lt?: ModelMessageGetDialogCompositeKeyInput | null,
+  ge?: ModelMessageGetDialogCompositeKeyInput | null,
+  gt?: ModelMessageGetDialogCompositeKeyInput | null,
+  between?: Array< ModelMessageGetDialogCompositeKeyInput | null > | null,
+  beginsWith?: ModelMessageGetDialogCompositeKeyInput | null,
+};
+
+export type ModelMessageGetDialogCompositeKeyInput = {
   subjectId?: string | null,
   stage?: Stage | null,
 };
@@ -900,6 +919,7 @@ export type CreateMessageMutation = {
     subjectId: string,
     senderID: string,
     receiverID: string,
+    sharedID: string,
     content: string,
     seen: boolean,
     attachment:  {
@@ -954,6 +974,7 @@ export type UpdateMessageMutation = {
     subjectId: string,
     senderID: string,
     receiverID: string,
+    sharedID: string,
     content: string,
     seen: boolean,
     attachment:  {
@@ -1008,6 +1029,7 @@ export type DeleteMessageMutation = {
     subjectId: string,
     senderID: string,
     receiverID: string,
+    sharedID: string,
     content: string,
     seen: boolean,
     attachment:  {
@@ -1061,6 +1083,7 @@ export type GetMessageQuery = {
     subjectId: string,
     senderID: string,
     receiverID: string,
+    sharedID: string,
     content: string,
     seen: boolean,
     attachment:  {
@@ -1118,6 +1141,7 @@ export type ListMessagesQuery = {
       subjectId: string,
       senderID: string,
       receiverID: string,
+      sharedID: string,
       content: string,
       seen: boolean,
       attachment:  {
@@ -1168,6 +1192,7 @@ export type BySenderQuery = {
       subjectId: string,
       senderID: string,
       receiverID: string,
+      sharedID: string,
       content: string,
       seen: boolean,
       attachment:  {
@@ -1218,6 +1243,58 @@ export type ByReceiverQuery = {
       subjectId: string,
       senderID: string,
       receiverID: string,
+      sharedID: string,
+      content: string,
+      seen: boolean,
+      attachment:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string | null,
+      updatedAt: string | null,
+      sender:  {
+        __typename: "Profile",
+        id: string,
+        email: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+      receiver:  {
+        __typename: "Profile",
+        id: string,
+        email: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+    } | null > | null,
+    nextToken: string | null,
+  } | null,
+};
+
+export type GetDialogQueryVariables = {
+  sharedID?: string | null,
+  subjectIdStage?: ModelMessageGetDialogCompositeKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelMessageFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type GetDialogQuery = {
+  getDialog:  {
+    __typename: "ModelMessageConnection",
+    items:  Array< {
+      __typename: "Message",
+      id: string,
+      stage: Stage,
+      subjectId: string,
+      senderID: string,
+      receiverID: string,
+      sharedID: string,
       content: string,
       seen: boolean,
       attachment:  {
@@ -1674,6 +1751,7 @@ export type OnCreateMessageSubscription = {
     subjectId: string,
     senderID: string,
     receiverID: string,
+    sharedID: string,
     content: string,
     seen: boolean,
     attachment:  {
@@ -1723,6 +1801,7 @@ export type OnUpdateMessageSubscription = {
     subjectId: string,
     senderID: string,
     receiverID: string,
+    sharedID: string,
     content: string,
     seen: boolean,
     attachment:  {
@@ -1772,6 +1851,7 @@ export type OnDeleteMessageSubscription = {
     subjectId: string,
     senderID: string,
     receiverID: string,
+    sharedID: string,
     content: string,
     seen: boolean,
     attachment:  {
