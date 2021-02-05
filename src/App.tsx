@@ -12,7 +12,7 @@ import OverridesCss from './material/themeProvider';
 import { Dispatch } from 'redux';
 import { getAuthData } from './store/Auth/AuthActions';
 import MarketingToolPageContainer from "./pages/MarketingToolPageContainer/MarketingToolPageContainer";
-import ResetPasswordPageContainer from './components/ResetPasswordForm/ResetPasswordPageContainer';
+import ResetPasswordPageContainer from './pages/ResetPasswordPage/ResetPasswordPageContainer';
 import MarketingToolPagePreviewContainer from './pages/MarketingToolPageContainer/MarketingToolPagePreviewContainer';
 
 Amplify.configure(awsconfig);

@@ -16,19 +16,13 @@ export const signInSuccess = (userAttributes: UserAttributes) => ({
     payload: userAttributes
 });
 
-export type signInErrorType = {
-    code: "" | "UserNotFoundException" | "NotAuthorizedException"
-    message: string
-    name: string
-}
-
-export type signUpErrorType = {
+export type errorType = {
     code: string
     message: string
     name: string
 }
 
-export const signInFailed = (signInError: signInErrorType) => ({
+export const signInFailed = (signInError: errorType) => ({
     type: "SIGN-IN-FAILED" as const,
     payload: { signInError }
 });
@@ -43,7 +37,7 @@ export const signUpSuccess = (userID: string) => ({
     payload: userID
 });
 
-export const signUpFailed = (signUpError: signUpErrorType) => ({
+export const signUpFailed = (signUpError: errorType) => ({
     type: "SIGN-UP-FAILED" as const,
     payload: { signUpError }
 });
@@ -83,9 +77,9 @@ export const ResetLinkSuccess = () => ({
     type: "RESET-LINK-SUCCESS" as const,
 });
 
-export const ResetLinkFailed = (resetLinkError: any) => ({
+export const ResetLinkFailed = (resetPasswordError: errorType) => ({
     type: "RESET-LINK-FAILED" as const,
-    payload: { resetLinkError }
+    payload: { resetPasswordError }
 });
 
 export const sendNewPassword = (email: string, code: string, newPassword: string) => ({
@@ -97,8 +91,13 @@ export const sendNewPasswordSuccess = () => ({
     type: "SEND-NEW-PASSWORD-SUCCESS" as const,
 });
 
-export const sendNewPasswordFailed = () => ({
+export const sendNewPasswordFailed = (resetPasswordError: errorType) => ({
     type: "SEND-NEW-PASSWORD-FAILED" as const,
+    payload: { resetPasswordError }
+});
+
+export const cleanSuccess = () => ({
+    type: "CLEAR-SUCCESS" as const,
 });
 
 export const cleanErrors = () => ({

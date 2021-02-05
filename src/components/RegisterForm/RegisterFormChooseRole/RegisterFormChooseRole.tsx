@@ -21,8 +21,6 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (props)
         {id:"quality_role", title:"QC", selected: props.roleTags.qualityControl},
     ]);
 
-    //.sort((a,b) => (a.selected < b.selected) ? 1 : ((b.selected < a.selected) ? -1 : 0))
-
     const handleDataInput = () => {
         const saleRole = selectedRole.find(element => element.id === "sales_role");
         const marketingRole = selectedRole.find(element => element.id === "marketing_role");
@@ -31,8 +29,8 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (props)
         const productRole = selectedRole.find(element => element.id === "production_role");
         const qcRole = selectedRole.find(element => element.id === "quality_role");
         props.setRoleTags({
-            sales: saleRole? saleRole.selected : true,
-            marketing: marketingRole? marketingRole.selected : true,
+            sales: saleRole? saleRole.selected : false,
+            marketing: marketingRole? marketingRole.selected : false,
             logistics: logisticRole? logisticRole.selected : false,
             accounting: accountRole? accountRole.selected : false,
             production: productRole? productRole.selected : false,

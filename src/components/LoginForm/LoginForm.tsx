@@ -6,7 +6,7 @@ import { useHistory } from "react-router";
 import CustomInput from "../common/Input/CustomInput"
 import GoBackButton from "../common/Button/GoBackButton";
 import CustomButton from "../common/Button/CustomButton";
-import { isEmail, isEmpty } from "../../utils/validators/validators";
+import { isNotEmail, isNotEmpty } from "../../utils/validators/validators";
 
 const LoginForm: React.FC<PropsFromRedux> = (props) => {
 
@@ -55,7 +55,7 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                 case prevInput.username.name: {
                     currInputValue.username.value = inputData;
                     currInputValue.username.touched = true;
-                    const error = isEmpty(inputData);
+                    const error = isNotEmpty(inputData);
                     currInputValue.username.error = !!error;
                     currInputValue.username.errorText = error;
                     break;
@@ -63,7 +63,7 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                 case prevInput.password.name: {
                     currInputValue.password.value = inputData;
                     currInputValue.password.touched = true;
-                    const error = isEmpty(inputData);
+                    const error = isNotEmpty(inputData);
                     currInputValue.password.error = !!error;
                     currInputValue.password.errorText = error;
                     break;
@@ -78,14 +78,14 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         props.cleanErrors();
-        if (inputValue.username.value && inputValue.password.value && !isEmail(inputValue.username.value)) {
+        if (inputValue.username.value && inputValue.password.value && !isNotEmail(inputValue.username.value)) {
             setPending(true);
             props.signIn(inputValue.username.value, inputValue.password.value);
         } else {//if fields is empty or email is invalid
-            if (isEmail(inputValue.username.value))
+            if (isNotEmail(inputValue.username.value))
                 setInputValue(prevStyle => ({
                     ...prevStyle,
-                    username: { ...prevStyle.username, error: true, errorText: isEmail(inputValue.username.value) }
+                    username: { ...prevStyle.username, error: true, errorText: isNotEmail(inputValue.username.value) }
                 }));
             if (!inputValue.username.value)
                 setInputValue(prevStyle => ({

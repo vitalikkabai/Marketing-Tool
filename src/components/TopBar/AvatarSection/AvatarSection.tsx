@@ -7,8 +7,7 @@ import MenuList from "@material-ui/core/MenuList";
 import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
 import Typography from "@material-ui/core/Typography";
-import React from "react";
-import { getS3ObjectSrc } from "../../../utils/profile/profile";
+import React, { useEffect, useMemo, useState } from "react";
 import classes from "./AvatarSection.module.scss";
 import { useHistory } from "react-router";
 import { CreateProfileInput } from "../../../API";
@@ -16,7 +15,7 @@ import { Dispatch } from "react";
 import { SetStateAction } from "react";
 
 
-const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAction<boolean>>, profile: CreateProfileInput, signOut: () => void, userAttributes: any }> = (props) => {
+const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAction<boolean>>, profile: CreateProfileInput, avatarURL: string, signOut: () => void, userAttributes: any }> = (props) => {
 
     const history = useHistory();
     const [open, setOpen] = React.useState(false);
@@ -81,7 +80,7 @@ const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAc
             <div ref={anchorRef} onClick={handleToggle}>
                 {
                     props.profile.avatar
-                        ? <Avatar alt="avatar" src={getS3ObjectSrc(props.profile.avatar)} />
+                        ? <Avatar alt="avatar" src={props.avatarURL} />
                         : <Avatar className={classes.InitialsAvatar}>
                             <Typography variant={"subtitle2"} className={classes.imageText}>{writeInitials()}</Typography>
                         </Avatar>

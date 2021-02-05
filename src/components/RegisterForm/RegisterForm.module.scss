@@ -39,17 +39,9 @@
   }
 
   .inputBox {
-    position: relative;
     margin-top: 8px;
     display: flex;
     align-items: flex-start;
-
-    .plusIcon {
-      position: absolute;
-      right: 15px;
-      top: 13px;
-      cursor: pointer;
-    }
   }
 
   .formControl {
@@ -193,34 +185,6 @@
 
 .inputContainer {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-
-  .chip {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    border-radius: 10px;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding: 21.5px 10px 21.5px 0;
-
-    span {
-      max-width: 450px;
-      font-weight: normal;
-      font-size: 16px;
-      line-height: 150%;
-      letter-spacing: 0.005em;
-      color: black;
-    }
-
-    svg {
-      height: 23px;
-      width: 23px;
-    }
-  }
 }
 
 .scrollBox {

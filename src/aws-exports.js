@@ -12,7 +12,7 @@ const awsmobile = {
     "aws_appsync_region": "eu-central-1",
     "aws_appsync_authenticationType": "AMAZON_COGNITO_USER_POOLS",
     "aws_appsync_apiKey": "da2-jpd2at3axvcu5autiejyw6pssy",
-    "aws_user_files_s3_bucket": "marketingtool08846cb44c384baaa30317ed9c043c9a104149-dev",
+    "aws_user_files_s3_bucket": "mtbucket104149-dev",
     "aws_user_files_s3_bucket_region": "eu-central-1"
 };
 

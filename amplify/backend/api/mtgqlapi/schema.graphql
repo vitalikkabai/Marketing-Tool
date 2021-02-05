@@ -75,8 +75,7 @@ type Profile @model
 type Message @model
     @key(name: "bySender", fields: ["senderID", "subjectId","stage"], queryField:"bySender")
     @key(name: "byReceiver", fields: ["receiverID", "subjectId","stage"], queryField:"byReceiver")
-
-    # @key(name: "byConversation", fields: ["conversationID", "content"], queryField: "byConversationAndContent")
+    @key(name: "getDialog", fields: ["sharedID", "subjectId","stage"], queryField: "getDialog")
     @auth(rules: [
       { allow: private }
       ])  {
@@ -87,6 +86,7 @@ type Message @model
   senderID: ID!
   receiver: Profile @connection(fields: ["receiverID"])
   receiverID: ID!
+  sharedID: ID!
   content: String!
   seen: Boolean!
   attachment: S3Object

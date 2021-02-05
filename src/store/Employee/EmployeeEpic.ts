@@ -21,7 +21,7 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
             return from(API.graphql(graphqlOperation(createBusiness, { input: businessData })) as unknown as Promise<any>).pipe(
                 mergeMap((businessRes) => {
                     const profile: CreateProfileInput = {
-                        ...state$.value.ProfileReducer,
+                        ...state$.value.ProfileReducer.profile,
                         id: action.payload
                     };
                     //     ...state$.value.ProfileReducer,
@@ -68,7 +68,7 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
         ofType('UPDATE_EMPLOYEE_INFO'),
         mergeMap((action: any) => {
             const profile = {
-                id: state$.value.ProfileReducer.id,
+                id: state$.value.ProfileReducer.profile.id,
                 name: action.payload.name,
                 email: action.payload.email
             }

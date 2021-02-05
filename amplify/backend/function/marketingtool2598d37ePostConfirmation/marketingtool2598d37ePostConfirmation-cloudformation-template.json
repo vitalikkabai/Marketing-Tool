@@ -2,11 +2,7 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Description": "Lambda resource stack creation using Amplify CLI",
   "Parameters": {
-    "DOMAINBLACKLIST": {
-      "Type": "String",
-      "Default": ""
-    },
-    "DOMAINWHITELIST": {
+    "GROUP": {
       "Type": "String",
       "Default": ""
     },
@@ -65,12 +61,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "marketingtool2598d37ePreSignup",
+            "marketingtool2598d37ePostConfirmation",
             {
               "Fn::Join": [
                 "",
                 [
-                  "marketingtool2598d37ePreSignup",
+                  "marketingtool2598d37ePostConfirmation",
                   "-",
                   {
                     "Ref": "env"
@@ -91,11 +87,8 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "DOMAINWHITELIST": {
-              "Ref": "DOMAINWHITELIST"
-            },
-            "DOMAINBLACKLIST": {
-              "Ref": "DOMAINBLACKLIST"
+            "GROUP": {
+              "Ref": "GROUP"
             }
           }
         },
@@ -109,7 +102,7 @@
         "Timeout": "25",
         "Code": {
           "S3Bucket": "amplify-marketingtool-dev-104149-deployment",
-          "S3Key": "amplify-builds/marketingtool2598d37ePreSignup-7159526e527743476451-build.zip"
+          "S3Key": "amplify-builds/marketingtool2598d37ePostConfirmation-4c59386748535a2f6e4d-build.zip"
         }
       }
     },
@@ -119,12 +112,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "marketingtool2598d37ePreSignup",
+            "marketingtool2598d37ePostConfirmation",
             {
               "Fn::Join": [
                 "",
                 [
-                  "marketingtool2598d37ePreSignup",
+                  "marketingtool2598d37ePostConfirmation",
                   "-",
                   {
                     "Ref": "env"
@@ -147,6 +140,47 @@
               "Action": [
                 "sts:AssumeRole"
               ]
+            }
+          ]
+        }
+      }
+    },
+    "assignusergrouppolicy": {
+      "DependsOn": [
+        "LambdaExecutionRole"
+      ],
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": "assign-user-group-policy",
+        "Roles": [
+          {
+            "Ref": "LambdaExecutionRole"
+          }
+        ],
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "cognito-idp:AdminAddUserToGroup"
+              ],
+              "Resource": {
+                "Fn::Sub": [
+                  "arn:aws:cognito-idp:${region}:${account}:userpool/${region}*",
+                  {
+                    "region": {
+                      "Ref": "AWS::Region"
+                    },
+                    "account": {
+                      "Ref": "AWS::AccountId"
+                    },
+                    "lambda": {
+                      "Ref": "LambdaFunction"
+                    }
+                  }
+                ]
+              }
             }
           ]
         }

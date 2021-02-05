@@ -9,7 +9,6 @@ import { DialogContent } from "@material-ui/core";
 import CustomButton from "../../components/common/Button/CustomButton";
 import Dialog from "@material-ui/core/Dialog";
 import Avatar from "@material-ui/core/Avatar";
-import { getS3ObjectSrc } from "../../utils/profile/profile";
 import CustomInput from "../../components/common/Input/CustomInput";
 import { PropsFromRedux } from "./PersonalProfileContainer";
 import avatarHover from "../../assets/images/avatarHover.svg"
@@ -219,7 +218,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 					<Box className={classes.avatarContainer + " " + classes.contentBox}>
 						<Box className={classes.avatarBox} onClick={() => setDialogOpen(true)}>
 							<img src={avatarHover} alt="avatarHover" className={classes.avatarHover} />
-							<Avatar alt="avatar" className={classes.avatar} src={getS3ObjectSrc(props.profile.avatar)} />
+							<Avatar alt="avatar" className={classes.avatar} src={props.avatarURL} />
 						</Box>
 					</Box>
 				</Grid>

@@ -81,8 +81,45 @@
 		},
 		"triggerFunction": {
 			"Type": "String"
-		}
+		},
 	
+    
+    
+        "authmarketingtool2598d37eUserPoolId": {
+            "Type": "String",
+            "Default": "authmarketingtool2598d37eUserPoolId"
+        },
+        
+        
+    
+        "authuserPoolGroupsAdminsGroupRole": {
+            "Type": "String",
+            "Default": "authuserPoolGroupsAdminsGroupRole"
+        },
+        
+        
+    
+        "authuserPoolGroupsManagersGroupRole": {
+            "Type": "String",
+            "Default": "authuserPoolGroupsManagersGroupRole"
+        },
+        
+        
+    
+        "authuserPoolGroupsFreelancersGroupRole": {
+            "Type": "String",
+            "Default": "authuserPoolGroupsFreelancersGroupRole"
+        },
+        
+        
+    
+        "authuserPoolGroupsEmployeesGroupRole": {
+            "Type": "String",
+            "Default": "authuserPoolGroupsEmployeesGroupRole"
+        }
+        
+        
+    
 
 	},
 	"Conditions": {
@@ -230,6 +267,256 @@
 				}
 			}
 		},
+      
+      
+	    "AdminsGroupPolicy": {
+	      "Type": "AWS::IAM::Policy",
+	      "Properties": {
+	        "PolicyName": "Admins-group-s3-policy",
+	        "Roles": [
+	        	{
+                    "Fn::Join": [
+                        "",
+                        [
+                          {
+                            "Ref": "authmarketingtool2598d37eUserPoolId"
+                          },
+                          "-AdminsGroupRole"
+                        ]
+                    ]
+                }
+	        ],
+	        "PolicyDocument": {
+	          "Version": "2012-10-17",
+	          "Statement": [
+	            {
+	              "Effect": "Allow",
+	              "Action": ["s3:PutObject","s3:GetObject","s3:ListBucket","s3:DeleteObject"],
+	              "Resource": [
+	                  {
+	                      "Fn::Join": [
+	                          "",
+	                          [
+	                              "arn:aws:s3:::",
+	                              {
+	                                  "Ref": "S3Bucket"
+	                              },
+	                              "/*"
+	                          ]
+	                      ]
+	                  }
+	              ]
+              }
+              
+              ,{
+                "Effect": "Allow",
+                "Action": ["s3:ListBucket"],
+                "Resource": [
+                    {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "arn:aws:s3:::",
+                                {
+                                    "Ref": "S3Bucket"
+                                }
+                            ]
+                        ]
+                    }
+                ]
+              }
+              
+	          ]
+	        }
+	      }
+	    },
+      
+	    "ManagersGroupPolicy": {
+	      "Type": "AWS::IAM::Policy",
+	      "Properties": {
+	        "PolicyName": "Managers-group-s3-policy",
+	        "Roles": [
+	        	{
+                    "Fn::Join": [
+                        "",
+                        [
+                          {
+                            "Ref": "authmarketingtool2598d37eUserPoolId"
+                          },
+                          "-ManagersGroupRole"
+                        ]
+                    ]
+                }
+	        ],
+	        "PolicyDocument": {
+	          "Version": "2012-10-17",
+	          "Statement": [
+	            {
+	              "Effect": "Allow",
+	              "Action": ["s3:PutObject","s3:GetObject","s3:ListBucket","s3:DeleteObject"],
+	              "Resource": [
+	                  {
+	                      "Fn::Join": [
+	                          "",
+	                          [
+	                              "arn:aws:s3:::",
+	                              {
+	                                  "Ref": "S3Bucket"
+	                              },
+	                              "/*"
+	                          ]
+	                      ]
+	                  }
+	              ]
+              }
+              
+              ,{
+                "Effect": "Allow",
+                "Action": ["s3:ListBucket"],
+                "Resource": [
+                    {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "arn:aws:s3:::",
+                                {
+                                    "Ref": "S3Bucket"
+                                }
+                            ]
+                        ]
+                    }
+                ]
+              }
+              
+	          ]
+	        }
+	      }
+	    },
+      
+	    "FreelancersGroupPolicy": {
+	      "Type": "AWS::IAM::Policy",
+	      "Properties": {
+	        "PolicyName": "Freelancers-group-s3-policy",
+	        "Roles": [
+	        	{
+                    "Fn::Join": [
+                        "",
+                        [
+                          {
+                            "Ref": "authmarketingtool2598d37eUserPoolId"
+                          },
+                          "-FreelancersGroupRole"
+                        ]
+                    ]
+                }
+	        ],
+	        "PolicyDocument": {
+	          "Version": "2012-10-17",
+	          "Statement": [
+	            {
+	              "Effect": "Allow",
+	              "Action": ["s3:PutObject","s3:GetObject","s3:ListBucket","s3:DeleteObject"],
+	              "Resource": [
+	                  {
+	                      "Fn::Join": [
+	                          "",
+	                          [
+	                              "arn:aws:s3:::",
+	                              {
+	                                  "Ref": "S3Bucket"
+	                              },
+	                              "/*"
+	                          ]
+	                      ]
+	                  }
+	              ]
+              }
+              
+              ,{
+                "Effect": "Allow",
+                "Action": ["s3:ListBucket"],
+                "Resource": [
+                    {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "arn:aws:s3:::",
+                                {
+                                    "Ref": "S3Bucket"
+                                }
+                            ]
+                        ]
+                    }
+                ]
+              }
+              
+	          ]
+	        }
+	      }
+	    },
+      
+	    "EmployeesGroupPolicy": {
+	      "Type": "AWS::IAM::Policy",
+	      "Properties": {
+	        "PolicyName": "Employees-group-s3-policy",
+	        "Roles": [
+	        	{
+                    "Fn::Join": [
+                        "",
+                        [
+                          {
+                            "Ref": "authmarketingtool2598d37eUserPoolId"
+                          },
+                          "-EmployeesGroupRole"
+                        ]
+                    ]
+                }
+	        ],
+	        "PolicyDocument": {
+	          "Version": "2012-10-17",
+	          "Statement": [
+	            {
+	              "Effect": "Allow",
+	              "Action": ["s3:PutObject","s3:GetObject","s3:ListBucket","s3:DeleteObject"],
+	              "Resource": [
+	                  {
+	                      "Fn::Join": [
+	                          "",
+	                          [
+	                              "arn:aws:s3:::",
+	                              {
+	                                  "Ref": "S3Bucket"
+	                              },
+	                              "/*"
+	                          ]
+	                      ]
+	                  }
+	              ]
+              }
+              
+              ,{
+                "Effect": "Allow",
+                "Action": ["s3:ListBucket"],
+                "Resource": [
+                    {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "arn:aws:s3:::",
+                                {
+                                    "Ref": "S3Bucket"
+                                }
+                            ]
+                        ]
+                    }
+                ]
+              }
+              
+	          ]
+	        }
+	      }
+	    },
+      
       
 	    
 		"S3AuthPublicPolicy": {

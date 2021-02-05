@@ -10,6 +10,7 @@ export const getMessage = /* GraphQL */ `
       subjectId
       senderID
       receiverID
+      sharedID
       content
       seen
       attachment {
@@ -59,6 +60,7 @@ export const listMessages = /* GraphQL */ `
         subjectId
         senderID
         receiverID
+        sharedID
         content
         seen
         attachment {
@@ -110,6 +112,7 @@ export const bySender = /* GraphQL */ `
         subjectId
         senderID
         receiverID
+        sharedID
         content
         seen
         attachment {
@@ -161,6 +164,59 @@ export const byReceiver = /* GraphQL */ `
         subjectId
         senderID
         receiverID
+        sharedID
+        content
+        seen
+        attachment {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+        sender {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
+        receiver {
+          id
+          email
+          name
+          createdAt
+          updatedAt
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const getDialog = /* GraphQL */ `
+  query GetDialog(
+    $sharedID: ID
+    $subjectIdStage: ModelMessageGetDialogCompositeKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getDialog(
+      sharedID: $sharedID
+      subjectIdStage: $subjectIdStage
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        stage
+        subjectId
+        senderID
+        receiverID
+        sharedID
         content
         seen
         attachment {
@@ -217,7 +273,6 @@ export const getBusiness = /* GraphQL */ `
         businesses {
           nextToken
         }
-        owner
         profile {
           id
           email
@@ -252,7 +307,6 @@ export const listBusinesss = /* GraphQL */ `
           id
           createdAt
           updatedAt
-          owner
         }
       }
       nextToken
@@ -292,7 +346,6 @@ export const byManagerAndCompany = /* GraphQL */ `
           id
           createdAt
           updatedAt
-          owner
         }
       }
       nextToken
@@ -336,7 +389,6 @@ export const getEmployee = /* GraphQL */ `
           id
           createdAt
           updatedAt
-          owner
         }
       }
       profile {
@@ -472,7 +524,6 @@ export const listManagers = /* GraphQL */ `
         businesses {
           nextToken
         }
-        owner
         profile {
           id
           email
@@ -504,7 +555,6 @@ export const getManager = /* GraphQL */ `
         }
         nextToken
       }
-      owner
       profile {
         id
         email

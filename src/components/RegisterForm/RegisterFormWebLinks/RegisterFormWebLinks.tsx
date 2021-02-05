@@ -10,6 +10,7 @@ import plusIcon from "../../../assets/images/formPlus.svg"
 import UxAssistant from "../UxAssistant/UxAssistant";
 import CustomButton from "../../common/Button/CustomButton";
 import {isValidUrl} from "../../../utils/validators/validators";
+import WebLink from "../../common/webLink/webLink";
 
 
 const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props) => {
@@ -28,24 +29,23 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
         e.preventDefault();
         setWebErrorText("");
         setStoreErrorText("") //hasWebsite && websiteURLs.length > 0
-        if(hasWebsite && (websiteURLs.length === 0 && webInput.length === 0)) {
+        if (hasWebsite && (websiteURLs.length === 0 && webInput.length === 0)) {
             console.log(webInput);
             setWebErrorText("Enter at least one URL")
             return;
         }
-        if(hasExperienceSelling && (sellingURLs.length === 0 && sellingInput.length === 0)) {
+        if (hasExperienceSelling && (sellingURLs.length === 0 && sellingInput.length === 0)) {
             setStoreErrorText("Enter at least one URL")
             return;
         }
-        if(hasWebsite && !isValidUrl(webInput)) {
+        if (hasWebsite && webInput && !isValidUrl(webInput)) {
             setWebErrorText("Please enter valid URL")
             return;
         }
-        if(hasExperienceSelling && !isValidUrl(sellingInput)) {
+        if (hasExperienceSelling && sellingInput && !isValidUrl(sellingInput)) {
             setStoreErrorText("Please enter valid URL")
             return;
-        }
-        else {
+        } else {
             props.setBusinessUrls(
                 sellingURLs,
                 websiteURLs
@@ -58,7 +58,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
     return (
         <Grid container justify="center" alignItems={"center"}>
             <Grid container direction="column" justify="center" className={classes.registerForm}>
-                <Box className={classes.registrationSheet} >
+                <Box className={classes.registrationSheet}>
                     <GoBackButton onClick={() => {
                         history.push("/login")
                     }}/>
@@ -85,31 +85,10 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                                         <Box className={classes.inputContainer}>
                                             {
                                                 hasWebsite ?
-                                                    <>
-                                                        <CustomInput
-                                                            type="text"
-                                                            fullWidth={true}
-                                                            name="Website URL address"
-                                                            placeholder="Website URL address"
-                                                            label="Website URL address"
-                                                            value={webInput}
-                                                            error={!!webErrorText}
-                                                            onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>{
-                                                                setWebErrorText("");
-                                                                setWebInput(event.target.value);
-                                                            }
-                                                            }
-                                                            paddingRight={35}
-                                                            autoFocus={true}
-                                                        />
-                                                            {
-                                                                websiteURLs.map((URL, index) => (
-                                                                    <Chip key={index} className={classes.chip} label={URL} onDelete={()=>{
-                                                                        setWebsiteURLs(websiteURLs.filter(((item, i) => i !== index)))
-                                                                    }} color="primary" variant="outlined" />
-                                                                ))
-                                                            }
-                                                    </>
+                                                    <WebLink linkInput={webInput} linkURLs={websiteURLs}
+                                                             linkErrorText={webErrorText} setLinkInput={setWebInput}
+                                                             setLinkURLs={setWebsiteURLs}
+                                                             setLinkErrorText={setWebErrorText}/>
                                                     :
                                                     <Box className={classes.selectTextBox}
                                                          style={{background: "#EE6B1D"}}>
@@ -119,17 +98,6 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                                                     </Box>
                                             }
                                         </Box>
-                                        {
-                                            hasWebsite ?
-                                                <img className={classes.plusIcon} src={plusIcon} alt={"plus"}
-                                                     onClick={() => {
-                                                         if(isValidUrl(webInput)){
-                                                             setWebsiteURLs(oldArray => [...oldArray, webInput]);
-                                                             setWebInput("");
-                                                         }
-                                                         else {setWebErrorText("Please enter valid URL")}
-                                                     }}/> : null
-                                        }
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12} className={classes.formSecondTitle}>
@@ -149,30 +117,10 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                                         <Box className={classes.inputContainer}>
                                             {
                                                 hasExperienceSelling ?
-                                                    <>
-                                                        <CustomInput
-                                                            type="text"
-                                                            fullWidth={true}
-                                                            name="Website URL address"
-                                                            placeholder="Store URL address"
-                                                            label="Store URL address"
-                                                            value={sellingInput}
-                                                            error={!!storeErrorText}
-                                                            onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-                                                                setSellingInput(event.target.value)
-                                                                setStoreErrorText("");
-                                                            }
-                                                            }
-                                                            paddingRight={35}
-                                                        />
-                                                        {
-                                                            sellingURLs.map((URL, index) => (
-                                                                <Chip key={index} className={classes.chip} label={URL} onDelete={()=>{
-                                                                    setSellingURLs(sellingURLs.filter(((item, i) => i !== index)))
-                                                                }} color="primary" variant="outlined" />
-                                                            ))
-                                                        }
-                                                    </>
+                                                    <WebLink linkInput={sellingInput} linkURLs={sellingURLs}
+                                                             linkErrorText={storeErrorText} setLinkInput={setSellingInput}
+                                                             setLinkURLs={setSellingURLs}
+                                                             setLinkErrorText={setStoreErrorText}/>
                                                     :
                                                     <Box className={classes.selectTextBox}
                                                          style={{background: "#43A047"}}>
@@ -180,29 +128,18 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                                                             Don’t worry, you will be there in no time:)
                                                         </Typography>
                                                     </Box>
-
                                             }
                                         </Box>
-                                        {
-                                            hasExperienceSelling ?
-                                                <img className={classes.plusIcon} src={plusIcon} alt={"plus"}
-                                                     onClick={() => {
-                                                         if(sellingInput.replace(/\s/g, '')){
-                                                             setSellingURLs(oldArray => [...oldArray, sellingInput]);
-                                                             setSellingInput("");
-                                                         }
-                                                     }}/> : null
-                                        }
                                     </Box>
                                 </Grid>
                                 <Grid item className={classes.errorText}>
                                     <Typography variant={"subtitle1"}>
-                                        {webErrorText?webErrorText:storeErrorText}
+                                        {webErrorText ? webErrorText : storeErrorText}
                                     </Typography>
                                 </Grid>
                                 <Grid item className={classes.nextContainer + " " + classes.webLinks}>
                                     <CustomButton type={"submit"} className={classes.buttonBlock} text={"Next"}/>
-                                    <Typography variant={"subtitle1"} >Have an account already?&nbsp;
+                                    <Typography variant={"subtitle1"}>Have an account already?&nbsp;
                                         <Link className={classes.link} onClick={() => {
                                             history.push("/login")
                                         }}>Log in</Link>

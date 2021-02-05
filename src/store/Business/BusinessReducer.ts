@@ -22,7 +22,14 @@ export const initialState: CreateBusinessInput = {
     managerID: "c64a0e39-bf2c-4749-8493-788d911b78a2"
 };
 
-export const BusinessReducer = (state: CreateBusinessInput = initialState, action: ActionTypes): CreateBusinessInput => {
+export const initialPresetState: CreateBusinessInput = {
+    companyName: "Default Company",
+    storeURLs: ["https://www.figma.com/file/qTbbMNPhweyUIF2goCPl7T/Marketing-Tool?node-id=3%3A1767"],
+    websiteURLs: ["https://www.figma.com/file/qTbbMNPhweyUIF2goCPl7T/Marketing-Tool?node-id=3%3A1767"],
+    managerID: "c64a0e39-bf2c-4749-8493-788d911b78a2"
+};
+
+export const BusinessReducer = (state: CreateBusinessInput = initialPresetState, action: ActionTypes): CreateBusinessInput => {
     switch (action.type) {
         case 'SET_BUSINESS':
         case 'UPDATE_BUSINESS_SUCCESS':

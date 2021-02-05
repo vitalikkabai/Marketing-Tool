@@ -2,9 +2,11 @@ import * as actions from './AuthActions';
 import SendResetLink from './../../components/ResetPasswordForm/SendResetLink';
 
 
-enum Occupation {
-    EMPLOYEE,
-    MANAGER
+export enum Occupation {
+    EMPLOYEE = 0,
+    MANAGER = 1,
+    FREELANCERS = 2,
+    ADMINS = 3
 }
 export interface UserAttributes {
     userID: string,
@@ -28,6 +30,7 @@ const initialState = {
     isAuth: false,
     initialized: false,
     isSendResetLinkSuccess: false,
+    isResetPasswordSuccess: false,
     userAttributes: initialUserAttributes,
     loginErrorMessage: {
         code: "",
@@ -90,11 +93,48 @@ export const AuthReducer = (state = initialState, action: ActionTypes): InitialS
                 initialized: true,
                 isAuth: true
             };
+
         case "AUTH-DATA-FAILED":
             return {
                 ...state,
                 initialized: true
             };
+
+        case "RESET-LINK-SUCCESS": {
+            return {
+                ...state,
+                isSendResetLinkSuccess: true
+            }
+        }
+        case "RESET-LINK-FAILED": {
+            return {
+                ...state,
+                sendResetLinkError: action.payload.resetPasswordError,
+            }
+        }
+        case "SEND-NEW-PASSWORD-SUCCESS": {
+            return {
+                ...state,
+                isResetPasswordSuccess: true
+            }
+        }
+        case "SEND-NEW-PASSWORD-FAILED": {
+            return {
+                ...state,
+                sendResetLinkError: action.payload.resetPasswordError,
+            }
+        }
+        case "CLEAR-SUCCESS": {
+            return {
+                ...state,
+                isSendResetLinkSuccess: false,
+                isResetPasswordSuccess: false,
+            }
+        }
+        case "CHANGE_PASSWORD_FAILED":
+        case "CHANGE_PASSWORD":
+        case "CHANGE_PASSWORD_SUCCESS":
+        case "CHANGE_PERSONAL_INFO":
         case "CLEAN-ERROR-FIELDS":
             return {
                 ...state,
@@ -114,22 +154,6 @@ export const AuthReducer = (state = initialState, action: ActionTypes): InitialS
                     name: "",
                 }
             };
-        case "RESET-LINK-SUCCESS": {
-            return {
-                ...state,
-                isSendResetLinkSuccess: true
-            }
-        }
-        case "RESET-LINK-FAILED": {
-            return {
-                ...state,
-                sendResetLinkError: action.payload.resetLinkError,
-            }
-        }
-        case "CHANGE_PASSWORD_FAILED":
-        case "CHANGE_PASSWORD":
-        case "CHANGE_PASSWORD_SUCCESS":
-        case "CHANGE_PERSONAL_INFO":
         default:
             return {
                 ...state,

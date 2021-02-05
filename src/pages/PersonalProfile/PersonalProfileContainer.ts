@@ -8,7 +8,8 @@ import PersonalProfile from "./PersonalProfile";
 
 function mapStateToProps(state: AppStateType) {
     return {
-        profile: state.ProfileReducer
+        profile: state.ProfileReducer.profile,
+        avatarURL: state.ProfileReducer.avatarURL
     }
 }
 
