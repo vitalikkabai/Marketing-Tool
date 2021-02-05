@@ -75,7 +75,7 @@ const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAc
                 )}
             </Popper>
             <Typography variant={"subtitle2"} color={"primary"} className={classes.greetingText}>
-                Hi, {props.userAttributes.userName}
+                Hi, {props.profile.name}
             </Typography>
             <div ref={anchorRef} onClick={handleToggle}>
                 {
