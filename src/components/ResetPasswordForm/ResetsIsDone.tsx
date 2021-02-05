@@ -7,6 +7,7 @@ import CustomButton from "../../components/common/Button/CustomButton";
 
 type PropsType = {
   cleanSuccess: () => {type: string}
+  resetFieldErrors: () => void
 }
 
 const ResetsIsDone: React.FC<PropsType> = (props) => {
@@ -25,6 +26,7 @@ const ResetsIsDone: React.FC<PropsType> = (props) => {
           </Grid>
           <Grid item className={classes.closeButton}>
             <CustomButton onClick={() => {
+              props.resetFieldErrors();
               history.push("/login");
               props.cleanSuccess();
             }} type='button' text="Close" />

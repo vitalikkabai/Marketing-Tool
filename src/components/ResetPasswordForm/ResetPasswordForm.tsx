@@ -14,6 +14,7 @@ type PropsType = {
   handleInput: (inputData: string, inputType: string) => void
   handleSubmit: (event: React.FormEvent<Element>) => void
   cleanSuccess: () => {type: string}
+  resetFieldErrors: () => void
 }
 
 const ResetPasswordForm: React.FC<PropsType> = (props) => {
@@ -26,6 +27,7 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
               props.handleInput("", "CODE")
               props.handleInput("", "NEW_PASSWORD")
               props.handleInput("", "CONFIRM_PASSWORD")
+              props.resetFieldErrors();
               props.cleanSuccess();
             }} />
             <Grid item className={classes.gridItem}>

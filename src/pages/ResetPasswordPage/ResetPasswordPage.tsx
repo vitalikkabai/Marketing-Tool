@@ -11,8 +11,6 @@ import {
     validateField
 } from "../../utils/validators/validators";
 import {PropsFromRedux} from "./ResetPasswordPageContainer";
-import classes from "../../components/LoginForm/LoginForm.module.scss";
-import {Grid, Typography} from "@material-ui/core";
 
 const ResetPasswordPage: React.FC<PropsFromRedux> = (props) => {
     const [isEmailEntered, setEmailEntered] = useState(false);
@@ -59,8 +57,29 @@ const ResetPasswordPage: React.FC<PropsFromRedux> = (props) => {
         })
     }
 
+    const resetFieldErrors = () => {
+        setInputValue((prevInput) => {
+            const currentInputValue = Object.assign({}, prevInput);
+            currentInputValue.email.error = false;
+            currentInputValue.email.errorText = "";
+
+            currentInputValue.code.error = false;
+            currentInputValue.code.errorText = "";
+
+            currentInputValue.newPassword.error = false;
+            currentInputValue.newPassword.errorText = "";
+
+            currentInputValue.retypePassword.error = false;
+            currentInputValue.retypePassword.errorText = "";
+
+
+            return currentInputValue;
+        })
+    }
+
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
+        resetFieldErrors();
         props.cleanErrors();
         const emailError = validateField(inputValue.email.value,
             isNotEmpty(inputValue.email.value),
@@ -71,14 +90,19 @@ const ResetPasswordPage: React.FC<PropsFromRedux> = (props) => {
             isNotMinLength(inputValue.newPassword.value));
         const retypeError = validateField(inputValue.retypePassword.value,
             isNotEmpty(inputValue.retypePassword.value));
-        if (inputValue.email.value && !isNewPasswordEntered && !isEmailEntered && !emailError[0]) {
-            props.sendEmail(inputValue.email.value);
+
+        if(!isNewPasswordEntered && !isEmailEntered) {
+            if (inputValue.email.value && !emailError[0]) {
+                props.sendEmail(inputValue.email.value);
+            }
+            else {
+                if (emailError[0]) setInputValue(prevStyle => ({
+                    ...prevStyle,
+                    email: {...prevStyle.email, error: true, errorText: emailError[0]}
+                }));
+            }
         }
-        else {
-            if (emailError[0]) setInputValue(prevStyle => ({
-                ...prevStyle,
-                email: {...prevStyle.email, error: true, errorText: emailError[0]}
-            }));
+        if(isEmailEntered) {
             if (codeError[0]) setInputValue(prevStyle => ({
                 ...prevStyle,
                 code: {...prevStyle.code, error: true, errorText: codeError[0]}
@@ -91,17 +115,17 @@ const ResetPasswordPage: React.FC<PropsFromRedux> = (props) => {
                 ...prevStyle,
                 retypePassword: {...prevStyle.retypePassword, error: true, errorText: retypeError[0]}
             }));
-        }
-        if (!codeError[0] && !newPasswordError[0] && !retypeError[0]) {
-            if (!isPasswordsNotEqual(inputValue.newPassword.value, inputValue.retypePassword.value)) {
-                props.sendNewPassword(inputValue.email.value, inputValue.code.value, inputValue.newPassword.value);
-            }
-            else {
-                setInputValue(prevStyle => ({
-                    ...prevStyle,
-                    newPassword: {...prevStyle.newPassword, error: true, errorText: "Password missmached"},
-                    retypePassword: {...prevStyle.retypePassword, error: true}
-                }));
+            if (!codeError[0] && !newPasswordError[0] && !retypeError[0]) {
+                if (!isPasswordsNotEqual(inputValue.newPassword.value, inputValue.retypePassword.value)) {
+                    props.sendNewPassword(inputValue.email.value, inputValue.code.value, inputValue.newPassword.value);
+                }
+                else {
+                    setInputValue(prevStyle => ({
+                        ...prevStyle,
+                        newPassword: {...prevStyle.newPassword, error: true, errorText: "Password missmached"},
+                        retypePassword: {...prevStyle.retypePassword, error: true}
+                    }));
+                }
             }
         }
     }
@@ -120,6 +144,11 @@ const ResetPasswordPage: React.FC<PropsFromRedux> = (props) => {
                     ...prevStyle,
                     email: {
                         ...prevStyle.email,
+                        error: true,
+                        errorText: "Attempt limit exceeded, try again later"
+                    },
+                    code: {
+                        ...prevStyle.code,
                         error: true,
                         errorText: "Attempt limit exceeded, try again later"
                     }
@@ -182,9 +211,12 @@ const ResetPasswordPage: React.FC<PropsFromRedux> = (props) => {
                 handleInput={handleInput}
                 handleSubmit={handleSubmit}
                 errorMessage={getErrorMessage()}
+                resetFieldErrors={resetFieldErrors}
                 cleanSuccess={props.cleanSuccess}
             />}
-            {isNewPasswordEntered && <ResetIsDone cleanSuccess={props.cleanSuccess}/>}
+            {isNewPasswordEntered && <ResetIsDone
+                cleanSuccess={props.cleanSuccess}
+                resetFieldErrors={resetFieldErrors}/>}
         </>
     )
 }
