@@ -150,12 +150,12 @@ export default [
         mergeMap((action) => {
             return from(Auth.forgotPasswordSubmit(action.payload.email, action.payload.code, action.payload.newPassword)).pipe(
                 mergeMap(res => {
-                    console.log(res)
+                    console.log("RESET_DATA:", res)
                     return [
                         sendNewPasswordSuccess()
                     ]
                 }),
-                catchError(err => { console.log(err); return [sendNewPasswordFailed()] })
+                catchError(err => {console.log(err); return [sendNewPasswordFailed(err)] })
             )
         })
     ),
