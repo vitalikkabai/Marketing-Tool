@@ -1,5 +1,5 @@
 import { CreateEmployeeInput, CreateProfileInput } from './../../API';
-import { createEmployee } from './../../graphql/mutations';
+import { createEmployee, createMessage } from './../../graphql/mutations';
 
 import { Epic, ofType } from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
@@ -12,24 +12,20 @@ import { from } from 'rxjs';
 import { saveProfileToDBFailed, updateProfileSuccess } from '../Profile/ProfileActions';
 
 const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
-    // (action$, state$) => action$.pipe(
-    //     ofType('UPDATE_EMPLOYEE_INFO'),
-    //     mergeMap((action: any) => {
-    //         const profile = {
-    //             id: state$.value.ProfileReducer.profile.id,
-    //             name: action.payload.name,
-    //             email: action.payload.email
-    //         }
+    (action$, state$) => action$.pipe(
+        ofType('SEND_NEW_MESSAGE'),
+        mergeMap((action: any) => {
+            const message = action.payload;
 
-    //         return (from(API.graphql(graphqlOperation(updateProfile, { input: profile })) as unknown as Promise<any>).pipe(
-    //             map(res => {
-    //                 return updateProfileSuccess(res.data.updateProfile)
-    //             }),
-    //             catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
-    //         ))
-    //     }),
+            return (from(API.graphql(graphqlOperation(createMessage, { input: message })) as unknown as Promise<any>).pipe(
+                map(res => {
+                    return updateProfileSuccess(res.data.updateProfile)
+                }),
+                catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
+            ))
+        }),
 
-    // )
+    )
 ];
 
 export default epics;

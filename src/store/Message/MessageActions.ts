@@ -7,6 +7,16 @@ export const sendNewMessage = (message: CreateMessageInput) => ({
     payload: message
 });
 
+export const sendNewMessageSuccess = (message: CreateMessageInput) => ({
+    type: 'SEND_NEW_MESSAGE_SUCCESS' as const,
+    payload: message
+});
+
+export const sendNewMessageFailure = (message: CreateMessageInput) => ({
+    type: 'SEND_NEW_MESSAGE_FAILURE' as const,
+    payload: message
+});
+
 export const fetchLastMessages = () => ({
     type: 'FETCH_LAST_MESSAGES' as const,
 });

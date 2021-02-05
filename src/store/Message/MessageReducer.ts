@@ -8,6 +8,7 @@ type MessageReducer = {
         messages: CreateMessageInput[],
         interlocutor: CreateProfileInput
     }
+    dialogue: CreateMessageInput[]
 }
 
 const initialState: MessageReducer = {
@@ -16,13 +17,20 @@ const initialState: MessageReducer = {
             productId: 'unassigned',
             messages: [],
             interlocutor: {email: "default", name: "default"}
-        }
+        },
+        dialogue: []
         
 };
 
 export const EmployeeReducer = (state = initialState, action: ActionTypes): MessageReducer => {
     switch (action.type) {
-
+        case 'SEND_NEW_MESSAGE':
+            return {
+                ...state,
+                dialogue: [...state.dialogue,action.payload]
+            }
+        case 'SEND_NEW_MESSAGE_SUCCESS':
+        case 'SEND_NEW_MESSAGE_FAILURE':
         default:
             return {
                 ...state,
