@@ -1,109 +1,89 @@
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import classes from "./BusinessProfile.module.scss";
-import { AppStateType } from "../../store/store";
-import { connect, ConnectedProps } from "react-redux";
-import { Dispatch } from "redux";
-import { RoleTags } from "../../models";
 import CustomInput from "../../components/common/Input/CustomInput";
 import CustomButton from "../../components/common/Button/CustomButton";
-import { updateBusinessInDB } from "../../store/Business/BusinessActions";
-import { UpdateBusinessInput } from "../../API";
+import RoleBoxes from "../../components/common/RoleBoxes/RoleBoxes";
+import {PropsFromRedux} from "./BusinessProfileContainer";
+import WebLink from "../../components/common/webLink/webLink";
 
-const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
+const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 
-    const roleTagsToSelectedRole = (roleTags: RoleTags|undefined):boolean[] => {
-        return roleTags ? [
-            roleTags.sales,
-            roleTags.marketing,
-            roleTags.logistics,
-            roleTags.accounting,
-            roleTags.production,
-            roleTags.qualityControl
-        ] : [false,false,false,false,false,false]
-    }
+    const [selectedRole, setSelectedRole] = useState([
+        {id: "sales_role", title: "Sales", selected: props.roleTags.sales},
+        {id: "marketing_role", title: "Marketing", selected: props.roleTags.marketing},
+        {id: "logistic_role", title: "Logistics", selected: props.roleTags.logistics},
+        {id: "accounting_role", title: "Accounting", selected: props.roleTags.accounting},
+        {id: "production_role", title: "Production", selected: props.roleTags.production},
+        {id: "quality_role", title: "QC", selected: props.roleTags.qualityControl},
+    ].sort((a,b) => (a.selected < b.selected) ? 1 : ((b.selected < a.selected) ? -1 : 0)));
 
-    const [selectedRole, setSelectedRole] = useState(roleTagsToSelectedRole(props.roleTags));
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         props.updateBusinessInDB({
             id: props.business.id as string,
             companyName,
         })
-        // console.log(oldPassword, newPassword, retypePassword);
-        // props.changePassword(oldPassword, newPassword, changePasswordSuccessCallback);
+
     }
-    const [companyName, setCompanyName] = useState(props.business.companyName)
-    // const [email, setEmail] = useState(props.profile.email)
-
-    useEffect(() => {
-        setCompanyName(props.business.companyName);
-        setSelectedRole(roleTagsToSelectedRole(props.roleTags));
-    }, [props.business])
-
-    // const handleInfoUpdate = (e: FormEvent) => {
-    //     e.preventDefault();
-    //     // props.changePersonalInfo(name, email);
-    // }
+    const [companyName, setCompanyName] = useState(props.business.companyName);
+    const [companyNameError, setCompanyNameError] = useState("")
+    const [sellingURLs, setSellingURLs] = useState<string[]>(props.business.storeURLs);
+    const [webInput, setWebInput] = useState("");
+    const [sellingInput, setSellingInput] = useState("");
+    const [websiteURLs, setWebsiteURLs] = useState<string[]>(props.business.websiteURLs);
+    const [webErrorText, setWebErrorText] = useState("");
+    const [storeErrorText, setStoreErrorText] = useState("");
 
     return (
         <Box className={classes.component}>
-            <Typography variant={"h2"}>Business Profile</Typography>
-            <form onSubmit={handleSubmit}>
-                <Grid container className={classes.contentContainer}>
-                    <Grid item xs={6}>
-                        <Box >
-
+            <Box className={classes.headTitle}>
+                <Typography variant={"h2"}>Business Profile</Typography>
+            </Box>
+            <form onSubmit={handleSubmit} className={classes.formContainer}>
+                <Grid container className={classes.formContentContainer}>
+                    <Grid item container xs={12} className={classes.mainInputGridItem}>
+                        <Grid item xs={3}>
                             <CustomInput
                                 label="Company Name"
-                                variant="outlined"
-                                placeholder={"Name"}
+                                placeholder={"Company Name"}
                                 fullWidth={true}
                                 value={companyName}
-                                // error={inputValue.ownerName.error}
-                                margin={"0 0 16px 0"}
+                                error={!!companyNameError}
+                                variant="outlined"
                                 onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                     setCompanyName(event.target.value)
                                 }
                             />
-                            
-                        </Box>
+                        </Grid>
+                        <Grid item xs={9} className={classes.saveButton}>
+                            <CustomButton type={"submit"} text={"Save"}/>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={6}>
-                        {/*<RoleBoxes selectedRole={selectedRole} setSelectedRole={setSelectedRole}/>*/}
+                    <Grid item xs={12} className={classes.roleBoxesGridItem}>
+                        <Typography variant={"h6"} className={classes.roleBoxText}>You are in charge of:</Typography>
+                        <RoleBoxes selectedRole={selectedRole} setSelectedRole={setSelectedRole} displayInRow/>
                     </Grid>
-                    <Grid item xs={6}>
-                        3
-                    </Grid>
-                    <Grid item xs={6}>
-                        4
-                    </Grid>
-                    <Grid item xs={12}>
-                            <CustomButton type='submit' text="Edit" />
+                    <Grid item container xs={12} justify={"space-between"} className={classes.linkGridItem}>
+                        <Grid item xs={6} style={{paddingRight: "24px"}}>
+                            <WebLink linkInput={webInput} linkURLs={websiteURLs}
+                                     linkErrorText={webErrorText} setLinkInput={setWebInput}
+                                     setLinkURLs={setWebsiteURLs}
+                                     setLinkErrorText={setWebErrorText}/>
+                        </Grid>
+                        <Grid item xs={6} style={{paddingLeft: "24px"}}>
+                            <WebLink linkInput={sellingInput} linkURLs={sellingURLs}
+                                     linkErrorText={storeErrorText} setLinkInput={setSellingInput}
+                                     setLinkURLs={setSellingURLs}
+                                     setLinkErrorText={setStoreErrorText}/>
+                        </Grid>
                     </Grid>
                 </Grid>
             </form>
-        </Box >
-
+        </Box>
     );
 }
-function mapStateToProps(state: AppStateType) {
-    return {
-        profile: state.ProfileReducer.profile,
-        roleTags: state.EmployeeReducer.roleTags,
-        business: state.BusinessReducer
-    }
-}
 
-function mapDispatchToProps(dispatch: Dispatch) {
-    return {
-        updateBusinessInDB: (business:UpdateBusinessInput) => dispatch(updateBusinessInDB(business))
-    }
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-export type PropsFromRedux = ConnectedProps<typeof connector>
-
-export default connector(PersonalProfile);
+export default BusinessProfile;

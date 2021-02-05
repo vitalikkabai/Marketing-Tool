@@ -1,8 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { AppStateType } from "../../store/store";
-import { compose, Dispatch } from "redux";
-import { signOut } from "../../store/Auth/AuthActions";
+import { compose } from "redux";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import VisitorDashboard from "../../components/DashBoard/VisitorDashboard/VisitorDashboard";
 import { Route, Switch } from "react-router";
@@ -10,14 +9,15 @@ import SideBarMenu from "../../components/SideBarMenu/SideBarMenu";
 import classes from "./MarketingToolPageContainer.module.scss"
 import { Box, Grid } from "@material-ui/core";
 import UserDashboard from "../../components/DashBoard/UserDashBoard/UserDashboard";
-import BusinessProfile from "../BusinessProfile/BusinessProfile";
 import TopBarContainer from "../../components/TopBar/TopBarContainer";
 import PersonalProfileContainer from "../PersonalProfile/PersonalProfileContainer";
+import BusinessProfileContainer from "../BusinessProfile/BusinessProfileContainer";
 
+type PropsType = {
+	isAuth: boolean
+}
 
-const MarketingToolPageContainer = (props: any) => {
-
-
+const MarketingToolPageContainer: React.FunctionComponent<PropsType> = (props) => {
 	return (
 		<Box className={classes.wrapper}>
 			<SideBarMenu isAuth={props.isAuth} />
@@ -28,7 +28,7 @@ const MarketingToolPageContainer = (props: any) => {
 						<Switch>
 							<Route path={'/'} exact component={UserDashboard} />
 							<Route path={'/personal-profile'} exact component={PersonalProfileContainer} />
-							<Route path={'/business-profile'} component={BusinessProfile} />
+							<Route path={'/business-profile'} component={BusinessProfileContainer} />
 							<Route path={'/products'} exact component={H1} />
 							<Route path={'/market-research'} exact component={H1} />
 							<Route path={'/brand-creation'} exact component={H1} />
@@ -50,8 +50,6 @@ const mapStateToProps = (state: AppStateType) => {
 		isAuth: state.AuthReducer.isAuth
 	}
 };
-
-
 
 
 const H1 = () => {
