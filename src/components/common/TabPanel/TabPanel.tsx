@@ -6,9 +6,9 @@ import "./Tab.module.scss";
 
 interface TabPanelProps {
   children?: React.ReactNode;
-  index?: any;
-  value?: any;
-  className?: any;
+  index?: number;
+  value?: number;
+  className?: string;
 }
 
 const TabPanel: React.FC<TabPanelProps> = (props) => {
@@ -20,6 +20,7 @@ const TabPanel: React.FC<TabPanelProps> = (props) => {
       hidden={value !== index}
       id={`scrollable-auto-tabpanel-${index}`}
       aria-labelledby={`scrollable-auto-tab-${index}`}
+      className={props.className}
     >
       {value === index && (
         <Box>

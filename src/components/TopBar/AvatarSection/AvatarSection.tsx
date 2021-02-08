@@ -13,6 +13,7 @@ import { useHistory } from "react-router";
 import { CreateProfileInput } from "../../../API";
 import { Dispatch } from "react";
 import { SetStateAction } from "react";
+import {useTheme} from "@material-ui/core";
 
 
 const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAction<boolean>>, profile: CreateProfileInput, avatarURL: string, signOut: () => void, userAttributes: any }> = (props) => {
@@ -20,6 +21,7 @@ const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAc
     const history = useHistory();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef<HTMLDivElement>(null);
+    const theme = useTheme();
 
     const handleClose = (event: React.MouseEvent<EventTarget>) => {
         if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
@@ -84,7 +86,7 @@ const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAc
                     {
                         props.profile.avatar
                             ? <Avatar alt="avatar" src={props.avatarURL} />
-                            : <Avatar className={classes.InitialsAvatar}>
+                            : <Avatar style={{backgroundColor: theme.palette.primary.main}}>
                                 <Typography variant={"subtitle2"} className={classes.imageText}>{writeInitials()}</Typography>
                             </Avatar>
                     }
