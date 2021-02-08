@@ -41,34 +41,30 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     const [newPassword, setNewPassword] = useState("");
     const [retypePassword, setRetypePassword] = useState("");
 
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        console.log(oldPassword, newPassword, retypePassword);
-        props.changePassword(oldPassword, newPassword, changePasswordSuccessCallback);
-    }
+	const handleSubmit = (e: FormEvent) => {
+		e.preventDefault();
+		props.changePassword(oldPassword, newPassword, changePasswordSuccessCallback);
+	}
 
-    const [name, setName] = useState(props.profile.name)
-    const [email, setEmail] = useState(props.profile.email)
-    console.log(name, email)
+	const [name, setName] = useState(props.profile.name)
+	const [email, setEmail] = useState(props.profile.email)
 
-    const changePasswordSuccessCallback = () => {
-        console.log(oldPassword, newPassword, retypePassword)
-        setOldPassword(() => "");
-        setNewPassword(() => "");
-        setRetypePassword(() => "");
-        alert("Password Changed!")
-    }
+	const changePasswordSuccessCallback = () => {
+		setOldPassword(() => "");
+		setNewPassword(() => "");
+		setRetypePassword(() => "");
+		alert("Password Changed!")
+	}
 
     useEffect(() => {
         setName(props.profile.name);
         setEmail(props.profile.email);
     }, [props.profile])
 
-    const handleInfoUpdate = (e: FormEvent) => {
-        e.preventDefault();
-        console.log(name, email);
-        props.changePersonalInfo(name, email);
-    }
+	const handleInfoUpdate = (e: FormEvent) => {
+		e.preventDefault();
+		props.changePersonalInfo(name, email);
+	}
 
     return (
         <Grid container className={classes.component} spacing={3}>
@@ -219,7 +215,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 					<Box className={classes.avatarContainer + " " + classes.contentBox}>
 						<Box className={classes.avatarBox} onClick={() => setDialogOpen(true)}>
 							<img src={avatarHover} alt="avatarHover" className={classes.avatarHover} />
-							<Avatar alt="avatar" className={classes.avatar} src={props.profile.avatarPublicURL || ""} />
+							<Avatar alt="avatar" className={classes.avatar} src={props.avatarURL} />
 						</Box>
 					</Box>
 				</Grid>

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react"
+import React, {FunctionComponent, useEffect, useRef, useState} from "react"
 import {Box, Grid, Typography} from "@material-ui/core";
 import classes from "./Chat.module.scss"
 import CustomInput from "../common/Input/CustomInput";
@@ -6,107 +6,102 @@ import CustomButton from "../common/Button/CustomButton";
 import sendIcon from "../../assets/images/send.svg"
 import Message from "./Message/Message";
 import moment from "moment";
+import { ChatProps } from "./ChatContainer";
+import { CreateProfileInput, MessageStatus, Stage } from "../../API";
 
-const Chat = () => {
+const Chat:FunctionComponent<ChatProps> = (props) => {
 
-    const [baseTexts, setBaseText] = useState([
-        {
-            id: "ac4db4d3-4d45-4-8066-3df76d8830e6",
-            body: "Hello, sir!",
-            addedAt: 1612282271724, // 02/02/2021 18:11
-            senderId: 9763,
-            senderName: "Manager",
-            recipientId: 9342,
-        },
-        {
-            id: "627ecb19-12f2-45-a6ff-3755f63478a4",
-            body: "Who are you?",
-            addedAt: 1612362271724, // "03/02/2021 16:24"
-            senderId: 9342,
-            senderName: "You",
-            recipientId: 9763,
-        },
-        {
-            id: "d5226521-4d57-4c-9bbb-0c63b9e16732",
-            body: "It's me, Tom, from the Marketing tool :)",
-            addedAt: 1612370271724, // 03/02/2021 18:37"
-            senderId: 9763,
-            senderName: "Manager",
-            recipientId: 9342,
-        },
-        {
-            id: "627ecb19-12f2-4e156ff-3755f63478a4",
-            body: "From what?",
-            addedAt: 1612370711924, // "03/02/2021 18:45"
-            senderId: 9342,
-            senderName: "You",
-            recipientId: 9763,
-        },
-        {
-            id: "ac4db4d3-4d45-4e75-8066-f76d8830e6",
-            body: "Can I offer you my help?",
-            addedAt: 1612400711924, // "04/02/2021 03:05"
-            senderId: 9763,
-            senderName: "Manager",
-            recipientId: 9342,
-        },
-        {
-            id: "627ecb19-12f2-4e15-a6ff-37f63478a4",
-            body: "No, leave me alone, please",
-            addedAt: 1612400941924, // "04/02/2021 03:09"
-            senderId: 9342,
-            senderName: "You",
-            recipientId: 9763,
-        },
-        {
-            id: "ac4db4d3-4d45-4e75-8066-3df768830e6",
-            body: "Listen here you little shitbird, I warn you! I will strike down upon you" +
-                " with great vengeance and furious anger",
-            addedAt: 1612401051924, // "04/02/2021 03:10"
-            senderId: 9763,
-            senderName: "Manager",
-            recipientId: 9342,
-        },
-        {
-            id: "627ecb19-12f2-4e15-a6ff-3755f3478a4",
-            body: "I'm calling the police",
-            addedAt: 1612401351924, // "04/02/2021 03:15"
-            senderId: 9342,
-            senderName: "You",
-            recipientId: 9763,
-        },
-    ]);
-
-    const Messages = baseTexts.map((el, index, array) => {
-        if(index-1 > 0 && (moment(el.addedAt).isSame(moment(array[index-1].addedAt), 'day'))){
-            return <Message key={el.id} message={el.body} senderName={el.senderName}
-                            senderId={el.senderId} userId={9763} time={el.addedAt} nextDay={false}/>
+    let interlocutor:CreateProfileInput = {
+        id: "0f580759-6129-423b-a2cd-55409f687b8d",
+        email: "def@ault.email",
+        name: "Chat Companion",
+        avatar: {
+            key: "images/0f580759-6129-423b-a2cd-55409f687b8d_1612521270019_avatar.png",
+            bucket: "mtbucket104149-dev",
+            region: "eu-central-1"
         }
-        else {
-            return <Message key={el.id} message={el.body} senderName={el.senderName}
-                     senderId={el.senderId} userId={9763} time={el.addedAt} nextDay={true}/>
+    };
+
+    if(props.thisProfile.id === "0f580759-6129-423b-a2cd-55409f687b8d") {
+        interlocutor = {
+            id: "ea41c236-ae2c-44b7-b5ad-a9db1b48fbe4",
+            email: "asdf@asdf.asdfy",
+            name: "Default Name",
+            avatar: {
+                key: "images/ea41c236-ae2c-44b7-b5ad-a9db1b48fbe4_1612520916079_avatar.png",
+                bucket: "mtbucket104149-dev",
+                region: "eu-central-1"
+            }
+        };
+    }
+
+    const setMessageName = (senderID:string)=> {
+        if (senderID === props.thisProfile.id) {
+            return props.thisProfile.name;
         }
+        return interlocutor.name;
+    }
+
+    const setMessageAvatarURL = (senderID:string)=> {
+        if (senderID === props.thisProfile.id) {
+            return props.avatarURL || "";
+        }
+        return  "";
+    }
+
+    // const [baseTexts, setBaseText] = useState(props.dialogue);
+    const Messages = props.dialogue.map((el, index, array) => {
+
+            return <Message key={index} message={el.content} senderName={setMessageName(el.senderID)}
+                     senderId={el.senderID} 
+                     userId={props.thisProfile.id} 
+                     time={el.createdAt} 
+                     nextDay={!(index > 0 && (moment(el.createdAt).isSame(moment(array[index-1].createdAt), 'day')))}
+                     avatarPublicURL={setMessageAvatarURL(el.senderID)}
+                     status={el.status}
+                     />
+        
     });
+
+
 
     const [inputValue, setInputValue] = useState("");
     const scrollRef = useRef(document.createElement("div"));
 
+
+    
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        setBaseText((oldArray) => [...oldArray, {
-            id: String(Math.random() * 1000),
-            body: inputValue,
-            addedAt: Date.now(),
-            senderId: 9342,
-            senderName: "You",
-            recipientId: 9763,
-        }]);
+        e.preventDefault();
+        props.sendMessage({
+            senderID: props.thisProfile.id || "",
+            stage: Stage.UNASSIGNED,
+            subjectID: 'default',
+            receiverID: interlocutor.id || "",
+            sharedID: props.thisProfile.id || "",
+            content: inputValue,
+            status: MessageStatus.CREATED
+        })
+        // setBaseText((oldArray) => [...oldArray, {
+        //     id: String(Math.random() * 1000),
+        //     body: inputValue,
+        //     addedAt: Date.now(),
+        //     senderId: 9342,
+        //     senderName: "You",
+        //     recipientId: 9763,
+        // }]);
         setInputValue("");
     }
 
     useEffect(() => { //Auto scrolling to bottom on messages obj update
         scrollRef.current.scrollIntoView({behavior: "smooth"});
-    }, [baseTexts])
+    },[props.dialogue])
+
+    useEffect(() => { //Auto scrolling to bottom on messages obj update
+
+        if(props.thisProfile.id) {
+            props.openDialogue(Stage.UNASSIGNED,'default', interlocutor)
+        }
+    },[props.thisProfile])
 
     return <Box className={classes.mainContainer}>
         <Grid container justify={"center"} alignItems={"center"} direction={"column"} className={classes.chatContainer}>

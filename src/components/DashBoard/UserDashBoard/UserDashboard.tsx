@@ -10,7 +10,7 @@ import team1 from "../../../assets/images/Teammate1.svg";
 import team2 from "../../../assets/images/Teammate2.svg";
 import team3 from "../../../assets/images/Teammate3.svg";
 import team4 from "../../../assets/images/Teammate4.svg";
-import Chat from '../../Chat/Chat';
+import ChatContainer from '../../Chat/ChatContainer';
 
 
 moment.updateLocale('en', {
@@ -211,7 +211,7 @@ function UserDashboard() {
 				</Grid>
 				<Grid xs={4} xl={3}
 					item>
-					<Chat />
+					<ChatContainer/>
 				</Grid>
 			</Box>
 		</Grid >

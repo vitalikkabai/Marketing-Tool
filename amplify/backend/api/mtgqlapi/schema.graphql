@@ -50,7 +50,6 @@ type Profile @model
   id: ID!
   email: String!
   name: String!
-  avatarPublicURL: String
   avatar: S3Object
   # initiatedConversations: [Conversation] @connection(keyName: "byInitiatedProfile", fields: ["id"])
   # repliedConversations: [Conversation] @connection(keyName: "byRepliedProfile", fields: ["id"])
@@ -78,6 +77,7 @@ type Message @model
     # @key(name: "byReceiver", fields: ["receiverID", "subjectID","stage"], queryField:"byReceiver")
     @key(name: "getIncomingMessages", fields: ["receiverID", "status"], queryField:"getIncomingMessages")
     @key(name: "getDialogue", fields: ["sharedID", "subjectID","stage"], queryField: "getDialogue")
+    @key(name: "getConversation", fields: ["sharedID", "subjectID","stage","createdAt"], queryField: "getConversation")
     @auth(rules: [
       { allow: private }
       ])  {

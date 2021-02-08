@@ -37,7 +37,6 @@ export const createBusiness = /* GraphQL */ `
           id
           email
           name
-          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -80,7 +79,6 @@ export const updateBusiness = /* GraphQL */ `
           id
           email
           name
-          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -123,7 +121,6 @@ export const deleteBusiness = /* GraphQL */ `
           id
           email
           name
-          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -177,7 +174,6 @@ export const createEmployee = /* GraphQL */ `
         id
         email
         name
-        avatarPublicURL
         avatar {
           bucket
           region
@@ -235,7 +231,6 @@ export const updateEmployee = /* GraphQL */ `
         id
         email
         name
-        avatarPublicURL
         avatar {
           bucket
           region
@@ -293,7 +288,6 @@ export const deleteEmployee = /* GraphQL */ `
         id
         email
         name
-        avatarPublicURL
         avatar {
           bucket
           region
@@ -331,7 +325,6 @@ export const createManager = /* GraphQL */ `
         id
         email
         name
-        avatarPublicURL
         avatar {
           bucket
           region
@@ -369,7 +362,6 @@ export const updateManager = /* GraphQL */ `
         id
         email
         name
-        avatarPublicURL
         avatar {
           bucket
           region
@@ -407,7 +399,6 @@ export const deleteManager = /* GraphQL */ `
         id
         email
         name
-        avatarPublicURL
         avatar {
           bucket
           region
@@ -428,7 +419,6 @@ export const createProfile = /* GraphQL */ `
       id
       email
       name
-      avatarPublicURL
       avatar {
         bucket
         region
@@ -448,7 +438,6 @@ export const updateProfile = /* GraphQL */ `
       id
       email
       name
-      avatarPublicURL
       avatar {
         bucket
         region
@@ -468,7 +457,6 @@ export const deleteProfile = /* GraphQL */ `
       id
       email
       name
-      avatarPublicURL
       avatar {
         bucket
         region

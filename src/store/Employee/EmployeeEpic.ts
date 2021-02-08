@@ -30,14 +30,12 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
 
                     const employee: CreateEmployeeInput = {...state$.value.EmployeeReducer,
                         businessID: businessRes.data.createBusiness.id, id: action.payload};
-                    console.log("business res ", businessRes)
                     // profile.id = state$
                     return forkJoin([from(API.graphql(graphqlOperation(createProfile, { input: profile })) as unknown as Promise<any>),
                         from(API.graphql(graphqlOperation(createEmployee, { input: employee })) as unknown as Promise<any>)
                     ])
                 }),
                 mergeMap((res: any) => {
-                    console.log(res)
                     return [saveProfileToDBSucces(res[0].data.createProfile),
                         setBusiness(res[1].data.createEmployee.business),
                         fetchEmployeeSuccess(res[1].data.createEmployee)
@@ -53,7 +51,6 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
             return from(API.graphql(graphqlOperation(getEmployee, { id: action.payload })) as unknown as Promise<any>)
                 .pipe(
                     mergeMap(res => {
-                        console.log(res)
                         return [
                             fetchEmployeeSuccess(res.data.getEmployee),
                             updateProfileSuccess(res.data.getEmployee.profile),

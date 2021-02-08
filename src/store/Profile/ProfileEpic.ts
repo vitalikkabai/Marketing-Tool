@@ -1,9 +1,9 @@
-import { subscribeOnNewMessages } from './../Message/MessageActions';
+import { subscribeOnMessageUpdated, subscribeOnNewMessages } from './../Message/MessageActions';
 import { CreateProfileInput, UpdateProfileInput } from './../../API';
 
 import { Epic, ofType } from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { fetchProfileByIdSuccess, saveProfileToDBFailed, saveProfileToDBSucces, setAvatarUrlFailed, updateProfileSuccess } from './ProfileActions';
+import { fetchProfileByIdSuccess, saveProfileToDBFailed, saveProfileToDBSucces, setAvatarUrl, setAvatarUrlFailed, updateProfileSuccess } from './ProfileActions';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
 import { createBusiness, createProfile, updateProfile } from '../../graphql/mutations';
@@ -20,12 +20,7 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
             return from(API.graphql(graphqlOperation(createBusiness, { input: businessData })) as unknown as Promise<any>).pipe(
                 mergeMap(res => {
                     const profile = state$.value.ProfileReducer;
-                    //     ...state$.value.ProfileReducer,
-                    //     businessID: res.data.createBusiness.id
-                    // });
-                    // profile.businessID = res.data.createBusiness.id;
-                    console.log("before setting profile ")
-                    // profile.id = state$
+
                     return from(API.graphql(graphqlOperation(createProfile, { input: profile })) as unknown as Promise<any>);
                 }),
                 mergeMap(res => {
@@ -42,7 +37,6 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
             return from(API.graphql(graphqlOperation(getProfile, { id: action.payload })) as unknown as Promise<any>)
                 .pipe(
                     mergeMap(res => {
-                        console.log(res)
                         return [fetchProfileByIdSuccess(res.data.getProfile),setBusiness(res.data.getProfile.business)]
                     }),
                     catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
@@ -62,15 +56,9 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                 contentEncoding: 'base64'
             })).pipe(
                 mergeMap(res => {
-                    console.log(res);
-                    return from(Storage.get(action.payload.s3.key))
-                }),
-                mergeMap(res => {
-                    console.log(res);
                     const profileAvatar = {
                         id: state$.value.ProfileReducer.profile.id,
                         avatar: action.payload.s3,
-                        avatarPublicURL:res
                     };
                     return from(API.graphql(graphqlOperation(updateProfile, { input: profileAvatar })) as unknown as Promise<any>);
                 }),
@@ -103,24 +91,24 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
 
     ),
 
-    // (action$, state$) => action$.pipe(
-    //     ofType('FETCH_PROFILE_BY_ID_SUCCESS',
-    //         'SAVE_PROFILE_TO_DB_SUCCESS',
-    //         'UPDATE_PROFILE_SUCCESS'),
-    //     mergeMap(() => {
-    //         const avatar = state$.value.ProfileReducer.profile.avatar;
-    //         const id = state$.value.ProfileReducer.profile.id || ""
-    //         if (!avatar) return [setAvatarUrl(""), subscribeOnNewMessages(id)]
+    (action$, state$) => action$.pipe(
+        ofType('FETCH_PROFILE_BY_ID_SUCCESS',
+            'SAVE_PROFILE_TO_DB_SUCCESS',
+            'UPDATE_PROFILE_SUCCESS'),
+        mergeMap(() => {
+            const avatar = state$.value.ProfileReducer.profile.avatar;
+            const id = state$.value.ProfileReducer.profile.id || ""
+            if (!avatar) return [setAvatarUrl(""), subscribeOnNewMessages(id), subscribeOnMessageUpdated(id)]
 
-    //         return (from(Storage.get(avatar.key)).pipe(
-    //             mergeMap(res => {
-    //                 return [setAvatarUrl(res as string), subscribeOnNewMessages(id)]
-    //             }),
-    //             catchError(err => { console.log(err); return [setAvatarUrlFailed()] })
-    //         ))
-    //     }),
+            return (from(Storage.get(avatar.key)).pipe(
+                mergeMap(res => {
+                    return [setAvatarUrl(res as string), subscribeOnNewMessages(id), subscribeOnMessageUpdated(id)]
+                }),
+                catchError(err => { console.log(err); return [setAvatarUrlFailed()] })
+            ))
+        }),
 
-    // )
+    )
 ];
 
 export default epics;
