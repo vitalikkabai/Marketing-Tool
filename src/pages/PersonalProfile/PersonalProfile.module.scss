@@ -26,6 +26,7 @@
         justify-content: center;
         position: relative;
         border-radius: 50%;
+        cursor: pointer;
         .avatarHover {
           z-index: 1;
         }
@@ -39,8 +40,9 @@
           position: absolute;
           width: 180px;
           height: 180px;
-          color: black;
+          color: white;
           z-index: 2;
+          font-size: 52px;
         }
       }
     }
