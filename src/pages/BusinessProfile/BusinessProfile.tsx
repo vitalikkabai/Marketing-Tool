@@ -18,7 +18,19 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         {id: "accounting_role", title: "Accounting", selected: props.roleTags.accounting},
         {id: "production_role", title: "Production", selected: props.roleTags.production},
         {id: "quality_role", title: "QC", selected: props.roleTags.qualityControl},
-    ].sort((a,b) => (a.selected < b.selected) ? 1 : ((b.selected < a.selected) ? -1 : 0)));
+    ].sort((a, b) => (a.selected < b.selected) ? 1 : ((b.selected < a.selected) ? -1 : 0)));
+    // Sorting by selected status
+
+    const [companyName, setCompanyName] = useState(props.business.companyName);
+    const [companyNameError, setCompanyNameError] = useState("");
+    const [selectedRoleError, setSelectedRoleError] = useState("");
+    const [sellingURLs, setSellingURLs] = useState<string[]>(props.business.storeURLs);
+    const [webInput, setWebInput] = useState("");
+    const [sellingInput, setSellingInput] = useState("");
+    const [websiteURLs, setWebsiteURLs] = useState<string[]>(props.business.websiteURLs);
+    const [webErrorText, setWebErrorText] = useState("");
+    const [storeErrorText, setStoreErrorText] = useState("");
+    const [edited, setEdited] = useState(false);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -26,16 +38,29 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
             id: props.business.id as string,
             companyName,
         })
-
     }
-    const [companyName, setCompanyName] = useState(props.business.companyName);
-    const [companyNameError, setCompanyNameError] = useState("")
-    const [sellingURLs, setSellingURLs] = useState<string[]>(props.business.storeURLs);
-    const [webInput, setWebInput] = useState("");
-    const [sellingInput, setSellingInput] = useState("");
-    const [websiteURLs, setWebsiteURLs] = useState<string[]>(props.business.websiteURLs);
-    const [webErrorText, setWebErrorText] = useState("");
-    const [storeErrorText, setStoreErrorText] = useState("");
+
+    useEffect(() => {
+        setSelectedRoleError("");
+    });
+
+    useEffect(() => { // Check that any values do not differ from the analogues in the reducer
+        if (companyName !== props.business.companyName ||
+            sellingURLs !== props.business.storeURLs ||
+            websiteURLs !== props.business.websiteURLs ||
+            selectedRole.find(el => el.id === 'sales_role')?.selected !== props.roleTags.sales ||
+            selectedRole.find(el => el.id === 'marketing_role')?.selected !== props.roleTags.marketing ||
+            selectedRole.find(el => el.id === 'logistic_role')?.selected !== props.roleTags.logistics ||
+            selectedRole.find(el => el.id === 'accounting_role')?.selected !== props.roleTags.accounting ||
+            selectedRole.find(el => el.id === 'production_role')?.selected !== props.roleTags.production ||
+            selectedRole.find(el => el.id === 'quality_role')?.selected !== props.roleTags.qualityControl
+        ) {
+            setEdited(true)
+        } // Set edited mode
+        else {
+            setEdited(false)
+        }
+    }, [selectedRole, companyName, sellingURLs, websiteURLs]);
 
     return (
         <Box className={classes.component}>
@@ -59,7 +84,7 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                             />
                         </Grid>
                         <Grid item xs={9} className={classes.saveButton}>
-                            <CustomButton type={"submit"} text={"Save"}/>
+                            <CustomButton type={"submit"} text={"Save"} disabled={!edited}/>
                         </Grid>
                     </Grid>
                     <Grid item xs={12} className={classes.roleBoxesGridItem}>

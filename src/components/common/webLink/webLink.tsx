@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import CustomInput from "../Input/CustomInput";
 import {Box, Chip} from "@material-ui/core";
 import classes from "./webLink.module.scss";
@@ -12,6 +12,7 @@ type PropsType = {
     setLinkURLs:   React.Dispatch<React.SetStateAction<string[]>>
     linkErrorText: string
     setLinkErrorText: React.Dispatch<React.SetStateAction<string>>
+    setEdited?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 
@@ -29,6 +30,7 @@ const WebLink: React.FunctionComponent<PropsType> = (props) => {
                 error={!!props.linkErrorText}
                 onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
                     props.setLinkErrorText("");
+                    if(props.setEdited) props.setEdited(false);
                     props.setLinkInput(event.target.value);
                 }
                 }

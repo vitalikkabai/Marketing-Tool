@@ -11,9 +11,10 @@ import {ReactComponent as QcRoleIcon} from "../../../../assets/images/roles/qcRo
 type PropsType = {
     setSelectedRole: React.Dispatch<React.SetStateAction<{id: string, title: string, selected: boolean}[]>>;
     roleItem: {id:string ,title: string, selected: boolean}
+    setEdited?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const RoleBox:React.FC<PropsType> = ({setSelectedRole, roleItem}) => {
+const RoleBox:React.FC<PropsType> = ({setSelectedRole, roleItem, setEdited}) => {
 
     const [roleHoverClass, setRoleHoverClass] = useState("");
     const [roleActiveClass, setRoleActiveClass] = useState("");
@@ -76,6 +77,7 @@ const RoleBox:React.FC<PropsType> = ({setSelectedRole, roleItem}) => {
                     (elem) => {
                         if(elem.id === roleItem.id)
                         elem.selected = !elem.selected;
+                        if(setEdited) setEdited(false);
                         return elem
                     }));
             }}>
