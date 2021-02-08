@@ -1,12 +1,64 @@
 .component {
   height: 100%;
   overflow: auto;
-
+  .gridItem {
+    height: 100%;
+    .contentBox {
+      height: calc(100% - 45px);
+    }
+    .avatarContainer {
+      background: #FFF;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 14px 0;
+      margin-right: 24px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      button {
+        border-radius: 10px;
+      }
+      .avatarBox {
+        width: 180px;
+        height: 180px;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        border-radius: 50%;
+        .avatarHover {
+          z-index: 1;
+        }
+        &:hover {
+          .avatar {
+            z-index: 0;
+          }
+        }
+        .avatar {
+          transition: linear 0.2s;
+          position: absolute;
+          width: 180px;
+          height: 180px;
+          color: black;
+          z-index: 2;
+        }
+      }
+    }
+  }
+  .contentItem {
+    display: flex;
+    flex-direction: row;
+    .gridItem:first-child {
+      margin-right: 12px;
+    }
+    .gridItem:last-child {
+      margin-left: 12px;
+    }
+  }
   .mainTitleBox {
     margin-left: 48px;
     margin-bottom: 12px;
   }
-
   .contentContainer {
     background: #FFF;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -14,8 +66,21 @@
     padding: 42px 48px 34px 48px;
     margin-right: 24px;
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    .closeAccountBox {
+      height: 144px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .closeAccTypography {
+        color: #9E9E9E;
+      }
+    }
+    .resetButtonSubmit {
+      align-items: flex-end;
+    }
   }
 }
 
@@ -27,16 +92,21 @@
   align-items: center;
   overflow-x: hidden;
   padding: 56px 97px 0 97px !important;
-
   img {
     margin-bottom: 58px;
     margin-top: 32px;
   }
+}
 
-  .buttonBox {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+.buttonBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  button {
+    border-radius: 10px;
+  }
+  .closeAccButton {
+    opacity: 0.3;
   }
 }
 
@@ -48,13 +118,8 @@
 .logInBox {
   display: flex;
   align-items: center;
-
   .logInText {
     cursor: pointer;
     margin-right: 48px;
   }
-}
-
-.buttonBox {
-  margin: 0 auto;
 }
