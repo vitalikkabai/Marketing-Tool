@@ -7,8 +7,8 @@ import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
 import { API, graphqlOperation } from 'aws-amplify';
 import { combineLatest, from } from 'rxjs';
-import { getDialogue } from '../../graphql/queries';
-import { CreateMessageInput, GetDialogueQueryVariables } from '../../API';
+import { getConversation, getDialogue } from '../../graphql/queries';
+import { CreateMessageInput, GetConversationQueryVariables, GetDialogueQueryVariables } from '../../API';
 import { getSharedIndex } from '../../utils/backendUtils';
 import { onCreateMessage } from '../../graphql/subscriptions';
 
@@ -22,6 +22,7 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
             console.log(message)
             return (from(API.graphql(graphqlOperation(createMessage, { input: message })) as unknown as Promise<any>).pipe(
                 map(res => {
+                    console.log(res)
                     return sendMessageSuccess(res.data.createMessage)
                 }),
                 catchError(err => { console.log(err); return [sendMessageFailure()] })
@@ -36,12 +37,12 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
             // if(!state$.value.ProfileReducer.profile.id) {
 
             // }
-            const params: GetDialogueQueryVariables = {
+            const params: GetConversationQueryVariables = {
                 sharedID: getSharedIndex(state$.value.ProfileReducer.profile.id || "",action.payload.interlocutor.id),
-                subjectIDStage: {eq: {stage: action.payload.stage, subjectID: action.payload.subjectID}}
+                subjectIDStageCreatedAt: {beginsWith: {stage: action.payload.stage, subjectID: action.payload.subjectID}}
             }
             console.log(params)
-            return (from(API.graphql(graphqlOperation(getDialogue, params)) as unknown as Promise<any>).pipe(
+            return (from(API.graphql(graphqlOperation(getConversation, params)) as unknown as Promise<any>).pipe(
                 map(res => {
                     console.log(res)
                     return openDialogueSuccess(res.data.getDialogue.items)

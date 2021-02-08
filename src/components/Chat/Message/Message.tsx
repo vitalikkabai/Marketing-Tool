@@ -6,12 +6,13 @@ import avatar2 from "../../../assets/images/Teammate3.svg"
 import moment from "moment";
 
 interface PropTypes {
-    senderId?: number
-    userId?: number
+    senderId?: string | null
+    userId?: string | null
     senderName?: string
     message?: string
-    time?: number
+    time?: string | null
     nextDay?: boolean
+    avatarPublicURL: string
 }
 
 const Message: React.FC<PropTypes> = (props) => {
@@ -22,7 +23,7 @@ const Message: React.FC<PropTypes> = (props) => {
                 {moment(props.time).format("DD.MM.YYYY")}
             </Typography>}
             <div className={props.senderId !== props.userId ? classes.recipientContainer : classes.senderContainer}>
-                <img src={props.senderId !== props.userId ? avatar2 : avatar}
+                <img src={props.avatarPublicURL}
                      alt='Avatar'/>
                 <div className={classes.bubble}>
                     <div className={classes.messageInfoBox}>

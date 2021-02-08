@@ -76,7 +76,7 @@ const TopBar = (props: PropsFromRedux) => {
                 <Grid item />
                 <Grid item className={classes.personalInfo}>
                     {props.isAuth ?
-                        <AvatarSection openDialogue={setIsOpen} profile={props.profile} avatarURL={props.profile.avatarPublicURL || ""} userAttributes={props.userAttributes} signOut={props.signOut} />
+                        <AvatarSection openDialogue={setIsOpen} profile={props.profile} avatarURL={props.avatarURL} userAttributes={props.userAttributes} signOut={props.signOut} />
                         :
                         <Box className={classes.logInBox}>
                             <Typography variant={"subtitle2"} color={"primary"}

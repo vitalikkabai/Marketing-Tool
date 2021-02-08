@@ -10,7 +10,7 @@ const mapStateToProps = (state: AppStateType) => {
         userAttributes: state.AuthReducer.userAttributes,
         isAuth: state.AuthReducer.isAuth,
         profile: state.ProfileReducer.profile,
-        // avatarURL: state.ProfileReducer.avatarURL
+        avatarURL: state.ProfileReducer.avatarURL
     }
 };
 

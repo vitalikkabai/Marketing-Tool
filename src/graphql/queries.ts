@@ -127,6 +127,44 @@ export const getDialogue = /* GraphQL */ `
     }
   }
 `;
+export const getConversation = /* GraphQL */ `
+  query GetConversation(
+    $sharedID: ID
+    $subjectIDStageCreatedAt: ModelMessageGetConversationCompositeKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getConversation(
+      sharedID: $sharedID
+      subjectIDStageCreatedAt: $subjectIDStageCreatedAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        stage
+        subjectID
+        senderID
+        receiverID
+        sharedID
+        content
+        status
+        attachment {
+          bucket
+          region
+          key
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getBusiness = /* GraphQL */ `
   query GetBusiness($id: ID!) {
     getBusiness(id: $id) {
@@ -159,7 +197,6 @@ export const getBusiness = /* GraphQL */ `
           id
           email
           name
-          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -278,7 +315,6 @@ export const getEmployee = /* GraphQL */ `
         id
         email
         name
-        avatarPublicURL
         avatar {
           bucket
           region
@@ -330,7 +366,6 @@ export const listEmployees = /* GraphQL */ `
           id
           email
           name
-          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -387,7 +422,6 @@ export const employeeByBusinessAndName = /* GraphQL */ `
           id
           email
           name
-          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -414,7 +448,6 @@ export const listManagers = /* GraphQL */ `
           id
           email
           name
-          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -446,7 +479,6 @@ export const getManager = /* GraphQL */ `
         id
         email
         name
-        avatarPublicURL
         avatar {
           bucket
           region
@@ -469,7 +501,6 @@ export const listProfiles = /* GraphQL */ `
         id
         email
         name
-        avatarPublicURL
         avatar {
           bucket
           region
@@ -488,7 +519,6 @@ export const getProfile = /* GraphQL */ `
       id
       email
       name
-      avatarPublicURL
       avatar {
         bucket
         region

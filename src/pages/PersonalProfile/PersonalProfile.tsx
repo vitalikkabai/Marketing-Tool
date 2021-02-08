@@ -218,7 +218,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 					<Box className={classes.avatarContainer + " " + classes.contentBox}>
 						<Box className={classes.avatarBox} onClick={() => setDialogOpen(true)}>
 							<img src={avatarHover} alt="avatarHover" className={classes.avatarHover} />
-							<Avatar alt="avatar" className={classes.avatar} src={props.profile.avatarPublicURL || ""} />
+							<Avatar alt="avatar" className={classes.avatar} src={props.avatarURL} />
 						</Box>
 					</Box>
 				</Grid>
