@@ -64,10 +64,10 @@ export const updatePersonalInfo = (name: string, email: string) => ({
     payload: {name, email}
 })
 
-export const setAvatarUrl = (avatarUrl: string) => ({
-    type: 'SET_PROFILE_AVATAR_URL' as const,
-    payload: avatarUrl
-})
+// export const setAvatarUrl = (avatarUrl: string) => ({
+//     type: 'SET_PROFILE_AVATAR_URL' as const,
+//     payload: avatarUrl
+// })
 
 export const setAvatarUrlFailed = () => ({
     type: 'SET_PROFILE_AVATAR_URL_FAILED' as const,

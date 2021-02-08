@@ -3,14 +3,15 @@ import * as actions from './ProfileActions';
 
 type ProfileReducerType = {
     profile: CreateProfileInput,
-    avatarURL: string
+    // avatarURL: string
 }
 const initialState: ProfileReducerType = {
         profile: {
             name: "",
-            email: ""
+            email: "",
+            avatarPublicURL: ""
         },
-        avatarURL: ""
+        // avatarPubURL: ""
 };
 
 const initialPresetState: ProfileReducerType = {
@@ -18,7 +19,7 @@ const initialPresetState: ProfileReducerType = {
         email: "def@ault.email",
         name: "Default name"
     },
-    avatarURL: ""
+    // avatarURL: ""
 };
 
 export const ProfileReducer = (state = initialPresetState, action: ActionTypes): ProfileReducerType => {
@@ -49,11 +50,11 @@ export const ProfileReducer = (state = initialPresetState, action: ActionTypes):
                 ...state,
                 profile: {...action.payload}
             }
-        case 'SET_PROFILE_AVATAR_URL':
-            return {
-                ...state,
-                avatarURL: action.payload
-            }
+        // case 'SET_PROFILE_AVATAR_URL':
+        //     return {
+        //         ...state,
+        //         avatarURL: action.payload
+        //     }
         case 'CLEAR_PROFILE': 
             return {
                 ...initialState

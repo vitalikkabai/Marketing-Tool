@@ -177,7 +177,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                     <Typography variant="h2">Upload Photo</Typography>
                 </Box>
                 <Box className={classes.contentContainer}>
-                    <Avatar alt="avatar" src={props.avatarURL} />
+                    <Avatar alt="avatar" src={props.profile.avatarPublicURL || ""} />
 
                     <CustomButton onClick={() => setDialogOpen(true)} type={"button"} text="CHANGE" />
                 </Box>
