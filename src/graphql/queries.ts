@@ -7,12 +7,12 @@ export const getMessage = /* GraphQL */ `
     getMessage(id: $id) {
       id
       stage
-      subjectId
+      subjectID
       senderID
       receiverID
       sharedID
       content
-      seen
+      status
       attachment {
         bucket
         region
@@ -20,30 +20,6 @@ export const getMessage = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      sender {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        createdAt
-        updatedAt
-      }
-      receiver {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        createdAt
-        updatedAt
-      }
     }
   }
 `;
@@ -57,12 +33,12 @@ export const listMessages = /* GraphQL */ `
       items {
         id
         stage
-        subjectId
+        subjectID
         senderID
         receiverID
         sharedID
         content
-        seen
+        status
         attachment {
           bucket
           region
@@ -70,89 +46,23 @@ export const listMessages = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        sender {
-          id
-          email
-          name
-          createdAt
-          updatedAt
-        }
-        receiver {
-          id
-          email
-          name
-          createdAt
-          updatedAt
-        }
       }
       nextToken
     }
   }
 `;
-export const bySender = /* GraphQL */ `
-  query BySender(
-    $senderID: ID
-    $subjectIdStage: ModelMessageBySenderCompositeKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelMessageFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    bySender(
-      senderID: $senderID
-      subjectIdStage: $subjectIdStage
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        stage
-        subjectId
-        senderID
-        receiverID
-        sharedID
-        content
-        seen
-        attachment {
-          bucket
-          region
-          key
-        }
-        createdAt
-        updatedAt
-        sender {
-          id
-          email
-          name
-          createdAt
-          updatedAt
-        }
-        receiver {
-          id
-          email
-          name
-          createdAt
-          updatedAt
-        }
-      }
-      nextToken
-    }
-  }
-`;
-export const byReceiver = /* GraphQL */ `
-  query ByReceiver(
+export const getIncomingMessages = /* GraphQL */ `
+  query GetIncomingMessages(
     $receiverID: ID
-    $subjectIdStage: ModelMessageByReceiverCompositeKeyConditionInput
+    $status: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelMessageFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    byReceiver(
+    getIncomingMessages(
       receiverID: $receiverID
-      subjectIdStage: $subjectIdStage
+      status: $status
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -161,12 +71,12 @@ export const byReceiver = /* GraphQL */ `
       items {
         id
         stage
-        subjectId
+        subjectID
         senderID
         receiverID
         sharedID
         content
-        seen
+        status
         attachment {
           bucket
           region
@@ -174,37 +84,23 @@ export const byReceiver = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        sender {
-          id
-          email
-          name
-          createdAt
-          updatedAt
-        }
-        receiver {
-          id
-          email
-          name
-          createdAt
-          updatedAt
-        }
       }
       nextToken
     }
   }
 `;
-export const getDialog = /* GraphQL */ `
-  query GetDialog(
+export const getDialogue = /* GraphQL */ `
+  query GetDialogue(
     $sharedID: ID
-    $subjectIdStage: ModelMessageGetDialogCompositeKeyConditionInput
+    $subjectIDStage: ModelMessageGetDialogueCompositeKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelMessageFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    getDialog(
+    getDialogue(
       sharedID: $sharedID
-      subjectIdStage: $subjectIdStage
+      subjectIDStage: $subjectIDStage
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -213,12 +109,12 @@ export const getDialog = /* GraphQL */ `
       items {
         id
         stage
-        subjectId
+        subjectID
         senderID
         receiverID
         sharedID
         content
-        seen
+        status
         attachment {
           bucket
           region
@@ -226,20 +122,6 @@ export const getDialog = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        sender {
-          id
-          email
-          name
-          createdAt
-          updatedAt
-        }
-        receiver {
-          id
-          email
-          name
-          createdAt
-          updatedAt
-        }
       }
       nextToken
     }
@@ -277,6 +159,7 @@ export const getBusiness = /* GraphQL */ `
           id
           email
           name
+          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -395,6 +278,7 @@ export const getEmployee = /* GraphQL */ `
         id
         email
         name
+        avatarPublicURL
         avatar {
           bucket
           region
@@ -446,6 +330,7 @@ export const listEmployees = /* GraphQL */ `
           id
           email
           name
+          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -502,6 +387,7 @@ export const employeeByBusinessAndName = /* GraphQL */ `
           id
           email
           name
+          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -528,6 +414,7 @@ export const listManagers = /* GraphQL */ `
           id
           email
           name
+          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -559,6 +446,7 @@ export const getManager = /* GraphQL */ `
         id
         email
         name
+        avatarPublicURL
         avatar {
           bucket
           region
@@ -581,6 +469,7 @@ export const listProfiles = /* GraphQL */ `
         id
         email
         name
+        avatarPublicURL
         avatar {
           bucket
           region
@@ -599,6 +488,7 @@ export const getProfile = /* GraphQL */ `
       id
       email
       name
+      avatarPublicURL
       avatar {
         bucket
         region

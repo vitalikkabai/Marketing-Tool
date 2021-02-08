@@ -37,6 +37,7 @@ export const createBusiness = /* GraphQL */ `
           id
           email
           name
+          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -79,6 +80,7 @@ export const updateBusiness = /* GraphQL */ `
           id
           email
           name
+          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -121,6 +123,7 @@ export const deleteBusiness = /* GraphQL */ `
           id
           email
           name
+          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -174,6 +177,7 @@ export const createEmployee = /* GraphQL */ `
         id
         email
         name
+        avatarPublicURL
         avatar {
           bucket
           region
@@ -231,6 +235,7 @@ export const updateEmployee = /* GraphQL */ `
         id
         email
         name
+        avatarPublicURL
         avatar {
           bucket
           region
@@ -288,6 +293,7 @@ export const deleteEmployee = /* GraphQL */ `
         id
         email
         name
+        avatarPublicURL
         avatar {
           bucket
           region
@@ -325,6 +331,7 @@ export const createManager = /* GraphQL */ `
         id
         email
         name
+        avatarPublicURL
         avatar {
           bucket
           region
@@ -362,6 +369,7 @@ export const updateManager = /* GraphQL */ `
         id
         email
         name
+        avatarPublicURL
         avatar {
           bucket
           region
@@ -399,6 +407,7 @@ export const deleteManager = /* GraphQL */ `
         id
         email
         name
+        avatarPublicURL
         avatar {
           bucket
           region
@@ -419,6 +428,7 @@ export const createProfile = /* GraphQL */ `
       id
       email
       name
+      avatarPublicURL
       avatar {
         bucket
         region
@@ -438,6 +448,7 @@ export const updateProfile = /* GraphQL */ `
       id
       email
       name
+      avatarPublicURL
       avatar {
         bucket
         region
@@ -457,6 +468,7 @@ export const deleteProfile = /* GraphQL */ `
       id
       email
       name
+      avatarPublicURL
       avatar {
         bucket
         region
@@ -475,12 +487,12 @@ export const createMessage = /* GraphQL */ `
     createMessage(input: $input, condition: $condition) {
       id
       stage
-      subjectId
+      subjectID
       senderID
       receiverID
       sharedID
       content
-      seen
+      status
       attachment {
         bucket
         region
@@ -488,30 +500,6 @@ export const createMessage = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      sender {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        createdAt
-        updatedAt
-      }
-      receiver {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        createdAt
-        updatedAt
-      }
     }
   }
 `;
@@ -523,12 +511,12 @@ export const updateMessage = /* GraphQL */ `
     updateMessage(input: $input, condition: $condition) {
       id
       stage
-      subjectId
+      subjectID
       senderID
       receiverID
       sharedID
       content
-      seen
+      status
       attachment {
         bucket
         region
@@ -536,30 +524,6 @@ export const updateMessage = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      sender {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        createdAt
-        updatedAt
-      }
-      receiver {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        createdAt
-        updatedAt
-      }
     }
   }
 `;
@@ -571,12 +535,12 @@ export const deleteMessage = /* GraphQL */ `
     deleteMessage(input: $input, condition: $condition) {
       id
       stage
-      subjectId
+      subjectID
       senderID
       receiverID
       sharedID
       content
-      seen
+      status
       attachment {
         bucket
         region
@@ -584,30 +548,6 @@ export const deleteMessage = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      sender {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        createdAt
-        updatedAt
-      }
-      receiver {
-        id
-        email
-        name
-        avatar {
-          bucket
-          region
-          key
-        }
-        createdAt
-        updatedAt
-      }
     }
   }
 `;

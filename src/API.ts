@@ -153,6 +153,7 @@ export type CreateProfileInput = {
   id?: string | null,
   email: string,
   name: string,
+  avatarPublicURL?: string | null,
   avatar?: S3ObjectInput | null,
 };
 
@@ -165,6 +166,7 @@ export type S3ObjectInput = {
 export type ModelProfileConditionInput = {
   email?: ModelStringInput | null,
   name?: ModelStringInput | null,
+  avatarPublicURL?: ModelStringInput | null,
   and?: Array< ModelProfileConditionInput | null > | null,
   or?: Array< ModelProfileConditionInput | null > | null,
   not?: ModelProfileConditionInput | null,
@@ -174,6 +176,7 @@ export type UpdateProfileInput = {
   id: string,
   email?: string | null,
   name?: string | null,
+  avatarPublicURL?: string | null,
   avatar?: S3ObjectInput | null,
 };
 
@@ -184,12 +187,12 @@ export type DeleteProfileInput = {
 export type CreateMessageInput = {
   id?: string | null,
   stage: Stage,
-  subjectId: string,
+  subjectID: string,
   senderID: string,
   receiverID: string,
   sharedID: string,
   content: string,
-  seen: boolean,
+  status: MessageStatus,
   attachment?: S3ObjectInput | null,
   createdAt?: string | null,
   updatedAt?: string | null,
@@ -208,14 +211,21 @@ export enum Stage {
 }
 
 
+export enum MessageStatus {
+  CREATED = "CREATED",
+  SENT = "SENT",
+  RECEIVED = "RECEIVED",
+}
+
+
 export type ModelMessageConditionInput = {
   stage?: ModelStageInput | null,
-  subjectId?: ModelIDInput | null,
+  subjectID?: ModelIDInput | null,
   senderID?: ModelIDInput | null,
   receiverID?: ModelIDInput | null,
   sharedID?: ModelIDInput | null,
   content?: ModelStringInput | null,
-  seen?: ModelBooleanInput | null,
+  status?: ModelMessageStatusInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelMessageConditionInput | null > | null,
@@ -228,22 +238,20 @@ export type ModelStageInput = {
   ne?: Stage | null,
 };
 
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
+export type ModelMessageStatusInput = {
+  eq?: MessageStatus | null,
+  ne?: MessageStatus | null,
 };
 
 export type UpdateMessageInput = {
   id: string,
   stage?: Stage | null,
-  subjectId?: string | null,
+  subjectID?: string | null,
   senderID?: string | null,
   receiverID?: string | null,
   sharedID?: string | null,
   content?: string | null,
-  seen?: boolean | null,
+  status?: MessageStatus | null,
   attachment?: S3ObjectInput | null,
   createdAt?: string | null,
   updatedAt?: string | null,
@@ -256,12 +264,12 @@ export type DeleteMessageInput = {
 export type ModelMessageFilterInput = {
   id?: ModelIDInput | null,
   stage?: ModelStageInput | null,
-  subjectId?: ModelIDInput | null,
+  subjectID?: ModelIDInput | null,
   senderID?: ModelIDInput | null,
   receiverID?: ModelIDInput | null,
   sharedID?: ModelIDInput | null,
   content?: ModelStringInput | null,
-  seen?: ModelBooleanInput | null,
+  status?: ModelMessageStatusInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
   and?: Array< ModelMessageFilterInput | null > | null,
@@ -269,19 +277,14 @@ export type ModelMessageFilterInput = {
   not?: ModelMessageFilterInput | null,
 };
 
-export type ModelMessageBySenderCompositeKeyConditionInput = {
-  eq?: ModelMessageBySenderCompositeKeyInput | null,
-  le?: ModelMessageBySenderCompositeKeyInput | null,
-  lt?: ModelMessageBySenderCompositeKeyInput | null,
-  ge?: ModelMessageBySenderCompositeKeyInput | null,
-  gt?: ModelMessageBySenderCompositeKeyInput | null,
-  between?: Array< ModelMessageBySenderCompositeKeyInput | null > | null,
-  beginsWith?: ModelMessageBySenderCompositeKeyInput | null,
-};
-
-export type ModelMessageBySenderCompositeKeyInput = {
-  subjectId?: string | null,
-  stage?: Stage | null,
+export type ModelStringKeyConditionInput = {
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
 };
 
 export enum ModelSortDirection {
@@ -290,33 +293,18 @@ export enum ModelSortDirection {
 }
 
 
-export type ModelMessageByReceiverCompositeKeyConditionInput = {
-  eq?: ModelMessageByReceiverCompositeKeyInput | null,
-  le?: ModelMessageByReceiverCompositeKeyInput | null,
-  lt?: ModelMessageByReceiverCompositeKeyInput | null,
-  ge?: ModelMessageByReceiverCompositeKeyInput | null,
-  gt?: ModelMessageByReceiverCompositeKeyInput | null,
-  between?: Array< ModelMessageByReceiverCompositeKeyInput | null > | null,
-  beginsWith?: ModelMessageByReceiverCompositeKeyInput | null,
+export type ModelMessageGetDialogueCompositeKeyConditionInput = {
+  eq?: ModelMessageGetDialogueCompositeKeyInput | null,
+  le?: ModelMessageGetDialogueCompositeKeyInput | null,
+  lt?: ModelMessageGetDialogueCompositeKeyInput | null,
+  ge?: ModelMessageGetDialogueCompositeKeyInput | null,
+  gt?: ModelMessageGetDialogueCompositeKeyInput | null,
+  between?: Array< ModelMessageGetDialogueCompositeKeyInput | null > | null,
+  beginsWith?: ModelMessageGetDialogueCompositeKeyInput | null,
 };
 
-export type ModelMessageByReceiverCompositeKeyInput = {
-  subjectId?: string | null,
-  stage?: Stage | null,
-};
-
-export type ModelMessageGetDialogCompositeKeyConditionInput = {
-  eq?: ModelMessageGetDialogCompositeKeyInput | null,
-  le?: ModelMessageGetDialogCompositeKeyInput | null,
-  lt?: ModelMessageGetDialogCompositeKeyInput | null,
-  ge?: ModelMessageGetDialogCompositeKeyInput | null,
-  gt?: ModelMessageGetDialogCompositeKeyInput | null,
-  between?: Array< ModelMessageGetDialogCompositeKeyInput | null > | null,
-  beginsWith?: ModelMessageGetDialogCompositeKeyInput | null,
-};
-
-export type ModelMessageGetDialogCompositeKeyInput = {
-  subjectId?: string | null,
+export type ModelMessageGetDialogueCompositeKeyInput = {
+  subjectID?: string | null,
   stage?: Stage | null,
 };
 
@@ -329,16 +317,6 @@ export type ModelBusinessFilterInput = {
   and?: Array< ModelBusinessFilterInput | null > | null,
   or?: Array< ModelBusinessFilterInput | null > | null,
   not?: ModelBusinessFilterInput | null,
-};
-
-export type ModelStringKeyConditionInput = {
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
 };
 
 export type ModelEmployeeFilterInput = {
@@ -361,6 +339,7 @@ export type ModelProfileFilterInput = {
   id?: ModelIDInput | null,
   email?: ModelStringInput | null,
   name?: ModelStringInput | null,
+  avatarPublicURL?: ModelStringInput | null,
   and?: Array< ModelProfileFilterInput | null > | null,
   or?: Array< ModelProfileFilterInput | null > | null,
   not?: ModelProfileFilterInput | null,
@@ -408,6 +387,7 @@ export type CreateBusinessMutation = {
         id: string,
         email: string,
         name: string,
+        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -457,6 +437,7 @@ export type UpdateBusinessMutation = {
         id: string,
         email: string,
         name: string,
+        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -506,6 +487,7 @@ export type DeleteBusinessMutation = {
         id: string,
         email: string,
         name: string,
+        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -567,6 +549,7 @@ export type CreateEmployeeMutation = {
       id: string,
       email: string,
       name: string,
+      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -633,6 +616,7 @@ export type UpdateEmployeeMutation = {
       id: string,
       email: string,
       name: string,
+      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -699,6 +683,7 @@ export type DeleteEmployeeMutation = {
       id: string,
       email: string,
       name: string,
+      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -742,6 +727,7 @@ export type CreateManagerMutation = {
       id: string,
       email: string,
       name: string,
+      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -785,6 +771,7 @@ export type UpdateManagerMutation = {
       id: string,
       email: string,
       name: string,
+      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -828,6 +815,7 @@ export type DeleteManagerMutation = {
       id: string,
       email: string,
       name: string,
+      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -851,6 +839,7 @@ export type CreateProfileMutation = {
     id: string,
     email: string,
     name: string,
+    avatarPublicURL: string | null,
     avatar:  {
       __typename: "S3Object",
       bucket: string,
@@ -873,6 +862,7 @@ export type UpdateProfileMutation = {
     id: string,
     email: string,
     name: string,
+    avatarPublicURL: string | null,
     avatar:  {
       __typename: "S3Object",
       bucket: string,
@@ -895,6 +885,7 @@ export type DeleteProfileMutation = {
     id: string,
     email: string,
     name: string,
+    avatarPublicURL: string | null,
     avatar:  {
       __typename: "S3Object",
       bucket: string,
@@ -916,12 +907,12 @@ export type CreateMessageMutation = {
     __typename: "Message",
     id: string,
     stage: Stage,
-    subjectId: string,
+    subjectID: string,
     senderID: string,
     receiverID: string,
     sharedID: string,
     content: string,
-    seen: boolean,
+    status: MessageStatus,
     attachment:  {
       __typename: "S3Object",
       bucket: string,
@@ -930,34 +921,6 @@ export type CreateMessageMutation = {
     } | null,
     createdAt: string | null,
     updatedAt: string | null,
-    sender:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    receiver:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
   } | null,
 };
 
@@ -971,12 +934,12 @@ export type UpdateMessageMutation = {
     __typename: "Message",
     id: string,
     stage: Stage,
-    subjectId: string,
+    subjectID: string,
     senderID: string,
     receiverID: string,
     sharedID: string,
     content: string,
-    seen: boolean,
+    status: MessageStatus,
     attachment:  {
       __typename: "S3Object",
       bucket: string,
@@ -985,34 +948,6 @@ export type UpdateMessageMutation = {
     } | null,
     createdAt: string | null,
     updatedAt: string | null,
-    sender:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    receiver:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
   } | null,
 };
 
@@ -1026,12 +961,12 @@ export type DeleteMessageMutation = {
     __typename: "Message",
     id: string,
     stage: Stage,
-    subjectId: string,
+    subjectID: string,
     senderID: string,
     receiverID: string,
     sharedID: string,
     content: string,
-    seen: boolean,
+    status: MessageStatus,
     attachment:  {
       __typename: "S3Object",
       bucket: string,
@@ -1040,34 +975,6 @@ export type DeleteMessageMutation = {
     } | null,
     createdAt: string | null,
     updatedAt: string | null,
-    sender:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    receiver:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
   } | null,
 };
 
@@ -1080,12 +987,12 @@ export type GetMessageQuery = {
     __typename: "Message",
     id: string,
     stage: Stage,
-    subjectId: string,
+    subjectID: string,
     senderID: string,
     receiverID: string,
     sharedID: string,
     content: string,
-    seen: boolean,
+    status: MessageStatus,
     attachment:  {
       __typename: "S3Object",
       bucket: string,
@@ -1094,34 +1001,6 @@ export type GetMessageQuery = {
     } | null,
     createdAt: string | null,
     updatedAt: string | null,
-    sender:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    receiver:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
   } | null,
 };
 
@@ -1138,12 +1017,12 @@ export type ListMessagesQuery = {
       __typename: "Message",
       id: string,
       stage: Stage,
-      subjectId: string,
+      subjectID: string,
       senderID: string,
       receiverID: string,
       sharedID: string,
       content: string,
-      seen: boolean,
+      status: MessageStatus,
       attachment:  {
         __typename: "S3Object",
         bucket: string,
@@ -1152,100 +1031,33 @@ export type ListMessagesQuery = {
       } | null,
       createdAt: string | null,
       updatedAt: string | null,
-      sender:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      receiver:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
     } | null > | null,
     nextToken: string | null,
   } | null,
 };
 
-export type BySenderQueryVariables = {
-  senderID?: string | null,
-  subjectIdStage?: ModelMessageBySenderCompositeKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelMessageFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type BySenderQuery = {
-  bySender:  {
-    __typename: "ModelMessageConnection",
-    items:  Array< {
-      __typename: "Message",
-      id: string,
-      stage: Stage,
-      subjectId: string,
-      senderID: string,
-      receiverID: string,
-      sharedID: string,
-      content: string,
-      seen: boolean,
-      attachment:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string | null,
-      updatedAt: string | null,
-      sender:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      receiver:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-    } | null > | null,
-    nextToken: string | null,
-  } | null,
-};
-
-export type ByReceiverQueryVariables = {
+export type GetIncomingMessagesQueryVariables = {
   receiverID?: string | null,
-  subjectIdStage?: ModelMessageByReceiverCompositeKeyConditionInput | null,
+  status?: ModelStringKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelMessageFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ByReceiverQuery = {
-  byReceiver:  {
+export type GetIncomingMessagesQuery = {
+  getIncomingMessages:  {
     __typename: "ModelMessageConnection",
     items:  Array< {
       __typename: "Message",
       id: string,
       stage: Stage,
-      subjectId: string,
+      subjectID: string,
       senderID: string,
       receiverID: string,
       sharedID: string,
       content: string,
-      seen: boolean,
+      status: MessageStatus,
       attachment:  {
         __typename: "S3Object",
         bucket: string,
@@ -1254,49 +1066,33 @@ export type ByReceiverQuery = {
       } | null,
       createdAt: string | null,
       updatedAt: string | null,
-      sender:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      receiver:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
     } | null > | null,
     nextToken: string | null,
   } | null,
 };
 
-export type GetDialogQueryVariables = {
+export type GetDialogueQueryVariables = {
   sharedID?: string | null,
-  subjectIdStage?: ModelMessageGetDialogCompositeKeyConditionInput | null,
+  subjectIDStage?: ModelMessageGetDialogueCompositeKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelMessageFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type GetDialogQuery = {
-  getDialog:  {
+export type GetDialogueQuery = {
+  getDialogue:  {
     __typename: "ModelMessageConnection",
     items:  Array< {
       __typename: "Message",
       id: string,
       stage: Stage,
-      subjectId: string,
+      subjectID: string,
       senderID: string,
       receiverID: string,
       sharedID: string,
       content: string,
-      seen: boolean,
+      status: MessageStatus,
       attachment:  {
         __typename: "S3Object",
         bucket: string,
@@ -1305,22 +1101,6 @@ export type GetDialogQuery = {
       } | null,
       createdAt: string | null,
       updatedAt: string | null,
-      sender:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-      receiver:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
     } | null > | null,
     nextToken: string | null,
   } | null,
@@ -1367,6 +1147,7 @@ export type GetBusinessQuery = {
         id: string,
         email: string,
         name: string,
+        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -1498,6 +1279,7 @@ export type GetEmployeeQuery = {
       id: string,
       email: string,
       name: string,
+      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -1557,6 +1339,7 @@ export type ListEmployeesQuery = {
         id: string,
         email: string,
         name: string,
+        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -1614,6 +1397,7 @@ export type EmployeeByBusinessAndNameQuery = {
         id: string,
         email: string,
         name: string,
+        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -1645,6 +1429,7 @@ export type ListManagersQuery = {
         id: string,
         email: string,
         name: string,
+        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -1683,6 +1468,7 @@ export type GetManagerQuery = {
       id: string,
       email: string,
       name: string,
+      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -1709,6 +1495,7 @@ export type ListProfilesQuery = {
       id: string,
       email: string,
       name: string,
+      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -1732,6 +1519,7 @@ export type GetProfileQuery = {
     id: string,
     email: string,
     name: string,
+    avatarPublicURL: string | null,
     avatar:  {
       __typename: "S3Object",
       bucket: string,
@@ -1748,12 +1536,12 @@ export type OnCreateMessageSubscription = {
     __typename: "Message",
     id: string,
     stage: Stage,
-    subjectId: string,
+    subjectID: string,
     senderID: string,
     receiverID: string,
     sharedID: string,
     content: string,
-    seen: boolean,
+    status: MessageStatus,
     attachment:  {
       __typename: "S3Object",
       bucket: string,
@@ -1762,34 +1550,6 @@ export type OnCreateMessageSubscription = {
     } | null,
     createdAt: string | null,
     updatedAt: string | null,
-    sender:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    receiver:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
   } | null,
 };
 
@@ -1798,12 +1558,12 @@ export type OnUpdateMessageSubscription = {
     __typename: "Message",
     id: string,
     stage: Stage,
-    subjectId: string,
+    subjectID: string,
     senderID: string,
     receiverID: string,
     sharedID: string,
     content: string,
-    seen: boolean,
+    status: MessageStatus,
     attachment:  {
       __typename: "S3Object",
       bucket: string,
@@ -1812,34 +1572,6 @@ export type OnUpdateMessageSubscription = {
     } | null,
     createdAt: string | null,
     updatedAt: string | null,
-    sender:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    receiver:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
   } | null,
 };
 
@@ -1848,12 +1580,12 @@ export type OnDeleteMessageSubscription = {
     __typename: "Message",
     id: string,
     stage: Stage,
-    subjectId: string,
+    subjectID: string,
     senderID: string,
     receiverID: string,
     sharedID: string,
     content: string,
-    seen: boolean,
+    status: MessageStatus,
     attachment:  {
       __typename: "S3Object",
       bucket: string,
@@ -1862,34 +1594,6 @@ export type OnDeleteMessageSubscription = {
     } | null,
     createdAt: string | null,
     updatedAt: string | null,
-    sender:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    receiver:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
   } | null,
 };
 
@@ -1930,6 +1634,7 @@ export type OnCreateBusinessSubscription = {
         id: string,
         email: string,
         name: string,
+        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -1974,6 +1679,7 @@ export type OnUpdateBusinessSubscription = {
         id: string,
         email: string,
         name: string,
+        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -2018,6 +1724,7 @@ export type OnDeleteBusinessSubscription = {
         id: string,
         email: string,
         name: string,
+        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -2074,6 +1781,7 @@ export type OnCreateEmployeeSubscription = {
       id: string,
       email: string,
       name: string,
+      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -2135,6 +1843,7 @@ export type OnUpdateEmployeeSubscription = {
       id: string,
       email: string,
       name: string,
+      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -2196,6 +1905,7 @@ export type OnDeleteEmployeeSubscription = {
       id: string,
       email: string,
       name: string,
+      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -2234,6 +1944,7 @@ export type OnCreateManagerSubscription = {
       id: string,
       email: string,
       name: string,
+      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -2272,6 +1983,7 @@ export type OnUpdateManagerSubscription = {
       id: string,
       email: string,
       name: string,
+      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -2310,6 +2022,7 @@ export type OnDeleteManagerSubscription = {
       id: string,
       email: string,
       name: string,
+      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -2328,6 +2041,7 @@ export type OnCreateProfileSubscription = {
     id: string,
     email: string,
     name: string,
+    avatarPublicURL: string | null,
     avatar:  {
       __typename: "S3Object",
       bucket: string,
@@ -2345,6 +2059,7 @@ export type OnUpdateProfileSubscription = {
     id: string,
     email: string,
     name: string,
+    avatarPublicURL: string | null,
     avatar:  {
       __typename: "S3Object",
       bucket: string,
@@ -2362,6 +2077,7 @@ export type OnDeleteProfileSubscription = {
     id: string,
     email: string,
     name: string,
+    avatarPublicURL: string | null,
     avatar:  {
       __typename: "S3Object",
       bucket: string,
