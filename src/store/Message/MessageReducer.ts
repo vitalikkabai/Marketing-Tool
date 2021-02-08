@@ -2,35 +2,48 @@ import { CreateMessageInput, CreateProfileInput, Stage } from '../../API';
 import * as actions from './MessageActions';
 
 type MessageReducer = {
-    activeConversation: {
-        stage: Stage,
-        productId: string,
-        messages: CreateMessageInput[],
-        interlocutor: CreateProfileInput
-    }
-    dialogue: CreateMessageInput[]
+    stage: Stage,
+    subjectID: string,
+    interlocutor: CreateProfileInput,
+    dialogue: CreateMessageInput[],
 }
 
 const initialState: MessageReducer = {
-        activeConversation: {
-            stage: Stage.UNASSIGNED,
-            productId: 'unassigned',
-            messages: [],
-            interlocutor: {email: "default", name: "default"}
-        },
-        dialogue: []
-        
+        dialogue: [],
+        stage: Stage.UNASSIGNED,
+        subjectID: 'unassigned',
+        interlocutor: {email: "unassigned", name: "unassigned"}
 };
 
 export const EmployeeReducer = (state = initialState, action: ActionTypes): MessageReducer => {
     switch (action.type) {
-        case 'SEND_NEW_MESSAGE':
+        case 'SEND_MESSAGE':
             return {
                 ...state,
                 dialogue: [...state.dialogue,action.payload]
             }
-        case 'SEND_NEW_MESSAGE_SUCCESS':
-        case 'SEND_NEW_MESSAGE_FAILURE':
+        case 'GET_RECENT_MESSAGE': 
+            if (action.payload.senderID === state.interlocutor.id) 
+            return {
+                ...state,
+                dialogue: [...state.dialogue,action.payload]
+            }; else 
+            return {...state}
+            
+        case 'OPEN_DIALOGUE':
+            return {
+                ...state,
+                stage: action.payload.stage,
+                subjectID: action.payload.subjectID,
+                interlocutor: action.payload.interlocutor
+            }
+        case 'OPEN_DIALOGUE_SUCCESS':
+            return {
+                ...state,
+                dialogue: action.payload
+            }
+        case 'SEND_MESSAGE_SUCCESS':
+        case 'SEND_MESSAGE_FAILURE':
         default:
             return {
                 ...state,

@@ -1,20 +1,33 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import { CreateMessageInput, CreateProfileInput } from "../../API";
+import { CreateMessageInput, CreateProfileInput, Stage } from "../../API";
 
-export const sendNewMessage = (message: CreateMessageInput) => ({
-    type: 'SEND_NEW_MESSAGE' as const,
+export const openDialogue = (stage: Stage, subjectID: string, interlocutor: CreateProfileInput) => ({
+    type: 'OPEN_DIALOGUE' as const,
+    payload: {stage, subjectID, interlocutor}
+});
+
+export const openDialogueSuccess = (dialogue: CreateMessageInput[]) => ({
+    type: 'OPEN_DIALOGUE_SUCCESS' as const,
+    payload: dialogue
+});
+
+export const openDialogueFailure = () => ({
+    type: 'OPEN_DIALOGUE_FAILURE' as const
+});
+
+export const sendMessage = (message: CreateMessageInput) => ({
+    type: 'SEND_MESSAGE' as const,
     payload: message
 });
 
-export const sendNewMessageSuccess = (message: CreateMessageInput) => ({
-    type: 'SEND_NEW_MESSAGE_SUCCESS' as const,
+export const sendMessageSuccess = (message: CreateMessageInput) => ({
+    type: 'SEND_MESSAGE_SUCCESS' as const,
     payload: message
 });
 
-export const sendNewMessageFailure = (message: CreateMessageInput) => ({
-    type: 'SEND_NEW_MESSAGE_FAILURE' as const,
-    payload: message
+export const sendMessageFailure = () => ({
+    type: 'SEND_MESSAGE_FAILURE' as const,
 });
 
 export const fetchLastMessages = () => ({
@@ -33,5 +46,15 @@ export const fetchLastMessagesFailure = () => ({
 export const setInterlocutor = (interlocutor: CreateProfileInput) => ({
     type: 'SET_INTERLOCUTOR' as const,
     payload: interlocutor
+});
+
+export const subscribeOnNewMessages = (receiverID: string) => ({
+    type: 'SUBSCRIBE_ON_MESSAGES' as const,
+    payload: receiverID
+});
+
+export const getRecentMessage = (message: CreateMessageInput) => ({
+    type: 'GET_RECENT_MESSAGE' as const,
+    payload: message
 });
 

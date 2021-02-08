@@ -1,3 +1,4 @@
+import { subscribeOnNewMessages } from './../Message/MessageActions';
 import { CreateProfileInput, UpdateProfileInput } from './../../API';
 
 import { Epic, ofType } from 'redux-observable';
@@ -61,6 +62,7 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                 contentEncoding: 'base64'
             })).pipe(
                 mergeMap(res => {
+                    console.log(res)
                     const profileAvatar = {
                         id: state$.value.ProfileReducer.profile.id,
                         avatar: action.payload.s3,
@@ -102,11 +104,12 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
             'UPDATE_PROFILE_SUCCESS'),
         mergeMap(() => {
             const avatar = state$.value.ProfileReducer.profile.avatar;
-            if (!avatar) return [setAvatarUrl("")]
+            const id = state$.value.ProfileReducer.profile.id || ""
+            if (!avatar) return [setAvatarUrl(""), subscribeOnNewMessages(id)]
 
             return (from(Storage.get(avatar.key)).pipe(
-                map(res => {
-                    return setAvatarUrl(res as string)
+                mergeMap(res => {
+                    return [setAvatarUrl(res as string), subscribeOnNewMessages(id)]
                 }),
                 catchError(err => { console.log(err); return [setAvatarUrlFailed()] })
             ))
