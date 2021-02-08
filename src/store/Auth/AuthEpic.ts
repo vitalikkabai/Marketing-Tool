@@ -33,7 +33,6 @@ export default [
                 password: action.payload.password,
             })).pipe(
                 mergeMap((response) => {
-                    console.log(response)
                     return [signInSuccess({
                         userID: response.attributes.sub,
                         email: response.attributes.email,
@@ -48,13 +47,11 @@ export default [
 
             )
         })
-        // map((res: any) => {console.log(res); return signInFailed(res)})
 
     ),
     (action$: ActionsObservable<any>,state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
         ofType("SIGN-UP-REQUEST"),
         mergeMap(action => {
-            console.log(state$.value.AuthReducer.userAttributes.occupation)
             return from(Auth.signUp({
                 username: action.payload.email,
                 password: action.payload.password,
@@ -65,7 +62,6 @@ export default [
                 }
             })).pipe(
                 mergeMap(res => {
-                    console.log(res)
                     return Auth.signIn({
                         username: action.payload.email,
                         password: action.payload.password
@@ -109,7 +105,6 @@ export default [
         mergeMap(() => {
             return from(Auth.currentUserInfo()).pipe(
                 mergeMap(res => {
-                    console.log(res)
                     if (res) return [getAuthDataSuccess({
                         userID: res.username,
                         email: res.attributes.email,
@@ -133,7 +128,6 @@ export default [
         mergeMap((action) => {
             return from(Auth.forgotPassword(action.payload.email)).pipe(
                 mergeMap(res => {
-                    console.log(res)
                     return [
                         ResetLinkSuccess()
                     ]
@@ -150,7 +144,6 @@ export default [
         mergeMap((action) => {
             return from(Auth.forgotPasswordSubmit(action.payload.email, action.payload.code, action.payload.newPassword)).pipe(
                 mergeMap(res => {
-                    console.log("RESET_DATA:", res)
                     return [
                         sendNewPasswordSuccess()
                     ]
@@ -162,11 +155,9 @@ export default [
     (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
         ofType("CHANGE_PASSWORD"),
         mergeMap(action => {
-            console.log("Changing")
             return from(Auth.currentAuthenticatedUser())
                 .pipe(
                     mergeMap(res => {
-                        console.log(res);
                         return from(Auth.changePassword(res, action.payload.oldPassword, action.payload.newPassword))
                     }),
                     map(res => { console.log(res); action.payload.callback(); return sendNewPasswordSuccess() }),
@@ -177,7 +168,6 @@ export default [
     (action$: ActionsObservable<any>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
         ofType("CHANGE_PERSONAL_INFO"),
         mergeMap(action => {
-            console.log("Changing")
             if (action.payload.email === state$.value.ProfileReducer.profile.email) {
                 return [updatePersonalInfo(action.payload.name, action.payload.email)]
             }
@@ -185,11 +175,9 @@ export default [
             return from(Auth.currentAuthenticatedUser())
                 .pipe(
                     mergeMap(user => {
-                        console.log(user);
                         return from(Auth.updateUserAttributes(user, { email: action.payload.email }))
                     }),
                     mergeMap(res => {
-                        console.log(res);
                         return [
                             sendNewPasswordSuccess(),
                             updatePersonalInfo(action.payload.name, action.payload.email)

@@ -17,7 +17,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
         // const businessUpdates = {id: action.payload.id,};
         // const businessObject = new Business({ ...businessData });
         return from(API.graphql(graphqlOperation(updateBusiness, { input: action.payload })) as unknown as Promise<any>).pipe(
-            mergeMap(res => {console.log(res); return [
+            mergeMap(res => {return [
                 updateBusinessInDBSucces(res.data.updateBusiness),
                 // setProfile({...state$.value.ProfileReducer, business: res.data.updateBusiness})
             ] }),

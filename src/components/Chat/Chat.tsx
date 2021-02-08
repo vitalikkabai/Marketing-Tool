@@ -51,22 +51,16 @@ const Chat:FunctionComponent<ChatProps> = (props) => {
 
     // const [baseTexts, setBaseText] = useState(props.dialogue);
     const Messages = props.dialogue.map((el, index, array) => {
-        if(index-1 > 0 && (moment(el.createdAt).isSame(moment(array[index-1].createdAt), 'day'))){
-            return <Message key={index} message={el.content} senderName={setMessageName(el.senderID)}
-                            senderId={el.senderID} 
-                            avatarPublicURL={setMessageAvatarURL(el.senderID)}
 
-                            userId={props.thisProfile.id} time={el.createdAt} nextDay={false}/>
-        }
-        else {
             return <Message key={index} message={el.content} senderName={setMessageName(el.senderID)}
                      senderId={el.senderID} 
                      userId={props.thisProfile.id} 
                      time={el.createdAt} 
-                     nextDay={true}
+                     nextDay={!(index > 0 && (moment(el.createdAt).isSame(moment(array[index-1].createdAt), 'day')))}
                      avatarPublicURL={setMessageAvatarURL(el.senderID)}
+                     status={el.status}
                      />
-        }
+        
     });
 
 
@@ -104,7 +98,6 @@ const Chat:FunctionComponent<ChatProps> = (props) => {
 
     useEffect(() => { //Auto scrolling to bottom on messages obj update
 
-        console.log("open dialogue init");
         if(props.thisProfile.id) {
             props.openDialogue(Stage.UNASSIGNED,'default', interlocutor)
         }

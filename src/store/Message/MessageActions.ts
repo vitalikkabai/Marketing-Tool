@@ -49,8 +49,32 @@ export const setInterlocutor = (interlocutor: CreateProfileInput) => ({
 });
 
 export const subscribeOnNewMessages = (receiverID: string) => ({
-    type: 'SUBSCRIBE_ON_MESSAGES' as const,
+    type: 'SUBSCRIBE_ON_MESSAGES_CREATED' as const,
     payload: receiverID
+});
+
+export const subscribeOnMessageUpdated = (receiverID: string) => ({
+    type: 'SUBSCRIBE_ON_MESSAGE_UPDATED' as const,
+    payload: receiverID
+});
+
+// export const subscribeOnUpdatedMessages = (receiverID: string) => ({
+//     type: 'SUBSCRIBE_ON_MESSAGES_UPDATED' as const,
+//     payload: receiverID
+// });
+
+export const getUpdatedMessage = (message: CreateMessageInput) => ({
+    type: 'GET_UPDATED_MESSAGE' as const,
+    payload: message
+});
+
+export const updateMessageAction = (message: CreateMessageInput) => ({
+    type: 'UPDATE_MESSAGE' as const,
+    payload: message
+});
+
+export const updateMessageSuccess = () => ({
+    type: 'UPDATE_MESSAGE_SUCCESS' as const,
 });
 
 export const getRecentMessage = (message: CreateMessageInput) => ({

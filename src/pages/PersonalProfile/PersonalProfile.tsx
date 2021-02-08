@@ -43,16 +43,13 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		console.log(oldPassword, newPassword, retypePassword);
 		props.changePassword(oldPassword, newPassword, changePasswordSuccessCallback);
 	}
 
 	const [name, setName] = useState(props.profile.name)
 	const [email, setEmail] = useState(props.profile.email)
-	console.log(name, email)
 
 	const changePasswordSuccessCallback = () => {
-		console.log(oldPassword, newPassword, retypePassword)
 		setOldPassword(() => "");
 		setNewPassword(() => "");
 		setRetypePassword(() => "");
@@ -66,7 +63,6 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 
 	const handleInfoUpdate = (e: FormEvent) => {
 		e.preventDefault();
-		console.log(name, email);
 		props.changePersonalInfo(name, email);
 	}
 

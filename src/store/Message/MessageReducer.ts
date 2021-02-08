@@ -1,4 +1,5 @@
 import { CreateMessageInput, CreateProfileInput, Stage } from '../../API';
+import Message from '../../components/Chat/Message/Message';
 import * as actions from './MessageActions';
 
 type MessageReducer = {
@@ -9,10 +10,10 @@ type MessageReducer = {
 }
 
 const initialState: MessageReducer = {
-        dialogue: [],
-        stage: Stage.UNASSIGNED,
-        subjectID: 'unassigned',
-        interlocutor: {email: "unassigned", name: "unassigned"}
+    dialogue: [],
+    stage: Stage.UNASSIGNED,
+    subjectID: 'unassigned',
+    interlocutor: { email: "unassigned", name: "unassigned" }
 };
 
 export const EmployeeReducer = (state = initialState, action: ActionTypes): MessageReducer => {
@@ -20,16 +21,33 @@ export const EmployeeReducer = (state = initialState, action: ActionTypes): Mess
         case 'SEND_MESSAGE':
             return {
                 ...state,
-                dialogue: [...state.dialogue,action.payload]
+                dialogue: [...state.dialogue, action.payload]
             }
-        case 'GET_RECENT_MESSAGE': 
-            if (action.payload.senderID === state.interlocutor.id) 
+        case 'SEND_MESSAGE_SUCCESS':
+            state.dialogue.pop();
             return {
                 ...state,
-                dialogue: [...state.dialogue,action.payload]
-            }; else 
-            return {...state}
-            
+                dialogue: [...state.dialogue, action.payload]
+            }
+        case 'GET_RECENT_MESSAGE':
+            if (action.payload.senderID === state.interlocutor.id)
+                return {
+                    ...state,
+                    dialogue: [...state.dialogue, action.payload]
+                }; else
+                return { ...state }
+        case 'GET_UPDATED_MESSAGE':
+            if (action.payload.senderID === state.interlocutor.id) {
+                const index = state.dialogue.findIndex((message) => (message.id === action.payload.id));
+                const newDialogue = [...state.dialogue]
+                newDialogue[index] = action.payload;
+                return {
+                    ...state,
+                    dialogue: newDialogue
+                }
+            } else
+            return { ...state }
+
         case 'OPEN_DIALOGUE':
             return {
                 ...state,
@@ -42,8 +60,8 @@ export const EmployeeReducer = (state = initialState, action: ActionTypes): Mess
                 ...state,
                 dialogue: action.payload
             }
-        case 'SEND_MESSAGE_SUCCESS':
         case 'SEND_MESSAGE_FAILURE':
+        case 'UPDATE_MESSAGE_SUCCESS':
         default:
             return {
                 ...state,

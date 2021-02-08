@@ -4,6 +4,7 @@ import {Box, Typography} from "@material-ui/core";
 import avatar from "../../../assets/images/avatar.png"
 import avatar2 from "../../../assets/images/Teammate3.svg"
 import moment from "moment";
+import { MessageStatus } from '../../../API';
 
 interface PropTypes {
     senderId?: string | null
@@ -13,6 +14,7 @@ interface PropTypes {
     time?: string | null
     nextDay?: boolean
     avatarPublicURL: string
+    status: MessageStatus
 }
 
 const Message: React.FC<PropTypes> = (props) => {
@@ -31,6 +33,8 @@ const Message: React.FC<PropTypes> = (props) => {
                     </div>
                     <div>
                         <Typography variant={"subtitle1"} className={classes.message}>{props.message}</Typography>
+                        <Typography variant={"caption"} className={classes.message}>{props.status}</Typography>
+
                     </div>
                     <div className={classes.messageTime}>
                         <Typography variant={"caption"}>{moment(props.time).format("HH:mm")}</Typography>
