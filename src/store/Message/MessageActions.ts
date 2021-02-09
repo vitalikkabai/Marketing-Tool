@@ -2,9 +2,9 @@
 
 import { CreateMessageInput, CreateProfileInput, Stage } from "../../API";
 
-export const openDialogue = (stage: Stage, subjectID: string, interlocutor: CreateProfileInput) => ({
+export const openDialogue = (stage: Stage, subjectID: string) => ({
     type: 'OPEN_DIALOGUE' as const,
-    payload: {stage, subjectID, interlocutor}
+    payload: {stage, subjectID}
 });
 
 export const openDialogueSuccess = (dialogue: CreateMessageInput[]) => ({

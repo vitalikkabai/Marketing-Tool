@@ -2,21 +2,22 @@ import { CreateMessageInput, CreateProfileInput, Stage } from '../../API';
 import Message from '../../components/Chat/Message/Message';
 import * as actions from './MessageActions';
 
-type MessageReducer = {
+type MessageReducerType = {
     stage: Stage,
     subjectID: string,
     interlocutor: CreateProfileInput,
     dialogue: CreateMessageInput[],
+    interlocutorAvatarURL?: string
 }
 
-const initialState: MessageReducer = {
+const initialState: MessageReducerType = {
     dialogue: [],
     stage: Stage.UNASSIGNED,
     subjectID: 'unassigned',
-    interlocutor: { email: "unassigned", name: "unassigned" }
+    interlocutor: { email: "unassigned", name: "unassigned" },
 };
 
-export const EmployeeReducer = (state = initialState, action: ActionTypes): MessageReducer => {
+export const MessageReducer = (state:MessageReducerType = initialState, action: ActionTypes): MessageReducerType => {
     switch (action.type) {
         case 'SEND_MESSAGE':
             return {
@@ -55,8 +56,13 @@ export const EmployeeReducer = (state = initialState, action: ActionTypes): Mess
                 ...state,
                 stage: action.payload.stage,
                 subjectID: action.payload.subjectID,
-                interlocutor: action.payload.interlocutor
             }
+        case 'SET_INTERLOCUTOR': {
+            return {
+                ...state,
+                interlocutor: action.payload
+            }
+        }
         case 'OPEN_DIALOGUE_SUCCESS':
             return {
                 ...state,
@@ -76,4 +82,4 @@ type InferValueTypes<T> = T extends { [key: string]: infer U }
 
 export type ActionTypes = ReturnType<InferValueTypes<typeof actions>>;
 
-export default EmployeeReducer;
+export default MessageReducer;

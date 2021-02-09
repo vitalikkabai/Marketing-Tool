@@ -37,7 +37,7 @@ export default [
                         userID: response.attributes.sub,
                         occupation: response.attributes.occupation
                     }),
-                    fetchProfileById(response.attributes.sub)];
+                    fetchEmployeeById(response.attributes.sub)];
 
                 }),
                 catchError((err) => [signInFailed(err)]),
@@ -99,12 +99,24 @@ export default [
         mergeMap(() => {
             return from(Auth.currentUserInfo()).pipe(
                 mergeMap(res => {
-                    if (res) return [getAuthDataSuccess({
-                        userID: res.username,
-                        occupation: Number(res.attributes["custom:occupation"])
-                    }),
-                    fetchEmployeeById(res.username)
-                    ];
+                    if (res) {
+                        const occupation = Number(res.attributes["custom:occupation"]);
+                        let action: ActionTypes;
+                        switch (occupation) {
+                            case 0:
+                                action = fetchEmployeeById(res.username);
+                                break;
+                            // case 1:
+                            default:
+                                action = getAuthDataFailed()
+                        }
+                        return [getAuthDataSuccess({
+                            userID: res.username,
+                            occupation
+                        }),
+                        action
+                        ];
+                    }
                     else return [getAuthDataFailed()];
                 }),
                 catchError(err => { console.log(err); return [getAuthDataFailed()] })
