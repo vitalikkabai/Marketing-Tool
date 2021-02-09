@@ -6,14 +6,18 @@ import ChatContainer from "../../Chat/ChatContainer";
 import CustomButton from "../../common/Button/CustomButton";
 import CustomInput from "../../common/Input/CustomInput";
 import Dropzone from "../../common/Dropzone/Dropzone";
+import StepCounter from "../../common/StepCounter/StepCounter";
 
 
 const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
 
     return <Grid container className={classes.dashboard}>
         <Box className={classes.todoTitleBox}>
-            <Grid item  className={classes.titleBox}>
+            <Grid item className={classes.titleBox}>
                 <Typography variant={"h2"}>Add product</Typography>
+            </Grid>
+            <Grid item className={classes.stepBox}>
+                <StepCounter stepNumber={1} stepColor={"237 205 39"}/>
             </Grid>
         </Box>
         <Box className={classes.contentContainer}>
