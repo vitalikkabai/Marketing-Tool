@@ -208,7 +208,6 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                     </Box>
                 </Grid>
                 <Grid item xs={6} className={classes.gridItem}>
-
 					<Box className={classes.mainTitleBox}>
 						<Typography variant="h2">Upload Photo</Typography>
 					</Box>

@@ -5,22 +5,24 @@ import classes from "./ProductPage.module.scss";
 import CustomAppBar from "../../components/common/TabPanel/CustomAppBar";
 import TabPanel from "../../components/common/TabPanel/TabPanel";
 import Blob from "../../assets/images/Blob.png";
+import {ReactComponent as PlusSVG} from "../../assets/images/formPlus.svg";
+import {useHistory} from "react-router";
 
 const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
 
     const [value, setValue] = React.useState(0);
+    const history = useHistory();
 
     return <Grid container className={classes.dashboard}>
         <Box className={classes.todoTitleBox}>
             <Grid item  className={classes.titleBox}>
                 <Typography variant={"h2"}>Products</Typography>
             </Grid>
-            <Grid item className={classes.addProductButton} onClick={()=>{
-            console.log("fff")}}>
-                <Typography color={"primary"} variant={"button"}>+ Add product</Typography>
+            <Grid item className={classes.addProductButton} onClick={()=>{history.push("/products/add-new-product")}}>
+                <PlusSVG/>
+                <Typography color={"primary"} variant={"button"}>Add product</Typography>
             </Grid>
         </Box>
-
         <Box className={classes.contentContainer}>
             <Grid item className={classes.contentBox} container xs={12}>
                 <CustomAppBar value={value} setValue={setValue}>
@@ -34,7 +36,7 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                             <Typography variant={"body2"} style={{textTransform:"uppercase"}}>This page is not ready yet</Typography>
                         </Box>
                         <Box textAlign={"center"} justifyContent={"center"} alignItems={"center"} >
-                            <img src={Blob} />
+                            <img src={Blob} alt={"image"}/>
                         </Box>
                     </Grid>
                 </TabPanel>
@@ -44,7 +46,7 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                             <Typography variant={"body2"} style={{textTransform:"uppercase"}}>This page is not ready yet</Typography>
                         </Box>
                         <Box textAlign={"center"} justifyContent={"center"} alignItems={"center"} >
-                            <img src={Blob} />
+                            <img src={Blob} alt={"image"}/>
                         </Box>
                     </Grid>
                 </TabPanel>
@@ -54,7 +56,7 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                             <Typography variant={"body2"} style={{textTransform:"uppercase"}}>This page is not ready yet</Typography>
                         </Box>
                         <Box textAlign={"center"} justifyContent={"center"} alignItems={"center"} >
-                            <img src={Blob} />
+                            <img src={Blob} alt={"image"}/>
                         </Box>
                     </Grid>
                 </TabPanel>

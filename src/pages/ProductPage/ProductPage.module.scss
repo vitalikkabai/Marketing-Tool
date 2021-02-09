@@ -20,6 +20,13 @@
       align-items: center;
       background: #FFF;
       cursor: pointer;
+
+      svg{
+        margin-right: 10px;
+        path{
+          fill: #F8D000;
+        }
+      }
     }
   }
 
@@ -32,9 +39,9 @@
     .contentBox {
       background: #fff;
       border-radius: 10px;
-      margin-right: 24px;
       display: block;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
       .tabPanelBox {
         height: calc(100% - 57px);
         overflow: auto;

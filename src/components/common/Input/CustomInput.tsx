@@ -35,7 +35,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
 
             '& .MuiOutlinedInput-root': {
                 margin: props.margin,
-                width: props.width,
+                minWidth: props.width,
                 padding: 0,
                 '& .MuiOutlinedInput-input': {
                     paddingLeft: 10,

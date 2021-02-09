@@ -96,13 +96,16 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                             <WebLink linkInput={webInput} linkURLs={websiteURLs}
                                      linkErrorText={webErrorText} setLinkInput={setWebInput}
                                      setLinkURLs={setWebsiteURLs}
-                                     setLinkErrorText={setWebErrorText}/>
+                                     setLinkErrorText={setWebErrorText}
+                                     label={"Website URL address"}
+                            />
                         </Grid>
                         <Grid item xs={6} style={{paddingLeft: "24px"}}>
                             <WebLink linkInput={sellingInput} linkURLs={sellingURLs}
                                      linkErrorText={storeErrorText} setLinkInput={setSellingInput}
                                      setLinkURLs={setSellingURLs}
-                                     setLinkErrorText={setStoreErrorText}/>
+                                     setLinkErrorText={setStoreErrorText}
+                                     label={"Store URL address"}/>
                         </Grid>
                     </Grid>
                 </Grid>

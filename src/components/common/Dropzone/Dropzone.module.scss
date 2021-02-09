@@ -1,0 +1,19 @@
+.dropZone {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 8px;
+  outline: none;
+  cursor: pointer;
+
+  .dropZoneDashedBox {
+    border: 2px dashed #9E9E9E;
+    border-radius: 10px;
+    padding: 16px 10px;
+    display: flex;
+    align-items: center;
+
+    .dropZoneText {
+      margin-left: 12px;
+    }
+  }
+}

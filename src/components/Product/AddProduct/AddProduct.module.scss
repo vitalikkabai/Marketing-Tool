@@ -1,0 +1,76 @@
+.dashboard {
+  .todoTitleBox {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+
+    .titleBox {
+      margin-right: 24px;
+    }
+
+  }
+
+  .contentContainer {
+    height: calc(100vh - 228px);
+    margin-top: 20px;
+    display: flex;
+    width: 100%;
+
+    .contentBlockBox {
+      background: #fff;
+      border-radius: 10px;
+      display: block;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin-right: 24px;
+      padding: 24px 48px 64px 48px;
+      overflow: auto;
+
+      form {
+        height: 100%;
+      }
+
+      .formContent {
+        height: 100%;
+      }
+
+      .formInputs {
+        flex: 0 1 auto;
+      }
+    }
+
+    .dropZone {
+      display: flex;
+      justify-content: center;
+    }
+
+    .productInfoInputs {
+      display: flex;
+      margin-top: 24px;
+    }
+
+    .productUrlInputs {
+      margin-top: 24px;
+    }
+
+    .addUrlText {
+      margin-top: 16px;
+    }
+
+    .additionalInfo {
+      display: flex;
+      margin-top: 24px;
+    }
+
+    .nextButtonBox {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      flex: 1 1 auto;
+      button{
+        color: white;
+      }
+    }
+  }
+}
