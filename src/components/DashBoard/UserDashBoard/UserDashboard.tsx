@@ -51,7 +51,6 @@ function UserDashboard() {
 	const tasks = [
 		{ id: 0, taskTitle: "Upload your photo", taskType: 1, status: false, timeAgo: 1611425499068 },
 		{ id: 1, taskTitle: "Add products", taskType: 2, status: false, timeAgo: 1611425499068 },
-		{ id: 2, taskTitle: "Improve yourself", taskType: 9, status: false, timeAgo: 1611745499068 },
 	];
 
 	const TabTasks = tasks.map((el, i) => (
@@ -92,7 +91,7 @@ function UserDashboard() {
 				<Grid item className={classes.contentBox} container xs={8} xl={9} >
 					<CustomAppBar value={value} setValue={setValue}>
 						<Tab label="Steps" />
-						<Tab icon={<CustomBadge />} />
+						<Tab icon={<CustomBadge badgeCount={tasks.length}/>} />
 						<Tab icon={<img src={team4} alt={"avatar"} />} />
 					</CustomAppBar>
 					<TabPanel className={classes.tabPanelBox} index={0} value={value}>
@@ -211,7 +210,7 @@ function UserDashboard() {
 				</Grid>
 				<Grid xs={4} xl={3}
 					item>
-					<ChatContainer/>
+					<ChatContainer backGroundColor={"#D8E7FF"}/>
 				</Grid>
 			</Box>
 		</Grid >
