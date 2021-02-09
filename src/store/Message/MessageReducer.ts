@@ -39,17 +39,16 @@ export const EmployeeReducer = (state = initialState, action: ActionTypes): Mess
                     dialogue: [...state.dialogue, action.payload]
                 }; else
                 return { ...state }
-        case 'GET_UPDATED_MESSAGE':
-            if (action.payload.senderID === state.interlocutor.id) {
+        case 'GET_UPDATED_MESSAGE': {
                 const index = state.dialogue.findIndex((message) => (message.id === action.payload.id));
+                if (!index) return {...state}
                 const newDialogue = [...state.dialogue]
                 newDialogue[index] = action.payload;
                 return {
                     ...state,
                     dialogue: newDialogue
                 }
-            } else
-            return { ...state }
+            }
 
         case 'OPEN_DIALOGUE':
             return {
