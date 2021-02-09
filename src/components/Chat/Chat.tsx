@@ -99,7 +99,7 @@ const Chat: FunctionComponent<ChatProps> = (props) => {
 	useEffect(() => { //Auto scrolling to bottom on messages obj update
 
 		if (props.thisProfile.id) {
-			props.openDialogue(Stage.UNASSIGNED, 'default', interlocutor)
+			props.openDialogue(Stage.UNASSIGNED, 'default')
 		}
 	}, [props.thisProfile])
 
