@@ -12,6 +12,7 @@ import TopBarContainer from "../../components/TopBar/TopBarContainer";
 import PersonalProfileContainer from "../PersonalProfile/PersonalProfileContainer";
 import BusinessProfileContainer from "../BusinessProfile/BusinessProfileContainer";
 import ProductPageContainer from "../ProductPage/ProductPageContainer";
+import AddProductContainer from "../../components/Product/AddProduct/AddProductContainer";
 
 type PropsType = {
 	isAuth: boolean
@@ -29,7 +30,8 @@ const MarketingToolPageContainer: React.FunctionComponent<PropsType> = (props) =
 							<Route path={'/'} exact component={UserDashboard} />
 							<Route path={'/personal-profile'} exact component={PersonalProfileContainer} />
 							<Route path={'/business-profile'} component={BusinessProfileContainer} />
-							<Route path={'/products'} exact component={ProductPageContainer} />
+							<Route path={'/products'} exact component={ProductPageContainer}/>
+							<Route path={'/products/add-new-product'} exact component={AddProductContainer}/>
 							<Route path={'/market-research'} exact component={H1} />
 							<Route path={'/brand-creation'} exact component={H1} />
 							<Route path={'/sales-channels'} exact component={H1} />

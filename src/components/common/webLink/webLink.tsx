@@ -13,6 +13,8 @@ type PropsType = {
     linkErrorText: string
     setLinkErrorText: React.Dispatch<React.SetStateAction<string>>
     setEdited?: React.Dispatch<React.SetStateAction<boolean>>
+    label: string
+    autoFocus?: boolean
 }
 
 
@@ -23,9 +25,9 @@ const WebLink: React.FunctionComponent<PropsType> = (props) => {
             <CustomInput
                 type="text"
                 fullWidth={true}
-                name="Website URL address"
-                placeholder="Website URL address"
-                label="Website URL address"
+                name={props.label}
+                placeholder={props.label}
+                label={props.label}
                 value={props.linkInput}
                 error={!!props.linkErrorText}
                 onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -35,7 +37,7 @@ const WebLink: React.FunctionComponent<PropsType> = (props) => {
                 }
                 }
                 paddingRight={35}
-                autoFocus={true}
+                autoFocus={props.autoFocus}
             />
             {
                 props.linkURLs.map((URL, index) => (

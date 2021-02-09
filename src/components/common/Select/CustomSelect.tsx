@@ -35,12 +35,18 @@ const CustomSelect: React.FC<CustomInputProps> = (props) => {
             root: classes.root,
             icon: classes.icon, outlined: styles.outlined
         }}
+        MenuProps={{
+            anchorOrigin: {
+                vertical: "bottom",
+                horizontal: "left"
+            },
+            getContentAnchorEl: null
+        }}
         className={styles.selector}
         style={{borderRadius: "10px"}}
         onChange={props.onChange}
         value={props.value}>
         {props.items.map((item: any) => item)}
-
     </Select>
 }
 

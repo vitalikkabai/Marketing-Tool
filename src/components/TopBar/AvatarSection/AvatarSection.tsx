@@ -59,12 +59,12 @@ const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAc
                             <ClickAwayListener onClickAway={() => setOpen(false)}>
                                 <MenuList autoFocusItem={open} id="menu-list-grow" className={classes.menu}>
                                     <MenuItem onClick={() => {
-                                        history.push("business-profile");
+                                        history.push("/business-profile");
                                         setOpen(false)
                                     }}
                                     >Business Profile</MenuItem>
                                     <MenuItem onClick={() => {
-                                        history.push("personal-profile");
+                                        history.push("/personal-profile");
                                         setOpen(false)
                                     }}
                                     >Personal Profile</MenuItem>
