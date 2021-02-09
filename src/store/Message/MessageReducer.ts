@@ -23,12 +23,15 @@ export const EmployeeReducer = (state = initialState, action: ActionTypes): Mess
                 ...state,
                 dialogue: [...state.dialogue, action.payload]
             }
-        case 'SEND_MESSAGE_SUCCESS':
-            state.dialogue.pop();
+        case 'SEND_MESSAGE_SUCCESS': {
+            const newDialog = [...state.dialogue]
+            newDialog.splice(state.dialogue.length -1, 1);
+            newDialog.push(action.payload);
             return {
                 ...state,
-                dialogue: [...state.dialogue, action.payload]
+                dialogue: newDialog
             }
+        }
         case 'GET_RECENT_MESSAGE':
             if (action.payload.senderID === state.interlocutor.id)
                 return {

@@ -48,7 +48,7 @@ export const setInterlocutor = (interlocutor: CreateProfileInput) => ({
     payload: interlocutor
 });
 
-export const subscribeOnNewMessages = (receiverID: string) => ({
+export const subscribeOnMessageCreated = (receiverID: string) => ({
     type: 'SUBSCRIBE_ON_MESSAGES_CREATED' as const,
     payload: receiverID
 });
