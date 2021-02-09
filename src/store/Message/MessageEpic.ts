@@ -1,25 +1,27 @@
-import { createMessage } from './../../graphql/mutations';
+import { UpdateMessageInput } from './../../API';
+import { createMessage, updateMessage } from './../../graphql/mutations';
 
 import { Epic, ofType } from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { fetchLastMessages, fetchLastMessagesSuccess, fetchLastMessagesFailure, sendMessageSuccess, sendMessageFailure, openDialogueSuccess, openDialogueFailure, getRecentMessage } from './MessageActions';
+import { sendMessageSuccess, sendMessageFailure,
+    openDialogueSuccess, openDialogueFailure, getRecentMessage,
+    getUpdatedMessage, updateMessageAction, updateMessageSuccess } from './MessageActions';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
 import { API, graphqlOperation } from 'aws-amplify';
 import { combineLatest, from } from 'rxjs';
-import { getDialogue } from '../../graphql/queries';
-import { CreateMessageInput, GetDialogueQueryVariables } from '../../API';
+import { getConversation, getDialogue } from '../../graphql/queries';
+import { CreateMessageInput, GetConversationQueryVariables, GetDialogueQueryVariables, MessageStatus } from '../../API';
 import { getSharedIndex } from '../../utils/backendUtils';
-import { onCreateMessage } from '../../graphql/subscriptions';
+import { onCreateMessage, onUpdateMessage } from '../../graphql/subscriptions';
 
 const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     (action$, state$) => action$.pipe(
         ofType('SEND_MESSAGE'),
         mergeMap((action: any) => {
-            const message: CreateMessageInput = action.payload;
-            console.log(message)
-            message.sharedID = getSharedIndex(message.senderID, message.receiverID)
-            console.log(message)
+            const message: CreateMessageInput = { ...action.payload };
+            message.sharedID = getSharedIndex(message.senderID, message.receiverID);
+            message.status = MessageStatus.SENT;
             return (from(API.graphql(graphqlOperation(createMessage, { input: message })) as unknown as Promise<any>).pipe(
                 map(res => {
                     return sendMessageSuccess(res.data.createMessage)
@@ -31,36 +33,68 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     (action$, state$) => action$.pipe(
         ofType('OPEN_DIALOGUE'),
         mergeMap((action: any) => {
-            
-            console.log("opening...", action,state$.value.ProfileReducer.profile.id)
-            // if(!state$.value.ProfileReducer.profile.id) {
 
-            // }
-            const params: GetDialogueQueryVariables = {
-                sharedID: getSharedIndex(state$.value.ProfileReducer.profile.id || "",action.payload.interlocutor.id),
-                subjectIDStage: {eq: {stage: action.payload.stage, subjectID: action.payload.subjectID}}
+            const params: GetConversationQueryVariables = {
+                sharedID: getSharedIndex(state$.value.ProfileReducer.profile.id || "", action.payload.interlocutor.id),
+                subjectIDStageCreatedAt: { beginsWith: { stage: action.payload.stage, subjectID: action.payload.subjectID } }
             }
-            console.log(params)
-            return (from(API.graphql(graphqlOperation(getDialogue, params)) as unknown as Promise<any>).pipe(
-                map(res => {
-                    console.log(res)
-                    return openDialogueSuccess(res.data.getDialogue.items)
+            return (from(API.graphql(graphqlOperation(getConversation, params)) as unknown as Promise<any>).pipe(
+                mergeMap(res => {
+                    const messages: CreateMessageInput[] = res.data.getConversation.items;
+                    const updateMessageActions: ActionTypes[] = [];
+                    messages.forEach(message => {
+                        if (message.receiverID === state$.value.ProfileReducer.profile.id &&
+                            message.status === MessageStatus.SENT) {
+                            message.status = MessageStatus.RECEIVED;
+                            updateMessageActions.push(updateMessageAction(message))
+                        }
+                    });
+
+                    return [openDialogueSuccess(res.data.getConversation.items), ...updateMessageActions]
                 }),
                 catchError(err => { console.log(err); return [openDialogueFailure()] })
             ))
         }),
     ),
     (action$, state$) => action$.pipe(
-        ofType('SUBSCRIBE_ON_MESSAGES'),
+        ofType('SUBSCRIBE_ON_MESSAGES_CREATED'),
         mergeMap((action: any) => {
-            // const message: CreateMessageInput = action.payload;
-            console.log(action)
-            // message.sharedID = getSharedIndex(message.senderID, message.receiverID)
-            console.log("Subscribing ")
             return (from(API.graphql(graphqlOperation(onCreateMessage)) as unknown as Promise<any>).pipe(
+                mergeMap(res => {
+                    const message: CreateMessageInput = res.value.data.onCreateMessage;
+                    if (message.receiverID === state$.value.ProfileReducer.profile.id &&
+                        message.status === MessageStatus.SENT) {
+                            message.status = MessageStatus.RECEIVED;
+                            return [getRecentMessage(message), updateMessageAction(message)]
+                        }
+                    return [getRecentMessage(message)]
+                }),
+                catchError(err => { console.log(err); return [sendMessageFailure()] })
+            ))
+        }),
+    ),
+
+    (action$, state$) => action$.pipe(
+        ofType('SUBSCRIBE_ON_MESSAGE_UPDATED'),
+        mergeMap((action: any) => {
+            
+            return (from(API.graphql(graphqlOperation(onUpdateMessage)) as unknown as Promise<any>).pipe(
                 map(res => {
-                    console.log(res)
-                    return getRecentMessage(res.value.data.onCreateMessage)
+                    console.log("message updated", res)
+                    return getUpdatedMessage(res.value.data.onUpdateMessage)
+                }),
+                catchError(err => { console.log(err); return [sendMessageFailure()] })
+            ))
+        }),
+    ),
+
+    (action$, state$) => action$.pipe(
+        ofType('UPDATE_MESSAGE'),
+        mergeMap((action: any) => {
+            const message: UpdateMessageInput = { ...action.payload };
+            return (from(API.graphql(graphqlOperation(updateMessage, { input: message })) as unknown as Promise<any>).pipe(
+                map(res => {
+                    return updateMessageSuccess()
                 }),
                 catchError(err => { console.log(err); return [sendMessageFailure()] })
             ))

@@ -5,12 +5,11 @@ import { connect, ConnectedProps } from "react-redux";
 import TopBar from "./TopBar";
 
 const mapStateToProps = (state: AppStateType) => {
-    console.log(state.ProfileReducer.profile.name);
     return {
         userAttributes: state.AuthReducer.userAttributes,
         isAuth: state.AuthReducer.isAuth,
         profile: state.ProfileReducer.profile,
-        // avatarURL: state.ProfileReducer.avatarURL
+        avatarURL: state.ProfileReducer.avatarURL
     }
 };
 

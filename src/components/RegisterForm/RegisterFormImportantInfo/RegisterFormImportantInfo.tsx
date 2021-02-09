@@ -257,7 +257,6 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
     }
 
     const saveInputData = () => {
-        console.log(inputValue.countryCode)
         props.setBusinessName(inputValue.companyName.value);
         props.setEmployee({
             ...props.employee,

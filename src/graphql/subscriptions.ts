@@ -97,7 +97,6 @@ export const onCreateBusiness = /* GraphQL */ `
           id
           email
           name
-          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -137,7 +136,6 @@ export const onUpdateBusiness = /* GraphQL */ `
           id
           email
           name
-          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -177,7 +175,6 @@ export const onDeleteBusiness = /* GraphQL */ `
           id
           email
           name
-          avatarPublicURL
           createdAt
           updatedAt
         }
@@ -228,7 +225,6 @@ export const onCreateEmployee = /* GraphQL */ `
         id
         email
         name
-        avatarPublicURL
         avatar {
           bucket
           region
@@ -283,7 +279,6 @@ export const onUpdateEmployee = /* GraphQL */ `
         id
         email
         name
-        avatarPublicURL
         avatar {
           bucket
           region
@@ -338,7 +333,6 @@ export const onDeleteEmployee = /* GraphQL */ `
         id
         email
         name
-        avatarPublicURL
         avatar {
           bucket
           region
@@ -373,7 +367,6 @@ export const onCreateManager = /* GraphQL */ `
         id
         email
         name
-        avatarPublicURL
         avatar {
           bucket
           region
@@ -408,7 +401,6 @@ export const onUpdateManager = /* GraphQL */ `
         id
         email
         name
-        avatarPublicURL
         avatar {
           bucket
           region
@@ -443,7 +435,6 @@ export const onDeleteManager = /* GraphQL */ `
         id
         email
         name
-        avatarPublicURL
         avatar {
           bucket
           region
@@ -461,7 +452,6 @@ export const onCreateProfile = /* GraphQL */ `
       id
       email
       name
-      avatarPublicURL
       avatar {
         bucket
         region
@@ -478,7 +468,6 @@ export const onUpdateProfile = /* GraphQL */ `
       id
       email
       name
-      avatarPublicURL
       avatar {
         bucket
         region
@@ -495,7 +484,6 @@ export const onDeleteProfile = /* GraphQL */ `
       id
       email
       name
-      avatarPublicURL
       avatar {
         bucket
         region

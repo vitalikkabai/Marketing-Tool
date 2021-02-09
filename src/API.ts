@@ -153,7 +153,6 @@ export type CreateProfileInput = {
   id?: string | null,
   email: string,
   name: string,
-  avatarPublicURL?: string | null,
   avatar?: S3ObjectInput | null,
 };
 
@@ -166,7 +165,6 @@ export type S3ObjectInput = {
 export type ModelProfileConditionInput = {
   email?: ModelStringInput | null,
   name?: ModelStringInput | null,
-  avatarPublicURL?: ModelStringInput | null,
   and?: Array< ModelProfileConditionInput | null > | null,
   or?: Array< ModelProfileConditionInput | null > | null,
   not?: ModelProfileConditionInput | null,
@@ -176,7 +174,6 @@ export type UpdateProfileInput = {
   id: string,
   email?: string | null,
   name?: string | null,
-  avatarPublicURL?: string | null,
   avatar?: S3ObjectInput | null,
 };
 
@@ -308,6 +305,22 @@ export type ModelMessageGetDialogueCompositeKeyInput = {
   stage?: Stage | null,
 };
 
+export type ModelMessageGetConversationCompositeKeyConditionInput = {
+  eq?: ModelMessageGetConversationCompositeKeyInput | null,
+  le?: ModelMessageGetConversationCompositeKeyInput | null,
+  lt?: ModelMessageGetConversationCompositeKeyInput | null,
+  ge?: ModelMessageGetConversationCompositeKeyInput | null,
+  gt?: ModelMessageGetConversationCompositeKeyInput | null,
+  between?: Array< ModelMessageGetConversationCompositeKeyInput | null > | null,
+  beginsWith?: ModelMessageGetConversationCompositeKeyInput | null,
+};
+
+export type ModelMessageGetConversationCompositeKeyInput = {
+  subjectID?: string | null,
+  stage?: Stage | null,
+  createdAt?: string | null,
+};
+
 export type ModelBusinessFilterInput = {
   id?: ModelIDInput | null,
   companyName?: ModelStringInput | null,
@@ -339,7 +352,6 @@ export type ModelProfileFilterInput = {
   id?: ModelIDInput | null,
   email?: ModelStringInput | null,
   name?: ModelStringInput | null,
-  avatarPublicURL?: ModelStringInput | null,
   and?: Array< ModelProfileFilterInput | null > | null,
   or?: Array< ModelProfileFilterInput | null > | null,
   not?: ModelProfileFilterInput | null,
@@ -387,7 +399,6 @@ export type CreateBusinessMutation = {
         id: string,
         email: string,
         name: string,
-        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -437,7 +448,6 @@ export type UpdateBusinessMutation = {
         id: string,
         email: string,
         name: string,
-        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -487,7 +497,6 @@ export type DeleteBusinessMutation = {
         id: string,
         email: string,
         name: string,
-        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -549,7 +558,6 @@ export type CreateEmployeeMutation = {
       id: string,
       email: string,
       name: string,
-      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -616,7 +624,6 @@ export type UpdateEmployeeMutation = {
       id: string,
       email: string,
       name: string,
-      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -683,7 +690,6 @@ export type DeleteEmployeeMutation = {
       id: string,
       email: string,
       name: string,
-      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -727,7 +733,6 @@ export type CreateManagerMutation = {
       id: string,
       email: string,
       name: string,
-      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -771,7 +776,6 @@ export type UpdateManagerMutation = {
       id: string,
       email: string,
       name: string,
-      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -815,7 +819,6 @@ export type DeleteManagerMutation = {
       id: string,
       email: string,
       name: string,
-      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -839,7 +842,6 @@ export type CreateProfileMutation = {
     id: string,
     email: string,
     name: string,
-    avatarPublicURL: string | null,
     avatar:  {
       __typename: "S3Object",
       bucket: string,
@@ -862,7 +864,6 @@ export type UpdateProfileMutation = {
     id: string,
     email: string,
     name: string,
-    avatarPublicURL: string | null,
     avatar:  {
       __typename: "S3Object",
       bucket: string,
@@ -885,7 +886,6 @@ export type DeleteProfileMutation = {
     id: string,
     email: string,
     name: string,
-    avatarPublicURL: string | null,
     avatar:  {
       __typename: "S3Object",
       bucket: string,
@@ -1106,6 +1106,41 @@ export type GetDialogueQuery = {
   } | null,
 };
 
+export type GetConversationQueryVariables = {
+  sharedID?: string | null,
+  subjectIDStageCreatedAt?: ModelMessageGetConversationCompositeKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelMessageFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type GetConversationQuery = {
+  getConversation:  {
+    __typename: "ModelMessageConnection",
+    items:  Array< {
+      __typename: "Message",
+      id: string,
+      stage: Stage,
+      subjectID: string,
+      senderID: string,
+      receiverID: string,
+      sharedID: string,
+      content: string,
+      status: MessageStatus,
+      attachment:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string | null,
+      updatedAt: string | null,
+    } | null > | null,
+    nextToken: string | null,
+  } | null,
+};
+
 export type GetBusinessQueryVariables = {
   id: string,
 };
@@ -1147,7 +1182,6 @@ export type GetBusinessQuery = {
         id: string,
         email: string,
         name: string,
-        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -1279,7 +1313,6 @@ export type GetEmployeeQuery = {
       id: string,
       email: string,
       name: string,
-      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -1339,7 +1372,6 @@ export type ListEmployeesQuery = {
         id: string,
         email: string,
         name: string,
-        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -1397,7 +1429,6 @@ export type EmployeeByBusinessAndNameQuery = {
         id: string,
         email: string,
         name: string,
-        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -1429,7 +1460,6 @@ export type ListManagersQuery = {
         id: string,
         email: string,
         name: string,
-        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -1468,7 +1498,6 @@ export type GetManagerQuery = {
       id: string,
       email: string,
       name: string,
-      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -1495,7 +1524,6 @@ export type ListProfilesQuery = {
       id: string,
       email: string,
       name: string,
-      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -1519,7 +1547,6 @@ export type GetProfileQuery = {
     id: string,
     email: string,
     name: string,
-    avatarPublicURL: string | null,
     avatar:  {
       __typename: "S3Object",
       bucket: string,
@@ -1634,7 +1661,6 @@ export type OnCreateBusinessSubscription = {
         id: string,
         email: string,
         name: string,
-        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -1679,7 +1705,6 @@ export type OnUpdateBusinessSubscription = {
         id: string,
         email: string,
         name: string,
-        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -1724,7 +1749,6 @@ export type OnDeleteBusinessSubscription = {
         id: string,
         email: string,
         name: string,
-        avatarPublicURL: string | null,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -1781,7 +1805,6 @@ export type OnCreateEmployeeSubscription = {
       id: string,
       email: string,
       name: string,
-      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -1843,7 +1866,6 @@ export type OnUpdateEmployeeSubscription = {
       id: string,
       email: string,
       name: string,
-      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -1905,7 +1927,6 @@ export type OnDeleteEmployeeSubscription = {
       id: string,
       email: string,
       name: string,
-      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -1944,7 +1965,6 @@ export type OnCreateManagerSubscription = {
       id: string,
       email: string,
       name: string,
-      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -1983,7 +2003,6 @@ export type OnUpdateManagerSubscription = {
       id: string,
       email: string,
       name: string,
-      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -2022,7 +2041,6 @@ export type OnDeleteManagerSubscription = {
       id: string,
       email: string,
       name: string,
-      avatarPublicURL: string | null,
       avatar:  {
         __typename: "S3Object",
         bucket: string,
@@ -2041,7 +2059,6 @@ export type OnCreateProfileSubscription = {
     id: string,
     email: string,
     name: string,
-    avatarPublicURL: string | null,
     avatar:  {
       __typename: "S3Object",
       bucket: string,
@@ -2059,7 +2076,6 @@ export type OnUpdateProfileSubscription = {
     id: string,
     email: string,
     name: string,
-    avatarPublicURL: string | null,
     avatar:  {
       __typename: "S3Object",
       bucket: string,
@@ -2077,7 +2093,6 @@ export type OnDeleteProfileSubscription = {
     id: string,
     email: string,
     name: string,
-    avatarPublicURL: string | null,
     avatar:  {
       __typename: "S3Object",
       bucket: string,
