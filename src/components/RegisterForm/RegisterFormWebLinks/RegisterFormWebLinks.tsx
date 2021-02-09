@@ -3,10 +3,8 @@ import {Grid, Link, Typography, Box, FormControl, MenuItem, Chip} from "@materia
 import classes from "../RegisterForm.module.scss";
 import {useHistory} from "react-router";
 import {FormContainerType} from './RegisterFormWebLinksContainer';
-import CustomInput from "../../common/Input/CustomInput";
 import CustomSelect from "../../common/Select/CustomSelect";
 import GoBackButton from "../../common/Button/GoBackButton";
-import plusIcon from "../../../assets/images/formPlus.svg"
 import UxAssistant from "../UxAssistant/UxAssistant";
 import CustomButton from "../../common/Button/CustomButton";
 import {isValidUrl} from "../../../utils/validators/validators";
@@ -76,8 +74,8 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                                                         setHasWebsite(!!e.target.value);
                                                         setWebErrorText("")
                                                     }}
-                                                    items={[<MenuItem key={'menu_1_1'} value={0}>No</MenuItem>,
-                                                        <MenuItem key={'menu_1_2'} value={1}>Yes</MenuItem>]}
+                                                    items={[<MenuItem key={'menu_1_2'} value={1}>Yes</MenuItem>,
+                                                        <MenuItem key={'menu_1_1'} value={0}>No</MenuItem>]}
                                                 />
                                             </FormControl>
                                         </Box>
@@ -86,8 +84,8 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                                                 hasWebsite ?
                                                     <WebLink linkInput={webInput} linkURLs={websiteURLs}
                                                              linkErrorText={webErrorText} setLinkInput={setWebInput}
-                                                             setLinkURLs={setWebsiteURLs}
-                                                             setLinkErrorText={setWebErrorText}/>
+                                                             setLinkURLs={setWebsiteURLs} autoFocus
+                                                             setLinkErrorText={setWebErrorText} label={"Website URL address"}/>
                                                     :
                                                     <Box className={classes.selectTextBox}
                                                          style={{background: "#EE6B1D"}}>
@@ -108,8 +106,8 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                                                 <CustomSelect
                                                     value={hasExperienceSelling ? 1 : 0}
                                                     onChange={(e: any) => setHasExperienceSelling(!!e.target.value)}
-                                                    items={[<MenuItem key={'menu_2_1'} value={0}>No</MenuItem>,
-                                                        <MenuItem key={'menu_2_2'} value={1}>Yes</MenuItem>]}
+                                                    items={[<MenuItem key={'menu_2_2'} value={1}>Yes</MenuItem>,
+                                                        <MenuItem key={'menu_2_1'} value={0}>No</MenuItem>]}
                                                 />
                                             </FormControl>
                                         </Box>
@@ -119,7 +117,8 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                                                     <WebLink linkInput={sellingInput} linkURLs={sellingURLs}
                                                              linkErrorText={storeErrorText} setLinkInput={setSellingInput}
                                                              setLinkURLs={setSellingURLs}
-                                                             setLinkErrorText={setStoreErrorText}/>
+                                                             setLinkErrorText={setStoreErrorText}
+                                                                label={"Store URL address"}/>
                                                     :
                                                     <Box className={classes.selectTextBox}
                                                          style={{background: "#43A047"}}>
