@@ -32,25 +32,3 @@ code {
   font-style: normal;
   font-weight: 400;
 }
-
-.gbvoey::-webkit-scrollbar {
-  display: none;
-}
-
-.gbvoey::after {
-  height: 0 !important;
-}
-
-.gbvoey::before {
-  height: 0 !important;
-}
-
-
-/* 
-.eEaWsR::before {
-  top: -1px !important;
-}
-
-.eEaWsR::after {
-  bottom: -1px !important;
-} */

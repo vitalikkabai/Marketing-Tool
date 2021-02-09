@@ -6,7 +6,6 @@ import CustomButton from "../common/Button/CustomButton";
 import sendIcon from "../../assets/images/send.svg"
 import Message from "./Message/Message";
 import moment from "moment";
-import ScrollShadow from "react-scroll-shadow";
 
 const Chat = () => {
 
@@ -122,19 +121,8 @@ const Chat = () => {
 				</form>
 			</Grid>
 			<Grid item className={classes.messagesBox}>
-				<ScrollShadow
-					bottomShadowColors={{
-						active: 'linear-gradient(0deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);',
-						inactive: 'white'
-					}}
-					topShadowColors={{
-						active: 'linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0) 100%);',
-						inactive: 'white'
-					}}
-					shadowSize={32}>
-					{Messages}
-					<div ref={scrollRef} />
-				</ScrollShadow>
+				{Messages}
+				<div ref={scrollRef} />
 			</Grid>
 			<Grid item className={classes.chatInputGrid}>
 				<form className={classes.chatInputBox} onSubmit={handleSubmit}>
