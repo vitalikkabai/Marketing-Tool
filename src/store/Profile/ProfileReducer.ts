@@ -6,11 +6,11 @@ type ProfileReducerType = {
     avatarURL: string
 }
 const initialState: ProfileReducerType = {
-        profile: {
-            name: "",
-            email: ""
-        },
-        avatarURL: ""
+    profile: {
+        name: "",
+        email: ""
+    },
+    avatarURL: ""
 };
 
 const initialPresetState: ProfileReducerType = {
@@ -21,12 +21,12 @@ const initialPresetState: ProfileReducerType = {
     avatarURL: ""
 };
 
-export const ProfileReducer = (state = initialPresetState, action: ActionTypes): ProfileReducerType => {
+export const ProfileReducer = (state: ProfileReducerType = initialPresetState, action: ActionTypes): ProfileReducerType => {
     switch (action.type) {
         case 'SET_PROFILE_DATA':
             return {
                 ...state,
-                ...action.payload
+                profile: { ...action.payload }
             };
 
         // case 'SET_ROLE_TAGS':
@@ -47,14 +47,14 @@ export const ProfileReducer = (state = initialPresetState, action: ActionTypes):
         case 'UPDATE_PROFILE_SUCCESS':
             return {
                 ...state,
-                profile: {...action.payload}
+                profile: { ...action.payload }
             }
         case 'SET_PROFILE_AVATAR_URL':
             return {
                 ...state,
                 avatarURL: action.payload
             }
-        case 'CLEAR_PROFILE': 
+        case 'CLEAR_PROFILE':
             return {
                 ...initialState
             }

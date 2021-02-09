@@ -13,7 +13,7 @@ import { useHistory } from "react-router";
 import { CreateProfileInput } from "../../../API";
 import { Dispatch } from "react";
 import { SetStateAction } from "react";
-import {useTheme} from "@material-ui/core";
+import { useTheme } from "@material-ui/core";
 
 
 const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAction<boolean>>, profile: CreateProfileInput, avatarURL: string, signOut: () => void, userAttributes: any }> = (props) => {
@@ -37,7 +37,8 @@ const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAc
 
     const writeInitials = (): string => {
         if (props.profile.avatar) return "";
-        const nameWords = props.userAttributes.userName.split(" ");
+        console.log(props)
+        const nameWords = props.profile.name.split(" ");
         let initials = ""
         if (nameWords.length > 1) {
             initials = (nameWords[0].charAt(0)).concat(nameWords[1].charAt(0)).toUpperCase()
@@ -69,7 +70,7 @@ const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAc
                                     }}
                                     >Personal Profile</MenuItem>
                                     <MenuItem onClick={() => setOpen(false)}>Staff Accounts</MenuItem>
-                                    <MenuItem onClick={() => props.openDialogue(true)} style={{color: "#9E9E9E"}}>
+                                    <MenuItem onClick={() => props.openDialogue(true)} style={{ color: "#9E9E9E" }}>
                                         Log Out
                                     </MenuItem>
                                 </MenuList>
@@ -86,7 +87,7 @@ const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAc
                     {
                         props.profile.avatar
                             ? <Avatar alt="avatar" src={props.avatarURL} />
-                            : <Avatar style={{backgroundColor: theme.palette.primary.main}}>
+                            : <Avatar style={{ backgroundColor: theme.palette.primary.main }}>
                                 <Typography variant={"subtitle2"} className={classes.imageText}>{writeInitials()}</Typography>
                             </Avatar>
                     }

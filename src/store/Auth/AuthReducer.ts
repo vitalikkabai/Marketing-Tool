@@ -10,19 +10,13 @@ export enum Occupation {
 }
 export interface UserAttributes {
     userID: string,
-    email: string,
-    emailVerified: boolean,
-    userName: string,
     occupation: Occupation
 }
 
 export type InitialStateType = typeof initialState;
 
-const initialUserAttributes = {
+const initialUserAttributes: UserAttributes = {
     userID: "",
-    email: "",
-    emailVerified: false,
-    userName: "",
     occupation: Occupation.EMPLOYEE
 }
 

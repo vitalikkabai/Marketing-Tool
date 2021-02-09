@@ -35,9 +35,6 @@ export default [
                 mergeMap((response) => {
                     return [signInSuccess({
                         userID: response.attributes.sub,
-                        email: response.attributes.email,
-                        emailVerified: response.attributes.email_verified,
-                        userName: response.attributes.given_name,
                         occupation: response.attributes.occupation
                     }),
                     fetchProfileById(response.attributes.sub)];
@@ -49,7 +46,7 @@ export default [
         })
 
     ),
-    (action$: ActionsObservable<any>,state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
+    (action$: ActionsObservable<any>, state$: StateObservable<AppStateType>): Observable<ActionTypes> => action$.pipe(
         ofType("SIGN-UP-REQUEST"),
         mergeMap(action => {
             return from(Auth.signUp({
@@ -72,15 +69,12 @@ export default [
                         // setProfileID(response.attributes.sub),
                         signInSuccess({
                             userID: response.attributes.sub,
-                            email: response.attributes.email,
-                            emailVerified: response.attributes.email_verified,
-                            userName: response.attributes.given_name,
                             occupation: Number(response.attributes["custom:occupation"])
                         }),
                         initiateNewEmployee(response.attributes.sub),
                     ]
                 }),
-                catchError(err => {console.log(err); return of(signUpFailed(err))})
+                catchError(err => { console.log(err); return of(signUpFailed(err)) })
             )
         })
     ),
@@ -107,16 +101,13 @@ export default [
                 mergeMap(res => {
                     if (res) return [getAuthDataSuccess({
                         userID: res.username,
-                        email: res.attributes.email,
-                        emailVerified: res.attributes.email_verified,
-                        userName: res.attributes.given_name,
                         occupation: Number(res.attributes["custom:occupation"])
                     }),
                     fetchEmployeeById(res.username)
                     ];
                     else return [getAuthDataFailed()];
                 }),
-                catchError(err => {console.log(err); return [getAuthDataFailed()] })
+                catchError(err => { console.log(err); return [getAuthDataFailed()] })
             )
         }),
     ),
@@ -148,7 +139,7 @@ export default [
                         sendNewPasswordSuccess()
                     ]
                 }),
-                catchError(err => {console.log(err); return [sendNewPasswordFailed(err)] })
+                catchError(err => { console.log(err); return [sendNewPasswordFailed(err)] })
             )
         })
     ),
