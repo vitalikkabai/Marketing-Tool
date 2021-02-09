@@ -1,4 +1,4 @@
-import { UpdateMessageInput } from './../../API';
+import { UpdateMessageInput, OnUpdateMessageSubscriptionVariables } from './../../API';
 import { createMessage, updateMessage } from './../../graphql/mutations';
 
 import { Epic, ofType } from 'redux-observable';
@@ -77,8 +77,8 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     (action$, state$) => action$.pipe(
         ofType('SUBSCRIBE_ON_MESSAGE_UPDATED'),
         mergeMap((action: any) => {
-            
-            return (from(API.graphql(graphqlOperation(onUpdateMessage)) as unknown as Promise<any>).pipe(
+            // const sharedID = getSharedIndex(state$.value..senderID, message.receiverID);
+            return (from(API.graphql(graphqlOperation(onUpdateMessage,{})) as unknown as Promise<any>).pipe(
                 map(res => {
                     console.log("message updated", res)
                     return getUpdatedMessage(res.value.data.onUpdateMessage)

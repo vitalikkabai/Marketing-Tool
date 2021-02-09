@@ -3,8 +3,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateMessage = /* GraphQL */ `
-  subscription OnCreateMessage {
-    onCreateMessage {
+  subscription OnCreateMessage($receiverID: ID) {
+    onCreateMessage(receiverID: $receiverID) {
       id
       stage
       subjectID
@@ -24,8 +24,8 @@ export const onCreateMessage = /* GraphQL */ `
   }
 `;
 export const onUpdateMessage = /* GraphQL */ `
-  subscription OnUpdateMessage {
-    onUpdateMessage {
+  subscription OnUpdateMessage($sharedID: ID) {
+    onUpdateMessage(sharedID: $sharedID) {
       id
       stage
       subjectID
@@ -45,8 +45,29 @@ export const onUpdateMessage = /* GraphQL */ `
   }
 `;
 export const onDeleteMessage = /* GraphQL */ `
-  subscription OnDeleteMessage {
-    onDeleteMessage {
+  subscription OnDeleteMessage($id: ID) {
+    onDeleteMessage(id: $id) {
+      id
+      stage
+      subjectID
+      senderID
+      receiverID
+      sharedID
+      content
+      status
+      attachment {
+        bucket
+        region
+        key
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onEraseMessage = /* GraphQL */ `
+  subscription OnEraseMessage {
+    onEraseMessage {
       id
       stage
       subjectID

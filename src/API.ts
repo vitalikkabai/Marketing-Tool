@@ -1558,6 +1558,10 @@ export type GetProfileQuery = {
   } | null,
 };
 
+export type OnCreateMessageSubscriptionVariables = {
+  receiverID?: string | null,
+};
+
 export type OnCreateMessageSubscription = {
   onCreateMessage:  {
     __typename: "Message",
@@ -1578,6 +1582,10 @@ export type OnCreateMessageSubscription = {
     createdAt: string | null,
     updatedAt: string | null,
   } | null,
+};
+
+export type OnUpdateMessageSubscriptionVariables = {
+  sharedID?: string | null,
 };
 
 export type OnUpdateMessageSubscription = {
@@ -1602,8 +1610,34 @@ export type OnUpdateMessageSubscription = {
   } | null,
 };
 
+export type OnDeleteMessageSubscriptionVariables = {
+  id?: string | null,
+};
+
 export type OnDeleteMessageSubscription = {
   onDeleteMessage:  {
+    __typename: "Message",
+    id: string,
+    stage: Stage,
+    subjectID: string,
+    senderID: string,
+    receiverID: string,
+    sharedID: string,
+    content: string,
+    status: MessageStatus,
+    attachment:  {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } | null,
+    createdAt: string | null,
+    updatedAt: string | null,
+  } | null,
+};
+
+export type OnEraseMessageSubscription = {
+  onEraseMessage:  {
     __typename: "Message",
     id: string,
     stage: Stage,
