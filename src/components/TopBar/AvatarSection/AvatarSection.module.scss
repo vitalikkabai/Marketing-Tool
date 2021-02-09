@@ -1,6 +1,19 @@
 .avatarSectionContainer {
-  display: flex;
-  align-items: center;
+
+  .avatarBox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .menu {
+
+    li{
+      font-size: 16px;
+    }
+
+  }
+
   .InitialsAvatar {
     background-color: #4285F4;
   }

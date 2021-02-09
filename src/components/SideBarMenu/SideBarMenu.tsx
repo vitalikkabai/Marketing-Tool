@@ -1,4 +1,4 @@
-import { Box, Collapse, Grid, List, ListItem, ListItemIcon, ListItemText, Typography, useTheme } from '@material-ui/core';
+import { Box, Grid, List, ListItem, ListItemIcon, ListItemText, Typography, useTheme } from '@material-ui/core';
 import React from 'react';
 import classes from './SideBarMenu.module.scss';
 import logo from '../../assets/images/headerLogo.svg';
@@ -15,9 +15,20 @@ import { useHistory } from "react-router";
 
 
 const SideBarMenu = (props: any) => {
-	const [selected, setSelected] = React.useState("1");
 	const theme = useTheme();
 	const history = useHistory();
+	const getCurrentLocation = () => {
+		if(history.location.pathname.includes("product")) return "2";
+		if(history.location.pathname.includes("market-research")) return "3";
+		if(history.location.pathname.includes("brand-creation")) return "4";
+		if(history.location.pathname.includes("sales-channels")) return "5";
+		if(history.location.pathname.includes("customer-support")) return "6";
+		if(history.location.pathname.includes("brand-awareness")) return "7";
+		if(history.location.pathname.includes("improvements")) return "8";
+		if(history.location.pathname.includes("sales-statistics")) return "9";
+		return ("1")
+	}
+	const [selected, setSelected] = React.useState(getCurrentLocation());
 	return (
 		<Grid container direction={"column"} alignItems={"flex-start"} className={classes.menu}>
 			<Box className={classes.gridItem}>

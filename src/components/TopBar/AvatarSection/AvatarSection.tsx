@@ -7,12 +7,13 @@ import MenuList from "@material-ui/core/MenuList";
 import Paper from "@material-ui/core/Paper";
 import Popper from "@material-ui/core/Popper";
 import Typography from "@material-ui/core/Typography";
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import classes from "./AvatarSection.module.scss";
 import { useHistory } from "react-router";
 import { CreateProfileInput } from "../../../API";
 import { Dispatch } from "react";
 import { SetStateAction } from "react";
+import {useTheme} from "@material-ui/core";
 
 
 const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAction<boolean>>, profile: CreateProfileInput, avatarURL: string, signOut: () => void, userAttributes: any }> = (props) => {
@@ -20,6 +21,7 @@ const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAc
     const history = useHistory();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef<HTMLDivElement>(null);
+    const theme = useTheme();
 
     const handleClose = (event: React.MouseEvent<EventTarget>) => {
         if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
@@ -55,7 +57,7 @@ const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAc
                     >
                         <Paper>
                             <ClickAwayListener onClickAway={() => setOpen(false)}>
-                                <MenuList autoFocusItem={open} id="menu-list-grow">
+                                <MenuList autoFocusItem={open} id="menu-list-grow" className={classes.menu}>
                                     <MenuItem onClick={() => {
                                         history.push("business-profile");
                                         setOpen(false)
@@ -67,25 +69,29 @@ const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAc
                                     }}
                                     >Personal Profile</MenuItem>
                                     <MenuItem onClick={() => setOpen(false)}>Staff Accounts</MenuItem>
-                                    <MenuItem onClick={() => props.openDialogue(true)}>Log Out</MenuItem>
+                                    <MenuItem onClick={() => props.openDialogue(true)} style={{color: "#9E9E9E"}}>
+                                        Log Out
+                                    </MenuItem>
                                 </MenuList>
                             </ClickAwayListener>
                         </Paper>
                     </Grow>
                 )}
             </Popper>
-            <Typography variant={"subtitle2"} color={"primary"} className={classes.greetingText}>
-                Hi, {props.profile.name}
-            </Typography>
-            <div ref={anchorRef} onClick={handleToggle}>
-                {
-                    props.profile.avatar
-                        ? <Avatar alt="avatar" src={props.avatarURL} />
-                        : <Avatar className={classes.InitialsAvatar}>
-                            <Typography variant={"subtitle2"} className={classes.imageText}>{writeInitials()}</Typography>
-                        </Avatar>
-                }
-            </div>
+            <Box className={classes.avatarBox} onClick={handleToggle}>
+                <Typography variant={"subtitle2"} color={"primary"} className={classes.greetingText}>
+                    Hi, {props.profile.name}
+                </Typography>
+                <div ref={anchorRef}>
+                    {
+                        props.profile.avatar
+                            ? <Avatar alt="avatar" src={props.avatarURL} />
+                            : <Avatar style={{backgroundColor: theme.palette.primary.main}}>
+                                <Typography variant={"subtitle2"} className={classes.imageText}>{writeInitials()}</Typography>
+                            </Avatar>
+                    }
+                </div>
+            </Box>
         </Box>
     );
 }
