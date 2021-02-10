@@ -50,7 +50,7 @@ const AvatarSection: React.FunctionComponent<{ openDialogue: Dispatch<SetStateAc
 
     return (
         <Box className={classes.avatarSectionContainer}>
-            <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+            <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal style={{zIndex:10}}>
                 {({ TransitionProps, placement }) => (
                     <Grow
                         {...TransitionProps}

@@ -1,7 +1,7 @@
-import { CreateEmployeeInput } from './../../API';
+import { CreateEmployeeInput } from '../../API';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CreateProfileInput } from "../../API";
-import { Profile, RoleTags, S3Object } from "../../models";
+import { RoleTags } from "../../models";
 
 export const setEmployee = (employee: CreateEmployeeInput) => ({
     type: 'SET_EMPLOYEE_DATA' as const,
@@ -54,3 +54,17 @@ export const updateEmployeeInfo = (name: string, email: string) => ({
     type: 'UPDATE_EMPLOYEE_INFO' as const,
     payload: {name, email}
 })
+
+export const getUserLocation = () => ({
+    type: "GET-USER-LOCATION-REQUEST" as const,
+    payload: {}
+});
+
+export const getUserLocationSuccess = (result: any) => ({
+    type: "GET-USER-LOCATION-SUCCESS" as const,
+    payload: result.countryCode
+});
+
+export const getUserLocationFailed = () => ({
+    type: "GET-USER-LOCATION-FAILED" as const,
+});

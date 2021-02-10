@@ -1,9 +1,14 @@
-import { CreateEmployeeInput, CreateProfileInput } from './../../API';
-import { createEmployee } from './../../graphql/mutations';
+import { CreateEmployeeInput, CreateProfileInput } from '../../API';
+import { createEmployee } from '../../graphql/mutations';
 
-import { Epic, ofType } from 'redux-observable';
+import {ActionsObservable, Epic, ofType} from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { fetchEmployeeSuccess, saveProfileToDBFailed } from './EmployeeActions';
+import {
+    fetchEmployeeSuccess,
+    getUserLocationFailed,
+    getUserLocationSuccess,
+    saveProfileToDBFailed
+} from './EmployeeActions';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
 import { createBusiness, createProfile, updateProfile } from '../../graphql/mutations';
@@ -12,6 +17,7 @@ import { forkJoin, from } from 'rxjs';
 import { getEmployee } from '../../graphql/queries';
 import { setBusiness } from '../Business/BusinessActions';
 import { saveProfileToDBSucces, updateProfileSuccess } from '../Profile/ProfileActions';
+import {ajax} from "rxjs/ajax";
 
 const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     (action$, state$) => action$.pipe(
@@ -59,6 +65,19 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                     }),
                     catchError(err => { console.log(err); return [saveProfileToDBFailed()] })
                 )
+        })
+    ),
+    (action$: ActionsObservable<ActionTypes>) => action$.pipe(
+        ofType("GET-USER-LOCATION-REQUEST"),
+        mergeMap(() => {
+            return from(ajax.getJSON(`http://ip-api.com/json`)).pipe(
+                mergeMap((res) => {
+                    return [
+                        getUserLocationSuccess(res)
+                    ]
+                }),
+                catchError(err => { console.log(err); return [getUserLocationFailed()] })
+            )
         })
     ),
     (action$, state$) => action$.pipe(

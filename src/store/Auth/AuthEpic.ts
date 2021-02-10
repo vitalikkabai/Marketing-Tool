@@ -23,6 +23,7 @@ import { clearBusiness } from '../Business/BusinessActions';
 import { AppStateType } from '../store';
 import { clearEmployee, fetchEmployeeById, initiateNewEmployee } from '../Employee/EmployeeActions';
 import { Occupation } from './AuthReducer';
+import {ajax} from "rxjs/ajax";
 
 export default [
     (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
@@ -94,6 +95,7 @@ export default [
             )
         })
     ),
+
     (action$: ActionsObservable<ActionTypes>) => action$.pipe(
         ofType("AUTH-DATA-REQUEST"),
         mergeMap(() => {
@@ -111,8 +113,6 @@ export default [
             )
         }),
     ),
-
-
 
     (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
         ofType("SEND-RESET-LINK"),
