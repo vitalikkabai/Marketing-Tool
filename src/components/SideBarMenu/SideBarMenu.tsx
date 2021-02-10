@@ -26,7 +26,8 @@ const SideBarMenu = (props: any) => {
 		if (history.location.pathname.includes("brand-awareness")) return "7";
 		if (history.location.pathname.includes("improvements")) return "8";
 		if (history.location.pathname.includes("sales-statistics")) return "9";
-		return ("1")
+		if (history.location.pathname === ("/")) return "1";
+		return ("0")
 	}
 
 	const [selected, setSelected] = React.useState(getCurrentLocation());

@@ -13,7 +13,7 @@ interface CustomInputProps {
     fullWidth?: boolean;
     error?: boolean;
     helperText?: string;
-    PassKey?: string;
+    defaultValue?: any;
     fontSize?: string;
     label?: string;
     margin?: string;
@@ -104,6 +104,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
         onChange={props.onChange}
         getOptionLabel={props.getOption}
         renderOption={props.renderOption}
+        value={props.value}
         style={{margin: props.margin}}
         onInputChange={props.onInputChange}
         renderInput={(params) => (

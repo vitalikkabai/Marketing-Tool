@@ -1,5 +1,6 @@
 import { CreateEmployeeInput } from '../../API';
 import * as actions from './EmployeeActions';
+import data from "../../assets/dataset/country/countries";
 
 const initialState: CreateEmployeeInput = {
         businessID: "",
@@ -31,9 +32,9 @@ const initialPresetState: CreateEmployeeInput = {
     },
     phoneNumber: "3434343434",
     countryCode: {
-        code: "UA",
-        label: "Ukraine",
-        phone: "380"
+        code: "",
+        label: "",
+        phone: ""
     }
 };
 
@@ -53,6 +54,17 @@ export const EmployeeReducer = (state = initialPresetState, action: ActionTypes)
             return {
                 ...initialState
             }
+        case "GET-USER-LOCATION-SUCCESS": {
+            const userCode = data.find(x => x.code === action.payload);
+            if(userCode !== undefined)
+            return {
+                ...state,
+                countryCode: {code: userCode.code, label: userCode.label, phone: userCode.phone}
+            }
+            else return {
+                ...state
+            }
+        }
         case 'FETCH_EMPLOYEE_BY_ID':
         default:
             return {

@@ -1,7 +1,5 @@
 import * as actions from './BusinessActions';
-import {Business} from "../../models";
 import { CreateBusinessInput } from '../../API';
-import store from '../store';
 
 // interface businessReducer {
 //     id: string,

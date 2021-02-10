@@ -1,11 +1,13 @@
-import { UpdateMessageInput } from './../../API';
+import { UpdateMessageInput, OnUpdateMessageSubscriptionVariables } from './../../API';
 import { createMessage, updateMessage } from './../../graphql/mutations';
 
 import { Epic, ofType } from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
-import { sendMessageSuccess, sendMessageFailure,
+import {
+    sendMessageSuccess, sendMessageFailure,
     openDialogueSuccess, openDialogueFailure, getRecentMessage,
-    getUpdatedMessage, updateMessageAction, updateMessageSuccess } from './MessageActions';
+    getUpdatedMessage, updateMessageAction, updateMessageSuccess
+} from './MessageActions';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
 import { API, graphqlOperation } from 'aws-amplify';
@@ -33,9 +35,13 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     (action$, state$) => action$.pipe(
         ofType('OPEN_DIALOGUE'),
         mergeMap((action: any) => {
-
+            const userID = state$.value.ProfileReducer.profile.id;
+            const interlocutorID = state$.value.MessageReducer.interlocutor.id;
+            if (!userID || !interlocutorID) {
+                return [openDialogueFailure()];
+            }
             const params: GetConversationQueryVariables = {
-                sharedID: getSharedIndex(state$.value.ProfileReducer.profile.id || "", action.payload.interlocutor.id),
+                sharedID: getSharedIndex(userID, interlocutorID),
                 subjectIDStageCreatedAt: { beginsWith: { stage: action.payload.stage, subjectID: action.payload.subjectID } }
             }
             return (from(API.graphql(graphqlOperation(getConversation, params)) as unknown as Promise<any>).pipe(
@@ -59,14 +65,15 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     (action$, state$) => action$.pipe(
         ofType('SUBSCRIBE_ON_MESSAGES_CREATED'),
         mergeMap((action: any) => {
-            return (from(API.graphql(graphqlOperation(onCreateMessage)) as unknown as Promise<any>).pipe(
+            
+            return (from(API.graphql(graphqlOperation(onCreateMessage, {receiverID:action.payload})) as unknown as Promise<any>).pipe(
                 mergeMap(res => {
                     const message: CreateMessageInput = res.value.data.onCreateMessage;
                     if (message.receiverID === state$.value.ProfileReducer.profile.id &&
                         message.status === MessageStatus.SENT) {
-                            message.status = MessageStatus.RECEIVED;
-                            return [getRecentMessage(message), updateMessageAction(message)]
-                        }
+                        message.status = MessageStatus.RECEIVED;
+                        return [getRecentMessage(message), updateMessageAction(message)]
+                    }
                     return [getRecentMessage(message)]
                 }),
                 catchError(err => { console.log(err); return [sendMessageFailure()] })
@@ -77,8 +84,9 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     (action$, state$) => action$.pipe(
         ofType('SUBSCRIBE_ON_MESSAGE_UPDATED'),
         mergeMap((action: any) => {
-            
-            return (from(API.graphql(graphqlOperation(onUpdateMessage)) as unknown as Promise<any>).pipe(
+            const sharedID = getSharedIndex(state$.value.ProfileReducer.profile.id || "",
+                state$.value.MessageReducer.interlocutor.id || "");
+            return (from(API.graphql(graphqlOperation(onUpdateMessage, { sharedID })) as unknown as Promise<any>).pipe(
                 map(res => {
                     console.log("message updated", res)
                     return getUpdatedMessage(res.value.data.onUpdateMessage)

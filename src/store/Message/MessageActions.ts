@@ -2,9 +2,9 @@
 
 import { CreateMessageInput, CreateProfileInput, Stage } from "../../API";
 
-export const openDialogue = (stage: Stage, subjectID: string, interlocutor: CreateProfileInput) => ({
+export const openDialogue = (stage: Stage, subjectID: string) => ({
     type: 'OPEN_DIALOGUE' as const,
-    payload: {stage, subjectID, interlocutor}
+    payload: {stage, subjectID}
 });
 
 export const openDialogueSuccess = (dialogue: CreateMessageInput[]) => ({
@@ -48,7 +48,7 @@ export const setInterlocutor = (interlocutor: CreateProfileInput) => ({
     payload: interlocutor
 });
 
-export const subscribeOnNewMessages = (receiverID: string) => ({
+export const subscribeOnMessageCreated = (receiverID: string) => ({
     type: 'SUBSCRIBE_ON_MESSAGES_CREATED' as const,
     payload: receiverID
 });

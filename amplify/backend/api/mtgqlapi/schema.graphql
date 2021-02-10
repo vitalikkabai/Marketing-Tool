@@ -72,7 +72,7 @@ type Profile @model
 #   messages: [Message] @connection(keyName: "byConversation", fields: ["id"])
 # }
 
-type Message @model
+type Message @model(subscriptions: null)
     # @key(name: "bySender", fields: ["senderID", "subjectId","stage"], queryField:"bySender")
     # @key(name: "byReceiver", fields: ["receiverID", "subjectID","stage"], queryField:"byReceiver")
     @key(name: "getIncomingMessages", fields: ["receiverID", "status"], queryField:"getIncomingMessages")
@@ -94,6 +94,13 @@ type Message @model
   attachment: S3Object
   createdAt: AWSDateTime
   updatedAt: AWSDateTime
+}
+
+type Subscription {
+  onCreateMessage(receiverID: ID): Message @aws_subscribe(mutations: ["createMessage"])
+  onUpdateMessage(sharedID: ID): Message @aws_subscribe(mutations: ["updateMessage"])
+  onDeleteMessage(id: ID): Message @aws_subscribe(mutations: ["deleteMessage"])
+  onEraseMessage: Message @aws_subscribe(mutations: ["deleteMessage"])
 }
 
 enum MessageStatus {

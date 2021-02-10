@@ -23,6 +23,7 @@ import { clearBusiness } from '../Business/BusinessActions';
 import { AppStateType } from '../store';
 import { clearEmployee, fetchEmployeeById, initiateNewEmployee } from '../Employee/EmployeeActions';
 import { Occupation } from './AuthReducer';
+import {ajax} from "rxjs/ajax";
 
 export default [
     (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
@@ -37,7 +38,7 @@ export default [
                         userID: response.attributes.sub,
                         occupation: response.attributes.occupation
                     }),
-                    fetchProfileById(response.attributes.sub)];
+                    fetchEmployeeById(response.attributes.sub)];
 
                 }),
                 catchError((err) => [signInFailed(err)]),
@@ -94,25 +95,36 @@ export default [
             )
         })
     ),
+
     (action$: ActionsObservable<ActionTypes>) => action$.pipe(
         ofType("AUTH-DATA-REQUEST"),
         mergeMap(() => {
             return from(Auth.currentUserInfo()).pipe(
                 mergeMap(res => {
-                    if (res) return [getAuthDataSuccess({
-                        userID: res.username,
-                        occupation: Number(res.attributes["custom:occupation"])
-                    }),
-                    fetchEmployeeById(res.username)
-                    ];
+                    if (res) {
+                        const occupation = Number(res.attributes["custom:occupation"]);
+                        let action: ActionTypes;
+                        switch (occupation) {
+                            case 0:
+                                action = fetchEmployeeById(res.username);
+                                break;
+                            // case 1:
+                            default:
+                                action = getAuthDataFailed()
+                        }
+                        return [getAuthDataSuccess({
+                            userID: res.username,
+                            occupation
+                        }),
+                        action
+                        ];
+                    }
                     else return [getAuthDataFailed()];
                 }),
                 catchError(err => { console.log(err); return [getAuthDataFailed()] })
             )
         }),
     ),
-
-
 
     (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
         ofType("SEND-RESET-LINK"),

@@ -3,7 +3,11 @@ import { Badge, makeStyles } from '@material-ui/core';
 import ToDoIcon from "../../../assets/images/ToDoListIcon.svg";
 import styles from "./CustomBadge.module.scss"
 
-const CustomBadge = () => {
+type PropTypes = {
+  badgeCount: number
+}
+
+const CustomBadge: React.FunctionComponent<PropTypes> = (props) => {
   const useStyles = makeStyles({
     badge: {
       height: "16px",
@@ -22,7 +26,7 @@ const CustomBadge = () => {
   const classes = useStyles();
 
   return (
-    <Badge badgeContent={4} classes={{ badge: classes.badge }} className={styles.circleRipple} >
+    <Badge badgeContent={props.badgeCount} classes={{ badge: classes.badge }} className={styles.circleRipple} >
       <img src={ToDoIcon} alt="ToDoIcon" />
     </Badge >
   )

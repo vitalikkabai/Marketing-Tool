@@ -1,4 +1,4 @@
-import { subscribeOnMessageUpdated, subscribeOnNewMessages } from './../Message/MessageActions';
+import { subscribeOnMessageUpdated, subscribeOnMessageCreated } from './../Message/MessageActions';
 import { CreateProfileInput, UpdateProfileInput } from './../../API';
 
 import { Epic, ofType } from 'redux-observable';
@@ -98,11 +98,11 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
         mergeMap(() => {
             const avatar = state$.value.ProfileReducer.profile.avatar;
             const id = state$.value.ProfileReducer.profile.id || ""
-            if (!avatar) return [setAvatarUrl(""), subscribeOnNewMessages(id), subscribeOnMessageUpdated(id)]
+            if (!avatar) return [setAvatarUrl(""), subscribeOnMessageCreated(id), subscribeOnMessageUpdated(id)]
 
             return (from(Storage.get(avatar.key)).pipe(
                 mergeMap(res => {
-                    return [setAvatarUrl(res as string), subscribeOnNewMessages(id), subscribeOnMessageUpdated(id)]
+                    return [setAvatarUrl(res as string), subscribeOnMessageCreated(id), subscribeOnMessageUpdated(id)]
                 }),
                 catchError(err => { console.log(err); return [setAvatarUrlFailed()] })
             ))

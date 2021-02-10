@@ -108,10 +108,10 @@ const TopBar = (props: PropsFromRedux) => {
                         <Typography variant="h3" align="center">Are you sure you want to <br /> log out?</Typography>
                         <img src={logOutIcon} alt="image" />
                         <Box className={classes.buttonBox}>
-                            <CustomButton type="button" onClick={() => {
+                            <CustomButton color type="button" onClick={() => {
                                 setIsOpen(!isOpen)
                             }} text="NO" />
-                            <CustomButton type="button" onClick={() => {
+                            <CustomButton color type="button" onClick={() => {
                                 props.signOut()
                             }} text="YES" />
                         </Box>

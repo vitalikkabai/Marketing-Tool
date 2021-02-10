@@ -3,8 +3,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateMessage = /* GraphQL */ `
-  subscription OnCreateMessage {
-    onCreateMessage {
+  subscription OnCreateMessage($receiverID: ID) {
+    onCreateMessage(receiverID: $receiverID) {
       id
       stage
       subjectID
@@ -24,8 +24,8 @@ export const onCreateMessage = /* GraphQL */ `
   }
 `;
 export const onUpdateMessage = /* GraphQL */ `
-  subscription OnUpdateMessage {
-    onUpdateMessage {
+  subscription OnUpdateMessage($sharedID: ID) {
+    onUpdateMessage(sharedID: $sharedID) {
       id
       stage
       subjectID
@@ -45,8 +45,29 @@ export const onUpdateMessage = /* GraphQL */ `
   }
 `;
 export const onDeleteMessage = /* GraphQL */ `
-  subscription OnDeleteMessage {
-    onDeleteMessage {
+  subscription OnDeleteMessage($id: ID) {
+    onDeleteMessage(id: $id) {
+      id
+      stage
+      subjectID
+      senderID
+      receiverID
+      sharedID
+      content
+      status
+      attachment {
+        bucket
+        region
+        key
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onEraseMessage = /* GraphQL */ `
+  subscription OnEraseMessage {
+    onEraseMessage {
       id
       stage
       subjectID
@@ -80,9 +101,39 @@ export const onCreateBusiness = /* GraphQL */ `
         items {
           id
           businessID
+          roleTags {
+            sales
+            marketing
+            logistics
+            accounting
+            production
+            qualityControl
+          }
+          countryCode {
+            code
+            label
+            phone
+          }
           phoneNumber
           createdAt
           updatedAt
+          business {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            managerID
+            createdAt
+            updatedAt
+            owner
+          }
+          profile {
+            id
+            email
+            name
+            createdAt
+            updatedAt
+          }
         }
         nextToken
       }
@@ -91,12 +142,27 @@ export const onCreateBusiness = /* GraphQL */ `
         createdAt
         updatedAt
         businesses {
+          items {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            managerID
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         profile {
           id
           email
           name
+          avatar {
+            bucket
+            region
+            key
+          }
           createdAt
           updatedAt
         }
@@ -119,9 +185,39 @@ export const onUpdateBusiness = /* GraphQL */ `
         items {
           id
           businessID
+          roleTags {
+            sales
+            marketing
+            logistics
+            accounting
+            production
+            qualityControl
+          }
+          countryCode {
+            code
+            label
+            phone
+          }
           phoneNumber
           createdAt
           updatedAt
+          business {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            managerID
+            createdAt
+            updatedAt
+            owner
+          }
+          profile {
+            id
+            email
+            name
+            createdAt
+            updatedAt
+          }
         }
         nextToken
       }
@@ -130,12 +226,27 @@ export const onUpdateBusiness = /* GraphQL */ `
         createdAt
         updatedAt
         businesses {
+          items {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            managerID
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         profile {
           id
           email
           name
+          avatar {
+            bucket
+            region
+            key
+          }
           createdAt
           updatedAt
         }
@@ -158,9 +269,39 @@ export const onDeleteBusiness = /* GraphQL */ `
         items {
           id
           businessID
+          roleTags {
+            sales
+            marketing
+            logistics
+            accounting
+            production
+            qualityControl
+          }
+          countryCode {
+            code
+            label
+            phone
+          }
           phoneNumber
           createdAt
           updatedAt
+          business {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            managerID
+            createdAt
+            updatedAt
+            owner
+          }
+          profile {
+            id
+            email
+            name
+            createdAt
+            updatedAt
+          }
         }
         nextToken
       }
@@ -169,12 +310,27 @@ export const onDeleteBusiness = /* GraphQL */ `
         createdAt
         updatedAt
         businesses {
+          items {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            managerID
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         profile {
           id
           email
           name
+          avatar {
+            bucket
+            region
+            key
+          }
           createdAt
           updatedAt
         }
@@ -213,12 +369,29 @@ export const onCreateEmployee = /* GraphQL */ `
         updatedAt
         owner
         employees {
+          items {
+            id
+            businessID
+            phoneNumber
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         manager {
           id
           createdAt
           updatedAt
+          businesses {
+            nextToken
+          }
+          profile {
+            id
+            email
+            name
+            createdAt
+            updatedAt
+          }
         }
       }
       profile {
@@ -267,12 +440,29 @@ export const onUpdateEmployee = /* GraphQL */ `
         updatedAt
         owner
         employees {
+          items {
+            id
+            businessID
+            phoneNumber
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         manager {
           id
           createdAt
           updatedAt
+          businesses {
+            nextToken
+          }
+          profile {
+            id
+            email
+            name
+            createdAt
+            updatedAt
+          }
         }
       }
       profile {
@@ -321,12 +511,29 @@ export const onDeleteEmployee = /* GraphQL */ `
         updatedAt
         owner
         employees {
+          items {
+            id
+            businessID
+            phoneNumber
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         manager {
           id
           createdAt
           updatedAt
+          businesses {
+            nextToken
+          }
+          profile {
+            id
+            email
+            name
+            createdAt
+            updatedAt
+          }
         }
       }
       profile {
@@ -360,6 +567,14 @@ export const onCreateManager = /* GraphQL */ `
           createdAt
           updatedAt
           owner
+          employees {
+            nextToken
+          }
+          manager {
+            id
+            createdAt
+            updatedAt
+          }
         }
         nextToken
       }
@@ -394,6 +609,14 @@ export const onUpdateManager = /* GraphQL */ `
           createdAt
           updatedAt
           owner
+          employees {
+            nextToken
+          }
+          manager {
+            id
+            createdAt
+            updatedAt
+          }
         }
         nextToken
       }
@@ -428,6 +651,14 @@ export const onDeleteManager = /* GraphQL */ `
           createdAt
           updatedAt
           owner
+          employees {
+            nextToken
+          }
+          manager {
+            id
+            createdAt
+            updatedAt
+          }
         }
         nextToken
       }

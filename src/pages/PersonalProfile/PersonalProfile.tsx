@@ -148,8 +148,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                         onChange={(event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) =>
                                             setOldPassword(event.target.value)
                                         }
-                                        width={290}
-                                        autoFocus/>
+                                        width={290}/>
                                 </Grid>
                                 <Grid item>
                                     <CustomInput
