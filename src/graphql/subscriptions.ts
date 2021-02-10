@@ -120,7 +120,6 @@ export const onCreateBusiness = /* GraphQL */ `
                 websiteURLs
                 stage
                 businessID
-                status
                 color
                 material
                 createdAt
@@ -213,7 +212,6 @@ export const onCreateBusiness = /* GraphQL */ `
                 websiteURLs
                 stage
                 businessID
-                status
                 color
                 material
                 createdAt
@@ -243,7 +241,6 @@ export const onCreateBusiness = /* GraphQL */ `
             owner
           }
           businessID
-          status
           color
           material
           photos {
@@ -277,7 +274,7 @@ export const onCreateBusiness = /* GraphQL */ `
             key
           }
           packagings {
-            unitType
+            isDimentions
             sizeOrDimensions
             weightKgs
             unitBarCode {
@@ -322,7 +319,6 @@ export const onCreateBusiness = /* GraphQL */ `
                 websiteURLs
                 stage
                 businessID
-                status
                 color
                 material
                 createdAt
@@ -409,7 +405,6 @@ export const onUpdateBusiness = /* GraphQL */ `
                 websiteURLs
                 stage
                 businessID
-                status
                 color
                 material
                 createdAt
@@ -502,7 +497,6 @@ export const onUpdateBusiness = /* GraphQL */ `
                 websiteURLs
                 stage
                 businessID
-                status
                 color
                 material
                 createdAt
@@ -532,7 +526,6 @@ export const onUpdateBusiness = /* GraphQL */ `
             owner
           }
           businessID
-          status
           color
           material
           photos {
@@ -566,7 +559,7 @@ export const onUpdateBusiness = /* GraphQL */ `
             key
           }
           packagings {
-            unitType
+            isDimentions
             sizeOrDimensions
             weightKgs
             unitBarCode {
@@ -611,7 +604,6 @@ export const onUpdateBusiness = /* GraphQL */ `
                 websiteURLs
                 stage
                 businessID
-                status
                 color
                 material
                 createdAt
@@ -698,7 +690,6 @@ export const onDeleteBusiness = /* GraphQL */ `
                 websiteURLs
                 stage
                 businessID
-                status
                 color
                 material
                 createdAt
@@ -791,7 +782,6 @@ export const onDeleteBusiness = /* GraphQL */ `
                 websiteURLs
                 stage
                 businessID
-                status
                 color
                 material
                 createdAt
@@ -821,7 +811,6 @@ export const onDeleteBusiness = /* GraphQL */ `
             owner
           }
           businessID
-          status
           color
           material
           photos {
@@ -855,7 +844,7 @@ export const onDeleteBusiness = /* GraphQL */ `
             key
           }
           packagings {
-            unitType
+            isDimentions
             sizeOrDimensions
             weightKgs
             unitBarCode {
@@ -900,7 +889,6 @@ export const onDeleteBusiness = /* GraphQL */ `
                 websiteURLs
                 stage
                 businessID
-                status
                 color
                 material
                 createdAt
@@ -1048,7 +1036,6 @@ export const onCreateEmployee = /* GraphQL */ `
               owner
             }
             businessID
-            status
             color
             material
             photos {
@@ -1082,7 +1069,7 @@ export const onCreateEmployee = /* GraphQL */ `
               key
             }
             packagings {
-              unitType
+              isDimentions
               sizeOrDimensions
               weightKgs
               unitBarCode {
@@ -1273,7 +1260,6 @@ export const onUpdateEmployee = /* GraphQL */ `
               owner
             }
             businessID
-            status
             color
             material
             photos {
@@ -1307,7 +1293,7 @@ export const onUpdateEmployee = /* GraphQL */ `
               key
             }
             packagings {
-              unitType
+              isDimentions
               sizeOrDimensions
               weightKgs
               unitBarCode {
@@ -1498,7 +1484,6 @@ export const onDeleteEmployee = /* GraphQL */ `
               owner
             }
             businessID
-            status
             color
             material
             photos {
@@ -1532,7 +1517,7 @@ export const onDeleteEmployee = /* GraphQL */ `
               key
             }
             packagings {
-              unitType
+              isDimentions
               sizeOrDimensions
               weightKgs
               unitBarCode {
@@ -1697,7 +1682,6 @@ export const onCreateManager = /* GraphQL */ `
                 owner
               }
               businessID
-              status
               color
               material
               photos {
@@ -1731,7 +1715,7 @@ export const onCreateManager = /* GraphQL */ `
                 key
               }
               packagings {
-                unitType
+                isDimentions
                 sizeOrDimensions
                 weightKgs
                 pieces
@@ -1867,7 +1851,6 @@ export const onUpdateManager = /* GraphQL */ `
                 owner
               }
               businessID
-              status
               color
               material
               photos {
@@ -1901,7 +1884,7 @@ export const onUpdateManager = /* GraphQL */ `
                 key
               }
               packagings {
-                unitType
+                isDimentions
                 sizeOrDimensions
                 weightKgs
                 pieces
@@ -2037,7 +2020,6 @@ export const onDeleteManager = /* GraphQL */ `
                 owner
               }
               businessID
-              status
               color
               material
               photos {
@@ -2071,7 +2053,7 @@ export const onDeleteManager = /* GraphQL */ `
                 key
               }
               packagings {
-                unitType
+                isDimentions
                 sizeOrDimensions
                 weightKgs
                 pieces
@@ -2238,7 +2220,6 @@ export const onCreateProduct = /* GraphQL */ `
               owner
             }
             businessID
-            status
             color
             material
             photos {
@@ -2272,7 +2253,7 @@ export const onCreateProduct = /* GraphQL */ `
               key
             }
             packagings {
-              unitType
+              isDimentions
               sizeOrDimensions
               weightKgs
               unitBarCode {
@@ -2337,7 +2318,6 @@ export const onCreateProduct = /* GraphQL */ `
         owner
       }
       businessID
-      status
       color
       material
       photos {
@@ -2371,7 +2351,7 @@ export const onCreateProduct = /* GraphQL */ `
         key
       }
       packagings {
-        unitType
+        isDimentions
         sizeOrDimensions
         weightKgs
         unitBarCode {
@@ -2489,7 +2469,6 @@ export const onUpdateProduct = /* GraphQL */ `
               owner
             }
             businessID
-            status
             color
             material
             photos {
@@ -2523,7 +2502,7 @@ export const onUpdateProduct = /* GraphQL */ `
               key
             }
             packagings {
-              unitType
+              isDimentions
               sizeOrDimensions
               weightKgs
               unitBarCode {
@@ -2588,7 +2567,6 @@ export const onUpdateProduct = /* GraphQL */ `
         owner
       }
       businessID
-      status
       color
       material
       photos {
@@ -2622,7 +2600,7 @@ export const onUpdateProduct = /* GraphQL */ `
         key
       }
       packagings {
-        unitType
+        isDimentions
         sizeOrDimensions
         weightKgs
         unitBarCode {
@@ -2740,7 +2718,6 @@ export const onDeleteProduct = /* GraphQL */ `
               owner
             }
             businessID
-            status
             color
             material
             photos {
@@ -2774,7 +2751,7 @@ export const onDeleteProduct = /* GraphQL */ `
               key
             }
             packagings {
-              unitType
+              isDimentions
               sizeOrDimensions
               weightKgs
               unitBarCode {
@@ -2839,7 +2816,6 @@ export const onDeleteProduct = /* GraphQL */ `
         owner
       }
       businessID
-      status
       color
       material
       photos {
@@ -2873,7 +2849,7 @@ export const onDeleteProduct = /* GraphQL */ `
         key
       }
       packagings {
-        unitType
+        isDimentions
         sizeOrDimensions
         weightKgs
         unitBarCode {

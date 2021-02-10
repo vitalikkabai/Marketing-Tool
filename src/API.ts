@@ -89,19 +89,6 @@ export enum Stage {
 }
 
 
-export enum ProductStatus {
-  INPROGRESS = "INPROGRESS",
-  DONE = "DONE",
-  AWAITING = "AWAITING",
-}
-
-
-export enum UnitType {
-  SIZE = "SIZE",
-  DIMENSIONS = "DIMENSIONS",
-}
-
-
 export type UpdateBusinessInput = {
   id: string,
   companyName?: string | null,
@@ -215,7 +202,6 @@ export type CreateProductInput = {
   websiteURLs: Array< string >,
   stage: Stage,
   businessID: string,
-  status: ProductStatus,
   color: Array< string >,
   material: Array< string >,
   photos: Array< S3ObjectInput >,
@@ -228,7 +214,7 @@ export type CreateProductInput = {
 };
 
 export type ProductPackagingInput = {
-  unitType: UnitType,
+  isDimentions: boolean,
   sizeOrDimensions: string,
   weightKgs: number,
   unitBarCode: S3ObjectInput,
@@ -244,7 +230,6 @@ export type ModelProductConditionInput = {
   websiteURLs?: ModelStringInput | null,
   stage?: ModelStageInput | null,
   businessID?: ModelIDInput | null,
-  status?: ModelProductStatusInput | null,
   color?: ModelStringInput | null,
   material?: ModelStringInput | null,
   and?: Array< ModelProductConditionInput | null > | null,
@@ -269,11 +254,6 @@ export type ModelStageInput = {
   ne?: Stage | null,
 };
 
-export type ModelProductStatusInput = {
-  eq?: ProductStatus | null,
-  ne?: ProductStatus | null,
-};
-
 export type UpdateProductInput = {
   id: string,
   itemNumber?: number | null,
@@ -282,7 +262,6 @@ export type UpdateProductInput = {
   websiteURLs?: Array< string > | null,
   stage?: Stage | null,
   businessID?: string | null,
-  status?: ProductStatus | null,
   color?: Array< string > | null,
   material?: Array< string > | null,
   photos?: Array< S3ObjectInput > | null,
@@ -392,7 +371,6 @@ export type ModelProductFilterInput = {
   websiteURLs?: ModelStringInput | null,
   stage?: ModelStageInput | null,
   businessID?: ModelIDInput | null,
-  status?: ModelProductStatusInput | null,
   color?: ModelStringInput | null,
   material?: ModelStringInput | null,
   and?: Array< ModelProductFilterInput | null > | null,
@@ -518,7 +496,6 @@ export type CreateBusinessMutation = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -625,7 +602,6 @@ export type CreateBusinessMutation = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -658,7 +634,6 @@ export type CreateBusinessMutation = {
           owner: string | null,
         } | null,
         businessID: string,
-        status: ProductStatus,
         color: Array< string >,
         material: Array< string >,
         photos:  Array< {
@@ -699,7 +674,7 @@ export type CreateBusinessMutation = {
         } >,
         packagings:  Array< {
           __typename: "ProductPackaging",
-          unitType: UnitType,
+          isDimentions: boolean,
           sizeOrDimensions: string,
           weightKgs: number,
           unitBarCode:  {
@@ -752,7 +727,6 @@ export type CreateBusinessMutation = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -856,7 +830,6 @@ export type UpdateBusinessMutation = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -963,7 +936,6 @@ export type UpdateBusinessMutation = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -996,7 +968,6 @@ export type UpdateBusinessMutation = {
           owner: string | null,
         } | null,
         businessID: string,
-        status: ProductStatus,
         color: Array< string >,
         material: Array< string >,
         photos:  Array< {
@@ -1037,7 +1008,7 @@ export type UpdateBusinessMutation = {
         } >,
         packagings:  Array< {
           __typename: "ProductPackaging",
-          unitType: UnitType,
+          isDimentions: boolean,
           sizeOrDimensions: string,
           weightKgs: number,
           unitBarCode:  {
@@ -1090,7 +1061,6 @@ export type UpdateBusinessMutation = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -1194,7 +1164,6 @@ export type DeleteBusinessMutation = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -1301,7 +1270,6 @@ export type DeleteBusinessMutation = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -1334,7 +1302,6 @@ export type DeleteBusinessMutation = {
           owner: string | null,
         } | null,
         businessID: string,
-        status: ProductStatus,
         color: Array< string >,
         material: Array< string >,
         photos:  Array< {
@@ -1375,7 +1342,7 @@ export type DeleteBusinessMutation = {
         } >,
         packagings:  Array< {
           __typename: "ProductPackaging",
-          unitType: UnitType,
+          isDimentions: boolean,
           sizeOrDimensions: string,
           weightKgs: number,
           unitBarCode:  {
@@ -1428,7 +1395,6 @@ export type DeleteBusinessMutation = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -1603,7 +1569,6 @@ export type CreateEmployeeMutation = {
             owner: string | null,
           } | null,
           businessID: string,
-          status: ProductStatus,
           color: Array< string >,
           material: Array< string >,
           photos:  Array< {
@@ -1644,7 +1609,7 @@ export type CreateEmployeeMutation = {
           } >,
           packagings:  Array< {
             __typename: "ProductPackaging",
-            unitType: UnitType,
+            isDimentions: boolean,
             sizeOrDimensions: string,
             weightKgs: number,
             unitBarCode:  {
@@ -1870,7 +1835,6 @@ export type UpdateEmployeeMutation = {
             owner: string | null,
           } | null,
           businessID: string,
-          status: ProductStatus,
           color: Array< string >,
           material: Array< string >,
           photos:  Array< {
@@ -1911,7 +1875,7 @@ export type UpdateEmployeeMutation = {
           } >,
           packagings:  Array< {
             __typename: "ProductPackaging",
-            unitType: UnitType,
+            isDimentions: boolean,
             sizeOrDimensions: string,
             weightKgs: number,
             unitBarCode:  {
@@ -2137,7 +2101,6 @@ export type DeleteEmployeeMutation = {
             owner: string | null,
           } | null,
           businessID: string,
-          status: ProductStatus,
           color: Array< string >,
           material: Array< string >,
           photos:  Array< {
@@ -2178,7 +2141,7 @@ export type DeleteEmployeeMutation = {
           } >,
           packagings:  Array< {
             __typename: "ProductPackaging",
-            unitType: UnitType,
+            isDimentions: boolean,
             sizeOrDimensions: string,
             weightKgs: number,
             unitBarCode:  {
@@ -2372,7 +2335,6 @@ export type CreateManagerMutation = {
               owner: string | null,
             } | null,
             businessID: string,
-            status: ProductStatus,
             color: Array< string >,
             material: Array< string >,
             photos:  Array< {
@@ -2413,7 +2375,7 @@ export type CreateManagerMutation = {
             } >,
             packagings:  Array< {
               __typename: "ProductPackaging",
-              unitType: UnitType,
+              isDimentions: boolean,
               sizeOrDimensions: string,
               weightKgs: number,
               pieces: number,
@@ -2572,7 +2534,6 @@ export type UpdateManagerMutation = {
               owner: string | null,
             } | null,
             businessID: string,
-            status: ProductStatus,
             color: Array< string >,
             material: Array< string >,
             photos:  Array< {
@@ -2613,7 +2574,7 @@ export type UpdateManagerMutation = {
             } >,
             packagings:  Array< {
               __typename: "ProductPackaging",
-              unitType: UnitType,
+              isDimentions: boolean,
               sizeOrDimensions: string,
               weightKgs: number,
               pieces: number,
@@ -2772,7 +2733,6 @@ export type DeleteManagerMutation = {
               owner: string | null,
             } | null,
             businessID: string,
-            status: ProductStatus,
             color: Array< string >,
             material: Array< string >,
             photos:  Array< {
@@ -2813,7 +2773,7 @@ export type DeleteManagerMutation = {
             } >,
             packagings:  Array< {
               __typename: "ProductPackaging",
-              unitType: UnitType,
+              isDimentions: boolean,
               sizeOrDimensions: string,
               weightKgs: number,
               pieces: number,
@@ -3075,7 +3035,6 @@ export type CreateProductMutation = {
             owner: string | null,
           } | null,
           businessID: string,
-          status: ProductStatus,
           color: Array< string >,
           material: Array< string >,
           photos:  Array< {
@@ -3116,7 +3075,7 @@ export type CreateProductMutation = {
           } >,
           packagings:  Array< {
             __typename: "ProductPackaging",
-            unitType: UnitType,
+            isDimentions: boolean,
             sizeOrDimensions: string,
             weightKgs: number,
             unitBarCode:  {
@@ -3190,7 +3149,6 @@ export type CreateProductMutation = {
       owner: string | null,
     } | null,
     businessID: string,
-    status: ProductStatus,
     color: Array< string >,
     material: Array< string >,
     photos:  Array< {
@@ -3231,7 +3189,7 @@ export type CreateProductMutation = {
     } >,
     packagings:  Array< {
       __typename: "ProductPackaging",
-      unitType: UnitType,
+      isDimentions: boolean,
       sizeOrDimensions: string,
       weightKgs: number,
       unitBarCode:  {
@@ -3372,7 +3330,6 @@ export type UpdateProductMutation = {
             owner: string | null,
           } | null,
           businessID: string,
-          status: ProductStatus,
           color: Array< string >,
           material: Array< string >,
           photos:  Array< {
@@ -3413,7 +3370,7 @@ export type UpdateProductMutation = {
           } >,
           packagings:  Array< {
             __typename: "ProductPackaging",
-            unitType: UnitType,
+            isDimentions: boolean,
             sizeOrDimensions: string,
             weightKgs: number,
             unitBarCode:  {
@@ -3487,7 +3444,6 @@ export type UpdateProductMutation = {
       owner: string | null,
     } | null,
     businessID: string,
-    status: ProductStatus,
     color: Array< string >,
     material: Array< string >,
     photos:  Array< {
@@ -3528,7 +3484,7 @@ export type UpdateProductMutation = {
     } >,
     packagings:  Array< {
       __typename: "ProductPackaging",
-      unitType: UnitType,
+      isDimentions: boolean,
       sizeOrDimensions: string,
       weightKgs: number,
       unitBarCode:  {
@@ -3669,7 +3625,6 @@ export type DeleteProductMutation = {
             owner: string | null,
           } | null,
           businessID: string,
-          status: ProductStatus,
           color: Array< string >,
           material: Array< string >,
           photos:  Array< {
@@ -3710,7 +3665,7 @@ export type DeleteProductMutation = {
           } >,
           packagings:  Array< {
             __typename: "ProductPackaging",
-            unitType: UnitType,
+            isDimentions: boolean,
             sizeOrDimensions: string,
             weightKgs: number,
             unitBarCode:  {
@@ -3784,7 +3739,6 @@ export type DeleteProductMutation = {
       owner: string | null,
     } | null,
     businessID: string,
-    status: ProductStatus,
     color: Array< string >,
     material: Array< string >,
     photos:  Array< {
@@ -3825,7 +3779,7 @@ export type DeleteProductMutation = {
     } >,
     packagings:  Array< {
       __typename: "ProductPackaging",
-      unitType: UnitType,
+      isDimentions: boolean,
       sizeOrDimensions: string,
       weightKgs: number,
       unitBarCode:  {
@@ -3970,7 +3924,6 @@ export type GetBusinessQuery = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -4077,7 +4030,6 @@ export type GetBusinessQuery = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -4110,7 +4062,6 @@ export type GetBusinessQuery = {
           owner: string | null,
         } | null,
         businessID: string,
-        status: ProductStatus,
         color: Array< string >,
         material: Array< string >,
         photos:  Array< {
@@ -4151,7 +4102,7 @@ export type GetBusinessQuery = {
         } >,
         packagings:  Array< {
           __typename: "ProductPackaging",
-          unitType: UnitType,
+          isDimentions: boolean,
           sizeOrDimensions: string,
           weightKgs: number,
           unitBarCode:  {
@@ -4204,7 +4155,6 @@ export type GetBusinessQuery = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -4379,7 +4329,6 @@ export type ListBusinesssQuery = {
             owner: string | null,
           } | null,
           businessID: string,
-          status: ProductStatus,
           color: Array< string >,
           material: Array< string >,
           photos:  Array< {
@@ -4420,7 +4369,7 @@ export type ListBusinesssQuery = {
           } >,
           packagings:  Array< {
             __typename: "ProductPackaging",
-            unitType: UnitType,
+            isDimentions: boolean,
             sizeOrDimensions: string,
             weightKgs: number,
             unitBarCode:  {
@@ -4613,7 +4562,6 @@ export type GetEmployeeQuery = {
             owner: string | null,
           } | null,
           businessID: string,
-          status: ProductStatus,
           color: Array< string >,
           material: Array< string >,
           photos:  Array< {
@@ -4654,7 +4602,7 @@ export type GetEmployeeQuery = {
           } >,
           packagings:  Array< {
             __typename: "ProductPackaging",
-            unitType: UnitType,
+            isDimentions: boolean,
             sizeOrDimensions: string,
             weightKgs: number,
             unitBarCode:  {
@@ -4849,7 +4797,6 @@ export type ListEmployeesQuery = {
               owner: string | null,
             } | null,
             businessID: string,
-            status: ProductStatus,
             color: Array< string >,
             material: Array< string >,
             photos:  Array< {
@@ -4890,7 +4837,7 @@ export type ListEmployeesQuery = {
             } >,
             packagings:  Array< {
               __typename: "ProductPackaging",
-              unitType: UnitType,
+              isDimentions: boolean,
               sizeOrDimensions: string,
               weightKgs: number,
               pieces: number,
@@ -5065,7 +5012,6 @@ export type GetManagerQuery = {
               owner: string | null,
             } | null,
             businessID: string,
-            status: ProductStatus,
             color: Array< string >,
             material: Array< string >,
             photos:  Array< {
@@ -5106,7 +5052,7 @@ export type GetManagerQuery = {
             } >,
             packagings:  Array< {
               __typename: "ProductPackaging",
-              unitType: UnitType,
+              isDimentions: boolean,
               sizeOrDimensions: string,
               weightKgs: number,
               pieces: number,
@@ -5223,7 +5169,6 @@ export type ListManagersQuery = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -5399,7 +5344,6 @@ export type GetProductQuery = {
             owner: string | null,
           } | null,
           businessID: string,
-          status: ProductStatus,
           color: Array< string >,
           material: Array< string >,
           photos:  Array< {
@@ -5440,7 +5384,7 @@ export type GetProductQuery = {
           } >,
           packagings:  Array< {
             __typename: "ProductPackaging",
-            unitType: UnitType,
+            isDimentions: boolean,
             sizeOrDimensions: string,
             weightKgs: number,
             unitBarCode:  {
@@ -5514,7 +5458,6 @@ export type GetProductQuery = {
       owner: string | null,
     } | null,
     businessID: string,
-    status: ProductStatus,
     color: Array< string >,
     material: Array< string >,
     photos:  Array< {
@@ -5555,7 +5498,7 @@ export type GetProductQuery = {
     } >,
     packagings:  Array< {
       __typename: "ProductPackaging",
-      unitType: UnitType,
+      isDimentions: boolean,
       sizeOrDimensions: string,
       weightKgs: number,
       unitBarCode:  {
@@ -5665,7 +5608,6 @@ export type ListProductsQuery = {
               owner: string | null,
             } | null,
             businessID: string,
-            status: ProductStatus,
             color: Array< string >,
             material: Array< string >,
             photos:  Array< {
@@ -5706,7 +5648,7 @@ export type ListProductsQuery = {
             } >,
             packagings:  Array< {
               __typename: "ProductPackaging",
-              unitType: UnitType,
+              isDimentions: boolean,
               sizeOrDimensions: string,
               weightKgs: number,
               pieces: number,
@@ -5760,7 +5702,6 @@ export type ListProductsQuery = {
         owner: string | null,
       } | null,
       businessID: string,
-      status: ProductStatus,
       color: Array< string >,
       material: Array< string >,
       photos:  Array< {
@@ -5801,7 +5742,7 @@ export type ListProductsQuery = {
       } >,
       packagings:  Array< {
         __typename: "ProductPackaging",
-        unitType: UnitType,
+        isDimentions: boolean,
         sizeOrDimensions: string,
         weightKgs: number,
         unitBarCode:  {
@@ -6000,7 +5941,6 @@ export type ByManagerAndCompanyQuery = {
             owner: string | null,
           } | null,
           businessID: string,
-          status: ProductStatus,
           color: Array< string >,
           material: Array< string >,
           photos:  Array< {
@@ -6041,7 +5981,7 @@ export type ByManagerAndCompanyQuery = {
           } >,
           packagings:  Array< {
             __typename: "ProductPackaging",
-            unitType: UnitType,
+            isDimentions: boolean,
             sizeOrDimensions: string,
             weightKgs: number,
             unitBarCode:  {
@@ -6206,7 +6146,6 @@ export type EmployeeByBusinessAndNameQuery = {
               owner: string | null,
             } | null,
             businessID: string,
-            status: ProductStatus,
             color: Array< string >,
             material: Array< string >,
             photos:  Array< {
@@ -6247,7 +6186,7 @@ export type EmployeeByBusinessAndNameQuery = {
             } >,
             packagings:  Array< {
               __typename: "ProductPackaging",
-              unitType: UnitType,
+              isDimentions: boolean,
               sizeOrDimensions: string,
               weightKgs: number,
               pieces: number,
@@ -6431,7 +6370,6 @@ export type ByBusinessQuery = {
               owner: string | null,
             } | null,
             businessID: string,
-            status: ProductStatus,
             color: Array< string >,
             material: Array< string >,
             photos:  Array< {
@@ -6472,7 +6410,7 @@ export type ByBusinessQuery = {
             } >,
             packagings:  Array< {
               __typename: "ProductPackaging",
-              unitType: UnitType,
+              isDimentions: boolean,
               sizeOrDimensions: string,
               weightKgs: number,
               pieces: number,
@@ -6526,7 +6464,6 @@ export type ByBusinessQuery = {
         owner: string | null,
       } | null,
       businessID: string,
-      status: ProductStatus,
       color: Array< string >,
       material: Array< string >,
       photos:  Array< {
@@ -6567,7 +6504,7 @@ export type ByBusinessQuery = {
       } >,
       packagings:  Array< {
         __typename: "ProductPackaging",
-        unitType: UnitType,
+        isDimentions: boolean,
         sizeOrDimensions: string,
         weightKgs: number,
         unitBarCode:  {
@@ -6882,7 +6819,6 @@ export type OnCreateBusinessSubscription = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -6989,7 +6925,6 @@ export type OnCreateBusinessSubscription = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -7022,7 +6957,6 @@ export type OnCreateBusinessSubscription = {
           owner: string | null,
         } | null,
         businessID: string,
-        status: ProductStatus,
         color: Array< string >,
         material: Array< string >,
         photos:  Array< {
@@ -7063,7 +6997,7 @@ export type OnCreateBusinessSubscription = {
         } >,
         packagings:  Array< {
           __typename: "ProductPackaging",
-          unitType: UnitType,
+          isDimentions: boolean,
           sizeOrDimensions: string,
           weightKgs: number,
           unitBarCode:  {
@@ -7116,7 +7050,6 @@ export type OnCreateBusinessSubscription = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -7215,7 +7148,6 @@ export type OnUpdateBusinessSubscription = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -7322,7 +7254,6 @@ export type OnUpdateBusinessSubscription = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -7355,7 +7286,6 @@ export type OnUpdateBusinessSubscription = {
           owner: string | null,
         } | null,
         businessID: string,
-        status: ProductStatus,
         color: Array< string >,
         material: Array< string >,
         photos:  Array< {
@@ -7396,7 +7326,7 @@ export type OnUpdateBusinessSubscription = {
         } >,
         packagings:  Array< {
           __typename: "ProductPackaging",
-          unitType: UnitType,
+          isDimentions: boolean,
           sizeOrDimensions: string,
           weightKgs: number,
           unitBarCode:  {
@@ -7449,7 +7379,6 @@ export type OnUpdateBusinessSubscription = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -7548,7 +7477,6 @@ export type OnDeleteBusinessSubscription = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -7655,7 +7583,6 @@ export type OnDeleteBusinessSubscription = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -7688,7 +7615,6 @@ export type OnDeleteBusinessSubscription = {
           owner: string | null,
         } | null,
         businessID: string,
-        status: ProductStatus,
         color: Array< string >,
         material: Array< string >,
         photos:  Array< {
@@ -7729,7 +7655,7 @@ export type OnDeleteBusinessSubscription = {
         } >,
         packagings:  Array< {
           __typename: "ProductPackaging",
-          unitType: UnitType,
+          isDimentions: boolean,
           sizeOrDimensions: string,
           weightKgs: number,
           unitBarCode:  {
@@ -7782,7 +7708,6 @@ export type OnDeleteBusinessSubscription = {
               websiteURLs: Array< string >,
               stage: Stage,
               businessID: string,
-              status: ProductStatus,
               color: Array< string >,
               material: Array< string >,
               createdAt: string,
@@ -7952,7 +7877,6 @@ export type OnCreateEmployeeSubscription = {
             owner: string | null,
           } | null,
           businessID: string,
-          status: ProductStatus,
           color: Array< string >,
           material: Array< string >,
           photos:  Array< {
@@ -7993,7 +7917,7 @@ export type OnCreateEmployeeSubscription = {
           } >,
           packagings:  Array< {
             __typename: "ProductPackaging",
-            unitType: UnitType,
+            isDimentions: boolean,
             sizeOrDimensions: string,
             weightKgs: number,
             unitBarCode:  {
@@ -8214,7 +8138,6 @@ export type OnUpdateEmployeeSubscription = {
             owner: string | null,
           } | null,
           businessID: string,
-          status: ProductStatus,
           color: Array< string >,
           material: Array< string >,
           photos:  Array< {
@@ -8255,7 +8178,7 @@ export type OnUpdateEmployeeSubscription = {
           } >,
           packagings:  Array< {
             __typename: "ProductPackaging",
-            unitType: UnitType,
+            isDimentions: boolean,
             sizeOrDimensions: string,
             weightKgs: number,
             unitBarCode:  {
@@ -8476,7 +8399,6 @@ export type OnDeleteEmployeeSubscription = {
             owner: string | null,
           } | null,
           businessID: string,
-          status: ProductStatus,
           color: Array< string >,
           material: Array< string >,
           photos:  Array< {
@@ -8517,7 +8439,7 @@ export type OnDeleteEmployeeSubscription = {
           } >,
           packagings:  Array< {
             __typename: "ProductPackaging",
-            unitType: UnitType,
+            isDimentions: boolean,
             sizeOrDimensions: string,
             weightKgs: number,
             unitBarCode:  {
@@ -8706,7 +8628,6 @@ export type OnCreateManagerSubscription = {
               owner: string | null,
             } | null,
             businessID: string,
-            status: ProductStatus,
             color: Array< string >,
             material: Array< string >,
             photos:  Array< {
@@ -8747,7 +8668,7 @@ export type OnCreateManagerSubscription = {
             } >,
             packagings:  Array< {
               __typename: "ProductPackaging",
-              unitType: UnitType,
+              isDimentions: boolean,
               sizeOrDimensions: string,
               weightKgs: number,
               pieces: number,
@@ -8901,7 +8822,6 @@ export type OnUpdateManagerSubscription = {
               owner: string | null,
             } | null,
             businessID: string,
-            status: ProductStatus,
             color: Array< string >,
             material: Array< string >,
             photos:  Array< {
@@ -8942,7 +8862,7 @@ export type OnUpdateManagerSubscription = {
             } >,
             packagings:  Array< {
               __typename: "ProductPackaging",
-              unitType: UnitType,
+              isDimentions: boolean,
               sizeOrDimensions: string,
               weightKgs: number,
               pieces: number,
@@ -9096,7 +9016,6 @@ export type OnDeleteManagerSubscription = {
               owner: string | null,
             } | null,
             businessID: string,
-            status: ProductStatus,
             color: Array< string >,
             material: Array< string >,
             photos:  Array< {
@@ -9137,7 +9056,7 @@ export type OnDeleteManagerSubscription = {
             } >,
             packagings:  Array< {
               __typename: "ProductPackaging",
-              unitType: UnitType,
+              isDimentions: boolean,
               sizeOrDimensions: string,
               weightKgs: number,
               pieces: number,
@@ -9328,7 +9247,6 @@ export type OnCreateProductSubscription = {
             owner: string | null,
           } | null,
           businessID: string,
-          status: ProductStatus,
           color: Array< string >,
           material: Array< string >,
           photos:  Array< {
@@ -9369,7 +9287,7 @@ export type OnCreateProductSubscription = {
           } >,
           packagings:  Array< {
             __typename: "ProductPackaging",
-            unitType: UnitType,
+            isDimentions: boolean,
             sizeOrDimensions: string,
             weightKgs: number,
             unitBarCode:  {
@@ -9443,7 +9361,6 @@ export type OnCreateProductSubscription = {
       owner: string | null,
     } | null,
     businessID: string,
-    status: ProductStatus,
     color: Array< string >,
     material: Array< string >,
     photos:  Array< {
@@ -9484,7 +9401,7 @@ export type OnCreateProductSubscription = {
     } >,
     packagings:  Array< {
       __typename: "ProductPackaging",
-      unitType: UnitType,
+      isDimentions: boolean,
       sizeOrDimensions: string,
       weightKgs: number,
       unitBarCode:  {
@@ -9620,7 +9537,6 @@ export type OnUpdateProductSubscription = {
             owner: string | null,
           } | null,
           businessID: string,
-          status: ProductStatus,
           color: Array< string >,
           material: Array< string >,
           photos:  Array< {
@@ -9661,7 +9577,7 @@ export type OnUpdateProductSubscription = {
           } >,
           packagings:  Array< {
             __typename: "ProductPackaging",
-            unitType: UnitType,
+            isDimentions: boolean,
             sizeOrDimensions: string,
             weightKgs: number,
             unitBarCode:  {
@@ -9735,7 +9651,6 @@ export type OnUpdateProductSubscription = {
       owner: string | null,
     } | null,
     businessID: string,
-    status: ProductStatus,
     color: Array< string >,
     material: Array< string >,
     photos:  Array< {
@@ -9776,7 +9691,7 @@ export type OnUpdateProductSubscription = {
     } >,
     packagings:  Array< {
       __typename: "ProductPackaging",
-      unitType: UnitType,
+      isDimentions: boolean,
       sizeOrDimensions: string,
       weightKgs: number,
       unitBarCode:  {
@@ -9912,7 +9827,6 @@ export type OnDeleteProductSubscription = {
             owner: string | null,
           } | null,
           businessID: string,
-          status: ProductStatus,
           color: Array< string >,
           material: Array< string >,
           photos:  Array< {
@@ -9953,7 +9867,7 @@ export type OnDeleteProductSubscription = {
           } >,
           packagings:  Array< {
             __typename: "ProductPackaging",
-            unitType: UnitType,
+            isDimentions: boolean,
             sizeOrDimensions: string,
             weightKgs: number,
             unitBarCode:  {
@@ -10027,7 +9941,6 @@ export type OnDeleteProductSubscription = {
       owner: string | null,
     } | null,
     businessID: string,
-    status: ProductStatus,
     color: Array< string >,
     material: Array< string >,
     photos:  Array< {
@@ -10068,7 +9981,7 @@ export type OnDeleteProductSubscription = {
     } >,
     packagings:  Array< {
       __typename: "ProductPackaging",
-      unitType: UnitType,
+      isDimentions: boolean,
       sizeOrDimensions: string,
       weightKgs: number,
       unitBarCode:  {

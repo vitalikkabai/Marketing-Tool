@@ -66,7 +66,6 @@ type Product @model
   stage: Stage!
   business: Business @connection(fields: ["businessID"])
   businessID: ID!
-  status: ProductStatus!
   color: [String!]!
   material: [String!]!
   photos: [S3Object!]!
@@ -78,25 +77,14 @@ type Product @model
   packagings: [ProductPackaging!]!
 }
 
-enum ProductStatus {
-  INPROGRESS
-  DONE
-  AWAITING
-}
-
 type ProductPackaging {
-  unitType: UnitType!
+  isDimentions: Boolean!
   sizeOrDimensions: String!
   weightKgs: Int!
   unitBarCode: S3Object!
   pieces: Int!
   packegeWeightKgs: Int!
   packageDimentions: Int!
-}
-
-enum UnitType {
-  SIZE
-  DIMENSIONS
 }
 
 type Message @model(subscriptions: null)
