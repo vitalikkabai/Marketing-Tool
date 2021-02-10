@@ -12,6 +12,7 @@ import ProfileEpics from "./Profile/ProfileEpic";
 import MessageEpics from './Message/MessageEpic';
 import MessageReducer from './Message/MessageReducer';
 import ManagerReducer from './Manager/ManagerReducer'; 
+import ProductReducer from './Product/ProductReducer'; 
 
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,7 +33,8 @@ const rootReducer = combineReducers({
     AuthReducer,
     ProfileReducer,
     MessageReducer,
-    ManagerReducer
+    ManagerReducer,
+    ProductReducer
 })
 
 type RootReducerType = typeof rootReducer;
