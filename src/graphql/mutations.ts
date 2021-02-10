@@ -16,76 +16,6 @@ export const createBusiness = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      employees {
-        items {
-          id
-          businessID
-          roleTags {
-            sales
-            marketing
-            logistics
-            accounting
-            production
-            qualityControl
-          }
-          countryCode {
-            code
-            label
-            phone
-          }
-          phoneNumber
-          createdAt
-          updatedAt
-          business {
-            id
-            companyName
-            storeURLs
-            websiteURLs
-            managerID
-            createdAt
-            updatedAt
-            owner
-          }
-          profile {
-            id
-            email
-            name
-            createdAt
-            updatedAt
-          }
-        }
-        nextToken
-      }
-      manager {
-        id
-        createdAt
-        updatedAt
-        businesses {
-          items {
-            id
-            companyName
-            storeURLs
-            websiteURLs
-            managerID
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
-        profile {
-          id
-          email
-          name
-          avatar {
-            bucket
-            region
-            key
-          }
-          createdAt
-          updatedAt
-        }
-      }
     }
   }
 `;
@@ -103,76 +33,6 @@ export const updateBusiness = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      employees {
-        items {
-          id
-          businessID
-          roleTags {
-            sales
-            marketing
-            logistics
-            accounting
-            production
-            qualityControl
-          }
-          countryCode {
-            code
-            label
-            phone
-          }
-          phoneNumber
-          createdAt
-          updatedAt
-          business {
-            id
-            companyName
-            storeURLs
-            websiteURLs
-            managerID
-            createdAt
-            updatedAt
-            owner
-          }
-          profile {
-            id
-            email
-            name
-            createdAt
-            updatedAt
-          }
-        }
-        nextToken
-      }
-      manager {
-        id
-        createdAt
-        updatedAt
-        businesses {
-          items {
-            id
-            companyName
-            storeURLs
-            websiteURLs
-            managerID
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
-        profile {
-          id
-          email
-          name
-          avatar {
-            bucket
-            region
-            key
-          }
-          createdAt
-          updatedAt
-        }
-      }
     }
   }
 `;
@@ -190,76 +50,6 @@ export const deleteBusiness = /* GraphQL */ `
       createdAt
       updatedAt
       owner
-      employees {
-        items {
-          id
-          businessID
-          roleTags {
-            sales
-            marketing
-            logistics
-            accounting
-            production
-            qualityControl
-          }
-          countryCode {
-            code
-            label
-            phone
-          }
-          phoneNumber
-          createdAt
-          updatedAt
-          business {
-            id
-            companyName
-            storeURLs
-            websiteURLs
-            managerID
-            createdAt
-            updatedAt
-            owner
-          }
-          profile {
-            id
-            email
-            name
-            createdAt
-            updatedAt
-          }
-        }
-        nextToken
-      }
-      manager {
-        id
-        createdAt
-        updatedAt
-        businesses {
-          items {
-            id
-            companyName
-            storeURLs
-            websiteURLs
-            managerID
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
-        profile {
-          id
-          email
-          name
-          avatar {
-            bucket
-            region
-            key
-          }
-          createdAt
-          updatedAt
-        }
-      }
     }
   }
 `;
@@ -287,41 +77,6 @@ export const createEmployee = /* GraphQL */ `
       phoneNumber
       createdAt
       updatedAt
-      business {
-        id
-        companyName
-        storeURLs
-        websiteURLs
-        managerID
-        createdAt
-        updatedAt
-        owner
-        employees {
-          items {
-            id
-            businessID
-            phoneNumber
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-        manager {
-          id
-          createdAt
-          updatedAt
-          businesses {
-            nextToken
-          }
-          profile {
-            id
-            email
-            name
-            createdAt
-            updatedAt
-          }
-        }
-      }
       profile {
         id
         email
@@ -361,41 +116,6 @@ export const updateEmployee = /* GraphQL */ `
       phoneNumber
       createdAt
       updatedAt
-      business {
-        id
-        companyName
-        storeURLs
-        websiteURLs
-        managerID
-        createdAt
-        updatedAt
-        owner
-        employees {
-          items {
-            id
-            businessID
-            phoneNumber
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-        manager {
-          id
-          createdAt
-          updatedAt
-          businesses {
-            nextToken
-          }
-          profile {
-            id
-            email
-            name
-            createdAt
-            updatedAt
-          }
-        }
-      }
       profile {
         id
         email
@@ -435,41 +155,6 @@ export const deleteEmployee = /* GraphQL */ `
       phoneNumber
       createdAt
       updatedAt
-      business {
-        id
-        companyName
-        storeURLs
-        websiteURLs
-        managerID
-        createdAt
-        updatedAt
-        owner
-        employees {
-          items {
-            id
-            businessID
-            phoneNumber
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-        manager {
-          id
-          createdAt
-          updatedAt
-          businesses {
-            nextToken
-          }
-          profile {
-            id
-            email
-            name
-            createdAt
-            updatedAt
-          }
-        }
-      }
       profile {
         id
         email
@@ -492,8 +177,6 @@ export const createManager = /* GraphQL */ `
   ) {
     createManager(input: $input, condition: $condition) {
       id
-      createdAt
-      updatedAt
       businesses {
         items {
           id
@@ -504,17 +187,11 @@ export const createManager = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          employees {
-            nextToken
-          }
-          manager {
-            id
-            createdAt
-            updatedAt
-          }
         }
         nextToken
       }
+      createdAt
+      updatedAt
       profile {
         id
         email
@@ -537,8 +214,6 @@ export const updateManager = /* GraphQL */ `
   ) {
     updateManager(input: $input, condition: $condition) {
       id
-      createdAt
-      updatedAt
       businesses {
         items {
           id
@@ -549,17 +224,11 @@ export const updateManager = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          employees {
-            nextToken
-          }
-          manager {
-            id
-            createdAt
-            updatedAt
-          }
         }
         nextToken
       }
+      createdAt
+      updatedAt
       profile {
         id
         email
@@ -582,8 +251,6 @@ export const deleteManager = /* GraphQL */ `
   ) {
     deleteManager(input: $input, condition: $condition) {
       id
-      createdAt
-      updatedAt
       businesses {
         items {
           id
@@ -594,17 +261,11 @@ export const deleteManager = /* GraphQL */ `
           createdAt
           updatedAt
           owner
-          employees {
-            nextToken
-          }
-          manager {
-            id
-            createdAt
-            updatedAt
-          }
         }
         nextToken
       }
+      createdAt
+      updatedAt
       profile {
         id
         email
@@ -674,6 +335,201 @@ export const deleteProfile = /* GraphQL */ `
       }
       createdAt
       updatedAt
+    }
+  }
+`;
+export const createProduct = /* GraphQL */ `
+  mutation CreateProduct(
+    $input: CreateProductInput!
+    $condition: ModelProductConditionInput
+  ) {
+    createProduct(input: $input, condition: $condition) {
+      id
+      itemNumber
+      itemName
+      release
+      websiteURLs
+      stage
+      businessID
+      status
+      color
+      material
+      photos {
+        bucket
+        region
+        key
+      }
+      videos {
+        bucket
+        region
+        key
+      }
+      certifications {
+        bucket
+        region
+        key
+      }
+      marketingMaterials {
+        bucket
+        region
+        key
+      }
+      packagingPhotos {
+        bucket
+        region
+        key
+      }
+      packagingVideos {
+        bucket
+        region
+        key
+      }
+      packagings {
+        unitType
+        sizeOrDimensions
+        weightKgs
+        unitBarCode {
+          bucket
+          region
+          key
+        }
+        pieces
+        packegeWeightKgs
+        packageDimentions
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateProduct = /* GraphQL */ `
+  mutation UpdateProduct(
+    $input: UpdateProductInput!
+    $condition: ModelProductConditionInput
+  ) {
+    updateProduct(input: $input, condition: $condition) {
+      id
+      itemNumber
+      itemName
+      release
+      websiteURLs
+      stage
+      businessID
+      status
+      color
+      material
+      photos {
+        bucket
+        region
+        key
+      }
+      videos {
+        bucket
+        region
+        key
+      }
+      certifications {
+        bucket
+        region
+        key
+      }
+      marketingMaterials {
+        bucket
+        region
+        key
+      }
+      packagingPhotos {
+        bucket
+        region
+        key
+      }
+      packagingVideos {
+        bucket
+        region
+        key
+      }
+      packagings {
+        unitType
+        sizeOrDimensions
+        weightKgs
+        unitBarCode {
+          bucket
+          region
+          key
+        }
+        pieces
+        packegeWeightKgs
+        packageDimentions
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteProduct = /* GraphQL */ `
+  mutation DeleteProduct(
+    $input: DeleteProductInput!
+    $condition: ModelProductConditionInput
+  ) {
+    deleteProduct(input: $input, condition: $condition) {
+      id
+      itemNumber
+      itemName
+      release
+      websiteURLs
+      stage
+      businessID
+      status
+      color
+      material
+      photos {
+        bucket
+        region
+        key
+      }
+      videos {
+        bucket
+        region
+        key
+      }
+      certifications {
+        bucket
+        region
+        key
+      }
+      marketingMaterials {
+        bucket
+        region
+        key
+      }
+      packagingPhotos {
+        bucket
+        region
+        key
+      }
+      packagingVideos {
+        bucket
+        region
+        key
+      }
+      packagings {
+        unitType
+        sizeOrDimensions
+        weightKgs
+        unitBarCode {
+          bucket
+          region
+          key
+        }
+        pieces
+        packegeWeightKgs
+        packageDimentions
+      }
+      createdAt
+      updatedAt
+      owner
     }
   }
 `;

@@ -181,18 +181,24 @@ export type DeleteProfileInput = {
   id?: string | null,
 };
 
-export type CreateMessageInput = {
+export type CreateProductInput = {
   id?: string | null,
+  itemNumber: number,
+  itemName: string,
+  release: string,
+  websiteURLs: Array< string >,
   stage: Stage,
-  subjectID: string,
-  senderID: string,
-  receiverID: string,
-  sharedID: string,
-  content: string,
-  status: MessageStatus,
-  attachment?: S3ObjectInput | null,
-  createdAt?: string | null,
-  updatedAt?: string | null,
+  businessID: string,
+  status: ProductStatus,
+  color: Array< string >,
+  material: Array< string >,
+  photos: Array< S3ObjectInput >,
+  videos: Array< S3ObjectInput >,
+  certifications: Array< S3ObjectInput >,
+  marketingMaterials: Array< S3ObjectInput >,
+  packagingPhotos: Array< S3ObjectInput >,
+  packagingVideos: Array< S3ObjectInput >,
+  packagings: Array< ProductPackagingInput >,
 };
 
 export enum Stage {
@@ -207,6 +213,104 @@ export enum Stage {
   IMPROVEMENTS = "IMPROVEMENTS",
 }
 
+
+export enum ProductStatus {
+  INPROGRESS = "INPROGRESS",
+  DONE = "DONE",
+  AWAITING = "AWAITING",
+}
+
+
+export type ProductPackagingInput = {
+  unitType: UnitType,
+  sizeOrDimensions: string,
+  weightKgs: number,
+  unitBarCode: S3ObjectInput,
+  pieces: number,
+  packegeWeightKgs: number,
+  packageDimentions: number,
+};
+
+export enum UnitType {
+  SIZE = "SIZE",
+  DIMENSIONS = "DIMENSIONS",
+}
+
+
+export type ModelProductConditionInput = {
+  itemNumber?: ModelIntInput | null,
+  itemName?: ModelStringInput | null,
+  release?: ModelStringInput | null,
+  websiteURLs?: ModelStringInput | null,
+  stage?: ModelStageInput | null,
+  businessID?: ModelIDInput | null,
+  status?: ModelProductStatusInput | null,
+  color?: ModelStringInput | null,
+  material?: ModelStringInput | null,
+  and?: Array< ModelProductConditionInput | null > | null,
+  or?: Array< ModelProductConditionInput | null > | null,
+  not?: ModelProductConditionInput | null,
+};
+
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type ModelStageInput = {
+  eq?: Stage | null,
+  ne?: Stage | null,
+};
+
+export type ModelProductStatusInput = {
+  eq?: ProductStatus | null,
+  ne?: ProductStatus | null,
+};
+
+export type UpdateProductInput = {
+  id: string,
+  itemNumber?: number | null,
+  itemName?: string | null,
+  release?: string | null,
+  websiteURLs?: Array< string > | null,
+  stage?: Stage | null,
+  businessID?: string | null,
+  status?: ProductStatus | null,
+  color?: Array< string > | null,
+  material?: Array< string > | null,
+  photos?: Array< S3ObjectInput > | null,
+  videos?: Array< S3ObjectInput > | null,
+  certifications?: Array< S3ObjectInput > | null,
+  marketingMaterials?: Array< S3ObjectInput > | null,
+  packagingPhotos?: Array< S3ObjectInput > | null,
+  packagingVideos?: Array< S3ObjectInput > | null,
+  packagings?: Array< ProductPackagingInput > | null,
+};
+
+export type DeleteProductInput = {
+  id?: string | null,
+};
+
+export type CreateMessageInput = {
+  id?: string | null,
+  stage: Stage,
+  subjectID: string,
+  senderID: string,
+  receiverID: string,
+  sharedID: string,
+  content: string,
+  status: MessageStatus,
+  attachment?: S3ObjectInput | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
+};
 
 export enum MessageStatus {
   CREATED = "CREATED",
@@ -230,11 +334,6 @@ export type ModelMessageConditionInput = {
   not?: ModelMessageConditionInput | null,
 };
 
-export type ModelStageInput = {
-  eq?: Stage | null,
-  ne?: Stage | null,
-};
-
 export type ModelMessageStatusInput = {
   eq?: MessageStatus | null,
   ne?: MessageStatus | null,
@@ -256,6 +355,49 @@ export type UpdateMessageInput = {
 
 export type DeleteMessageInput = {
   id?: string | null,
+};
+
+export type ModelBusinessFilterInput = {
+  id?: ModelIDInput | null,
+  companyName?: ModelStringInput | null,
+  storeURLs?: ModelStringInput | null,
+  websiteURLs?: ModelStringInput | null,
+  managerID?: ModelIDInput | null,
+  and?: Array< ModelBusinessFilterInput | null > | null,
+  or?: Array< ModelBusinessFilterInput | null > | null,
+  not?: ModelBusinessFilterInput | null,
+};
+
+export type ModelEmployeeFilterInput = {
+  id?: ModelIDInput | null,
+  businessID?: ModelIDInput | null,
+  phoneNumber?: ModelStringInput | null,
+  and?: Array< ModelEmployeeFilterInput | null > | null,
+  or?: Array< ModelEmployeeFilterInput | null > | null,
+  not?: ModelEmployeeFilterInput | null,
+};
+
+export type ModelManagerFilterInput = {
+  id?: ModelIDInput | null,
+  and?: Array< ModelManagerFilterInput | null > | null,
+  or?: Array< ModelManagerFilterInput | null > | null,
+  not?: ModelManagerFilterInput | null,
+};
+
+export type ModelProductFilterInput = {
+  id?: ModelIDInput | null,
+  itemNumber?: ModelIntInput | null,
+  itemName?: ModelStringInput | null,
+  release?: ModelStringInput | null,
+  websiteURLs?: ModelStringInput | null,
+  stage?: ModelStageInput | null,
+  businessID?: ModelIDInput | null,
+  status?: ModelProductStatusInput | null,
+  color?: ModelStringInput | null,
+  material?: ModelStringInput | null,
+  and?: Array< ModelProductFilterInput | null > | null,
+  or?: Array< ModelProductFilterInput | null > | null,
+  not?: ModelProductFilterInput | null,
 };
 
 export type ModelMessageFilterInput = {
@@ -321,33 +463,6 @@ export type ModelMessageGetConversationCompositeKeyInput = {
   createdAt?: string | null,
 };
 
-export type ModelBusinessFilterInput = {
-  id?: ModelIDInput | null,
-  companyName?: ModelStringInput | null,
-  storeURLs?: ModelStringInput | null,
-  websiteURLs?: ModelStringInput | null,
-  managerID?: ModelIDInput | null,
-  and?: Array< ModelBusinessFilterInput | null > | null,
-  or?: Array< ModelBusinessFilterInput | null > | null,
-  not?: ModelBusinessFilterInput | null,
-};
-
-export type ModelEmployeeFilterInput = {
-  id?: ModelIDInput | null,
-  businessID?: ModelIDInput | null,
-  phoneNumber?: ModelStringInput | null,
-  and?: Array< ModelEmployeeFilterInput | null > | null,
-  or?: Array< ModelEmployeeFilterInput | null > | null,
-  not?: ModelEmployeeFilterInput | null,
-};
-
-export type ModelManagerFilterInput = {
-  id?: ModelIDInput | null,
-  and?: Array< ModelManagerFilterInput | null > | null,
-  or?: Array< ModelManagerFilterInput | null > | null,
-  not?: ModelManagerFilterInput | null,
-};
-
 export type ModelProfileFilterInput = {
   id?: ModelIDInput | null,
   email?: ModelStringInput | null,
@@ -373,87 +488,6 @@ export type CreateBusinessMutation = {
     createdAt: string,
     updatedAt: string,
     owner: string | null,
-    employees:  {
-      __typename: "ModelEmployeeConnection",
-      items:  Array< {
-        __typename: "Employee",
-        id: string,
-        businessID: string,
-        roleTags:  {
-          __typename: "RoleTags",
-          sales: boolean,
-          marketing: boolean,
-          logistics: boolean,
-          accounting: boolean,
-          production: boolean,
-          qualityControl: boolean,
-        },
-        countryCode:  {
-          __typename: "CountryCode",
-          code: string,
-          label: string,
-          phone: string,
-        },
-        phoneNumber: string,
-        createdAt: string,
-        updatedAt: string,
-        business:  {
-          __typename: "Business",
-          id: string,
-          companyName: string,
-          storeURLs: Array< string >,
-          websiteURLs: Array< string >,
-          managerID: string,
-          createdAt: string,
-          updatedAt: string,
-          owner: string | null,
-        } | null,
-        profile:  {
-          __typename: "Profile",
-          id: string,
-          email: string,
-          name: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    manager:  {
-      __typename: "Manager",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      businesses:  {
-        __typename: "ModelBusinessConnection",
-        items:  Array< {
-          __typename: "Business",
-          id: string,
-          companyName: string,
-          storeURLs: Array< string >,
-          websiteURLs: Array< string >,
-          managerID: string,
-          createdAt: string,
-          updatedAt: string,
-          owner: string | null,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      profile:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        avatar:  {
-          __typename: "S3Object",
-          bucket: string,
-          region: string,
-          key: string,
-        } | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-    } | null,
   } | null,
 };
 
@@ -473,87 +507,6 @@ export type UpdateBusinessMutation = {
     createdAt: string,
     updatedAt: string,
     owner: string | null,
-    employees:  {
-      __typename: "ModelEmployeeConnection",
-      items:  Array< {
-        __typename: "Employee",
-        id: string,
-        businessID: string,
-        roleTags:  {
-          __typename: "RoleTags",
-          sales: boolean,
-          marketing: boolean,
-          logistics: boolean,
-          accounting: boolean,
-          production: boolean,
-          qualityControl: boolean,
-        },
-        countryCode:  {
-          __typename: "CountryCode",
-          code: string,
-          label: string,
-          phone: string,
-        },
-        phoneNumber: string,
-        createdAt: string,
-        updatedAt: string,
-        business:  {
-          __typename: "Business",
-          id: string,
-          companyName: string,
-          storeURLs: Array< string >,
-          websiteURLs: Array< string >,
-          managerID: string,
-          createdAt: string,
-          updatedAt: string,
-          owner: string | null,
-        } | null,
-        profile:  {
-          __typename: "Profile",
-          id: string,
-          email: string,
-          name: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    manager:  {
-      __typename: "Manager",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      businesses:  {
-        __typename: "ModelBusinessConnection",
-        items:  Array< {
-          __typename: "Business",
-          id: string,
-          companyName: string,
-          storeURLs: Array< string >,
-          websiteURLs: Array< string >,
-          managerID: string,
-          createdAt: string,
-          updatedAt: string,
-          owner: string | null,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      profile:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        avatar:  {
-          __typename: "S3Object",
-          bucket: string,
-          region: string,
-          key: string,
-        } | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-    } | null,
   } | null,
 };
 
@@ -573,87 +526,6 @@ export type DeleteBusinessMutation = {
     createdAt: string,
     updatedAt: string,
     owner: string | null,
-    employees:  {
-      __typename: "ModelEmployeeConnection",
-      items:  Array< {
-        __typename: "Employee",
-        id: string,
-        businessID: string,
-        roleTags:  {
-          __typename: "RoleTags",
-          sales: boolean,
-          marketing: boolean,
-          logistics: boolean,
-          accounting: boolean,
-          production: boolean,
-          qualityControl: boolean,
-        },
-        countryCode:  {
-          __typename: "CountryCode",
-          code: string,
-          label: string,
-          phone: string,
-        },
-        phoneNumber: string,
-        createdAt: string,
-        updatedAt: string,
-        business:  {
-          __typename: "Business",
-          id: string,
-          companyName: string,
-          storeURLs: Array< string >,
-          websiteURLs: Array< string >,
-          managerID: string,
-          createdAt: string,
-          updatedAt: string,
-          owner: string | null,
-        } | null,
-        profile:  {
-          __typename: "Profile",
-          id: string,
-          email: string,
-          name: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    manager:  {
-      __typename: "Manager",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      businesses:  {
-        __typename: "ModelBusinessConnection",
-        items:  Array< {
-          __typename: "Business",
-          id: string,
-          companyName: string,
-          storeURLs: Array< string >,
-          websiteURLs: Array< string >,
-          managerID: string,
-          createdAt: string,
-          updatedAt: string,
-          owner: string | null,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      profile:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        avatar:  {
-          __typename: "S3Object",
-          bucket: string,
-          region: string,
-          key: string,
-        } | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-    } | null,
   } | null,
 };
 
@@ -685,47 +557,6 @@ export type CreateEmployeeMutation = {
     phoneNumber: string,
     createdAt: string,
     updatedAt: string,
-    business:  {
-      __typename: "Business",
-      id: string,
-      companyName: string,
-      storeURLs: Array< string >,
-      websiteURLs: Array< string >,
-      managerID: string,
-      createdAt: string,
-      updatedAt: string,
-      owner: string | null,
-      employees:  {
-        __typename: "ModelEmployeeConnection",
-        items:  Array< {
-          __typename: "Employee",
-          id: string,
-          businessID: string,
-          phoneNumber: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      manager:  {
-        __typename: "Manager",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        businesses:  {
-          __typename: "ModelBusinessConnection",
-          nextToken: string | null,
-        } | null,
-        profile:  {
-          __typename: "Profile",
-          id: string,
-          email: string,
-          name: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null,
-    } | null,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -771,47 +602,6 @@ export type UpdateEmployeeMutation = {
     phoneNumber: string,
     createdAt: string,
     updatedAt: string,
-    business:  {
-      __typename: "Business",
-      id: string,
-      companyName: string,
-      storeURLs: Array< string >,
-      websiteURLs: Array< string >,
-      managerID: string,
-      createdAt: string,
-      updatedAt: string,
-      owner: string | null,
-      employees:  {
-        __typename: "ModelEmployeeConnection",
-        items:  Array< {
-          __typename: "Employee",
-          id: string,
-          businessID: string,
-          phoneNumber: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      manager:  {
-        __typename: "Manager",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        businesses:  {
-          __typename: "ModelBusinessConnection",
-          nextToken: string | null,
-        } | null,
-        profile:  {
-          __typename: "Profile",
-          id: string,
-          email: string,
-          name: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null,
-    } | null,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -857,47 +647,6 @@ export type DeleteEmployeeMutation = {
     phoneNumber: string,
     createdAt: string,
     updatedAt: string,
-    business:  {
-      __typename: "Business",
-      id: string,
-      companyName: string,
-      storeURLs: Array< string >,
-      websiteURLs: Array< string >,
-      managerID: string,
-      createdAt: string,
-      updatedAt: string,
-      owner: string | null,
-      employees:  {
-        __typename: "ModelEmployeeConnection",
-        items:  Array< {
-          __typename: "Employee",
-          id: string,
-          businessID: string,
-          phoneNumber: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      manager:  {
-        __typename: "Manager",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        businesses:  {
-          __typename: "ModelBusinessConnection",
-          nextToken: string | null,
-        } | null,
-        profile:  {
-          __typename: "Profile",
-          id: string,
-          email: string,
-          name: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null,
-    } | null,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -924,8 +673,6 @@ export type CreateManagerMutation = {
   createManager:  {
     __typename: "Manager",
     id: string,
-    createdAt: string,
-    updatedAt: string,
     businesses:  {
       __typename: "ModelBusinessConnection",
       items:  Array< {
@@ -938,19 +685,11 @@ export type CreateManagerMutation = {
         createdAt: string,
         updatedAt: string,
         owner: string | null,
-        employees:  {
-          __typename: "ModelEmployeeConnection",
-          nextToken: string | null,
-        } | null,
-        manager:  {
-          __typename: "Manager",
-          id: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    createdAt: string,
+    updatedAt: string,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -977,8 +716,6 @@ export type UpdateManagerMutation = {
   updateManager:  {
     __typename: "Manager",
     id: string,
-    createdAt: string,
-    updatedAt: string,
     businesses:  {
       __typename: "ModelBusinessConnection",
       items:  Array< {
@@ -991,19 +728,11 @@ export type UpdateManagerMutation = {
         createdAt: string,
         updatedAt: string,
         owner: string | null,
-        employees:  {
-          __typename: "ModelEmployeeConnection",
-          nextToken: string | null,
-        } | null,
-        manager:  {
-          __typename: "Manager",
-          id: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    createdAt: string,
+    updatedAt: string,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -1030,8 +759,6 @@ export type DeleteManagerMutation = {
   deleteManager:  {
     __typename: "Manager",
     id: string,
-    createdAt: string,
-    updatedAt: string,
     businesses:  {
       __typename: "ModelBusinessConnection",
       items:  Array< {
@@ -1044,19 +771,11 @@ export type DeleteManagerMutation = {
         createdAt: string,
         updatedAt: string,
         owner: string | null,
-        employees:  {
-          __typename: "ModelEmployeeConnection",
-          nextToken: string | null,
-        } | null,
-        manager:  {
-          __typename: "Manager",
-          id: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    createdAt: string,
+    updatedAt: string,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -1137,6 +856,231 @@ export type DeleteProfileMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
+  } | null,
+};
+
+export type CreateProductMutationVariables = {
+  input: CreateProductInput,
+  condition?: ModelProductConditionInput | null,
+};
+
+export type CreateProductMutation = {
+  createProduct:  {
+    __typename: "Product",
+    id: string,
+    itemNumber: number,
+    itemName: string,
+    release: string,
+    websiteURLs: Array< string >,
+    stage: Stage,
+    businessID: string,
+    status: ProductStatus,
+    color: Array< string >,
+    material: Array< string >,
+    photos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    videos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    certifications:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    marketingMaterials:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagingPhotos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagingVideos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagings:  Array< {
+      __typename: "ProductPackaging",
+      unitType: UnitType,
+      sizeOrDimensions: string,
+      weightKgs: number,
+      unitBarCode:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      },
+      pieces: number,
+      packegeWeightKgs: number,
+      packageDimentions: number,
+    } >,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type UpdateProductMutationVariables = {
+  input: UpdateProductInput,
+  condition?: ModelProductConditionInput | null,
+};
+
+export type UpdateProductMutation = {
+  updateProduct:  {
+    __typename: "Product",
+    id: string,
+    itemNumber: number,
+    itemName: string,
+    release: string,
+    websiteURLs: Array< string >,
+    stage: Stage,
+    businessID: string,
+    status: ProductStatus,
+    color: Array< string >,
+    material: Array< string >,
+    photos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    videos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    certifications:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    marketingMaterials:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagingPhotos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagingVideos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagings:  Array< {
+      __typename: "ProductPackaging",
+      unitType: UnitType,
+      sizeOrDimensions: string,
+      weightKgs: number,
+      unitBarCode:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      },
+      pieces: number,
+      packegeWeightKgs: number,
+      packageDimentions: number,
+    } >,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type DeleteProductMutationVariables = {
+  input: DeleteProductInput,
+  condition?: ModelProductConditionInput | null,
+};
+
+export type DeleteProductMutation = {
+  deleteProduct:  {
+    __typename: "Product",
+    id: string,
+    itemNumber: number,
+    itemName: string,
+    release: string,
+    websiteURLs: Array< string >,
+    stage: Stage,
+    businessID: string,
+    status: ProductStatus,
+    color: Array< string >,
+    material: Array< string >,
+    photos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    videos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    certifications:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    marketingMaterials:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagingPhotos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagingVideos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagings:  Array< {
+      __typename: "ProductPackaging",
+      unitType: UnitType,
+      sizeOrDimensions: string,
+      weightKgs: number,
+      unitBarCode:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      },
+      pieces: number,
+      packegeWeightKgs: number,
+      packageDimentions: number,
+    } >,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
@@ -1221,6 +1165,386 @@ export type DeleteMessageMutation = {
   } | null,
 };
 
+export type GetBusinessQueryVariables = {
+  id: string,
+};
+
+export type GetBusinessQuery = {
+  getBusiness:  {
+    __typename: "Business",
+    id: string,
+    companyName: string,
+    storeURLs: Array< string >,
+    websiteURLs: Array< string >,
+    managerID: string,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type ListBusinesssQueryVariables = {
+  filter?: ModelBusinessFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListBusinesssQuery = {
+  listBusinesss:  {
+    __typename: "ModelBusinessConnection",
+    items:  Array< {
+      __typename: "Business",
+      id: string,
+      companyName: string,
+      storeURLs: Array< string >,
+      websiteURLs: Array< string >,
+      managerID: string,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+    } | null > | null,
+    nextToken: string | null,
+  } | null,
+};
+
+export type GetEmployeeQueryVariables = {
+  id: string,
+};
+
+export type GetEmployeeQuery = {
+  getEmployee:  {
+    __typename: "Employee",
+    id: string,
+    businessID: string,
+    roleTags:  {
+      __typename: "RoleTags",
+      sales: boolean,
+      marketing: boolean,
+      logistics: boolean,
+      accounting: boolean,
+      production: boolean,
+      qualityControl: boolean,
+    },
+    countryCode:  {
+      __typename: "CountryCode",
+      code: string,
+      label: string,
+      phone: string,
+    },
+    phoneNumber: string,
+    createdAt: string,
+    updatedAt: string,
+    profile:  {
+      __typename: "Profile",
+      id: string,
+      email: string,
+      name: string,
+      avatar:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+  } | null,
+};
+
+export type ListEmployeesQueryVariables = {
+  filter?: ModelEmployeeFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListEmployeesQuery = {
+  listEmployees:  {
+    __typename: "ModelEmployeeConnection",
+    items:  Array< {
+      __typename: "Employee",
+      id: string,
+      businessID: string,
+      roleTags:  {
+        __typename: "RoleTags",
+        sales: boolean,
+        marketing: boolean,
+        logistics: boolean,
+        accounting: boolean,
+        production: boolean,
+        qualityControl: boolean,
+      },
+      countryCode:  {
+        __typename: "CountryCode",
+        code: string,
+        label: string,
+        phone: string,
+      },
+      phoneNumber: string,
+      createdAt: string,
+      updatedAt: string,
+      profile:  {
+        __typename: "Profile",
+        id: string,
+        email: string,
+        name: string,
+        avatar:  {
+          __typename: "S3Object",
+          bucket: string,
+          region: string,
+          key: string,
+        } | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+    } | null > | null,
+    nextToken: string | null,
+  } | null,
+};
+
+export type GetManagerQueryVariables = {
+  id: string,
+};
+
+export type GetManagerQuery = {
+  getManager:  {
+    __typename: "Manager",
+    id: string,
+    businesses:  {
+      __typename: "ModelBusinessConnection",
+      items:  Array< {
+        __typename: "Business",
+        id: string,
+        companyName: string,
+        storeURLs: Array< string >,
+        websiteURLs: Array< string >,
+        managerID: string,
+        createdAt: string,
+        updatedAt: string,
+        owner: string | null,
+      } | null > | null,
+      nextToken: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    profile:  {
+      __typename: "Profile",
+      id: string,
+      email: string,
+      name: string,
+      avatar:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
+  } | null,
+};
+
+export type ListManagersQueryVariables = {
+  filter?: ModelManagerFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListManagersQuery = {
+  listManagers:  {
+    __typename: "ModelManagerConnection",
+    items:  Array< {
+      __typename: "Manager",
+      id: string,
+      businesses:  {
+        __typename: "ModelBusinessConnection",
+        items:  Array< {
+          __typename: "Business",
+          id: string,
+          companyName: string,
+          storeURLs: Array< string >,
+          websiteURLs: Array< string >,
+          managerID: string,
+          createdAt: string,
+          updatedAt: string,
+          owner: string | null,
+        } | null > | null,
+        nextToken: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      profile:  {
+        __typename: "Profile",
+        id: string,
+        email: string,
+        name: string,
+        avatar:  {
+          __typename: "S3Object",
+          bucket: string,
+          region: string,
+          key: string,
+        } | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+    } | null > | null,
+    nextToken: string | null,
+  } | null,
+};
+
+export type GetProductQueryVariables = {
+  id: string,
+};
+
+export type GetProductQuery = {
+  getProduct:  {
+    __typename: "Product",
+    id: string,
+    itemNumber: number,
+    itemName: string,
+    release: string,
+    websiteURLs: Array< string >,
+    stage: Stage,
+    businessID: string,
+    status: ProductStatus,
+    color: Array< string >,
+    material: Array< string >,
+    photos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    videos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    certifications:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    marketingMaterials:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagingPhotos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagingVideos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagings:  Array< {
+      __typename: "ProductPackaging",
+      unitType: UnitType,
+      sizeOrDimensions: string,
+      weightKgs: number,
+      unitBarCode:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      },
+      pieces: number,
+      packegeWeightKgs: number,
+      packageDimentions: number,
+    } >,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type ListProductsQueryVariables = {
+  filter?: ModelProductFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListProductsQuery = {
+  listProducts:  {
+    __typename: "ModelProductConnection",
+    items:  Array< {
+      __typename: "Product",
+      id: string,
+      itemNumber: number,
+      itemName: string,
+      release: string,
+      websiteURLs: Array< string >,
+      stage: Stage,
+      businessID: string,
+      status: ProductStatus,
+      color: Array< string >,
+      material: Array< string >,
+      photos:  Array< {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } >,
+      videos:  Array< {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } >,
+      certifications:  Array< {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } >,
+      marketingMaterials:  Array< {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } >,
+      packagingPhotos:  Array< {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } >,
+      packagingVideos:  Array< {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } >,
+      packagings:  Array< {
+        __typename: "ProductPackaging",
+        unitType: UnitType,
+        sizeOrDimensions: string,
+        weightKgs: number,
+        unitBarCode:  {
+          __typename: "S3Object",
+          bucket: string,
+          region: string,
+          key: string,
+        },
+        pieces: number,
+        packegeWeightKgs: number,
+        packageDimentions: number,
+      } >,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+    } | null > | null,
+    nextToken: string | null,
+  } | null,
+};
+
 export type GetMessageQueryVariables = {
   id: string,
 };
@@ -1274,6 +1598,167 @@ export type ListMessagesQuery = {
       } | null,
       createdAt: string | null,
       updatedAt: string | null,
+    } | null > | null,
+    nextToken: string | null,
+  } | null,
+};
+
+export type ByManagerAndCompanyQueryVariables = {
+  managerID?: string | null,
+  companyName?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelBusinessFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ByManagerAndCompanyQuery = {
+  byManagerAndCompany:  {
+    __typename: "ModelBusinessConnection",
+    items:  Array< {
+      __typename: "Business",
+      id: string,
+      companyName: string,
+      storeURLs: Array< string >,
+      websiteURLs: Array< string >,
+      managerID: string,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
+    } | null > | null,
+    nextToken: string | null,
+  } | null,
+};
+
+export type EmployeeByBusinessAndNameQueryVariables = {
+  businessID?: string | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelEmployeeFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type EmployeeByBusinessAndNameQuery = {
+  employeeByBusinessAndName:  {
+    __typename: "ModelEmployeeConnection",
+    items:  Array< {
+      __typename: "Employee",
+      id: string,
+      businessID: string,
+      roleTags:  {
+        __typename: "RoleTags",
+        sales: boolean,
+        marketing: boolean,
+        logistics: boolean,
+        accounting: boolean,
+        production: boolean,
+        qualityControl: boolean,
+      },
+      countryCode:  {
+        __typename: "CountryCode",
+        code: string,
+        label: string,
+        phone: string,
+      },
+      phoneNumber: string,
+      createdAt: string,
+      updatedAt: string,
+      profile:  {
+        __typename: "Profile",
+        id: string,
+        email: string,
+        name: string,
+        avatar:  {
+          __typename: "S3Object",
+          bucket: string,
+          region: string,
+          key: string,
+        } | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
+    } | null > | null,
+    nextToken: string | null,
+  } | null,
+};
+
+export type ByBusinessQueryVariables = {
+  businessID?: string | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelProductFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ByBusinessQuery = {
+  byBusiness:  {
+    __typename: "ModelProductConnection",
+    items:  Array< {
+      __typename: "Product",
+      id: string,
+      itemNumber: number,
+      itemName: string,
+      release: string,
+      websiteURLs: Array< string >,
+      stage: Stage,
+      businessID: string,
+      status: ProductStatus,
+      color: Array< string >,
+      material: Array< string >,
+      photos:  Array< {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } >,
+      videos:  Array< {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } >,
+      certifications:  Array< {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } >,
+      marketingMaterials:  Array< {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } >,
+      packagingPhotos:  Array< {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } >,
+      packagingVideos:  Array< {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      } >,
+      packagings:  Array< {
+        __typename: "ProductPackaging",
+        unitType: UnitType,
+        sizeOrDimensions: string,
+        weightKgs: number,
+        unitBarCode:  {
+          __typename: "S3Object",
+          bucket: string,
+          region: string,
+          key: string,
+        },
+        pieces: number,
+        packegeWeightKgs: number,
+        packageDimentions: number,
+      } >,
+      createdAt: string,
+      updatedAt: string,
+      owner: string | null,
     } | null > | null,
     nextToken: string | null,
   } | null,
@@ -1381,545 +1866,6 @@ export type GetConversationQuery = {
       updatedAt: string | null,
     } | null > | null,
     nextToken: string | null,
-  } | null,
-};
-
-export type GetBusinessQueryVariables = {
-  id: string,
-};
-
-export type GetBusinessQuery = {
-  getBusiness:  {
-    __typename: "Business",
-    id: string,
-    companyName: string,
-    storeURLs: Array< string >,
-    websiteURLs: Array< string >,
-    managerID: string,
-    createdAt: string,
-    updatedAt: string,
-    owner: string | null,
-    employees:  {
-      __typename: "ModelEmployeeConnection",
-      items:  Array< {
-        __typename: "Employee",
-        id: string,
-        businessID: string,
-        roleTags:  {
-          __typename: "RoleTags",
-          sales: boolean,
-          marketing: boolean,
-          logistics: boolean,
-          accounting: boolean,
-          production: boolean,
-          qualityControl: boolean,
-        },
-        countryCode:  {
-          __typename: "CountryCode",
-          code: string,
-          label: string,
-          phone: string,
-        },
-        phoneNumber: string,
-        createdAt: string,
-        updatedAt: string,
-        business:  {
-          __typename: "Business",
-          id: string,
-          companyName: string,
-          storeURLs: Array< string >,
-          websiteURLs: Array< string >,
-          managerID: string,
-          createdAt: string,
-          updatedAt: string,
-          owner: string | null,
-        } | null,
-        profile:  {
-          __typename: "Profile",
-          id: string,
-          email: string,
-          name: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    manager:  {
-      __typename: "Manager",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      businesses:  {
-        __typename: "ModelBusinessConnection",
-        items:  Array< {
-          __typename: "Business",
-          id: string,
-          companyName: string,
-          storeURLs: Array< string >,
-          websiteURLs: Array< string >,
-          managerID: string,
-          createdAt: string,
-          updatedAt: string,
-          owner: string | null,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      profile:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        avatar:  {
-          __typename: "S3Object",
-          bucket: string,
-          region: string,
-          key: string,
-        } | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-    } | null,
-  } | null,
-};
-
-export type ListBusinesssQueryVariables = {
-  filter?: ModelBusinessFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListBusinesssQuery = {
-  listBusinesss:  {
-    __typename: "ModelBusinessConnection",
-    items:  Array< {
-      __typename: "Business",
-      id: string,
-      companyName: string,
-      storeURLs: Array< string >,
-      websiteURLs: Array< string >,
-      managerID: string,
-      createdAt: string,
-      updatedAt: string,
-      owner: string | null,
-      employees:  {
-        __typename: "ModelEmployeeConnection",
-        items:  Array< {
-          __typename: "Employee",
-          id: string,
-          businessID: string,
-          phoneNumber: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      manager:  {
-        __typename: "Manager",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        businesses:  {
-          __typename: "ModelBusinessConnection",
-          nextToken: string | null,
-        } | null,
-        profile:  {
-          __typename: "Profile",
-          id: string,
-          email: string,
-          name: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null,
-    } | null > | null,
-    nextToken: string | null,
-  } | null,
-};
-
-export type ByManagerAndCompanyQueryVariables = {
-  managerID?: string | null,
-  companyName?: ModelStringKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelBusinessFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ByManagerAndCompanyQuery = {
-  byManagerAndCompany:  {
-    __typename: "ModelBusinessConnection",
-    items:  Array< {
-      __typename: "Business",
-      id: string,
-      companyName: string,
-      storeURLs: Array< string >,
-      websiteURLs: Array< string >,
-      managerID: string,
-      createdAt: string,
-      updatedAt: string,
-      owner: string | null,
-      employees:  {
-        __typename: "ModelEmployeeConnection",
-        items:  Array< {
-          __typename: "Employee",
-          id: string,
-          businessID: string,
-          phoneNumber: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      manager:  {
-        __typename: "Manager",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        businesses:  {
-          __typename: "ModelBusinessConnection",
-          nextToken: string | null,
-        } | null,
-        profile:  {
-          __typename: "Profile",
-          id: string,
-          email: string,
-          name: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null,
-    } | null > | null,
-    nextToken: string | null,
-  } | null,
-};
-
-export type GetEmployeeQueryVariables = {
-  id: string,
-};
-
-export type GetEmployeeQuery = {
-  getEmployee:  {
-    __typename: "Employee",
-    id: string,
-    businessID: string,
-    roleTags:  {
-      __typename: "RoleTags",
-      sales: boolean,
-      marketing: boolean,
-      logistics: boolean,
-      accounting: boolean,
-      production: boolean,
-      qualityControl: boolean,
-    },
-    countryCode:  {
-      __typename: "CountryCode",
-      code: string,
-      label: string,
-      phone: string,
-    },
-    phoneNumber: string,
-    createdAt: string,
-    updatedAt: string,
-    business:  {
-      __typename: "Business",
-      id: string,
-      companyName: string,
-      storeURLs: Array< string >,
-      websiteURLs: Array< string >,
-      managerID: string,
-      createdAt: string,
-      updatedAt: string,
-      owner: string | null,
-      employees:  {
-        __typename: "ModelEmployeeConnection",
-        items:  Array< {
-          __typename: "Employee",
-          id: string,
-          businessID: string,
-          phoneNumber: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      manager:  {
-        __typename: "Manager",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        businesses:  {
-          __typename: "ModelBusinessConnection",
-          nextToken: string | null,
-        } | null,
-        profile:  {
-          __typename: "Profile",
-          id: string,
-          email: string,
-          name: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null,
-    } | null,
-    profile:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-  } | null,
-};
-
-export type ListEmployeesQueryVariables = {
-  filter?: ModelEmployeeFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListEmployeesQuery = {
-  listEmployees:  {
-    __typename: "ModelEmployeeConnection",
-    items:  Array< {
-      __typename: "Employee",
-      id: string,
-      businessID: string,
-      roleTags:  {
-        __typename: "RoleTags",
-        sales: boolean,
-        marketing: boolean,
-        logistics: boolean,
-        accounting: boolean,
-        production: boolean,
-        qualityControl: boolean,
-      },
-      countryCode:  {
-        __typename: "CountryCode",
-        code: string,
-        label: string,
-        phone: string,
-      },
-      phoneNumber: string,
-      createdAt: string,
-      updatedAt: string,
-      business:  {
-        __typename: "Business",
-        id: string,
-        companyName: string,
-        storeURLs: Array< string >,
-        websiteURLs: Array< string >,
-        managerID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-        employees:  {
-          __typename: "ModelEmployeeConnection",
-          nextToken: string | null,
-        } | null,
-        manager:  {
-          __typename: "Manager",
-          id: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null,
-      profile:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        avatar:  {
-          __typename: "S3Object",
-          bucket: string,
-          region: string,
-          key: string,
-        } | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-    } | null > | null,
-    nextToken: string | null,
-  } | null,
-};
-
-export type EmployeeByBusinessAndNameQueryVariables = {
-  businessID?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelEmployeeFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type EmployeeByBusinessAndNameQuery = {
-  employeeByBusinessAndName:  {
-    __typename: "ModelEmployeeConnection",
-    items:  Array< {
-      __typename: "Employee",
-      id: string,
-      businessID: string,
-      roleTags:  {
-        __typename: "RoleTags",
-        sales: boolean,
-        marketing: boolean,
-        logistics: boolean,
-        accounting: boolean,
-        production: boolean,
-        qualityControl: boolean,
-      },
-      countryCode:  {
-        __typename: "CountryCode",
-        code: string,
-        label: string,
-        phone: string,
-      },
-      phoneNumber: string,
-      createdAt: string,
-      updatedAt: string,
-      business:  {
-        __typename: "Business",
-        id: string,
-        companyName: string,
-        storeURLs: Array< string >,
-        websiteURLs: Array< string >,
-        managerID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-        employees:  {
-          __typename: "ModelEmployeeConnection",
-          nextToken: string | null,
-        } | null,
-        manager:  {
-          __typename: "Manager",
-          id: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null,
-      profile:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        avatar:  {
-          __typename: "S3Object",
-          bucket: string,
-          region: string,
-          key: string,
-        } | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-    } | null > | null,
-    nextToken: string | null,
-  } | null,
-};
-
-export type ListManagersQueryVariables = {
-  filter?: ModelManagerFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListManagersQuery = {
-  listManagers:  {
-    __typename: "ModelManagerConnection",
-    items:  Array< {
-      __typename: "Manager",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      businesses:  {
-        __typename: "ModelBusinessConnection",
-        items:  Array< {
-          __typename: "Business",
-          id: string,
-          companyName: string,
-          storeURLs: Array< string >,
-          websiteURLs: Array< string >,
-          managerID: string,
-          createdAt: string,
-          updatedAt: string,
-          owner: string | null,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      profile:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        avatar:  {
-          __typename: "S3Object",
-          bucket: string,
-          region: string,
-          key: string,
-        } | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-    } | null > | null,
-    nextToken: string | null,
-  } | null,
-};
-
-export type GetManagerQueryVariables = {
-  id: string,
-};
-
-export type GetManagerQuery = {
-  getManager:  {
-    __typename: "Manager",
-    id: string,
-    createdAt: string,
-    updatedAt: string,
-    businesses:  {
-      __typename: "ModelBusinessConnection",
-      items:  Array< {
-        __typename: "Business",
-        id: string,
-        companyName: string,
-        storeURLs: Array< string >,
-        websiteURLs: Array< string >,
-        managerID: string,
-        createdAt: string,
-        updatedAt: string,
-        owner: string | null,
-        employees:  {
-          __typename: "ModelEmployeeConnection",
-          nextToken: string | null,
-        } | null,
-        manager:  {
-          __typename: "Manager",
-          id: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    profile:  {
-      __typename: "Profile",
-      id: string,
-      email: string,
-      name: string,
-      avatar:  {
-        __typename: "S3Object",
-        bucket: string,
-        region: string,
-        key: string,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
   } | null,
 };
 
@@ -2082,87 +2028,6 @@ export type OnCreateBusinessSubscription = {
     createdAt: string,
     updatedAt: string,
     owner: string | null,
-    employees:  {
-      __typename: "ModelEmployeeConnection",
-      items:  Array< {
-        __typename: "Employee",
-        id: string,
-        businessID: string,
-        roleTags:  {
-          __typename: "RoleTags",
-          sales: boolean,
-          marketing: boolean,
-          logistics: boolean,
-          accounting: boolean,
-          production: boolean,
-          qualityControl: boolean,
-        },
-        countryCode:  {
-          __typename: "CountryCode",
-          code: string,
-          label: string,
-          phone: string,
-        },
-        phoneNumber: string,
-        createdAt: string,
-        updatedAt: string,
-        business:  {
-          __typename: "Business",
-          id: string,
-          companyName: string,
-          storeURLs: Array< string >,
-          websiteURLs: Array< string >,
-          managerID: string,
-          createdAt: string,
-          updatedAt: string,
-          owner: string | null,
-        } | null,
-        profile:  {
-          __typename: "Profile",
-          id: string,
-          email: string,
-          name: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    manager:  {
-      __typename: "Manager",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      businesses:  {
-        __typename: "ModelBusinessConnection",
-        items:  Array< {
-          __typename: "Business",
-          id: string,
-          companyName: string,
-          storeURLs: Array< string >,
-          websiteURLs: Array< string >,
-          managerID: string,
-          createdAt: string,
-          updatedAt: string,
-          owner: string | null,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      profile:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        avatar:  {
-          __typename: "S3Object",
-          bucket: string,
-          region: string,
-          key: string,
-        } | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-    } | null,
   } | null,
 };
 
@@ -2177,87 +2042,6 @@ export type OnUpdateBusinessSubscription = {
     createdAt: string,
     updatedAt: string,
     owner: string | null,
-    employees:  {
-      __typename: "ModelEmployeeConnection",
-      items:  Array< {
-        __typename: "Employee",
-        id: string,
-        businessID: string,
-        roleTags:  {
-          __typename: "RoleTags",
-          sales: boolean,
-          marketing: boolean,
-          logistics: boolean,
-          accounting: boolean,
-          production: boolean,
-          qualityControl: boolean,
-        },
-        countryCode:  {
-          __typename: "CountryCode",
-          code: string,
-          label: string,
-          phone: string,
-        },
-        phoneNumber: string,
-        createdAt: string,
-        updatedAt: string,
-        business:  {
-          __typename: "Business",
-          id: string,
-          companyName: string,
-          storeURLs: Array< string >,
-          websiteURLs: Array< string >,
-          managerID: string,
-          createdAt: string,
-          updatedAt: string,
-          owner: string | null,
-        } | null,
-        profile:  {
-          __typename: "Profile",
-          id: string,
-          email: string,
-          name: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    manager:  {
-      __typename: "Manager",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      businesses:  {
-        __typename: "ModelBusinessConnection",
-        items:  Array< {
-          __typename: "Business",
-          id: string,
-          companyName: string,
-          storeURLs: Array< string >,
-          websiteURLs: Array< string >,
-          managerID: string,
-          createdAt: string,
-          updatedAt: string,
-          owner: string | null,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      profile:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        avatar:  {
-          __typename: "S3Object",
-          bucket: string,
-          region: string,
-          key: string,
-        } | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-    } | null,
   } | null,
 };
 
@@ -2272,87 +2056,6 @@ export type OnDeleteBusinessSubscription = {
     createdAt: string,
     updatedAt: string,
     owner: string | null,
-    employees:  {
-      __typename: "ModelEmployeeConnection",
-      items:  Array< {
-        __typename: "Employee",
-        id: string,
-        businessID: string,
-        roleTags:  {
-          __typename: "RoleTags",
-          sales: boolean,
-          marketing: boolean,
-          logistics: boolean,
-          accounting: boolean,
-          production: boolean,
-          qualityControl: boolean,
-        },
-        countryCode:  {
-          __typename: "CountryCode",
-          code: string,
-          label: string,
-          phone: string,
-        },
-        phoneNumber: string,
-        createdAt: string,
-        updatedAt: string,
-        business:  {
-          __typename: "Business",
-          id: string,
-          companyName: string,
-          storeURLs: Array< string >,
-          websiteURLs: Array< string >,
-          managerID: string,
-          createdAt: string,
-          updatedAt: string,
-          owner: string | null,
-        } | null,
-        profile:  {
-          __typename: "Profile",
-          id: string,
-          email: string,
-          name: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-    manager:  {
-      __typename: "Manager",
-      id: string,
-      createdAt: string,
-      updatedAt: string,
-      businesses:  {
-        __typename: "ModelBusinessConnection",
-        items:  Array< {
-          __typename: "Business",
-          id: string,
-          companyName: string,
-          storeURLs: Array< string >,
-          websiteURLs: Array< string >,
-          managerID: string,
-          createdAt: string,
-          updatedAt: string,
-          owner: string | null,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      profile:  {
-        __typename: "Profile",
-        id: string,
-        email: string,
-        name: string,
-        avatar:  {
-          __typename: "S3Object",
-          bucket: string,
-          region: string,
-          key: string,
-        } | null,
-        createdAt: string,
-        updatedAt: string,
-      } | null,
-    } | null,
   } | null,
 };
 
@@ -2379,47 +2082,6 @@ export type OnCreateEmployeeSubscription = {
     phoneNumber: string,
     createdAt: string,
     updatedAt: string,
-    business:  {
-      __typename: "Business",
-      id: string,
-      companyName: string,
-      storeURLs: Array< string >,
-      websiteURLs: Array< string >,
-      managerID: string,
-      createdAt: string,
-      updatedAt: string,
-      owner: string | null,
-      employees:  {
-        __typename: "ModelEmployeeConnection",
-        items:  Array< {
-          __typename: "Employee",
-          id: string,
-          businessID: string,
-          phoneNumber: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      manager:  {
-        __typename: "Manager",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        businesses:  {
-          __typename: "ModelBusinessConnection",
-          nextToken: string | null,
-        } | null,
-        profile:  {
-          __typename: "Profile",
-          id: string,
-          email: string,
-          name: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null,
-    } | null,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -2460,47 +2122,6 @@ export type OnUpdateEmployeeSubscription = {
     phoneNumber: string,
     createdAt: string,
     updatedAt: string,
-    business:  {
-      __typename: "Business",
-      id: string,
-      companyName: string,
-      storeURLs: Array< string >,
-      websiteURLs: Array< string >,
-      managerID: string,
-      createdAt: string,
-      updatedAt: string,
-      owner: string | null,
-      employees:  {
-        __typename: "ModelEmployeeConnection",
-        items:  Array< {
-          __typename: "Employee",
-          id: string,
-          businessID: string,
-          phoneNumber: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      manager:  {
-        __typename: "Manager",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        businesses:  {
-          __typename: "ModelBusinessConnection",
-          nextToken: string | null,
-        } | null,
-        profile:  {
-          __typename: "Profile",
-          id: string,
-          email: string,
-          name: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null,
-    } | null,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -2541,47 +2162,6 @@ export type OnDeleteEmployeeSubscription = {
     phoneNumber: string,
     createdAt: string,
     updatedAt: string,
-    business:  {
-      __typename: "Business",
-      id: string,
-      companyName: string,
-      storeURLs: Array< string >,
-      websiteURLs: Array< string >,
-      managerID: string,
-      createdAt: string,
-      updatedAt: string,
-      owner: string | null,
-      employees:  {
-        __typename: "ModelEmployeeConnection",
-        items:  Array< {
-          __typename: "Employee",
-          id: string,
-          businessID: string,
-          phoneNumber: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null > | null,
-        nextToken: string | null,
-      } | null,
-      manager:  {
-        __typename: "Manager",
-        id: string,
-        createdAt: string,
-        updatedAt: string,
-        businesses:  {
-          __typename: "ModelBusinessConnection",
-          nextToken: string | null,
-        } | null,
-        profile:  {
-          __typename: "Profile",
-          id: string,
-          email: string,
-          name: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
-      } | null,
-    } | null,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -2603,8 +2183,6 @@ export type OnCreateManagerSubscription = {
   onCreateManager:  {
     __typename: "Manager",
     id: string,
-    createdAt: string,
-    updatedAt: string,
     businesses:  {
       __typename: "ModelBusinessConnection",
       items:  Array< {
@@ -2617,19 +2195,11 @@ export type OnCreateManagerSubscription = {
         createdAt: string,
         updatedAt: string,
         owner: string | null,
-        employees:  {
-          __typename: "ModelEmployeeConnection",
-          nextToken: string | null,
-        } | null,
-        manager:  {
-          __typename: "Manager",
-          id: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    createdAt: string,
+    updatedAt: string,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -2651,8 +2221,6 @@ export type OnUpdateManagerSubscription = {
   onUpdateManager:  {
     __typename: "Manager",
     id: string,
-    createdAt: string,
-    updatedAt: string,
     businesses:  {
       __typename: "ModelBusinessConnection",
       items:  Array< {
@@ -2665,19 +2233,11 @@ export type OnUpdateManagerSubscription = {
         createdAt: string,
         updatedAt: string,
         owner: string | null,
-        employees:  {
-          __typename: "ModelEmployeeConnection",
-          nextToken: string | null,
-        } | null,
-        manager:  {
-          __typename: "Manager",
-          id: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    createdAt: string,
+    updatedAt: string,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -2699,8 +2259,6 @@ export type OnDeleteManagerSubscription = {
   onDeleteManager:  {
     __typename: "Manager",
     id: string,
-    createdAt: string,
-    updatedAt: string,
     businesses:  {
       __typename: "ModelBusinessConnection",
       items:  Array< {
@@ -2713,19 +2271,11 @@ export type OnDeleteManagerSubscription = {
         createdAt: string,
         updatedAt: string,
         owner: string | null,
-        employees:  {
-          __typename: "ModelEmployeeConnection",
-          nextToken: string | null,
-        } | null,
-        manager:  {
-          __typename: "Manager",
-          id: string,
-          createdAt: string,
-          updatedAt: string,
-        } | null,
       } | null > | null,
       nextToken: string | null,
     } | null,
+    createdAt: string,
+    updatedAt: string,
     profile:  {
       __typename: "Profile",
       id: string,
@@ -2740,6 +2290,216 @@ export type OnDeleteManagerSubscription = {
       createdAt: string,
       updatedAt: string,
     } | null,
+  } | null,
+};
+
+export type OnCreateProductSubscription = {
+  onCreateProduct:  {
+    __typename: "Product",
+    id: string,
+    itemNumber: number,
+    itemName: string,
+    release: string,
+    websiteURLs: Array< string >,
+    stage: Stage,
+    businessID: string,
+    status: ProductStatus,
+    color: Array< string >,
+    material: Array< string >,
+    photos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    videos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    certifications:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    marketingMaterials:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagingPhotos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagingVideos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagings:  Array< {
+      __typename: "ProductPackaging",
+      unitType: UnitType,
+      sizeOrDimensions: string,
+      weightKgs: number,
+      unitBarCode:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      },
+      pieces: number,
+      packegeWeightKgs: number,
+      packageDimentions: number,
+    } >,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type OnUpdateProductSubscription = {
+  onUpdateProduct:  {
+    __typename: "Product",
+    id: string,
+    itemNumber: number,
+    itemName: string,
+    release: string,
+    websiteURLs: Array< string >,
+    stage: Stage,
+    businessID: string,
+    status: ProductStatus,
+    color: Array< string >,
+    material: Array< string >,
+    photos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    videos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    certifications:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    marketingMaterials:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagingPhotos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagingVideos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagings:  Array< {
+      __typename: "ProductPackaging",
+      unitType: UnitType,
+      sizeOrDimensions: string,
+      weightKgs: number,
+      unitBarCode:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      },
+      pieces: number,
+      packegeWeightKgs: number,
+      packageDimentions: number,
+    } >,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
+  } | null,
+};
+
+export type OnDeleteProductSubscription = {
+  onDeleteProduct:  {
+    __typename: "Product",
+    id: string,
+    itemNumber: number,
+    itemName: string,
+    release: string,
+    websiteURLs: Array< string >,
+    stage: Stage,
+    businessID: string,
+    status: ProductStatus,
+    color: Array< string >,
+    material: Array< string >,
+    photos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    videos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    certifications:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    marketingMaterials:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagingPhotos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagingVideos:  Array< {
+      __typename: "S3Object",
+      bucket: string,
+      region: string,
+      key: string,
+    } >,
+    packagings:  Array< {
+      __typename: "ProductPackaging",
+      unitType: UnitType,
+      sizeOrDimensions: string,
+      weightKgs: number,
+      unitBarCode:  {
+        __typename: "S3Object",
+        bucket: string,
+        region: string,
+        key: string,
+      },
+      pieces: number,
+      packegeWeightKgs: number,
+      packageDimentions: number,
+    } >,
+    createdAt: string,
+    updatedAt: string,
+    owner: string | null,
   } | null,
 };
 
