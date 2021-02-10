@@ -18,6 +18,8 @@ import { getEmployee } from '../../graphql/queries';
 import { setBusiness } from '../Business/BusinessActions';
 import { saveProfileToDBSucces, updateProfileSuccess } from '../Profile/ProfileActions';
 import {ajax} from "rxjs/ajax";
+import { setManager } from '../Manager/ManagerActions';
+import { setInterlocutor } from '../Message/MessageActions';
 
 const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     (action$, state$) => action$.pipe(
@@ -60,7 +62,9 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                         return [
                             fetchEmployeeSuccess(res.data.getEmployee),
                             updateProfileSuccess(res.data.getEmployee.profile),
-                            setBusiness(res.data.getEmployee.business)
+                            setBusiness(res.data.getEmployee.business),
+                            setManager(res.data.getEmployee.business.manager.profile),
+                            setInterlocutor(res.data.getEmployee.business.manager.profile)
                         ]
                     }),
                     catchError(err => { console.log(err); return [saveProfileToDBFailed()] })

@@ -180,9 +180,39 @@ export const getBusiness = /* GraphQL */ `
         items {
           id
           businessID
+          roleTags {
+            sales
+            marketing
+            logistics
+            accounting
+            production
+            qualityControl
+          }
+          countryCode {
+            code
+            label
+            phone
+          }
           phoneNumber
           createdAt
           updatedAt
+          business {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            managerID
+            createdAt
+            updatedAt
+            owner
+          }
+          profile {
+            id
+            email
+            name
+            createdAt
+            updatedAt
+          }
         }
         nextToken
       }
@@ -191,12 +221,27 @@ export const getBusiness = /* GraphQL */ `
         createdAt
         updatedAt
         businesses {
+          items {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            managerID
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         profile {
           id
           email
           name
+          avatar {
+            bucket
+            region
+            key
+          }
           createdAt
           updatedAt
         }
@@ -221,12 +266,29 @@ export const listBusinesss = /* GraphQL */ `
         updatedAt
         owner
         employees {
+          items {
+            id
+            businessID
+            phoneNumber
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         manager {
           id
           createdAt
           updatedAt
+          businesses {
+            nextToken
+          }
+          profile {
+            id
+            email
+            name
+            createdAt
+            updatedAt
+          }
         }
       }
       nextToken
@@ -260,12 +322,29 @@ export const byManagerAndCompany = /* GraphQL */ `
         updatedAt
         owner
         employees {
+          items {
+            id
+            businessID
+            phoneNumber
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         manager {
           id
           createdAt
           updatedAt
+          businesses {
+            nextToken
+          }
+          profile {
+            id
+            email
+            name
+            createdAt
+            updatedAt
+          }
         }
       }
       nextToken
@@ -303,12 +382,29 @@ export const getEmployee = /* GraphQL */ `
         updatedAt
         owner
         employees {
+          items {
+            id
+            businessID
+            phoneNumber
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         manager {
           id
           createdAt
           updatedAt
+          businesses {
+            nextToken
+          }
+          profile {
+            id
+            email
+            name
+            createdAt
+            updatedAt
+          }
         }
       }
       profile {
@@ -361,11 +457,24 @@ export const listEmployees = /* GraphQL */ `
           createdAt
           updatedAt
           owner
+          employees {
+            nextToken
+          }
+          manager {
+            id
+            createdAt
+            updatedAt
+          }
         }
         profile {
           id
           email
           name
+          avatar {
+            bucket
+            region
+            key
+          }
           createdAt
           updatedAt
         }
@@ -417,11 +526,24 @@ export const employeeByBusinessAndName = /* GraphQL */ `
           createdAt
           updatedAt
           owner
+          employees {
+            nextToken
+          }
+          manager {
+            id
+            createdAt
+            updatedAt
+          }
         }
         profile {
           id
           email
           name
+          avatar {
+            bucket
+            region
+            key
+          }
           createdAt
           updatedAt
         }
@@ -442,12 +564,27 @@ export const listManagers = /* GraphQL */ `
         createdAt
         updatedAt
         businesses {
+          items {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            managerID
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
         profile {
           id
           email
           name
+          avatar {
+            bucket
+            region
+            key
+          }
           createdAt
           updatedAt
         }
@@ -472,6 +609,14 @@ export const getManager = /* GraphQL */ `
           createdAt
           updatedAt
           owner
+          employees {
+            nextToken
+          }
+          manager {
+            id
+            createdAt
+            updatedAt
+          }
         }
         nextToken
       }

@@ -35,9 +35,13 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     (action$, state$) => action$.pipe(
         ofType('OPEN_DIALOGUE'),
         mergeMap((action: any) => {
-
+            const userID = state$.value.ProfileReducer.profile.id;
+            const interlocutorID = state$.value.MessageReducer.interlocutor.id;
+            if (!userID || !interlocutorID) {
+                return [openDialogueFailure()];
+            }
             const params: GetConversationQueryVariables = {
-                sharedID: getSharedIndex(state$.value.ProfileReducer.profile.id || "", action.payload.interlocutor.id),
+                sharedID: getSharedIndex(userID, interlocutorID),
                 subjectIDStageCreatedAt: { beginsWith: { stage: action.payload.stage, subjectID: action.payload.subjectID } }
             }
             return (from(API.graphql(graphqlOperation(getConversation, params)) as unknown as Promise<any>).pipe(

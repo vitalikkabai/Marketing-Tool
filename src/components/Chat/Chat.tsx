@@ -53,18 +53,21 @@ const Chat: FunctionComponent<ChatProps> = (props) => {
     const Messages = props.dialogue.map((el, index, array) => {
 
         return <Message key={index} message={el.content} senderName={setMessageName(el.senderID)}
-                        senderId={el.senderID}
-                        userId={props.thisProfile.id}
-                        time={el.createdAt}
-                        nextDay={!(index > 0 && (moment(el.createdAt).isSame(moment(array[index - 1].createdAt), 'day')))}
-                        avatarPublicURL={setMessageAvatarURL(el.senderID)}
-                        status={el.status}/>
+            senderId={el.senderID}
+            userId={props.thisProfile.id}
+            time={el.createdAt}
+            nextDay={!(index > 0 && (moment(el.createdAt).isSame(moment(array[index - 1].createdAt), 'day')))}
+            avatarPublicURL={setMessageAvatarURL(el.senderID)}
+            status={el.status}
+        />
 
     });
 
 
+
     const [inputValue, setInputValue] = useState("");
     const scrollRef = useRef(document.createElement("div"));
+
 
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -90,13 +93,13 @@ const Chat: FunctionComponent<ChatProps> = (props) => {
     }
 
     useEffect(() => { //Auto scrolling to bottom on messages obj update
-        scrollRef.current.scrollIntoView({behavior: "smooth"});
+        scrollRef.current.scrollIntoView({ behavior: "smooth" });
     }, [props.dialogue])
 
     useEffect(() => { //Auto scrolling to bottom on messages obj update
 
         if (props.thisProfile.id) {
-            props.openDialogue(Stage.UNASSIGNED, 'default', interlocutor)
+            props.openDialogue(Stage.UNASSIGNED, 'default')
         }
     }, [props.thisProfile])
 

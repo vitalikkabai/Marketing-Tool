@@ -25,8 +25,8 @@ const mapStateToProps = (state: AppStateType) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         sendMessage: (message: CreateMessageInput) => dispatch(sendMessage(message)),
-        openDialogue: (stage: Stage, productID: string, interlocutor: CreateProfileInput) => (
-            dispatch(openDialogue(stage, productID, interlocutor))
+        openDialogue: (stage: Stage, productID: string) => (
+            dispatch(openDialogue(stage, productID))
         )
     }
 };

@@ -10,7 +10,9 @@ import AuthEpics from "./Auth/AuthEpic";
 import ProfileReducer from "./Profile/ProfileReducer";
 import ProfileEpics from "./Profile/ProfileEpic";
 import MessageEpics from './Message/MessageEpic';
-import MessageReducer from './Message/MessageReducer'; 
+import MessageReducer from './Message/MessageReducer';
+import ManagerReducer from './Manager/ManagerReducer'; 
+
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const combinedEpics = [...businessEpic, ...AuthEpics, ...ProfileEpics];
@@ -29,7 +31,8 @@ const rootReducer = combineReducers({
     BusinessReducer,
     AuthReducer,
     ProfileReducer,
-    MessageReducer
+    MessageReducer,
+    ManagerReducer
 })
 
 type RootReducerType = typeof rootReducer;
