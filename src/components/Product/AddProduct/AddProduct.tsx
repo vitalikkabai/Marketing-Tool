@@ -66,7 +66,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
             </Grid>
             <Grid xs={4} xl={3}
                   item>
-                <ChatContainer/>
+                <ChatContainer backGroundColor={"#FFEF98"}/>
             </Grid>
         </Box>
 
