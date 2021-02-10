@@ -23,6 +23,7 @@ import { clearBusiness } from '../Business/BusinessActions';
 import { AppStateType } from '../store';
 import { clearEmployee, fetchEmployeeById, initiateNewEmployee } from '../Employee/EmployeeActions';
 import { Occupation } from './AuthReducer';
+import { fetchManagerById } from '../Manager/ManagerActions';
 
 export default [
     (action$: ActionsObservable<any>): Observable<ActionTypes> => action$.pipe(
@@ -106,7 +107,9 @@ export default [
                             case 0:
                                 action = fetchEmployeeById(res.username);
                                 break;
-                            // case 1:
+                            case 1:
+                                action = fetchManagerById(res.username);
+                                break;
                             default:
                                 action = getAuthDataFailed()
                         }

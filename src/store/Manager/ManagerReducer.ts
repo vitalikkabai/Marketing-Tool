@@ -18,7 +18,8 @@ export const ManagerReducer = (state = initialState, action: ActionTypes): Manag
         return {
             ...state,
             manager: action.payload
-        }
+        };
+        case 'FETCH_MANAGER_BY_ID_FAILURE':
         default:
             return {
                 ...state,
