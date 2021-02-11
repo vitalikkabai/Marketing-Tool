@@ -7,8 +7,13 @@ import CustomButton from '../../common/Button/CustomButton';
 import CustomInput from '../../common/Input/CustomInput';
 import Dropzone from '../../common/Dropzone/Dropzone';
 import StepCounter from '../../common/StepCounter/StepCounter';
+import GoBackButton from "../../common/Button/GoBackButton";
+import {useHistory} from "react-router";
 
 const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
+
+    const history = useHistory();
+
     return (
         <Grid container className={classes.dashboard}>
             <Box className={classes.todoTitleBox}>
@@ -20,6 +25,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                 </Grid>
             </Box>
             <Box className={classes.contentContainer}>
+                <GoBackButton onClick={()=>history.push("/products")}/>
                 <Grid item className={classes.contentBlockBox} xs={8} xl={9}>
                     <form>
                         <Grid container className={classes.formContent}>

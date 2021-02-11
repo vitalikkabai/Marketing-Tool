@@ -1,162 +1,165 @@
 .registrationSheet {
-  box-shadow: 0 4px 15px rgba(40, 47, 43, 0.1);
-  background: #FFF;
-  border-radius: 10px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 0;
-  padding-bottom: 24px;
-  min-height: 735px;
-
-  .header {
-    margin-top: 40px;
-  }
-
-  .registerForm {
+    box-shadow: 0 4px 15px rgba(40, 47, 43, 0.1);
+    background: #fff;
+    border-radius: 10px;
     position: relative;
-  }
-  /* Scroll container for first step */
-
-  .scrollGradient {
-    position: absolute;
-    bottom: 150px;
-    height: 35px;
-    width: 100%;
-    background: linear-gradient(rgba(255,255,255,0), rgba(255,255,254,1));
-    left: 50%;
-    transform: translate(-50%, 0);
-  }
-
-  .formContainer {
-    width: 100%;
-    margin-top: 60px;
-  }
-
-  .formSecondTitle {
-    margin-top: 40px;
-  }
-
-  .inputBox {
-    margin-top: 8px;
     display: flex;
-    align-items: flex-start;
-  }
+    flex-direction: column;
+    align-items: center;
+    z-index: 0;
+    padding-bottom: 24px;
+    min-height: 735px;
 
-  .formControl {
-    margin-right: 24px;
-  }
+    .header {
+        margin-top: 40px;
+    }
+
+    .registerForm {
+        position: relative;
+    }
+    /* Scroll container for first step */
+
+    .scrollGradient {
+        position: absolute;
+        bottom: 150px;
+        height: 35px;
+        width: 100%;
+        background: linear-gradient(
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 254, 1)
+        );
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+
+    .formContainer {
+        width: 100%;
+        margin-top: 60px;
+    }
+
+    .formSecondTitle {
+        margin-top: 40px;
+    }
+
+    .inputBox {
+        margin-top: 8px;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .formControl {
+        margin-right: 24px;
+    }
 }
 
-.phoneContainer{
-  position: relative;
-  .flagBox {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    width: 27px;
-    height: 27px;
-    overflow: hidden;
-    border-radius: 50%;
-  }
+.phoneContainer {
+    position: relative;
+    .flagBox {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        width: 27px;
+        height: 27px;
+        overflow: hidden;
+        border-radius: 50%;
+    }
 }
 
 .assistantContainer {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  img {
-    width: 98px;
-    height: 98px;
-  }
-
-  .assistantText {
-    margin-top: 16px;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
-    max-width: 230px;
-  }
+
+    img {
+        width: 98px;
+        height: 98px;
+    }
+
+    .assistantText {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        max-width: 230px;
+    }
 }
 
 .nextContainer {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-  &.importantInfo {
-    margin-top: 148px;
-  }
+    &.importantInfo {
+        margin-top: 148px;
+    }
 
-  &.webLinks {
-    margin-top: 128px;
-  }
+    &.webLinks {
+        margin-top: 128px;
+    }
 
-  &.roles {
-    margin-top: 47px;
-  }
+    &.roles {
+        margin-top: 47px;
+    }
 
-  .link {
-    cursor: pointer;
-  }
+    .link {
+        cursor: pointer;
+    }
 
-  .buttonBlock {
-    margin-bottom: 16px;
-  }
+    .buttonBlock {
+        margin-bottom: 16px;
+    }
 
-  .disabledBtn {
-    pointer-events: none;
-  }
+    .disabledBtn {
+        pointer-events: none;
+    }
 
-  .buttonProgress {
-    position: absolute;
-    top: 25%;
-    left: 50%;
-    margin-top: -12px;
-    margin-left: -12px;
-    color: white;
-  }
+    .buttonProgress {
+        position: absolute;
+        top: 25%;
+        left: 50%;
+        margin-top: -12px;
+        margin-left: -12px;
+        color: white;
+    }
 }
 
 .formText {
-  padding-left: 100px;
-  padding-right: 100px;
+    padding-left: 100px;
+    padding-right: 100px;
 }
 
 .inputContainer {
-  width: 100%;
+    width: 100%;
 }
 
 .scrollBox {
-  max-height: 60px;
-  overflow: auto;
+    max-height: 60px;
+    overflow: auto;
 }
 
 .selectTextBox {
-  width: 100%;
-  height: 45px;
-  padding: 8px 24px;
-  border-radius: 10px;
-  color: white;
+    width: 100%;
+    height: 45px;
+    padding: 8px 24px;
+    border-radius: 10px;
+    color: white;
 }
 
 .thirdFromInput {
-  margin-bottom: 16px;
+    margin-bottom: 16px;
 }
 
 .errorText {
-  position: absolute;
-  bottom: 115px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  color: #EA4335;
+    position: absolute;
+    bottom: 115px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: #ea4335;
 }
 
 .stepCounter {
-  margin-top: 22px;
+    margin-top: 22px;
 }

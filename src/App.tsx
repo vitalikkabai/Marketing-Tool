@@ -11,11 +11,11 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import OverridesCss from './material/themeProvider';
 import { Dispatch } from 'redux';
 import { getAuthData } from './store/Auth/AuthActions';
-import MarketingToolPageContainer from './pages/MarketingToolPageContainer/MarketingToolPageContainer';
+import MarketingToolPageContainer from './pages/MarketingToolPageBase/MarketingToolPageBase';
 import ResetPasswordPageContainer from './pages/ResetPasswordPage/ResetPasswordPageContainer';
-import MarketingToolPagePreviewContainer from './pages/MarketingToolPageContainer/MarketingToolPagePreviewContainer';
+import MarketingToolPagePreviewContainer from './pages/MarketingToolPageBase/MarketingToolPagePreviewBase';
 import { Occupation } from './store/Auth/AuthReducer';
-import ManagerPageBase from './pages/MarketingToolPageContainer/ManagerPageBase';
+import ManagerPageBase from './pages/MarketingToolPageBase/ManagerPageBase';
 
 Amplify.configure(awsconfig);
 

@@ -1,7 +1,7 @@
+import { CreateBusinessInput } from './../../API';
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 import { UpdateBusinessInput } from '../../API';
-import { Business, RoleTags } from '../../models';
 
 export interface stepOneData {
     storeURLs: string[];
@@ -39,7 +39,7 @@ export const updateBusinessInDB = (businessInput: UpdateBusinessInput) => ({
     payload: businessInput,
 });
 
-export const updateBusinessInDBSucces = (business: Business) => ({
+export const updateBusinessInDBSucces = (business: CreateBusinessInput) => ({
     type: 'UPDATE_BUSINESS_SUCCESS' as const,
     payload: business,
 });
@@ -49,7 +49,7 @@ export const updateBusinessInDBFailed = (err: string) => ({
     payload: err,
 });
 
-export const setBusiness = (business: Business) => ({
+export const setBusiness = (business: CreateBusinessInput) => ({
     type: 'SET_BUSINESS' as const,
     payload: business,
 });

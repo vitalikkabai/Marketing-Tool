@@ -1,26 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../store/store';
-import { compose } from 'redux';
+import { compose, Dispatch } from 'redux';
+import { signOut } from '../../store/Auth/AuthActions';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import VisitorDashboard from '../../components/DashBoard/VisitorDashboard/VisitorDashboard';
 import { Route, Switch } from 'react-router';
 import SideBarMenu from '../../components/SideBarMenu/SideBarMenu';
-import classes from './MarketingToolPageContainer.module.scss';
+import classes from './MarketingToolPageBase.module.scss';
 import { Box, Grid } from '@material-ui/core';
-import UserDashboard from '../../components/DashBoard/UserDashBoard/UserDashboard';
+import Chat from '../../components/Chat/Chat';
 import TopBarContainer from '../../components/TopBar/TopBarContainer';
-import PersonalProfileContainer from '../PersonalProfile/PersonalProfileContainer';
-import BusinessProfileContainer from '../BusinessProfile/BusinessProfileContainer';
-import ProductPageContainer from '../ProductPage/ProductPageContainer';
-import AddProductContainer from '../../components/Product/AddProduct/AddProductContainer';
 
-type PropsType = {
-    isAuth: boolean;
-};
-
-const MarketingToolPageContainer: React.FunctionComponent<PropsType> = (
-    props
-) => {
+const MarketingToolPagePreviewContainer = (props: any) => {
     return (
         <Box className={classes.wrapper}>
             <SideBarMenu isAuth={props.isAuth} />
@@ -29,58 +21,48 @@ const MarketingToolPageContainer: React.FunctionComponent<PropsType> = (
                 <Grid container className={classes.contentContainer}>
                     <Grid xs={12} xl={12} item className={classes.content}>
                         <Switch>
-                            <Route path={'/'} exact component={UserDashboard} />
                             <Route
-                                path={'/personal-profile'}
+                                path={'/preview/'}
                                 exact
-                                component={PersonalProfileContainer}
+                                component={VisitorDashboard}
                             />
                             <Route
-                                path={'/business-profile'}
-                                component={BusinessProfileContainer}
-                            />
-                            <Route
-                                path={'/products'}
-                                exact
-                                component={ProductPageContainer}
-                            />
-                            <Route
-                                path={'/products/add-new-product'}
-                                exact
-                                component={AddProductContainer}
-                            />
-                            <Route
-                                path={'/market-research'}
+                                path={'/preview/products'}
                                 exact
                                 component={H1}
                             />
                             <Route
-                                path={'/brand-creation'}
+                                path={'/preview/market-research'}
                                 exact
                                 component={H1}
                             />
                             <Route
-                                path={'/sales-channels'}
+                                path={'/preview/brand-creation'}
                                 exact
                                 component={H1}
                             />
                             <Route
-                                path={'/customer-support'}
+                                path={'/preview/sales-channels'}
                                 exact
                                 component={H1}
                             />
                             <Route
-                                path={'/brand-awareness'}
+                                path={'/preview/customer-support'}
                                 exact
                                 component={H1}
                             />
                             <Route
-                                path={'/sales-statistics'}
+                                path={'/preview/brand-awareness'}
                                 exact
                                 component={H1}
                             />
                             <Route
-                                path={'/improvements'}
+                                path={'/preview/sales-statistics'}
+                                exact
+                                component={H1}
+                            />
+                            <Route
+                                path={'/preview/improvements'}
                                 exact
                                 component={H1}
                             />
@@ -95,6 +77,12 @@ const MarketingToolPageContainer: React.FunctionComponent<PropsType> = (
 const mapStateToProps = (state: AppStateType) => {
     return {
         isAuth: state.AuthReducer.isAuth,
+    };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+    return {
+        signOut: () => dispatch(signOut()),
     };
 };
 
@@ -113,6 +101,7 @@ const H1 = () => {
         </h1>
     );
 };
-
-const connectedContainer = connect(mapStateToProps)(MarketingToolPageContainer);
-export default withAuthRedirect(connectedContainer);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MarketingToolPagePreviewContainer);

@@ -1,93 +1,93 @@
 .dashboard {
-  .todoTitleBox {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    height: 56px;
-
-    .titleBox {
-      margin-left: 24px;
-    }
-
-    .stepBox {
-      margin-left: 15%;
-    }
-
-  }
-
-  .contentContainer {
-    height: calc(100vh - 228px);
-    margin-top: 20px;
-    display: flex;
-    width: 100%;
-
-    .contentBlockBox::-webkit-scrollbar {
-      display: none;
-    }
-
-    .contentBlockBox {
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
-    }
-
-    .contentBlockBox {
-      position: relative;
-      background: #fff;
-      border-radius: 10px;
-      display: block;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      margin-right: 24px;
-      padding: 24px 48px 0 48px;
-      overflow: auto;
-
-      form {
-        height: 100%;
-      }
-
-      .formContent {
-        height: 100%;
+    .todoTitleBox {
         width: 100%;
+        display: flex;
+        align-items: center;
+        height: 56px;
 
-        .dropZone {
-          display: flex;
-          justify-content: center;
+        .titleBox {
+            margin-left: 24px;
         }
 
-        .formInputs {
-          flex: 0 1 auto;
-          width: 100%;
-
-          .productInfoInputs {
-            display: flex;
-            margin-top: 24px;
-          }
-
-          .productUrlInputs {
-            margin-top: 24px;
-          }
-
-          .addUrlText {
-            margin-top: 16px;
-          }
-
-          .additionalInfo {
-            display: flex;
-            margin-top: 24px;
-          }
+        .stepBox {
+            margin-left: 15%;
         }
-      }
     }
 
-    .nextButtonBox {
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      flex: 1 1 auto;
-      margin-bottom: 64px;
+    .contentContainer {
+        height: calc(100vh - 228px);
+        margin-top: 20px;
+        display: flex;
+        width: 100%;
+        position: relative;
 
-      button {
-        color: white;
-      }
+        .contentBlockBox::-webkit-scrollbar {
+            display: none;
+        }
+
+        .contentBlockBox {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .contentBlockBox {
+            position: relative;
+            background: #fff;
+            border-radius: 10px;
+            display: block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-right: 24px;
+            padding: 24px 48px 0 48px;
+            overflow: auto;
+
+            form {
+                height: 100%;
+            }
+
+            .formContent {
+                height: 100%;
+                width: 100%;
+
+                .dropZone {
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .formInputs {
+                    flex: 0 1 auto;
+                    width: 100%;
+
+                    .productInfoInputs {
+                        display: flex;
+                        margin-top: 24px;
+                    }
+
+                    .productUrlInputs {
+                        margin-top: 24px;
+                    }
+
+                    .addUrlText {
+                        margin-top: 16px;
+                    }
+
+                    .additionalInfo {
+                        display: flex;
+                        margin-top: 24px;
+                    }
+                }
+            }
+        }
+
+        .nextButtonBox {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            flex: 1 1 auto;
+            margin-bottom: 64px;
+
+            button {
+                color: white;
+            }
+        }
     }
-  }
 }

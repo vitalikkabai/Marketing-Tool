@@ -3,14 +3,15 @@ import { catchError, mergeMap } from 'rxjs/operators';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
 import { API, graphqlOperation } from 'aws-amplify';
-import { from, Observable } from 'rxjs';
+import { from } from 'rxjs';
 import {
     setManager,
     fetchManagerByIdFailure,
-    fetchManagerById,
+    setBusinesses,
 } from './ManagerActions';
 import { getManager } from '../../graphqlFiltered/queriesFiltered';
 import { setProfile } from '../Profile/ProfileActions';
+import { setBusiness } from '../Business/BusinessActions';
 
 const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     (action$) =>
@@ -27,6 +28,8 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                         return [
                             setManager(res.data.getManager),
                             setProfile(res.data.getManager.profile),
+                            setBusinesses(res.data.getManager.businesses.items),
+                            setBusiness(res.data.getManager.businesses.items[0]),
                         ];
                     }),
                     catchError((err) => {
