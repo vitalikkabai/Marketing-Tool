@@ -15,7 +15,7 @@ import MarketingToolPageContainer from "./pages/MarketingToolPageContainer/Marke
 import ResetPasswordPageContainer from './pages/ResetPasswordPage/ResetPasswordPageContainer';
 import MarketingToolPagePreviewContainer from './pages/MarketingToolPageContainer/MarketingToolPagePreviewContainer';
 import { Occupation } from './store/Auth/AuthReducer';
-import ManagerPageBase from './pages/ManagerPageBase/ManagerPageBase';
+import ManagerPageBase from './pages/MarketingToolPageContainer/ManagerPageBase';
 
 Amplify.configure(awsconfig);
 
