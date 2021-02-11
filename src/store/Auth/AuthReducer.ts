@@ -1,5 +1,4 @@
 import * as actions from './AuthActions';
-import SendResetLink from './../../components/ResetPasswordForm/SendResetLink';
 
 
 export enum Occupation {

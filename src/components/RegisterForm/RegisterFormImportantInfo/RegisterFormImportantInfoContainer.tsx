@@ -6,36 +6,26 @@ import { signUp } from '../../../store/Auth/AuthActions';
 import RegisterFormImportantInfo from "./RegisterFormImportantInfo";
 import { setProfile } from "../../../store/Profile/ProfileActions";
 import { CreateEmployeeInput, CreateProfileInput } from "../../../API";
-import { setEmployee } from "../../../store/Employee/EmployeeActions";
-
-// export type RegisterFormImportantInfoContainerType = MapDispatchType &
-//     stepTwoData & ProfileType;
+import {getUserLocation, setEmployee} from "../../../store/Employee/EmployeeActions";
 
 const mapStateToProps = (state: AppStateType) => {
     return {
         companyName: state.BusinessReducer.companyName,
         profile: state.ProfileReducer.profile,
         phoneNumber: state.EmployeeReducer.phoneNumber,
-        country: "",
-        city: "",
-        businessNumber: "",
+        businessNumber: state.EmployeeReducer.countryCode,
         registerErrorText: state.AuthReducer.registerErrorMessage,
         employee: state.EmployeeReducer
     }
 };
-
-// type MapDispatchType = {
-//     setStepTwo: (arg: stepTwoData) => void,
-//     signUp: (email: string, password: string, userName: string) => void,
-//     setProfile: (profile: CreateProfileInput) => void
-// }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         setBusinessName: (businessName: string) => dispatch(setBusinessName(businessName)),
         signUp: (email:string, password:string, userName:string) => dispatch(signUp(email, password, userName)),
         setProfile: (profile: CreateProfileInput) => dispatch(setProfile(profile)),
-        setEmployee: (employee: CreateEmployeeInput) => dispatch(setEmployee(employee))
+        setEmployee: (employee: CreateEmployeeInput) => dispatch(setEmployee(employee)),
+        getUserLocation: () => dispatch(getUserLocation())
     }
 };
 

@@ -109,7 +109,7 @@ export const changePassword = (oldPassword: string, newPassword: string, callbac
     payload: { oldPassword, newPassword, callback }
 });
 
-export const changePasswordSucces = () => ({
+export const changePasswordSuccess = () => ({
     type: "CHANGE_PASSWORD_SUCCESS" as const
 });
 

@@ -65,6 +65,7 @@ const AvatarSection: React.FunctionComponent<{
                 role={undefined}
                 transition
                 disablePortal
+                style={{ zIndex: 10 }}
             >
                 {({ TransitionProps, placement }) => (
                     <Grow

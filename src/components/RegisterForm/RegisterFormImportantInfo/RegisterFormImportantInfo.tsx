@@ -27,9 +27,9 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
         companyName: {value: props.companyName, touched: false, error: false, errorText: "", name: "COMPANY_NAME"},
         countryCode: {
             value: {
-                code: "",
-                label: "",
-                phone: ""
+                code: props.businessNumber.code,
+                label: props.businessNumber.label,
+                phone: props.businessNumber.phone
             },
             touched: false,
             error: false,
@@ -43,7 +43,11 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
         confirmPassword: {value: "", touched: false, error: false, errorText: "", name: "CONFIRM_PASSWORD"},
     });
     const [isPending, setPending] = useState(false);
-    const [flagCode, setFlagCode] = useState("");
+
+    useEffect(()=>{
+        if(props.businessNumber.code === "")
+        props.getUserLocation()
+    },[])
 
     useEffect(() => {
         if (props.registerErrorText.code) setPending(false);
@@ -60,6 +64,17 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
             }
         }
     }, [props.registerErrorText.code]);
+
+    useEffect(() => {
+        setInputValue(
+            prevStyle => ({
+                ...prevStyle,
+                countryCode: {
+                    ...prevStyle.countryCode,
+                    value: props.businessNumber
+                }
+            }))
+    }, [props.businessNumber]);
 
     const resetFieldErrors = () => {
         setInputValue((prevInput) => {
@@ -267,8 +282,6 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
             ...props.profile,
             name: inputValue.ownerName.value,
             email: inputValue.ownerEmail.value,
-            // countryCode: inputValue.countryCode.value.label,
-            // phoneNumber: inputValue.phoneNumber.value,
         })
     }
 
@@ -341,7 +354,8 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                                 option={data}
                                                 value={inputValue.countryCode.value}
                                                 getOption={(option:{code: string, phone: string, label: string}) => "+" + option.phone}
-                                                onInputChange={(event: Record<string, unknown>, newInputValue: string, reason: string) => {
+                                                /*onInputChange={(event: Record<string, unknown>, newInputValue: string, reason: string) => {
+                                                    debugger
                                                     if (newInputValue.length === 0) {
                                                         setInputValue(
                                                             prevStyle => ({
@@ -381,7 +395,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                                                     value: {...prevStyle.countryCode.value, code: ""}
                                                                 }
                                                             }))
-                                                }}
+                                                }}*/
                                                 renderOption={
                                                     (option: any) => (
                                                         <React.Fragment>
@@ -407,7 +421,6 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                                                         value: value,
                                                                     }
                                                                 }))
-                                                            setFlagCode(value.code);
                                                         }
                                                     }
                                                 }/>
