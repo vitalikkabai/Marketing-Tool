@@ -33,14 +33,9 @@ export const createBusiness = /* GraphQL */ `
             products {
               items {
                 id
-                itemNumber
-                itemName
                 release
-                websiteURLs
                 stage
                 businessID
-                color
-                material
                 createdAt
                 updatedAt
                 owner
@@ -102,10 +97,19 @@ export const createBusiness = /* GraphQL */ `
       products {
         items {
           id
-          itemNumber
-          itemName
+          itemNumber {
+            value
+            createdAt
+          }
+          itemName {
+            value
+            createdAt
+          }
           release
-          websiteURLs
+          websiteURLs {
+            record
+            createdAt
+          }
           stage
           business {
             id
@@ -125,14 +129,9 @@ export const createBusiness = /* GraphQL */ `
             products {
               items {
                 id
-                itemNumber
-                itemName
                 release
-                websiteURLs
                 stage
                 businessID
-                color
-                material
                 createdAt
                 updatedAt
                 owner
@@ -160,50 +159,37 @@ export const createBusiness = /* GraphQL */ `
             owner
           }
           businessID
-          color
-          material
+          color {
+            record
+            createdAt
+          }
+          material {
+            record
+            createdAt
+          }
           photos {
-            bucket
-            region
             key
+            createdAt
+            deleted
+            deletedAt
           }
           videos {
-            bucket
-            region
             key
+            createdAt
+            deleted
+            deletedAt
           }
           certifications {
-            bucket
-            region
             key
+            createdAt
+            deleted
+            deletedAt
           }
           marketingMaterials {
-            bucket
-            region
             key
-          }
-          packagingPhotos {
-            bucket
-            region
-            key
-          }
-          packagingVideos {
-            bucket
-            region
-            key
-          }
-          packagings {
-            isDimentions
-            sizeOrDimensions
-            weightKgs
-            unitBarCode {
-              bucket
-              region
-              key
-            }
-            pieces
-            packegeWeightKgs
-            packageDimentions
+            createdAt
+            deleted
+            deletedAt
           }
           createdAt
           updatedAt
@@ -232,14 +218,9 @@ export const createBusiness = /* GraphQL */ `
             products {
               items {
                 id
-                itemNumber
-                itemName
                 release
-                websiteURLs
                 stage
                 businessID
-                color
-                material
                 createdAt
                 updatedAt
                 owner
@@ -321,14 +302,9 @@ export const updateBusiness = /* GraphQL */ `
             products {
               items {
                 id
-                itemNumber
-                itemName
                 release
-                websiteURLs
                 stage
                 businessID
-                color
-                material
                 createdAt
                 updatedAt
                 owner
@@ -390,10 +366,19 @@ export const updateBusiness = /* GraphQL */ `
       products {
         items {
           id
-          itemNumber
-          itemName
+          itemNumber {
+            value
+            createdAt
+          }
+          itemName {
+            value
+            createdAt
+          }
           release
-          websiteURLs
+          websiteURLs {
+            record
+            createdAt
+          }
           stage
           business {
             id
@@ -413,14 +398,9 @@ export const updateBusiness = /* GraphQL */ `
             products {
               items {
                 id
-                itemNumber
-                itemName
                 release
-                websiteURLs
                 stage
                 businessID
-                color
-                material
                 createdAt
                 updatedAt
                 owner
@@ -448,50 +428,37 @@ export const updateBusiness = /* GraphQL */ `
             owner
           }
           businessID
-          color
-          material
+          color {
+            record
+            createdAt
+          }
+          material {
+            record
+            createdAt
+          }
           photos {
-            bucket
-            region
             key
+            createdAt
+            deleted
+            deletedAt
           }
           videos {
-            bucket
-            region
             key
+            createdAt
+            deleted
+            deletedAt
           }
           certifications {
-            bucket
-            region
             key
+            createdAt
+            deleted
+            deletedAt
           }
           marketingMaterials {
-            bucket
-            region
             key
-          }
-          packagingPhotos {
-            bucket
-            region
-            key
-          }
-          packagingVideos {
-            bucket
-            region
-            key
-          }
-          packagings {
-            isDimentions
-            sizeOrDimensions
-            weightKgs
-            unitBarCode {
-              bucket
-              region
-              key
-            }
-            pieces
-            packegeWeightKgs
-            packageDimentions
+            createdAt
+            deleted
+            deletedAt
           }
           createdAt
           updatedAt
@@ -520,14 +487,9 @@ export const updateBusiness = /* GraphQL */ `
             products {
               items {
                 id
-                itemNumber
-                itemName
                 release
-                websiteURLs
                 stage
                 businessID
-                color
-                material
                 createdAt
                 updatedAt
                 owner
@@ -609,14 +571,9 @@ export const deleteBusiness = /* GraphQL */ `
             products {
               items {
                 id
-                itemNumber
-                itemName
                 release
-                websiteURLs
                 stage
                 businessID
-                color
-                material
                 createdAt
                 updatedAt
                 owner
@@ -678,10 +635,19 @@ export const deleteBusiness = /* GraphQL */ `
       products {
         items {
           id
-          itemNumber
-          itemName
+          itemNumber {
+            value
+            createdAt
+          }
+          itemName {
+            value
+            createdAt
+          }
           release
-          websiteURLs
+          websiteURLs {
+            record
+            createdAt
+          }
           stage
           business {
             id
@@ -701,14 +667,9 @@ export const deleteBusiness = /* GraphQL */ `
             products {
               items {
                 id
-                itemNumber
-                itemName
                 release
-                websiteURLs
                 stage
                 businessID
-                color
-                material
                 createdAt
                 updatedAt
                 owner
@@ -736,50 +697,37 @@ export const deleteBusiness = /* GraphQL */ `
             owner
           }
           businessID
-          color
-          material
+          color {
+            record
+            createdAt
+          }
+          material {
+            record
+            createdAt
+          }
           photos {
-            bucket
-            region
             key
+            createdAt
+            deleted
+            deletedAt
           }
           videos {
-            bucket
-            region
             key
+            createdAt
+            deleted
+            deletedAt
           }
           certifications {
-            bucket
-            region
             key
+            createdAt
+            deleted
+            deletedAt
           }
           marketingMaterials {
-            bucket
-            region
             key
-          }
-          packagingPhotos {
-            bucket
-            region
-            key
-          }
-          packagingVideos {
-            bucket
-            region
-            key
-          }
-          packagings {
-            isDimentions
-            sizeOrDimensions
-            weightKgs
-            unitBarCode {
-              bucket
-              region
-              key
-            }
-            pieces
-            packegeWeightKgs
-            packageDimentions
+            createdAt
+            deleted
+            deletedAt
           }
           createdAt
           updatedAt
@@ -808,14 +756,9 @@ export const deleteBusiness = /* GraphQL */ `
             products {
               items {
                 id
-                itemNumber
-                itemName
                 release
-                websiteURLs
                 stage
                 businessID
-                color
-                material
                 createdAt
                 updatedAt
                 owner
@@ -937,10 +880,19 @@ export const createEmployee = /* GraphQL */ `
         products {
           items {
             id
-            itemNumber
-            itemName
+            itemNumber {
+              value
+              createdAt
+            }
+            itemName {
+              value
+              createdAt
+            }
             release
-            websiteURLs
+            websiteURLs {
+              record
+              createdAt
+            }
             stage
             business {
               id
@@ -964,50 +916,37 @@ export const createEmployee = /* GraphQL */ `
               owner
             }
             businessID
-            color
-            material
+            color {
+              record
+              createdAt
+            }
+            material {
+              record
+              createdAt
+            }
             photos {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             videos {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             certifications {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             marketingMaterials {
-              bucket
-              region
               key
-            }
-            packagingPhotos {
-              bucket
-              region
-              key
-            }
-            packagingVideos {
-              bucket
-              region
-              key
-            }
-            packagings {
-              isDimentions
-              sizeOrDimensions
-              weightKgs
-              unitBarCode {
-                bucket
-                region
-                key
-              }
-              pieces
-              packegeWeightKgs
-              packageDimentions
+              createdAt
+              deleted
+              deletedAt
             }
             createdAt
             updatedAt
@@ -1164,10 +1103,19 @@ export const updateEmployee = /* GraphQL */ `
         products {
           items {
             id
-            itemNumber
-            itemName
+            itemNumber {
+              value
+              createdAt
+            }
+            itemName {
+              value
+              createdAt
+            }
             release
-            websiteURLs
+            websiteURLs {
+              record
+              createdAt
+            }
             stage
             business {
               id
@@ -1191,50 +1139,37 @@ export const updateEmployee = /* GraphQL */ `
               owner
             }
             businessID
-            color
-            material
+            color {
+              record
+              createdAt
+            }
+            material {
+              record
+              createdAt
+            }
             photos {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             videos {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             certifications {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             marketingMaterials {
-              bucket
-              region
               key
-            }
-            packagingPhotos {
-              bucket
-              region
-              key
-            }
-            packagingVideos {
-              bucket
-              region
-              key
-            }
-            packagings {
-              isDimentions
-              sizeOrDimensions
-              weightKgs
-              unitBarCode {
-                bucket
-                region
-                key
-              }
-              pieces
-              packegeWeightKgs
-              packageDimentions
+              createdAt
+              deleted
+              deletedAt
             }
             createdAt
             updatedAt
@@ -1391,10 +1326,19 @@ export const deleteEmployee = /* GraphQL */ `
         products {
           items {
             id
-            itemNumber
-            itemName
+            itemNumber {
+              value
+              createdAt
+            }
+            itemName {
+              value
+              createdAt
+            }
             release
-            websiteURLs
+            websiteURLs {
+              record
+              createdAt
+            }
             stage
             business {
               id
@@ -1418,50 +1362,37 @@ export const deleteEmployee = /* GraphQL */ `
               owner
             }
             businessID
-            color
-            material
+            color {
+              record
+              createdAt
+            }
+            material {
+              record
+              createdAt
+            }
             photos {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             videos {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             certifications {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             marketingMaterials {
-              bucket
-              region
               key
-            }
-            packagingPhotos {
-              bucket
-              region
-              key
-            }
-            packagingVideos {
-              bucket
-              region
-              key
-            }
-            packagings {
-              isDimentions
-              sizeOrDimensions
-              weightKgs
-              unitBarCode {
-                bucket
-                region
-                key
-              }
-              pieces
-              packegeWeightKgs
-              packageDimentions
+              createdAt
+              deleted
+              deletedAt
             }
             createdAt
             updatedAt
@@ -1603,10 +1534,19 @@ export const createManager = /* GraphQL */ `
           products {
             items {
               id
-              itemNumber
-              itemName
+              itemNumber {
+                value
+                createdAt
+              }
+              itemName {
+                value
+                createdAt
+              }
               release
-              websiteURLs
+              websiteURLs {
+                record
+                createdAt
+              }
               stage
               business {
                 id
@@ -1619,45 +1559,37 @@ export const createManager = /* GraphQL */ `
                 owner
               }
               businessID
-              color
-              material
+              color {
+                record
+                createdAt
+              }
+              material {
+                record
+                createdAt
+              }
               photos {
-                bucket
-                region
                 key
+                createdAt
+                deleted
+                deletedAt
               }
               videos {
-                bucket
-                region
                 key
+                createdAt
+                deleted
+                deletedAt
               }
               certifications {
-                bucket
-                region
                 key
+                createdAt
+                deleted
+                deletedAt
               }
               marketingMaterials {
-                bucket
-                region
                 key
-              }
-              packagingPhotos {
-                bucket
-                region
-                key
-              }
-              packagingVideos {
-                bucket
-                region
-                key
-              }
-              packagings {
-                isDimentions
-                sizeOrDimensions
-                weightKgs
-                pieces
-                packegeWeightKgs
-                packageDimentions
+                createdAt
+                deleted
+                deletedAt
               }
               createdAt
               updatedAt
@@ -1775,10 +1707,19 @@ export const updateManager = /* GraphQL */ `
           products {
             items {
               id
-              itemNumber
-              itemName
+              itemNumber {
+                value
+                createdAt
+              }
+              itemName {
+                value
+                createdAt
+              }
               release
-              websiteURLs
+              websiteURLs {
+                record
+                createdAt
+              }
               stage
               business {
                 id
@@ -1791,45 +1732,37 @@ export const updateManager = /* GraphQL */ `
                 owner
               }
               businessID
-              color
-              material
+              color {
+                record
+                createdAt
+              }
+              material {
+                record
+                createdAt
+              }
               photos {
-                bucket
-                region
                 key
+                createdAt
+                deleted
+                deletedAt
               }
               videos {
-                bucket
-                region
                 key
+                createdAt
+                deleted
+                deletedAt
               }
               certifications {
-                bucket
-                region
                 key
+                createdAt
+                deleted
+                deletedAt
               }
               marketingMaterials {
-                bucket
-                region
                 key
-              }
-              packagingPhotos {
-                bucket
-                region
-                key
-              }
-              packagingVideos {
-                bucket
-                region
-                key
-              }
-              packagings {
-                isDimentions
-                sizeOrDimensions
-                weightKgs
-                pieces
-                packegeWeightKgs
-                packageDimentions
+                createdAt
+                deleted
+                deletedAt
               }
               createdAt
               updatedAt
@@ -1947,10 +1880,19 @@ export const deleteManager = /* GraphQL */ `
           products {
             items {
               id
-              itemNumber
-              itemName
+              itemNumber {
+                value
+                createdAt
+              }
+              itemName {
+                value
+                createdAt
+              }
               release
-              websiteURLs
+              websiteURLs {
+                record
+                createdAt
+              }
               stage
               business {
                 id
@@ -1963,45 +1905,37 @@ export const deleteManager = /* GraphQL */ `
                 owner
               }
               businessID
-              color
-              material
+              color {
+                record
+                createdAt
+              }
+              material {
+                record
+                createdAt
+              }
               photos {
-                bucket
-                region
                 key
+                createdAt
+                deleted
+                deletedAt
               }
               videos {
-                bucket
-                region
                 key
+                createdAt
+                deleted
+                deletedAt
               }
               certifications {
-                bucket
-                region
                 key
+                createdAt
+                deleted
+                deletedAt
               }
               marketingMaterials {
-                bucket
-                region
                 key
-              }
-              packagingPhotos {
-                bucket
-                region
-                key
-              }
-              packagingVideos {
-                bucket
-                region
-                key
-              }
-              packagings {
-                isDimentions
-                sizeOrDimensions
-                weightKgs
-                pieces
-                packegeWeightKgs
-                packageDimentions
+                createdAt
+                deleted
+                deletedAt
               }
               createdAt
               updatedAt
@@ -2127,10 +2061,19 @@ export const createProduct = /* GraphQL */ `
   ) {
     createProduct(input: $input, condition: $condition) {
       id
-      itemNumber
-      itemName
+      itemNumber {
+        value
+        createdAt
+      }
+      itemName {
+        value
+        createdAt
+      }
       release
-      websiteURLs
+      websiteURLs {
+        record
+        createdAt
+      }
       stage
       business {
         id
@@ -2196,10 +2139,19 @@ export const createProduct = /* GraphQL */ `
         products {
           items {
             id
-            itemNumber
-            itemName
+            itemNumber {
+              value
+              createdAt
+            }
+            itemName {
+              value
+              createdAt
+            }
             release
-            websiteURLs
+            websiteURLs {
+              record
+              createdAt
+            }
             stage
             business {
               id
@@ -2223,50 +2175,37 @@ export const createProduct = /* GraphQL */ `
               owner
             }
             businessID
-            color
-            material
+            color {
+              record
+              createdAt
+            }
+            material {
+              record
+              createdAt
+            }
             photos {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             videos {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             certifications {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             marketingMaterials {
-              bucket
-              region
               key
-            }
-            packagingPhotos {
-              bucket
-              region
-              key
-            }
-            packagingVideos {
-              bucket
-              region
-              key
-            }
-            packagings {
-              isDimentions
-              sizeOrDimensions
-              weightKgs
-              unitBarCode {
-                bucket
-                region
-                key
-              }
-              pieces
-              packegeWeightKgs
-              packageDimentions
+              createdAt
+              deleted
+              deletedAt
             }
             createdAt
             updatedAt
@@ -2321,50 +2260,37 @@ export const createProduct = /* GraphQL */ `
         owner
       }
       businessID
-      color
-      material
+      color {
+        record
+        createdAt
+      }
+      material {
+        record
+        createdAt
+      }
       photos {
-        bucket
-        region
         key
+        createdAt
+        deleted
+        deletedAt
       }
       videos {
-        bucket
-        region
         key
+        createdAt
+        deleted
+        deletedAt
       }
       certifications {
-        bucket
-        region
         key
+        createdAt
+        deleted
+        deletedAt
       }
       marketingMaterials {
-        bucket
-        region
         key
-      }
-      packagingPhotos {
-        bucket
-        region
-        key
-      }
-      packagingVideos {
-        bucket
-        region
-        key
-      }
-      packagings {
-        isDimentions
-        sizeOrDimensions
-        weightKgs
-        unitBarCode {
-          bucket
-          region
-          key
-        }
-        pieces
-        packegeWeightKgs
-        packageDimentions
+        createdAt
+        deleted
+        deletedAt
       }
       createdAt
       updatedAt
@@ -2379,10 +2305,19 @@ export const updateProduct = /* GraphQL */ `
   ) {
     updateProduct(input: $input, condition: $condition) {
       id
-      itemNumber
-      itemName
+      itemNumber {
+        value
+        createdAt
+      }
+      itemName {
+        value
+        createdAt
+      }
       release
-      websiteURLs
+      websiteURLs {
+        record
+        createdAt
+      }
       stage
       business {
         id
@@ -2448,10 +2383,19 @@ export const updateProduct = /* GraphQL */ `
         products {
           items {
             id
-            itemNumber
-            itemName
+            itemNumber {
+              value
+              createdAt
+            }
+            itemName {
+              value
+              createdAt
+            }
             release
-            websiteURLs
+            websiteURLs {
+              record
+              createdAt
+            }
             stage
             business {
               id
@@ -2475,50 +2419,37 @@ export const updateProduct = /* GraphQL */ `
               owner
             }
             businessID
-            color
-            material
+            color {
+              record
+              createdAt
+            }
+            material {
+              record
+              createdAt
+            }
             photos {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             videos {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             certifications {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             marketingMaterials {
-              bucket
-              region
               key
-            }
-            packagingPhotos {
-              bucket
-              region
-              key
-            }
-            packagingVideos {
-              bucket
-              region
-              key
-            }
-            packagings {
-              isDimentions
-              sizeOrDimensions
-              weightKgs
-              unitBarCode {
-                bucket
-                region
-                key
-              }
-              pieces
-              packegeWeightKgs
-              packageDimentions
+              createdAt
+              deleted
+              deletedAt
             }
             createdAt
             updatedAt
@@ -2573,50 +2504,37 @@ export const updateProduct = /* GraphQL */ `
         owner
       }
       businessID
-      color
-      material
+      color {
+        record
+        createdAt
+      }
+      material {
+        record
+        createdAt
+      }
       photos {
-        bucket
-        region
         key
+        createdAt
+        deleted
+        deletedAt
       }
       videos {
-        bucket
-        region
         key
+        createdAt
+        deleted
+        deletedAt
       }
       certifications {
-        bucket
-        region
         key
+        createdAt
+        deleted
+        deletedAt
       }
       marketingMaterials {
-        bucket
-        region
         key
-      }
-      packagingPhotos {
-        bucket
-        region
-        key
-      }
-      packagingVideos {
-        bucket
-        region
-        key
-      }
-      packagings {
-        isDimentions
-        sizeOrDimensions
-        weightKgs
-        unitBarCode {
-          bucket
-          region
-          key
-        }
-        pieces
-        packegeWeightKgs
-        packageDimentions
+        createdAt
+        deleted
+        deletedAt
       }
       createdAt
       updatedAt
@@ -2631,10 +2549,19 @@ export const deleteProduct = /* GraphQL */ `
   ) {
     deleteProduct(input: $input, condition: $condition) {
       id
-      itemNumber
-      itemName
+      itemNumber {
+        value
+        createdAt
+      }
+      itemName {
+        value
+        createdAt
+      }
       release
-      websiteURLs
+      websiteURLs {
+        record
+        createdAt
+      }
       stage
       business {
         id
@@ -2700,10 +2627,19 @@ export const deleteProduct = /* GraphQL */ `
         products {
           items {
             id
-            itemNumber
-            itemName
+            itemNumber {
+              value
+              createdAt
+            }
+            itemName {
+              value
+              createdAt
+            }
             release
-            websiteURLs
+            websiteURLs {
+              record
+              createdAt
+            }
             stage
             business {
               id
@@ -2727,50 +2663,37 @@ export const deleteProduct = /* GraphQL */ `
               owner
             }
             businessID
-            color
-            material
+            color {
+              record
+              createdAt
+            }
+            material {
+              record
+              createdAt
+            }
             photos {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             videos {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             certifications {
-              bucket
-              region
               key
+              createdAt
+              deleted
+              deletedAt
             }
             marketingMaterials {
-              bucket
-              region
               key
-            }
-            packagingPhotos {
-              bucket
-              region
-              key
-            }
-            packagingVideos {
-              bucket
-              region
-              key
-            }
-            packagings {
-              isDimentions
-              sizeOrDimensions
-              weightKgs
-              unitBarCode {
-                bucket
-                region
-                key
-              }
-              pieces
-              packegeWeightKgs
-              packageDimentions
+              createdAt
+              deleted
+              deletedAt
             }
             createdAt
             updatedAt
@@ -2825,50 +2748,37 @@ export const deleteProduct = /* GraphQL */ `
         owner
       }
       businessID
-      color
-      material
+      color {
+        record
+        createdAt
+      }
+      material {
+        record
+        createdAt
+      }
       photos {
-        bucket
-        region
         key
+        createdAt
+        deleted
+        deletedAt
       }
       videos {
-        bucket
-        region
         key
+        createdAt
+        deleted
+        deletedAt
       }
       certifications {
-        bucket
-        region
         key
+        createdAt
+        deleted
+        deletedAt
       }
       marketingMaterials {
-        bucket
-        region
         key
-      }
-      packagingPhotos {
-        bucket
-        region
-        key
-      }
-      packagingVideos {
-        bucket
-        region
-        key
-      }
-      packagings {
-        isDimentions
-        sizeOrDimensions
-        weightKgs
-        unitBarCode {
-          bucket
-          region
-          key
-        }
-        pieces
-        packegeWeightKgs
-        packageDimentions
+        createdAt
+        deleted
+        deletedAt
       }
       createdAt
       updatedAt
