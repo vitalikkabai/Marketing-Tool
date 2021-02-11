@@ -20,7 +20,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
             dispatch(signIn(username, password)),
         cleanErrors: () => dispatch(cleanErrors()),
         getAuthData: () => dispatch(getAuthData()),
-        setActiveBusiness: (business: CreateBusinessInput) => dispatch(setBusiness(business))
+        setActiveBusiness: (business: CreateBusinessInput) =>
+            dispatch(setBusiness(business)),
     };
 };
 
