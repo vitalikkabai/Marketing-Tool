@@ -3,7 +3,7 @@ import React from 'react';
 import ManagersSideBarMenu from '../../components/ManagersSideBarMenu/ManagersSideBarMenu';
 import ManagersSideBarMenuContainer from '../../components/ManagersSideBarMenu/ManagersSideBarMenuContainer';
 import TopBarContainer from '../../components/TopBar/TopBarContainer';
-import classes from './MarketingToolPageContainer.module.scss';
+import classes from './MarketingToolPageBase.module.scss';
 
 const ManagerPageBase: React.FunctionComponent = () => {
     return (
