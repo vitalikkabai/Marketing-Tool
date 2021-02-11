@@ -1,0 +1,19 @@
+.carouselBox {
+  width: 350px;
+  border: 2px dashed #e5e5e5;
+}
+
+.outerBox {
+  //overflow: hidden;
+  margin-top: -30px;
+  margin-bottom: -20px;
+}
+
+.CarouselContainer{
+
+  .CarouselItem {
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+  }
+}

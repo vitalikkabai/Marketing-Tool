@@ -76,6 +76,7 @@ const Chat: FunctionComponent<ChatProps> = (props) => {
     });
 
     const [inputValue, setInputValue] = useState('');
+    const [searchInputValue, setSearchInputValue] = useState('');
     const scrollRef = useRef(document.createElement('div'));
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -124,23 +125,18 @@ const Chat: FunctionComponent<ChatProps> = (props) => {
             >
                 <Grid
                     item
-                    className={classes.chatInputGrid}
+                    className={classes.searchInputGrid}
                     style={{ background: props.backGroundColor }}
                 >
-                    <form
-                        className={classes.chatInputBox}
-                        onSubmit={handleSubmit}
-                    >
-                        <CustomInput
-                            fullWidth
-                            placeholder={'search...'}
-                            onChange={(
-                                event: React.ChangeEvent<
-                                    HTMLTextAreaElement | HTMLInputElement
-                                >
-                            ) => setInputValue(event.target.value)}
-                        />
-                    </form>
+                    <CustomInput
+                        fullWidth
+                        placeholder={'search...'}
+                        onChange={(
+                            event: React.ChangeEvent<
+                                HTMLTextAreaElement | HTMLInputElement
+                            >
+                        ) => setInputValue(event.target.value)}
+                    />
                 </Grid>
                 <Grid
                     item

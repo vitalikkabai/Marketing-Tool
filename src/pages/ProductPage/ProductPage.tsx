@@ -15,10 +15,10 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
 
     return <Grid container className={classes.dashboard}>
         <Box className={classes.todoTitleBox}>
-            <Grid item  className={classes.titleBox}>
+            <Grid item xs={8} xl={9} className={classes.titleBox} >
                 <Typography variant={"h2"}>Products</Typography>
             </Grid>
-            <Grid item className={classes.addProductButton} onClick={()=>{history.push("/products/add-new-product")}}>
+            <Grid item xs={4} xl={3} className={classes.addProductButton} onClick={()=>{history.push("/products/add-new-product")}}>
                 <PlusSVG/>
                 <Typography color={"primary"} variant={"button"}>Add product</Typography>
             </Grid>

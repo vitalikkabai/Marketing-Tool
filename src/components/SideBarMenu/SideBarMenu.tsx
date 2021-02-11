@@ -1,5 +1,5 @@
 import { Box, Grid, List, ListItem, ListItemIcon, ListItemText, Typography, useTheme } from '@material-ui/core';
-import React from 'react';
+import React, {useEffect} from 'react';
 import classes from './SideBarMenu.module.scss';
 import logo from '../../assets/images/headerLogo.svg';
 import { ReactComponent as BoxIcon } from '../../assets/images/menuIcons/BoxIcon.svg';
@@ -29,6 +29,8 @@ const SideBarMenu = (props: any) => {
 		if(history.location.pathname === ("/")) return "1";
 		return ("0")
 	}
+	useEffect(()=>{setSelected(getCurrentLocation())},[history.location.pathname]);
+
 	const [selected, setSelected] = React.useState(getCurrentLocation());
 	return (
 		<Grid container direction={"column"} alignItems={"flex-start"} className={classes.menu}>
