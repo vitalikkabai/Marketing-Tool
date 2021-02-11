@@ -1,63 +1,63 @@
 .stepProgressContainer {
-  ul {
-    padding: 0;
-    margin: 0;
-    display: flex;
-    align-items: center;
-  }
+    ul {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
 
-  img {
-    width: 14px;
-    height: 11px;
-  }
+    img {
+        width: 14px;
+        height: 11px;
+    }
 
-  li {
-    width: 27px;
-    height: 27px;
-    text-align: center;
-    line-height: 27px;
-    background: #EEEEEE;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    position: relative;
-    border-radius: 27px;
-    cursor: default;
-  }
+    li {
+        width: 27px;
+        height: 27px;
+        text-align: center;
+        line-height: 27px;
+        background: #eeeeee;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        position: relative;
+        border-radius: 27px;
+        cursor: default;
+    }
 
-  .active {
-    width: 27px;
-    height: 27px;
-    line-height: 24px;
-  }
+    .active {
+        width: 27px;
+        height: 27px;
+        line-height: 24px;
+    }
 
-  .current {
-    width: 34px;
-    height: 34px;
-    line-height: 34px;
-  }
+    .current {
+        width: 34px;
+        height: 34px;
+        line-height: 34px;
+    }
 
-  .line {
-    height: 3px;
-    width: 26px;
-    background: #EEEEEE;
-  }
+    .line {
+        height: 3px;
+        width: 26px;
+        background: #eeeeee;
+    }
 }
 
 .circleRipple {
-  background-color: #35ffc3;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  animation: ripple 1.7s linear infinite;
+    background-color: #35ffc3;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    animation: ripple 1.7s linear infinite;
 }
 
 @keyframes ripple {
-  0% {
-    box-shadow: 0 0 0 0 rgba(rgba(66, 133, 244, 0.2), 0.6)
-  }
-  100% {
-    box-shadow: 0 0 0 0.6em rgba(rgba(66, 133, 244, 0.2), 0)
-  }
+    0% {
+        box-shadow: 0 0 0 0 rgba(rgba(66, 133, 244, 0.2), 0.6);
+    }
+    100% {
+        box-shadow: 0 0 0 0.6em rgba(rgba(66, 133, 244, 0.2), 0);
+    }
 }

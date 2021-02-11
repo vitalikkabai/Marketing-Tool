@@ -1,58 +1,58 @@
 .dashboard {
-  .todoTitleBox {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 56px;
+    .todoTitleBox {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 56px;
 
-    .titleBox {
-      margin-right: 24px;
-    }
-
-    .addProductButton {
-      height: 56px;
-      padding: 0 84px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #FFF;
-      cursor: pointer;
-      border-radius: 10px;
-
-      svg{
-        margin-right: 10px;
-        path{
-          fill: #F8D000;
+        .titleBox {
+            margin-right: 24px;
         }
-      }
+
+        .addProductButton {
+            height: 56px;
+            padding: 0 84px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+            cursor: pointer;
+            border-radius: 10px;
+
+            svg {
+                margin-right: 10px;
+                path {
+                    fill: #f8d000;
+                }
+            }
+        }
     }
-  }
 
-  .contentContainer {
-    height: calc(100vh - 228px);
-    margin-top: 20px;
-    display: flex;
-    width: 100%;
+    .contentContainer {
+        height: calc(100vh - 228px);
+        margin-top: 20px;
+        display: flex;
+        width: 100%;
 
-    .contentBox {
-      background: #fff;
-      border-radius: 10px;
-      display: block;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        .contentBox {
+            background: #fff;
+            border-radius: 10px;
+            display: block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 
-      .tabPanelBox {
-        height: calc(100% - 57px);
-        overflow: auto;
-        -ms-overflow-style: none;
-        /* IE and Edge */
-        scrollbar-width: none;
-        /* Firefox */
-      }
-      .tabPanelBox::-webkit-scrollbar {
-        display: none;
-      }
+            .tabPanelBox {
+                height: calc(100% - 57px);
+                overflow: auto;
+                -ms-overflow-style: none;
+                /* IE and Edge */
+                scrollbar-width: none;
+                /* Firefox */
+            }
+            .tabPanelBox::-webkit-scrollbar {
+                display: none;
+            }
+        }
     }
-  }
 }

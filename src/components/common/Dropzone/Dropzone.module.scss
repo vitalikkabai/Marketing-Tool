@@ -1,53 +1,53 @@
 .dropZoneSection {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  .dropZone {
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    padding: 8px;
-    outline: none;
-    cursor: pointer;
-
-    .dropZoneDashedBox {
-      border: 2px dashed #9E9E9E;
-      border-radius: 10px;
-      padding: 16px 10px;
-      display: flex;
-      align-items: center;
-
-      .dropZoneText {
-        margin-left: 12px;
-      }
-    }
-  }
-
-  .photoSection {
+    width: 100%;
     display: flex;
-    justify-content: center;
-    margin-top: 25px;
+    flex-direction: column;
+    align-items: center;
 
-    .imgBox {
-      width: 80px;
-      height: 80px;
-      overflow: hidden;
-      position: relative;
-      border-radius: 5px;
-
-      img {
-        position: absolute;
-        height: 100px;
-        left: -1000%;
-        right: -1000%;
-        top: -1000%;
-        bottom: -1000%;
-        margin: auto;
-        min-height: 100%;
-        min-width: 100%;
+    .dropZone {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        padding: 8px;
+        outline: none;
         cursor: pointer;
-      }
+
+        .dropZoneDashedBox {
+            border: 2px dashed #9e9e9e;
+            border-radius: 10px;
+            padding: 16px 10px;
+            display: flex;
+            align-items: center;
+
+            .dropZoneText {
+                margin-left: 12px;
+            }
+        }
     }
-  }
+
+    .photoSection {
+        display: flex;
+        justify-content: center;
+        margin-top: 25px;
+
+        .imgBox {
+            width: 80px;
+            height: 80px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 5px;
+
+            img {
+                position: absolute;
+                height: 100px;
+                left: -1000%;
+                right: -1000%;
+                top: -1000%;
+                bottom: -1000%;
+                margin: auto;
+                min-height: 100%;
+                min-width: 100%;
+                cursor: pointer;
+            }
+        }
+    }
 }

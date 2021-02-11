@@ -1,52 +1,52 @@
 .component {
-  display: flex;
-  flex-flow: column;
-  height: 100%;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
 
-  .headTitle {
-    flex: 0 1 auto;
-    margin-bottom: 14px;
-    padding-left: 48px;
-  }
-
-  .formContainer {
-    flex: 1 1 auto;
-    background: #FFF;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    overflow: auto;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-
-  .formContainer::-webkit-scrollbar {
-    display: none;
-  }
-
-  .formContentContainer {
-    padding: 36px 48px;
-    width: 100%;
-
-    .mainInputGridItem {
-      display: flex;
-      justify-content: space-between;
-
-      .saveButton {
-        display: flex;
-        justify-content: flex-end;
-      }
+    .headTitle {
+        flex: 0 1 auto;
+        margin-bottom: 14px;
+        padding-left: 48px;
     }
 
-    .roleBoxesGridItem {
-      margin-top: 32px;
-
-      .roleBoxText {
-        margin-bottom: 16px;
-      }
+    .formContainer {
+        flex: 1 1 auto;
+        background: #fff;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: auto;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
     }
 
-    .linkGridItem {
-      margin-top: 56px;
+    .formContainer::-webkit-scrollbar {
+        display: none;
     }
-  }
+
+    .formContentContainer {
+        padding: 36px 48px;
+        width: 100%;
+
+        .mainInputGridItem {
+            display: flex;
+            justify-content: space-between;
+
+            .saveButton {
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
+
+        .roleBoxesGridItem {
+            margin-top: 32px;
+
+            .roleBoxText {
+                margin-bottom: 16px;
+            }
+        }
+
+        .linkGridItem {
+            margin-top: 56px;
+        }
+    }
 }
