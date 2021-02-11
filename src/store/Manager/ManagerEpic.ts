@@ -12,6 +12,9 @@ import {
 import { getManager } from '../../graphqlFiltered/queriesFiltered';
 import { setProfile } from '../Profile/ProfileActions';
 import { setBusiness } from '../Business/BusinessActions';
+import { setInterlocutor } from '../Message/MessageActions';
+import { DetailedBusiness } from './ManagerReducer';
+import { GetManagerQuery } from '../../API';
 
 const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     (action$) =>
@@ -25,11 +28,16 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                 ).pipe(
                     mergeMap((res) => {
                         console.log(res);
+                        const detailedBusinesses:DetailedBusiness[] = res.data.getManager.businesses.items.map((biz:any) => ({
+                            business: biz,
+                            employeeProfiles: biz.employees.items.map((emp:any) => emp.profile)
+                        }))
                         return [
                             setManager(res.data.getManager),
                             setProfile(res.data.getManager.profile),
-                            setBusinesses(res.data.getManager.businesses.items),
+                            setBusinesses(detailedBusinesses),
                             setBusiness(res.data.getManager.businesses.items[0]),
+                            setInterlocutor(res.data.getManager.businesses.items[0].employees.items[0].profile)
                         ];
                     }),
                     catchError((err) => {

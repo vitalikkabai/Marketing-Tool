@@ -172,16 +172,16 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                 if (!avatar)
                     return [
                         setAvatarUrl(''),
-                        subscribeOnMessageCreated(id),
-                        subscribeOnMessageUpdated(id),
+                        // subscribeOnMessageCreated(id),
+                        // subscribeOnMessageUpdated(id),
                     ];
 
                 return from(Storage.get(avatar.key)).pipe(
                     mergeMap((res) => {
                         return [
                             setAvatarUrl(res as string),
-                            subscribeOnMessageCreated(id),
-                            subscribeOnMessageUpdated(id),
+                            // subscribeOnMessageCreated(id),
+                            // subscribeOnMessageUpdated(id),
                         ];
                     }),
                     catchError((err) => {

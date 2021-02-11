@@ -1,5 +1,7 @@
 import { Box, Grid } from '@material-ui/core';
 import React from 'react';
+import { Route, Switch } from 'react-router';
+import ManagerDashboard from '../../components/DashBoard/ManagerDashBoard/ManagerDashboard';
 import ManagersSideBarMenu from '../../components/ManagersSideBarMenu/ManagersSideBarMenu';
 import ManagersSideBarMenuContainer from '../../components/ManagersSideBarMenu/ManagersSideBarMenuContainer';
 import TopBarContainer from '../../components/TopBar/TopBarContainer';
@@ -13,20 +15,9 @@ const ManagerPageBase: React.FunctionComponent = () => {
                 <TopBarContainer />
                 <Grid container className={classes.contentContainer}>
                     <Grid xs={12} xl={12} item className={classes.content}>
-                        {/* <Switch>
-							<Route path={'/'} exact component={UserDashboard} />
-							<Route path={'/personal-profile'} exact component={PersonalProfileContainer} />
-							<Route path={'/business-profile'} component={BusinessProfileContainer} />
-							<Route path={'/products'} exact component={ProductPageContainer}/>
-							<Route path={'/products/add-new-product'} exact component={AddProductContainer}/>
-							<Route path={'/market-research'} exact component={H1} />
-							<Route path={'/brand-creation'} exact component={H1} />
-							<Route path={'/sales-channels'} exact component={H1} />
-							<Route path={'/customer-support'} exact component={H1} />
-							<Route path={'/brand-awareness'} exact component={H1} />
-							<Route path={'/sales-statistics'} exact component={H1} />
-							<Route path={'/improvements'} exact component={H1} />
-						</Switch> */}
+                        <Switch>
+							<Route path={'/'} exact component={ManagerDashboard} />
+						</Switch>
                     </Grid>
                 </Grid>
             </Box>

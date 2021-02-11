@@ -10,37 +10,37 @@ import { ChatProps } from './ChatContainer';
 import { CreateProfileInput, MessageStatus, Stage } from '../../API';
 
 const Chat: FunctionComponent<ChatProps> = (props) => {
-    let interlocutor: CreateProfileInput = {
-        id: '0f580759-6129-423b-a2cd-55409f687b8d',
-        email: 'def@ault.email',
-        name: 'Chat Companion',
-        avatar: {
-            key:
-                'images/0f580759-6129-423b-a2cd-55409f687b8d_1612521270019_avatar.png',
-            bucket: 'mtbucket104149-dev',
-            region: 'eu-central-1',
-        },
-    };
+    // let interlocutor: CreateProfileInput = {
+    //     id: '0f580759-6129-423b-a2cd-55409f687b8d',
+    //     email: 'def@ault.email',
+    //     name: 'Chat Companion',
+    //     avatar: {
+    //         key:
+    //             'images/0f580759-6129-423b-a2cd-55409f687b8d_1612521270019_avatar.png',
+    //         bucket: 'mtbucket104149-dev',
+    //         region: 'eu-central-1',
+    //     },
+    // };
 
-    if (props.thisProfile.id === '0f580759-6129-423b-a2cd-55409f687b8d') {
-        interlocutor = {
-            id: 'ea41c236-ae2c-44b7-b5ad-a9db1b48fbe4',
-            email: 'asdf@asdf.asdfy',
-            name: 'Default Name',
-            avatar: {
-                key:
-                    'images/ea41c236-ae2c-44b7-b5ad-a9db1b48fbe4_1612520916079_avatar.png',
-                bucket: 'mtbucket104149-dev',
-                region: 'eu-central-1',
-            },
-        };
-    }
+    // if (props.thisProfile.id === '0f580759-6129-423b-a2cd-55409f687b8d') {
+    //     interlocutor = {
+    //         id: 'ea41c236-ae2c-44b7-b5ad-a9db1b48fbe4',
+    //         email: 'asdf@asdf.asdfy',
+    //         name: 'Default Name',
+    //         avatar: {
+    //             key:
+    //                 'images/ea41c236-ae2c-44b7-b5ad-a9db1b48fbe4_1612520916079_avatar.png',
+    //             bucket: 'mtbucket104149-dev',
+    //             region: 'eu-central-1',
+    //         },
+    //     };
+    // }
 
     const setMessageName = (senderID: string) => {
         if (senderID === props.thisProfile.id) {
             return props.thisProfile.name;
         }
-        return interlocutor.name;
+        return props.interlocutor.name;
     };
 
     const setMessageAvatarURL = (senderID: string) => {
@@ -85,7 +85,7 @@ const Chat: FunctionComponent<ChatProps> = (props) => {
             senderID: props.thisProfile.id || '',
             stage: Stage.UNASSIGNED,
             subjectID: 'default',
-            receiverID: interlocutor.id || '',
+            receiverID: props.interlocutor.id || '',
             sharedID: props.thisProfile.id || '',
             content: inputValue,
             status: MessageStatus.CREATED,
@@ -109,9 +109,7 @@ const Chat: FunctionComponent<ChatProps> = (props) => {
     useEffect(() => {
         //Auto scrolling to bottom on messages obj update
 
-        if (props.thisProfile.id) {
-            props.openDialogue(Stage.UNASSIGNED, 'default');
-        }
+       
     }, [props.thisProfile]);
 
     return (
