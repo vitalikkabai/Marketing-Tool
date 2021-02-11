@@ -1,5 +1,14 @@
-import { Box, Grid, List, ListItem, ListItemIcon, ListItemText, Typography, useTheme } from '@material-ui/core';
-import React, {useEffect} from 'react';
+import {
+    Box,
+    Grid,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Typography,
+    useTheme,
+} from '@material-ui/core';
+import React, { useEffect } from 'react';
 import classes from './SideBarMenu.module.scss';
 import logo from '../../assets/images/headerLogo.svg';
 import { ReactComponent as BoxIcon } from '../../assets/images/menuIcons/BoxIcon.svg';
@@ -11,8 +20,7 @@ import { ReactComponent as SaleIcon } from '../../assets/images/menuIcons/SaleIc
 import { ReactComponent as SmileIcon } from '../../assets/images/menuIcons/SmileIcon.svg';
 import { ReactComponent as SpeakIcon } from '../../assets/images/menuIcons/SpeakIcon.svg';
 import { ReactComponent as StonksIcon } from '../../assets/images/menuIcons/StonksIcon.svg';
-import { useHistory } from "react-router";
-
+import { useHistory } from 'react-router';
 
 const SideBarMenu = (props: any) => {
     const theme = useTheme();
