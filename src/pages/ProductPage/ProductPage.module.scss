@@ -5,9 +5,11 @@
     justify-content: space-between;
     align-items: center;
     height: 56px;
+
     .titleBox {
       margin-right: 24px;
     }
+
     .addProductButton {
       height: 56px;
       padding: 0 84px;
@@ -27,16 +29,19 @@
       }
     }
   }
+
   .contentContainer {
     height: calc(100vh - 228px);
     margin-top: 20px;
     display: flex;
     width: 100%;
+
     .contentBox {
       background: #fff;
       border-radius: 10px;
       display: block;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
       .tabPanelBox {
         height: calc(100% - 57px);
         overflow: auto;

@@ -100,7 +100,6 @@ const StepCounter: React.FC<PropsType> = (props) => {
                             <Typography variant={'subtitle2'}>{i}</Typography>
                         )}
                     </li>
-
                     {i < 8 ? (
                         <div
                             key={`div${i}`}
