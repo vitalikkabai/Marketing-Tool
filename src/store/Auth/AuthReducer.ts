@@ -1,23 +1,22 @@
 import * as actions from './AuthActions';
 
-
 export enum Occupation {
     EMPLOYEE = 0,
     MANAGER = 1,
     FREELANCERS = 2,
-    ADMINS = 3
+    ADMINS = 3,
 }
 export interface UserAttributes {
-    userID: string,
-    occupation: Occupation
+    userID: string;
+    occupation: Occupation;
 }
 
 export type InitialStateType = typeof initialState;
 
 const initialUserAttributes: UserAttributes = {
-    userID: "",
-    occupation: Occupation.EMPLOYEE
-}
+    userID: '',
+    occupation: Occupation.EMPLOYEE,
+};
 
 const initialState = {
     isAuth: false,
@@ -26,26 +25,28 @@ const initialState = {
     isResetPasswordSuccess: false,
     userAttributes: initialUserAttributes,
     loginErrorMessage: {
-        code: "",
-        message: "",
-        name: "",
+        code: '',
+        message: '',
+        name: '',
     },
     registerErrorMessage: {
-        code: "",
-        message: "",
-        name: "",
+        code: '',
+        message: '',
+        name: '',
     },
     sendResetLinkError: {
-        code: "",
-        message: "",
-        name: "",
-    }
+        code: '',
+        message: '',
+        name: '',
+    },
 };
 
-export const AuthReducer = (state = initialState, action: ActionTypes): InitialStateType => {
+export const AuthReducer = (
+    state = initialState,
+    action: ActionTypes
+): InitialStateType => {
     switch (action.type) {
-
-        case "SIGN-IN-SUCCESS":
+        case 'SIGN-IN-SUCCESS':
             return {
                 ...state,
                 isAuth: true,
@@ -53,99 +54,102 @@ export const AuthReducer = (state = initialState, action: ActionTypes): InitialS
                 userAttributes: action.payload,
             };
 
-        case "SIGN-IN-FAILED":
+        case 'SIGN-IN-FAILED':
             return {
                 ...state,
                 loginErrorMessage: action.payload.signInError,
             };
 
-        case "SIGN-OUT-SUCCESS":
+        case 'SIGN-OUT-SUCCESS':
             return {
                 ...state,
                 isAuth: false,
-                userAttributes: initialUserAttributes
+                userAttributes: initialUserAttributes,
             };
 
-        case "SIGN-UP-SUCCESS":
+        case 'SIGN-UP-SUCCESS':
             return {
                 ...state,
                 isAuth: true,
-                userAttributes: { ...state.userAttributes, userID: action.payload }
+                userAttributes: {
+                    ...state.userAttributes,
+                    userID: action.payload,
+                },
             };
 
-        case "SIGN-UP-FAILED":
+        case 'SIGN-UP-FAILED':
             return {
                 ...state,
-                registerErrorMessage: action.payload.signUpError
+                registerErrorMessage: action.payload.signUpError,
             };
 
-        case "AUTH-DATA-SUCCESS":
+        case 'AUTH-DATA-SUCCESS':
             return {
                 ...state,
                 userAttributes: action.payload,
                 initialized: true,
-                isAuth: true
+                isAuth: true,
             };
 
-        case "AUTH-DATA-FAILED":
+        case 'AUTH-DATA-FAILED':
             return {
                 ...state,
-                initialized: true
+                initialized: true,
             };
 
-        case "RESET-LINK-SUCCESS": {
+        case 'RESET-LINK-SUCCESS': {
             return {
                 ...state,
-                isSendResetLinkSuccess: true
-            }
+                isSendResetLinkSuccess: true,
+            };
         }
-        case "RESET-LINK-FAILED": {
+        case 'RESET-LINK-FAILED': {
             return {
                 ...state,
                 sendResetLinkError: action.payload.resetPasswordError,
-            }
+            };
         }
-        case "SEND-NEW-PASSWORD-SUCCESS": {
+        case 'SEND-NEW-PASSWORD-SUCCESS': {
             return {
                 ...state,
-                isResetPasswordSuccess: true
-            }
+                isResetPasswordSuccess: true,
+            };
         }
-        case "SEND-NEW-PASSWORD-FAILED": {
+        case 'SEND-NEW-PASSWORD-FAILED': {
             return {
                 ...state,
                 sendResetLinkError: action.payload.resetPasswordError,
-            }
+            };
         }
-        case "CLEAR-SUCCESS": {
+        case 'CLEAR-SUCCESS': {
             return {
                 ...state,
                 isSendResetLinkSuccess: false,
                 isResetPasswordSuccess: false,
-            }
+            };
         }
-        case "CHANGE_PASSWORD_FAILED":
-        case "CHANGE_PASSWORD":
-        case "CHANGE_PASSWORD_SUCCESS":
-        case "CHANGE_PERSONAL_INFO":
-        case "CLEAN-ERROR-FIELDS":
+        case 'CHANGE_PASSWORD_FAILED':
+        case 'CHANGE_PASSWORD':
+        case 'CHANGE_PASSWORD_SUCCESS':
+        case 'CHANGE_PERSONAL_INFO':
+        case 'CLEAN-ERROR-FIELDS':
             return {
                 ...state,
                 loginErrorMessage: {
-                    code: "",
-                    message: "",
-                    name: "",
+                    code: '',
+                    message: '',
+                    name: '',
                 },
                 registerErrorMessage: {
-                    code: "",
-                    message: "",
-                    name: "",
+                    code: '',
+                    message: '',
+                    name: '',
                 },
                 sendResetLinkError: {
-                    code: "",
-                    message: "",
-                    name: "",
-                }
+                    code: '',
+                    message: '',
+                    name: '',
+                },
             };
         default:
             return {
@@ -154,9 +158,7 @@ export const AuthReducer = (state = initialState, action: ActionTypes): InitialS
     }
 };
 
-type InferValueTypes<T> = T extends { [key: string]: infer U }
-    ? U
-    : never
+type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
 
 export type ActionTypes = ReturnType<InferValueTypes<typeof actions>>;
 

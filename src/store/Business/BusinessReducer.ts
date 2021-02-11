@@ -14,32 +14,39 @@ import { CreateBusinessInput } from '../../API';
 //     roleTags: RoleTags
 // }
 export const initialState: CreateBusinessInput = {
-    companyName: "",
+    companyName: '',
     storeURLs: [],
     websiteURLs: [],
-    managerID: "fddbb0b9-ad57-453f-be7b-7eca392a2408"
+    managerID: 'fddbb0b9-ad57-453f-be7b-7eca392a2408',
 };
 
 export const initialPresetState: CreateBusinessInput = {
-    companyName: "Default Company",
-    storeURLs: ["https://www.figma.com/file/qTbbMNPhweyUIF2goCPl7T/Marketing-Tool?node-id=3%3A1767"],
-    websiteURLs: ["https://www.figma.com/file/qTbbMNPhweyUIF2goCPl7T/Marketing-Tool?node-id=3%3A1767"],
-    managerID: "fddbb0b9-ad57-453f-be7b-7eca392a2408"
+    companyName: 'Default Company',
+    storeURLs: [
+        'https://www.figma.com/file/qTbbMNPhweyUIF2goCPl7T/Marketing-Tool?node-id=3%3A1767',
+    ],
+    websiteURLs: [
+        'https://www.figma.com/file/qTbbMNPhweyUIF2goCPl7T/Marketing-Tool?node-id=3%3A1767',
+    ],
+    managerID: 'fddbb0b9-ad57-453f-be7b-7eca392a2408',
 };
 
-export const BusinessReducer = (state: CreateBusinessInput = initialPresetState, action: ActionTypes): CreateBusinessInput => {
+export const BusinessReducer = (
+    state: CreateBusinessInput = initialPresetState,
+    action: ActionTypes
+): CreateBusinessInput => {
     switch (action.type) {
         case 'SET_BUSINESS':
         case 'UPDATE_BUSINESS_SUCCESS':
             return {
                 ...state,
                 ...action.payload,
-            }
+            };
         case 'SET_BUSINESS_URLS':
             return {
                 ...state,
                 storeURLs: action.payload.storeURLs,
-                websiteURLs: action.payload.websiteURLs
+                websiteURLs: action.payload.websiteURLs,
             };
         case 'SET_STEP_TWO':
             return {
@@ -48,21 +55,21 @@ export const BusinessReducer = (state: CreateBusinessInput = initialPresetState,
             };
         case 'UPDATE_BUSINESS_FAILED':
             return {
-                ...state
-            }
+                ...state,
+            };
         case 'SET_BUSINESS_NAME':
             return {
                 ...state,
-                companyName: action.payload
-            }
+                companyName: action.payload,
+            };
         case 'CLEAR_BUSINESS':
             return {
-                ...initialState
-            }
+                ...initialState,
+            };
         case 'UPDATE_BUSINESS':
             return {
-                ...state
-            }
+                ...state,
+            };
 
         default:
             return {
@@ -70,9 +77,7 @@ export const BusinessReducer = (state: CreateBusinessInput = initialPresetState,
             };
     }
 };
-type InferValueTypes<T> = T extends { [key: string]: infer U }
-    ? U
-    : never
+type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
 
 export type ActionTypes = ReturnType<InferValueTypes<typeof actions>>;
 
