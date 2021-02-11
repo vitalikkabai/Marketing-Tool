@@ -12,15 +12,16 @@ import StepCounter from './../../components/common/StepCounter/StepCounter';
 const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
     const [value, setValue] = React.useState(0);
     const history = useHistory();
-
     return (
         <Grid container className={classes.dashboard}>
             <Box className={classes.todoTitleBox}>
-                <Grid item className={classes.titleBox}>
+                <Grid item xs={8} xl={9} className={classes.titleBox}>
                     <Typography variant={'h2'}>Products</Typography>
                 </Grid>
                 <Grid
                     item
+                    xs={4}
+                    xl={3}
                     className={classes.addProductButton}
                     onClick={() => {
                         history.push('/products/add-new-product');
@@ -39,7 +40,6 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                         <Tab label="Edited" color={'primary'} />
                         <Tab label="Sales" color={'primary'} />
                     </CustomAppBar>
-
                     <TabPanel
                         className={classes.tabPanelBox}
                         index={0}
@@ -52,10 +52,10 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 className={classes.tasksTitle}
                             >
                                 <Typography
-                                    variant={'h2'}
+                                    variant={'body2'}
                                     style={{ textTransform: 'uppercase' }}
                                 >
-                                    Complete this step
+                                    This page is not ready yet
                                 </Typography>
                             </Box>
                             <Box

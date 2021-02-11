@@ -1,29 +1,29 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
-import { CreateMessageInput, CreateProfileInput, Stage } from "../../API";
+import { CreateMessageInput, CreateProfileInput, Stage } from '../../API';
 
 export const openDialogue = (stage: Stage, subjectID: string) => ({
     type: 'OPEN_DIALOGUE' as const,
-    payload: {stage, subjectID}
+    payload: { stage, subjectID },
 });
 
 export const openDialogueSuccess = (dialogue: CreateMessageInput[]) => ({
     type: 'OPEN_DIALOGUE_SUCCESS' as const,
-    payload: dialogue
+    payload: dialogue,
 });
 
 export const openDialogueFailure = () => ({
-    type: 'OPEN_DIALOGUE_FAILURE' as const
+    type: 'OPEN_DIALOGUE_FAILURE' as const,
 });
 
 export const sendMessage = (message: CreateMessageInput) => ({
     type: 'SEND_MESSAGE' as const,
-    payload: message
+    payload: message,
 });
 
 export const sendMessageSuccess = (message: CreateMessageInput) => ({
     type: 'SEND_MESSAGE_SUCCESS' as const,
-    payload: message
+    payload: message,
 });
 
 export const sendMessageFailure = () => ({
@@ -36,7 +36,7 @@ export const fetchLastMessages = () => ({
 
 export const fetchLastMessagesSuccess = (messages: CreateMessageInput[]) => ({
     type: 'FETCH_LAST_MESSAGES_SUCCESS' as const,
-    payload: messages
+    payload: messages,
 });
 
 export const fetchLastMessagesFailure = () => ({
@@ -45,17 +45,17 @@ export const fetchLastMessagesFailure = () => ({
 
 export const setInterlocutor = (interlocutor: CreateProfileInput) => ({
     type: 'SET_INTERLOCUTOR' as const,
-    payload: interlocutor
+    payload: interlocutor,
 });
 
 export const subscribeOnMessageCreated = (receiverID: string) => ({
     type: 'SUBSCRIBE_ON_MESSAGES_CREATED' as const,
-    payload: receiverID
+    payload: receiverID,
 });
 
 export const subscribeOnMessageUpdated = (receiverID: string) => ({
     type: 'SUBSCRIBE_ON_MESSAGE_UPDATED' as const,
-    payload: receiverID
+    payload: receiverID,
 });
 
 // export const subscribeOnUpdatedMessages = (receiverID: string) => ({
@@ -65,12 +65,12 @@ export const subscribeOnMessageUpdated = (receiverID: string) => ({
 
 export const getUpdatedMessage = (message: CreateMessageInput) => ({
     type: 'GET_UPDATED_MESSAGE' as const,
-    payload: message
+    payload: message,
 });
 
 export const updateMessageAction = (message: CreateMessageInput) => ({
     type: 'UPDATE_MESSAGE' as const,
-    payload: message
+    payload: message,
 });
 
 export const updateMessageSuccess = () => ({
@@ -79,6 +79,5 @@ export const updateMessageSuccess = () => ({
 
 export const getRecentMessage = (message: CreateMessageInput) => ({
     type: 'GET_RECENT_MESSAGE' as const,
-    payload: message
+    payload: message,
 });
-
