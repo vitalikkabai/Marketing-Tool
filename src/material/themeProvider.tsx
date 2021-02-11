@@ -12,7 +12,7 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
     const history = useHistory();
 
     const getPrimaryColor = () => {
-        if (history.location.pathname.includes('product')) return '#F8D000';
+        if (history.location.pathname.includes('product')) return '#EDCD27';
         if (history.location.pathname.includes('market-research'))
             return '#FFAB08';
         if (history.location.pathname.includes('brand-creation'))
@@ -35,7 +35,7 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
     useEffect(() => {
         history.listen((location) => {
             if (location.pathname.includes('product')) {
-                setColor('#F8D000');
+                setColor('#EDCD27');
                 return;
             }
             if (location.pathname.includes('market-research')) {
