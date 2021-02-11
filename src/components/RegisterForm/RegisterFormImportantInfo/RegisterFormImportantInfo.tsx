@@ -353,7 +353,10 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (prop
                                                 margin={"0 0 24px 0"}
                                                 option={data}
                                                 value={inputValue.countryCode.value}
-                                                getOption={(option:{code: string, phone: string, label: string}) => "+" + option.phone}
+                                                getOption={(option:{code: string, phone: string, label: string}) => {
+                                                    if(inputValue.countryCode.value.phone) return "+" + option.phone
+                                                    else return option.phone
+                                                }}
                                                 /*onInputChange={(event: Record<string, unknown>, newInputValue: string, reason: string) => {
                                                     debugger
                                                     if (newInputValue.length === 0) {
