@@ -2,31 +2,34 @@ import { CreateProfileInput } from '../../API';
 import * as actions from './ProfileActions';
 
 type ProfileReducerType = {
-    profile: CreateProfileInput,
-    avatarURL: string
-}
+    profile: CreateProfileInput;
+    avatarURL: string;
+};
 const initialState: ProfileReducerType = {
     profile: {
-        name: "",
-        email: ""
+        name: '',
+        email: '',
     },
-    avatarURL: ""
+    avatarURL: '',
 };
 
 const initialPresetState: ProfileReducerType = {
     profile: {
-        email: "def@ault.email",
-        name: "Default name"
+        email: 'def@ault.email',
+        name: 'Default name',
     },
-    avatarURL: ""
+    avatarURL: '',
 };
 
-export const ProfileReducer = (state: ProfileReducerType = initialPresetState, action: ActionTypes): ProfileReducerType => {
+export const ProfileReducer = (
+    state: ProfileReducerType = initialPresetState,
+    action: ActionTypes
+): ProfileReducerType => {
     switch (action.type) {
         case 'SET_PROFILE_DATA':
             return {
                 ...state,
-                profile: { ...action.payload }
+                profile: { ...action.payload },
             };
 
         // case 'SET_ROLE_TAGS':
@@ -40,24 +43,24 @@ export const ProfileReducer = (state: ProfileReducerType = initialPresetState, a
         case 'INITIATE_NEW_PROFILE':
             return {
                 ...state,
-                profile: { ...state.profile, id: action.payload }
+                profile: { ...state.profile, id: action.payload },
             };
         case 'FETCH_PROFILE_BY_ID_SUCCESS':
         case 'SAVE_PROFILE_TO_DB_SUCCESS':
         case 'UPDATE_PROFILE_SUCCESS':
             return {
                 ...state,
-                profile: { ...action.payload }
-            }
+                profile: { ...action.payload },
+            };
         case 'SET_PROFILE_AVATAR_URL':
             return {
                 ...state,
-                avatarURL: action.payload
-            }
+                avatarURL: action.payload,
+            };
         case 'CLEAR_PROFILE':
             return {
-                ...initialState
-            }
+                ...initialState,
+            };
         case 'SET_PROFILE_IMAGE':
         case 'SAVE_PROFILE_TO_DB_FAILED':
         case 'UPDATE_PERSONAL_INFO':
@@ -68,9 +71,7 @@ export const ProfileReducer = (state: ProfileReducerType = initialPresetState, a
             };
     }
 };
-type InferValueTypes<T> = T extends { [key: string]: infer U }
-    ? U
-    : never
+type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
 
 export type ActionTypes = ReturnType<InferValueTypes<typeof actions>>;
 

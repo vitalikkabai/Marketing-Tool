@@ -3,5 +3,5 @@ import { UpdateProductInput } from './../../API';
 
 export const setEmployee = (productData: UpdateProductInput) => ({
     type: 'UPDATE_PRODUCT' as const,
-    payload: productData
+    payload: productData,
 });

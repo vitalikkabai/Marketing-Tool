@@ -6,11 +6,11 @@ import { ActionTypes as MessageActionTypes } from './Message/MessageReducer';
 import { ActionTypes as ManagerActionTypes } from './Manager/ManagerReducer';
 import { ActionTypes as ProductActionTypes } from './Product/ProductReducer';
 
-
-export type ActionTypes = AuthActionTypes |
-    BusinessActionTypes |
-    ProfileActionTypes |
-    EmployeeActionTypes |
-    MessageActionTypes |
-    ManagerActionTypes |
-    ProductActionTypes
+export type ActionTypes =
+    | AuthActionTypes
+    | BusinessActionTypes
+    | ProfileActionTypes
+    | EmployeeActionTypes
+    | MessageActionTypes
+    | ManagerActionTypes
+    | ProductActionTypes;
