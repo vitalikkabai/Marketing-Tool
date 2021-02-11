@@ -2,21 +2,18 @@ import { CreateProductInput, Stage } from '../../API';
 import * as actions from './ProductActions';
 
 const initialState: CreateProductInput = {
-    itemNumber: 0,
-    itemName: '',
+    itemNumber: [{value: 0, createdAt:""}],
+    itemName: [{value: "", createdAt:""}],
     release: '',
-    websiteURLs: [],
+    websiteURLs: [{record:[], createdAt: ""}],
     stage: Stage.PRODUCTS,
     businessID: '',
-    color: [],
-    material: [],
+    color: [{record:[], createdAt: ""}],
+    material: [{record:[], createdAt: ""}],
     photos: [],
     videos: [],
     certifications: [],
-    marketingMaterials: [],
-    packagingPhotos: [],
-    packagingVideos: [],
-    packagings: [],
+    marketingMaterials: []
 };
 
 export const ProductReducer = (

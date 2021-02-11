@@ -6,14 +6,16 @@ import {
     ListItemIcon,
     ListItemText,
     Typography,
-    useTheme,
 } from '@material-ui/core';
 import React from 'react';
 import classes from './ManagersSideBarMenu.module.scss';
-import logo from '../../assets/images/headerLogo.svg';
 import { ReactComponent as CubeIcon } from '../../assets/images/menuIcons/Cubes.svg';
+import { PropsFromRedux } from './ManagersSideBarMenuContainer';
 
-const ManagersSideBarMenu = (props: any) => {
+const ManagersSideBarMenu: React.FunctionComponent<PropsFromRedux> = (
+    props
+) => {
+    console.log(props);
     return (
         <Grid
             container
@@ -22,31 +24,27 @@ const ManagersSideBarMenu = (props: any) => {
             className={classes.menu}
         >
             <Box className={classes.gridItem}>
-                <img src={logo} alt="logo" className={classes.logo} />
+                <Typography variant={'h2'}>
+                    {props.activeBusiness.companyName}
+                </Typography>
             </Box>
             <List
                 component="nav"
                 aria-labelledby="nested-list-subheader"
                 className={classes.rootList}
             >
-                <ListItem
-                    button
-                    classes={{
-                        root: classes.item1,
-                        selected: classes.active1,
-                    }}
-                >
-                    <ListItemIcon classes={{ root: classes.listIconRoot }}>
-                        <CubeIcon className={classes.svgIcon} />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary={
+                {props.businesses.map((business, index) => {
+                    return (
+                        <ListItem
+                            key={index}
+                            onClick={() => props.setActiveBusiness(business)}
+                        >
                             <Typography variant={'subtitle1'}>
-                                Dashboard
+                                {business.companyName}
                             </Typography>
-                        }
-                    />
-                </ListItem>
+                        </ListItem>
+                    );
+                })}
             </List>
             <Box className={classes.bottomText + ' ' + classes.gridItem}>
                 <hr

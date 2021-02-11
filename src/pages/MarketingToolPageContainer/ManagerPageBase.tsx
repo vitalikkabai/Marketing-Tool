@@ -1,13 +1,14 @@
 import { Box, Grid } from '@material-ui/core';
 import React from 'react';
 import ManagersSideBarMenu from '../../components/ManagersSideBarMenu/ManagersSideBarMenu';
+import ManagersSideBarMenuContainer from '../../components/ManagersSideBarMenu/ManagersSideBarMenuContainer';
 import TopBarContainer from '../../components/TopBar/TopBarContainer';
 import classes from './MarketingToolPageContainer.module.scss';
 
 const ManagerPageBase: React.FunctionComponent = () => {
     return (
         <Box className={classes.wrapper}>
-            <ManagersSideBarMenu />
+            <ManagersSideBarMenuContainer/>
             <Box className={classes.marketingContainer}>
                 <TopBarContainer />
                 <Grid container className={classes.contentContainer}>

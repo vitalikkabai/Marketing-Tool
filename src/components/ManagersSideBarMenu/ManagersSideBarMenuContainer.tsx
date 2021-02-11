@@ -3,11 +3,13 @@ import { connect, ConnectedProps } from 'react-redux';
 import { AppStateType } from '../../store/store';
 import { cleanErrors, getAuthData, signIn } from '../../store/Auth/AuthActions';
 import ManagersSideBarMenu from './ManagersSideBarMenu';
+import { CreateBusinessInput } from '../../API';
+import { setBusiness } from '../../store/Business/BusinessActions';
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        companiesList: state.ManagerReducer.companies,
-        activeCompany: state.ManagerReducer.activeCompany,
+        businesses: state.ManagerReducer.businesses,
+        activeBusiness: state.BusinessReducer,
         errorText: state.AuthReducer.loginErrorMessage,
     };
 };
@@ -18,6 +20,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
             dispatch(signIn(username, password)),
         cleanErrors: () => dispatch(cleanErrors()),
         getAuthData: () => dispatch(getAuthData()),
+        setActiveBusiness: (business: CreateBusinessInput) => dispatch(setBusiness(business))
     };
 };
 

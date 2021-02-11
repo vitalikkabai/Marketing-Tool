@@ -3,19 +3,12 @@ import * as actions from './ManagerActions';
 
 type ManagerReducerType = {
     manager: CreateManagerInput;
-    companies: CreateBusinessInput[];
-    activeCompany: CreateBusinessInput;
+    businesses: CreateBusinessInput[];
 };
 
 const initialState: ManagerReducerType = {
     manager: {},
-    companies: [],
-    activeCompany: {
-        companyName: '',
-        storeURLs: [],
-        websiteURLs: [],
-        managerID: '',
-    },
+    businesses: [],
 };
 
 export const ManagerReducer = (
@@ -27,6 +20,11 @@ export const ManagerReducer = (
             return {
                 ...state,
                 manager: action.payload,
+            };
+        case 'SET_BUSINESSES':
+            return {
+                ...state,
+                businesses: action.payload,
             };
         case 'FETCH_MANAGER_BY_ID_FAILURE':
         default:
