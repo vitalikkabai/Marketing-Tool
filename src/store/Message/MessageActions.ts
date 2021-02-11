@@ -79,3 +79,12 @@ export const getRecentMessage = (message: CreateMessageInput) => ({
     type: 'GET_RECENT_MESSAGE' as const,
     payload: message,
 });
+
+export const setInterlocutorAvatarUrl = (avatarUrl: string) => ({
+    type: 'SET_INTERLOCUTOR_AVATAR_URL' as const,
+    payload: avatarUrl,
+});
+
+export const setInterlocutorAvatarUrlFailure = () => ({
+    type: 'SET_INTERLOCUTOR_AVATAR_URL_FAILURE' as const,
+});

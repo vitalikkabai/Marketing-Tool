@@ -47,7 +47,7 @@ const Chat: FunctionComponent<ChatProps> = (props) => {
         if (senderID === props.thisProfile.id) {
             return props.avatarURL || '';
         }
-        return '';
+        return props.interlocutorAvatarURL || '';
     };
 
     // const [baseTexts, setBaseText] = useState(props.dialogue);
@@ -108,8 +108,6 @@ const Chat: FunctionComponent<ChatProps> = (props) => {
 
     useEffect(() => {
         //Auto scrolling to bottom on messages obj update
-
-       
     }, [props.thisProfile]);
 
     return (

@@ -27,7 +27,8 @@ const mapStateToProps = (state: AppStateType) => {
         dialogue: state.MessageReducer.dialogue,
         thisProfile: state.ProfileReducer.profile,
         avatarURL: state.ProfileReducer.avatarURL,
-        interlocutor: state.MessageReducer.interlocutor
+        interlocutor: state.MessageReducer.interlocutor,
+        interlocutorAvatarURL: state.MessageReducer.interlocutorAvatarURL
     };
 };
 

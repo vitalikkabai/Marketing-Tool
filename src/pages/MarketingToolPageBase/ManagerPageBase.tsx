@@ -5,6 +5,7 @@ import ManagerDashboard from '../../components/DashBoard/ManagerDashBoard/Manage
 import ManagersSideBarMenu from '../../components/ManagersSideBarMenu/ManagersSideBarMenu';
 import ManagersSideBarMenuContainer from '../../components/ManagersSideBarMenu/ManagersSideBarMenuContainer';
 import TopBarContainer from '../../components/TopBar/TopBarContainer';
+import PersonalProfileContainer from '../PersonalProfile/PersonalProfileContainer';
 import classes from './MarketingToolPageBase.module.scss';
 
 const ManagerPageBase: React.FunctionComponent = () => {
@@ -17,6 +18,11 @@ const ManagerPageBase: React.FunctionComponent = () => {
                     <Grid xs={12} xl={12} item className={classes.content}>
                         <Switch>
 							<Route path={'/'} exact component={ManagerDashboard} />
+                            <Route
+                                path={'/personal-profile'}
+                                exact
+                                component={PersonalProfileContainer}
+                            />
 						</Switch>
                     </Grid>
                 </Grid>

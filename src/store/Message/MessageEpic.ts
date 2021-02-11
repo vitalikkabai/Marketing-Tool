@@ -17,10 +17,12 @@ import {
     updateMessageSuccess,
     subscribeOnMessageCreated,
     subscribeOnMessageUpdated,
+    setInterlocutorAvatarUrl,
+    setInterlocutorAvatarUrlFailure,
 } from './MessageActions';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
-import { API, graphqlOperation } from 'aws-amplify';
+import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { combineLatest, from } from 'rxjs';
 import { getConversation, getDialogue } from '../../graphql/queries';
 import {
@@ -196,6 +198,35 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                 );
             })
         ),
+        (action$, state$) =>
+        action$.pipe(
+            ofType(
+                'SET_INTERLOCUTOR'
+            ),
+            mergeMap(() => {
+                const avatar = state$.value.MessageReducer.interlocutor.avatar;
+                if (!avatar)
+                    return [
+                        setInterlocutorAvatarUrl(''),
+                        // subscribeOnMessageCreated(id),
+                        // subscribeOnMessageUpdated(id),
+                    ];
+
+                return from(Storage.get(avatar.key)).pipe(
+                    mergeMap((res) => {
+                        return [
+                            setInterlocutorAvatarUrl(res as string),
+                            // subscribeOnMessageCreated(id),
+                            // subscribeOnMessageUpdated(id),
+                        ];
+                    }),
+                    catchError((err) => {
+                        console.log(err);
+                        return [setInterlocutorAvatarUrlFailure()];
+                    })
+                );
+            })
+        )
 ];
 
 export default epics;

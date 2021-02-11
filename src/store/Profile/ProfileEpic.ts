@@ -164,7 +164,8 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
             ofType(
                 'FETCH_PROFILE_BY_ID_SUCCESS',
                 'SAVE_PROFILE_TO_DB_SUCCESS',
-                'UPDATE_PROFILE_SUCCESS'
+                'UPDATE_PROFILE_SUCCESS',
+                'SET_PROFILE_DATA'
             ),
             mergeMap(() => {
                 const avatar = state$.value.ProfileReducer.profile.avatar;
