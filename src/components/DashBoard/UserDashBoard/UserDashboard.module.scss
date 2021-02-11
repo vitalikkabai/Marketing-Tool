@@ -5,7 +5,6 @@
     justify-content: space-between;
     align-items: center;
     height: 56px;
-
     .titleBox {
       margin-right: 24px;
     }
@@ -32,7 +31,6 @@
     margin-top: 20px;
     display: flex;
     width: 100%;
-
     .contentBox {
       background: #fff;
       border-radius: 10px;
@@ -61,7 +59,6 @@
       .stepRow {
         width: 100%;
         display: flex;
-        justify-content: flex-start;
         margin-bottom: 16px;
         .indexNum {
           margin-right: 14px;
@@ -84,40 +81,44 @@
           width: 100%;
           .checkJobBox {
             display: flex;
-            width: 234px;
             justify-content: space-around;
-            margin-right: 10px;
+            .taskTitle {
+              height: 27px;
+            }
           }
           .checkJobBox * {
-            width: 80px;
             text-align: center;
           }
+        }
+        .taskValue {
+          width: 114px;
+          height: 45px;
+          margin-left: 4px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #FFF;
+          h6 {
+            font-weight: bold;
+          }
+        }
+        .leftTask {
+          border-radius: 5px;
+        }
+        .rightTask {
+          border-radius: 5px 10px 10px 5px;
         }
         .coloredBox {
           display: flex;
           justify-content: space-between;
           align-items: center;
           padding: 0 10px 0 36px;
-          border-radius: 10px;
+          border-radius: 10px 5px 5px 10px;
           color: white;
-          width: 100%;
           height: 45px;
-          .counterBox {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            width: 234px;
-            justify-content: space-evenly;
-            .vl {
-              display: inline;
-              background: #fff;
-              width: 2px;
-              height: 45px;
-            }
-            .taskValue {
-              width: 50%;
-              text-align: center;
-            }
+          flex-grow: 1;
+          h6 {
+            font-weight: bold;
           }
         }
         .coloredTaskBox {
