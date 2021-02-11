@@ -5,18 +5,51 @@ import React from 'react';
 
 type PropsType = {
     stepNumber: number;
-    stepColor: string;
+    stepColor?: string;
     className?: string;
+    completedStep?: number;
 };
 
 const StepCounter: React.FC<PropsType> = (props) => {
+    const { stepNumber, stepColor, completedStep, className } = props;
+
+    const getColor = () => {
+        if (completedStep === 1) return '248 208 0';
+        if (completedStep === 2) return '255 171 8';
+        if (completedStep === 3) return '238 107 29';
+        if (completedStep === 4) return '67 160 71';
+        if (completedStep === 5) return '0 151 166';
+        if (completedStep === 6) return '123 31 162';
+        if (completedStep === 7) return '218 75 123';
+        if (completedStep === 8) return '234 67 53';
+        return '66 133 244';
+    };
+
+    const getBackgroundColor = (stepNumberBackground: number) => {
+        if (stepNumberBackground === 1) return '#F8D000';
+        if (stepNumberBackground === 2) return '#FFAB08';
+        if (stepNumberBackground === 3) return '#EE6B1D';
+        if (stepNumberBackground === 4) return '#43A047';
+        if (stepNumberBackground === 5) return '#0097A6';
+        if (stepNumberBackground === 6) return '#7B1FA2';
+        if (stepNumberBackground === 7) return '#DA4B7B';
+        if (stepNumberBackground === 8) return '#EA4335';
+        return '#4285F4';
+    };
+
+    const stepsArr = [];
+
     const useStyles = makeStyles({
         '@keyframes ripple': {
             '0%': {
-                boxShadow: `0 0 0 0 rgb(${props.stepColor}/ 60%)`,
+                boxShadow: `0 0 0 0 rgb(${
+                    stepColor ? stepColor : getColor()
+                }/ 60%)`,
             },
             '100% ': {
-                boxShadow: `0 0 0 0.6em rgb(${props.stepColor} / 0%)`,
+                boxShadow: `0 0 0 0.6em rgb(${
+                    stepColor ? stepColor : getColor()
+                } / 0%)`,
             },
         },
         circleRipple: {
@@ -31,95 +64,148 @@ const StepCounter: React.FC<PropsType> = (props) => {
 
     const theme = useTheme();
 
+    if (completedStep) {
+        for (let i = 0; i <= 8; i++) {
+            console.log(`li${i}`);
+            stepsArr.push(
+                <>
+                    <li
+                        key={`li${i}`}
+                        className={
+                            completedStep === i
+                                ? classes.active +
+                                  ' ' +
+                                  classes.current +
+                                  ' ' +
+                                  styles.circleRipple
+                                : stepNumber === i && stepNumber > completedStep
+                                ? classes.current
+                                : ' '
+                        }
+                        style={
+                            completedStep >= i
+                                ? { background: getBackgroundColor(i) }
+                                : stepNumber === i
+                                ? {
+                                      border: `3px solid ${getBackgroundColor(
+                                          i
+                                      )}`,
+                                  }
+                                : {}
+                        }
+                    >
+                        {completedStep > i ? (
+                            <img src={check} alt={'check'} />
+                        ) : (
+                            <Typography variant={'subtitle2'}>{i}</Typography>
+                        )}
+                    </li>
+                    {i < 8 ? (
+                        <div
+                            key={`div${i}`}
+                            className={classes.line}
+                            style={
+                                completedStep >= i + 1
+                                    ? { background: getBackgroundColor(i) }
+                                    : {}
+                            }
+                        />
+                    ) : null}
+                </>
+            );
+        }
+    }
+
     return (
-        <Grid
-            item
-            className={classes.stepProgressContainer + ' ' + props.className}
-        >
-            <ul className={classes.progressCircles}>
-                <li
-                    className={
-                        props.stepNumber === 1
-                            ? classes.active +
-                              ' ' +
-                              classes.current +
-                              ' ' +
-                              styles.circleRipple
-                            : classes.active
-                    }
-                    style={{ background: theme.palette.primary.main }}
-                >
-                    {props.stepNumber === 2 || props.stepNumber === 3 ? (
-                        <img src={check} alt={'check'} />
-                    ) : (
-                        <Typography variant={'subtitle2'}>1</Typography>
-                    )}
-                </li>
-                <div
-                    className={classes.line}
-                    style={
-                        props.stepNumber === 2 || props.stepNumber === 3
-                            ? { background: theme.palette.primary.main }
-                            : {}
-                    }
-                />
-                <li
-                    className={
-                        props.stepNumber === 2
-                            ? classes.active +
-                              ' ' +
-                              classes.current +
-                              ' ' +
-                              styles.circleRipple
-                            : props.stepNumber === 1
-                            ? ''
-                            : classes.active
-                    }
-                    style={
-                        props.stepNumber === 2
-                            ? { background: theme.palette.primary.main }
-                            : props.stepNumber === 1
-                            ? {}
-                            : { background: theme.palette.primary.main }
-                    }
-                >
-                    {props.stepNumber === 3 ? (
-                        <img src={check} alt={'check'} />
-                    ) : (
-                        <Typography variant={'subtitle2'}>2</Typography>
-                    )}
-                </li>
-                <div
-                    className={classes.line}
-                    style={
-                        props.stepNumber === 3
-                            ? { background: theme.palette.primary.main }
-                            : {}
-                    }
-                />
-                <li
-                    className={
-                        props.stepNumber === 3
-                            ? classes.active +
-                              ' ' +
-                              classes.current +
-                              ' ' +
-                              styles.circleRipple
-                            : props.stepNumber === 2 || props.stepNumber === 1
-                            ? ''
-                            : classes.active
-                    }
-                    style={
-                        props.stepNumber === 3
-                            ? { background: theme.palette.primary.main }
-                            : props.stepNumber === 2 || props.stepNumber === 1
-                            ? {}
-                            : { background: theme.palette.primary.main }
-                    }
-                >
-                    <Typography variant={'subtitle2'}>3</Typography>
-                </li>
-            </ul>
+        <Grid item className={classes.stepProgressContainer + ' ' + className}>
+            {!completedStep && (
+                <ul className={classes.progressCircles}>
+                    <li
+                        className={
+                            stepNumber === 1
+                                ? classes.active +
+                                  ' ' +
+                                  classes.current +
+                                  ' ' +
+                                  styles.circleRipple
+                                : classes.active
+                        }
+                        style={{ background: theme.palette.primary.main }}
+                    >
+                        {stepNumber === 2 || stepNumber === 3 ? (
+                            <img src={check} alt={'check'} />
+                        ) : (
+                            <Typography variant={'subtitle2'}>1</Typography>
+                        )}
+                    </li>
+                    <div
+                        className={classes.line}
+                        style={
+                            stepNumber === 2 || stepNumber === 3
+                                ? { background: theme.palette.primary.main }
+                                : {}
+                        }
+                    />
+                    <li
+                        className={
+                            stepNumber === 2
+                                ? classes.active +
+                                  ' ' +
+                                  classes.current +
+                                  ' ' +
+                                  styles.circleRipple
+                                : stepNumber === 1
+                                ? ''
+                                : classes.active
+                        }
+                        style={
+                            stepNumber === 2
+                                ? { background: theme.palette.primary.main }
+                                : stepNumber === 1
+                                ? {}
+                                : { background: theme.palette.primary.main }
+                        }
+                    >
+                        {stepNumber === 3 ? (
+                            <img src={check} alt={'check'} />
+                        ) : (
+                            <Typography variant={'subtitle2'}>2</Typography>
+                        )}
+                    </li>
+                    <div
+                        className={classes.line}
+                        style={
+                            stepNumber === 3
+                                ? { background: theme.palette.primary.main }
+                                : {}
+                        }
+                    />
+                    <li
+                        className={
+                            stepNumber === 3
+                                ? classes.active +
+                                  ' ' +
+                                  classes.current +
+                                  ' ' +
+                                  styles.circleRipple
+                                : stepNumber === 2 || stepNumber === 1
+                                ? ''
+                                : classes.active
+                        }
+                        style={
+                            stepNumber === 3
+                                ? { background: theme.palette.primary.main }
+                                : stepNumber === 2 || stepNumber === 1
+                                ? {}
+                                : { background: theme.palette.primary.main }
+                        }
+                    >
+                        <Typography variant={'subtitle2'}>3</Typography>
+                    </li>
+                </ul>
+            )}
+
+            {completedStep && <ul>{stepsArr}</ul>}
         </Grid>
     );
 };

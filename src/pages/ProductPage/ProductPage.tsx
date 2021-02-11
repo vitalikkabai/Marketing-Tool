@@ -4,14 +4,14 @@ import { Box, Grid, Tab, Typography } from '@material-ui/core';
 import classes from './ProductPage.module.scss';
 import CustomAppBar from '../../components/common/TabPanel/CustomAppBar';
 import TabPanel from '../../components/common/TabPanel/TabPanel';
-import Blob from '../../assets/images/Blob.png';
+import ProductCat from '../../assets/images/ProductCat.png';
 import { ReactComponent as PlusSVG } from '../../assets/images/formPlus.svg';
 import { useHistory } from 'react-router';
+import StepCounter from './../../components/common/StepCounter/StepCounter';
 
 const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
     const [value, setValue] = React.useState(0);
     const history = useHistory();
-
     return (
         <Grid container className={classes.dashboard}>
             <Box className={classes.todoTitleBox}>
@@ -63,10 +63,16 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 justifyContent={'center'}
                                 alignItems={'center'}
                             >
-                                <img src={Blob} alt={'image'} />
+                                <StepCounter
+                                    className={classes.stepLine}
+                                    completedStep={1}
+                                    stepNumber={1}
+                                />
+                                <img src={ProductCat} alt={'image'} />
                             </Box>
                         </Grid>
                     </TabPanel>
+
                     <TabPanel
                         className={classes.tabPanelBox}
                         index={1}
@@ -90,7 +96,12 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 justifyContent={'center'}
                                 alignItems={'center'}
                             >
-                                <img src={Blob} alt={'image'} />
+                                {/* <StepCounter
+                                    className={classes.stepLine}
+                                    completedStep={1}
+                                    stepNumber={1}
+                                /> */}
+                                <img src={ProductCat} alt={'image'} />
                             </Box>
                         </Grid>
                     </TabPanel>
@@ -117,7 +128,12 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 justifyContent={'center'}
                                 alignItems={'center'}
                             >
-                                <img src={Blob} alt={'image'} />
+                                {/* <StepCounter
+                                    className={classes.stepLine}
+                                    completedStep={1}
+                                    stepNumber={1}
+                                /> */}
+                                <img src={ProductCat} alt={'image'} />
                             </Box>
                         </Grid>
                     </TabPanel>
