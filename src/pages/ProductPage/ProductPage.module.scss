@@ -5,11 +5,9 @@
     justify-content: space-between;
     align-items: center;
     height: 56px;
-
     .titleBox {
       margin-right: 24px;
     }
-
     .addProductButton {
       height: 56px;
       padding: 0 84px;
@@ -20,28 +18,24 @@
       align-items: center;
       background: #FFF;
       cursor: pointer;
-
-      svg{
+      svg {
         margin-right: 10px;
-        path{
+        path {
           fill: #F8D000;
         }
       }
     }
   }
-
   .contentContainer {
     height: calc(100vh - 228px);
     margin-top: 20px;
     display: flex;
     width: 100%;
-
     .contentBox {
       background: #fff;
       border-radius: 10px;
       display: block;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-
       .tabPanelBox {
         height: calc(100% - 57px);
         overflow: auto;
@@ -49,6 +43,16 @@
         /* IE and Edge */
         scrollbar-width: none;
         /* Firefox */
+        .taskContainer {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          .stepLine {
+            margin-top: 53px;
+            margin-bottom: 34px;
+          }
+        }
       }
       .tabPanelBox::-webkit-scrollbar {
         display: none;
