@@ -66,13 +66,13 @@ const StepCounter: React.FC<PropsType> = (props) => {
 
     if (completedStep) {
         for (let i = 0; i <= 8; i++) {
-            console.log(`li${i}`);
             stepsArr.push(
-                <>
-                    <li
-                        key={`li${i}`}
+                <li className={classes.steps} key={`li${i}`}>
+                    <div
                         className={
-                            completedStep === i
+                            classes.stepsList +
+                            ' ' +
+                            (completedStep === i
                                 ? classes.active +
                                   ' ' +
                                   classes.current +
@@ -80,7 +80,7 @@ const StepCounter: React.FC<PropsType> = (props) => {
                                   styles.circleRipple
                                 : stepNumber === i && stepNumber > completedStep
                                 ? classes.current
-                                : ' '
+                                : ' ')
                         }
                         style={
                             completedStep >= i
@@ -95,14 +95,18 @@ const StepCounter: React.FC<PropsType> = (props) => {
                         }
                     >
                         {completedStep > i ? (
-                            <img src={check} alt={'check'} />
+                            <img
+                                className={classes.stepsIcon}
+                                src={check}
+                                alt={'check'}
+                            />
                         ) : (
                             <Typography variant={'subtitle2'}>{i}</Typography>
                         )}
-                    </li>
+                    </div>
+
                     {i < 8 ? (
                         <div
-                            key={`div${i}`}
                             className={classes.line}
                             style={
                                 completedStep >= i + 1
@@ -111,7 +115,7 @@ const StepCounter: React.FC<PropsType> = (props) => {
                             }
                         />
                     ) : null}
-                </>
+                </li>
             );
         }
     }
@@ -122,13 +126,15 @@ const StepCounter: React.FC<PropsType> = (props) => {
                 <ul className={classes.progressCircles}>
                     <li
                         className={
-                            stepNumber === 1
+                            classes.stepsList +
+                            ' ' +
+                            (stepNumber === 1
                                 ? classes.active +
                                   ' ' +
                                   classes.current +
                                   ' ' +
                                   styles.circleRipple
-                                : classes.active
+                                : classes.active)
                         }
                         style={{ background: theme.palette.primary.main }}
                     >
@@ -148,7 +154,9 @@ const StepCounter: React.FC<PropsType> = (props) => {
                     />
                     <li
                         className={
-                            stepNumber === 2
+                            classes.stepsList +
+                            ' ' +
+                            (stepNumber === 2
                                 ? classes.active +
                                   ' ' +
                                   classes.current +
@@ -156,7 +164,7 @@ const StepCounter: React.FC<PropsType> = (props) => {
                                   styles.circleRipple
                                 : stepNumber === 1
                                 ? ''
-                                : classes.active
+                                : classes.active)
                         }
                         style={
                             stepNumber === 2
@@ -182,7 +190,9 @@ const StepCounter: React.FC<PropsType> = (props) => {
                     />
                     <li
                         className={
-                            stepNumber === 3
+                            classes.stepsList +
+                            ' ' +
+                            (stepNumber === 3
                                 ? classes.active +
                                   ' ' +
                                   classes.current +
@@ -190,7 +200,7 @@ const StepCounter: React.FC<PropsType> = (props) => {
                                   styles.circleRipple
                                 : stepNumber === 2 || stepNumber === 1
                                 ? ''
-                                : classes.active
+                                : classes.active)
                         }
                         style={
                             stepNumber === 3

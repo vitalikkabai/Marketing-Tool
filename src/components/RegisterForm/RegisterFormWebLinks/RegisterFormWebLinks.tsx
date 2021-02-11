@@ -153,7 +153,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
                                                 >
                                                     <Typography variant={'h6'}>
                                                         We will get you there in
-                                                        3 steps
+                                                        3 steps.
                                                     </Typography>
                                                 </Box>
                                             )}
@@ -226,12 +226,12 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
                                                         classes.selectTextBox
                                                     }
                                                     style={{
-                                                        background: '#43A047',
+                                                        background: '#EA4335',
                                                     }}
                                                 >
                                                     <Typography variant={'h6'}>
-                                                        Don’t worry, you will be
-                                                        there in no time:)
+                                                        Don’t worry, leave that
+                                                        up to us:)
                                                     </Typography>
                                                 </Box>
                                             )}

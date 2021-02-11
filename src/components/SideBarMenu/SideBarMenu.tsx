@@ -177,7 +177,7 @@ const SideBarMenu = (props: any) => {
                             <Typography
                                 variant={selected === '5' ? 'h6' : 'subtitle1'}
                             >
-                                Customer Support{' '}
+                                Sales Channels
                             </Typography>
                         }
                     />
@@ -202,7 +202,7 @@ const SideBarMenu = (props: any) => {
                             <Typography
                                 variant={selected === '6' ? 'h6' : 'subtitle1'}
                             >
-                                Sales Channels
+                                Customer Support
                             </Typography>
                         }
                     />
@@ -227,7 +227,7 @@ const SideBarMenu = (props: any) => {
                             <Typography
                                 variant={selected === '7' ? 'h6' : 'subtitle1'}
                             >
-                                Brand Awareness{' '}
+                                Brand Awareness
                             </Typography>
                         }
                     />
@@ -252,7 +252,7 @@ const SideBarMenu = (props: any) => {
                             <Typography
                                 variant={selected === '8' ? 'h6' : 'subtitle1'}
                             >
-                                Improvements
+                                Sales Statistics
                             </Typography>
                         }
                     />
@@ -277,7 +277,7 @@ const SideBarMenu = (props: any) => {
                             <Typography
                                 variant={selected === '9' ? 'h6' : 'subtitle1'}
                             >
-                                Sales
+                                Improvements
                             </Typography>
                         }
                     />
