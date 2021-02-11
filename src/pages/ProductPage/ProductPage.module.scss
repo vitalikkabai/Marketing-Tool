@@ -23,7 +23,7 @@
 
       svg{
         margin-right: 10px;
-        path{
+        path {
           fill: #F8D000;
         }
       }
@@ -49,6 +49,16 @@
         /* IE and Edge */
         scrollbar-width: none;
         /* Firefox */
+        .taskContainer {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          .stepLine {
+            margin-top: 53px;
+            margin-bottom: 34px;
+          }
+        }
       }
       .tabPanelBox::-webkit-scrollbar {
         display: none;
