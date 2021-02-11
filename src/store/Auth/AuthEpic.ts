@@ -23,6 +23,7 @@ import { clearBusiness } from '../Business/BusinessActions';
 import { AppStateType } from '../store';
 import { clearEmployee, fetchEmployeeById, initiateNewEmployee } from '../Employee/EmployeeActions';
 import { Occupation } from './AuthReducer';
+import { fetchManagerById } from '../Manager/ManagerActions';
 import {ajax} from "rxjs/ajax";
 
 export default [
@@ -108,7 +109,9 @@ export default [
                             case 0:
                                 action = fetchEmployeeById(res.username);
                                 break;
-                            // case 1:
+                            case 1:
+                                action = fetchManagerById(res.username);
+                                break;
                             default:
                                 action = getAuthDataFailed()
                         }

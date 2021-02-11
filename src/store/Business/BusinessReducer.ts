@@ -17,14 +17,14 @@ export const initialState: CreateBusinessInput = {
     companyName: "",
     storeURLs: [],
     websiteURLs: [],
-    managerID: "c64a0e39-bf2c-4749-8493-788d911b78a2"
+    managerID: "fddbb0b9-ad57-453f-be7b-7eca392a2408"
 };
 
 export const initialPresetState: CreateBusinessInput = {
     companyName: "Default Company",
     storeURLs: ["https://www.figma.com/file/qTbbMNPhweyUIF2goCPl7T/Marketing-Tool?node-id=3%3A1767"],
     websiteURLs: ["https://www.figma.com/file/qTbbMNPhweyUIF2goCPl7T/Marketing-Tool?node-id=3%3A1767"],
-    managerID: "c64a0e39-bf2c-4749-8493-788d911b78a2"
+    managerID: "fddbb0b9-ad57-453f-be7b-7eca392a2408"
 };
 
 export const BusinessReducer = (state: CreateBusinessInput = initialPresetState, action: ActionTypes): CreateBusinessInput => {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { EmployeeReducer } from './Employee/EmployeeReducer';
 import { applyMiddleware, combineReducers, createStore, compose } from "redux";
 import { combineEpics, createEpicMiddleware } from "redux-observable";
@@ -7,17 +8,17 @@ import BusinessReducer from './Business/BusinessReducer';
 import { catchError } from 'rxjs/operators';
 import AuthReducer from "./Auth/AuthReducer";
 import AuthEpics from "./Auth/AuthEpic";
+import ManagerEpics from './Manager/ManagerEpic';
 import ProfileReducer from "./Profile/ProfileReducer";
 import ProfileEpics from "./Profile/ProfileEpic";
 import MessageEpics from './Message/MessageEpic';
 import MessageReducer from './Message/MessageReducer';
 import ManagerReducer from './Manager/ManagerReducer'; 
+import ProductReducer from './Product/ProductReducer'; 
 
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const combinedEpics = [...businessEpic, ...AuthEpics, ...ProfileEpics];
 const rootEpic = (action$: any, store$: any, dependencies: any) =>
-    combineEpics(...businessEpic,...AuthEpics,...ProfileEpics,...EmployeeEpics,...MessageEpics)(action$, store$, dependencies).pipe(
+    combineEpics(...businessEpic,...AuthEpics,...ProfileEpics,...EmployeeEpics,...MessageEpics, ...ManagerEpics)(action$, store$, dependencies).pipe(
         catchError((error, source) => {
             console.error(error);
             return source;
@@ -32,7 +33,8 @@ const rootReducer = combineReducers({
     AuthReducer,
     ProfileReducer,
     MessageReducer,
-    ManagerReducer
+    ManagerReducer,
+    ProductReducer
 })
 
 type RootReducerType = typeof rootReducer;

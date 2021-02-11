@@ -1,5 +1,4 @@
 import { CreateEmployeeInput, CreateProfileInput } from '../../API';
-import { createEmployee } from '../../graphql/mutations';
 
 import {ActionsObservable, Epic, ofType} from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
@@ -11,10 +10,11 @@ import {
 } from './EmployeeActions';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
-import { createBusiness, createProfile, updateProfile } from '../../graphql/mutations';
+import { createProfile, updateProfile } from '../../graphql/mutations';
+import { createBusiness, createEmployee } from '../../graphqlFiltered/mutationsFiltered';
 import { API, graphqlOperation } from 'aws-amplify';
 import { forkJoin, from } from 'rxjs';
-import { getEmployee } from '../../graphql/queries';
+import { getEmployee } from '../../graphqlFiltered/queriesFiltered';
 import { setBusiness } from '../Business/BusinessActions';
 import { saveProfileToDBSucces, updateProfileSuccess } from '../Profile/ProfileActions';
 import {ajax} from "rxjs/ajax";
@@ -59,6 +59,7 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
             return from(API.graphql(graphqlOperation(getEmployee, { id: action.payload })) as unknown as Promise<any>)
                 .pipe(
                     mergeMap(res => {
+                        console.log(res)
                         return [
                             fetchEmployeeSuccess(res.data.getEmployee),
                             updateProfileSuccess(res.data.getEmployee.profile),

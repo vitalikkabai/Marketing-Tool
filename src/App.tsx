@@ -3,7 +3,7 @@ import './App.css';
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
 import store, {AppStateType} from "./store/store";
-import {connect, Provider} from "react-redux";
+import {connect, ConnectedProps, Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 import {Route, Switch} from "react-router";
 import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
@@ -14,10 +14,12 @@ import {getAuthData} from './store/Auth/AuthActions';
 import MarketingToolPageContainer from "./pages/MarketingToolPageContainer/MarketingToolPageContainer";
 import ResetPasswordPageContainer from './pages/ResetPasswordPage/ResetPasswordPageContainer';
 import MarketingToolPagePreviewContainer from './pages/MarketingToolPageContainer/MarketingToolPagePreviewContainer';
+import { Occupation } from './store/Auth/AuthReducer';
+import ManagerPageBase from './pages/MarketingToolPageContainer/ManagerPageBase';
 
 Amplify.configure(awsconfig);
 
-function App(props: any): ReactElement {
+function App(props: AppProps): ReactElement {
 
     useEffect(() => { // Start initialization
         props.getAuthData();
@@ -35,32 +37,36 @@ function App(props: any): ReactElement {
             <Route path='/register' component={RegistrationPage}/>
             <Route path='/resetPassword' component={ResetPasswordPageContainer}/>
             <Route path='/preview' component={MarketingToolPagePreviewContainer}/>
+            {
+                props.occupation === Occupation.MANAGER?
+                <Route path='/' component={ManagerPageBase}/>
+                :   null
+            }
             <Route path='/' component={MarketingToolPageContainer}/>
         </Switch>
     );
 }
 
-type MapDispatchType = {
-    getAuthData: () => void
-}
-
 const mapStateToProps = (state: AppStateType) => {
     return {
-        initialized: state.AuthReducer.initialized
+        initialized: state.AuthReducer.initialized,
+        occupation: state.AuthReducer.userAttributes.occupation
     }
 };
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchType => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         getAuthData: () => dispatch(getAuthData())
     }
 };
 
-const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
+const connector = connect(mapStateToProps, mapDispatchToProps)
+
+export type AppProps = ConnectedProps<typeof connector>
+const AppContainer = connector(App);
 
 const AppWithRouter = () => { // Store render before App initialization
     return (
-
         <BrowserRouter>
             <OverridesCss>
                 <Provider store={store}>

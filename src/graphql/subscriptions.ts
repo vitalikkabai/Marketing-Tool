@@ -93,13 +93,61 @@ export const onCreateBusiness = /* GraphQL */ `
       companyName
       storeURLs
       websiteURLs
-      managerID
-      createdAt
-      updatedAt
-      owner
       employees {
         items {
           id
+          business {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            employees {
+              items {
+                id
+                businessID
+                phoneNumber
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            products {
+              items {
+                id
+                itemNumber
+                itemName
+                release
+                websiteURLs
+                stage
+                businessID
+                color
+                material
+                createdAt
+                updatedAt
+                owner
+              }
+              nextToken
+            }
+            manager {
+              id
+              businesses {
+                nextToken
+              }
+              createdAt
+              updatedAt
+              profile {
+                id
+                email
+                name
+                createdAt
+                updatedAt
+              }
+            }
+            managerID
+            createdAt
+            updatedAt
+            owner
+          }
           businessID
           roleTags {
             sales
@@ -117,36 +165,183 @@ export const onCreateBusiness = /* GraphQL */ `
           phoneNumber
           createdAt
           updatedAt
-          business {
-            id
-            companyName
-            storeURLs
-            websiteURLs
-            managerID
-            createdAt
-            updatedAt
-            owner
-          }
           profile {
             id
             email
             name
+            avatar {
+              bucket
+              region
+              key
+            }
             createdAt
             updatedAt
           }
         }
         nextToken
       }
+      products {
+        items {
+          id
+          itemNumber
+          itemName
+          release
+          websiteURLs
+          stage
+          business {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            employees {
+              items {
+                id
+                businessID
+                phoneNumber
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            products {
+              items {
+                id
+                itemNumber
+                itemName
+                release
+                websiteURLs
+                stage
+                businessID
+                color
+                material
+                createdAt
+                updatedAt
+                owner
+              }
+              nextToken
+            }
+            manager {
+              id
+              businesses {
+                nextToken
+              }
+              createdAt
+              updatedAt
+              profile {
+                id
+                email
+                name
+                createdAt
+                updatedAt
+              }
+            }
+            managerID
+            createdAt
+            updatedAt
+            owner
+          }
+          businessID
+          color
+          material
+          photos {
+            bucket
+            region
+            key
+          }
+          videos {
+            bucket
+            region
+            key
+          }
+          certifications {
+            bucket
+            region
+            key
+          }
+          marketingMaterials {
+            bucket
+            region
+            key
+          }
+          packagingPhotos {
+            bucket
+            region
+            key
+          }
+          packagingVideos {
+            bucket
+            region
+            key
+          }
+          packagings {
+            isDimentions
+            sizeOrDimensions
+            weightKgs
+            unitBarCode {
+              bucket
+              region
+              key
+            }
+            pieces
+            packegeWeightKgs
+            packageDimentions
+          }
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       manager {
         id
-        createdAt
-        updatedAt
         businesses {
           items {
             id
             companyName
             storeURLs
             websiteURLs
+            employees {
+              items {
+                id
+                businessID
+                phoneNumber
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            products {
+              items {
+                id
+                itemNumber
+                itemName
+                release
+                websiteURLs
+                stage
+                businessID
+                color
+                material
+                createdAt
+                updatedAt
+                owner
+              }
+              nextToken
+            }
+            manager {
+              id
+              businesses {
+                nextToken
+              }
+              createdAt
+              updatedAt
+              profile {
+                id
+                email
+                name
+                createdAt
+                updatedAt
+              }
+            }
             managerID
             createdAt
             updatedAt
@@ -154,6 +349,8 @@ export const onCreateBusiness = /* GraphQL */ `
           }
           nextToken
         }
+        createdAt
+        updatedAt
         profile {
           id
           email
@@ -167,6 +364,10 @@ export const onCreateBusiness = /* GraphQL */ `
           updatedAt
         }
       }
+      managerID
+      createdAt
+      updatedAt
+      owner
     }
   }
 `;
@@ -177,13 +378,61 @@ export const onUpdateBusiness = /* GraphQL */ `
       companyName
       storeURLs
       websiteURLs
-      managerID
-      createdAt
-      updatedAt
-      owner
       employees {
         items {
           id
+          business {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            employees {
+              items {
+                id
+                businessID
+                phoneNumber
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            products {
+              items {
+                id
+                itemNumber
+                itemName
+                release
+                websiteURLs
+                stage
+                businessID
+                color
+                material
+                createdAt
+                updatedAt
+                owner
+              }
+              nextToken
+            }
+            manager {
+              id
+              businesses {
+                nextToken
+              }
+              createdAt
+              updatedAt
+              profile {
+                id
+                email
+                name
+                createdAt
+                updatedAt
+              }
+            }
+            managerID
+            createdAt
+            updatedAt
+            owner
+          }
           businessID
           roleTags {
             sales
@@ -201,36 +450,183 @@ export const onUpdateBusiness = /* GraphQL */ `
           phoneNumber
           createdAt
           updatedAt
-          business {
-            id
-            companyName
-            storeURLs
-            websiteURLs
-            managerID
-            createdAt
-            updatedAt
-            owner
-          }
           profile {
             id
             email
             name
+            avatar {
+              bucket
+              region
+              key
+            }
             createdAt
             updatedAt
           }
         }
         nextToken
       }
+      products {
+        items {
+          id
+          itemNumber
+          itemName
+          release
+          websiteURLs
+          stage
+          business {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            employees {
+              items {
+                id
+                businessID
+                phoneNumber
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            products {
+              items {
+                id
+                itemNumber
+                itemName
+                release
+                websiteURLs
+                stage
+                businessID
+                color
+                material
+                createdAt
+                updatedAt
+                owner
+              }
+              nextToken
+            }
+            manager {
+              id
+              businesses {
+                nextToken
+              }
+              createdAt
+              updatedAt
+              profile {
+                id
+                email
+                name
+                createdAt
+                updatedAt
+              }
+            }
+            managerID
+            createdAt
+            updatedAt
+            owner
+          }
+          businessID
+          color
+          material
+          photos {
+            bucket
+            region
+            key
+          }
+          videos {
+            bucket
+            region
+            key
+          }
+          certifications {
+            bucket
+            region
+            key
+          }
+          marketingMaterials {
+            bucket
+            region
+            key
+          }
+          packagingPhotos {
+            bucket
+            region
+            key
+          }
+          packagingVideos {
+            bucket
+            region
+            key
+          }
+          packagings {
+            isDimentions
+            sizeOrDimensions
+            weightKgs
+            unitBarCode {
+              bucket
+              region
+              key
+            }
+            pieces
+            packegeWeightKgs
+            packageDimentions
+          }
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       manager {
         id
-        createdAt
-        updatedAt
         businesses {
           items {
             id
             companyName
             storeURLs
             websiteURLs
+            employees {
+              items {
+                id
+                businessID
+                phoneNumber
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            products {
+              items {
+                id
+                itemNumber
+                itemName
+                release
+                websiteURLs
+                stage
+                businessID
+                color
+                material
+                createdAt
+                updatedAt
+                owner
+              }
+              nextToken
+            }
+            manager {
+              id
+              businesses {
+                nextToken
+              }
+              createdAt
+              updatedAt
+              profile {
+                id
+                email
+                name
+                createdAt
+                updatedAt
+              }
+            }
             managerID
             createdAt
             updatedAt
@@ -238,6 +634,8 @@ export const onUpdateBusiness = /* GraphQL */ `
           }
           nextToken
         }
+        createdAt
+        updatedAt
         profile {
           id
           email
@@ -251,6 +649,10 @@ export const onUpdateBusiness = /* GraphQL */ `
           updatedAt
         }
       }
+      managerID
+      createdAt
+      updatedAt
+      owner
     }
   }
 `;
@@ -261,13 +663,61 @@ export const onDeleteBusiness = /* GraphQL */ `
       companyName
       storeURLs
       websiteURLs
-      managerID
-      createdAt
-      updatedAt
-      owner
       employees {
         items {
           id
+          business {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            employees {
+              items {
+                id
+                businessID
+                phoneNumber
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            products {
+              items {
+                id
+                itemNumber
+                itemName
+                release
+                websiteURLs
+                stage
+                businessID
+                color
+                material
+                createdAt
+                updatedAt
+                owner
+              }
+              nextToken
+            }
+            manager {
+              id
+              businesses {
+                nextToken
+              }
+              createdAt
+              updatedAt
+              profile {
+                id
+                email
+                name
+                createdAt
+                updatedAt
+              }
+            }
+            managerID
+            createdAt
+            updatedAt
+            owner
+          }
           businessID
           roleTags {
             sales
@@ -285,36 +735,183 @@ export const onDeleteBusiness = /* GraphQL */ `
           phoneNumber
           createdAt
           updatedAt
-          business {
-            id
-            companyName
-            storeURLs
-            websiteURLs
-            managerID
-            createdAt
-            updatedAt
-            owner
-          }
           profile {
             id
             email
             name
+            avatar {
+              bucket
+              region
+              key
+            }
             createdAt
             updatedAt
           }
         }
         nextToken
       }
+      products {
+        items {
+          id
+          itemNumber
+          itemName
+          release
+          websiteURLs
+          stage
+          business {
+            id
+            companyName
+            storeURLs
+            websiteURLs
+            employees {
+              items {
+                id
+                businessID
+                phoneNumber
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            products {
+              items {
+                id
+                itemNumber
+                itemName
+                release
+                websiteURLs
+                stage
+                businessID
+                color
+                material
+                createdAt
+                updatedAt
+                owner
+              }
+              nextToken
+            }
+            manager {
+              id
+              businesses {
+                nextToken
+              }
+              createdAt
+              updatedAt
+              profile {
+                id
+                email
+                name
+                createdAt
+                updatedAt
+              }
+            }
+            managerID
+            createdAt
+            updatedAt
+            owner
+          }
+          businessID
+          color
+          material
+          photos {
+            bucket
+            region
+            key
+          }
+          videos {
+            bucket
+            region
+            key
+          }
+          certifications {
+            bucket
+            region
+            key
+          }
+          marketingMaterials {
+            bucket
+            region
+            key
+          }
+          packagingPhotos {
+            bucket
+            region
+            key
+          }
+          packagingVideos {
+            bucket
+            region
+            key
+          }
+          packagings {
+            isDimentions
+            sizeOrDimensions
+            weightKgs
+            unitBarCode {
+              bucket
+              region
+              key
+            }
+            pieces
+            packegeWeightKgs
+            packageDimentions
+          }
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       manager {
         id
-        createdAt
-        updatedAt
         businesses {
           items {
             id
             companyName
             storeURLs
             websiteURLs
+            employees {
+              items {
+                id
+                businessID
+                phoneNumber
+                createdAt
+                updatedAt
+              }
+              nextToken
+            }
+            products {
+              items {
+                id
+                itemNumber
+                itemName
+                release
+                websiteURLs
+                stage
+                businessID
+                color
+                material
+                createdAt
+                updatedAt
+                owner
+              }
+              nextToken
+            }
+            manager {
+              id
+              businesses {
+                nextToken
+              }
+              createdAt
+              updatedAt
+              profile {
+                id
+                email
+                name
+                createdAt
+                updatedAt
+              }
+            }
             managerID
             createdAt
             updatedAt
@@ -322,6 +919,8 @@ export const onDeleteBusiness = /* GraphQL */ `
           }
           nextToken
         }
+        createdAt
+        updatedAt
         profile {
           id
           email
@@ -335,6 +934,10 @@ export const onDeleteBusiness = /* GraphQL */ `
           updatedAt
         }
       }
+      managerID
+      createdAt
+      updatedAt
+      owner
     }
   }
 `;
@@ -342,6 +945,194 @@ export const onCreateEmployee = /* GraphQL */ `
   subscription OnCreateEmployee {
     onCreateEmployee {
       id
+      business {
+        id
+        companyName
+        storeURLs
+        websiteURLs
+        employees {
+          items {
+            id
+            business {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            businessID
+            roleTags {
+              sales
+              marketing
+              logistics
+              accounting
+              production
+              qualityControl
+            }
+            countryCode {
+              code
+              label
+              phone
+            }
+            phoneNumber
+            createdAt
+            updatedAt
+            profile {
+              id
+              email
+              name
+              avatar {
+                bucket
+                region
+                key
+              }
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        products {
+          items {
+            id
+            itemNumber
+            itemName
+            release
+            websiteURLs
+            stage
+            business {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            businessID
+            color
+            material
+            photos {
+              bucket
+              region
+              key
+            }
+            videos {
+              bucket
+              region
+              key
+            }
+            certifications {
+              bucket
+              region
+              key
+            }
+            marketingMaterials {
+              bucket
+              region
+              key
+            }
+            packagingPhotos {
+              bucket
+              region
+              key
+            }
+            packagingVideos {
+              bucket
+              region
+              key
+            }
+            packagings {
+              isDimentions
+              sizeOrDimensions
+              weightKgs
+              unitBarCode {
+                bucket
+                region
+                key
+              }
+              pieces
+              packegeWeightKgs
+              packageDimentions
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        manager {
+          id
+          businesses {
+            items {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+          profile {
+            id
+            email
+            name
+            avatar {
+              bucket
+              region
+              key
+            }
+            createdAt
+            updatedAt
+          }
+        }
+        managerID
+        createdAt
+        updatedAt
+        owner
+      }
       businessID
       roleTags {
         sales
@@ -359,41 +1150,6 @@ export const onCreateEmployee = /* GraphQL */ `
       phoneNumber
       createdAt
       updatedAt
-      business {
-        id
-        companyName
-        storeURLs
-        websiteURLs
-        managerID
-        createdAt
-        updatedAt
-        owner
-        employees {
-          items {
-            id
-            businessID
-            phoneNumber
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-        manager {
-          id
-          createdAt
-          updatedAt
-          businesses {
-            nextToken
-          }
-          profile {
-            id
-            email
-            name
-            createdAt
-            updatedAt
-          }
-        }
-      }
       profile {
         id
         email
@@ -413,6 +1169,194 @@ export const onUpdateEmployee = /* GraphQL */ `
   subscription OnUpdateEmployee {
     onUpdateEmployee {
       id
+      business {
+        id
+        companyName
+        storeURLs
+        websiteURLs
+        employees {
+          items {
+            id
+            business {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            businessID
+            roleTags {
+              sales
+              marketing
+              logistics
+              accounting
+              production
+              qualityControl
+            }
+            countryCode {
+              code
+              label
+              phone
+            }
+            phoneNumber
+            createdAt
+            updatedAt
+            profile {
+              id
+              email
+              name
+              avatar {
+                bucket
+                region
+                key
+              }
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        products {
+          items {
+            id
+            itemNumber
+            itemName
+            release
+            websiteURLs
+            stage
+            business {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            businessID
+            color
+            material
+            photos {
+              bucket
+              region
+              key
+            }
+            videos {
+              bucket
+              region
+              key
+            }
+            certifications {
+              bucket
+              region
+              key
+            }
+            marketingMaterials {
+              bucket
+              region
+              key
+            }
+            packagingPhotos {
+              bucket
+              region
+              key
+            }
+            packagingVideos {
+              bucket
+              region
+              key
+            }
+            packagings {
+              isDimentions
+              sizeOrDimensions
+              weightKgs
+              unitBarCode {
+                bucket
+                region
+                key
+              }
+              pieces
+              packegeWeightKgs
+              packageDimentions
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        manager {
+          id
+          businesses {
+            items {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+          profile {
+            id
+            email
+            name
+            avatar {
+              bucket
+              region
+              key
+            }
+            createdAt
+            updatedAt
+          }
+        }
+        managerID
+        createdAt
+        updatedAt
+        owner
+      }
       businessID
       roleTags {
         sales
@@ -430,41 +1374,6 @@ export const onUpdateEmployee = /* GraphQL */ `
       phoneNumber
       createdAt
       updatedAt
-      business {
-        id
-        companyName
-        storeURLs
-        websiteURLs
-        managerID
-        createdAt
-        updatedAt
-        owner
-        employees {
-          items {
-            id
-            businessID
-            phoneNumber
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-        manager {
-          id
-          createdAt
-          updatedAt
-          businesses {
-            nextToken
-          }
-          profile {
-            id
-            email
-            name
-            createdAt
-            updatedAt
-          }
-        }
-      }
       profile {
         id
         email
@@ -484,6 +1393,194 @@ export const onDeleteEmployee = /* GraphQL */ `
   subscription OnDeleteEmployee {
     onDeleteEmployee {
       id
+      business {
+        id
+        companyName
+        storeURLs
+        websiteURLs
+        employees {
+          items {
+            id
+            business {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            businessID
+            roleTags {
+              sales
+              marketing
+              logistics
+              accounting
+              production
+              qualityControl
+            }
+            countryCode {
+              code
+              label
+              phone
+            }
+            phoneNumber
+            createdAt
+            updatedAt
+            profile {
+              id
+              email
+              name
+              avatar {
+                bucket
+                region
+                key
+              }
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        products {
+          items {
+            id
+            itemNumber
+            itemName
+            release
+            websiteURLs
+            stage
+            business {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            businessID
+            color
+            material
+            photos {
+              bucket
+              region
+              key
+            }
+            videos {
+              bucket
+              region
+              key
+            }
+            certifications {
+              bucket
+              region
+              key
+            }
+            marketingMaterials {
+              bucket
+              region
+              key
+            }
+            packagingPhotos {
+              bucket
+              region
+              key
+            }
+            packagingVideos {
+              bucket
+              region
+              key
+            }
+            packagings {
+              isDimentions
+              sizeOrDimensions
+              weightKgs
+              unitBarCode {
+                bucket
+                region
+                key
+              }
+              pieces
+              packegeWeightKgs
+              packageDimentions
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        manager {
+          id
+          businesses {
+            items {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+          profile {
+            id
+            email
+            name
+            avatar {
+              bucket
+              region
+              key
+            }
+            createdAt
+            updatedAt
+          }
+        }
+        managerID
+        createdAt
+        updatedAt
+        owner
+      }
       businessID
       roleTags {
         sales
@@ -501,41 +1598,6 @@ export const onDeleteEmployee = /* GraphQL */ `
       phoneNumber
       createdAt
       updatedAt
-      business {
-        id
-        companyName
-        storeURLs
-        websiteURLs
-        managerID
-        createdAt
-        updatedAt
-        owner
-        employees {
-          items {
-            id
-            businessID
-            phoneNumber
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-        manager {
-          id
-          createdAt
-          updatedAt
-          businesses {
-            nextToken
-          }
-          profile {
-            id
-            email
-            name
-            createdAt
-            updatedAt
-          }
-        }
-      }
       profile {
         id
         email
@@ -555,29 +1617,156 @@ export const onCreateManager = /* GraphQL */ `
   subscription OnCreateManager {
     onCreateManager {
       id
-      createdAt
-      updatedAt
       businesses {
         items {
           id
           companyName
           storeURLs
           websiteURLs
-          managerID
-          createdAt
-          updatedAt
-          owner
           employees {
+            items {
+              id
+              business {
+                id
+                companyName
+                storeURLs
+                websiteURLs
+                managerID
+                createdAt
+                updatedAt
+                owner
+              }
+              businessID
+              roleTags {
+                sales
+                marketing
+                logistics
+                accounting
+                production
+                qualityControl
+              }
+              countryCode {
+                code
+                label
+                phone
+              }
+              phoneNumber
+              createdAt
+              updatedAt
+              profile {
+                id
+                email
+                name
+                createdAt
+                updatedAt
+              }
+            }
+            nextToken
+          }
+          products {
+            items {
+              id
+              itemNumber
+              itemName
+              release
+              websiteURLs
+              stage
+              business {
+                id
+                companyName
+                storeURLs
+                websiteURLs
+                managerID
+                createdAt
+                updatedAt
+                owner
+              }
+              businessID
+              color
+              material
+              photos {
+                bucket
+                region
+                key
+              }
+              videos {
+                bucket
+                region
+                key
+              }
+              certifications {
+                bucket
+                region
+                key
+              }
+              marketingMaterials {
+                bucket
+                region
+                key
+              }
+              packagingPhotos {
+                bucket
+                region
+                key
+              }
+              packagingVideos {
+                bucket
+                region
+                key
+              }
+              packagings {
+                isDimentions
+                sizeOrDimensions
+                weightKgs
+                pieces
+                packegeWeightKgs
+                packageDimentions
+              }
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           manager {
             id
+            businesses {
+              items {
+                id
+                companyName
+                storeURLs
+                websiteURLs
+                managerID
+                createdAt
+                updatedAt
+                owner
+              }
+              nextToken
+            }
             createdAt
             updatedAt
+            profile {
+              id
+              email
+              name
+              avatar {
+                bucket
+                region
+                key
+              }
+              createdAt
+              updatedAt
+            }
           }
+          managerID
+          createdAt
+          updatedAt
+          owner
         }
         nextToken
       }
+      createdAt
+      updatedAt
       profile {
         id
         email
@@ -597,29 +1786,156 @@ export const onUpdateManager = /* GraphQL */ `
   subscription OnUpdateManager {
     onUpdateManager {
       id
-      createdAt
-      updatedAt
       businesses {
         items {
           id
           companyName
           storeURLs
           websiteURLs
-          managerID
-          createdAt
-          updatedAt
-          owner
           employees {
+            items {
+              id
+              business {
+                id
+                companyName
+                storeURLs
+                websiteURLs
+                managerID
+                createdAt
+                updatedAt
+                owner
+              }
+              businessID
+              roleTags {
+                sales
+                marketing
+                logistics
+                accounting
+                production
+                qualityControl
+              }
+              countryCode {
+                code
+                label
+                phone
+              }
+              phoneNumber
+              createdAt
+              updatedAt
+              profile {
+                id
+                email
+                name
+                createdAt
+                updatedAt
+              }
+            }
+            nextToken
+          }
+          products {
+            items {
+              id
+              itemNumber
+              itemName
+              release
+              websiteURLs
+              stage
+              business {
+                id
+                companyName
+                storeURLs
+                websiteURLs
+                managerID
+                createdAt
+                updatedAt
+                owner
+              }
+              businessID
+              color
+              material
+              photos {
+                bucket
+                region
+                key
+              }
+              videos {
+                bucket
+                region
+                key
+              }
+              certifications {
+                bucket
+                region
+                key
+              }
+              marketingMaterials {
+                bucket
+                region
+                key
+              }
+              packagingPhotos {
+                bucket
+                region
+                key
+              }
+              packagingVideos {
+                bucket
+                region
+                key
+              }
+              packagings {
+                isDimentions
+                sizeOrDimensions
+                weightKgs
+                pieces
+                packegeWeightKgs
+                packageDimentions
+              }
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           manager {
             id
+            businesses {
+              items {
+                id
+                companyName
+                storeURLs
+                websiteURLs
+                managerID
+                createdAt
+                updatedAt
+                owner
+              }
+              nextToken
+            }
             createdAt
             updatedAt
+            profile {
+              id
+              email
+              name
+              avatar {
+                bucket
+                region
+                key
+              }
+              createdAt
+              updatedAt
+            }
           }
+          managerID
+          createdAt
+          updatedAt
+          owner
         }
         nextToken
       }
+      createdAt
+      updatedAt
       profile {
         id
         email
@@ -639,29 +1955,156 @@ export const onDeleteManager = /* GraphQL */ `
   subscription OnDeleteManager {
     onDeleteManager {
       id
-      createdAt
-      updatedAt
       businesses {
         items {
           id
           companyName
           storeURLs
           websiteURLs
-          managerID
-          createdAt
-          updatedAt
-          owner
           employees {
+            items {
+              id
+              business {
+                id
+                companyName
+                storeURLs
+                websiteURLs
+                managerID
+                createdAt
+                updatedAt
+                owner
+              }
+              businessID
+              roleTags {
+                sales
+                marketing
+                logistics
+                accounting
+                production
+                qualityControl
+              }
+              countryCode {
+                code
+                label
+                phone
+              }
+              phoneNumber
+              createdAt
+              updatedAt
+              profile {
+                id
+                email
+                name
+                createdAt
+                updatedAt
+              }
+            }
+            nextToken
+          }
+          products {
+            items {
+              id
+              itemNumber
+              itemName
+              release
+              websiteURLs
+              stage
+              business {
+                id
+                companyName
+                storeURLs
+                websiteURLs
+                managerID
+                createdAt
+                updatedAt
+                owner
+              }
+              businessID
+              color
+              material
+              photos {
+                bucket
+                region
+                key
+              }
+              videos {
+                bucket
+                region
+                key
+              }
+              certifications {
+                bucket
+                region
+                key
+              }
+              marketingMaterials {
+                bucket
+                region
+                key
+              }
+              packagingPhotos {
+                bucket
+                region
+                key
+              }
+              packagingVideos {
+                bucket
+                region
+                key
+              }
+              packagings {
+                isDimentions
+                sizeOrDimensions
+                weightKgs
+                pieces
+                packegeWeightKgs
+                packageDimentions
+              }
+              createdAt
+              updatedAt
+              owner
+            }
             nextToken
           }
           manager {
             id
+            businesses {
+              items {
+                id
+                companyName
+                storeURLs
+                websiteURLs
+                managerID
+                createdAt
+                updatedAt
+                owner
+              }
+              nextToken
+            }
             createdAt
             updatedAt
+            profile {
+              id
+              email
+              name
+              avatar {
+                bucket
+                region
+                key
+              }
+              createdAt
+              updatedAt
+            }
           }
+          managerID
+          createdAt
+          updatedAt
+          owner
         }
         nextToken
       }
+      createdAt
+      updatedAt
       profile {
         id
         email
@@ -674,6 +2117,753 @@ export const onDeleteManager = /* GraphQL */ `
         createdAt
         updatedAt
       }
+    }
+  }
+`;
+export const onCreateProduct = /* GraphQL */ `
+  subscription OnCreateProduct {
+    onCreateProduct {
+      id
+      itemNumber
+      itemName
+      release
+      websiteURLs
+      stage
+      business {
+        id
+        companyName
+        storeURLs
+        websiteURLs
+        employees {
+          items {
+            id
+            business {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            businessID
+            roleTags {
+              sales
+              marketing
+              logistics
+              accounting
+              production
+              qualityControl
+            }
+            countryCode {
+              code
+              label
+              phone
+            }
+            phoneNumber
+            createdAt
+            updatedAt
+            profile {
+              id
+              email
+              name
+              avatar {
+                bucket
+                region
+                key
+              }
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        products {
+          items {
+            id
+            itemNumber
+            itemName
+            release
+            websiteURLs
+            stage
+            business {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            businessID
+            color
+            material
+            photos {
+              bucket
+              region
+              key
+            }
+            videos {
+              bucket
+              region
+              key
+            }
+            certifications {
+              bucket
+              region
+              key
+            }
+            marketingMaterials {
+              bucket
+              region
+              key
+            }
+            packagingPhotos {
+              bucket
+              region
+              key
+            }
+            packagingVideos {
+              bucket
+              region
+              key
+            }
+            packagings {
+              isDimentions
+              sizeOrDimensions
+              weightKgs
+              unitBarCode {
+                bucket
+                region
+                key
+              }
+              pieces
+              packegeWeightKgs
+              packageDimentions
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        manager {
+          id
+          businesses {
+            items {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+          profile {
+            id
+            email
+            name
+            avatar {
+              bucket
+              region
+              key
+            }
+            createdAt
+            updatedAt
+          }
+        }
+        managerID
+        createdAt
+        updatedAt
+        owner
+      }
+      businessID
+      color
+      material
+      photos {
+        bucket
+        region
+        key
+      }
+      videos {
+        bucket
+        region
+        key
+      }
+      certifications {
+        bucket
+        region
+        key
+      }
+      marketingMaterials {
+        bucket
+        region
+        key
+      }
+      packagingPhotos {
+        bucket
+        region
+        key
+      }
+      packagingVideos {
+        bucket
+        region
+        key
+      }
+      packagings {
+        isDimentions
+        sizeOrDimensions
+        weightKgs
+        unitBarCode {
+          bucket
+          region
+          key
+        }
+        pieces
+        packegeWeightKgs
+        packageDimentions
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateProduct = /* GraphQL */ `
+  subscription OnUpdateProduct {
+    onUpdateProduct {
+      id
+      itemNumber
+      itemName
+      release
+      websiteURLs
+      stage
+      business {
+        id
+        companyName
+        storeURLs
+        websiteURLs
+        employees {
+          items {
+            id
+            business {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            businessID
+            roleTags {
+              sales
+              marketing
+              logistics
+              accounting
+              production
+              qualityControl
+            }
+            countryCode {
+              code
+              label
+              phone
+            }
+            phoneNumber
+            createdAt
+            updatedAt
+            profile {
+              id
+              email
+              name
+              avatar {
+                bucket
+                region
+                key
+              }
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        products {
+          items {
+            id
+            itemNumber
+            itemName
+            release
+            websiteURLs
+            stage
+            business {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            businessID
+            color
+            material
+            photos {
+              bucket
+              region
+              key
+            }
+            videos {
+              bucket
+              region
+              key
+            }
+            certifications {
+              bucket
+              region
+              key
+            }
+            marketingMaterials {
+              bucket
+              region
+              key
+            }
+            packagingPhotos {
+              bucket
+              region
+              key
+            }
+            packagingVideos {
+              bucket
+              region
+              key
+            }
+            packagings {
+              isDimentions
+              sizeOrDimensions
+              weightKgs
+              unitBarCode {
+                bucket
+                region
+                key
+              }
+              pieces
+              packegeWeightKgs
+              packageDimentions
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        manager {
+          id
+          businesses {
+            items {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+          profile {
+            id
+            email
+            name
+            avatar {
+              bucket
+              region
+              key
+            }
+            createdAt
+            updatedAt
+          }
+        }
+        managerID
+        createdAt
+        updatedAt
+        owner
+      }
+      businessID
+      color
+      material
+      photos {
+        bucket
+        region
+        key
+      }
+      videos {
+        bucket
+        region
+        key
+      }
+      certifications {
+        bucket
+        region
+        key
+      }
+      marketingMaterials {
+        bucket
+        region
+        key
+      }
+      packagingPhotos {
+        bucket
+        region
+        key
+      }
+      packagingVideos {
+        bucket
+        region
+        key
+      }
+      packagings {
+        isDimentions
+        sizeOrDimensions
+        weightKgs
+        unitBarCode {
+          bucket
+          region
+          key
+        }
+        pieces
+        packegeWeightKgs
+        packageDimentions
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteProduct = /* GraphQL */ `
+  subscription OnDeleteProduct {
+    onDeleteProduct {
+      id
+      itemNumber
+      itemName
+      release
+      websiteURLs
+      stage
+      business {
+        id
+        companyName
+        storeURLs
+        websiteURLs
+        employees {
+          items {
+            id
+            business {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            businessID
+            roleTags {
+              sales
+              marketing
+              logistics
+              accounting
+              production
+              qualityControl
+            }
+            countryCode {
+              code
+              label
+              phone
+            }
+            phoneNumber
+            createdAt
+            updatedAt
+            profile {
+              id
+              email
+              name
+              avatar {
+                bucket
+                region
+                key
+              }
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        products {
+          items {
+            id
+            itemNumber
+            itemName
+            release
+            websiteURLs
+            stage
+            business {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            businessID
+            color
+            material
+            photos {
+              bucket
+              region
+              key
+            }
+            videos {
+              bucket
+              region
+              key
+            }
+            certifications {
+              bucket
+              region
+              key
+            }
+            marketingMaterials {
+              bucket
+              region
+              key
+            }
+            packagingPhotos {
+              bucket
+              region
+              key
+            }
+            packagingVideos {
+              bucket
+              region
+              key
+            }
+            packagings {
+              isDimentions
+              sizeOrDimensions
+              weightKgs
+              unitBarCode {
+                bucket
+                region
+                key
+              }
+              pieces
+              packegeWeightKgs
+              packageDimentions
+            }
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        manager {
+          id
+          businesses {
+            items {
+              id
+              companyName
+              storeURLs
+              websiteURLs
+              employees {
+                nextToken
+              }
+              products {
+                nextToken
+              }
+              manager {
+                id
+                createdAt
+                updatedAt
+              }
+              managerID
+              createdAt
+              updatedAt
+              owner
+            }
+            nextToken
+          }
+          createdAt
+          updatedAt
+          profile {
+            id
+            email
+            name
+            avatar {
+              bucket
+              region
+              key
+            }
+            createdAt
+            updatedAt
+          }
+        }
+        managerID
+        createdAt
+        updatedAt
+        owner
+      }
+      businessID
+      color
+      material
+      photos {
+        bucket
+        region
+        key
+      }
+      videos {
+        bucket
+        region
+        key
+      }
+      certifications {
+        bucket
+        region
+        key
+      }
+      marketingMaterials {
+        bucket
+        region
+        key
+      }
+      packagingPhotos {
+        bucket
+        region
+        key
+      }
+      packagingVideos {
+        bucket
+        region
+        key
+      }
+      packagings {
+        isDimentions
+        sizeOrDimensions
+        weightKgs
+        unitBarCode {
+          bucket
+          region
+          key
+        }
+        pieces
+        packegeWeightKgs
+        packageDimentions
+      }
+      createdAt
+      updatedAt
+      owner
     }
   }
 `;

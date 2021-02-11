@@ -4,6 +4,7 @@ import { ActionTypes as ProfileActionTypes } from './Profile/ProfileReducer';
 import { ActionTypes as EmployeeActionTypes } from './Employee/EmployeeReducer';
 import { ActionTypes as MessageActionTypes } from './Message/MessageReducer';
 import { ActionTypes as ManagerActionTypes } from './Manager/ManagerReducer';
+import { ActionTypes as ProductActionTypes } from './Product/ProductReducer';
 
 
 export type ActionTypes = AuthActionTypes |
@@ -11,4 +12,5 @@ export type ActionTypes = AuthActionTypes |
     ProfileActionTypes |
     EmployeeActionTypes |
     MessageActionTypes |
-    ManagerActionTypes
+    ManagerActionTypes |
+    ProductActionTypes
