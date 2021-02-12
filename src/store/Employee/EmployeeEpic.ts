@@ -121,8 +121,8 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
         action$.pipe(
             ofType('GET-USER-LOCATION-REQUEST'),
             mergeMap(() => {
-                return from(ajax.getJSON(`http://ip-api.com/json`)).pipe(
-                    mergeMap((res) => {
+                return from(ajax.getJSON(`https://freegeoip.app/json/`)).pipe(
+                    mergeMap((res: any) => {
                         return [getUserLocationSuccess(res)];
                     }),
                     catchError((err) => {

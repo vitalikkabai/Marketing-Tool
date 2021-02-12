@@ -63,6 +63,7 @@ function FileDropzone() {
             </Box>
             <Box className={classes.photoSection}>
                 <CustomCarousel Items={Photos}/>
+                <CustomCarousel Items={Photos}/>
             </Box>
         </Box>
     );
