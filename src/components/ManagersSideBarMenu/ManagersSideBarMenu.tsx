@@ -3,19 +3,15 @@ import {
     Grid,
     List,
     ListItem,
-    ListItemIcon,
-    ListItemText,
     Typography,
 } from '@material-ui/core';
 import React from 'react';
 import classes from './ManagersSideBarMenu.module.scss';
-import { ReactComponent as CubeIcon } from '../../assets/images/menuIcons/Cubes.svg';
 import { PropsFromRedux } from './ManagersSideBarMenuContainer';
 
 const ManagersSideBarMenu: React.FunctionComponent<PropsFromRedux> = (
     props
 ) => {
-    console.log(props);
     return (
         <Grid
             container
@@ -37,10 +33,11 @@ const ManagersSideBarMenu: React.FunctionComponent<PropsFromRedux> = (
                     return (
                         <ListItem
                             key={index}
-                            onClick={() => props.setActiveBusiness(business)}
+                            onClick={() => {
+                                props.setActiveBusiness(business)}}
                         >
                             <Typography variant={'subtitle1'}>
-                                {business.companyName}
+                                {business.business.companyName}
                             </Typography>
                         </ListItem>
                     );

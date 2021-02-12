@@ -68,7 +68,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 export type AppProps = ConnectedProps<typeof connector>;
 const AppContainer = connector(App);
 
-const AppWithRouter = () => {
+const AppWithRouter:React.FunctionComponent = () => {
     // Store render before App initialization
     return (
         <BrowserRouter>

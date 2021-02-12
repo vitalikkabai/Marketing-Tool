@@ -15,10 +15,14 @@ import {
     getUpdatedMessage,
     updateMessageAction,
     updateMessageSuccess,
+    subscribeOnMessageCreated,
+    subscribeOnMessageUpdated,
+    setInterlocutorAvatarUrl,
+    setInterlocutorAvatarUrlFailure,
 } from './MessageActions';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
-import { API, graphqlOperation } from 'aws-amplify';
+import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { combineLatest, from } from 'rxjs';
 import { getConversation, getDialogue } from '../../graphql/queries';
 import {
@@ -98,6 +102,8 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                         });
 
                         return [
+                            subscribeOnMessageCreated(),
+                            subscribeOnMessageUpdated(),
                             openDialogueSuccess(res.data.getConversation.items),
                             ...updateMessageActions,
                         ];
@@ -112,15 +118,16 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     (action$, state$) =>
         action$.pipe(
             ofType('SUBSCRIBE_ON_MESSAGES_CREATED'),
-            mergeMap((action: any) => {
+            mergeMap(() => {
                 return from(
                     (API.graphql(
                         graphqlOperation(onCreateMessage, {
-                            receiverID: action.payload,
+                            receiverID: state$.value.ProfileReducer.profile.id
                         })
                     ) as unknown) as Promise<any>
                 ).pipe(
                     mergeMap((res) => {
+                        console.log("subscribed message",res)
                         const message: CreateMessageInput =
                             res.value.data.onCreateMessage;
                         if (
@@ -147,7 +154,7 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
     (action$, state$) =>
         action$.pipe(
             ofType('SUBSCRIBE_ON_MESSAGE_UPDATED'),
-            mergeMap((action: any) => {
+            mergeMap(() => {
                 const sharedID = getSharedIndex(
                     state$.value.ProfileReducer.profile.id || '',
                     state$.value.MessageReducer.interlocutor.id || ''
@@ -191,6 +198,35 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                 );
             })
         ),
+        (action$, state$) =>
+        action$.pipe(
+            ofType(
+                'SET_INTERLOCUTOR'
+            ),
+            mergeMap(() => {
+                const avatar = state$.value.MessageReducer.interlocutor.avatar;
+                if (!avatar)
+                    return [
+                        setInterlocutorAvatarUrl(''),
+                        // subscribeOnMessageCreated(id),
+                        // subscribeOnMessageUpdated(id),
+                    ];
+
+                return from(Storage.get(avatar.key)).pipe(
+                    mergeMap((res) => {
+                        return [
+                            setInterlocutorAvatarUrl(res as string),
+                            // subscribeOnMessageCreated(id),
+                            // subscribeOnMessageUpdated(id),
+                        ];
+                    }),
+                    catchError((err) => {
+                        console.log(err);
+                        return [setInterlocutorAvatarUrlFailure()];
+                    })
+                );
+            })
+        )
 ];
 
 export default epics;

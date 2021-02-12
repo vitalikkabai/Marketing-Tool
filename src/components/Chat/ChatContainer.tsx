@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Dispatch } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
 import { AppStateType } from '../../store/store';
@@ -8,13 +8,15 @@ import { openDialogue, sendMessage } from '../../store/Message/MessageActions';
 import { FunctionComponent } from 'react';
 
 const ChatContainer: FunctionComponent<ChatProps> = (props) => {
+
+    useEffect(() => {
+        if (props.thisProfile.id && props.interlocutor.id) {
+            props.openDialogue(Stage.UNASSIGNED, 'default');
+        }
+    }, [props.thisProfile,props.interlocutor])
     return (
         <Chat
-            dialogue={props.dialogue}
-            thisProfile={props.thisProfile}
-            avatarURL={props.avatarURL}
-            openDialogue={props.openDialogue}
-            sendMessage={props.sendMessage}
+            {...props}
             backGroundColor={props.backGroundColor}
         />
     );
@@ -25,6 +27,8 @@ const mapStateToProps = (state: AppStateType) => {
         dialogue: state.MessageReducer.dialogue,
         thisProfile: state.ProfileReducer.profile,
         avatarURL: state.ProfileReducer.avatarURL,
+        interlocutor: state.MessageReducer.interlocutor,
+        interlocutorAvatarURL: state.MessageReducer.interlocutorAvatarURL
     };
 };
 
@@ -45,4 +49,5 @@ type OwnProps = {
 
 export type ChatProps = ConnectedProps<typeof connector> & OwnProps;
 
+// export default 
 export default connector(ChatContainer);
