@@ -4,11 +4,18 @@ import classes from './Dropzone.module.scss';
 import { Box, Button, Typography } from '@material-ui/core';
 import { ReactComponent as ClipIcon } from '../../../assets/images/clip.svg';
 import CustomCarousel from "../Carousel/CustomCarousel";
+// @ts-ignore
+import VideoPlayer from 'simple-react-video-thumbnail';
+import playIcon from "../../../assets/images/playButton.svg";
 
 
-function FileDropzone() {
+type PropsType = {
+    title: string
+}
+
+const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
     const [files, setFiles] = useState([]);
-    const { getRootProps, getInputProps } = useDropzone({
+    const { getRootProps, getInputProps } = useDropzone({accept: 'image/*, video/*',
         onDrop: (acceptedFiles) => {
             // @ts-ignore
             setFiles((oldArray) => [
@@ -22,14 +29,22 @@ function FileDropzone() {
         },
     });
 
-    const Photos = files.map((file: any, index) => (
+    const Videos = files.filter((file: any)=>{return file.type.includes('video')}).map((file: any, index) => (
         <div className={classes.imgBox} key={file.name + ' ' + index}>
-            <img src={file.preview}/>
+            <img src={playIcon} className={classes.svgPlay}/>
+            <video src={file.preview}/>
+        </div>
+    ));
+
+    const Photos = files.filter((file: any)=>{return file.type.includes('image')}).map((file: any, index) => (
+        <div className={classes.imgBox} key={file.name + ' ' + index}>
+            <img src={file.preview} className={classes.photoItem}/>
         </div>
     ));
 
     useEffect(
         () => () => {
+            console.log(files)
             files.forEach((file: any) => URL.revokeObjectURL(file.preview));
         },
         [files]
@@ -49,7 +64,7 @@ function FileDropzone() {
                             align={'center'}
                             style={{ color: '#4285F4' }}
                         >
-                            Upload product photos & videos
+                            {props.title}
                         </Typography>
                         <Typography
                             variant={'subtitle1'}
@@ -61,9 +76,9 @@ function FileDropzone() {
                     </Box>
                 </Box>
             </Box>
-            <Box className={classes.photoSection}>
+            <Box className={classes.photoSection} style={files.length === 0? {display: "none"}:{}}>
                 <CustomCarousel Items={Photos}/>
-                <CustomCarousel Items={Photos}/>
+                <CustomCarousel Items={Videos}/>
             </Box>
         </Box>
     );
