@@ -170,7 +170,7 @@ function UserDashboard() {
                             <Grid item xs={12} className={classes.stepRow}>
                                 <Box
                                     className={classes.coloredBox}
-                                    style={{ background: '#FFDC22' }}
+                                    style={{ background: '#EDCD27' }}
                                 >
                                     <Typography
                                         variant={'h6'}
@@ -186,7 +186,7 @@ function UserDashboard() {
                                         ' ' +
                                         classes.leftTask
                                     }
-                                    style={{ background: '#FFDC22' }}
+                                    style={{ background: '#EDCD27' }}
                                 >
                                     <Typography variant={'h6'}>1</Typography>
                                 </Box>
@@ -197,7 +197,7 @@ function UserDashboard() {
                                         ' ' +
                                         classes.rightTask
                                     }
-                                    style={{ background: '#FFDC22' }}
+                                    style={{ background: '#EDCD27' }}
                                 >
                                     <Typography variant={'h6'}>1</Typography>
                                 </Box>
