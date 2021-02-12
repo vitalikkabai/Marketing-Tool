@@ -1,16 +1,23 @@
 .carouselBox {
     width: 350px;
+    margin: 0 10px;
 }
 
 .outerBox {
-    margin-top: -30px;
+    margin-top: 10px;
     margin-bottom: -20px;
 }
 
-.CarouselContainer {
-    .CarouselItem {
-        padding: 12px;
-        display: flex;
-        justify-content: center;
+.sliderContainer {
+    display: flex;
+    align-items: center;
+}
+
+.sliderArrow {
+    cursor: pointer;
+    svg {
+        width: 15px;
+        height: 25px;
     }
+
 }

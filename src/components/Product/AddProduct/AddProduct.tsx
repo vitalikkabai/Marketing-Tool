@@ -20,9 +20,6 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                 <Grid item className={classes.titleBox}>
                     <Typography variant={'h2'}>Add product</Typography>
                 </Grid>
-                <Grid item className={classes.stepBox}>
-                    <StepCounter stepNumber={1} stepColor={'237 205 39'} />
-                </Grid>
             </Box>
             <Box className={classes.contentContainer}>
                 <GoBackButton onClick={()=>history.push("/products")}/>

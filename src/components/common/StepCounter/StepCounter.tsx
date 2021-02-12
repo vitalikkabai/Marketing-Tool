@@ -1,6 +1,6 @@
 import classes from './StepCounter.module.scss';
 import check from '../../../assets/images/checkMark.svg';
-import { Grid, makeStyles, Typography, useTheme } from '@material-ui/core';
+import {Grid, makeStyles, Typography, useTheme} from '@material-ui/core';
 import React from 'react';
 
 type PropsType = {
@@ -11,7 +11,7 @@ type PropsType = {
 };
 
 const StepCounter: React.FC<PropsType> = (props) => {
-    const { stepNumber, stepColor, completedStep, className } = props;
+    const {stepNumber, stepColor, completedStep, className} = props;
 
     const getColor = () => {
         if (completedStep === 1) return '248 208 0';
@@ -74,39 +74,38 @@ const StepCounter: React.FC<PropsType> = (props) => {
                         className={
                             completedStep === i
                                 ? classes.active +
-                                  ' ' +
-                                  classes.current +
-                                  ' ' +
-                                  styles.circleRipple
+                                ' ' +
+                                classes.current +
+                                ' ' +
+                                styles.circleRipple
                                 : stepNumber === i && stepNumber > completedStep
                                 ? classes.current
                                 : ' '
                         }
                         style={
                             completedStep >= i
-                                ? { background: getBackgroundColor(i) }
+                                ? {background: getBackgroundColor(i)}
                                 : stepNumber === i
                                 ? {
-                                      border: `3px solid ${getBackgroundColor(
-                                          i
-                                      )}`,
-                                  }
+                                    border: `3px solid ${getBackgroundColor(
+                                        i
+                                    )}`,
+                                }
                                 : {}
                         }
                     >
                         {completedStep > i ? (
-                            <img src={check} alt={'check'} />
+                            <img key={`img${i}`} src={check} alt={'check'}/>
                         ) : (
-                            <Typography variant={'subtitle2'}>{i}</Typography>
+                            <Typography key={`typography${i}`} variant={'subtitle2'}>{i}</Typography>
                         )}
                     </li>
                     {i < 8 ? (
                         <div
-                            key={`div${i}`}
                             className={classes.line}
                             style={
                                 completedStep >= i + 1
-                                    ? { background: getBackgroundColor(i) }
+                                    ? {background: getBackgroundColor(i)}
                                     : {}
                             }
                         />
@@ -124,16 +123,16 @@ const StepCounter: React.FC<PropsType> = (props) => {
                         className={
                             stepNumber === 1
                                 ? classes.active +
-                                  ' ' +
-                                  classes.current +
-                                  ' ' +
-                                  styles.circleRipple
+                                ' ' +
+                                classes.current +
+                                ' ' +
+                                styles.circleRipple
                                 : classes.active
                         }
-                        style={{ background: theme.palette.primary.main }}
+                        style={{background: theme.palette.primary.main}}
                     >
                         {stepNumber === 2 || stepNumber === 3 ? (
-                            <img src={check} alt={'check'} />
+                            <img src={check} alt={'check'}/>
                         ) : (
                             <Typography variant={'subtitle2'}>1</Typography>
                         )}
@@ -142,7 +141,7 @@ const StepCounter: React.FC<PropsType> = (props) => {
                         className={classes.line}
                         style={
                             stepNumber === 2 || stepNumber === 3
-                                ? { background: theme.palette.primary.main }
+                                ? {background: theme.palette.primary.main}
                                 : {}
                         }
                     />
@@ -150,24 +149,24 @@ const StepCounter: React.FC<PropsType> = (props) => {
                         className={
                             stepNumber === 2
                                 ? classes.active +
-                                  ' ' +
-                                  classes.current +
-                                  ' ' +
-                                  styles.circleRipple
+                                ' ' +
+                                classes.current +
+                                ' ' +
+                                styles.circleRipple
                                 : stepNumber === 1
                                 ? ''
                                 : classes.active
                         }
                         style={
                             stepNumber === 2
-                                ? { background: theme.palette.primary.main }
+                                ? {background: theme.palette.primary.main}
                                 : stepNumber === 1
                                 ? {}
-                                : { background: theme.palette.primary.main }
+                                : {background: theme.palette.primary.main}
                         }
                     >
                         {stepNumber === 3 ? (
-                            <img src={check} alt={'check'} />
+                            <img src={check} alt={'check'}/>
                         ) : (
                             <Typography variant={'subtitle2'}>2</Typography>
                         )}
@@ -176,7 +175,7 @@ const StepCounter: React.FC<PropsType> = (props) => {
                         className={classes.line}
                         style={
                             stepNumber === 3
-                                ? { background: theme.palette.primary.main }
+                                ? {background: theme.palette.primary.main}
                                 : {}
                         }
                     />
@@ -184,20 +183,20 @@ const StepCounter: React.FC<PropsType> = (props) => {
                         className={
                             stepNumber === 3
                                 ? classes.active +
-                                  ' ' +
-                                  classes.current +
-                                  ' ' +
-                                  styles.circleRipple
+                                ' ' +
+                                classes.current +
+                                ' ' +
+                                styles.circleRipple
                                 : stepNumber === 2 || stepNumber === 1
                                 ? ''
                                 : classes.active
                         }
                         style={
                             stepNumber === 3
-                                ? { background: theme.palette.primary.main }
+                                ? {background: theme.palette.primary.main}
                                 : stepNumber === 2 || stepNumber === 1
                                 ? {}
-                                : { background: theme.palette.primary.main }
+                                : {background: theme.palette.primary.main}
                         }
                     >
                         <Typography variant={'subtitle2'}>3</Typography>

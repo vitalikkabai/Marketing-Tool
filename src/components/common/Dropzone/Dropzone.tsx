@@ -3,8 +3,8 @@ import { useDropzone } from 'react-dropzone';
 import classes from './Dropzone.module.scss';
 import { Box, Button, Typography } from '@material-ui/core';
 import { ReactComponent as ClipIcon } from '../../../assets/images/clip.svg';
-import Carousel from 'react-multi-carousel';
-import CustomCarousel from '../Carousel/Carousel';
+import CustomCarousel from "../Carousel/CustomCarousel";
+
 
 function FileDropzone() {
     const [files, setFiles] = useState([]);
@@ -24,7 +24,7 @@ function FileDropzone() {
 
     const Photos = files.map((file: any, index) => (
         <div className={classes.imgBox} key={file.name + ' ' + index}>
-            <img src={file.preview} />
+            <img src={file.preview}/>
         </div>
     ));
 
@@ -62,7 +62,7 @@ function FileDropzone() {
                 </Box>
             </Box>
             <Box className={classes.photoSection}>
-                <CustomCarousel Items={Photos} />
+                <CustomCarousel Items={Photos}/>
             </Box>
         </Box>
     );

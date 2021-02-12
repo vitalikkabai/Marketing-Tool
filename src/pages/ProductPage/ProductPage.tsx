@@ -15,7 +15,7 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
     return (
         <Grid container className={classes.dashboard}>
             <Box className={classes.todoTitleBox}>
-                <Grid item xs={8} xl={9} className={classes.titleBox}>
+                <Grid item className={classes.titleBox}>
                     <Typography variant={'h2'}>Products</Typography>
                 </Grid>
                 <Grid
