@@ -49,12 +49,27 @@ export default [
                     })
                 ).pipe(
                     mergeMap((response) => {
+                        console.log(response)
+                        const occupation = Number(
+                            response.attributes['custom:occupation']
+                        );
+                        let action: ActionTypes;
+                        switch (occupation) {
+                            case 0:
+                                action = fetchEmployeeById(response.attributes.sub);
+                                break;
+                            case 1:
+                                action = fetchManagerById(response.attributes.sub);
+                                break;
+                            default:
+                                action = getAuthDataFailed();
+                        }
                         return [
                             signInSuccess({
                                 userID: response.attributes.sub,
-                                occupation: response.attributes.occupation,
+                                occupation
                             }),
-                            fetchEmployeeById(response.attributes.sub),
+                            action,
                         ];
                     }),
                     catchError((err) => [signInFailed(err)])

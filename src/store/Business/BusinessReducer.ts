@@ -32,7 +32,7 @@ export const initialPresetState: CreateBusinessInput = {
 };
 
 export const BusinessReducer = (
-    state: CreateBusinessInput = initialPresetState,
+    state: CreateBusinessInput = initialState,
     action: ActionTypes
 ): CreateBusinessInput => {
     switch (action.type) {
