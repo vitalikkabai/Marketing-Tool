@@ -7,11 +7,10 @@ import CustomButton from '../../common/Button/CustomButton';
 import CustomInput from '../../common/Input/CustomInput';
 import Dropzone from '../../common/Dropzone/Dropzone';
 import StepCounter from '../../common/StepCounter/StepCounter';
-import GoBackButton from "../../common/Button/GoBackButton";
-import {useHistory} from "react-router";
+import GoBackButton from '../../common/Button/GoBackButton';
+import { useHistory } from 'react-router';
 
 const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
-
     const history = useHistory();
 
     return (
@@ -22,7 +21,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                 </Grid>
             </Box>
             <Box className={classes.contentContainer}>
-                <GoBackButton onClick={()=>history.push("/products")}/>
+                <GoBackButton onClick={() => history.push('/products')} />
                 <Grid item className={classes.contentBlockBox} xs={8} xl={9}>
                     <form>
                         <Grid container className={classes.formContent}>
@@ -33,14 +32,12 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 <Grid
                                     xs={12}
                                     item
-                                    className={classes.productInfoInputs}
-                                >
+                                    className={classes.productInfoInputs}>
                                     <Box
                                         style={{
                                             width: '20%',
                                             marginRight: '24px',
-                                        }}
-                                    >
+                                        }}>
                                         <CustomInput
                                             label={'Item №'}
                                             fullWidth
@@ -50,8 +47,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                         style={{
                                             width: '30%',
                                             marginRight: '24px',
-                                        }}
-                                    >
+                                        }}>
                                         <CustomInput
                                             label={'Item name'}
                                             fullWidth
@@ -67,30 +63,26 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                         style={{
                                             width: '30%',
                                             marginLeft: '48px',
-                                        }}
-                                    >
+                                        }}>
                                         <CustomInput label={'Tag'} fullWidth />
                                     </Box>
                                 </Grid>
                                 <Grid
                                     xs={12}
                                     item
-                                    className={classes.productUrlInputs}
-                                >
+                                    className={classes.productUrlInputs}>
                                     <CustomInput label={'URL'} fullWidth />
                                     <Typography
                                         color={'primary'}
                                         className={classes.addUrlText}
-                                        variant={'h6'}
-                                    >
+                                        variant={'h6'}>
                                         + Add URL
                                     </Typography>
                                 </Grid>
                                 <Grid
                                     xs={12}
                                     item
-                                    className={classes.additionalInfo}
-                                >
+                                    className={classes.additionalInfo}>
                                     <Box style={{ width: '30%' }}>
                                         <CustomInput
                                             label={'Color'}
@@ -99,8 +91,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                         <Typography
                                             color={'primary'}
                                             className={classes.addUrlText}
-                                            variant={'h6'}
-                                        >
+                                            variant={'h6'}>
                                             + Add Color
                                         </Typography>
                                     </Box>
@@ -118,8 +109,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                         <Typography
                                             color={'primary'}
                                             className={classes.addUrlText}
-                                            variant={'h6'}
-                                        >
+                                            variant={'h6'}>
                                             + Add Material
                                         </Typography>
                                     </Box>
@@ -129,8 +119,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 item
                                 container
                                 xs={12}
-                                className={classes.nextButtonBox}
-                            >
+                                className={classes.nextButtonBox}>
                                 <CustomButton
                                     type={'submit'}
                                     text={'Next'}
