@@ -96,11 +96,11 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 justifyContent={'center'}
                                 alignItems={'center'}
                             >
-                                {/* <StepCounter
+                                <StepCounter
                                     className={classes.stepLine}
                                     completedStep={1}
                                     stepNumber={1}
-                                /> */}
+                                />
                                 <img src={ProductCat} alt={'image'} />
                             </Box>
                         </Grid>
@@ -128,11 +128,11 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 justifyContent={'center'}
                                 alignItems={'center'}
                             >
-                                {/* <StepCounter
+                                <StepCounter
                                     className={classes.stepLine}
                                     completedStep={1}
                                     stepNumber={1}
-                                /> */}
+                                />
                                 <img src={ProductCat} alt={'image'} />
                             </Box>
                         </Grid>
