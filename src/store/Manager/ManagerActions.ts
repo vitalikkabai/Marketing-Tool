@@ -1,4 +1,5 @@
-import { CreateBusinessInput, CreateManagerInput } from '../../API';
+import { CreateManagerInput } from '../../API';
+import { DetailedBusiness } from './ManagerReducer';
 
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export const setManager = (manager: CreateManagerInput) => ({
@@ -6,7 +7,7 @@ export const setManager = (manager: CreateManagerInput) => ({
     payload: manager,
 });
 
-export const setBusinesses = (businesses: CreateBusinessInput[]) => ({
+export const setBusinesses = (businesses: DetailedBusiness[]) => ({
     type: 'SET_BUSINESSES' as const,
     payload: businesses,
 });

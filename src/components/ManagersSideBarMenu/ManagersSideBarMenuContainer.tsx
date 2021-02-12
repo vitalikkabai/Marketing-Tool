@@ -3,8 +3,10 @@ import { connect, ConnectedProps } from 'react-redux';
 import { AppStateType } from '../../store/store';
 import { cleanErrors, getAuthData, signIn } from '../../store/Auth/AuthActions';
 import ManagersSideBarMenu from './ManagersSideBarMenu';
-import { CreateBusinessInput } from '../../API';
+import { CreateBusinessInput, CreateProfileInput } from '../../API';
 import { setBusiness } from '../../store/Business/BusinessActions';
+import { setInterlocutor } from '../../store/Message/MessageActions';
+import { DetailedBusiness } from '../../store/Manager/ManagerReducer';
 
 const mapStateToProps = (state: AppStateType) => {
     return {
@@ -20,8 +22,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
             dispatch(signIn(username, password)),
         cleanErrors: () => dispatch(cleanErrors()),
         getAuthData: () => dispatch(getAuthData()),
-        setActiveBusiness: (business: CreateBusinessInput) =>
-            dispatch(setBusiness(business)),
+        setActiveBusiness: (activeBusiness: DetailedBusiness) => {
+            dispatch(setBusiness(activeBusiness.business)),
+                dispatch(setInterlocutor(activeBusiness.employeeProfiles[0]));
+        },
     };
 };
 

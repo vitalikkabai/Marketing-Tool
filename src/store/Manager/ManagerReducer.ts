@@ -1,9 +1,17 @@
-import { CreateBusinessInput, CreateManagerInput } from '../../API';
+import {
+    CreateBusinessInput,
+    CreateManagerInput,
+    CreateProfileInput,
+} from '../../API';
 import * as actions from './ManagerActions';
 
+export type DetailedBusiness = {
+    business: CreateBusinessInput;
+    employeeProfiles: CreateProfileInput[];
+};
 type ManagerReducerType = {
     manager: CreateManagerInput;
-    businesses: CreateBusinessInput[];
+    businesses: DetailedBusiness[]
 };
 
 const initialState: ManagerReducerType = {

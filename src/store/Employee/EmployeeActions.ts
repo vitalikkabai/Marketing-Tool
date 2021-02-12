@@ -62,7 +62,7 @@ export const getUserLocation = () => ({
 
 export const getUserLocationSuccess = (result: any) => ({
     type: 'GET-USER-LOCATION-SUCCESS' as const,
-    payload: result.countryCode,
+    payload: result.country_code,
 });
 
 export const getUserLocationFailed = () => ({

@@ -22,7 +22,7 @@ const initialPresetState: ProfileReducerType = {
 };
 
 export const ProfileReducer = (
-    state: ProfileReducerType = initialPresetState,
+    state: ProfileReducerType = initialState,
     action: ActionTypes
 ): ProfileReducerType => {
     switch (action.type) {

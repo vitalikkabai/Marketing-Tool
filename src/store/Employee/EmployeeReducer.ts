@@ -39,7 +39,7 @@ const initialPresetState: CreateEmployeeInput = {
 };
 
 export const EmployeeReducer = (
-    state = initialPresetState,
+    state = initialState,
     action: ActionTypes
 ): CreateEmployeeInput => {
     switch (action.type) {

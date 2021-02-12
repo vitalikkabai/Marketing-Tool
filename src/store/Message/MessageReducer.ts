@@ -68,6 +68,12 @@ export const MessageReducer = (
                 interlocutor: action.payload,
             };
         }
+        case 'SET_INTERLOCUTOR_AVATAR_URL': {
+            return {
+                ...state,
+                interlocutorAvatarURL: action.payload
+            }
+        }
         case 'OPEN_DIALOGUE_SUCCESS':
             return {
                 ...state,

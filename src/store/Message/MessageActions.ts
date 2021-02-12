@@ -48,14 +48,12 @@ export const setInterlocutor = (interlocutor: CreateProfileInput) => ({
     payload: interlocutor,
 });
 
-export const subscribeOnMessageCreated = (receiverID: string) => ({
+export const subscribeOnMessageCreated = () => ({
     type: 'SUBSCRIBE_ON_MESSAGES_CREATED' as const,
-    payload: receiverID,
 });
 
-export const subscribeOnMessageUpdated = (receiverID: string) => ({
+export const subscribeOnMessageUpdated = () => ({
     type: 'SUBSCRIBE_ON_MESSAGE_UPDATED' as const,
-    payload: receiverID,
 });
 
 // export const subscribeOnUpdatedMessages = (receiverID: string) => ({
@@ -80,4 +78,13 @@ export const updateMessageSuccess = () => ({
 export const getRecentMessage = (message: CreateMessageInput) => ({
     type: 'GET_RECENT_MESSAGE' as const,
     payload: message,
+});
+
+export const setInterlocutorAvatarUrl = (avatarUrl: string) => ({
+    type: 'SET_INTERLOCUTOR_AVATAR_URL' as const,
+    payload: avatarUrl,
+});
+
+export const setInterlocutorAvatarUrlFailure = () => ({
+    type: 'SET_INTERLOCUTOR_AVATAR_URL_FAILURE' as const,
 });

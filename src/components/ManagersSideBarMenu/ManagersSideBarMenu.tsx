@@ -1,28 +1,17 @@
-import {
-    Box,
-    Grid,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-    Typography,
-} from '@material-ui/core';
+import { Box, Grid, List, ListItem, Typography } from '@material-ui/core';
 import React from 'react';
 import classes from './ManagersSideBarMenu.module.scss';
-import { ReactComponent as CubeIcon } from '../../assets/images/menuIcons/Cubes.svg';
 import { PropsFromRedux } from './ManagersSideBarMenuContainer';
 
 const ManagersSideBarMenu: React.FunctionComponent<PropsFromRedux> = (
     props
 ) => {
-    console.log(props);
     return (
         <Grid
             container
             direction={'column'}
             alignItems={'flex-start'}
-            className={classes.menu}
-        >
+            className={classes.menu}>
             <Box className={classes.gridItem}>
                 <Typography variant={'h2'}>
                     {props.activeBusiness.companyName}
@@ -31,16 +20,16 @@ const ManagersSideBarMenu: React.FunctionComponent<PropsFromRedux> = (
             <List
                 component="nav"
                 aria-labelledby="nested-list-subheader"
-                className={classes.rootList}
-            >
+                className={classes.rootList}>
                 {props.businesses.map((business, index) => {
                     return (
                         <ListItem
                             key={index}
-                            onClick={() => props.setActiveBusiness(business)}
-                        >
+                            onClick={() => {
+                                props.setActiveBusiness(business);
+                            }}>
                             <Typography variant={'subtitle1'}>
-                                {business.companyName}
+                                {business.business.companyName}
                             </Typography>
                         </ListItem>
                     );
@@ -58,8 +47,7 @@ const ManagersSideBarMenu: React.FunctionComponent<PropsFromRedux> = (
                     <Typography
                         variant={'subtitle1'}
                         color={'primary'}
-                        style={{ cursor: 'pointer' }}
-                    >
+                        style={{ cursor: 'pointer' }}>
                         + Invite
                     </Typography>
                     <Typography variant={'subtitle1'}>Pricing</Typography>
