@@ -166,8 +166,8 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
                                     className={classes.formSecondTitle}
                                 >
                                     <Typography variant={'h6'}>
-                                        Do you already have an experience
-                                        selling online?
+                                        Is there any brand that you would like
+                                        to be like?
                                     </Typography>
                                     <Box className={classes.inputBox}>
                                         <Box>
@@ -218,7 +218,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
                                                     setLinkErrorText={
                                                         setStoreErrorText
                                                     }
-                                                    label={'Store URL address'}
+                                                    label={'Brand URL address'}
                                                 />
                                             ) : (
                                                 <Box

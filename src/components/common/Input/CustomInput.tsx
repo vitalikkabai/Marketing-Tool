@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles, TextField } from '@material-ui/core';
+import { makeStyles, TextField, ThemeProvider } from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import { ReactComponent as Visibility } from '../../../assets/images/eye.svg';
@@ -46,7 +46,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                 '& fieldset': {
                     borderRadius: 10,
                     borderColor: props.error
-                        ? '#F44336'
+                        ? '#F44336 !important'
                         : props.value
                         ? '#4285F4'
                         : props.color,
@@ -59,21 +59,21 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                 },
                 '& label': {
                     color: props.error
-                        ? '#F44336'
+                        ? '#F44336 !important'
                         : props.value
                         ? '#4285F4'
                         : props.color,
                 },
             },
             '& .MuiInputLabel-outlined': {
-                fontFamily: 'liberation-sans',
+                fontFamily: 'Neue Haas Grotesk',
                 fontStyle: 'normal',
                 fontWeight: 'normal',
                 fontSize: '16px',
                 lineHeight: '150%',
                 top: '-9px',
                 color: props.error
-                    ? '#F44336'
+                    ? '#F44336 !important'
                     : props.value
                     ? '#4285F4'
                     : props.color,
@@ -84,7 +84,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
             '& .PrivateNotchedOutline-legendLabelled-11': {
                 '& span': {
                     paddingRight: 5,
-                    fontFamily: 'liberation-sans',
+                    fontFamily: 'Neue Haas Grotesk',
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontSize: '12px',
@@ -123,6 +123,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
 
     return (
         <TextField
+            color="secondary"
             error={props.error}
             key={props.PassKey}
             type={
@@ -158,7 +159,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                 ),
                 style: {
                     background: 'white',
-                    fontFamily: 'liberation-sans',
+                    fontFamily: 'Neue Haas Grotesk',
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontSize: '16px',
@@ -166,9 +167,9 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                 },
             }}
             // InputLabelProps={{
-            // 	style: {
-            // 		color: "red",
-            // 	}
+            //     style: {
+            //         color: 'red',
+            //     },
             // }}
             classes={{
                 root: classes.root,

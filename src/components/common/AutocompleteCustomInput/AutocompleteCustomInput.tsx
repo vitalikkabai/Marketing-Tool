@@ -57,7 +57,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
                 },
             },
             '& .MuiInputLabel-outlined': {
-                fontFamily: 'liberation-sans',
+                fontFamily: 'Neue Haas Grotesk',
                 fontStyle: 'normal',
                 fontWeight: 'normal',
                 fontSize: '16px',
@@ -75,7 +75,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
             '& .PrivateNotchedOutline-legendLabelled-11': {
                 '& span': {
                     paddingRight: 5,
-                    fontFamily: 'liberation-sans',
+                    fontFamily: 'Neue Haas Grotesk',
                     fontStyle: 'normal',
                     fontWeight: 'normal',
                     fontSize: '12px',
@@ -128,7 +128,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
                         InputProps={{
                             style: {
                                 background: 'white',
-                                fontFamily: 'liberation-sans',
+                                fontFamily: 'Neue Haas Grotesk',
                                 fontStyle: 'normal',
                                 fontWeight: 'normal',
                                 fontSize: '16px',

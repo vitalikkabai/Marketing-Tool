@@ -81,7 +81,7 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
         },
         typography: {
             h1: {
-                fontFamily: 'liberation-sans',
+                fontFamily: 'Neue Haas Grotesk',
                 fontStyle: 'normal',
                 fontWeight: 'normal',
                 fontSize: '36px',
@@ -89,14 +89,14 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 textTransform: 'uppercase',
             },
             h2: {
-                fontFamily: 'liberation-sans',
+                fontFamily: 'Neue Haas Grotesk',
                 fontStyle: 'normal',
                 fontWeight: 'bold',
                 fontSize: '30px',
                 lineHeight: '150%',
             },
             h3: {
-                fontFamily: 'liberation-sans',
+                fontFamily: 'Neue Haas Grotesk',
                 fontStyle: 'normal',
                 fontWeight: 'bold',
                 fontSize: '24px',
@@ -104,7 +104,7 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 letterSpacing: '0.0015em',
             },
             h4: {
-                fontFamily: 'liberation-sans',
+                fontFamily: 'Neue Haas Grotesk',
                 fontStyle: 'normal',
                 fontWeight: 'bold',
                 fontSize: '20px',
@@ -113,7 +113,7 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 textTransform: 'uppercase',
             },
             h5: {
-                fontFamily: 'liberation-sans',
+                fontFamily: '"Neue Haas Grotesk"',
                 fontStyle: 'normal',
                 fontWeight: 'normal',
                 fontSize: '24px',
@@ -124,14 +124,14 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 },
             },
             h6: {
-                fontFamily: 'liberation-sans',
+                fontFamily: '"Neue Haas Grotesk"',
                 fontStyle: 'normal',
                 fontWeight: 'normal',
                 fontSize: '18px',
                 lineHeight: '150%',
             },
             button: {
-                fontFamily: 'liberation-sans',
+                fontFamily: '"Neue Haas Grotesk"',
                 fontStyle: 'normal',
                 fontWeight: 'bold',
                 fontSize: '18px',
@@ -139,7 +139,7 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 textTransform: 'uppercase',
             },
             subtitle1: {
-                fontFamily: 'liberation-sans',
+                fontFamily: '"Neue Haas Grotesk"',
                 fontStyle: 'normal',
                 fontWeight: 'normal',
                 fontSize: '16px',
@@ -147,7 +147,7 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 letterSpacing: '0.005em',
             },
             subtitle2: {
-                fontFamily: 'liberation-sans',
+                fontFamily: '"Neue Haas Grotesk"',
                 fontStyle: 'normal',
                 fontWeight: 'bold',
                 fontSize: '14px',
@@ -155,7 +155,7 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 letterSpacing: '0.005em',
             },
             body1: {
-                fontFamily: 'liberation-sans',
+                fontFamily: '"Neue Haas Grotesk"',
                 fontStyle: 'normal',
                 fontWeight: 'normal',
                 fontSize: '13px',
@@ -163,7 +163,7 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 letterSpacing: '0.015em',
             },
             body2: {
-                fontFamily: 'liberation-sans',
+                fontFamily: '"Neue Haas Grotesk"',
                 fontStyle: 'normal',
                 fontWeight: 'bold',
                 fontSize: '18px',
@@ -171,7 +171,7 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 letterSpacing: '0.015em',
             },
             caption: {
-                fontFamily: 'liberation-sans',
+                fontFamily: 'Neue Haas Grotesk',
                 fontStyle: 'normal',
                 fontWeight: 'normal',
                 fontSize: '12px',
@@ -179,7 +179,7 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 letterSpacing: '0.03em',
             },
             overline: {
-                fontFamily: 'liberation-sans',
+                fontFamily: 'Neue Haas Grotesk',
                 fontStyle: 'normal',
                 fontWeight: 'normal',
                 fontSize: '10px',
@@ -193,7 +193,7 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 main: color,
             },
             secondary: {
-                main: '#432480',
+                main: '#4285F4',
             },
             success: {
                 main: '#FFC221',
