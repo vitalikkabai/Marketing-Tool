@@ -27,7 +27,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
             <Box className={classes.contentContainer}>
                 <GoBackButton onClick={() => history.push('/products')}/>
                 <Grid item className={classes.contentBlockBox} xs={8} xl={9}>
-                    <form>
+
                         <Grid container className={classes.formContent}>
                             <Grid item xs={12} className={classes.formInputs}>
                                 <Grid
@@ -121,7 +121,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 <Grid xs={12} item className={classes.dropZone}>
                                     <Dropzone title={"Upload product photos & videos"}/>
                                 </Grid>
-                                <Grid xs={12}>
+                                <Grid xs={12} item>
                                     <div className={classes.horizontalLine}/>
                                 </Grid>
                                 <Grid xs={12} item className={classes.dropZone}>
@@ -140,7 +140,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 />
                             </Grid>
                         </Grid>
-                    </form>
+
                 </Grid>
                 <Grid xs={4} xl={3} item>
                     <ChatContainer backGroundColor={'#FFEF98'}/>
