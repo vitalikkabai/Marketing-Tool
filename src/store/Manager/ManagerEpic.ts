@@ -1,4 +1,4 @@
-import { Epic, ofType } from 'redux-observable';
+import { Epic } from 'redux-observable';
 import { catchError, mergeMap } from 'rxjs/operators';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
@@ -14,12 +14,12 @@ import { setProfile } from '../Profile/ProfileActions';
 import { setBusiness } from '../Business/BusinessActions';
 import { setInterlocutor } from '../Message/MessageActions';
 import { DetailedBusiness } from './ManagerReducer';
-import { GetManagerQuery } from '../../API';
+import { filterAction } from '../../utils/backendUtils';
 
-const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
+export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
     (action$) =>
         action$.pipe(
-            ofType('FETCH_MANAGER_BY_ID'),
+            filterAction('FETCH_MANAGER_BY_ID'),
             mergeMap((action: any) => {
                 return from(
                     (API.graphql(
@@ -28,16 +28,25 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                 ).pipe(
                     mergeMap((res) => {
                         console.log(res);
-                        const detailedBusinesses:DetailedBusiness[] = res.data.getManager.businesses.items.map((biz:any) => ({
-                            business: biz,
-                            employeeProfiles: biz.employees.items.map((emp:any) => emp.profile)
-                        }))
+                        const detailedBusinesses: DetailedBusiness[] = res.data.getManager.businesses.items.map(
+                            (biz: any) => ({
+                                business: biz,
+                                employeeProfiles: biz.employees.items.map(
+                                    (emp: any) => emp.profile
+                                ),
+                            })
+                        );
                         return [
                             setManager(res.data.getManager),
                             setProfile(res.data.getManager.profile),
                             setBusinesses(detailedBusinesses),
-                            setBusiness(res.data.getManager.businesses.items[0]),
-                            setInterlocutor(res.data.getManager.businesses.items[0].employees.items[0].profile)
+                            setBusiness(
+                                res.data.getManager.businesses.items[0]
+                            ),
+                            setInterlocutor(
+                                res.data.getManager.businesses.items[0]
+                                    .employees.items[0].profile
+                            ),
                         ];
                     }),
                     catchError((err) => {
@@ -48,5 +57,3 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
             })
         ),
 ];
-
-export default epics;

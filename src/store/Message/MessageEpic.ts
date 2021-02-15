@@ -1,10 +1,7 @@
-import {
-    UpdateMessageInput,
-    OnUpdateMessageSubscriptionVariables,
-} from './../../API';
+import { UpdateMessageInput } from './../../API';
 import { createMessage, updateMessage } from './../../graphql/mutations';
 
-import { Epic, ofType } from 'redux-observable';
+import { Epic } from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import {
     sendMessageSuccess,
@@ -23,22 +20,21 @@ import {
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
-import { combineLatest, from } from 'rxjs';
-import { getConversation, getDialogue } from '../../graphql/queries';
+import { from } from 'rxjs';
+import { getConversation } from '../../graphql/queries';
 import {
     CreateMessageInput,
     GetConversationQueryVariables,
-    GetDialogueQueryVariables,
     MessageStatus,
 } from '../../API';
-import { getSharedIndex } from '../../utils/backendUtils';
+import { filterAction, getSharedIndex } from '../../utils/backendUtils';
 import { onCreateMessage, onUpdateMessage } from '../../graphql/subscriptions';
 
-const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
-    (action$, state$) =>
+export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
+    (action$) =>
         action$.pipe(
-            ofType('SEND_MESSAGE'),
-            mergeMap((action: any) => {
+            filterAction('SEND_MESSAGE'),
+            mergeMap((action) => {
                 const message: CreateMessageInput = { ...action.payload };
                 message.sharedID = getSharedIndex(
                     message.senderID,
@@ -62,8 +58,8 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
         ),
     (action$, state$) =>
         action$.pipe(
-            ofType('OPEN_DIALOGUE'),
-            mergeMap((action: any) => {
+            filterAction('OPEN_DIALOGUE'),
+            mergeMap((action) => {
                 const userID = state$.value.ProfileReducer.profile.id;
                 const interlocutorID =
                     state$.value.MessageReducer.interlocutor.id;
@@ -117,17 +113,17 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
         ),
     (action$, state$) =>
         action$.pipe(
-            ofType('SUBSCRIBE_ON_MESSAGES_CREATED'),
+            filterAction('SUBSCRIBE_ON_MESSAGES_CREATED'),
             mergeMap(() => {
                 return from(
                     (API.graphql(
                         graphqlOperation(onCreateMessage, {
-                            receiverID: state$.value.ProfileReducer.profile.id
+                            receiverID: state$.value.ProfileReducer.profile.id,
                         })
                     ) as unknown) as Promise<any>
                 ).pipe(
                     mergeMap((res) => {
-                        console.log("subscribed message",res)
+                        console.log('subscribed message', res);
                         const message: CreateMessageInput =
                             res.value.data.onCreateMessage;
                         if (
@@ -153,7 +149,7 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
 
     (action$, state$) =>
         action$.pipe(
-            ofType('SUBSCRIBE_ON_MESSAGE_UPDATED'),
+            filterAction('SUBSCRIBE_ON_MESSAGE_UPDATED'),
             mergeMap(() => {
                 const sharedID = getSharedIndex(
                     state$.value.ProfileReducer.profile.id || '',
@@ -178,9 +174,9 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
             })
         ),
 
-    (action$, state$) =>
+    (action$) =>
         action$.pipe(
-            ofType('UPDATE_MESSAGE'),
+            filterAction('UPDATE_MESSAGE'),
             mergeMap((action: any) => {
                 const message: UpdateMessageInput = { ...action.payload };
                 return from(
@@ -198,11 +194,9 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                 );
             })
         ),
-        (action$, state$) =>
+    (action$, state$) =>
         action$.pipe(
-            ofType(
-                'SET_INTERLOCUTOR'
-            ),
+            filterAction('SET_INTERLOCUTOR'),
             mergeMap(() => {
                 const avatar = state$.value.MessageReducer.interlocutor.avatar;
                 if (!avatar)
@@ -226,7 +220,5 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
                     })
                 );
             })
-        )
+        ),
 ];
-
-export default epics;

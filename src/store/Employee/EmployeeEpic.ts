@@ -1,6 +1,6 @@
 import { CreateEmployeeInput, CreateProfileInput } from '../../API';
 
-import { ActionsObservable, Epic, ofType } from 'redux-observable';
+import { ActionsObservable, Epic } from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import {
     fetchEmployeeSuccess,
@@ -26,12 +26,13 @@ import {
 import { ajax } from 'rxjs/ajax';
 import { setManager } from '../Manager/ManagerActions';
 import { setInterlocutor } from '../Message/MessageActions';
+import { filterAction } from '../../utils/backendUtils';
 
-const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
+export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
     (action$, state$) =>
         action$.pipe(
-            ofType('INITIATE_NEW_EMPLOYEE'),
-            mergeMap((action: any) => {
+            filterAction('INITIATE_NEW_EMPLOYEE'),
+            mergeMap((action) => {
                 const businessData = state$.value.BusinessReducer;
                 return from(
                     (API.graphql(
@@ -87,10 +88,11 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
             })
         ),
 
-    (action$, state$) =>
+    (action$) =>
         action$.pipe(
-            ofType('FETCH_EMPLOYEE_BY_ID'),
-            mergeMap((action: any) => {
+            filterAction('FETCH_EMPLOYEE_BY_ID'),
+            mergeMap((action) => {
+                console.log('After filtering');
                 return from(
                     (API.graphql(
                         graphqlOperation(getEmployee, { id: action.payload })
@@ -119,7 +121,7 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
         ),
     (action$: ActionsObservable<ActionTypes>) =>
         action$.pipe(
-            ofType('GET-USER-LOCATION-REQUEST'),
+            filterAction('GET-USER-LOCATION-REQUEST'),
             mergeMap(() => {
                 return from(ajax.getJSON(`https://freegeoip.app/json/`)).pipe(
                     mergeMap((res: any) => {
@@ -134,8 +136,9 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
         ),
     (action$, state$) =>
         action$.pipe(
-            ofType('UPDATE_EMPLOYEE_INFO'),
-            mergeMap((action: any) => {
+            filterAction('UPDATE_EMPLOYEE_INFO'),
+            mergeMap((action) => {
+                console.log(action.type);
                 const profile = {
                     id: state$.value.ProfileReducer.profile.id,
                     name: action.payload.name,
@@ -158,5 +161,3 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
             })
         ),
 ];
-
-export default epics;
