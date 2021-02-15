@@ -133,6 +133,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
                                 fontWeight: 'normal',
                                 fontSize: '16px',
                                 lineHeight: '150%',
+                                minWidth: "100px"
                             },
                         }}
                         classes={{
