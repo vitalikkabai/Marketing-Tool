@@ -1,8 +1,4 @@
-import {
-    subscribeOnMessageUpdated,
-    subscribeOnMessageCreated,
-} from './../Message/MessageActions';
-import { CreateProfileInput, UpdateProfileInput } from './../../API';
+import { UpdateProfileInput } from './../../API';
 
 import { Epic, ofType } from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
@@ -26,7 +22,7 @@ import { from } from 'rxjs';
 import { getProfile } from '../../graphql/queries';
 import { setBusiness } from '../Business/BusinessActions';
 
-const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
+export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
     (action$, state$) =>
         action$.pipe(
             ofType('INITIATE_NEW_PROFILE'),
@@ -64,7 +60,7 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
             })
         ),
 
-    (action$, state$) =>
+    (action$) =>
         action$.pipe(
             ofType('FETCH_PROFILE_BY_ID'),
             mergeMap((action: any) => {
@@ -193,5 +189,3 @@ const epics: Epic<ActionTypes, ActionTypes, AppStateType>[] = [
             })
         ),
 ];
-
-export default epics;

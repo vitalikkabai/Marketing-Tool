@@ -1,28 +1,21 @@
-import {
-    ActionsObservable,
-    Epic,
-    ofType,
-    StateObservable,
-} from 'redux-observable';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { Epic } from 'redux-observable';
+import { catchError, mergeMap } from 'rxjs/operators';
 import {
     updateBusinessInDBFailed,
     updateBusinessInDBSucces,
 } from './BusinessActions';
 import { ActionTypes } from './BusinessReducer';
-import { ActionTypes as ProfileActionTypes } from '../Profile/ProfileReducer';
-import { Business } from '../../models';
 import { AppStateType } from '../store';
-import { createBusiness, updateBusiness } from '../../graphql/mutations';
+import { updateBusiness } from '../../graphql/mutations';
 import { API, graphqlOperation } from 'aws-amplify';
-import { from, Observable } from 'rxjs';
-import { setProfile } from '../Profile/ProfileActions';
+import { from } from 'rxjs';
+import { filterAction } from '../../utils/backendUtils';
 
 export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
-    (action$, state$) =>
+    (action$) =>
         action$.pipe(
-            ofType('UPDATE_BUSINESS'),
-            mergeMap((action: any) => {
+            filterAction('UPDATE_BUSINESS'),
+            mergeMap((action) => {
                 // const businessUpdates = {id: action.payload.id,};
                 // const businessObject = new Business({ ...businessData });
                 return from(

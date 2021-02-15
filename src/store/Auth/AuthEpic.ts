@@ -1,5 +1,5 @@
-import { ActionsObservable, ofType, StateObservable } from 'redux-observable';
-import { mergeMap, switchMap, catchError, map } from 'rxjs/operators';
+import { ActionsObservable, Epic } from 'redux-observable';
+import { mergeMap, catchError, map } from 'rxjs/operators';
 import { Auth } from 'aws-amplify';
 import {
     getAuthDataFailed,
@@ -13,19 +13,10 @@ import {
     ResetLinkFailed,
     sendNewPasswordSuccess,
     sendNewPasswordFailed,
-    signUpSuccess,
 } from './AuthActions';
 import { ActionTypes } from '../storeTypes';
-import { from, Observable, of } from 'rxjs';
-import {
-    clearProfile,
-    fetchProfileById,
-    initiateNewProfile,
-    setProfile,
-    setProfileID,
-    updatePersonalInfo,
-} from '../Profile/ProfileActions';
-import { Profile } from '../../models';
+import { from, of } from 'rxjs';
+import { clearProfile, updatePersonalInfo } from '../Profile/ProfileActions';
 import { clearBusiness } from '../Business/BusinessActions';
 import { AppStateType } from '../store';
 import {
@@ -33,14 +24,13 @@ import {
     fetchEmployeeById,
     initiateNewEmployee,
 } from '../Employee/EmployeeActions';
-import { Occupation } from './AuthReducer';
 import { fetchManagerById } from '../Manager/ManagerActions';
-import { ajax } from 'rxjs/ajax';
+import { filterAction } from '../../utils/backendUtils';
 
-export default [
-    (action$: ActionsObservable<any>): Observable<ActionTypes> =>
+export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
+    (action$) =>
         action$.pipe(
-            ofType('SIGN-IN-REQUEST'),
+            filterAction('SIGN-IN-REQUEST'),
             mergeMap((action) => {
                 return from(
                     Auth.signIn({
@@ -49,17 +39,21 @@ export default [
                     })
                 ).pipe(
                     mergeMap((response) => {
-                        console.log(response)
+                        console.log(response);
                         const occupation = Number(
                             response.attributes['custom:occupation']
                         );
                         let action: ActionTypes;
                         switch (occupation) {
                             case 0:
-                                action = fetchEmployeeById(response.attributes.sub);
+                                action = fetchEmployeeById(
+                                    response.attributes.sub
+                                );
                                 break;
                             case 1:
-                                action = fetchManagerById(response.attributes.sub);
+                                action = fetchManagerById(
+                                    response.attributes.sub
+                                );
                                 break;
                             default:
                                 action = getAuthDataFailed();
@@ -67,7 +61,7 @@ export default [
                         return [
                             signInSuccess({
                                 userID: response.attributes.sub,
-                                occupation
+                                occupation,
                             }),
                             action,
                         ];
@@ -76,12 +70,9 @@ export default [
                 );
             })
         ),
-    (
-        action$: ActionsObservable<any>,
-        state$: StateObservable<AppStateType>
-    ): Observable<ActionTypes> =>
+    (action$, state$) =>
         action$.pipe(
-            ofType('SIGN-UP-REQUEST'),
+            filterAction('SIGN-UP-REQUEST'),
             mergeMap((action) => {
                 return from(
                     Auth.signUp({
@@ -94,7 +85,7 @@ export default [
                         },
                     })
                 ).pipe(
-                    mergeMap((res) => {
+                    mergeMap(() => {
                         return Auth.signIn({
                             username: action.payload.email,
                             password: action.payload.password,
@@ -119,12 +110,12 @@ export default [
                 );
             })
         ),
-    (action$: ActionsObservable<ActionTypes>) =>
+    (action$) =>
         action$.pipe(
-            ofType('SIGN-OUT-REQUEST'),
+            filterAction('SIGN-OUT-REQUEST'),
             mergeMap(() => {
                 return from(Auth.signOut()).pipe(
-                    mergeMap((res) => {
+                    mergeMap(() => {
                         return [
                             signOutSuccess(),
                             clearProfile(),
@@ -142,7 +133,7 @@ export default [
 
     (action$: ActionsObservable<ActionTypes>) =>
         action$.pipe(
-            ofType('AUTH-DATA-REQUEST'),
+            filterAction('AUTH-DATA-REQUEST'),
             mergeMap(() => {
                 return from(Auth.currentUserInfo()).pipe(
                     mergeMap((res) => {
@@ -178,12 +169,12 @@ export default [
             })
         ),
 
-    (action$: ActionsObservable<any>): Observable<ActionTypes> =>
+    (action$) =>
         action$.pipe(
-            ofType('SEND-RESET-LINK'),
+            filterAction('SEND-RESET-LINK'),
             mergeMap((action) => {
                 return from(Auth.forgotPassword(action.payload.email)).pipe(
-                    mergeMap((res) => {
+                    mergeMap(() => {
                         return [ResetLinkSuccess()];
                     }),
                     catchError((err) => {
@@ -194,9 +185,9 @@ export default [
             })
         ),
 
-    (action$: ActionsObservable<any>): Observable<ActionTypes> =>
+    (action$) =>
         action$.pipe(
-            ofType('SEND-NEW-PASSWORD'),
+            filterAction('SEND-NEW-PASSWORD'),
             mergeMap((action) => {
                 return from(
                     Auth.forgotPasswordSubmit(
@@ -205,7 +196,7 @@ export default [
                         action.payload.newPassword
                     )
                 ).pipe(
-                    mergeMap((res) => {
+                    mergeMap(() => {
                         return [sendNewPasswordSuccess()];
                     }),
                     catchError((err) => {
@@ -215,9 +206,9 @@ export default [
                 );
             })
         ),
-    (action$: ActionsObservable<any>): Observable<ActionTypes> =>
+    (action$) =>
         action$.pipe(
-            ofType('CHANGE_PASSWORD'),
+            filterAction('CHANGE_PASSWORD'),
             mergeMap((action) => {
                 return from(Auth.currentAuthenticatedUser()).pipe(
                     mergeMap((res) => {
@@ -238,12 +229,9 @@ export default [
                 );
             })
         ),
-    (
-        action$: ActionsObservable<any>,
-        state$: StateObservable<AppStateType>
-    ): Observable<ActionTypes> =>
+    (action$, state$) =>
         action$.pipe(
-            ofType('CHANGE_PERSONAL_INFO'),
+            filterAction('CHANGE_PERSONAL_INFO'),
             mergeMap((action) => {
                 if (
                     action.payload.email ===
@@ -265,7 +253,7 @@ export default [
                             })
                         );
                     }),
-                    mergeMap((res) => {
+                    mergeMap(() => {
                         return [
                             sendNewPasswordSuccess(),
                             updatePersonalInfo(
