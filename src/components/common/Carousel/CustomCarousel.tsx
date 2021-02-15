@@ -27,20 +27,20 @@ const CustomCarousel: React.FunctionComponent<PropsType> = ({Items, className}) 
     }
 
     useEffect(()=>{
-        if(Items.length > 3) {
+        if(Items.length > 2) {
             slider.slickNext();
         }
     },[Items.length]);
 
     return (
         <div className={classes.sliderContainer + " " + className}>
-            <Box onClick={previous} className={classes.sliderArrow} style={Items.length === 0 || Items.length < 4? {display: "none"}:{}}>
+            <Box onClick={previous} className={classes.sliderArrow} style={Items.length === 0 || Items.length < 3? {display: "none"}:{}}>
                 <PrewArrow/>
             </Box>
-            <Slider dots={false} infinite={false} slidesToShow={3}
+            <Slider dots={false} infinite={false} slidesToShow={2}
                     className={classes.carouselBox} arrows={false}
                     ref={c => (slider = c)}>{Items.map((item: any) => item)}</Slider>
-            <Box onClick={next} className={classes.sliderArrow} style={Items.length === 0 || Items.length < 4? {display: "none"}:{}}>
+            <Box onClick={next} className={classes.sliderArrow} style={Items.length === 0 || Items.length < 3? {display: "none"}:{}}>
                 <NextArrow/>
             </Box>
         </div>

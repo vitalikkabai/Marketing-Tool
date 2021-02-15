@@ -8,6 +8,8 @@ import ProductCat from '../../assets/images/ProductCat.png';
 import { ReactComponent as PlusSVG } from '../../assets/images/formPlus.svg';
 import { useHistory } from 'react-router';
 import StepCounter from './../../components/common/StepCounter/StepCounter';
+// @ts-ignore
+import VideoThumbnail from 'react-video-thumbnail';
 
 const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
     const [value, setValue] = React.useState(0);
@@ -68,7 +70,6 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                                     completedStep={1}
                                     stepNumber={1}
                                 />
-                                <img src={ProductCat} alt={'image'} />
                             </Box>
                         </Grid>
                     </TabPanel>
