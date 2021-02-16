@@ -125,7 +125,14 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
                     </Box>
                 </Box>
             </Box>
-            <Box display="flex" justifyContent="space-between" width="100%">
+            <Box
+                display="flex"
+                width="100%"
+                justifyContent={
+                    videos.length === 0 || photos.length === 0
+                        ? 'center'
+                        : 'space-between'
+                }>
                 <Box
                     className={classes.photoSection}
                     style={photos.length === 0 ? { display: 'none' } : {}}>
