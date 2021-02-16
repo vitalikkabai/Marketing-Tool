@@ -178,7 +178,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         alert('Password Changed!');
     };
 
-    useEffect(() => {
+    useEffect(() => { // Set new input values on profile name & email update in redux
         setInputValue((prevStyle) => ({
             ...prevStyle,
             ownerName: {
@@ -195,7 +195,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         }));
     }, [props.profile]);
 
-    useEffect(() => {
+    useEffect(() => { // Set new input values on employee country code and phone number update in redux
         setInputValue((prevStyle) => ({
             ...prevStyle,
             countryCode: {
@@ -324,6 +324,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                         <AutocompleteCustomInput
                                             label={'Country'}
                                             margin={'0 0 24px 0'}
+                                            disabled={true}
                                             option={data}
                                             value={
                                                 inputValue.countryCode.value
@@ -384,6 +385,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                             variant="outlined"
                                             placeholder={'Phone number'}
                                             fullWidth={true}
+                                            disabled={true}
                                             value={
                                                 inputValue.phoneNumber.value
                                             }

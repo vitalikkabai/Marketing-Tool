@@ -21,7 +21,6 @@ export function filterAction<T extends ActionTypes,N extends T['type'],R = Narro
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return function<T extends ActionTypes>(source: Observable<T>): Observable<any> {
       return new Observable(subscriber => {
-          console.log("filtering")
          return source.subscribe({
           next(value) {
             if(value.type === type) {

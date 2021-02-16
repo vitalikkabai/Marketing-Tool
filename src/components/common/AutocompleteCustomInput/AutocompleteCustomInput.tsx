@@ -22,6 +22,7 @@ interface CustomInputProps {
     getOption: (option: any) => string;
     renderOption?: any;
     onInputChange?: (event: any, value: string, reason: string) => void;
+    disabled?: boolean
 }
 
 const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
@@ -37,7 +38,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
                 '& fieldset': {
                     borderColor: props.error
                         ? '#F44336'
-                        : props.value.code
+                        : (props.value.code && !props.disabled)
                         ? '#4285F4'
                         : props.color,
                     borderRadius: 10,
@@ -51,7 +52,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
                 '& label': {
                     color: props.error
                         ? '#F44336'
-                        : props.value.code
+                        : (props.value.code && !props.disabled)
                         ? '#4285F4'
                         : props.color,
                 },
@@ -65,7 +66,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
                 top: '-9px',
                 color: props.error
                     ? '#F44336'
-                    : props.value.code
+                    :  (props.value.code && !props.disabled)
                     ? '#4285F4'
                     : props.color,
             },
@@ -118,6 +119,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
             value={props.value}
             style={{ margin: props.margin }}
             onInputChange={props.onInputChange}
+            disabled={props.disabled}
             renderInput={(params) => (
                 <div ref={params.InputProps.ref}>
                     <TextField
