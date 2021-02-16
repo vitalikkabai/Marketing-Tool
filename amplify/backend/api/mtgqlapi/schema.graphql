@@ -118,7 +118,7 @@ type Message @model(subscriptions: null)
 
 type Subscription {
   onCreateMessage(receiverID: ID): Message @aws_subscribe(mutations: ["createMessage"])
-  onUpdateMessage(sharedID: ID): Message @aws_subscribe(mutations: ["updateMessage"])
+  onUpdateDialogueMessage(receiverID: ID, senderID: ID): Message @aws_subscribe(mutations: ["updateMessage"])
   onDeleteMessage(id: ID): Message @aws_subscribe(mutations: ["deleteMessage"])
   onEraseMessage: Message @aws_subscribe(mutations: ["deleteMessage"])
 }

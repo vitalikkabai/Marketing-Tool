@@ -6587,12 +6587,13 @@ export type OnCreateMessageSubscription = {
   } | null,
 };
 
-export type OnUpdateMessageSubscriptionVariables = {
-  sharedID?: string | null,
+export type OnUpdateDialogueMessageSubscriptionVariables = {
+  receiverID?: string | null,
+  senderID?: string | null,
 };
 
-export type OnUpdateMessageSubscription = {
-  onUpdateMessage:  {
+export type OnUpdateDialogueMessageSubscription = {
+  onUpdateDialogueMessage:  {
     __typename: "Message",
     id: string,
     stage: Stage,

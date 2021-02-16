@@ -23,9 +23,9 @@ export const onCreateMessage = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateMessage = /* GraphQL */ `
-  subscription OnUpdateMessage($sharedID: ID) {
-    onUpdateMessage(sharedID: $sharedID) {
+export const onUpdateDialogueMessage = /* GraphQL */ `
+  subscription OnUpdateDialogueMessage($receiverID: ID, $senderID: ID) {
+    onUpdateDialogueMessage(receiverID: $receiverID, senderID: $senderID) {
       id
       stage
       subjectID
