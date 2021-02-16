@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
+import { Subscription } from 'rxjs';
 import { CreateMessageInput, CreateProfileInput, Stage } from '../../API';
 
 export const openDialogue = (stage: Stage, subjectID: string) => ({
@@ -50,6 +51,23 @@ export const setInterlocutor = (interlocutor: CreateProfileInput) => ({
 
 export const subscribeOnMessageCreated = () => ({
     type: 'SUBSCRIBE_ON_MESSAGES_CREATED' as const,
+});
+
+export const subscribeOnMessageCreatedSuccess = (subscription: Subscription) => ({
+    type: 'SUBSCRIBE_ON_MESSAGES_CREATED_SUCCESS' as const,
+    payload: subscription
+});
+
+export const unsubscribeOnMessageCreated = () => ({
+    type: 'UNSUBSCRIBE_ON_MESSAGES_CREATED' as const,
+});
+
+export const unsubscribeOnMessageCreatedSuccess = () => ({
+    type: 'UNSUBSCRIBE_ON_MESSAGES_CREATED_SUCCESS' as const,
+});
+
+export const unsubscribeOnMessageCreatedFailure = () => ({
+    type: 'UNSUBSCRIBE_ON_MESSAGES_CREATED_FAILURE' as const,
 });
 
 export const subscribeOnMessageUpdated = () => ({

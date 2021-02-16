@@ -27,10 +27,6 @@ export const initiateNewEmployee = (id: string) => ({
     payload: id,
 });
 
-export const clearEmployee = () => ({
-    type: 'CLEAR_EMPLOYEE' as const,
-});
-
 export const saveProfileToDBFailed = () => ({
     type: 'SAVE_PROFILE_TO_DB_FAILED' as const,
 });

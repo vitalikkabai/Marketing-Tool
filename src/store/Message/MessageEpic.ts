@@ -1,8 +1,9 @@
+import { BehaviorSubject, Observable } from 'rxjs';
 import { UpdateMessageInput } from './../../API';
 import { createMessage, updateMessage } from './../../graphql/mutations';
 
 import { Epic } from 'redux-observable';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import {
     sendMessageSuccess,
     sendMessageFailure,
@@ -12,10 +13,12 @@ import {
     getUpdatedMessage,
     updateMessageAction,
     updateMessageSuccess,
-    subscribeOnMessageCreated,
     subscribeOnMessageUpdated,
     setInterlocutorAvatarUrl,
     setInterlocutorAvatarUrlFailure,
+    subscribeOnMessageCreatedSuccess,
+    unsubscribeOnMessageCreatedSuccess,
+    unsubscribeOnMessageCreatedFailure,
 } from './MessageActions';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
@@ -98,7 +101,6 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                         });
 
                         return [
-                            subscribeOnMessageCreated(),
                             subscribeOnMessageUpdated(),
                             openDialogueSuccess(res.data.getConversation.items),
                             ...updateMessageActions,
@@ -111,39 +113,72 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                 );
             })
         ),
-    (action$, state$) =>
+    (action$, state$): Observable<ActionTypes> =>
         action$.pipe(
             filterAction('SUBSCRIBE_ON_MESSAGES_CREATED'),
-            mergeMap(() => {
-                return from(
-                    (API.graphql(
-                        graphqlOperation(onCreateMessage, {
-                            receiverID: state$.value.ProfileReducer.profile.id,
-                        })
-                    ) as unknown) as Promise<any>
-                ).pipe(
-                    mergeMap((res) => {
-                        console.log('subscribed message', res);
-                        const message: CreateMessageInput =
-                            res.value.data.onCreateMessage;
-                        if (
-                            message.receiverID ===
-                                state$.value.ProfileReducer.profile.id &&
-                            message.status === MessageStatus.SENT
-                        ) {
-                            message.status = MessageStatus.RECEIVED;
-                            return [
-                                getRecentMessage(message),
-                                updateMessageAction(message),
-                            ];
-                        }
-                        return [getRecentMessage(message)];
-                    }),
-                    catchError((err) => {
-                        console.log(err);
-                        return [sendMessageFailure()];
+            switchMap(() => {
+                return state$.pipe(
+                    filter(state => !!state.ProfileReducer.profile.id && !!state.MessageReducer.interlocutor.id),
+                    take(1),
+                    switchMap( ()=> {
+                        const createMessageObservable = (API.graphql(
+                            graphqlOperation(onCreateMessage, {
+                                receiverID: state$.value.ProfileReducer.profile.id,
+                            })
+                        ) as unknown) as Observable<any>;
+                        // messageCreatedSubject.unsubscribe()
+                        const createMessageSubscription = createMessageObservable.subscribe(
+                            (res) => {
+                                console.log('subscribed message', res);
+                                // createdSubscription.unsubscribe()
+                                const message: CreateMessageInput =
+                                    res.value.data.onCreateMessage;
+                                if (
+                                    message.senderID ===
+                                        state$.value.MessageReducer.interlocutor.id &&
+                                    message.status === MessageStatus.SENT
+                                ) {
+                                    message.status = MessageStatus.RECEIVED;
+                                    messageCreatedSubject.next(
+                                        // getRecentMessage(message),
+                                        updateMessageAction(message)
+                                    );
+                                    messageCreatedSubject.next(
+                                        getRecentMessage(message)
+                                    );
+                                    messageCreatedSubject.unsubscribe();
+                                }
+                            }
+                        );
+                        const messageCreatedSubject = new BehaviorSubject<ActionTypes>(
+                            subscribeOnMessageCreatedSuccess(createMessageSubscription)
+                        );
+                        return messageCreatedSubject.pipe(
+                            map((res) => {
+                                console.log(res);
+                                return res;
+                            }),
+                            catchError((err) => {
+                                console.log(err);
+                                return [sendMessageFailure()];
+                            })
+                        );
                     })
-                );
+                )
+                
+            })
+        ),
+
+    (action$, state$): Observable<ActionTypes> =>
+        action$.pipe(
+            filterAction('UNSUBSCRIBE_ON_MESSAGES_CREATED'),
+            map(() => {
+                const subscription = state$.value.MessageReducer.createMessageSubscription;
+                if (!subscription) return unsubscribeOnMessageCreatedFailure();
+                else {
+                    subscription.unsubscribe();
+                    return unsubscribeOnMessageCreatedSuccess();
+                }
             })
         ),
 

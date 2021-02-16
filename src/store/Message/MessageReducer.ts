@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { CreateMessageInput, CreateProfileInput, Stage } from '../../API';
 import Message from '../../components/Chat/Message/Message';
 import * as actions from './MessageActions';
@@ -8,6 +9,8 @@ type MessageReducerType = {
     interlocutor: CreateProfileInput;
     dialogue: CreateMessageInput[];
     interlocutorAvatarURL?: string;
+    createMessageSubscription?: Subscription;
+    updateMessageSubscription?: Subscription;
 };
 
 const initialState: MessageReducerType = {
@@ -37,12 +40,10 @@ export const MessageReducer = (
             };
         }
         case 'GET_RECENT_MESSAGE':
-            if (action.payload.senderID === state.interlocutor.id)
                 return {
                     ...state,
                     dialogue: [...state.dialogue, action.payload],
                 };
-            else return { ...state };
         case 'GET_UPDATED_MESSAGE': {
             const index = state.dialogue.findIndex(
                 (message) => message.id === action.payload.id
@@ -79,8 +80,10 @@ export const MessageReducer = (
                 ...state,
                 dialogue: action.payload,
             };
+        case 'UNSUBSCRIBE_ON_MESSAGES_CREATED_SUCCESS': 
         case 'SEND_MESSAGE_FAILURE':
         case 'UPDATE_MESSAGE_SUCCESS':
+        case 'UNSUBSCRIBE_ON_MESSAGES_CREATED_FAILURE':
         default:
             return {
                 ...state,

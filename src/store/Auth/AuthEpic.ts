@@ -13,19 +13,19 @@ import {
     ResetLinkFailed,
     sendNewPasswordSuccess,
     sendNewPasswordFailed,
+    afterSignOut,
 } from './AuthActions';
 import { ActionTypes } from '../storeTypes';
 import { from, of } from 'rxjs';
-import { clearProfile, updatePersonalInfo } from '../Profile/ProfileActions';
-import { clearBusiness } from '../Business/BusinessActions';
+import { updatePersonalInfo } from '../Profile/ProfileActions';
 import { AppStateType } from '../store';
 import {
-    clearEmployee,
     fetchEmployeeById,
     initiateNewEmployee,
 } from '../Employee/EmployeeActions';
 import { fetchManagerById } from '../Manager/ManagerActions';
 import { filterAction } from '../../utils/backendUtils';
+import { subscribeOnMessageCreated, unsubscribeOnMessageCreated } from '../Message/MessageActions';
 
 export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
     (action$) =>
@@ -63,6 +63,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                                 userID: response.attributes.sub,
                                 occupation,
                             }),
+                            subscribeOnMessageCreated(),
                             action,
                         ];
                     }),
@@ -101,6 +102,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                                 ),
                             }),
                             initiateNewEmployee(response.attributes.sub),
+                            subscribeOnMessageCreated(),
                         ];
                     }),
                     catchError((err) => {
@@ -117,10 +119,9 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                 return from(Auth.signOut()).pipe(
                     mergeMap(() => {
                         return [
+                            unsubscribeOnMessageCreated(),
                             signOutSuccess(),
-                            clearProfile(),
-                            clearBusiness(),
-                            clearEmployee(),
+                            afterSignOut()
                         ];
                     }),
                     catchError((err) => {
@@ -157,6 +158,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                                     userID: res.username,
                                     occupation,
                                 }),
+                                subscribeOnMessageCreated(),
                                 action,
                             ];
                         } else return [getAuthDataFailed()];

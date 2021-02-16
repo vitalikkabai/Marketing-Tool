@@ -62,10 +62,6 @@ export const BusinessReducer = (
                 ...state,
                 companyName: action.payload,
             };
-        case 'CLEAR_BUSINESS':
-            return {
-                ...initialState,
-            };
         case 'UPDATE_BUSINESS':
             return {
                 ...state,

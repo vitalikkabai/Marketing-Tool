@@ -54,10 +54,6 @@ export const EmployeeReducer = (
                 ...state,
                 roleTags: action.payload,
             };
-        case 'CLEAR_EMPLOYEE':
-            return {
-                ...initialState,
-            };
         case 'GET-USER-LOCATION-SUCCESS': {
             const userCode = data.find((x) => x.code === action.payload);
             if (userCode !== undefined)
