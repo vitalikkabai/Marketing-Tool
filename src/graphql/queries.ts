@@ -156,14 +156,6 @@ export const getBusiness = /* GraphQL */ `
             owner
           }
           businessID
-          color {
-            record
-            createdAt
-          }
-          material {
-            record
-            createdAt
-          }
           photos {
             key
             createdAt
@@ -375,14 +367,6 @@ export const listBusinesss = /* GraphQL */ `
               owner
             }
             businessID
-            color {
-              record
-              createdAt
-            }
-            material {
-              record
-              createdAt
-            }
             photos {
               key
               createdAt
@@ -567,14 +551,6 @@ export const getEmployee = /* GraphQL */ `
               owner
             }
             businessID
-            color {
-              record
-              createdAt
-            }
-            material {
-              record
-              createdAt
-            }
             photos {
               key
               createdAt
@@ -765,14 +741,6 @@ export const listEmployees = /* GraphQL */ `
                 owner
               }
               businessID
-              color {
-                record
-                createdAt
-              }
-              material {
-                record
-                createdAt
-              }
               photos {
                 key
                 createdAt
@@ -950,14 +918,6 @@ export const getManager = /* GraphQL */ `
                 owner
               }
               businessID
-              color {
-                record
-                createdAt
-              }
-              material {
-                record
-                createdAt
-              }
               photos {
                 key
                 createdAt
@@ -1238,14 +1198,6 @@ export const getProduct = /* GraphQL */ `
               owner
             }
             businessID
-            color {
-              record
-              createdAt
-            }
-            material {
-              record
-              createdAt
-            }
             photos {
               key
               createdAt
@@ -1323,14 +1275,6 @@ export const getProduct = /* GraphQL */ `
         owner
       }
       businessID
-      color {
-        record
-        createdAt
-      }
-      material {
-        record
-        createdAt
-      }
       photos {
         key
         createdAt
@@ -1457,14 +1401,6 @@ export const listProducts = /* GraphQL */ `
                 owner
               }
               businessID
-              color {
-                record
-                createdAt
-              }
-              material {
-                record
-                createdAt
-              }
               photos {
                 key
                 createdAt
@@ -1531,14 +1467,6 @@ export const listProducts = /* GraphQL */ `
           owner
         }
         businessID
-        color {
-          record
-          createdAt
-        }
-        material {
-          record
-          createdAt
-        }
         photos {
           key
           createdAt
@@ -1737,14 +1665,6 @@ export const byManagerAndCompany = /* GraphQL */ `
               owner
             }
             businessID
-            color {
-              record
-              createdAt
-            }
-            material {
-              record
-              createdAt
-            }
             photos {
               key
               createdAt
@@ -1915,14 +1835,6 @@ export const employeeByBusinessAndName = /* GraphQL */ `
                 owner
               }
               businessID
-              color {
-                record
-                createdAt
-              }
-              material {
-                record
-                createdAt
-              }
               photos {
                 key
                 createdAt
@@ -2126,14 +2038,6 @@ export const byBusiness = /* GraphQL */ `
                 owner
               }
               businessID
-              color {
-                record
-                createdAt
-              }
-              material {
-                record
-                createdAt
-              }
               photos {
                 key
                 createdAt
@@ -2200,14 +2104,6 @@ export const byBusiness = /* GraphQL */ `
           owner
         }
         businessID
-        color {
-          record
-          createdAt
-        }
-        material {
-          record
-          createdAt
-        }
         photos {
           key
           createdAt

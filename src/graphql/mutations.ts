@@ -159,14 +159,6 @@ export const createBusiness = /* GraphQL */ `
             owner
           }
           businessID
-          color {
-            record
-            createdAt
-          }
-          material {
-            record
-            createdAt
-          }
           photos {
             key
             createdAt
@@ -428,14 +420,6 @@ export const updateBusiness = /* GraphQL */ `
             owner
           }
           businessID
-          color {
-            record
-            createdAt
-          }
-          material {
-            record
-            createdAt
-          }
           photos {
             key
             createdAt
@@ -697,14 +681,6 @@ export const deleteBusiness = /* GraphQL */ `
             owner
           }
           businessID
-          color {
-            record
-            createdAt
-          }
-          material {
-            record
-            createdAt
-          }
           photos {
             key
             createdAt
@@ -916,14 +892,6 @@ export const createEmployee = /* GraphQL */ `
               owner
             }
             businessID
-            color {
-              record
-              createdAt
-            }
-            material {
-              record
-              createdAt
-            }
             photos {
               key
               createdAt
@@ -1139,14 +1107,6 @@ export const updateEmployee = /* GraphQL */ `
               owner
             }
             businessID
-            color {
-              record
-              createdAt
-            }
-            material {
-              record
-              createdAt
-            }
             photos {
               key
               createdAt
@@ -1362,14 +1322,6 @@ export const deleteEmployee = /* GraphQL */ `
               owner
             }
             businessID
-            color {
-              record
-              createdAt
-            }
-            material {
-              record
-              createdAt
-            }
             photos {
               key
               createdAt
@@ -1559,14 +1511,6 @@ export const createManager = /* GraphQL */ `
                 owner
               }
               businessID
-              color {
-                record
-                createdAt
-              }
-              material {
-                record
-                createdAt
-              }
               photos {
                 key
                 createdAt
@@ -1732,14 +1676,6 @@ export const updateManager = /* GraphQL */ `
                 owner
               }
               businessID
-              color {
-                record
-                createdAt
-              }
-              material {
-                record
-                createdAt
-              }
               photos {
                 key
                 createdAt
@@ -1905,14 +1841,6 @@ export const deleteManager = /* GraphQL */ `
                 owner
               }
               businessID
-              color {
-                record
-                createdAt
-              }
-              material {
-                record
-                createdAt
-              }
               photos {
                 key
                 createdAt
@@ -2175,14 +2103,6 @@ export const createProduct = /* GraphQL */ `
               owner
             }
             businessID
-            color {
-              record
-              createdAt
-            }
-            material {
-              record
-              createdAt
-            }
             photos {
               key
               createdAt
@@ -2260,14 +2180,6 @@ export const createProduct = /* GraphQL */ `
         owner
       }
       businessID
-      color {
-        record
-        createdAt
-      }
-      material {
-        record
-        createdAt
-      }
       photos {
         key
         createdAt
@@ -2419,14 +2331,6 @@ export const updateProduct = /* GraphQL */ `
               owner
             }
             businessID
-            color {
-              record
-              createdAt
-            }
-            material {
-              record
-              createdAt
-            }
             photos {
               key
               createdAt
@@ -2504,14 +2408,6 @@ export const updateProduct = /* GraphQL */ `
         owner
       }
       businessID
-      color {
-        record
-        createdAt
-      }
-      material {
-        record
-        createdAt
-      }
       photos {
         key
         createdAt
@@ -2663,14 +2559,6 @@ export const deleteProduct = /* GraphQL */ `
               owner
             }
             businessID
-            color {
-              record
-              createdAt
-            }
-            material {
-              record
-              createdAt
-            }
             photos {
               key
               createdAt
@@ -2748,14 +2636,6 @@ export const deleteProduct = /* GraphQL */ `
         owner
       }
       businessID
-      color {
-        record
-        createdAt
-      }
-      material {
-        record
-        createdAt
-      }
       photos {
         key
         createdAt

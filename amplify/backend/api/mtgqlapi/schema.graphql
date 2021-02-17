@@ -66,8 +66,8 @@ type Product @model
   stage: Stage!
   business: Business @connection(fields: ["businessID"])
   businessID: ID!
-  color: [StringArrayRecord!]!
-  material: [StringArrayRecord!]!
+  # color: [StringArrayRecord!]!
+  # material: [StringArrayRecord!]!
   photos: [S3ObjectTrack!]!
   videos: [S3ObjectTrack!]!
   certifications: [S3ObjectTrack!]!
