@@ -3,18 +3,27 @@
 import { Subscription } from 'rxjs';
 import { CreateMessageInput, CreateProfileInput, Stage } from '../../API';
 
-export const openDialogue = (stage: Stage, subjectID: string) => ({
-    type: 'OPEN_DIALOGUE' as const,
+export const setDialogueSubject = (stage: Stage, subjectID: string) => ({
+    type: 'SET_DIALOGUE_SUBJECT' as const,
     payload: { stage, subjectID },
 });
 
-export const openDialogueSuccess = (dialogue: CreateMessageInput[]) => ({
-    type: 'OPEN_DIALOGUE_SUCCESS' as const,
+export const clearDialogue = () => ({
+    type: 'CLEAR_DIALOGUE' as const,
+});
+
+export const loadDialogue = () => ({
+    type: 'LOAD_DIALOGUE' as const,
+});
+
+
+export const loadDialogueSuccess = (dialogue: CreateMessageInput[]) => ({
+    type: 'LOAD_DIALOGUE_SUCCESS' as const,
     payload: dialogue,
 });
 
-export const openDialogueFailure = () => ({
-    type: 'OPEN_DIALOGUE_FAILURE' as const,
+export const loadDialogueFailure = () => ({
+    type: 'LOAD_DIALOGUE_FAILURE' as const,
 });
 
 export const sendMessage = (message: CreateMessageInput) => ({
@@ -55,7 +64,7 @@ export const subscribeOnMessageCreated = () => ({
 
 export const subscribeOnMessageCreatedSuccess = (subscription: Subscription) => ({
     type: 'SUBSCRIBE_ON_MESSAGES_CREATED_SUCCESS' as const,
-    payload: subscription
+    payload: subscription,
 });
 
 export const unsubscribeOnMessageCreated = () => ({
@@ -72,6 +81,27 @@ export const unsubscribeOnMessageCreatedFailure = () => ({
 
 export const subscribeOnMessageUpdated = () => ({
     type: 'SUBSCRIBE_ON_MESSAGE_UPDATED' as const,
+});
+
+export const subscribeOnMessageUpdatedSuccess = (subscription: Subscription) => ({
+    type: 'SUBSCRIBE_ON_MESSAGE_UPDATED_SUCCESS' as const,
+    payload: subscription,
+});
+
+export const unsubscribeOnMessageUpdated = () => ({
+    type: 'UNSUBSCRIBE_ON_MESSAGES_UPDATED' as const,
+});
+
+export const unsubscribeOnMessageUpdatedSuccess = () => ({
+    type: 'UNSUBSCRIBE_ON_MESSAGES_UPDATED_SUCCESS' as const,
+});
+
+export const unsubscribeOnMessageUpdatedFailure = () => ({
+    type: 'UNSUBSCRIBE_ON_MESSAGES_UPDATED_FAILURE' as const,
+});
+
+export const subscribeOnMessageUpdatedFailure = () => ({
+    type: 'SUBSCRIBE_ON_MESSAGES_UPDATED_FAILURE' as const,
 });
 
 // export const subscribeOnUpdatedMessages = (receiverID: string) => ({

@@ -1,23 +1,32 @@
 import { Subscription } from 'rxjs';
 import { CreateMessageInput, CreateProfileInput, Stage } from '../../API';
-import Message from '../../components/Chat/Message/Message';
 import * as actions from './MessageActions';
 
 type MessageReducerType = {
-    stage: Stage;
-    subjectID: string;
-    interlocutor: CreateProfileInput;
-    dialogue: CreateMessageInput[];
+    stage?: Stage;
+    subjectID?: string;
+    interlocutor?: CreateProfileInput;
+    dialogues: Dialogue[];
+    messages: CreateMessageInput[];
     interlocutorAvatarURL?: string;
     createMessageSubscription?: Subscription;
     updateMessageSubscription?: Subscription;
 };
 
+type Dialogue = {
+    stage: Stage;
+    subjectID: string;
+    interlocutor: CreateProfileInput;
+    messages: CreateMessageInput[];
+    interlocutorAvatarURL?: string; 
+}
+
 const initialState: MessageReducerType = {
-    dialogue: [],
-    stage: Stage.UNASSIGNED,
-    subjectID: 'unassigned',
-    interlocutor: { email: 'unassigned', name: 'unassigned' },
+    dialogues: [],
+    messages:[]
+    // stage: Stage.UNASSIGNED,
+    // subjectID: 'unassigned',
+    // interlocutor: { email: 'unassigned', name: 'unassigned' },
 };
 
 export const MessageReducer = (
@@ -25,39 +34,38 @@ export const MessageReducer = (
     action: ActionTypes
 ): MessageReducerType => {
     switch (action.type) {
+            // return {
+            //     ...state,
+            //     messages: [...state.messages, action.payload],
+            // };
+        // case 'SEND_MESSAGE_SUCCESS': {
+        //     const newMessages = [...state.messages];
+        //     newMessages.splice(state.messages.length - 1, 1);
+        //     newMessages.push(action.payload);
+        //     return {
+        //         ...state,
+        //         messages: newMessages,
+        //     };
+        // }
         case 'SEND_MESSAGE':
-            return {
-                ...state,
-                dialogue: [...state.dialogue, action.payload],
-            };
-        case 'SEND_MESSAGE_SUCCESS': {
-            const newDialog = [...state.dialogue];
-            newDialog.splice(state.dialogue.length - 1, 1);
-            newDialog.push(action.payload);
-            return {
-                ...state,
-                dialogue: newDialog,
-            };
-        }
         case 'GET_RECENT_MESSAGE':
-                return {
-                    ...state,
-                    dialogue: [...state.dialogue, action.payload],
-                };
-        case 'GET_UPDATED_MESSAGE': {
-            const index = state.dialogue.findIndex(
-                (message) => message.id === action.payload.id
-            );
-            if (!index) return { ...state };
-            const newDialogue = [...state.dialogue];
-            newDialogue[index] = action.payload;
             return {
                 ...state,
-                dialogue: newDialogue,
+                messages: [...state.messages, action.payload],
+            };
+        case 'SEND_MESSAGE_SUCCESS':
+        case 'GET_UPDATED_MESSAGE': {
+            const index = state.messages.findIndex((message) => message.id === action.payload.id);
+            if (!index) return { ...state };
+            const newMessages = [...state.messages];
+            newMessages[index] = action.payload;
+            return {
+                ...state,
+                messages: newMessages,
             };
         }
 
-        case 'OPEN_DIALOGUE':
+        case 'SET_DIALOGUE_SUBJECT':
             return {
                 ...state,
                 stage: action.payload.stage,
@@ -72,17 +80,36 @@ export const MessageReducer = (
         case 'SET_INTERLOCUTOR_AVATAR_URL': {
             return {
                 ...state,
-                interlocutorAvatarURL: action.payload
-            }
+                interlocutorAvatarURL: action.payload,
+            };
         }
-        case 'OPEN_DIALOGUE_SUCCESS':
+        case 'LOAD_DIALOGUE_SUCCESS':
             return {
                 ...state,
-                dialogue: action.payload,
+                messages: action.payload,
             };
-        case 'UNSUBSCRIBE_ON_MESSAGES_CREATED_SUCCESS': 
+        case 'UNSUBSCRIBE_ON_MESSAGES_CREATED_SUCCESS':
+            return {
+                ...state,
+                createMessageSubscription: undefined,
+            };
+        case 'UNSUBSCRIBE_ON_MESSAGES_UPDATED_SUCCESS':
+            return {
+                ...state,
+                updateMessageSubscription: undefined,
+            };
+        case 'CLEAR_DIALOGUE':
+            return {
+                ...state,
+                interlocutor: undefined,
+                messages: [],
+                stage: undefined,
+                subjectID: undefined
+            };
+        case 'LOAD_DIALOGUE':
         case 'SEND_MESSAGE_FAILURE':
         case 'UPDATE_MESSAGE_SUCCESS':
+        case 'SUBSCRIBE_ON_MESSAGES_UPDATED_FAILURE':
         case 'UNSUBSCRIBE_ON_MESSAGES_CREATED_FAILURE':
         default:
             return {

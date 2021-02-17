@@ -22,10 +22,7 @@ const Message: React.FC<PropTypes> = (props) => {
         const nameWords = props.senderName.split(' ');
         let initials = '';
         if (nameWords.length > 1) {
-            initials = nameWords[0]
-                .charAt(0)
-                .concat(nameWords[1].charAt(0))
-                .toUpperCase();
+            initials = nameWords[0].charAt(0).concat(nameWords[1].charAt(0)).toUpperCase();
         } else {
             initials = nameWords[0].charAt(0).toUpperCase();
         }
@@ -60,18 +57,12 @@ const Message: React.FC<PropTypes> = (props) => {
                     props.senderId !== props.userId
                         ? classes.senderContainer
                         : classes.recipientContainer
-                }
-            >
+                }>
                 {props.avatarPublicURL ? (
                     <Avatar alt="avatar" src={props.avatarPublicURL} />
                 ) : (
-                    <Avatar
-                        style={{ backgroundColor: theme.palette.primary.main }}
-                    >
-                        <Typography
-                            variant={'subtitle2'}
-                            className={classes.imageText}
-                        >
+                    <Avatar style={{ backgroundColor: theme.palette.primary.main }}>
+                        <Typography variant={'subtitle2'} className={classes.imageText}>
                             {writeInitials()}
                         </Typography>
                     </Avatar>
@@ -81,10 +72,7 @@ const Message: React.FC<PropTypes> = (props) => {
                         <Typography className={classes.senderName}>{props.senderName}</Typography>
                     </div>*/}
                     <div>
-                        <Typography
-                            variant={'subtitle1'}
-                            className={classes.message}
-                        >
+                        <Typography variant={'subtitle1'} className={classes.message}>
                             {props.message}
                         </Typography>
                     </div>
@@ -92,15 +80,17 @@ const Message: React.FC<PropTypes> = (props) => {
                         <Typography variant={'caption'}>
                             {moment(props.time).format('HH:mm')}
                         </Typography>
-                        <CheckMark
-                            className={
-                                classes.checkSVG +
-                                ' ' +
-                                (props.status === 'RECEIVED'
-                                    ? styles.receivedCheck
-                                    : styles.sentCheck)
-                            }
-                        />
+                        {props.senderId === props.userId && (
+                            <CheckMark
+                                className={
+                                    classes.checkSVG +
+                                    ' ' +
+                                    (props.status === 'RECEIVED'
+                                        ? styles.receivedCheck
+                                        : styles.sentCheck)
+                                }
+                            />
+                        )}
                     </div>
                 </div>
             </div>
