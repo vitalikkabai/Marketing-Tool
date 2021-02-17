@@ -1,100 +1,110 @@
 .dashboard {
-    .todoTitleBox {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        height: 56px;
+  .todoTitleBox {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 56px;
 
-        .titleBox {
-            margin-left: 24px;
-        }
-
-        .stepBox {
-            margin-left: 15%;
-        }
+    .titleBox {
+      margin-left: 24px;
     }
 
-    .contentContainer {
-        height: calc(100vh - 228px);
-        margin-top: 20px;
-        display: flex;
+    .stepBox {
+      margin-left: 15%;
+    }
+  }
+
+  .whiteBox {
+    width: 93%;
+    height: 54px;
+    background: white;
+    position: absolute;
+    z-index: 3;
+  }
+
+
+  .contentContainer {
+    height: calc(100vh - 228px);
+    margin-top: 20px;
+    display: flex;
+    width: 100%;
+    position: relative;
+
+    .contentBlockBox {
+      position: relative;
+      background: #fff;
+      border-radius: 10px;
+      display: block;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin-right: 24px;
+      padding: 0 48px;
+
+      .addProductForm {
+        height: 100%;
+        overflow: auto;
+      }
+
+      .addProductForm::-webkit-scrollbar {
+        display: none;
+      }
+
+      .addProductForm {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+      }
+
+      .formContent {
         width: 100%;
-        position: relative;
+        height: 100%;
 
-        .contentBlockBox::-webkit-scrollbar {
-            display: none;
+        .dropZone {
+          display: flex;
+          justify-content: center;
+          margin-top: 48px;
         }
 
-        .contentBlockBox {
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
-        }
+        .formInputs {
+          width: 100%;
+          flex: 0 1 auto;
 
-        .contentBlockBox {
-            position: relative;
-            background: #fff;
-            border-radius: 10px;
-            display: block;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            margin-right: 24px;
-            padding: 24px 48px 0 48px;
-            overflow: auto;
-
-            form {
-                height: 100%;
-            }
-
-            .formContent {
-                height: 100%;
-                width: 100%;
-
-                .dropZone {
-                    display: flex;
-                    justify-content: center;
-                    margin-top: 48px;
-                }
-
-                .formInputs {
-                    flex: 0 1 auto;
-                    width: 100%;
-
-                    .productInfoInputs {
-                        display: flex;
-                        margin-top: 32px;
-                    }
-
-                    .productUrlInputs {
-                        margin-top: 32px;
-                    }
-
-                    .addUrlText {
-                        margin-top: 16px;
-                    }
-
-                    .additionalInfo {
-                        display: flex;
-                        margin-top: 32px;
-                    }
-
-                    .horizontalLine {
-                        margin-top: 48px;
-                        width: 100%;
-                        border-top: 1px solid #F8F8F8;
-                    }
-                }
-            }
-        }
-
-        .nextButtonBox {
+          .productInfoInputs {
             display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            flex: 1 1 auto;
-            margin-bottom: 64px;
+            margin-top: 69px;
+          }
 
-            button {
-                color: white;
-            }
+          .productUrlInputs {
+            margin-top: 32px;
+          }
+
+          .addUrlText {
+            margin-top: 16px;
+          }
+
+          .additionalInfo {
+            display: flex;
+            margin-top: 32px;
+          }
+
+          .horizontalLine {
+            margin-top: 48px;
+            width: 100%;
+            border-top: 1px solid #F8F8F8;
+          }
         }
+      }
     }
+
+    .nextButtonBox {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      margin-top: 48px;
+      padding-bottom: 64px;
+      flex: 1 1 auto;
+
+      button {
+        color: white;
+      }
+    }
+  }
 }

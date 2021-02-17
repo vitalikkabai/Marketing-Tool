@@ -27,6 +27,7 @@ interface CustomInputProps {
     margin?: string;
     paddingRight?: number;
     isShowPassword?: boolean;
+    disabled?: boolean;
 }
 
 const CustomInput: React.FC<CustomInputProps> = (props) => {
@@ -47,10 +48,10 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                     borderRadius: 10,
                     borderColor: props.error
                         ? '#F44336 !important'
-                        : props.value
+                        : (props.value && !props.disabled)
                         ? '#4285F4'
                         : props.color,
-                    borderWidth: props.value ? 1 : 1,
+                    borderWidth: 1,
                 },
                 '& input': {
                     borderRadius: 10,
@@ -60,7 +61,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                 '& label': {
                     color: props.error
                         ? '#F44336 !important'
-                        : props.value
+                        : (props.value && !props.disabled)
                         ? '#4285F4'
                         : props.color,
                 },
@@ -74,7 +75,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                 top: '-9px',
                 color: props.error
                     ? '#F44336 !important'
-                    : props.value
+                    : (props.value && !props.disabled)
                     ? '#4285F4'
                     : props.color,
             },
@@ -126,6 +127,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
             color="secondary"
             error={props.error}
             key={props.PassKey}
+            disabled={props.disabled}
             type={
                 props.name === 'password'
                     ? isShowPassword
@@ -166,11 +168,6 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                     lineHeight: '150%',
                 },
             }}
-            // InputLabelProps={{
-            //     style: {
-            //         color: 'red',
-            //     },
-            // }}
             classes={{
                 root: classes.root,
             }}

@@ -50,7 +50,7 @@ const WebLink: React.FunctionComponent<PropsType> = (props) => {
                             props.linkURLs.filter((item, i) => i !== index)
                         );
                     }}
-                    color="primary"
+                    color="secondary"
                     variant="outlined"
                 />
             ))}

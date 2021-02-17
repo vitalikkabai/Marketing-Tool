@@ -14,6 +14,9 @@ $menuItemColor9: #EA4335;
     position: relative;
     white-space: nowrap;
     padding-left: 38px !important;
+    h6 {
+      font-size: 18px !important;
+    }
     .listIconRoot {
       position: absolute;
       background: #FFF;
@@ -33,6 +36,7 @@ $menuItemColor9: #EA4335;
     padding-left: 0;
     width: 100%;
     height: 60px;
+    min-height: 60px;
     border-radius: 20px 0 0 20px;
     margin-bottom: 4px;
     svg {
@@ -60,17 +64,14 @@ $menuItemColor9: #EA4335;
     height: 54px;
     margin-top: 12px;
   }
+  .rootList::-webkit-scrollbar {
+    display: none;
+  }
   .rootList {
     margin-top: 48px;
     height: calc(100% - 257px);
     overflow: auto;
     padding-left: 44px;
-  }
-  .rootList::-webkit-scrollbar {
-    display: none;
-  }
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .rootList {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -80,12 +81,26 @@ $menuItemColor9: #EA4335;
     scrollbar-width: none;
     /* Firefox */
   }
+  .rootList:hover {
+    width: 240px;
+    overflow-y: scroll;
+    -ms-overflow-style: initial;
+    /* IE and Edge */
+    scrollbar-width: initial;
+    /* Firefox */
+    &::-webkit-scrollbar {
+      display: block;
+      width: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #DFDFDF;
+      border-radius: 51px;
+    }
+  }
   .listIconRoot {
     display: flex;
     align-items: center;
     justify-content: center;
-    // background: #FFF;
-    // box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
     min-width: 20px;
     svg {
       margin-right: 10px;

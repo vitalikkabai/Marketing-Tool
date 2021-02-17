@@ -37,11 +37,9 @@ export const BusinessReducer = (
 ): CreateBusinessInput => {
     switch (action.type) {
         case 'SET_BUSINESS':
-        case 'UPDATE_BUSINESS_SUCCESS':
-            return {
-                ...state,
-                ...action.payload,
-            };
+        case 'UPDATE_BUSINESS_SUCCESS':{
+            return Object.assign({}, state, action.payload);
+        }
         case 'SET_BUSINESS_URLS':
             return {
                 ...state,

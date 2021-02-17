@@ -1,6 +1,7 @@
 import { Box, Grid, Typography, Tab, Badge, Hidden } from '@material-ui/core';
 import React from 'react';
 import moment from 'moment';
+import { useHistory } from 'react-router';
 import classes from './UserDashboard.module.scss';
 import TabPanel from '../../common/TabPanel/TabPanel';
 import Blob from '../../../assets/images/Blob.png';
@@ -32,6 +33,7 @@ moment.updateLocale('en', {
 
 function UserDashboard() {
     const [value, setValue] = React.useState(0);
+    const history = useHistory();
 
     const getBackgroundColor = (colorId: number) => {
         switch (colorId) {
@@ -56,6 +58,17 @@ function UserDashboard() {
         }
     };
 
+    const getLink = (taskType: number): string => {
+        switch (taskType) {
+            case 1:
+                return '/personal-profile';
+            case 2:
+                return '/products/add-new-product';
+            default:
+                return ' ';
+        }
+    };
+
     const tasks = [
         {
             id: 0,
@@ -76,13 +89,14 @@ function UserDashboard() {
     const TabTasks = tasks.map((el, i) => (
         <Grid key={el.id} item xs={12} xl={12} className={classes.stepRow}>
             <Box
+                onClick={() => history.push(getLink(el.taskType))}
                 className={classes.coloredTaskBox}
-                style={getBackgroundColor(el.taskType)}
-            >
-                <Typography variant={'h6'} className={classes.indexNum}>
-                    {i + 1}
+                style={getBackgroundColor(el.taskType)}>
+                <Typography
+                    style={{ textTransform: 'uppercase' }}
+                    variant={'subtitle2'}>
+                    {el.taskTitle}
                 </Typography>
-                <Typography variant={'h6'}>{el.taskTitle}</Typography>
             </Box>
             <Box className={classes.agoTime}>
                 <Typography variant={'body1'}>
@@ -119,8 +133,7 @@ function UserDashboard() {
                     className={classes.contentBox}
                     container
                     xs={8}
-                    xl={9}
-                >
+                    xl={9}>
                     <CustomAppBar value={value} setValue={setValue}>
                         <Tab label="Steps" />
                         <Tab icon={<CustomBadge badgeCount={tasks.length} />} />
@@ -129,8 +142,7 @@ function UserDashboard() {
                     <TabPanel
                         className={classes.tabPanelBox}
                         index={0}
-                        value={value}
-                    >
+                        value={value}>
                         <Grid item container className={classes.stepBox}>
                             <Grid item xs={12} className={classes.stepRow}>
                                 <Box className={classes.tableTitleBox}>
@@ -140,12 +152,10 @@ function UserDashboard() {
                                                 classes.taskValue +
                                                 ' ' +
                                                 classes.taskTitle
-                                            }
-                                        >
+                                            }>
                                             <Typography
                                                 color={'primary'}
-                                                variant={'body2'}
-                                            >
+                                                variant={'body2'}>
                                                 Products
                                             </Typography>
                                         </Box>
@@ -155,12 +165,10 @@ function UserDashboard() {
                                                 classes.taskValue +
                                                 ' ' +
                                                 classes.taskTitle
-                                            }
-                                        >
+                                            }>
                                             <Typography
                                                 color={'primary'}
-                                                variant={'body2'}
-                                            >
+                                                variant={'body2'}>
                                                 Tasks
                                             </Typography>
                                         </Box>
@@ -170,12 +178,10 @@ function UserDashboard() {
                             <Grid item xs={12} className={classes.stepRow}>
                                 <Box
                                     className={classes.coloredBox}
-                                    style={{ background: '#EDCD27' }}
-                                >
+                                    style={{ background: '#EDCD27' }}>
                                     <Typography
-                                        variant={'h6'}
-                                        style={{ textTransform: 'uppercase' }}
-                                    >
+                                        variant={'subtitle2'}
+                                        style={{ textTransform: 'uppercase' }}>
                                         Add products
                                     </Typography>
                                 </Box>
@@ -186,9 +192,10 @@ function UserDashboard() {
                                         ' ' +
                                         classes.leftTask
                                     }
-                                    style={{ background: '#EDCD27' }}
-                                >
-                                    <Typography variant={'h6'}>1</Typography>
+                                    style={{ background: '#EDCD27' }}>
+                                    <Typography variant={'subtitle2'}>
+                                        1
+                                    </Typography>
                                 </Box>
 
                                 <Box
@@ -197,20 +204,19 @@ function UserDashboard() {
                                         ' ' +
                                         classes.rightTask
                                     }
-                                    style={{ background: '#EDCD27' }}
-                                >
-                                    <Typography variant={'h6'}>1</Typography>
+                                    style={{ background: '#EDCD27' }}>
+                                    <Typography variant={'subtitle2'}>
+                                        1
+                                    </Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={12} className={classes.stepRow}>
                                 <Box
                                     className={classes.coloredBox}
-                                    style={{ background: '#FFAB08' }}
-                                >
+                                    style={{ background: '#FFAB08' }}>
                                     <Typography
-                                        variant={'h6'}
-                                        style={{ textTransform: 'uppercase' }}
-                                    >
+                                        variant={'subtitle2'}
+                                        style={{ textTransform: 'uppercase' }}>
                                         Market research
                                     </Typography>
                                 </Box>
@@ -220,9 +226,10 @@ function UserDashboard() {
                                         ' ' +
                                         classes.leftTask
                                     }
-                                    style={{ background: '#FFAB08' }}
-                                >
-                                    <Typography variant={'h6'}>2</Typography>
+                                    style={{ background: '#FFAB08' }}>
+                                    <Typography variant={'subtitle2'}>
+                                        2
+                                    </Typography>
                                 </Box>
 
                                 <Box
@@ -231,20 +238,19 @@ function UserDashboard() {
                                         ' ' +
                                         classes.rightTask
                                     }
-                                    style={{ background: '#FFAB08' }}
-                                >
-                                    <Typography variant={'h6'}>7</Typography>
+                                    style={{ background: '#FFAB08' }}>
+                                    <Typography variant={'subtitle2'}>
+                                        7
+                                    </Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={12} className={classes.stepRow}>
                                 <Box
                                     className={classes.coloredBox}
-                                    style={{ background: '#EE6B1D' }}
-                                >
+                                    style={{ background: '#EE6B1D' }}>
                                     <Typography
-                                        variant={'h6'}
-                                        style={{ textTransform: 'uppercase' }}
-                                    >
+                                        variant={'subtitle2'}
+                                        style={{ textTransform: 'uppercase' }}>
                                         Brand creation
                                     </Typography>
                                 </Box>
@@ -254,9 +260,10 @@ function UserDashboard() {
                                         ' ' +
                                         classes.leftTask
                                     }
-                                    style={{ background: '#EE6B1D' }}
-                                >
-                                    <Typography variant={'h6'}>1</Typography>
+                                    style={{ background: '#EE6B1D' }}>
+                                    <Typography variant={'subtitle2'}>
+                                        1
+                                    </Typography>
                                 </Box>
 
                                 <Box
@@ -265,20 +272,19 @@ function UserDashboard() {
                                         ' ' +
                                         classes.rightTask
                                     }
-                                    style={{ background: '#EE6B1D' }}
-                                >
-                                    <Typography variant={'h6'}>1</Typography>
+                                    style={{ background: '#EE6B1D' }}>
+                                    <Typography variant={'subtitle2'}>
+                                        1
+                                    </Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={12} className={classes.stepRow}>
                                 <Box
                                     className={classes.coloredBox}
-                                    style={{ background: '#43A047' }}
-                                >
+                                    style={{ background: '#43A047' }}>
                                     <Typography
-                                        variant={'h6'}
-                                        style={{ textTransform: 'uppercase' }}
-                                    >
+                                        variant={'subtitle2'}
+                                        style={{ textTransform: 'uppercase' }}>
                                         Sales channels
                                     </Typography>
                                 </Box>
@@ -288,9 +294,10 @@ function UserDashboard() {
                                         ' ' +
                                         classes.leftTask
                                     }
-                                    style={{ background: '#43A047' }}
-                                >
-                                    <Typography variant={'h6'}>1</Typography>
+                                    style={{ background: '#43A047' }}>
+                                    <Typography variant={'subtitle2'}>
+                                        1
+                                    </Typography>
                                 </Box>
 
                                 <Box
@@ -299,20 +306,19 @@ function UserDashboard() {
                                         ' ' +
                                         classes.rightTask
                                     }
-                                    style={{ background: '#43A047' }}
-                                >
-                                    <Typography variant={'h6'}>2</Typography>
+                                    style={{ background: '#43A047' }}>
+                                    <Typography variant={'subtitle2'}>
+                                        2
+                                    </Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={12} className={classes.stepRow}>
                                 <Box
                                     className={classes.coloredBox}
-                                    style={{ background: '#0097A6' }}
-                                >
+                                    style={{ background: '#0097A6' }}>
                                     <Typography
-                                        variant={'h6'}
-                                        style={{ textTransform: 'uppercase' }}
-                                    >
+                                        variant={'subtitle2'}
+                                        style={{ textTransform: 'uppercase' }}>
                                         Customer support
                                     </Typography>
                                 </Box>
@@ -323,9 +329,10 @@ function UserDashboard() {
                                         ' ' +
                                         classes.leftTask
                                     }
-                                    style={{ background: '#0097A6' }}
-                                >
-                                    <Typography variant={'h6'}> </Typography>
+                                    style={{ background: '#0097A6' }}>
+                                    <Typography variant={'subtitle2'}>
+                                        {' '}
+                                    </Typography>
                                 </Box>
 
                                 <Box
@@ -334,22 +341,21 @@ function UserDashboard() {
                                         ' ' +
                                         classes.rightTask
                                     }
-                                    style={{ background: '#0097A6' }}
-                                >
-                                    <Typography variant={'h6'}> </Typography>
+                                    style={{ background: '#0097A6' }}>
+                                    <Typography variant={'subtitle2'}>
+                                        {' '}
+                                    </Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={12} className={classes.stepRow}>
                                 <Box
                                     className={classes.coloredBox}
-                                    style={{ background: '#7B1FA2' }}
-                                >
+                                    style={{ background: '#7B1FA2' }}>
                                     <Typography
-                                        variant={'h6'}
+                                        variant={'subtitle2'}
                                         style={{
                                             textTransform: 'uppercase',
-                                        }}
-                                    >
+                                        }}>
                                         Brand awareness
                                     </Typography>
                                 </Box>
@@ -359,9 +365,10 @@ function UserDashboard() {
                                         ' ' +
                                         classes.leftTask
                                     }
-                                    style={{ background: '#7B1FA2' }}
-                                >
-                                    <Typography variant={'h6'}> </Typography>
+                                    style={{ background: '#7B1FA2' }}>
+                                    <Typography variant={'subtitle2'}>
+                                        {' '}
+                                    </Typography>
                                 </Box>
 
                                 <Box
@@ -370,20 +377,19 @@ function UserDashboard() {
                                         ' ' +
                                         classes.rightTask
                                     }
-                                    style={{ background: '#7B1FA2' }}
-                                >
-                                    <Typography variant={'h6'}> </Typography>
+                                    style={{ background: '#7B1FA2' }}>
+                                    <Typography variant={'subtitle2'}>
+                                        {' '}
+                                    </Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={12} className={classes.stepRow}>
                                 <Box
                                     className={classes.coloredBox}
-                                    style={{ background: '#C2185B' }}
-                                >
+                                    style={{ background: '#C2185B' }}>
                                     <Typography
-                                        variant={'h6'}
-                                        style={{ textTransform: 'uppercase' }}
-                                    >
+                                        variant={'subtitle2'}
+                                        style={{ textTransform: 'uppercase' }}>
                                         Sales
                                     </Typography>
                                 </Box>
@@ -393,9 +399,10 @@ function UserDashboard() {
                                         ' ' +
                                         classes.leftTask
                                     }
-                                    style={{ background: '#C2185B' }}
-                                >
-                                    <Typography variant={'h6'}>6</Typography>
+                                    style={{ background: '#C2185B' }}>
+                                    <Typography variant={'subtitle2'}>
+                                        6
+                                    </Typography>
                                 </Box>
 
                                 <Box
@@ -404,9 +411,10 @@ function UserDashboard() {
                                         ' ' +
                                         classes.rightTask
                                     }
-                                    style={{ background: '#C2185B' }}
-                                >
-                                    <Typography variant={'h6'}>5</Typography>
+                                    style={{ background: '#C2185B' }}>
+                                    <Typography variant={'subtitle2'}>
+                                        5
+                                    </Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={12} className={classes.stepRow}>
@@ -415,12 +423,10 @@ function UserDashboard() {
                                     style={{
                                         background: '#EA4335',
                                         textTransform: 'uppercase',
-                                    }}
-                                >
+                                    }}>
                                     <Typography
-                                        variant={'h6'}
-                                        style={{ textTransform: 'uppercase' }}
-                                    >
+                                        variant={'subtitle2'}
+                                        style={{ textTransform: 'uppercase' }}>
                                         Improvements
                                     </Typography>
                                 </Box>
@@ -431,9 +437,10 @@ function UserDashboard() {
                                         ' ' +
                                         classes.leftTask
                                     }
-                                    style={{ background: '#EA4335' }}
-                                >
-                                    <Typography variant={'h6'}> </Typography>
+                                    style={{ background: '#EA4335' }}>
+                                    <Typography variant={'subtitle2'}>
+                                        {' '}
+                                    </Typography>
                                 </Box>
 
                                 <Box
@@ -442,9 +449,10 @@ function UserDashboard() {
                                         ' ' +
                                         classes.rightTask
                                     }
-                                    style={{ background: '#EA4335' }}
-                                >
-                                    <Typography variant={'h6'}> </Typography>
+                                    style={{ background: '#EA4335' }}>
+                                    <Typography variant={'subtitle2'}>
+                                        {' '}
+                                    </Typography>
                                 </Box>
                             </Grid>
                         </Grid>
@@ -452,20 +460,17 @@ function UserDashboard() {
                     <TabPanel
                         className={classes.tabPanelBox}
                         index={1}
-                        value={value}
-                    >
+                        value={value}>
                         <Grid
                             item
                             xs={12}
                             xl={12}
-                            className={classes.taskContainer}
-                        >
+                            className={classes.taskContainer}>
                             <Grid container className={classes.stepBox}>
                                 <Box className={classes.tasksTitle}>
                                     <Typography
                                         color={'primary'}
-                                        variant={'body2'}
-                                    >
+                                        variant={'body2'}>
                                         Tasks
                                     </Typography>
                                 </Box>
@@ -476,19 +481,16 @@ function UserDashboard() {
                     <TabPanel
                         className={classes.tabPanelBox}
                         index={2}
-                        value={value}
-                    >
+                        value={value}>
                         <Grid
                             item
                             xs={12}
                             xl={12}
-                            className={classes.taskContainer}
-                        >
+                            className={classes.taskContainer}>
                             <Box
                                 marginTop={'57px'}
                                 textAlign={'center'}
-                                className={classes.tasksTitle}
-                            >
+                                className={classes.tasksTitle}>
                                 <Typography variant={'body2'}>
                                     OUR TEAM IS WAITING FOR YOU <br />
                                     TO COMPLETE YOUR TASKS
@@ -497,8 +499,7 @@ function UserDashboard() {
                             <Box
                                 textAlign={'center'}
                                 justifyContent={'center'}
-                                alignItems={'center'}
-                            >
+                                alignItems={'center'}>
                                 <img src={Blob} />
                             </Box>
                         </Grid>

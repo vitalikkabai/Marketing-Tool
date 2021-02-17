@@ -14,19 +14,13 @@ export const getSharedIndex = (a: string, b: string): string => {
 };
 
 type NarrowAction<T, N> = T extends { type: N } ? T : never;
-function getExtends<T extends ActionTypes, R extends T = T, N extends R['type'] = R['type']>(
-    n: N
-): N {
-    return n;
-}
-getExtends('SET_DIALOGUE_SUBJECT' || '');
+
 export function filterAction<T extends ActionTypes, N extends T['type'], R = NarrowAction<T, N>>(
     ...types: N[]
 ): (source: Observable<T>) => Observable<R> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return function <T extends ActionTypes>(source: Observable<T>): Observable<any> {
         return new Observable((subscriber) => {
-            console.log('filtering',types);
             return source.subscribe({
                 next(value) {
                     for (const type of types) {

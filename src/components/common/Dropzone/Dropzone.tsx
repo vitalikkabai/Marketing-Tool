@@ -3,52 +3,103 @@ import { useDropzone } from 'react-dropzone';
 import classes from './Dropzone.module.scss';
 import { Box, Button, Typography } from '@material-ui/core';
 import { ReactComponent as ClipIcon } from '../../../assets/images/clip.svg';
-import CustomCarousel from "../Carousel/CustomCarousel";
-// @ts-ignore
-import VideoPlayer from 'simple-react-video-thumbnail';
-import playIcon from "../../../assets/images/playButton.svg";
-
+import CustomCarousel from '../Carousel/CustomCarousel';
+import playIcon from '../../../assets/images/playButton.svg';
+import deleteIcon from '../../../assets/images/deleteIcon.svg';
 
 type PropsType = {
-    title: string
-}
+    title: string;
+};
 
 const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
-    const [files, setFiles] = useState([]);
-    const { getRootProps, getInputProps } = useDropzone({accept: 'image/*, video/*',
+    const [videos, setVideos] = useState([]);
+    const [photos, setPhotos] = useState([]);
+    const { getRootProps, getInputProps } = useDropzone({
+        accept: 'image/*, video/*',
         onDrop: (acceptedFiles) => {
             // @ts-ignore
-            setFiles((oldArray) => [
-                ...oldArray,
-                ...acceptedFiles.map((file) =>
-                    Object.assign(file, {
-                        preview: URL.createObjectURL(file),
-                    })
-                ),
-            ]);
+            acceptedFiles.map((item) => {
+                if (item.type.includes('video')) {
+                    console.log(videos);
+                    // @ts-ignore
+                    setVideos((oldArray) => [
+                        ...oldArray,
+                        Object.assign(item, {
+                            preview: URL.createObjectURL(item),
+                        }),
+                    ]);
+                } else if (item.type.includes('image')) {
+                    console.log(photos);
+                    // @ts-ignore
+                    setPhotos((oldArray) => [
+                        ...oldArray,
+                        Object.assign(item, {
+                            preview: URL.createObjectURL(item),
+                        }),
+                    ]);
+                }
+            });
         },
     });
 
-    const Videos = files.filter((file: any)=>{return file.type.includes('video')}).map((file: any, index) => (
-        <div className={classes.imgBox} key={file.name + ' ' + index}>
-            <img src={playIcon} className={classes.svgPlay}/>
-            <video src={file.preview}/>
-        </div>
+    const deleteFile = (index: any, type: any) => {
+        if (type.includes('video')) {
+            setVideos([
+                ...videos
+                    .slice(0, index)
+                    .concat(videos.slice(index + 1, videos.length)),
+            ]);
+        } else if (type.includes('image')) {
+            setPhotos([
+                ...photos
+                    .slice(0, index)
+                    .concat(photos.slice(index + 1, photos.length)),
+            ]);
+        }
+    };
+
+    const VideosItem = videos.map((videos: any, index) => (
+        <Box className={classes.imgBox} key={videos.name + ' ' + index}>
+            <img
+                src={deleteIcon}
+                onClick={() => deleteFile(index, videos.type)}
+                className={classes.svgDelete}
+            />
+            <div className={classes.videoContainer}>
+                <img src={playIcon} className={classes.svgPlay} />
+                <video src={videos.preview} />
+            </div>
+        </Box>
     ));
 
-    const Photos = files.filter((file: any)=>{return file.type.includes('image')}).map((file: any, index) => (
-        <div className={classes.imgBox} key={file.name + ' ' + index}>
-            <img src={file.preview} className={classes.photoItem}/>
-        </div>
+    const PhotosItem = photos.map((photo: any, index) => (
+        <Box className={classes.imgBox} key={photo.name + ' ' + index}>
+            <img
+                src={deleteIcon}
+                onClick={() => deleteFile(index, photo.type)}
+                className={classes.svgDelete}
+            />
+            <div className={classes.imgContainer}>
+                <img src={photo.preview} className={classes.photoItem} />
+            </div>
+        </Box>
     ));
 
-    useEffect(
-        () => () => {
-            console.log(files)
-            files.forEach((file: any) => URL.revokeObjectURL(file.preview));
-        },
-        [files]
-    );
+    // useEffect(
+    //     () => () => {
+    //         videos.forEach((item: any) => URL.revokeObjectURL(item.preview));
+    //     },
+    //     [photos]
+    // );
+
+    // ToDo fix bug with useEffect
+
+    // useEffect(
+    //     () => () => {
+    //         photos.forEach((item: any) => URL.revokeObjectURL(item.preview));
+    //     },
+    //     [photos]
+    // );
 
     return (
         <Box className={classes.dropZoneSection}>
@@ -62,26 +113,39 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
                         <Typography
                             variant={'subtitle1'}
                             align={'center'}
-                            style={{ color: '#4285F4' }}
-                        >
+                            style={{ color: '#4285F4' }}>
                             {props.title}
                         </Typography>
                         <Typography
                             variant={'subtitle1'}
                             align={'center'}
-                            style={{ color: '#9f9f9f' }}
-                        >
+                            style={{ color: '#9f9f9f' }}>
                             or drop files here
                         </Typography>
                     </Box>
                 </Box>
             </Box>
-            <Box className={classes.photoSection} style={files.length === 0? {display: "none"}:{}}>
-                <CustomCarousel Items={Photos}/>
-                <CustomCarousel Items={Videos}/>
+            <Box
+                display="flex"
+                width="100%"
+                justifyContent={
+                    videos.length === 0 || photos.length === 0
+                        ? 'center'
+                        : 'space-between'
+                }>
+                <Box
+                    className={classes.photoSection}
+                    style={photos.length === 0 ? { display: 'none' } : {}}>
+                    <CustomCarousel Items={PhotosItem} />
+                </Box>
+                <Box
+                    className={classes.photoSection}
+                    style={videos.length === 0 ? { display: 'none' } : {}}>
+                    <CustomCarousel Items={VideosItem} />
+                </Box>
             </Box>
         </Box>
     );
-}
+};
 
 export default FileDropzone;

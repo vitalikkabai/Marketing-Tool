@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
     Grid,
     Link,
@@ -8,13 +8,13 @@ import {
     MenuItem,
 } from '@material-ui/core';
 import classes from '../RegisterForm.module.scss';
-import { useHistory } from 'react-router';
-import { FormContainerType } from './RegisterFormWebLinksContainer';
+import {useHistory} from 'react-router';
+import {FormContainerType} from './RegisterFormWebLinksContainer';
 import CustomSelect from '../../common/Select/CustomSelect';
 import GoBackButton from '../../common/Button/GoBackButton';
 import UxAssistant from '../UxAssistant/UxAssistant';
 import CustomButton from '../../common/Button/CustomButton';
-import { isValidUrl } from '../../../utils/validators/validators';
+import {isValidUrl} from '../../../utils/validators/validators';
 import WebLink from '../../common/webLink/webLink';
 
 const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
@@ -103,6 +103,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
                                             >
                                                 <CustomSelect
                                                     value={hasWebsite ? 1 : 0}
+                                                    colored
                                                     onChange={(e: any) => {
                                                         setHasWebsite(
                                                             !!e.target.value

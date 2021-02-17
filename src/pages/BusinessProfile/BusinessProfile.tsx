@@ -45,8 +45,7 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         ].sort((a, b) =>
             a.selected < b.selected ? 1 : b.selected < a.selected ? -1 : 0
         )
-    );
-    // Sorting by selected status
+    );// Sorting by selected status
 
     const [companyName, setCompanyName] = useState(props.business.companyName);
     const [companyNameError, setCompanyNameError] = useState('');
@@ -74,6 +73,10 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     useEffect(() => {
         setSelectedRoleError('');
     });
+
+    useEffect(() => {
+        setCompanyName(props.business.companyName);
+    },[props.business]);
 
     useEffect(() => {
         // Check that any values do not differ from the analogues in the reducer
@@ -112,8 +115,7 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                         item
                         container
                         xs={12}
-                        className={classes.mainInputGridItem}
-                    >
+                        className={classes.mainInputGridItem}>
                         <Grid item xs={3}>
                             <CustomInput
                                 label="Company Name"
@@ -126,8 +128,7 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                     event: React.ChangeEvent<
                                         HTMLTextAreaElement | HTMLInputElement
                                     >
-                                ) => setCompanyName(event.target.value)}
-                            />
+                                ) => setCompanyName(event.target.value)}/>
                         </Grid>
                         <Grid item xs={9} className={classes.saveButton}>
                             <CustomButton
@@ -140,23 +141,20 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                     <Grid item xs={12} className={classes.roleBoxesGridItem}>
                         <Typography
                             variant={'h6'}
-                            className={classes.roleBoxText}
-                        >
+                            className={classes.roleBoxText}>
                             You are in charge of:
                         </Typography>
                         <RoleBoxes
                             selectedRole={selectedRole}
                             setSelectedRole={setSelectedRole}
-                            displayInRow
-                        />
+                            displayInRow/>
                     </Grid>
                     <Grid
                         item
                         container
                         xs={12}
                         justify={'space-between'}
-                        className={classes.linkGridItem}
-                    >
+                        className={classes.linkGridItem}>
                         <Grid item xs={6} style={{ paddingRight: '24px' }}>
                             <WebLink
                                 linkInput={webInput}
