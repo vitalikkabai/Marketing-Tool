@@ -202,8 +202,6 @@ export type CreateProductInput = {
   websiteURLs: Array< StringArrayRecordInput >,
   stage: Stage,
   businessID: string,
-  color: Array< StringArrayRecordInput >,
-  material: Array< StringArrayRecordInput >,
   photos: Array< S3ObjectTrackInput >,
   videos: Array< S3ObjectTrackInput >,
   certifications: Array< S3ObjectTrackInput >,
@@ -254,8 +252,6 @@ export type UpdateProductInput = {
   websiteURLs?: Array< StringArrayRecordInput > | null,
   stage?: Stage | null,
   businessID?: string | null,
-  color?: Array< StringArrayRecordInput > | null,
-  material?: Array< StringArrayRecordInput > | null,
   photos?: Array< S3ObjectTrackInput > | null,
   videos?: Array< S3ObjectTrackInput > | null,
   certifications?: Array< S3ObjectTrackInput > | null,
@@ -620,16 +616,6 @@ export type CreateBusinessMutation = {
           owner: string | null,
         } | null,
         businessID: string,
-        color:  Array< {
-          __typename: "StringArrayRecord",
-          record: Array< string >,
-          createdAt: string,
-        } >,
-        material:  Array< {
-          __typename: "StringArrayRecord",
-          record: Array< string >,
-          createdAt: string,
-        } >,
         photos:  Array< {
           __typename: "S3ObjectTrack",
           key: string,
@@ -936,16 +922,6 @@ export type UpdateBusinessMutation = {
           owner: string | null,
         } | null,
         businessID: string,
-        color:  Array< {
-          __typename: "StringArrayRecord",
-          record: Array< string >,
-          createdAt: string,
-        } >,
-        material:  Array< {
-          __typename: "StringArrayRecord",
-          record: Array< string >,
-          createdAt: string,
-        } >,
         photos:  Array< {
           __typename: "S3ObjectTrack",
           key: string,
@@ -1252,16 +1228,6 @@ export type DeleteBusinessMutation = {
           owner: string | null,
         } | null,
         businessID: string,
-        color:  Array< {
-          __typename: "StringArrayRecord",
-          record: Array< string >,
-          createdAt: string,
-        } >,
-        material:  Array< {
-          __typename: "StringArrayRecord",
-          record: Array< string >,
-          createdAt: string,
-        } >,
         photos:  Array< {
           __typename: "S3ObjectTrack",
           key: string,
@@ -1511,16 +1477,6 @@ export type CreateEmployeeMutation = {
             owner: string | null,
           } | null,
           businessID: string,
-          color:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
-          material:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
           photos:  Array< {
             __typename: "S3ObjectTrack",
             key: string,
@@ -1774,16 +1730,6 @@ export type UpdateEmployeeMutation = {
             owner: string | null,
           } | null,
           businessID: string,
-          color:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
-          material:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
           photos:  Array< {
             __typename: "S3ObjectTrack",
             key: string,
@@ -2037,16 +1983,6 @@ export type DeleteEmployeeMutation = {
             owner: string | null,
           } | null,
           businessID: string,
-          color:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
-          material:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
           photos:  Array< {
             __typename: "S3ObjectTrack",
             key: string,
@@ -2268,16 +2204,6 @@ export type CreateManagerMutation = {
               owner: string | null,
             } | null,
             businessID: string,
-            color:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
-            material:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
             photos:  Array< {
               __typename: "S3ObjectTrack",
               key: string,
@@ -2470,16 +2396,6 @@ export type UpdateManagerMutation = {
               owner: string | null,
             } | null,
             businessID: string,
-            color:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
-            material:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
             photos:  Array< {
               __typename: "S3ObjectTrack",
               key: string,
@@ -2672,16 +2588,6 @@ export type DeleteManagerMutation = {
               owner: string | null,
             } | null,
             businessID: string,
-            color:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
-            material:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
             photos:  Array< {
               __typename: "S3ObjectTrack",
               key: string,
@@ -2989,16 +2895,6 @@ export type CreateProductMutation = {
             owner: string | null,
           } | null,
           businessID: string,
-          color:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
-          material:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
           photos:  Array< {
             __typename: "S3ObjectTrack",
             key: string,
@@ -3088,16 +2984,6 @@ export type CreateProductMutation = {
       owner: string | null,
     } | null,
     businessID: string,
-    color:  Array< {
-      __typename: "StringArrayRecord",
-      record: Array< string >,
-      createdAt: string,
-    } >,
-    material:  Array< {
-      __typename: "StringArrayRecord",
-      record: Array< string >,
-      createdAt: string,
-    } >,
     photos:  Array< {
       __typename: "S3ObjectTrack",
       key: string,
@@ -3278,16 +3164,6 @@ export type UpdateProductMutation = {
             owner: string | null,
           } | null,
           businessID: string,
-          color:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
-          material:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
           photos:  Array< {
             __typename: "S3ObjectTrack",
             key: string,
@@ -3377,16 +3253,6 @@ export type UpdateProductMutation = {
       owner: string | null,
     } | null,
     businessID: string,
-    color:  Array< {
-      __typename: "StringArrayRecord",
-      record: Array< string >,
-      createdAt: string,
-    } >,
-    material:  Array< {
-      __typename: "StringArrayRecord",
-      record: Array< string >,
-      createdAt: string,
-    } >,
     photos:  Array< {
       __typename: "S3ObjectTrack",
       key: string,
@@ -3567,16 +3433,6 @@ export type DeleteProductMutation = {
             owner: string | null,
           } | null,
           businessID: string,
-          color:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
-          material:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
           photos:  Array< {
             __typename: "S3ObjectTrack",
             key: string,
@@ -3666,16 +3522,6 @@ export type DeleteProductMutation = {
       owner: string | null,
     } | null,
     businessID: string,
-    color:  Array< {
-      __typename: "StringArrayRecord",
-      record: Array< string >,
-      createdAt: string,
-    } >,
-    material:  Array< {
-      __typename: "StringArrayRecord",
-      record: Array< string >,
-      createdAt: string,
-    } >,
     photos:  Array< {
       __typename: "S3ObjectTrack",
       key: string,
@@ -3976,16 +3822,6 @@ export type GetBusinessQuery = {
           owner: string | null,
         } | null,
         businessID: string,
-        color:  Array< {
-          __typename: "StringArrayRecord",
-          record: Array< string >,
-          createdAt: string,
-        } >,
-        material:  Array< {
-          __typename: "StringArrayRecord",
-          record: Array< string >,
-          createdAt: string,
-        } >,
         photos:  Array< {
           __typename: "S3ObjectTrack",
           key: string,
@@ -4235,16 +4071,6 @@ export type ListBusinesssQuery = {
             owner: string | null,
           } | null,
           businessID: string,
-          color:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
-          material:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
           photos:  Array< {
             __typename: "S3ObjectTrack",
             key: string,
@@ -4465,16 +4291,6 @@ export type GetEmployeeQuery = {
             owner: string | null,
           } | null,
           businessID: string,
-          color:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
-          material:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
           photos:  Array< {
             __typename: "S3ObjectTrack",
             key: string,
@@ -4697,16 +4513,6 @@ export type ListEmployeesQuery = {
               owner: string | null,
             } | null,
             businessID: string,
-            color:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
-            material:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
             photos:  Array< {
               __typename: "S3ObjectTrack",
               key: string,
@@ -4915,16 +4721,6 @@ export type GetManagerQuery = {
               owner: string | null,
             } | null,
             businessID: string,
-            color:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
-            material:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
             photos:  Array< {
               __typename: "S3ObjectTrack",
               key: string,
@@ -5257,16 +5053,6 @@ export type GetProductQuery = {
             owner: string | null,
           } | null,
           businessID: string,
-          color:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
-          material:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
           photos:  Array< {
             __typename: "S3ObjectTrack",
             key: string,
@@ -5356,16 +5142,6 @@ export type GetProductQuery = {
       owner: string | null,
     } | null,
     businessID: string,
-    color:  Array< {
-      __typename: "StringArrayRecord",
-      record: Array< string >,
-      createdAt: string,
-    } >,
-    material:  Array< {
-      __typename: "StringArrayRecord",
-      record: Array< string >,
-      createdAt: string,
-    } >,
     photos:  Array< {
       __typename: "S3ObjectTrack",
       key: string,
@@ -5515,16 +5291,6 @@ export type ListProductsQuery = {
               owner: string | null,
             } | null,
             businessID: string,
-            color:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
-            material:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
             photos:  Array< {
               __typename: "S3ObjectTrack",
               key: string,
@@ -5600,16 +5366,6 @@ export type ListProductsQuery = {
         owner: string | null,
       } | null,
       businessID: string,
-      color:  Array< {
-        __typename: "StringArrayRecord",
-        record: Array< string >,
-        createdAt: string,
-      } >,
-      material:  Array< {
-        __typename: "StringArrayRecord",
-        record: Array< string >,
-        createdAt: string,
-      } >,
       photos:  Array< {
         __typename: "S3ObjectTrack",
         key: string,
@@ -5836,16 +5592,6 @@ export type ByManagerAndCompanyQuery = {
             owner: string | null,
           } | null,
           businessID: string,
-          color:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
-          material:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
           photos:  Array< {
             __typename: "S3ObjectTrack",
             key: string,
@@ -6038,16 +5784,6 @@ export type EmployeeByBusinessAndNameQuery = {
               owner: string | null,
             } | null,
             businessID: string,
-            color:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
-            material:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
             photos:  Array< {
               __typename: "S3ObjectTrack",
               key: string,
@@ -6277,16 +6013,6 @@ export type ByBusinessQuery = {
               owner: string | null,
             } | null,
             businessID: string,
-            color:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
-            material:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
             photos:  Array< {
               __typename: "S3ObjectTrack",
               key: string,
@@ -6362,16 +6088,6 @@ export type ByBusinessQuery = {
         owner: string | null,
       } | null,
       businessID: string,
-      color:  Array< {
-        __typename: "StringArrayRecord",
-        record: Array< string >,
-        createdAt: string,
-      } >,
-      material:  Array< {
-        __typename: "StringArrayRecord",
-        record: Array< string >,
-        createdAt: string,
-      } >,
       photos:  Array< {
         __typename: "S3ObjectTrack",
         key: string,
@@ -6843,16 +6559,6 @@ export type OnCreateBusinessSubscription = {
           owner: string | null,
         } | null,
         businessID: string,
-        color:  Array< {
-          __typename: "StringArrayRecord",
-          record: Array< string >,
-          createdAt: string,
-        } >,
-        material:  Array< {
-          __typename: "StringArrayRecord",
-          record: Array< string >,
-          createdAt: string,
-        } >,
         photos:  Array< {
           __typename: "S3ObjectTrack",
           key: string,
@@ -7154,16 +6860,6 @@ export type OnUpdateBusinessSubscription = {
           owner: string | null,
         } | null,
         businessID: string,
-        color:  Array< {
-          __typename: "StringArrayRecord",
-          record: Array< string >,
-          createdAt: string,
-        } >,
-        material:  Array< {
-          __typename: "StringArrayRecord",
-          record: Array< string >,
-          createdAt: string,
-        } >,
         photos:  Array< {
           __typename: "S3ObjectTrack",
           key: string,
@@ -7465,16 +7161,6 @@ export type OnDeleteBusinessSubscription = {
           owner: string | null,
         } | null,
         businessID: string,
-        color:  Array< {
-          __typename: "StringArrayRecord",
-          record: Array< string >,
-          createdAt: string,
-        } >,
-        material:  Array< {
-          __typename: "StringArrayRecord",
-          record: Array< string >,
-          createdAt: string,
-        } >,
         photos:  Array< {
           __typename: "S3ObjectTrack",
           key: string,
@@ -7719,16 +7405,6 @@ export type OnCreateEmployeeSubscription = {
             owner: string | null,
           } | null,
           businessID: string,
-          color:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
-          material:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
           photos:  Array< {
             __typename: "S3ObjectTrack",
             key: string,
@@ -7977,16 +7653,6 @@ export type OnUpdateEmployeeSubscription = {
             owner: string | null,
           } | null,
           businessID: string,
-          color:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
-          material:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
           photos:  Array< {
             __typename: "S3ObjectTrack",
             key: string,
@@ -8235,16 +7901,6 @@ export type OnDeleteEmployeeSubscription = {
             owner: string | null,
           } | null,
           businessID: string,
-          color:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
-          material:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
           photos:  Array< {
             __typename: "S3ObjectTrack",
             key: string,
@@ -8461,16 +8117,6 @@ export type OnCreateManagerSubscription = {
               owner: string | null,
             } | null,
             businessID: string,
-            color:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
-            material:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
             photos:  Array< {
               __typename: "S3ObjectTrack",
               key: string,
@@ -8658,16 +8304,6 @@ export type OnUpdateManagerSubscription = {
               owner: string | null,
             } | null,
             businessID: string,
-            color:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
-            material:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
             photos:  Array< {
               __typename: "S3ObjectTrack",
               key: string,
@@ -8855,16 +8491,6 @@ export type OnDeleteManagerSubscription = {
               owner: string | null,
             } | null,
             businessID: string,
-            color:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
-            material:  Array< {
-              __typename: "StringArrayRecord",
-              record: Array< string >,
-              createdAt: string,
-            } >,
             photos:  Array< {
               __typename: "S3ObjectTrack",
               key: string,
@@ -9101,16 +8727,6 @@ export type OnCreateProductSubscription = {
             owner: string | null,
           } | null,
           businessID: string,
-          color:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
-          material:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
           photos:  Array< {
             __typename: "S3ObjectTrack",
             key: string,
@@ -9200,16 +8816,6 @@ export type OnCreateProductSubscription = {
       owner: string | null,
     } | null,
     businessID: string,
-    color:  Array< {
-      __typename: "StringArrayRecord",
-      record: Array< string >,
-      createdAt: string,
-    } >,
-    material:  Array< {
-      __typename: "StringArrayRecord",
-      record: Array< string >,
-      createdAt: string,
-    } >,
     photos:  Array< {
       __typename: "S3ObjectTrack",
       key: string,
@@ -9385,16 +8991,6 @@ export type OnUpdateProductSubscription = {
             owner: string | null,
           } | null,
           businessID: string,
-          color:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
-          material:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
           photos:  Array< {
             __typename: "S3ObjectTrack",
             key: string,
@@ -9484,16 +9080,6 @@ export type OnUpdateProductSubscription = {
       owner: string | null,
     } | null,
     businessID: string,
-    color:  Array< {
-      __typename: "StringArrayRecord",
-      record: Array< string >,
-      createdAt: string,
-    } >,
-    material:  Array< {
-      __typename: "StringArrayRecord",
-      record: Array< string >,
-      createdAt: string,
-    } >,
     photos:  Array< {
       __typename: "S3ObjectTrack",
       key: string,
@@ -9669,16 +9255,6 @@ export type OnDeleteProductSubscription = {
             owner: string | null,
           } | null,
           businessID: string,
-          color:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
-          material:  Array< {
-            __typename: "StringArrayRecord",
-            record: Array< string >,
-            createdAt: string,
-          } >,
           photos:  Array< {
             __typename: "S3ObjectTrack",
             key: string,
@@ -9768,16 +9344,6 @@ export type OnDeleteProductSubscription = {
       owner: string | null,
     } | null,
     businessID: string,
-    color:  Array< {
-      __typename: "StringArrayRecord",
-      record: Array< string >,
-      createdAt: string,
-    } >,
-    material:  Array< {
-      __typename: "StringArrayRecord",
-      record: Array< string >,
-      createdAt: string,
-    } >,
     photos:  Array< {
       __typename: "S3ObjectTrack",
       key: string,
