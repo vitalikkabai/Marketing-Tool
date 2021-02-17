@@ -1,17 +1,18 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {PropsFromRedux} from './AddProductContainer';
-import {Box, FormControl, Grid, InputLabel, MenuItem, Typography} from '@material-ui/core';
+import {Box, CircularProgress, FormControl, Grid, InputLabel, MenuItem, Typography} from '@material-ui/core';
 import classes from './AddProduct.module.scss';
 import ChatContainer from '../../Chat/ChatContainer';
 import CustomButton from '../../common/Button/CustomButton';
 import CustomInput from '../../common/Input/CustomInput';
 import Dropzone from '../../common/Dropzone/Dropzone';
-import StepCounter from '../../common/StepCounter/StepCounter';
 import GoBackButton from '../../common/Button/GoBackButton';
 import {useHistory} from 'react-router';
 import WebLink from "../../common/webLink/webLink";
 import CustomSelect from "../../common/Select/CustomSelect";
 import CustomLabel from "../../common/CustomLabel/CustomLabel";
+import moment from "moment";
+import {Stage} from "../../../API";
 
 const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
     const history = useHistory();
@@ -35,7 +36,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
             name: 'ITEM_NAME',
         },
         release: {
-            value: "",
+            value: moment(new Date()).format("YYYY-MM-DD"),
             touched: false,
             error: false,
             errorText: '',
@@ -143,6 +144,44 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
         });
     };
 
+    const saveInputData = () => {
+        const currentTime = moment().format();
+        props.setProductInfo({
+            itemNumber: [{value: Number(inputValue.itemNumber.value), createdAt: currentTime}],
+            itemName: [{value: inputValue.itemName.value, createdAt: currentTime}],
+            release: moment(inputValue.release.value).format(),
+            websiteURLs: [{record: URLs, createdAt: currentTime}],
+            stage: Stage.PRODUCTS,
+            businessID: props.businessID ? props.businessID : "",
+            photos: [{
+                key: "",
+                createdAt: currentTime,
+                deleted: false,
+            }],
+            videos: [{
+                key: "",
+                createdAt: currentTime,
+                deleted: false,
+            }],
+            certifications: [{
+                key: "",
+                createdAt: currentTime,
+                deleted: false,
+            }],
+            marketingMaterials: [{
+                key: "",
+                createdAt: currentTime,
+                deleted: false,
+            }]
+        });
+    };
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        saveInputData();
+        props.createProduct(()=>history.push("/products"));
+    }
+
     return (
         <Grid container className={classes.dashboard}>
             <Box className={classes.todoTitleBox}>
@@ -154,7 +193,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                 <GoBackButton onClick={() => history.push('/products')}/>
                 <Grid item className={classes.contentBlockBox} xs={8} xl={9}>
                     <Box className={classes.whiteBox}/>
-                    <form className={classes.addProductForm}>
+                    <form className={classes.addProductForm} onSubmit={handleSubmit}>
                         <Grid container className={classes.formContent}>
                             <Grid item xs={12} className={classes.formInputs}>
                                 <Grid
@@ -168,6 +207,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                         }}>
                                         <CustomInput
                                             label={'Item №'}
+                                            type={"number"}
                                             value={inputValue.itemNumber.value}
                                             onChange={(
                                                 event: React.ChangeEvent<| HTMLTextAreaElement
@@ -205,15 +245,18 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                         <CustomInput
                                             label={'Release'}
                                             fullWidth
+                                            type={"date"}
                                             value={inputValue.release.value}
                                             onChange={(
                                                 event: React.ChangeEvent<| HTMLTextAreaElement
                                                     | HTMLInputElement>
-                                            ) =>
+                                            ) => {
+                                                console.log(moment(event.target.value).format("L"))
                                                 handleInput(
                                                     event.target.value,
                                                     'RELEASE'
                                                 )
+                                            }
                                             }
                                         />
                                     </Box>
@@ -379,12 +422,24 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 item
                                 container
                                 xs={12}
-                                className={classes.nextButtonBox}>
-                                <CustomButton
-                                    type={'submit'}
-                                    text={'Save'}
-                                    borderRadius={'10px'}
-                                />
+                                className={classes.nextButtonContainer}>
+                                <Box className={classes.nextButtonBox}>
+                                    <CustomButton
+                                        type={'submit'}
+                                        text={props.isPending ? '' : 'Save'}
+                                        borderRadius={'10px'}
+                                        className={
+                                            props.isPending ? classes.disabledBtn : ''
+                                        }
+                                    />
+                                    {props.isPending && (
+                                        <CircularProgress
+                                            size={24}
+                                            className={classes.buttonProgress}
+                                            color="secondary"
+                                        />
+                                    )}
+                                </Box>
                             </Grid>
                         </Grid>
                     </form>

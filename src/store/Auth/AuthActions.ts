@@ -17,7 +17,8 @@ export const signInSuccess = (userAttributes: UserAttributes) => ({
 });
 
 export const afterSignOut = () => ({
-    type: 'AFTER_LOGOUT' as const
+    type: 'AFTER_LOGOUT' as const,
+    payload: {}
 })
 
 export type errorType = {

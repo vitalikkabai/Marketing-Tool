@@ -1,18 +1,21 @@
 import AddProduct from './AddProduct';
 import { connect, ConnectedProps } from 'react-redux';
 import { AppStateType } from '../../../store/store';
-import { signOut } from '../../../store/Auth/AuthActions';
 import { Dispatch } from 'redux';
+import {createProduct, setProductInfo} from "../../../store/Product/ProductActions";
+import {CreateProductInput} from "../../../API";
 
 function mapStateToProps(state: AppStateType) {
     return {
-        isAuth: state.AuthReducer.isAuth,
+        businessID: state.BusinessReducer.id,
+        isPending: state.ProductReducer.isPending
     };
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
     return {
-        signOut: () => dispatch(signOut()),
+        setProductInfo: (product: CreateProductInput) => dispatch(setProductInfo(product)),
+        createProduct: (callback: () => void) => dispatch(createProduct(callback)),
     };
 }
 
