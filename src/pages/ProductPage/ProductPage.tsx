@@ -8,10 +8,27 @@ import ProductCat from '../../assets/images/ProductCat.png';
 import { ReactComponent as PlusSVG } from '../../assets/images/formPlus.svg';
 import { useHistory } from 'react-router';
 import StepCounter from './../../components/common/StepCounter/StepCounter';
-// @ts-ignore
-import VideoThumbnail from 'react-video-thumbnail';
+import ProductItem from "../../components/Product/ProductItem/ProductItem";
+
 
 const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
+    const itemsData = [
+        {id: 1, itemName:"Hammer", itemNumber: 228, stage: 2},
+        {id: 2, itemName:"Cup", itemNumber: 341, stage: 3},
+        {id: 3, itemName:"Computer", itemNumber: 134, stage: 5},
+        {id: 4, itemName:"Pants", itemNumber: 765, stage: 2},
+        {id: 5, itemName:"Bomb", itemNumber: 612, stage: 2},
+        {id: 6, itemName:"Fork", itemNumber: 415, stage: 4},
+        {id: 7, itemName:"Keyboard", itemNumber: 123, stage: 2},
+        {id: 6, itemName:"Knife", itemNumber: 666, stage: 6},
+    ]
+
+    const Products = itemsData.map((el) => (
+        <Grid key={el.id} item lg={6} xl={4} className={classes.productItem}>
+            <ProductItem itemName={el.itemName} itemNumber={el.itemNumber} stepNumber={el.stage}/>
+        </Grid>
+    ));
+
     const [value, setValue] = React.useState(0);
     const history = useHistory();
     return (
@@ -45,30 +62,8 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                         index={0}
                         value={value}
                     >
-                        <Grid item xs={12} className={classes.taskContainer}>
-                            <Box
-                                marginTop={'57px'}
-                                textAlign={'center'}
-                                className={classes.tasksTitle}
-                            >
-                                <Typography
-                                    variant={'body2'}
-                                    style={{ textTransform: 'uppercase' }}
-                                >
-                                    This page is not ready yet
-                                </Typography>
-                            </Box>
-                            <Box
-                                textAlign={'center'}
-                                justifyContent={'center'}
-                                alignItems={'center'}
-                            >
-                                <StepCounter
-                                    className={classes.stepLine}
-                                    completedStep={1}
-                                    stepNumber={1}
-                                />
-                            </Box>
+                        <Grid item container xs={12} className={classes.productItems}>
+                            {Products}
                         </Grid>
                     </TabPanel>
 

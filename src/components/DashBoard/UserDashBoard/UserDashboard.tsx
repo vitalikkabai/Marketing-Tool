@@ -6,7 +6,7 @@ import classes from './UserDashboard.module.scss';
 import TabPanel from '../../common/TabPanel/TabPanel';
 import Blob from '../../../assets/images/Blob.png';
 import CustomAppBar from '../../common/TabPanel/CustomAppBar';
-import CustomBadge from '../../common/Badge/CustomBadge';
+import CustomBadge from '../../common/Badge/CustomBadge/CustomBadge';
 import team1 from '../../../assets/images/Teammate1.svg';
 import team2 from '../../../assets/images/Teammate2.svg';
 import team3 from '../../../assets/images/Teammate3.svg';

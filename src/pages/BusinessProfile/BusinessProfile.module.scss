@@ -10,7 +10,7 @@
     }
 
     .formContainer {
-        flex: 1 1 auto;
+        height: calc(100vh - 212px);
         background: #fff;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
