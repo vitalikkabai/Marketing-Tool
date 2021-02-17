@@ -8,8 +8,6 @@ const initialState: CreateProductInput = {
     websiteURLs: [{record:[], createdAt: ""}],
     stage: Stage.PRODUCTS,
     businessID: '',
-    color: [{record:[], createdAt: ""}],
-    material: [{record:[], createdAt: ""}],
     photos: [],
     videos: [],
     certifications: [],
