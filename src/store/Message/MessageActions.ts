@@ -18,7 +18,7 @@ export const loadDialogue = () => ({
 });
 
 
-export const loadDialogueSuccess = (dialogue: CreateMessageInput[]) => ({
+export const loadDialogueSuccess = (dialogue: Dialogue) => ({
     type: 'LOAD_DIALOGUE_SUCCESS' as const,
     payload: dialogue,
 });
@@ -57,6 +57,11 @@ export const fetchLastMessagesFailure = () => ({
 export const setInterlocutor = (interlocutor: CreateProfileInput) => ({
     type: 'SET_INTERLOCUTOR' as const,
     payload: interlocutor,
+});
+
+export const setSharedID = (sharedID: string) => ({
+    type: 'SET_SHARED_ID' as const,
+    payload: sharedID,
 });
 
 export const createDialogue = (dialogue: Dialogue) => ({

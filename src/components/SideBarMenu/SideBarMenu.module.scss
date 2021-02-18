@@ -7,6 +7,7 @@ $menuItemColor6: #4A949F;
 $menuItemColor7: #7B1FA2;
 $menuItemColor8: #DA4B7B;
 $menuItemColor9: #EA4335;
+$menuItemDisabled: #000;
 @for $i from 1 through 9 {
   .active#{$i},
   .item#{$i}:hover {
@@ -164,40 +165,4 @@ $menuItemColor9: #EA4335;
   .item9:hover {
     background: $menuItemColor9;
   }
-}
-
-.collapseList1 circle {
-  fill: $menuItemColor1;
-}
-
-.collapseList2 circle {
-  fill: $menuItemColor2;
-}
-
-.collapseList3 circle {
-  fill: $menuItemColor3;
-}
-
-.collapseList4 circle {
-  fill: $menuItemColor4;
-}
-
-.collapseList5 circle {
-  fill: $menuItemColor5;
-}
-
-.collapseList6 circle {
-  fill: $menuItemColor6;
-}
-
-.collapseList7 circle {
-  fill: $menuItemColor7;
-}
-
-.collapseList8 circle {
-  fill: $menuItemColor8;
-}
-
-.collapseList9 circle {
-  fill: $menuItemColor9;
 }

@@ -17,15 +17,6 @@ const VisitorDashboard = () => {
                 <Grid className={classes.titleBox} container item xs={9} xl={9}>
                     <Typography variant={'h2'}>Become a brand</Typography>
                 </Grid>
-                <Grid item xs={4} xl={3} className={classes.teamContainer}>
-                    <Box className={classes.teamAvatarBox}>
-                        <img src={team4} alt={'avatar'} />
-                        <img src={team2} alt={'avatar'} />
-                        <img src={team3} alt={'avatar'} />
-                        <img src={team1} alt={'avatar'} />
-                    </Box>
-                    <Typography color={'primary'}>View team</Typography>
-                </Grid>
             </Box>
             <Box className={classes.contentContainer}>
                 <Grid xs={6} xl={6} item className={classes.videoContentItem}>
@@ -48,22 +39,19 @@ const VisitorDashboard = () => {
                                 <Box marginLeft="13px">
                                     <Typography
                                         color={'primary'}
-                                        variant={'body2'}
-                                    >
+                                        variant={'body2'}>
                                         Steps
                                     </Typography>
                                 </Box>
                                 <Box className={classes.checkJobBox}>
                                     <Typography
                                         color={'primary'}
-                                        variant={'body2'}
-                                    >
+                                        variant={'body2'}>
                                         Your job
                                     </Typography>
                                     <Typography
                                         color={'primary'}
-                                        variant={'body2'}
-                                    >
+                                        variant={'body2'}>
                                         Our job
                                     </Typography>
                                 </Box>
@@ -72,227 +60,234 @@ const VisitorDashboard = () => {
                         <Grid item xs={12} className={classes.stepRow}>
                             <Box
                                 className={classes.coloredBox}
-                                style={{ background: '#FFDC22' }}
-                            >
+                                style={{ background: '#EDCD27' }}>
                                 <Typography
                                     variant={'body2'}
-                                    className={classes.indexNum}
-                                >
+                                    className={classes.indexNum}>
                                     1
                                 </Typography>
                                 <Typography
                                     variant={'body2'}
-                                    style={{ textTransform: 'uppercase' }}
-                                >
+                                    style={{ textTransform: 'uppercase' }}>
                                     Add products
                                 </Typography>
-                                <Box className={classes.counterBox}>
-                                    <Typography
-                                        variant={'body2'}
-                                        className={classes.taskValue}
-                                    >
-                                        <CheckMark />
-                                    </Typography>
-                                    <Box className={classes.vl} />
-                                    <Typography
-                                        variant={'body2'}
-                                        className={classes.taskValue}
-                                    ></Typography>
-                                </Box>
+                            </Box>
+                            <Box
+                                className={
+                                    classes.taskValue + ' ' + classes.leftTask
+                                }
+                                style={{ background: '#EDCD27' }}>
+                                <Typography variant={'subtitle2'}>
+                                    <CheckMark className={classes.checkIcon} />
+                                </Typography>
+                            </Box>
+
+                            <Box
+                                className={
+                                    classes.taskValue + ' ' + classes.rightTask
+                                }
+                                style={{ background: '#EDCD27' }}>
+                                <Typography variant={'subtitle2'}></Typography>
                             </Box>
                         </Grid>
                         <Grid item xs={12} className={classes.stepRow}>
                             <Box
                                 className={classes.coloredBox}
-                                style={{ background: '#FFAB08' }}
-                            >
+                                style={{ background: '#FFAB08' }}>
                                 <Typography
                                     variant={'body2'}
-                                    className={classes.indexNum}
-                                >
+                                    className={classes.indexNum}>
                                     2
                                 </Typography>
                                 <Typography
                                     variant={'body2'}
-                                    style={{ textTransform: 'uppercase' }}
-                                >
+                                    style={{ textTransform: 'uppercase' }}>
                                     Market research
                                 </Typography>
-                                <Box className={classes.counterBox}>
-                                    <Typography
-                                        variant={'body2'}
-                                        className={classes.taskValue}
-                                    ></Typography>
-                                    <Box className={classes.vl} />
-                                    <Typography
-                                        variant={'body2'}
-                                        className={classes.taskValue}
-                                    >
-                                        <CheckMark />
-                                    </Typography>
-                                </Box>
+                            </Box>
+                            <Box
+                                className={
+                                    classes.taskValue + ' ' + classes.leftTask
+                                }
+                                style={{ background: '#FFAB08' }}>
+                                <Typography variant={'subtitle2'}></Typography>
+                            </Box>
+
+                            <Box
+                                className={
+                                    classes.taskValue + ' ' + classes.rightTask
+                                }
+                                style={{ background: '#FFAB08' }}>
+                                <Typography variant={'subtitle2'}>
+                                    <CheckMark className={classes.checkIcon} />
+                                </Typography>
                             </Box>
                         </Grid>
                         <Grid item xs={12} className={classes.stepRow}>
                             <Box
                                 className={classes.coloredBox}
-                                style={{ background: '#EE6B1D' }}
-                            >
+                                style={{ background: '#EE6B1D' }}>
                                 <Typography
                                     variant={'body2'}
-                                    className={classes.indexNum}
-                                >
+                                    className={classes.indexNum}>
                                     3
                                 </Typography>
                                 <Typography
                                     variant={'body2'}
-                                    style={{ textTransform: 'uppercase' }}
-                                >
+                                    style={{ textTransform: 'uppercase' }}>
                                     Brand creation
                                 </Typography>
-                                <Box className={classes.counterBox}>
-                                    <Typography
-                                        variant={'body2'}
-                                        className={classes.taskValue}
-                                    ></Typography>
-                                    <Box className={classes.vl} />
-                                    <Typography
-                                        variant={'body2'}
-                                        className={classes.taskValue}
-                                    >
-                                        <CheckMark />
-                                    </Typography>
-                                </Box>
+                            </Box>
+                            <Box
+                                className={
+                                    classes.taskValue + ' ' + classes.leftTask
+                                }
+                                style={{ background: '#EE6B1D' }}>
+                                <Typography variant={'subtitle2'}></Typography>
+                            </Box>
+
+                            <Box
+                                className={
+                                    classes.taskValue + ' ' + classes.rightTask
+                                }
+                                style={{ background: '#EE6B1D' }}>
+                                <Typography variant={'subtitle2'}>
+                                    <CheckMark className={classes.checkIcon} />
+                                </Typography>
                             </Box>
                         </Grid>
                         <Grid item xs={12} className={classes.stepRow}>
                             <Box
                                 className={classes.coloredBox}
-                                style={{ background: '#43A047' }}
-                            >
+                                style={{ background: '#43A047' }}>
                                 <Typography
                                     variant={'body2'}
-                                    className={classes.indexNum}
-                                >
+                                    className={classes.indexNum}>
                                     3+
                                 </Typography>
                                 <Typography
                                     variant={'body2'}
-                                    style={{ textTransform: 'uppercase' }}
-                                >
+                                    style={{ textTransform: 'uppercase' }}>
                                     Sales channels
                                 </Typography>
-                                <Box className={classes.counterBox}>
-                                    <Typography
-                                        variant={'body2'}
-                                        className={classes.taskValue}
-                                    ></Typography>
-                                    <Box className={classes.vl} />
-                                    <Typography
-                                        variant={'body2'}
-                                        className={classes.taskValue}
-                                    >
-                                        <CheckMark />
-                                    </Typography>
-                                </Box>
+                            </Box>
+                            <Box
+                                className={
+                                    classes.taskValue + ' ' + classes.leftTask
+                                }
+                                style={{ background: '#43A047' }}>
+                                <Typography variant={'subtitle2'}></Typography>
+                            </Box>
+
+                            <Box
+                                className={
+                                    classes.taskValue + ' ' + classes.rightTask
+                                }
+                                style={{ background: '#43A047' }}>
+                                <Typography variant={'subtitle2'}>
+                                    <CheckMark className={classes.checkIcon} />
+                                </Typography>
                             </Box>
                         </Grid>
                         <Grid item xs={12} className={classes.stepRow}>
                             <Box
                                 className={classes.coloredBox}
-                                style={{ background: '#0097A6' }}
-                            >
+                                style={{ background: '#0097A6' }}>
                                 <Typography
                                     variant={'body2'}
-                                    className={classes.indexNum}
-                                >
+                                    className={classes.indexNum}>
                                     5
                                 </Typography>
                                 <Typography
                                     variant={'body2'}
-                                    style={{ textTransform: 'uppercase' }}
-                                >
+                                    style={{ textTransform: 'uppercase' }}>
                                     Customer support
                                 </Typography>
-                                <Box className={classes.counterBox}>
-                                    <Typography
-                                        variant={'body2'}
-                                        className={classes.taskValue}
-                                    ></Typography>
-                                    <Box className={classes.vl} />
-                                    <Typography
-                                        variant={'body2'}
-                                        className={classes.taskValue}
-                                    >
-                                        <CheckMark />
-                                    </Typography>
-                                </Box>
+                            </Box>
+                            <Box
+                                className={
+                                    classes.taskValue + ' ' + classes.leftTask
+                                }
+                                style={{ background: '#0097A6' }}>
+                                <Typography variant={'subtitle2'}> </Typography>
+                            </Box>
+
+                            <Box
+                                className={
+                                    classes.taskValue + ' ' + classes.rightTask
+                                }
+                                style={{ background: '#0097A6' }}>
+                                <Typography variant={'subtitle2'}>
+                                    <CheckMark className={classes.checkIcon} />
+                                </Typography>
                             </Box>
                         </Grid>
                         <Grid item xs={12} className={classes.stepRow}>
                             <Box
                                 className={classes.coloredBox}
-                                style={{ background: '#7B1FA2' }}
-                            >
+                                style={{ background: '#7B1FA2' }}>
                                 <Typography
                                     variant={'body2'}
-                                    className={classes.indexNum}
-                                >
+                                    className={classes.indexNum}>
                                     6
                                 </Typography>
                                 <Typography
                                     variant={'body2'}
-                                    style={{ textTransform: 'uppercase' }}
-                                >
+                                    style={{ textTransform: 'uppercase' }}>
                                     Brand awareness
                                 </Typography>
-                                <Box className={classes.counterBox}>
-                                    <Typography
-                                        variant={'body2'}
-                                        className={classes.taskValue}
-                                    ></Typography>
-                                    <Box className={classes.vl} />
-                                    <Typography
-                                        variant={'body2'}
-                                        className={classes.taskValue}
-                                    >
-                                        <CheckMark />
-                                    </Typography>
-                                </Box>
+                            </Box>
+                            <Box
+                                className={
+                                    classes.taskValue + ' ' + classes.leftTask
+                                }
+                                style={{ background: '#7B1FA2' }}>
+                                <Typography variant={'subtitle2'}> </Typography>
+                            </Box>
+
+                            <Box
+                                className={
+                                    classes.taskValue + ' ' + classes.rightTask
+                                }
+                                style={{ background: '#7B1FA2' }}>
+                                <Typography variant={'subtitle2'}>
+                                    <CheckMark className={classes.checkIcon} />
+                                </Typography>
                             </Box>
                         </Grid>
                         <Grid item xs={12} className={classes.stepRow}>
                             <Box
                                 className={classes.coloredBox}
-                                style={{ background: '#C2185B' }}
-                            >
+                                style={{ background: '#C2185B' }}>
                                 <Typography
                                     variant={'body2'}
-                                    className={classes.indexNum}
-                                >
+                                    className={classes.indexNum}>
                                     7
                                 </Typography>
                                 <Typography
                                     variant={'body2'}
-                                    style={{ textTransform: 'uppercase' }}
-                                >
+                                    style={{ textTransform: 'uppercase' }}>
                                     Sales
                                 </Typography>
-                                <Box className={classes.counterBox}>
-                                    <Typography
-                                        variant={'body2'}
-                                        className={classes.taskValue}
-                                    >
-                                        <CheckMark />
-                                    </Typography>
-                                    <Box className={classes.vl} />
-                                    <Typography
-                                        variant={'body2'}
-                                        className={classes.taskValue}
-                                    >
-                                        <CheckMark />
-                                    </Typography>
-                                </Box>
+                            </Box>
+                            <Box
+                                className={
+                                    classes.taskValue + ' ' + classes.leftTask
+                                }
+                                style={{ background: '#C2185B' }}>
+                                <Typography variant={'subtitle2'}>
+                                    <CheckMark className={classes.checkIcon} />
+                                </Typography>
+                            </Box>
+
+                            <Box
+                                className={
+                                    classes.taskValue + ' ' + classes.rightTask
+                                }
+                                style={{ background: '#C2185B' }}>
+                                <Typography variant={'subtitle2'}>
+                                    <CheckMark className={classes.checkIcon} />
+                                </Typography>
                             </Box>
                         </Grid>
                         <Grid item xs={12} className={classes.stepRow}>
@@ -301,35 +296,36 @@ const VisitorDashboard = () => {
                                 style={{
                                     background: '#EA4335',
                                     textTransform: 'uppercase',
-                                }}
-                            >
+                                }}>
                                 <Typography
                                     variant={'body2'}
-                                    className={classes.indexNum}
-                                >
+                                    className={classes.indexNum}>
                                     8
                                 </Typography>
                                 <Typography
                                     variant={'body2'}
-                                    style={{ textTransform: 'uppercase' }}
-                                >
+                                    style={{ textTransform: 'uppercase' }}>
                                     Improvements
                                 </Typography>
-                                <Box className={classes.counterBox}>
-                                    <Typography
-                                        variant={'body2'}
-                                        className={classes.taskValue}
-                                    >
-                                        <CheckMark />
-                                    </Typography>
-                                    <Box className={classes.vl} />
-                                    <Typography
-                                        variant={'body2'}
-                                        className={classes.taskValue}
-                                    >
-                                        <CheckMark />
-                                    </Typography>
-                                </Box>
+                            </Box>
+                            <Box
+                                className={
+                                    classes.taskValue + ' ' + classes.leftTask
+                                }
+                                style={{ background: '#EA4335' }}>
+                                <Typography variant={'subtitle2'}>
+                                    <CheckMark className={classes.checkIcon} />
+                                </Typography>
+                            </Box>
+
+                            <Box
+                                className={
+                                    classes.taskValue + ' ' + classes.rightTask
+                                }
+                                style={{ background: '#EA4335' }}>
+                                <Typography variant={'subtitle2'}>
+                                    <CheckMark className={classes.checkIcon} />
+                                </Typography>
                             </Box>
                         </Grid>
                     </Box>

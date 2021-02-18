@@ -19,7 +19,7 @@ const CustomBadge: React.FunctionComponent<PropTypes> = (props) => {
             background: '#EA4335',
             color: '#fff',
             position: 'absolute',
-            zIndex: 10000,
+            zIndex: 100,
         },
     });
 
@@ -29,8 +29,7 @@ const CustomBadge: React.FunctionComponent<PropTypes> = (props) => {
         <Badge
             badgeContent={props.badgeCount}
             classes={{ badge: classes.badge }}
-            className={styles.circleRipple}
-        >
+            className={styles.circleRipple}>
             <img src={ToDoIcon} alt="ToDoIcon" />
         </Badge>
     );

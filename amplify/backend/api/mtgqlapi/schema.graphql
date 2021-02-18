@@ -72,8 +72,8 @@ type Product @model
   videos: [S3ObjectTrack!]!
   certifications: [S3ObjectTrack!]!
   marketingMaterials: [S3ObjectTrack!]!
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
 }
 
 type IntRecord {
