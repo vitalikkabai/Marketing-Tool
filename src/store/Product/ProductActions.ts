@@ -15,7 +15,6 @@ export const createProductFailed = (productData: CreateProductInput) => ({
     payload: productData,
 });
 
-
 export const updateProduct = (productData: UpdateProductInput) => ({
     type: 'UPDATE_PRODUCT' as const,
     payload: productData,
@@ -24,4 +23,17 @@ export const updateProduct = (productData: UpdateProductInput) => ({
 export const setProductInfo = (productData: CreateProductInput) => ({
     type: 'SET_PRODUCT_INFO' as const,
     payload: productData,
+});
+
+export const getProductList = () => ({
+    type: 'GET_PRODUCT_LIST_REQUEST' as const,
+});
+
+export const getProductListSuccess = (productList: CreateProductInput[]) => ({
+    type: 'GET_PRODUCT_LIST_SUCCESS' as const,
+    payload: productList
+});
+
+export const getProductListFailed = () => ({
+    type: 'GET_PRODUCT_LIST_FAILED' as const,
 });

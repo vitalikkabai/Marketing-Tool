@@ -1,15 +1,13 @@
-import {Epic, ofType} from 'redux-observable';
+import {Epic} from 'redux-observable';
 import {catchError, mergeMap} from 'rxjs/operators';
 import {ActionTypes} from '../storeTypes';
 import {AppStateType} from '../store';
 import {createProduct} from '../../graphql/mutations';
 import {API, graphqlOperation} from 'aws-amplify';
 import {from} from 'rxjs';
-import {createProductFailed, createProductSuccess} from "./ProductActions";
-import moment from "moment";
-import {Stage} from "../../API";
-import {useHistory} from "react-router";
+import {createProductFailed, createProductSuccess, getProductListFailed, getProductListSuccess} from "./ProductActions";
 import {filterAction} from "../../utils/backendUtils";
+import {listProducts} from "../../graphql/queries";
 
 
 
@@ -19,6 +17,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
             filterAction('CREATE_PRODUCT_REQUEST'),
             mergeMap((action) => {
                 const productData = state$.value.ProductReducer.product;
+                console.log(productData)
                 return from(
                     (API.graphql(
                         graphqlOperation(createProduct, {
@@ -35,6 +34,28 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                     catchError((err) => {
                         console.log(err);
                         return [createProductFailed(err)];
+                    })
+                );
+            })
+        ),
+
+    (action$) =>
+        action$.pipe(
+            filterAction('GET_PRODUCT_LIST_REQUEST'),
+            mergeMap(() => {
+                return from(
+                    (API.graphql(
+                        graphqlOperation(listProducts)
+                    ) as unknown) as Promise<any>
+                ).pipe(
+                    mergeMap((res) => {
+                        return [
+                            getProductListSuccess(res.data.listProducts.items),
+                        ];
+                    }),
+                    catchError((err) => {
+                        console.log(err);
+                        return [getProductListFailed()];
                     })
                 );
             })

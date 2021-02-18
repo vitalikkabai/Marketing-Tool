@@ -15,6 +15,7 @@ const initialState = {
         certifications: [],
         marketingMaterials: [],
     } as CreateProductInput,
+    productList: [] as CreateProductInput[],
     isPending: false
 };
 
@@ -45,6 +46,12 @@ export const ProductReducer = (
             return {
                 ...state,
                 isPending: false,
+            };
+        }
+        case 'GET_PRODUCT_LIST_SUCCESS': {
+            return {
+                ...state,
+                productList: action.payload,
             };
         }
         default:

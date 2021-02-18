@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {PropsFromRedux} from './AddProductContainer';
-import {Box, CircularProgress, FormControl, Grid, InputLabel, MenuItem, Typography} from '@material-ui/core';
+import {Box, CircularProgress, FormControl, Grid, MenuItem, Typography} from '@material-ui/core';
 import classes from './AddProduct.module.scss';
 import ChatContainer from '../../Chat/ChatContainer';
 import CustomButton from '../../common/Button/CustomButton';
@@ -13,12 +13,14 @@ import CustomSelect from "../../common/Select/CustomSelect";
 import CustomLabel from "../../common/CustomLabel/CustomLabel";
 import moment from "moment";
 import {Stage} from "../../../API";
+import CustomDatePicker from "../../common/CustomDatePicker/CustomDatePicker";
 
 const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
     const history = useHistory();
     const [urlInput, setUrlInput] = useState('');
     const [URLs, setURLs] = useState<string[]>([]);
     const [urlErrorText, setUrlErrorText] = useState('');
+    const [selectedDate, setSelectedDate] = useState(moment());
     const [inputValue, setInputValue] = useState({
         //For input values
         itemNumber: {
@@ -34,13 +36,6 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
             error: false,
             errorText: '',
             name: 'ITEM_NAME',
-        },
-        release: {
-            value: moment(new Date()).format("YYYY-MM-DD"),
-            touched: false,
-            error: false,
-            errorText: '',
-            name: 'RELEASE',
         },
         tag: {
             value: "",
@@ -98,13 +93,6 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                     currInputValue.itemName.errorText = '';
                     break;
                 }
-                case prevInput.release.name: {
-                    currInputValue.release.value = inputData;
-                    currInputValue.release.touched = true;
-                    currInputValue.release.error = false;
-                    currInputValue.release.errorText = '';
-                    break;
-                }
                 case prevInput.cm.name: {
                     currInputValue.cm.value = inputData;
                     currInputValue.cm.touched = true;
@@ -149,7 +137,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
         props.setProductInfo({
             itemNumber: [{value: Number(inputValue.itemNumber.value), createdAt: currentTime}],
             itemName: [{value: inputValue.itemName.value, createdAt: currentTime}],
-            release: moment(inputValue.release.value).format(),
+            release: selectedDate.format(),
             websiteURLs: [{record: URLs, createdAt: currentTime}],
             stage: Stage.PRODUCTS,
             businessID: props.businessID ? props.businessID : "",
@@ -179,7 +167,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         saveInputData();
-        props.createProduct(()=>history.push("/products"));
+        props.createProduct(() => history.push("/products"));
     }
 
     return (
@@ -242,21 +230,11 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                         />
                                     </Box>
                                     <Box style={{width: '20%'}}>
-                                        <CustomInput
-                                            label={'Release'}
-                                            fullWidth
-                                            type={"date"}
-                                            value={inputValue.release.value}
-                                            onChange={(
-                                                event: React.ChangeEvent<| HTMLTextAreaElement
-                                                    | HTMLInputElement>
-                                            ) => {
-                                                console.log(moment(event.target.value).format("L"))
-                                                handleInput(
-                                                    event.target.value,
-                                                    'RELEASE'
-                                                )
-                                            }
+                                        <CustomDatePicker
+                                            value={selectedDate}
+                                            label={"Release"}
+                                            onChange={
+                                                (date: any) => setSelectedDate(date)
                                             }
                                         />
                                     </Box>
