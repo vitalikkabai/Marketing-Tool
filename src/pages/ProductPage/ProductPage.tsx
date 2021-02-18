@@ -1,33 +1,31 @@
-import React from 'react';
-import { PropsFromRedux } from './ProductPageContainer';
-import { Box, Grid, Tab, Typography } from '@material-ui/core';
+import React, {useEffect} from 'react';
+import {PropsFromRedux} from './ProductPageContainer';
+import {Box, Grid, Tab, Typography} from '@material-ui/core';
 import classes from './ProductPage.module.scss';
 import CustomAppBar from '../../components/common/TabPanel/CustomAppBar';
 import TabPanel from '../../components/common/TabPanel/TabPanel';
 import ProductCat from '../../assets/images/ProductCat.png';
-import { ReactComponent as PlusSVG } from '../../assets/images/formPlus.svg';
-import { useHistory } from 'react-router';
+import {ReactComponent as PlusSVG} from '../../assets/images/formPlus.svg';
+import {useHistory} from 'react-router';
 import StepCounter from './../../components/common/StepCounter/StepCounter';
 import ProductItem from "../../components/Product/ProductItem/ProductItem";
 
 
 const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
-    const itemsData = [
-        {id: 1, itemName:"Hammer", itemNumber: 228, stage: 2},
-        {id: 2, itemName:"Cup", itemNumber: 341, stage: 3},
-        {id: 3, itemName:"Computer", itemNumber: 134, stage: 5},
-        {id: 4, itemName:"Pants", itemNumber: 765, stage: 2},
-        {id: 5, itemName:"Bomb", itemNumber: 612, stage: 2},
-        {id: 6, itemName:"Fork", itemNumber: 415, stage: 4},
-        {id: 7, itemName:"Keyboard", itemNumber: 123, stage: 2},
-        {id: 6, itemName:"Knife", itemNumber: 666, stage: 6},
-    ]
 
-    const Products = itemsData.map((el) => (
-        <Grid key={el.id} item lg={6} xl={4} className={classes.productItem}>
-            <ProductItem itemName={el.itemName} itemNumber={el.itemNumber} stepNumber={el.stage}/>
-        </Grid>
-    ));
+    const Products = [...props.productList].sort((a, b) => String(a.createdAt) < String(b.createdAt) ? 1 : -1).map((el) => {
+            return (
+                <Grid key={el.id} item lg={6} xl={4} className={classes.productItem}>
+                    <ProductItem itemName={el.itemName[0].value} itemNumber={el.itemNumber[0].value} stepNumber={el.stage}
+                    addedAt={el.createdAt}/>
+                </Grid>
+            );
+        }
+    );
+
+    useEffect(() => {
+        props.getProductList();
+    }, [])
 
     const [value, setValue] = React.useState(0);
     const history = useHistory();
@@ -44,7 +42,7 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                         history.push('/products/add-new-product');
                     }}
                 >
-                    <PlusSVG />
+                    <PlusSVG/>
                     <Typography color={'primary'} variant={'button'}>
                         Add product
                     </Typography>
@@ -53,9 +51,9 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
             <Box className={classes.contentContainer}>
                 <Grid item className={classes.contentBox} container xs={12}>
                     <CustomAppBar value={value} setValue={setValue}>
-                        <Tab label="Added" color={'primary'} />
-                        <Tab label="Edited" color={'primary'} />
-                        <Tab label="Sales" color={'primary'} />
+                        <Tab label="Added" color={'primary'}/>
+                        <Tab label="Edited" color={'primary'}/>
+                        <Tab label="Sales" color={'primary'}/>
                     </CustomAppBar>
                     <TabPanel
                         className={classes.tabPanelBox}
@@ -80,7 +78,7 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                             >
                                 <Typography
                                     variant={'body2'}
-                                    style={{ textTransform: 'uppercase' }}
+                                    style={{textTransform: 'uppercase'}}
                                 >
                                     This page is not ready yet
                                 </Typography>
@@ -95,7 +93,7 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                                     completedStep={1}
                                     stepNumber={1}
                                 />
-                                <img src={ProductCat} alt={'image'} />
+                                <img src={ProductCat} alt={'image'}/>
                             </Box>
                         </Grid>
                     </TabPanel>
@@ -112,7 +110,7 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                             >
                                 <Typography
                                     variant={'body2'}
-                                    style={{ textTransform: 'uppercase' }}
+                                    style={{textTransform: 'uppercase'}}
                                 >
                                     This page is not ready yet
                                 </Typography>
@@ -127,7 +125,7 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                                     completedStep={1}
                                     stepNumber={1}
                                 />
-                                <img src={ProductCat} alt={'image'} />
+                                <img src={ProductCat} alt={'image'}/>
                             </Box>
                         </Grid>
                     </TabPanel>

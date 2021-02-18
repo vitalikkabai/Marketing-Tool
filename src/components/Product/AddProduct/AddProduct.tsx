@@ -20,7 +20,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
     const [urlInput, setUrlInput] = useState('');
     const [URLs, setURLs] = useState<string[]>([]);
     const [urlErrorText, setUrlErrorText] = useState('');
-    const [selectedDate, setSelectedDate] = useState(moment());
+    const [selectedDate, setSelectedDate] = useState(null);
     const [inputValue, setInputValue] = useState({
         //For input values
         itemNumber: {
@@ -137,7 +137,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
         props.setProductInfo({
             itemNumber: [{value: Number(inputValue.itemNumber.value), createdAt: currentTime}],
             itemName: [{value: inputValue.itemName.value, createdAt: currentTime}],
-            release: selectedDate.format(),
+            release: moment(selectedDate).format(),
             websiteURLs: [{record: URLs, createdAt: currentTime}],
             stage: Stage.PRODUCTS,
             businessID: props.businessID ? props.businessID : "",
@@ -178,7 +178,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                 </Grid>
             </Box>
             <Box className={classes.contentContainer}>
-                <GoBackButton onClick={() => history.push('/products')}/>
+                <GoBackButton onClick={() =>{saveInputData(); history.push('/products');} }/>
                 <Grid item className={classes.contentBlockBox} xs={8} xl={9}>
                     <Box className={classes.whiteBox}/>
                     <form className={classes.addProductForm} onSubmit={handleSubmit}>

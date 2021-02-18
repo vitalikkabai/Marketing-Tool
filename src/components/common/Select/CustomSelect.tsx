@@ -19,8 +19,13 @@ interface CustomInputProps {
 const CustomSelect: React.FC<CustomInputProps> = (props) => {
     const useStyles = makeStyles({
         root: {
-            padding: '14px 14px',
+            padding: '10px 14px',
             borderRadius: 10,
+            fontFamily: 'Neue Haas Grotesk',
+            fontStyle: 'normal',
+            fontWeight: 'normal',
+            fontSize: '16px',
+            lineHeight: '150%',
             '&.MuiSelect-outlined.MuiSelect-outlined': {
                 paddingRight: '75px',
             },

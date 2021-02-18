@@ -17,7 +17,6 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
             filterAction('CREATE_PRODUCT_REQUEST'),
             mergeMap((action) => {
                 const productData = state$.value.ProductReducer.product;
-                console.log(productData)
                 return from(
                     (API.graphql(
                         graphqlOperation(createProduct, {

@@ -8,6 +8,7 @@ import {CreateProductInput} from "../../../API";
 function mapStateToProps(state: AppStateType) {
     return {
         businessID: state.BusinessReducer.id,
+        product: state.ProductReducer.product,
         isPending: state.ProductReducer.isPending
     };
 }

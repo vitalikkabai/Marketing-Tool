@@ -1,21 +1,25 @@
 import {DatePicker} from "@material-ui/pickers";
-import React from "react";
+import React, {useState} from "react";
 import {createStyles, makeStyles, Theme} from "@material-ui/core";
 import moment from "moment";
 import {MaterialUiPickersDate} from "@material-ui/pickers/typings/date";
 
 type PropsType = {
     error?: boolean
-    value:  moment.Moment
+    value:  moment.Moment | null | undefined
     label: string
     onChange: (date: MaterialUiPickersDate) => void
 }
 
 const CustomDatePicker: React.FC<PropsType> = (props) => {
+    const [focus, setFocus] = useState(false);
     const useStyles = makeStyles((theme: Theme) => createStyles({
         root: {
             "& .MuiInputLabel-outlined.MuiInputLabel-shrink": {
                 transform: "translate(14px, -9px) scale(0.75)"
+            },
+            "& .MuiInputLabel-outlined":{
+                transform: "translate(14px, 12px) scale(1)"
             },
             "& label": {
                 fontFamily: 'Neue Haas Grotesk',
@@ -82,9 +86,13 @@ const CustomDatePicker: React.FC<PropsType> = (props) => {
 
     return <DatePicker
         disableFuture
+        autoOk
+        focused={focus}
         openTo="year"
         fullWidth
         color={"secondary"}
+        onOpen={()=>{setFocus(true)}}
+        onClose={()=>{setFocus(false)}}
         className={classes.root}
         format="DD/MM/yyyy"
         label={props.label}

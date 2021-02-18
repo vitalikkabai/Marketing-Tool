@@ -1,20 +1,9 @@
-import {CreateProductInput, Stage} from '../../API';
+import {CreateProductInput} from '../../API';
 import * as actions from './ProductActions';
 
 export type InitialStateType = typeof initialState;
 const initialState = {
-    product: {
-        itemNumber: [{value: 0, createdAt: ""}],
-        itemName: [{value: "", createdAt: ""}],
-        release: '',
-        websiteURLs: [{record: [], createdAt: ""}],
-        stage: Stage.PRODUCTS,
-        businessID: '',
-        photos: [],
-        videos: [],
-        certifications: [],
-        marketingMaterials: [],
-    } as CreateProductInput,
+    product: {} as CreateProductInput,
     productList: [] as CreateProductInput[],
     isPending: false
 };
