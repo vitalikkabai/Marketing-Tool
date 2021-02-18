@@ -6,6 +6,7 @@ import Chat from './Chat';
 import { CreateMessageInput, CreateProfileInput, Stage } from '../../API';
 import { clearDialogue, setDialogueSubject, sendMessage } from '../../store/Message/MessageActions';
 import { FunctionComponent } from 'react';
+import { MakeActiveDialogue } from '../../store/Message/MessageReducer';
 
 const ChatContainer: FunctionComponent<ChatProps> = (props) => {
 
@@ -24,8 +25,9 @@ const ChatContainer: FunctionComponent<ChatProps> = (props) => {
 };
 
 const mapStateToProps = (state: AppStateType) => {
+    const getActiveDialogue = MakeActiveDialogue()
     return {
-        messages: state.MessageReducer.messages,
+        messages: getActiveDialogue(state.MessageReducer).messages,
         thisProfile: state.ProfileReducer.profile,
         avatarURL: state.ProfileReducer.avatarURL,
         interlocutor: state.MessageReducer.interlocutor,

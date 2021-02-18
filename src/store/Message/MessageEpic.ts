@@ -1,7 +1,7 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
     UpdateMessageInput,
-    OnUpdateDialogueMessageSubscriptionVariables,
+    OnUpdateMessageSubscriptionVariables,
 } from './../../API';
 import { createMessage, updateMessage } from './../../graphql/mutations';
 
@@ -36,7 +36,7 @@ import { from } from 'rxjs';
 import { getConversation } from '../../graphql/queries';
 import { CreateMessageInput, GetConversationQueryVariables, MessageStatus } from '../../API';
 import { filterAction, getSharedIndex } from '../../utils/backendUtils';
-import { onCreateMessage, onUpdateDialogueMessage } from '../../graphql/subscriptions';
+import { onCreateMessage, onUpdateMessage } from '../../graphql/subscriptions';
 
 export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
     (action$): Observable<ActionTypes> =>
@@ -209,16 +209,15 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
             switchMap(() => {
                 if (!state$.value.MessageReducer.interlocutor) throw 'no interlocutor';
                 console.log('onMess updaged',state$.value.ProfileReducer.profile.id,state$.value.MessageReducer.interlocutor.id)
-                const params: OnUpdateDialogueMessageSubscriptionVariables = {
+                const params: OnUpdateMessageSubscriptionVariables = {
                     senderID: state$.value.ProfileReducer.profile.id,
-                    receiverID: state$.value.MessageReducer.interlocutor.id,
                 };
                 const onUpdateMessageObservable = (API.graphql(
-                    graphqlOperation(onUpdateDialogueMessage, params)
+                    graphqlOperation(onUpdateMessage, params)
                 ) as unknown) as Observable<any>;
                 const onUpdateMessageSubscription = onUpdateMessageObservable.subscribe((mes) => {
                     console.log('message updated by subscription', mes);
-                    messageUpdatedSubject.next(getUpdatedMessage(mes.value.data.onUpdateDialogueMessage));
+                    messageUpdatedSubject.next(getUpdatedMessage(mes.value.data.onUpdateMessage));
                 });
                 const messageUpdatedSubject = new BehaviorSubject<ActionTypes>(
                     subscribeOnMessageUpdatedSuccess(onUpdateMessageSubscription)

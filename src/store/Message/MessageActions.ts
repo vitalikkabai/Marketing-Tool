@@ -2,6 +2,7 @@
 
 import { Subscription } from 'rxjs';
 import { CreateMessageInput, CreateProfileInput, Stage } from '../../API';
+import { Dialogue } from './MessageReducer';
 
 export const setDialogueSubject = (stage: Stage, subjectID: string) => ({
     type: 'SET_DIALOGUE_SUBJECT' as const,
@@ -56,6 +57,11 @@ export const fetchLastMessagesFailure = () => ({
 export const setInterlocutor = (interlocutor: CreateProfileInput) => ({
     type: 'SET_INTERLOCUTOR' as const,
     payload: interlocutor,
+});
+
+export const createDialogue = (dialogue: Dialogue) => ({
+    type: 'CREATE_DIALOGUE' as const,
+    payload: dialogue,
 });
 
 export const subscribeOnMessageCreated = () => ({
