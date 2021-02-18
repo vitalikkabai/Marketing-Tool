@@ -206,6 +206,8 @@ export type CreateProductInput = {
   videos: Array< S3ObjectTrackInput >,
   certifications: Array< S3ObjectTrackInput >,
   marketingMaterials: Array< S3ObjectTrackInput >,
+  createdAt?: string | null,
+  updatedAt?: string | null,
 };
 
 export type IntRecordInput = {
@@ -234,6 +236,8 @@ export type ModelProductConditionInput = {
   release?: ModelStringInput | null,
   stage?: ModelStageInput | null,
   businessID?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelProductConditionInput | null > | null,
   or?: Array< ModelProductConditionInput | null > | null,
   not?: ModelProductConditionInput | null,
@@ -256,6 +260,8 @@ export type UpdateProductInput = {
   videos?: Array< S3ObjectTrackInput > | null,
   certifications?: Array< S3ObjectTrackInput > | null,
   marketingMaterials?: Array< S3ObjectTrackInput > | null,
+  createdAt?: string | null,
+  updatedAt?: string | null,
 };
 
 export type DeleteProductInput = {
@@ -353,6 +359,8 @@ export type ModelProductFilterInput = {
   release?: ModelStringInput | null,
   stage?: ModelStageInput | null,
   businessID?: ModelIDInput | null,
+  createdAt?: ModelStringInput | null,
+  updatedAt?: ModelStringInput | null,
   and?: Array< ModelProductFilterInput | null > | null,
   or?: Array< ModelProductFilterInput | null > | null,
   not?: ModelProductFilterInput | null,
@@ -6303,13 +6311,12 @@ export type OnCreateMessageSubscription = {
   } | null,
 };
 
-export type OnUpdateDialogueMessageSubscriptionVariables = {
-  receiverID?: string | null,
+export type OnUpdateMessageSubscriptionVariables = {
   senderID?: string | null,
 };
 
-export type OnUpdateDialogueMessageSubscription = {
-  onUpdateDialogueMessage:  {
+export type OnUpdateMessageSubscription = {
+  onUpdateMessage:  {
     __typename: "Message",
     id: string,
     stage: Stage,
@@ -6331,33 +6338,11 @@ export type OnUpdateDialogueMessageSubscription = {
 };
 
 export type OnDeleteMessageSubscriptionVariables = {
-  id?: string | null,
+  receiverID?: string | null,
 };
 
 export type OnDeleteMessageSubscription = {
   onDeleteMessage:  {
-    __typename: "Message",
-    id: string,
-    stage: Stage,
-    subjectID: string,
-    senderID: string,
-    receiverID: string,
-    sharedID: string,
-    content: string,
-    status: MessageStatus,
-    attachment:  {
-      __typename: "S3Object",
-      bucket: string,
-      region: string,
-      key: string,
-    } | null,
-    createdAt: string | null,
-    updatedAt: string | null,
-  } | null,
-};
-
-export type OnEraseMessageSubscription = {
-  onEraseMessage:  {
     __typename: "Message",
     id: string,
     stage: Stage,

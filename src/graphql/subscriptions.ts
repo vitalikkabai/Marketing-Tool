@@ -23,9 +23,9 @@ export const onCreateMessage = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateDialogueMessage = /* GraphQL */ `
-  subscription OnUpdateDialogueMessage($receiverID: ID, $senderID: ID) {
-    onUpdateDialogueMessage(receiverID: $receiverID, senderID: $senderID) {
+export const onUpdateMessage = /* GraphQL */ `
+  subscription OnUpdateMessage($senderID: ID) {
+    onUpdateMessage(senderID: $senderID) {
       id
       stage
       subjectID
@@ -45,29 +45,8 @@ export const onUpdateDialogueMessage = /* GraphQL */ `
   }
 `;
 export const onDeleteMessage = /* GraphQL */ `
-  subscription OnDeleteMessage($id: ID) {
-    onDeleteMessage(id: $id) {
-      id
-      stage
-      subjectID
-      senderID
-      receiverID
-      sharedID
-      content
-      status
-      attachment {
-        bucket
-        region
-        key
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onEraseMessage = /* GraphQL */ `
-  subscription OnEraseMessage {
-    onEraseMessage {
+  subscription OnDeleteMessage($receiverID: ID) {
+    onDeleteMessage(receiverID: $receiverID) {
       id
       stage
       subjectID
