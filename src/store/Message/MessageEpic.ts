@@ -1,45 +1,49 @@
-import { UpdateMessageInput } from './../../API';
+import { BehaviorSubject, Observable } from 'rxjs';
+import {
+    UpdateMessageInput,
+    OnUpdateMessageSubscriptionVariables,
+} from './../../API';
 import { createMessage, updateMessage } from './../../graphql/mutations';
 
 import { Epic } from 'redux-observable';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import {
     sendMessageSuccess,
     sendMessageFailure,
-    openDialogueSuccess,
-    openDialogueFailure,
+    loadDialogueSuccess,
+    loadDialogueFailure,
     getRecentMessage,
     getUpdatedMessage,
     updateMessageAction,
     updateMessageSuccess,
-    subscribeOnMessageCreated,
     subscribeOnMessageUpdated,
     setInterlocutorAvatarUrl,
     setInterlocutorAvatarUrlFailure,
+    subscribeOnMessageCreatedSuccess,
+    unsubscribeOnMessageCreatedSuccess,
+    unsubscribeOnMessageCreatedFailure,
+    subscribeOnMessageUpdatedSuccess,
+    subscribeOnMessageUpdatedFailure,
+    unsubscribeOnMessageUpdatedFailure,
+    unsubscribeOnMessageUpdatedSuccess,
+    unsubscribeOnMessageUpdated,
+    loadDialogue,
 } from './MessageActions';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
 import { from } from 'rxjs';
 import { getConversation } from '../../graphql/queries';
-import {
-    CreateMessageInput,
-    GetConversationQueryVariables,
-    MessageStatus,
-} from '../../API';
+import { CreateMessageInput, GetConversationQueryVariables, MessageStatus } from '../../API';
 import { filterAction, getSharedIndex } from '../../utils/backendUtils';
 import { onCreateMessage, onUpdateMessage } from '../../graphql/subscriptions';
 
 export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
-    (action$) =>
+    (action$): Observable<ActionTypes> =>
         action$.pipe(
             filterAction('SEND_MESSAGE'),
             mergeMap((action) => {
                 const message: CreateMessageInput = { ...action.payload };
-                message.sharedID = getSharedIndex(
-                    message.senderID,
-                    message.receiverID
-                );
                 message.status = MessageStatus.SENT;
                 return from(
                     (API.graphql(
@@ -56,121 +60,203 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                 );
             })
         ),
+    (action$) =>
+        action$.pipe(
+            // ofType('CHANGE_PASSWORD' || 'CHANGE_PASSWORD_FAILED' || 'sfd'),
+            filterAction('CLEAR_DIALOGUE'),
+            map(() => unsubscribeOnMessageUpdated())
+        ),
+
+    (action$) =>
+        action$.pipe(
+            filterAction('SET_DIALOGUE_SUBJECT', 'SET_INTERLOCUTOR'),
+            switchMap(() => [unsubscribeOnMessageUpdated() ,loadDialogue()])
+        ),
+
     (action$, state$) =>
         action$.pipe(
-            filterAction('OPEN_DIALOGUE'),
-            mergeMap((action) => {
-                const userID = state$.value.ProfileReducer.profile.id;
-                const interlocutorID =
-                    state$.value.MessageReducer.interlocutor.id;
-                if (!userID || !interlocutorID) {
-                    return [openDialogueFailure()];
-                }
-                const params: GetConversationQueryVariables = {
-                    sharedID: getSharedIndex(userID, interlocutorID),
-                    subjectIDStageCreatedAt: {
-                        beginsWith: {
-                            stage: action.payload.stage,
-                            subjectID: action.payload.subjectID,
-                        },
-                    },
-                };
-                return from(
-                    (API.graphql(
-                        graphqlOperation(getConversation, params)
-                    ) as unknown) as Promise<any>
-                ).pipe(
-                    mergeMap((res) => {
-                        const messages: CreateMessageInput[] =
-                            res.data.getConversation.items;
-                        const updateMessageActions: ActionTypes[] = [];
-                        messages.forEach((message) => {
-                            if (
-                                message.receiverID ===
-                                    state$.value.ProfileReducer.profile.id &&
-                                message.status === MessageStatus.SENT
-                            ) {
-                                message.status = MessageStatus.RECEIVED;
-                                updateMessageActions.push(
-                                    updateMessageAction(message)
-                                );
-                            }
-                        });
+            filterAction('LOAD_DIALOGUE'),
+            switchMap(() => {
+                return state$.pipe(
+                    filter(
+                        (state) =>
+                            !!state.MessageReducer.interlocutor && !!state.ProfileReducer.profile.id
+                    ),
+                    take(1),
+                    switchMap((state) => {
+                        if (
+                            !state.MessageReducer.interlocutor ||
+                            !state.MessageReducer.interlocutor.id ||
+                            !state.ProfileReducer.profile.id
+                        )
+                            throw 'no interlocutor';
+                        const userID = state.ProfileReducer.profile.id;
+                        const interlocutorID = state.MessageReducer.interlocutor.id;
+                        const params: GetConversationQueryVariables = {
+                            sharedID: getSharedIndex(userID, interlocutorID),
+                            subjectIDStageCreatedAt: {
+                                beginsWith: {
+                                    stage: state.MessageReducer.stage,
+                                    subjectID: state.MessageReducer.subjectID,
+                                },
+                            },
+                            limit: 7
+                        };
+                        console.log('quering for convo', params, userID, interlocutorID);
+                        return from(
+                            (API.graphql(
+                                graphqlOperation(getConversation, params)
+                            ) as unknown) as Promise<any>
+                        ).pipe(
+                            mergeMap((res) => {
+                                console.log('got convo', res);
+                                const messages: CreateMessageInput[] =
+                                    res.data.getConversation.items;
+                                const updateMessageActions: ActionTypes[] = [];
+                                messages.forEach((message) => {
+                                    if (
+                                        message.receiverID ===
+                                            state$.value.ProfileReducer.profile.id &&
+                                        message.status === MessageStatus.SENT
+                                    ) {
+                                        message.status = MessageStatus.RECEIVED;
+                                        updateMessageActions.push(updateMessageAction(message));
+                                    }
+                                });
 
-                        return [
-                            subscribeOnMessageCreated(),
-                            subscribeOnMessageUpdated(),
-                            openDialogueSuccess(res.data.getConversation.items),
-                            ...updateMessageActions,
-                        ];
-                    }),
-                    catchError((err) => {
-                        console.log(err);
-                        return [openDialogueFailure()];
+                                return [
+                                    subscribeOnMessageUpdated(),
+                                    loadDialogueSuccess(res.data.getConversation.items),
+                                    ...updateMessageActions,
+                                ];
+                            }),
+                            catchError((err) => {
+                                console.log(err);
+                                return [loadDialogueFailure()];
+                            })
+                        );
                     })
                 );
             })
         ),
-    (action$, state$) =>
+    (action$, state$): Observable<ActionTypes> =>
         action$.pipe(
             filterAction('SUBSCRIBE_ON_MESSAGES_CREATED'),
-            mergeMap(() => {
-                return from(
-                    (API.graphql(
-                        graphqlOperation(onCreateMessage, {
-                            receiverID: state$.value.ProfileReducer.profile.id,
-                        })
-                    ) as unknown) as Promise<any>
-                ).pipe(
-                    mergeMap((res) => {
-                        console.log('subscribed message', res);
-                        const message: CreateMessageInput =
-                            res.value.data.onCreateMessage;
-                        if (
-                            message.receiverID ===
-                                state$.value.ProfileReducer.profile.id &&
-                            message.status === MessageStatus.SENT
-                        ) {
-                            message.status = MessageStatus.RECEIVED;
-                            return [
-                                getRecentMessage(message),
-                                updateMessageAction(message),
-                            ];
-                        }
-                        return [getRecentMessage(message)];
-                    }),
-                    catchError((err) => {
-                        console.log(err);
-                        return [sendMessageFailure()];
+            switchMap(() => {
+                return state$.pipe(
+                    filter((state) => !!state.ProfileReducer.profile.id),
+                    take(1),
+                    switchMap(() => {
+                        const createMessageObservable = (API.graphql(
+                            graphqlOperation(onCreateMessage, {
+                                receiverID: state$.value.ProfileReducer.profile.id,
+                            })
+                        ) as unknown) as Observable<any>;
+                        // messageCreatedSubject.unsubscribe()
+                        const createMessageSubscription = createMessageObservable.subscribe(
+                            (res) => {
+
+                                // createdSubscription.unsubscribe()
+                                const message: CreateMessageInput = res.value.data.onCreateMessage;
+                                if (
+                                    message.senderID ===
+                                        state$.value.MessageReducer.interlocutor?.id &&
+                                    message.status === MessageStatus.SENT
+                                ) {
+                                    message.status = MessageStatus.RECEIVED;
+                                    messageCreatedSubject.next(
+                                        // getRecentMessage(message),
+                                        updateMessageAction(message)
+                                    );
+                                    messageCreatedSubject.next(getRecentMessage(message));
+                                }
+                            }
+                        );
+                        const messageCreatedSubject = new BehaviorSubject<ActionTypes>(
+                            subscribeOnMessageCreatedSuccess(createMessageSubscription)
+                        );
+                        return messageCreatedSubject.pipe(
+                            map((res) => {
+                                console.log(res);
+                                return res;
+                            }),
+                            catchError((err) => {
+                                console.log(err);
+                                return [sendMessageFailure()];
+                            })
+                        );
                     })
                 );
             })
         ),
 
-    (action$, state$) =>
+    (action$, state$): Observable<ActionTypes> =>
+        action$.pipe(
+            filterAction('UNSUBSCRIBE_ON_MESSAGES_CREATED'),
+            map(() => {
+                const subscription = state$.value.MessageReducer.createMessageSubscription;
+                if (!subscription) return unsubscribeOnMessageCreatedFailure();
+                else {
+                    subscription.unsubscribe();
+                    return unsubscribeOnMessageCreatedSuccess();
+                }
+            })
+        ),
+
+    (action$, state$): Observable<ActionTypes> =>
         action$.pipe(
             filterAction('SUBSCRIBE_ON_MESSAGE_UPDATED'),
-            mergeMap(() => {
-                const sharedID = getSharedIndex(
-                    state$.value.ProfileReducer.profile.id || '',
-                    state$.value.MessageReducer.interlocutor.id || ''
+            switchMap(() => {
+                if (!state$.value.MessageReducer.interlocutor) throw 'no interlocutor';
+                console.log('onMess updaged',state$.value.ProfileReducer.profile.id,state$.value.MessageReducer.interlocutor.id)
+                const params: OnUpdateMessageSubscriptionVariables = {
+                    senderID: state$.value.ProfileReducer.profile.id,
+                };
+                const onUpdateMessageObservable = (API.graphql(
+                    graphqlOperation(onUpdateMessage, params)
+                ) as unknown) as Observable<any>;
+                const onUpdateMessageSubscription = onUpdateMessageObservable.subscribe((mes) => {
+                    console.log('message updated by subscription', mes);
+                    messageUpdatedSubject.next(getUpdatedMessage(mes.value.data.onUpdateMessage));
+                });
+                const messageUpdatedSubject = new BehaviorSubject<ActionTypes>(
+                    subscribeOnMessageUpdatedSuccess(onUpdateMessageSubscription)
                 );
-                return from(
-                    (API.graphql(
-                        graphqlOperation(onUpdateMessage, { sharedID })
-                    ) as unknown) as Promise<any>
-                ).pipe(
+                return messageUpdatedSubject.pipe(
                     map((res) => {
-                        console.log('message updated', res);
-                        return getUpdatedMessage(
-                            res.value.data.onUpdateMessage
-                        );
+                        console.log(res);
+                        return res;
                     }),
                     catchError((err) => {
                         console.log(err);
-                        return [sendMessageFailure()];
+                        return [subscribeOnMessageUpdatedFailure()];
                     })
                 );
+                // ).pipe(
+                //     map((res) => {
+                //         console.log('message updated', res);
+                //         return getUpdatedMessage(
+                //             res.value.data.onUpdateMessage
+                //         );
+                //     }),
+                //     catchError((err) => {
+                //         console.log(err);
+                //         return [sendMessageFailure()];
+                //     })
+                // );
+            })
+        ),
+
+    (action$, state$): Observable<ActionTypes> =>
+        action$.pipe(
+            filterAction('UNSUBSCRIBE_ON_MESSAGES_UPDATED'),
+            map(() => {
+                const subscription = state$.value.MessageReducer.updateMessageSubscription;
+                if (!subscription) return unsubscribeOnMessageUpdatedFailure();
+                else {
+                    subscription.unsubscribe();
+                    return unsubscribeOnMessageUpdatedSuccess();
+                }
             })
         ),
 
@@ -198,6 +284,8 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
         action$.pipe(
             filterAction('SET_INTERLOCUTOR'),
             mergeMap(() => {
+                if (!state$.value.MessageReducer.interlocutor) throw 'no interlocutor';
+
                 const avatar = state$.value.MessageReducer.interlocutor.avatar;
                 if (!avatar)
                     return [

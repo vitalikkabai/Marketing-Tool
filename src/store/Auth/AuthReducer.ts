@@ -92,6 +92,7 @@ export const AuthReducer = (
             };
 
         case 'AUTH-DATA-FAILED':
+        case 'AFTER_LOGOUT':
             return {
                 ...state,
                 initialized: true,

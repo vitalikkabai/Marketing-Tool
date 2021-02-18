@@ -16,7 +16,7 @@ import { SetStateAction } from 'react';
 import { useTheme } from '@material-ui/core';
 
 const AvatarSection: React.FunctionComponent<{
-    openDialogue: Dispatch<SetStateAction<boolean>>;
+    setDialogueSubject: Dispatch<SetStateAction<boolean>>;
     profile: CreateProfileInput;
     avatarURL: string;
     signOut: () => void;
@@ -106,7 +106,7 @@ const AvatarSection: React.FunctionComponent<{
                                         Staff Accounts
                                     </MenuItem>
                                     <MenuItem
-                                        onClick={() => props.openDialogue(true)}
+                                        onClick={() => props.setDialogueSubject(true)}
                                         style={{ color: '#9E9E9E' }}
                                     >
                                         Log Out

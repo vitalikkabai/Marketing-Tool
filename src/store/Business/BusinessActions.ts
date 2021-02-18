@@ -30,10 +30,6 @@ export const setBusinessName = (businessName: string) => ({
     payload: businessName,
 });
 
-export const clearBusiness = () => ({
-    type: 'CLEAR_BUSINESS' as const,
-});
-
 export const updateBusinessInDB = (businessInput: UpdateBusinessInput) => ({
     type: 'UPDATE_BUSINESS' as const,
     payload: businessInput,

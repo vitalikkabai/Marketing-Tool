@@ -69,6 +69,26 @@
     margin-right: 24px;
     width: 100%;
     height: 100%;
+  }
+  .phoneContainer {
+    position: relative;
+    .flagBox {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      width: 27px;
+      height: 27px;
+      overflow: hidden;
+      border-radius: 50%;
+    }
+    .phoneNumberItem {
+      margin-left: 24px;
+      flex-grow: 1;
+    }
+  }
+  .logOutDialog {
+    height: 553px;
+    width: 600px;
     display: flex;
     flex-direction: column;
     .closeAccountBox {

@@ -15,6 +15,7 @@ import MessageEpics from './Message/MessageEpic';
 import MessageReducer from './Message/MessageReducer';
 import ManagerReducer from './Manager/ManagerReducer';
 import ProductReducer from './Product/ProductReducer';
+import { ActionTypes } from './storeTypes';
 
 const rootEpic = (action$: any, store$: any, dependencies: any) =>
     combineEpics(
@@ -33,7 +34,7 @@ const rootEpic = (action$: any, store$: any, dependencies: any) =>
 
 const epicMiddleware = createEpicMiddleware();
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
     EmployeeReducer,
     BusinessReducer,
     AuthReducer,
@@ -43,7 +44,16 @@ const rootReducer = combineReducers({
     ProductReducer,
 });
 
-type RootReducerType = typeof rootReducer;
+const rootReducer = (state: AppStateType | undefined, action:ActionTypes) => {
+    // when a logout action is dispatched it will reset redux state
+    if (action.type === 'SIGN-OUT-SUCCESS') {
+      state = undefined;
+    }
+  
+    return appReducer(state, action);
+  };
+
+type RootReducerType = typeof appReducer;
 export type AppStateType = ReturnType<RootReducerType>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

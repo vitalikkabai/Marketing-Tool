@@ -12,6 +12,10 @@ import PersonalProfile from './PersonalProfile';
 function mapStateToProps(state: AppStateType) {
     return {
         profile: state.ProfileReducer.profile,
+        employee: {
+            countryCode: state.EmployeeReducer.countryCode,
+            phoneNumber: state.EmployeeReducer.phoneNumber,
+        },
         avatarURL: state.ProfileReducer.avatarURL,
     };
 }

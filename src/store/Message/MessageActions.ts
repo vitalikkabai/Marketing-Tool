@@ -1,19 +1,30 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
+import { Subscription } from 'rxjs';
 import { CreateMessageInput, CreateProfileInput, Stage } from '../../API';
+import { Dialogue } from './MessageReducer';
 
-export const openDialogue = (stage: Stage, subjectID: string) => ({
-    type: 'OPEN_DIALOGUE' as const,
+export const setDialogueSubject = (stage: Stage, subjectID: string) => ({
+    type: 'SET_DIALOGUE_SUBJECT' as const,
     payload: { stage, subjectID },
 });
 
-export const openDialogueSuccess = (dialogue: CreateMessageInput[]) => ({
-    type: 'OPEN_DIALOGUE_SUCCESS' as const,
+export const clearDialogue = () => ({
+    type: 'CLEAR_DIALOGUE' as const,
+});
+
+export const loadDialogue = () => ({
+    type: 'LOAD_DIALOGUE' as const,
+});
+
+
+export const loadDialogueSuccess = (dialogue: CreateMessageInput[]) => ({
+    type: 'LOAD_DIALOGUE_SUCCESS' as const,
     payload: dialogue,
 });
 
-export const openDialogueFailure = () => ({
-    type: 'OPEN_DIALOGUE_FAILURE' as const,
+export const loadDialogueFailure = () => ({
+    type: 'LOAD_DIALOGUE_FAILURE' as const,
 });
 
 export const sendMessage = (message: CreateMessageInput) => ({
@@ -48,12 +59,55 @@ export const setInterlocutor = (interlocutor: CreateProfileInput) => ({
     payload: interlocutor,
 });
 
+export const createDialogue = (dialogue: Dialogue) => ({
+    type: 'CREATE_DIALOGUE' as const,
+    payload: dialogue,
+});
+
 export const subscribeOnMessageCreated = () => ({
     type: 'SUBSCRIBE_ON_MESSAGES_CREATED' as const,
 });
 
+export const subscribeOnMessageCreatedSuccess = (subscription: Subscription) => ({
+    type: 'SUBSCRIBE_ON_MESSAGES_CREATED_SUCCESS' as const,
+    payload: subscription,
+});
+
+export const unsubscribeOnMessageCreated = () => ({
+    type: 'UNSUBSCRIBE_ON_MESSAGES_CREATED' as const,
+});
+
+export const unsubscribeOnMessageCreatedSuccess = () => ({
+    type: 'UNSUBSCRIBE_ON_MESSAGES_CREATED_SUCCESS' as const,
+});
+
+export const unsubscribeOnMessageCreatedFailure = () => ({
+    type: 'UNSUBSCRIBE_ON_MESSAGES_CREATED_FAILURE' as const,
+});
+
 export const subscribeOnMessageUpdated = () => ({
     type: 'SUBSCRIBE_ON_MESSAGE_UPDATED' as const,
+});
+
+export const subscribeOnMessageUpdatedSuccess = (subscription: Subscription) => ({
+    type: 'SUBSCRIBE_ON_MESSAGE_UPDATED_SUCCESS' as const,
+    payload: subscription,
+});
+
+export const unsubscribeOnMessageUpdated = () => ({
+    type: 'UNSUBSCRIBE_ON_MESSAGES_UPDATED' as const,
+});
+
+export const unsubscribeOnMessageUpdatedSuccess = () => ({
+    type: 'UNSUBSCRIBE_ON_MESSAGES_UPDATED_SUCCESS' as const,
+});
+
+export const unsubscribeOnMessageUpdatedFailure = () => ({
+    type: 'UNSUBSCRIBE_ON_MESSAGES_UPDATED_FAILURE' as const,
+});
+
+export const subscribeOnMessageUpdatedFailure = () => ({
+    type: 'SUBSCRIBE_ON_MESSAGES_UPDATED_FAILURE' as const,
 });
 
 // export const subscribeOnUpdatedMessages = (receiverID: string) => ({

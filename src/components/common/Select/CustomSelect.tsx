@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Select } from '@material-ui/core';
+import {makeStyles, Select} from '@material-ui/core';
 import styles from './CustomSelect.module.scss';
 
 interface CustomInputProps {
@@ -9,6 +9,11 @@ interface CustomInputProps {
     ) => void | undefined;
     value?: any;
     items: any;
+    label?: string
+    labelId?: string
+    colored?: boolean
+    error?:boolean
+    color?:string
 }
 
 const CustomSelect: React.FC<CustomInputProps> = (props) => {
@@ -38,6 +43,7 @@ const CustomSelect: React.FC<CustomInputProps> = (props) => {
                 icon: classes.icon,
                 outlined: styles.outlined,
             }}
+            labelId={props.labelId}
             MenuProps={{
                 anchorOrigin: {
                     vertical: 'bottom',
@@ -45,8 +51,10 @@ const CustomSelect: React.FC<CustomInputProps> = (props) => {
                 },
                 getContentAnchorEl: null,
             }}
-            className={styles.selector}
-            style={{ borderRadius: '10px' }}
+            color={"secondary"}
+            label={props.label}
+            className={props.colored || props.value? styles.selector : ""}
+            style={{borderRadius: '10px'}}
             onChange={props.onChange}
             value={props.value}
         >

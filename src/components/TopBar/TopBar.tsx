@@ -114,7 +114,7 @@ const TopBar = (props: PropsFromRedux) => {
                 <Grid item className={classes.personalInfo}>
                     {props.isAuth ? (
                         <AvatarSection
-                            openDialogue={setIsOpen}
+                            setDialogueSubject={setIsOpen}
                             profile={props.profile}
                             avatarURL={props.avatarURL}
                             userAttributes={props.userAttributes}

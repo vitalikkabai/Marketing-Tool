@@ -22,8 +22,6 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                 </Grid>
                 <Grid
                     item
-                    xs={4}
-                    xl={3}
                     className={classes.addProductButton}
                     onClick={() => {
                         history.push('/products/add-new-product');

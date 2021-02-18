@@ -57,10 +57,6 @@ export const ProfileReducer = (
                 ...state,
                 avatarURL: action.payload,
             };
-        case 'CLEAR_PROFILE':
-            return {
-                ...initialState,
-            };
         case 'SET_PROFILE_IMAGE':
         case 'SAVE_PROFILE_TO_DB_FAILED':
         case 'UPDATE_PERSONAL_INFO':

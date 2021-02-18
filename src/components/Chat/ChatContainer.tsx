@@ -4,16 +4,18 @@ import { connect, ConnectedProps } from 'react-redux';
 import { AppStateType } from '../../store/store';
 import Chat from './Chat';
 import { CreateMessageInput, CreateProfileInput, Stage } from '../../API';
-import { openDialogue, sendMessage } from '../../store/Message/MessageActions';
+import { clearDialogue, setDialogueSubject, sendMessage } from '../../store/Message/MessageActions';
 import { FunctionComponent } from 'react';
+import { MakeActiveDialogue } from '../../store/Message/MessageReducer';
 
 const ChatContainer: FunctionComponent<ChatProps> = (props) => {
 
     useEffect(() => {
-        if (props.thisProfile.id && props.interlocutor.id) {
-            props.openDialogue(Stage.UNASSIGNED, 'default');
-        }
-    }, [props.thisProfile,props.interlocutor])
+        // if (props.thisProfile.id && props.interlocutor.id) {
+            props.setDialogueSubject(Stage.UNASSIGNED, 'default');
+        // }
+        return () => {props.clearDialogue()}
+    }, [])
     return (
         <Chat
             {...props}
@@ -23,8 +25,9 @@ const ChatContainer: FunctionComponent<ChatProps> = (props) => {
 };
 
 const mapStateToProps = (state: AppStateType) => {
+    const getActiveDialogue = MakeActiveDialogue()
     return {
-        dialogue: state.MessageReducer.dialogue,
+        messages: getActiveDialogue(state.MessageReducer).messages,
         thisProfile: state.ProfileReducer.profile,
         avatarURL: state.ProfileReducer.avatarURL,
         interlocutor: state.MessageReducer.interlocutor,
@@ -36,8 +39,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
         sendMessage: (message: CreateMessageInput) =>
             dispatch(sendMessage(message)),
-        openDialogue: (stage: Stage, productID: string) =>
-            dispatch(openDialogue(stage, productID)),
+        setDialogueSubject: (stage: Stage, productID: string) =>
+            dispatch(setDialogueSubject(stage, productID)),
+        clearDialogue: () => dispatch(clearDialogue())
     };
 };
 

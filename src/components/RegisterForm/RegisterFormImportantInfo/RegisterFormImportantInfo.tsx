@@ -524,48 +524,6 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                                                         );
                                                     else return option.phone;
                                                 }}
-                                                /*onInputChange={(event: Record<string, unknown>, newInputValue: string, reason: string) => {
-                                                    debugger
-                                                    if (newInputValue.length === 0) {
-                                                        setInputValue(
-                                                            prevStyle => ({
-                                                                ...prevStyle,
-                                                                countryCode: {
-                                                                    ...prevStyle.countryCode,
-                                                                    value: {...prevStyle.countryCode.value, code: ""}
-                                                                }
-                                                            }))
-                                                        setFlagCode("");
-                                                    } else if (newInputValue === ("+" + inputValue.countryCode.value.phone))
-                                                        setInputValue(
-                                                            prevStyle => ({
-                                                                ...prevStyle,
-                                                                countryCode: {
-                                                                    ...prevStyle.countryCode,
-                                                                    value: {
-                                                                        ...prevStyle.countryCode.value,
-                                                                        code: flagCode
-                                                                    }
-                                                                }
-                                                            }))
-                                                    else if (reason === "reset") setInputValue(
-                                                        prevStyle => ({
-                                                            ...prevStyle,
-                                                            countryCode: {
-                                                                ...prevStyle.countryCode,
-                                                                value: {...prevStyle.countryCode.value, code: flagCode}
-                                                            }
-                                                        }))
-                                                    else
-                                                        setInputValue(
-                                                            prevStyle => ({
-                                                                ...prevStyle,
-                                                                countryCode: {
-                                                                    ...prevStyle.countryCode,
-                                                                    value: {...prevStyle.countryCode.value, code: ""}
-                                                                }
-                                                            }))
-                                                }}*/
                                                 renderOption={(option: any) => (
                                                     <React.Fragment>
                                                         <ReactCountryFlag

@@ -66,12 +66,14 @@ type Product @model
   stage: Stage!
   business: Business @connection(fields: ["businessID"])
   businessID: ID!
-  color: [StringArrayRecord!]!
-  material: [StringArrayRecord!]!
+  # color: [StringArrayRecord!]!
+  # material: [StringArrayRecord!]!
   photos: [S3ObjectTrack!]!
   videos: [S3ObjectTrack!]!
   certifications: [S3ObjectTrack!]!
   marketingMaterials: [S3ObjectTrack!]!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
 }
 
 type IntRecord {
@@ -118,9 +120,8 @@ type Message @model(subscriptions: null)
 
 type Subscription {
   onCreateMessage(receiverID: ID): Message @aws_subscribe(mutations: ["createMessage"])
-  onUpdateMessage(sharedID: ID): Message @aws_subscribe(mutations: ["updateMessage"])
-  onDeleteMessage(id: ID): Message @aws_subscribe(mutations: ["deleteMessage"])
-  onEraseMessage: Message @aws_subscribe(mutations: ["deleteMessage"])
+  onUpdateMessage(senderID: ID): Message @aws_subscribe(mutations: ["updateMessage"])
+  onDeleteMessage(receiverID: ID): Message @aws_subscribe(mutations: ["deleteMessage"])
 }
 
 enum MessageStatus {
