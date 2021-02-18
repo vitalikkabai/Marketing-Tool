@@ -1,12 +1,9 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import {
-    UpdateMessageInput,
-    OnUpdateMessageSubscriptionVariables,
-} from './../../API';
+import { BehaviorSubject, concat, Observable } from 'rxjs';
+import { UpdateMessageInput, OnUpdateMessageSubscriptionVariables } from './../../API';
 import { createMessage, updateMessage } from './../../graphql/mutations';
 
 import { Epic } from 'redux-observable';
-import { catchError, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { catchError, combineAll, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import {
     sendMessageSuccess,
     sendMessageFailure,
@@ -28,6 +25,7 @@ import {
     unsubscribeOnMessageUpdatedSuccess,
     unsubscribeOnMessageUpdated,
     loadDialogue,
+    setSharedID,
 } from './MessageActions';
 import { ActionTypes } from '../storeTypes';
 import { AppStateType } from '../store';
@@ -37,6 +35,7 @@ import { getConversation } from '../../graphql/queries';
 import { CreateMessageInput, GetConversationQueryVariables, MessageStatus } from '../../API';
 import { filterAction, getSharedIndex } from '../../utils/backendUtils';
 import { onCreateMessage, onUpdateMessage } from '../../graphql/subscriptions';
+import { Dialogue } from './MessageReducer';
 
 export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
     (action$): Observable<ActionTypes> =>
@@ -70,17 +69,20 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
     (action$) =>
         action$.pipe(
             filterAction('SET_DIALOGUE_SUBJECT', 'SET_INTERLOCUTOR'),
-            switchMap(() => [unsubscribeOnMessageUpdated() ,loadDialogue()])
+            switchMap(() => [unsubscribeOnMessageUpdated(), loadDialogue()])
         ),
 
-    (action$, state$) =>
+    (action$, state$): Observable<ActionTypes> =>
         action$.pipe(
             filterAction('LOAD_DIALOGUE'),
-            switchMap(() => {
+            mergeMap(() => {
                 return state$.pipe(
                     filter(
                         (state) =>
                             !!state.MessageReducer.interlocutor && !!state.ProfileReducer.profile.id
+                            && !!state.MessageReducer.sharedID
+                            && !!state.MessageReducer.subjectID
+
                     ),
                     take(1),
                     switchMap((state) => {
@@ -92,6 +94,9 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                             throw 'no interlocutor';
                         const userID = state.ProfileReducer.profile.id;
                         const interlocutorID = state.MessageReducer.interlocutor.id;
+                        // const sharedID = state.MessageReducer.sharedID;
+                        // const subjectID = state.MessageReducer.subjectID;
+                        const stage = state.MessageReducer.stage;
                         const params: GetConversationQueryVariables = {
                             sharedID: getSharedIndex(userID, interlocutorID),
                             subjectIDStageCreatedAt: {
@@ -100,7 +105,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                                     subjectID: state.MessageReducer.subjectID,
                                 },
                             },
-                            limit: 7
+                            limit: 7,
                         };
                         console.log('quering for convo', params, userID, interlocutorID);
                         return from(
@@ -123,10 +128,16 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                                         updateMessageActions.push(updateMessageAction(message));
                                     }
                                 });
-
+                                const returnDialogue:Dialogue = {
+                                    stage: state.MessageReducer.stage,
+                                    subjectID: state.MessageReducer.subjectID,
+                                    sharedID: state.MessageReducer.sharedID,
+                                    messages
+                                }
+                                console.log('returnning dialogue',returnDialogue)
                                 return [
                                     subscribeOnMessageUpdated(),
-                                    loadDialogueSuccess(res.data.getConversation.items),
+                                    loadDialogueSuccess(returnDialogue),
                                     ...updateMessageActions,
                                 ];
                             }),
@@ -155,7 +166,6 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                         // messageCreatedSubject.unsubscribe()
                         const createMessageSubscription = createMessageObservable.subscribe(
                             (res) => {
-
                                 // createdSubscription.unsubscribe()
                                 const message: CreateMessageInput = res.value.data.onCreateMessage;
                                 if (
@@ -208,7 +218,11 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
             filterAction('SUBSCRIBE_ON_MESSAGE_UPDATED'),
             switchMap(() => {
                 if (!state$.value.MessageReducer.interlocutor) throw 'no interlocutor';
-                console.log('onMess updaged',state$.value.ProfileReducer.profile.id,state$.value.MessageReducer.interlocutor.id)
+                console.log(
+                    'onMess updaged',
+                    state$.value.ProfileReducer.profile.id,
+                    state$.value.MessageReducer.interlocutor.id
+                );
                 const params: OnUpdateMessageSubscriptionVariables = {
                     senderID: state$.value.ProfileReducer.profile.id,
                 };
@@ -260,7 +274,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
             })
         ),
 
-    (action$) =>
+    (action$): Observable<ActionTypes> =>
         action$.pipe(
             filterAction('UPDATE_MESSAGE'),
             mergeMap((action: any) => {
@@ -280,21 +294,32 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                 );
             })
         ),
-    (action$, state$) =>
+    (action$, state$): Observable<ActionTypes> =>
         action$.pipe(
             filterAction('SET_INTERLOCUTOR'),
-            mergeMap(() => {
-                if (!state$.value.MessageReducer.interlocutor) throw 'no interlocutor';
 
+            mergeMap(() => {
+                if (
+                    !state$.value.MessageReducer.interlocutor?.id ||
+                    !state$.value.ProfileReducer.profile.id
+                )
+                    throw 'no interlocutor or profile';
+                const sharedID = getSharedIndex(
+                    state$.value.MessageReducer.interlocutor?.id,
+                    state$.value.ProfileReducer.profile.id
+                );
                 const avatar = state$.value.MessageReducer.interlocutor.avatar;
+
                 if (!avatar)
                     return [
-                        setInterlocutorAvatarUrl(''),
+                        setInterlocutorAvatarUrlFailure(),
                         // subscribeOnMessageCreated(id),
                         // subscribeOnMessageUpdated(id),
                     ];
 
-                return from(Storage.get(avatar.key)).pipe(
+                return concat(
+                    [setSharedID(sharedID)],
+                from(Storage.get(avatar.key)).pipe(
                     mergeMap((res) => {
                         return [
                             setInterlocutorAvatarUrl(res as string),
@@ -306,7 +331,10 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                         console.log(err);
                         return [setInterlocutorAvatarUrlFailure()];
                     })
-                );
+                )
+                )
+                
+                // of(setSharedID(sharedID))
             })
         ),
 ];

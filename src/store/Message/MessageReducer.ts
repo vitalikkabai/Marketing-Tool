@@ -7,7 +7,7 @@ import * as actions from './MessageActions';
 type MessageReducerType = {
     stage: Stage;
     subjectID: string;
-    interlocutor: CreateProfileInput;
+    interlocutor?: CreateProfileInput;
     dialogues: Dialogue[];
     sharedID: string;
 
@@ -32,9 +32,8 @@ const initialState: MessageReducerType = {
     dialogues: [],
     // messages:[]
     stage: Stage.UNASSIGNED,
-    subjectID: 'unassigned',
-    sharedID: 'unassigned',
-    interlocutor: { email: 'unassigned', name: 'unassigned' },
+    subjectID: '',
+    sharedID: '',
 };
 
 // const getDialogues = (state:AppStateType) => state.MessageReducer.dialogues
@@ -51,6 +50,7 @@ export const MakeActiveDialogue = (): OutputSelector<
     createSelector(
         [getSubjectID, getStage, getSharedID, getDialogues],
         (subjectID, stage, sharedID, dialogues) => {
+            console.log('Recalculating selector')
             const selectedDialogue = dialogues.find(
                 (dialogue) =>
                     dialogue.sharedID === sharedID &&
@@ -149,13 +149,19 @@ export const MessageReducer = (
         case 'SET_DIALOGUE_SUBJECT':
             return {
                 ...state,
-                // stage: action.payload.stage,
-                // subjectID: action.payload.subjectID,
+                stage: action.payload.stage,
+                subjectID: action.payload.subjectID,
             };
         case 'SET_INTERLOCUTOR': {
             return {
                 ...state,
-                // interlocutor: action.payload,
+                interlocutor: action.payload,
+            };
+        }
+        case 'SET_SHARED_ID': {
+            return {
+                ...state,
+                sharedID: action.payload,
             };
         }
         case 'SET_INTERLOCUTOR_AVATAR_URL': {
@@ -164,11 +170,31 @@ export const MessageReducer = (
                 interlocutorAvatarURL: action.payload,
             };
         }
-        case 'LOAD_DIALOGUE_SUCCESS':
+        case 'LOAD_DIALOGUE_SUCCESS':{
+            console.log('load success')
+            const newDialogues = [...state.dialogues];
+            const updatedDialogueIndex = newDialogues.findIndex((dialogue) => {
+                return (
+                    dialogue.stage === action.payload.stage &&
+                    dialogue.subjectID === action.payload.subjectID &&
+                    dialogue.sharedID === action.payload.sharedID
+                );
+            });
+            if(updatedDialogueIndex === -1) {
+                newDialogues.unshift(action.payload);
+
+            } else {
+                newDialogues.splice(updatedDialogueIndex, 1);
+                newDialogues.unshift(action.payload);
+            }
+            // const newActiveDialogue = { ...state.dialogues[updatedDialogueIndex] };
+
             return {
                 ...state,
-                // messages: action.payload,
+                dialogues: newDialogues,
             };
+        }
+            
         case 'UNSUBSCRIBE_ON_MESSAGES_CREATED_SUCCESS':
             return {
                 ...state,
