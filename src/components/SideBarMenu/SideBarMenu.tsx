@@ -47,16 +47,14 @@ const SideBarMenu = (props: any) => {
             container
             direction={'column'}
             alignItems={'flex-start'}
-            className={classes.menu}
-        >
+            className={classes.menu}>
             <Box className={classes.gridItem}>
                 <img src={logo} alt="logo" className={classes.logo} />
             </Box>
             <List
                 component="nav"
                 aria-labelledby="nested-list-subheader"
-                className={classes.rootList}
-            >
+                className={classes.rootList}>
                 <ListItem
                     button
                     selected={selected === '1'}
@@ -67,16 +65,14 @@ const SideBarMenu = (props: any) => {
                             ? history.push('/')
                             : history.push('/preview/');
                         theme.palette.primary.main;
-                    }}
-                >
+                    }}>
                     <ListItemIcon classes={{ root: classes.listIconRoot }}>
                         <CubeIcon className={classes.svgIcon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={
                             <Typography
-                                variant={selected === '1' ? 'h6' : 'subtitle1'}
-                            >
+                                variant={selected === '1' ? 'h6' : 'subtitle1'}>
                                 Dashboard
                             </Typography>
                         }
@@ -92,16 +88,14 @@ const SideBarMenu = (props: any) => {
                         props.isAuth
                             ? history.push('/products')
                             : history.push('/preview/products');
-                    }}
-                >
+                    }}>
                     <ListItemIcon classes={{ root: classes.listIconRoot }}>
                         <BoxIcon className={classes.svgIcon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={
                             <Typography
-                                variant={selected === '2' ? 'h6' : 'subtitle1'}
-                            >
+                                variant={selected === '2' ? 'h6' : 'subtitle1'}>
                                 Products
                             </Typography>
                         }
@@ -117,16 +111,14 @@ const SideBarMenu = (props: any) => {
                         props.isAuth
                             ? history.push('/market-research')
                             : history.push('/preview/market-research');
-                    }}
-                >
+                    }}>
                     <ListItemIcon classes={{ root: classes.listIconRoot }}>
                         <ListIcon className={classes.svgIcon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={
                             <Typography
-                                variant={selected === '3' ? 'h6' : 'subtitle1'}
-                            >
+                                variant={selected === '3' ? 'h6' : 'subtitle1'}>
                                 Market Research
                             </Typography>
                         }
@@ -142,16 +134,14 @@ const SideBarMenu = (props: any) => {
                         props.isAuth
                             ? history.push('/brand-creation')
                             : history.push('/preview/brand-creation');
-                    }}
-                >
+                    }}>
                     <ListItemIcon classes={{ root: classes.listIconRoot }}>
                         <EditIcon className={classes.svgIcon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={
                             <Typography
-                                variant={selected === '4' ? 'h6' : 'subtitle1'}
-                            >
+                                variant={selected === '4' ? 'h6' : 'subtitle1'}>
                                 Brand Creation
                             </Typography>
                         }
@@ -167,16 +157,14 @@ const SideBarMenu = (props: any) => {
                         props.isAuth
                             ? history.push('/customer-support')
                             : history.push('/preview/customer-support');
-                    }}
-                >
+                    }}>
                     <ListItemIcon classes={{ root: classes.listIconRoot }}>
                         <SaleIcon className={classes.svgIcon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={
                             <Typography
-                                variant={selected === '5' ? 'h6' : 'subtitle1'}
-                            >
+                                variant={selected === '5' ? 'h6' : 'subtitle1'}>
                                 Sales Channels
                             </Typography>
                         }
@@ -192,16 +180,14 @@ const SideBarMenu = (props: any) => {
                         props.isAuth
                             ? history.push('/sales-channels')
                             : history.push('/preview/sales-channels');
-                    }}
-                >
+                    }}>
                     <ListItemIcon classes={{ root: classes.listIconRoot }}>
                         <SmileIcon className={classes.svgIcon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={
                             <Typography
-                                variant={selected === '6' ? 'h6' : 'subtitle1'}
-                            >
+                                variant={selected === '6' ? 'h6' : 'subtitle1'}>
                                 Customer Support
                             </Typography>
                         }
@@ -217,16 +203,14 @@ const SideBarMenu = (props: any) => {
                         props.isAuth
                             ? history.push('/brand-awareness')
                             : history.push('/preview/brand-awareness');
-                    }}
-                >
+                    }}>
                     <ListItemIcon classes={{ root: classes.listIconRoot }}>
                         <SpeakIcon className={classes.svgIcon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={
                             <Typography
-                                variant={selected === '7' ? 'h6' : 'subtitle1'}
-                            >
+                                variant={selected === '7' ? 'h6' : 'subtitle1'}>
                                 Brand Awareness
                             </Typography>
                         }
@@ -242,16 +226,14 @@ const SideBarMenu = (props: any) => {
                         props.isAuth
                             ? history.push('/improvements')
                             : history.push('/preview/improvements');
-                    }}
-                >
+                    }}>
                     <ListItemIcon classes={{ root: classes.listIconRoot }}>
                         <GraphIcon className={classes.svgIcon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={
                             <Typography
-                                variant={selected === '8' ? 'h6' : 'subtitle1'}
-                            >
+                                variant={selected === '8' ? 'h6' : 'subtitle1'}>
                                 Sales Statistics
                             </Typography>
                         }
@@ -267,16 +249,14 @@ const SideBarMenu = (props: any) => {
                         props.isAuth
                             ? history.push('/sales-statistics')
                             : history.push('/preview/sales-statistics');
-                    }}
-                >
+                    }}>
                     <ListItemIcon classes={{ root: classes.listIconRoot }}>
                         <StonksIcon className={classes.svgIcon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={
                             <Typography
-                                variant={selected === '9' ? 'h6' : 'subtitle1'}
-                            >
+                                variant={selected === '9' ? 'h6' : 'subtitle1'}>
                                 Improvements
                             </Typography>
                         }
@@ -295,8 +275,7 @@ const SideBarMenu = (props: any) => {
                     <Typography
                         variant={'subtitle1'}
                         color={'primary'}
-                        style={{ cursor: 'pointer' }}
-                    >
+                        style={{ cursor: 'pointer' }}>
                         + Invite
                     </Typography>
                     <Typography variant={'subtitle1'}>Pricing</Typography>
