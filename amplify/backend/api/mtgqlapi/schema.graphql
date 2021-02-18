@@ -72,6 +72,8 @@ type Product @model
   videos: [S3ObjectTrack!]!
   certifications: [S3ObjectTrack!]!
   marketingMaterials: [S3ObjectTrack!]!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
 }
 
 type IntRecord {
@@ -118,9 +120,8 @@ type Message @model(subscriptions: null)
 
 type Subscription {
   onCreateMessage(receiverID: ID): Message @aws_subscribe(mutations: ["createMessage"])
-  onUpdateDialogueMessage(receiverID: ID, senderID: ID): Message @aws_subscribe(mutations: ["updateMessage"])
-  onDeleteMessage(id: ID): Message @aws_subscribe(mutations: ["deleteMessage"])
-  onEraseMessage: Message @aws_subscribe(mutations: ["deleteMessage"])
+  onUpdateMessage(senderID: ID): Message @aws_subscribe(mutations: ["updateMessage"])
+  onDeleteMessage(receiverID: ID): Message @aws_subscribe(mutations: ["deleteMessage"])
 }
 
 enum MessageStatus {
