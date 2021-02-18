@@ -27,8 +27,7 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                     className={classes.addProductButton}
                     onClick={() => {
                         history.push('/products/add-new-product');
-                    }}
-                >
+                    }}>
                     <PlusSVG />
                     <Typography color={'primary'} variant={'button'}>
                         Add product
@@ -45,31 +44,28 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                     <TabPanel
                         className={classes.tabPanelBox}
                         index={0}
-                        value={value}
-                    >
+                        value={value}>
                         <Grid item xs={12} className={classes.taskContainer}>
                             <Box
                                 marginTop={'57px'}
                                 textAlign={'center'}
-                                className={classes.tasksTitle}
-                            >
+                                className={classes.tasksTitle}>
                                 <Typography
                                     variant={'body2'}
-                                    style={{ textTransform: 'uppercase' }}
-                                >
+                                    style={{ textTransform: 'uppercase' }}>
                                     This page is not ready yet
                                 </Typography>
                             </Box>
                             <Box
                                 textAlign={'center'}
                                 justifyContent={'center'}
-                                alignItems={'center'}
-                            >
+                                alignItems={'center'}>
                                 <StepCounter
                                     className={classes.stepLine}
                                     completedStep={1}
                                     stepNumber={1}
                                 />
+                                <img src={ProductCat} alt={'image'} />
                             </Box>
                         </Grid>
                     </TabPanel>
@@ -77,26 +73,22 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                     <TabPanel
                         className={classes.tabPanelBox}
                         index={1}
-                        value={value}
-                    >
+                        value={value}>
                         <Grid item xs={12} className={classes.taskContainer}>
                             <Box
                                 marginTop={'57px'}
                                 textAlign={'center'}
-                                className={classes.tasksTitle}
-                            >
+                                className={classes.tasksTitle}>
                                 <Typography
                                     variant={'body2'}
-                                    style={{ textTransform: 'uppercase' }}
-                                >
+                                    style={{ textTransform: 'uppercase' }}>
                                     This page is not ready yet
                                 </Typography>
                             </Box>
                             <Box
                                 textAlign={'center'}
                                 justifyContent={'center'}
-                                alignItems={'center'}
-                            >
+                                alignItems={'center'}>
                                 <StepCounter
                                     className={classes.stepLine}
                                     completedStep={1}
@@ -109,26 +101,22 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                     <TabPanel
                         className={classes.tabPanelBox}
                         index={2}
-                        value={value}
-                    >
+                        value={value}>
                         <Grid item xs={12} className={classes.taskContainer}>
                             <Box
                                 marginTop={'57px'}
                                 textAlign={'center'}
-                                className={classes.tasksTitle}
-                            >
+                                className={classes.tasksTitle}>
                                 <Typography
                                     variant={'body2'}
-                                    style={{ textTransform: 'uppercase' }}
-                                >
+                                    style={{ textTransform: 'uppercase' }}>
                                     This page is not ready yet
                                 </Typography>
                             </Box>
                             <Box
                                 textAlign={'center'}
                                 justifyContent={'center'}
-                                alignItems={'center'}
-                            >
+                                alignItems={'center'}>
                                 <StepCounter
                                     className={classes.stepLine}
                                     completedStep={1}

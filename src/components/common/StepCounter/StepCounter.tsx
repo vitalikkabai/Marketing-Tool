@@ -92,8 +92,7 @@ const StepCounter: React.FC<PropsType> = (props) => {
                                       )}`,
                                   }
                                 : {}
-                        }
-                    >
+                        }>
                         {completedStep > i ? (
                             <img
                                 className={classes.stepsIcon}
@@ -101,7 +100,9 @@ const StepCounter: React.FC<PropsType> = (props) => {
                                 alt={'check'}
                             />
                         ) : (
-                            <Typography variant={'subtitle2'}>{i}</Typography>
+                            <Typography variant={'subtitle2'}>
+                                {i === 4 ? '3+' : i}
+                            </Typography>
                         )}
                     </div>
 
@@ -136,8 +137,7 @@ const StepCounter: React.FC<PropsType> = (props) => {
                                   styles.circleRipple
                                 : classes.active)
                         }
-                        style={{ background: theme.palette.primary.main }}
-                    >
+                        style={{ background: theme.palette.primary.main }}>
                         {stepNumber === 2 || stepNumber === 3 ? (
                             <img src={check} alt={'check'} />
                         ) : (
@@ -172,8 +172,7 @@ const StepCounter: React.FC<PropsType> = (props) => {
                                 : stepNumber === 1
                                 ? {}
                                 : { background: theme.palette.primary.main }
-                        }
-                    >
+                        }>
                         {stepNumber === 3 ? (
                             <img src={check} alt={'check'} />
                         ) : (
@@ -208,8 +207,7 @@ const StepCounter: React.FC<PropsType> = (props) => {
                                 : stepNumber === 2 || stepNumber === 1
                                 ? {}
                                 : { background: theme.palette.primary.main }
-                        }
-                    >
+                        }>
                         <Typography variant={'subtitle2'}>3</Typography>
                     </li>
                 </ul>

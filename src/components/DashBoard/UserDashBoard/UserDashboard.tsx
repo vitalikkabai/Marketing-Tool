@@ -112,20 +112,6 @@ function UserDashboard() {
                 <Grid className={classes.titleBox} container item xs={8} xl={9}>
                     <Typography variant={'h2'}>To-do list</Typography>
                 </Grid>
-                <Grid item xs={4} xl={3} className={classes.teamContainer}>
-                    <Box className={classes.teamAvatarBox}>
-                        <img src={team4} alt={'avatar'} />
-                        <img src={team2} alt={'avatar'} />
-                        <img src={team3} alt={'avatar'} />
-                        <Hidden mdDown>
-                            <img src={team1} alt={'avatar'} />
-                        </Hidden>
-                        <Hidden lgDown>
-                            <img src={team4} alt={'avatar'} />
-                        </Hidden>
-                    </Box>
-                    <Typography color={'primary'}>View team</Typography>
-                </Grid>
             </Box>
             <Box className={classes.contentContainer}>
                 <Grid

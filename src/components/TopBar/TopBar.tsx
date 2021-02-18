@@ -54,8 +54,7 @@ const TopBar = (props: PropsFromRedux) => {
                 container
                 alignItems={'center'}
                 justify={'space-between'}
-                className={classes.TopBarContent}
-            >
+                className={classes.TopBarContent}>
                 <Grid item className={classes.clockContainer}>
                     <Grid className={classes.clock}>
                         <Typography variant="body1">Time in israel</Typography>
@@ -64,8 +63,7 @@ const TopBar = (props: PropsFromRedux) => {
                             {israelCurrentTime ? (
                                 <Typography
                                     variant="caption"
-                                    className={classes.time}
-                                >
+                                    className={classes.time}>
                                     {israelCurrentTime.hour < 10
                                         ? ' 0' + israelCurrentTime.hour
                                         : israelCurrentTime.hour}
@@ -83,8 +81,7 @@ const TopBar = (props: PropsFromRedux) => {
                             <img src={clock} alt="clock" />
                             <Typography
                                 variant="caption"
-                                className={classes.time}
-                            >
+                                className={classes.time}>
                                 {israelCurrentTime && currentTime
                                     ? 2 +
                                       currentTime.getTimezoneOffset() / 60 +
@@ -100,8 +97,7 @@ const TopBar = (props: PropsFromRedux) => {
                             {currentTime ? (
                                 <Typography
                                     variant="caption"
-                                    className={classes.time}
-                                >
+                                    className={classes.time}>
                                     {currentTime.getHours() < 10
                                         ? '0' + currentTime.getHours()
                                         : currentTime.getHours()}
@@ -130,17 +126,16 @@ const TopBar = (props: PropsFromRedux) => {
                                 variant={'subtitle2'}
                                 color={'primary'}
                                 className={classes.logInText}
-                                onClick={() => history.push('/login')}
-                            >
+                                onClick={() => history.push('/login')}>
                                 Log In
                             </Typography>
                             <Button
                                 variant="contained"
                                 color="primary"
                                 type="submit"
-                                onClick={() => history.push('/register')}
-                            >
-                                Get Started
+                                className={classes.logInButton}
+                                onClick={() => history.push('/register')}>
+                                Try to free
                             </Button>
                         </Box>
                     )}
@@ -152,8 +147,7 @@ const TopBar = (props: PropsFromRedux) => {
                         classes: {
                             root: classes.backDrop,
                         },
-                    }}
-                >
+                    }}>
                     <DialogContent className={classes.logOutDialog}>
                         <Typography variant="h3" align="center">
                             Are you sure you want to <br /> log out?

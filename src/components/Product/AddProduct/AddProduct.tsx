@@ -1,15 +1,14 @@
-import React, {useState} from 'react';
-import {PropsFromRedux} from './AddProductContainer';
-import {Box, Grid, Typography} from '@material-ui/core';
+import React, { useState } from 'react';
+import { PropsFromRedux } from './AddProductContainer';
+import { Box, Grid, Typography } from '@material-ui/core';
 import classes from './AddProduct.module.scss';
 import ChatContainer from '../../Chat/ChatContainer';
 import CustomButton from '../../common/Button/CustomButton';
 import CustomInput from '../../common/Input/CustomInput';
 import Dropzone from '../../common/Dropzone/Dropzone';
-import StepCounter from '../../common/StepCounter/StepCounter';
 import GoBackButton from '../../common/Button/GoBackButton';
-import {useHistory} from 'react-router';
-import WebLink from "../../common/webLink/webLink";
+import { useHistory } from 'react-router';
+import WebLink from '../../common/webLink/webLink';
 
 const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
     const history = useHistory();
@@ -25,9 +24,9 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                 </Grid>
             </Box>
             <Box className={classes.contentContainer}>
-                <GoBackButton onClick={() => history.push('/products')}/>
+                <GoBackButton onClick={() => history.push('/products')} />
                 <Grid item className={classes.contentBlockBox} xs={8} xl={9}>
-                    <Box className={classes.whiteBox}/>
+                    <Box className={classes.whiteBox} />
                     <form className={classes.addProductForm}>
                         <Grid container className={classes.formContent}>
                             <Grid item xs={12} className={classes.formInputs}>
@@ -55,7 +54,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                             fullWidth
                                         />
                                     </Box>
-                                    <Box style={{width: '20%'}}>
+                                    <Box style={{ width: '20%' }}>
                                         <CustomInput
                                             label={'Release'}
                                             fullWidth
@@ -66,7 +65,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                             width: '30%',
                                             marginLeft: '48px',
                                         }}>
-                                        <CustomInput label={'Tag'} fullWidth/>
+                                        <CustomInput label={'Tag'} fullWidth />
                                     </Box>
                                 </Grid>
                                 <Grid
@@ -93,48 +92,51 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                             fullWidth
                                         />
                                     </Box>
-                                    <Box style={{width: '20%'}}>
-                                        <CustomInput
-                                            label={'Kgs'}
-                                            fullWidth
-                                        />
+                                    <Box style={{ width: '20%' }}>
+                                        <CustomInput label={'Kgs'} fullWidth />
                                     </Box>
                                     <Box
                                         style={{
                                             width: '20%',
                                             marginLeft: '48px',
                                         }}>
-                                        <CustomInput label={'Lbs'} fullWidth/>
+                                        <CustomInput label={'Lbs'} fullWidth />
                                     </Box>
                                 </Grid>
                                 <Grid
                                     xs={12}
                                     item
                                     className={classes.productUrlInputs}>
-                                    <WebLink linkInput={urlInput}
-                                             linkURLs={URLs}
-                                             linkErrorText={urlErrorText}
-                                             setLinkInput={setUrlInput}
-                                             setLinkURLs={setURLs}
-                                             setLinkErrorText={setUrlErrorText}
-                                             label={"URL"}/>
+                                    <WebLink
+                                        linkInput={urlInput}
+                                        linkURLs={URLs}
+                                        linkErrorText={urlErrorText}
+                                        setLinkInput={setUrlInput}
+                                        setLinkURLs={setURLs}
+                                        setLinkErrorText={setUrlErrorText}
+                                        label={'URL'}
+                                    />
                                 </Grid>
                                 <Grid xs={12} item className={classes.dropZone}>
-                                    <Dropzone title={"Upload product photos & videos"}/>
+                                    <Dropzone
+                                        title={'Upload product photos & videos'}
+                                    />
                                 </Grid>
 
                                 <Grid xs={12} item>
-                                    <div className={classes.horizontalLine}/>
+                                    <div className={classes.horizontalLine} />
                                 </Grid>
                                 <Grid xs={12} item className={classes.dropZone}>
-                                    <Dropzone title={"Upload certifications"}/>
+                                    <Dropzone title={'Upload certifications'} />
                                 </Grid>
 
                                 <Grid xs={12} item>
-                                    <div className={classes.horizontalLine}/>
+                                    <div className={classes.horizontalLine} />
                                 </Grid>
                                 <Grid xs={12} item className={classes.dropZone}>
-                                    <Dropzone title={"Upload marketing materials"}/>
+                                    <Dropzone
+                                        title={'Upload marketing materials'}
+                                    />
                                 </Grid>
                             </Grid>
                             <Grid
@@ -152,7 +154,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                     </form>
                 </Grid>
                 <Grid xs={4} xl={3} item>
-                    <ChatContainer backGroundColor={'#FFEF98'}/>
+                    <ChatContainer backGroundColor={'#FFEF98'} />
                 </Grid>
             </Box>
         </Grid>

@@ -183,14 +183,20 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                     break;
                 }
                 case prevInput.password.name: {
-                    currInputValue.password.value = inputData;
+                    currInputValue.password.value = inputData.replace(
+                        /\s/g,
+                        ''
+                    );
                     currInputValue.password.touched = true;
                     currInputValue.password.error = false;
                     currInputValue.password.errorText = '';
                     break;
                 }
                 case prevInput.confirmPassword.name: {
-                    currInputValue.confirmPassword.value = inputData;
+                    currInputValue.confirmPassword.value = inputData.replace(
+                        /\s/g,
+                        ''
+                    );
                     currInputValue.confirmPassword.touched = true;
                     currInputValue.confirmPassword.error = false;
                     currInputValue.confirmPassword.errorText = '';
@@ -376,7 +382,9 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
     };
 
     const saveInputData = () => {
-        props.setBusinessName(inputValue.companyName.value);
+        props.setBusinessName(
+            inputValue.companyName.value.replace(/ +/g, ' ').trim()
+        );
         props.setEmployee({
             ...props.employee,
             countryCode: inputValue.countryCode.value,
@@ -384,7 +392,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
         });
         props.setProfile({
             ...props.profile,
-            name: inputValue.ownerName.value,
+            name: inputValue.ownerName.value.replace(/ +/g, ' ').trim(),
             email: inputValue.ownerEmail.value,
         });
     };
@@ -409,8 +417,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                 container
                 direction="column"
                 justify="center"
-                className={classes.registerForm}
-            >
+                className={classes.registerForm}>
                 <Box className={classes.registrationSheet}>
                     <GoBackButton onClick={handleBackPressed} />
                     <UxAssistant
@@ -424,8 +431,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                                 <Grid
                                     item
                                     xs={5}
-                                    style={{ paddingRight: '12px' }}
-                                >
+                                    style={{ paddingRight: '12px' }}>
                                     <CustomInput
                                         label="Your name"
                                         variant="outlined"
@@ -492,12 +498,10 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                                 <Grid
                                     item
                                     xs={5}
-                                    style={{ paddingLeft: '12px' }}
-                                >
+                                    style={{ paddingLeft: '12px' }}>
                                     <Grid
                                         container
-                                        className={classes.phoneContainer}
-                                    >
+                                        className={classes.phoneContainer}>
                                         <Grid item xs={4}>
                                             <AutocompleteCustomInput
                                                 label={'Country'}
@@ -705,8 +709,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                                 classes.nextContainer +
                                 ' ' +
                                 classes.importantInfo
-                            }
-                        >
+                            }>
                             <CustomButton
                                 type={'submit'}
                                 text={isPending ? '' : 'Save'}
@@ -731,8 +734,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                                     className={classes.link}
                                     onClick={() => {
                                         history.replace('/login');
-                                    }}
-                                >
+                                    }}>
                                     Log in
                                 </Link>
                             </Typography>
