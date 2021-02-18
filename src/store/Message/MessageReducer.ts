@@ -1,43 +1,84 @@
+import { AppStateType } from './../store';
+import { createSelector, OutputSelector } from 'reselect';
 import { Subscription } from 'rxjs';
 import { CreateMessageInput, CreateProfileInput, Stage } from '../../API';
 import * as actions from './MessageActions';
 
 type MessageReducerType = {
-    stage?: Stage;
-    subjectID?: string;
-    interlocutor?: CreateProfileInput;
-    dialogues: Dialogue[];
-    messages: CreateMessageInput[];
-    interlocutorAvatarURL?: string;
-    createMessageSubscription?: Subscription;
-    updateMessageSubscription?: Subscription;
-};
-
-type Dialogue = {
     stage: Stage;
     subjectID: string;
     interlocutor: CreateProfileInput;
+    dialogues: Dialogue[];
+    sharedID: string;
+
+    // activeDialogue?: Dialogue;
+    // messages: CreateMessageInput[];
+    interlocutorAvatarURL?: string;
+    createMessageSubscription?: Subscription;
+    updateMessageSubscription?: Subscription;
+    deleteMessageSubscription?: Subscription;
+};
+
+export type Dialogue = {
+    stage: Stage;
+    subjectID: string;
+    // interlocutor: CreateProfileInput;
     messages: CreateMessageInput[];
-    interlocutorAvatarURL?: string; 
-}
+    // interlocutorAvatarURL?: string;
+    sharedID: string;
+};
 
 const initialState: MessageReducerType = {
     dialogues: [],
-    messages:[]
-    // stage: Stage.UNASSIGNED,
-    // subjectID: 'unassigned',
-    // interlocutor: { email: 'unassigned', name: 'unassigned' },
+    // messages:[]
+    stage: Stage.UNASSIGNED,
+    subjectID: 'unassigned',
+    sharedID: 'unassigned',
+    interlocutor: { email: 'unassigned', name: 'unassigned' },
 };
+
+// const getDialogues = (state:AppStateType) => state.MessageReducer.dialogues
+const getSubjectID = (state: MessageReducerType) => state.subjectID;
+const getStage = (state: MessageReducerType) => state.stage;
+const getSharedID = (state: MessageReducerType) => state.sharedID;
+const getDialogues = (state: MessageReducerType) => state.dialogues;
+
+export const MakeActiveDialogue = (): OutputSelector<
+    MessageReducerType,
+    Dialogue,
+    (res1: string, res2: Stage, res3: string, res4: Dialogue[]) => Dialogue
+> =>
+    createSelector(
+        [getSubjectID, getStage, getSharedID, getDialogues],
+        (subjectID, stage, sharedID, dialogues) => {
+            const selectedDialogue = dialogues.find(
+                (dialogue) =>
+                    dialogue.sharedID === sharedID &&
+                    dialogue.stage === stage &&
+                    dialogue.subjectID === subjectID
+            );
+            if (selectedDialogue) return selectedDialogue;
+            const newDialogue: Dialogue = {
+                sharedID,
+                stage,
+                subjectID,
+                messages: [],
+            };
+            actions.createDialogue(newDialogue);
+            return newDialogue;
+        }
+    );
+const getActiveDialogue = MakeActiveDialogue();
 
 export const MessageReducer = (
     state: MessageReducerType = initialState,
     action: ActionTypes
 ): MessageReducerType => {
     switch (action.type) {
-            // return {
-            //     ...state,
-            //     messages: [...state.messages, action.payload],
-            // };
+        // return {
+        //     ...state,
+        //     messages: [...state.messages, action.payload],
+        // };
         // case 'SEND_MESSAGE_SUCCESS': {
         //     const newMessages = [...state.messages];
         //     newMessages.splice(state.messages.length - 1, 1);
@@ -47,34 +88,74 @@ export const MessageReducer = (
         //         messages: newMessages,
         //     };
         // }
-        case 'SEND_MESSAGE':
-        case 'GET_RECENT_MESSAGE':
+        case 'SEND_MESSAGE': {
+            // case 'GET_RECENT_MESSAGE':
+            // if (!state.activeDialogue) throw 'no active dialogue';
+            // const activeDialogue = getActiveDialogue(state);
+            const updatedDialogueIndex = state.dialogues.findIndex((dialogue) => {
+                // if (!state.activeDialogue) throw 'no active dialogue';
+                return (
+                    dialogue.stage === action.payload.stage &&
+                    dialogue.subjectID === action.payload.subjectID &&
+                    dialogue.sharedID === action.payload.sharedID
+                );
+            });
+            if(updatedDialogueIndex === -1) throw('dialogue not found');
+            const newActiveDialogue = { ...state.dialogues[updatedDialogueIndex] };
+            const newDialogues = [...state.dialogues];
+            newDialogues.splice(updatedDialogueIndex, 1);
+            newDialogues.unshift(newActiveDialogue);
+            newActiveDialogue.messages = [...newActiveDialogue.messages];
+            newActiveDialogue.messages.push(action.payload);
+            // const updatedDialogueIndex = state.dialogues.findIndex((dialogue) => {
+            //     // if (!state.activeDialogue) throw 'no active dialogue';
+            //     return (
+            //         dialogue.stage === state.activeDialogue.stage &&
+            //         dialogue.subjectID === state.activeDialogue.subjectID &&
+            //         dialogue.sharedID === state.activeDialogue.sharedID
+            //     );
+            // });
+
             return {
                 ...state,
-                messages: [...state.messages, action.payload],
-            };
-        case 'SEND_MESSAGE_SUCCESS':
-        case 'GET_UPDATED_MESSAGE': {
-            const index = state.messages.findIndex((message) => message.id === action.payload.id);
-            if (!index) return { ...state };
-            const newMessages = [...state.messages];
-            newMessages[index] = action.payload;
-            return {
-                ...state,
-                messages: newMessages,
+                dialogues: newDialogues
             };
         }
-
+        case 'SEND_MESSAGE_SUCCESS':
+        case 'GET_UPDATED_MESSAGE': {
+            const updatedDialogueIndex = state.dialogues.findIndex((dialogue) => {
+                return (
+                    dialogue.stage === action.payload.stage &&
+                    dialogue.subjectID === action.payload.subjectID &&
+                    dialogue.sharedID === action.payload.sharedID
+                );
+            });
+            if (!updatedDialogueIndex) return { ...state };
+            // newDialogues[updatedDialogueIndex] =
+            const updatedMessageIndex = state.dialogues[updatedDialogueIndex].messages.findIndex(
+                (message) => message.id === action.payload.id
+            );
+            if (!updatedMessageIndex) return { ...state };
+            const newDialogues = [...state.dialogues];
+            newDialogues[updatedDialogueIndex].messages[updatedMessageIndex] = action.payload;
+            // const newMessages = [...state.messages];
+            // newMessages[index] = action.payload;
+            // updatedMessage
+            return {
+                ...state,
+                dialogues: newDialogues,
+            };
+        }
         case 'SET_DIALOGUE_SUBJECT':
             return {
                 ...state,
-                stage: action.payload.stage,
-                subjectID: action.payload.subjectID,
+                // stage: action.payload.stage,
+                // subjectID: action.payload.subjectID,
             };
         case 'SET_INTERLOCUTOR': {
             return {
                 ...state,
-                interlocutor: action.payload,
+                // interlocutor: action.payload,
             };
         }
         case 'SET_INTERLOCUTOR_AVATAR_URL': {
@@ -86,7 +167,7 @@ export const MessageReducer = (
         case 'LOAD_DIALOGUE_SUCCESS':
             return {
                 ...state,
-                messages: action.payload,
+                // messages: action.payload,
             };
         case 'UNSUBSCRIBE_ON_MESSAGES_CREATED_SUCCESS':
             return {
@@ -101,10 +182,10 @@ export const MessageReducer = (
         case 'CLEAR_DIALOGUE':
             return {
                 ...state,
-                interlocutor: undefined,
-                messages: [],
-                stage: undefined,
-                subjectID: undefined
+                // interlocutor: undefined,
+                // messages: [],
+                // stage: undefined,
+                // subjectID: undefined,
             };
         case 'LOAD_DIALOGUE':
         case 'SEND_MESSAGE_FAILURE':
