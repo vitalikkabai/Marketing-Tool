@@ -201,6 +201,9 @@ export type CreateProductInput = {
   release: string,
   websiteURLs: Array< StringArrayRecordInput >,
   stage: Stage,
+  dimentionsCm: Array< StringRecordInput >,
+  weightKg: Array< FloatRecordInput >,
+  tag: Array< StringRecordInput >,
   businessID: string,
   photos: Array< S3ObjectTrackInput >,
   videos: Array< S3ObjectTrackInput >,
@@ -222,6 +225,11 @@ export type StringRecordInput = {
 
 export type StringArrayRecordInput = {
   record: Array< string >,
+  createdAt: string,
+};
+
+export type FloatRecordInput = {
+  value: number,
   createdAt: string,
 };
 
@@ -255,6 +263,9 @@ export type UpdateProductInput = {
   release?: string | null,
   websiteURLs?: Array< StringArrayRecordInput > | null,
   stage?: Stage | null,
+  dimentionsCm?: Array< StringRecordInput > | null,
+  weightKg?: Array< FloatRecordInput > | null,
+  tag?: Array< StringRecordInput > | null,
   businessID?: string | null,
   photos?: Array< S3ObjectTrackInput > | null,
   videos?: Array< S3ObjectTrackInput > | null,
@@ -568,6 +579,21 @@ export type CreateBusinessMutation = {
           createdAt: string,
         } >,
         stage: Stage,
+        dimentionsCm:  Array< {
+          __typename: "StringRecord",
+          value: string,
+          createdAt: string,
+        } >,
+        weightKg:  Array< {
+          __typename: "FloatRecord",
+          value: number,
+          createdAt: string,
+        } >,
+        tag:  Array< {
+          __typename: "StringRecord",
+          value: string,
+          createdAt: string,
+        } >,
         business:  {
           __typename: "Business",
           id: string,
@@ -874,6 +900,21 @@ export type UpdateBusinessMutation = {
           createdAt: string,
         } >,
         stage: Stage,
+        dimentionsCm:  Array< {
+          __typename: "StringRecord",
+          value: string,
+          createdAt: string,
+        } >,
+        weightKg:  Array< {
+          __typename: "FloatRecord",
+          value: number,
+          createdAt: string,
+        } >,
+        tag:  Array< {
+          __typename: "StringRecord",
+          value: string,
+          createdAt: string,
+        } >,
         business:  {
           __typename: "Business",
           id: string,
@@ -1180,6 +1221,21 @@ export type DeleteBusinessMutation = {
           createdAt: string,
         } >,
         stage: Stage,
+        dimentionsCm:  Array< {
+          __typename: "StringRecord",
+          value: string,
+          createdAt: string,
+        } >,
+        weightKg:  Array< {
+          __typename: "FloatRecord",
+          value: number,
+          createdAt: string,
+        } >,
+        tag:  Array< {
+          __typename: "StringRecord",
+          value: string,
+          createdAt: string,
+        } >,
         business:  {
           __typename: "Business",
           id: string,
@@ -1459,6 +1515,21 @@ export type CreateEmployeeMutation = {
             createdAt: string,
           } >,
           stage: Stage,
+          dimentionsCm:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
+          weightKg:  Array< {
+            __typename: "FloatRecord",
+            value: number,
+            createdAt: string,
+          } >,
+          tag:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
           business:  {
             __typename: "Business",
             id: string,
@@ -1712,6 +1783,21 @@ export type UpdateEmployeeMutation = {
             createdAt: string,
           } >,
           stage: Stage,
+          dimentionsCm:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
+          weightKg:  Array< {
+            __typename: "FloatRecord",
+            value: number,
+            createdAt: string,
+          } >,
+          tag:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
           business:  {
             __typename: "Business",
             id: string,
@@ -1965,6 +2051,21 @@ export type DeleteEmployeeMutation = {
             createdAt: string,
           } >,
           stage: Stage,
+          dimentionsCm:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
+          weightKg:  Array< {
+            __typename: "FloatRecord",
+            value: number,
+            createdAt: string,
+          } >,
+          tag:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
           business:  {
             __typename: "Business",
             id: string,
@@ -2200,6 +2301,21 @@ export type CreateManagerMutation = {
               createdAt: string,
             } >,
             stage: Stage,
+            dimentionsCm:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
+            weightKg:  Array< {
+              __typename: "FloatRecord",
+              value: number,
+              createdAt: string,
+            } >,
+            tag:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
             business:  {
               __typename: "Business",
               id: string,
@@ -2392,6 +2508,21 @@ export type UpdateManagerMutation = {
               createdAt: string,
             } >,
             stage: Stage,
+            dimentionsCm:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
+            weightKg:  Array< {
+              __typename: "FloatRecord",
+              value: number,
+              createdAt: string,
+            } >,
+            tag:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
             business:  {
               __typename: "Business",
               id: string,
@@ -2584,6 +2715,21 @@ export type DeleteManagerMutation = {
               createdAt: string,
             } >,
             stage: Stage,
+            dimentionsCm:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
+            weightKg:  Array< {
+              __typename: "FloatRecord",
+              value: number,
+              createdAt: string,
+            } >,
+            tag:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
             business:  {
               __typename: "Business",
               id: string,
@@ -2783,6 +2929,21 @@ export type CreateProductMutation = {
       createdAt: string,
     } >,
     stage: Stage,
+    dimentionsCm:  Array< {
+      __typename: "StringRecord",
+      value: string,
+      createdAt: string,
+    } >,
+    weightKg:  Array< {
+      __typename: "FloatRecord",
+      value: number,
+      createdAt: string,
+    } >,
+    tag:  Array< {
+      __typename: "StringRecord",
+      value: string,
+      createdAt: string,
+    } >,
     business:  {
       __typename: "Business",
       id: string,
@@ -2877,6 +3038,21 @@ export type CreateProductMutation = {
             createdAt: string,
           } >,
           stage: Stage,
+          dimentionsCm:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
+          weightKg:  Array< {
+            __typename: "FloatRecord",
+            value: number,
+            createdAt: string,
+          } >,
+          tag:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
           business:  {
             __typename: "Business",
             id: string,
@@ -3052,6 +3228,21 @@ export type UpdateProductMutation = {
       createdAt: string,
     } >,
     stage: Stage,
+    dimentionsCm:  Array< {
+      __typename: "StringRecord",
+      value: string,
+      createdAt: string,
+    } >,
+    weightKg:  Array< {
+      __typename: "FloatRecord",
+      value: number,
+      createdAt: string,
+    } >,
+    tag:  Array< {
+      __typename: "StringRecord",
+      value: string,
+      createdAt: string,
+    } >,
     business:  {
       __typename: "Business",
       id: string,
@@ -3146,6 +3337,21 @@ export type UpdateProductMutation = {
             createdAt: string,
           } >,
           stage: Stage,
+          dimentionsCm:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
+          weightKg:  Array< {
+            __typename: "FloatRecord",
+            value: number,
+            createdAt: string,
+          } >,
+          tag:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
           business:  {
             __typename: "Business",
             id: string,
@@ -3321,6 +3527,21 @@ export type DeleteProductMutation = {
       createdAt: string,
     } >,
     stage: Stage,
+    dimentionsCm:  Array< {
+      __typename: "StringRecord",
+      value: string,
+      createdAt: string,
+    } >,
+    weightKg:  Array< {
+      __typename: "FloatRecord",
+      value: number,
+      createdAt: string,
+    } >,
+    tag:  Array< {
+      __typename: "StringRecord",
+      value: string,
+      createdAt: string,
+    } >,
     business:  {
       __typename: "Business",
       id: string,
@@ -3415,6 +3636,21 @@ export type DeleteProductMutation = {
             createdAt: string,
           } >,
           stage: Stage,
+          dimentionsCm:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
+          weightKg:  Array< {
+            __typename: "FloatRecord",
+            value: number,
+            createdAt: string,
+          } >,
+          tag:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
           business:  {
             __typename: "Business",
             id: string,
@@ -3774,6 +4010,21 @@ export type GetBusinessQuery = {
           createdAt: string,
         } >,
         stage: Stage,
+        dimentionsCm:  Array< {
+          __typename: "StringRecord",
+          value: string,
+          createdAt: string,
+        } >,
+        weightKg:  Array< {
+          __typename: "FloatRecord",
+          value: number,
+          createdAt: string,
+        } >,
+        tag:  Array< {
+          __typename: "StringRecord",
+          value: string,
+          createdAt: string,
+        } >,
         business:  {
           __typename: "Business",
           id: string,
@@ -4053,6 +4304,21 @@ export type ListBusinesssQuery = {
             createdAt: string,
           } >,
           stage: Stage,
+          dimentionsCm:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
+          weightKg:  Array< {
+            __typename: "FloatRecord",
+            value: number,
+            createdAt: string,
+          } >,
+          tag:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
           business:  {
             __typename: "Business",
             id: string,
@@ -4273,6 +4539,21 @@ export type GetEmployeeQuery = {
             createdAt: string,
           } >,
           stage: Stage,
+          dimentionsCm:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
+          weightKg:  Array< {
+            __typename: "FloatRecord",
+            value: number,
+            createdAt: string,
+          } >,
+          tag:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
           business:  {
             __typename: "Business",
             id: string,
@@ -4509,6 +4790,21 @@ export type ListEmployeesQuery = {
               createdAt: string,
             } >,
             stage: Stage,
+            dimentionsCm:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
+            weightKg:  Array< {
+              __typename: "FloatRecord",
+              value: number,
+              createdAt: string,
+            } >,
+            tag:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
             business:  {
               __typename: "Business",
               id: string,
@@ -4717,6 +5013,21 @@ export type GetManagerQuery = {
               createdAt: string,
             } >,
             stage: Stage,
+            dimentionsCm:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
+            weightKg:  Array< {
+              __typename: "FloatRecord",
+              value: number,
+              createdAt: string,
+            } >,
+            tag:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
             business:  {
               __typename: "Business",
               id: string,
@@ -4941,6 +5252,21 @@ export type GetProductQuery = {
       createdAt: string,
     } >,
     stage: Stage,
+    dimentionsCm:  Array< {
+      __typename: "StringRecord",
+      value: string,
+      createdAt: string,
+    } >,
+    weightKg:  Array< {
+      __typename: "FloatRecord",
+      value: number,
+      createdAt: string,
+    } >,
+    tag:  Array< {
+      __typename: "StringRecord",
+      value: string,
+      createdAt: string,
+    } >,
     business:  {
       __typename: "Business",
       id: string,
@@ -5035,6 +5361,21 @@ export type GetProductQuery = {
             createdAt: string,
           } >,
           stage: Stage,
+          dimentionsCm:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
+          weightKg:  Array< {
+            __typename: "FloatRecord",
+            value: number,
+            createdAt: string,
+          } >,
+          tag:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
           business:  {
             __typename: "Business",
             id: string,
@@ -5213,6 +5554,21 @@ export type ListProductsQuery = {
         createdAt: string,
       } >,
       stage: Stage,
+      dimentionsCm:  Array< {
+        __typename: "StringRecord",
+        value: string,
+        createdAt: string,
+      } >,
+      weightKg:  Array< {
+        __typename: "FloatRecord",
+        value: number,
+        createdAt: string,
+      } >,
+      tag:  Array< {
+        __typename: "StringRecord",
+        value: string,
+        createdAt: string,
+      } >,
       business:  {
         __typename: "Business",
         id: string,
@@ -5287,6 +5643,21 @@ export type ListProductsQuery = {
               createdAt: string,
             } >,
             stage: Stage,
+            dimentionsCm:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
+            weightKg:  Array< {
+              __typename: "FloatRecord",
+              value: number,
+              createdAt: string,
+            } >,
+            tag:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
             business:  {
               __typename: "Business",
               id: string,
@@ -5574,6 +5945,21 @@ export type ByManagerAndCompanyQuery = {
             createdAt: string,
           } >,
           stage: Stage,
+          dimentionsCm:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
+          weightKg:  Array< {
+            __typename: "FloatRecord",
+            value: number,
+            createdAt: string,
+          } >,
+          tag:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
           business:  {
             __typename: "Business",
             id: string,
@@ -5780,6 +6166,21 @@ export type EmployeeByBusinessAndNameQuery = {
               createdAt: string,
             } >,
             stage: Stage,
+            dimentionsCm:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
+            weightKg:  Array< {
+              __typename: "FloatRecord",
+              value: number,
+              createdAt: string,
+            } >,
+            tag:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
             business:  {
               __typename: "Business",
               id: string,
@@ -5935,6 +6336,21 @@ export type ByBusinessQuery = {
         createdAt: string,
       } >,
       stage: Stage,
+      dimentionsCm:  Array< {
+        __typename: "StringRecord",
+        value: string,
+        createdAt: string,
+      } >,
+      weightKg:  Array< {
+        __typename: "FloatRecord",
+        value: number,
+        createdAt: string,
+      } >,
+      tag:  Array< {
+        __typename: "StringRecord",
+        value: string,
+        createdAt: string,
+      } >,
       business:  {
         __typename: "Business",
         id: string,
@@ -6009,6 +6425,21 @@ export type ByBusinessQuery = {
               createdAt: string,
             } >,
             stage: Stage,
+            dimentionsCm:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
+            weightKg:  Array< {
+              __typename: "FloatRecord",
+              value: number,
+              createdAt: string,
+            } >,
+            tag:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
             business:  {
               __typename: "Business",
               id: string,
@@ -6488,6 +6919,21 @@ export type OnCreateBusinessSubscription = {
           createdAt: string,
         } >,
         stage: Stage,
+        dimentionsCm:  Array< {
+          __typename: "StringRecord",
+          value: string,
+          createdAt: string,
+        } >,
+        weightKg:  Array< {
+          __typename: "FloatRecord",
+          value: number,
+          createdAt: string,
+        } >,
+        tag:  Array< {
+          __typename: "StringRecord",
+          value: string,
+          createdAt: string,
+        } >,
         business:  {
           __typename: "Business",
           id: string,
@@ -6789,6 +7235,21 @@ export type OnUpdateBusinessSubscription = {
           createdAt: string,
         } >,
         stage: Stage,
+        dimentionsCm:  Array< {
+          __typename: "StringRecord",
+          value: string,
+          createdAt: string,
+        } >,
+        weightKg:  Array< {
+          __typename: "FloatRecord",
+          value: number,
+          createdAt: string,
+        } >,
+        tag:  Array< {
+          __typename: "StringRecord",
+          value: string,
+          createdAt: string,
+        } >,
         business:  {
           __typename: "Business",
           id: string,
@@ -7090,6 +7551,21 @@ export type OnDeleteBusinessSubscription = {
           createdAt: string,
         } >,
         stage: Stage,
+        dimentionsCm:  Array< {
+          __typename: "StringRecord",
+          value: string,
+          createdAt: string,
+        } >,
+        weightKg:  Array< {
+          __typename: "FloatRecord",
+          value: number,
+          createdAt: string,
+        } >,
+        tag:  Array< {
+          __typename: "StringRecord",
+          value: string,
+          createdAt: string,
+        } >,
         business:  {
           __typename: "Business",
           id: string,
@@ -7364,6 +7840,21 @@ export type OnCreateEmployeeSubscription = {
             createdAt: string,
           } >,
           stage: Stage,
+          dimentionsCm:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
+          weightKg:  Array< {
+            __typename: "FloatRecord",
+            value: number,
+            createdAt: string,
+          } >,
+          tag:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
           business:  {
             __typename: "Business",
             id: string,
@@ -7612,6 +8103,21 @@ export type OnUpdateEmployeeSubscription = {
             createdAt: string,
           } >,
           stage: Stage,
+          dimentionsCm:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
+          weightKg:  Array< {
+            __typename: "FloatRecord",
+            value: number,
+            createdAt: string,
+          } >,
+          tag:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
           business:  {
             __typename: "Business",
             id: string,
@@ -7860,6 +8366,21 @@ export type OnDeleteEmployeeSubscription = {
             createdAt: string,
           } >,
           stage: Stage,
+          dimentionsCm:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
+          weightKg:  Array< {
+            __typename: "FloatRecord",
+            value: number,
+            createdAt: string,
+          } >,
+          tag:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
           business:  {
             __typename: "Business",
             id: string,
@@ -8090,6 +8611,21 @@ export type OnCreateManagerSubscription = {
               createdAt: string,
             } >,
             stage: Stage,
+            dimentionsCm:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
+            weightKg:  Array< {
+              __typename: "FloatRecord",
+              value: number,
+              createdAt: string,
+            } >,
+            tag:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
             business:  {
               __typename: "Business",
               id: string,
@@ -8277,6 +8813,21 @@ export type OnUpdateManagerSubscription = {
               createdAt: string,
             } >,
             stage: Stage,
+            dimentionsCm:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
+            weightKg:  Array< {
+              __typename: "FloatRecord",
+              value: number,
+              createdAt: string,
+            } >,
+            tag:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
             business:  {
               __typename: "Business",
               id: string,
@@ -8464,6 +9015,21 @@ export type OnDeleteManagerSubscription = {
               createdAt: string,
             } >,
             stage: Stage,
+            dimentionsCm:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
+            weightKg:  Array< {
+              __typename: "FloatRecord",
+              value: number,
+              createdAt: string,
+            } >,
+            tag:  Array< {
+              __typename: "StringRecord",
+              value: string,
+              createdAt: string,
+            } >,
             business:  {
               __typename: "Business",
               id: string,
@@ -8592,6 +9158,21 @@ export type OnCreateProductSubscription = {
       createdAt: string,
     } >,
     stage: Stage,
+    dimentionsCm:  Array< {
+      __typename: "StringRecord",
+      value: string,
+      createdAt: string,
+    } >,
+    weightKg:  Array< {
+      __typename: "FloatRecord",
+      value: number,
+      createdAt: string,
+    } >,
+    tag:  Array< {
+      __typename: "StringRecord",
+      value: string,
+      createdAt: string,
+    } >,
     business:  {
       __typename: "Business",
       id: string,
@@ -8686,6 +9267,21 @@ export type OnCreateProductSubscription = {
             createdAt: string,
           } >,
           stage: Stage,
+          dimentionsCm:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
+          weightKg:  Array< {
+            __typename: "FloatRecord",
+            value: number,
+            createdAt: string,
+          } >,
+          tag:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
           business:  {
             __typename: "Business",
             id: string,
@@ -8856,6 +9452,21 @@ export type OnUpdateProductSubscription = {
       createdAt: string,
     } >,
     stage: Stage,
+    dimentionsCm:  Array< {
+      __typename: "StringRecord",
+      value: string,
+      createdAt: string,
+    } >,
+    weightKg:  Array< {
+      __typename: "FloatRecord",
+      value: number,
+      createdAt: string,
+    } >,
+    tag:  Array< {
+      __typename: "StringRecord",
+      value: string,
+      createdAt: string,
+    } >,
     business:  {
       __typename: "Business",
       id: string,
@@ -8950,6 +9561,21 @@ export type OnUpdateProductSubscription = {
             createdAt: string,
           } >,
           stage: Stage,
+          dimentionsCm:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
+          weightKg:  Array< {
+            __typename: "FloatRecord",
+            value: number,
+            createdAt: string,
+          } >,
+          tag:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
           business:  {
             __typename: "Business",
             id: string,
@@ -9120,6 +9746,21 @@ export type OnDeleteProductSubscription = {
       createdAt: string,
     } >,
     stage: Stage,
+    dimentionsCm:  Array< {
+      __typename: "StringRecord",
+      value: string,
+      createdAt: string,
+    } >,
+    weightKg:  Array< {
+      __typename: "FloatRecord",
+      value: number,
+      createdAt: string,
+    } >,
+    tag:  Array< {
+      __typename: "StringRecord",
+      value: string,
+      createdAt: string,
+    } >,
     business:  {
       __typename: "Business",
       id: string,
@@ -9214,6 +9855,21 @@ export type OnDeleteProductSubscription = {
             createdAt: string,
           } >,
           stage: Stage,
+          dimentionsCm:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
+          weightKg:  Array< {
+            __typename: "FloatRecord",
+            value: number,
+            createdAt: string,
+          } >,
+          tag:  Array< {
+            __typename: "StringRecord",
+            value: string,
+            createdAt: string,
+          } >,
           business:  {
             __typename: "Business",
             id: string,

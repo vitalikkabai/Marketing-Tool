@@ -111,6 +111,18 @@ export const createBusiness = /* GraphQL */ `
             createdAt
           }
           stage
+          dimentionsCm {
+            value
+            createdAt
+          }
+          weightKg {
+            value
+            createdAt
+          }
+          tag {
+            value
+            createdAt
+          }
           business {
             id
             companyName
@@ -372,6 +384,18 @@ export const updateBusiness = /* GraphQL */ `
             createdAt
           }
           stage
+          dimentionsCm {
+            value
+            createdAt
+          }
+          weightKg {
+            value
+            createdAt
+          }
+          tag {
+            value
+            createdAt
+          }
           business {
             id
             companyName
@@ -633,6 +657,18 @@ export const deleteBusiness = /* GraphQL */ `
             createdAt
           }
           stage
+          dimentionsCm {
+            value
+            createdAt
+          }
+          weightKg {
+            value
+            createdAt
+          }
+          tag {
+            value
+            createdAt
+          }
           business {
             id
             companyName
@@ -870,6 +906,18 @@ export const createEmployee = /* GraphQL */ `
               createdAt
             }
             stage
+            dimentionsCm {
+              value
+              createdAt
+            }
+            weightKg {
+              value
+              createdAt
+            }
+            tag {
+              value
+              createdAt
+            }
             business {
               id
               companyName
@@ -1085,6 +1133,18 @@ export const updateEmployee = /* GraphQL */ `
               createdAt
             }
             stage
+            dimentionsCm {
+              value
+              createdAt
+            }
+            weightKg {
+              value
+              createdAt
+            }
+            tag {
+              value
+              createdAt
+            }
             business {
               id
               companyName
@@ -1300,6 +1360,18 @@ export const deleteEmployee = /* GraphQL */ `
               createdAt
             }
             stage
+            dimentionsCm {
+              value
+              createdAt
+            }
+            weightKg {
+              value
+              createdAt
+            }
+            tag {
+              value
+              createdAt
+            }
             business {
               id
               companyName
@@ -1500,6 +1572,18 @@ export const createManager = /* GraphQL */ `
                 createdAt
               }
               stage
+              dimentionsCm {
+                value
+                createdAt
+              }
+              weightKg {
+                value
+                createdAt
+              }
+              tag {
+                value
+                createdAt
+              }
               business {
                 id
                 companyName
@@ -1665,6 +1749,18 @@ export const updateManager = /* GraphQL */ `
                 createdAt
               }
               stage
+              dimentionsCm {
+                value
+                createdAt
+              }
+              weightKg {
+                value
+                createdAt
+              }
+              tag {
+                value
+                createdAt
+              }
               business {
                 id
                 companyName
@@ -1830,6 +1926,18 @@ export const deleteManager = /* GraphQL */ `
                 createdAt
               }
               stage
+              dimentionsCm {
+                value
+                createdAt
+              }
+              weightKg {
+                value
+                createdAt
+              }
+              tag {
+                value
+                createdAt
+              }
               business {
                 id
                 companyName
@@ -2003,6 +2111,18 @@ export const createProduct = /* GraphQL */ `
         createdAt
       }
       stage
+      dimentionsCm {
+        value
+        createdAt
+      }
+      weightKg {
+        value
+        createdAt
+      }
+      tag {
+        value
+        createdAt
+      }
       business {
         id
         companyName
@@ -2081,6 +2201,18 @@ export const createProduct = /* GraphQL */ `
               createdAt
             }
             stage
+            dimentionsCm {
+              value
+              createdAt
+            }
+            weightKg {
+              value
+              createdAt
+            }
+            tag {
+              value
+              createdAt
+            }
             business {
               id
               companyName
@@ -2231,6 +2363,18 @@ export const updateProduct = /* GraphQL */ `
         createdAt
       }
       stage
+      dimentionsCm {
+        value
+        createdAt
+      }
+      weightKg {
+        value
+        createdAt
+      }
+      tag {
+        value
+        createdAt
+      }
       business {
         id
         companyName
@@ -2309,6 +2453,18 @@ export const updateProduct = /* GraphQL */ `
               createdAt
             }
             stage
+            dimentionsCm {
+              value
+              createdAt
+            }
+            weightKg {
+              value
+              createdAt
+            }
+            tag {
+              value
+              createdAt
+            }
             business {
               id
               companyName
@@ -2459,6 +2615,18 @@ export const deleteProduct = /* GraphQL */ `
         createdAt
       }
       stage
+      dimentionsCm {
+        value
+        createdAt
+      }
+      weightKg {
+        value
+        createdAt
+      }
+      tag {
+        value
+        createdAt
+      }
       business {
         id
         companyName
@@ -2537,6 +2705,18 @@ export const deleteProduct = /* GraphQL */ `
               createdAt
             }
             stage
+            dimentionsCm {
+              value
+              createdAt
+            }
+            weightKg {
+              value
+              createdAt
+            }
+            tag {
+              value
+              createdAt
+            }
             business {
               id
               companyName

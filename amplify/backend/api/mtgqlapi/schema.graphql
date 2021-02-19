@@ -64,6 +64,9 @@ type Product @model
   release: AWSDateTime!
   websiteURLs: [StringArrayRecord!]!
   stage: Stage!
+  dimentionsCm: [StringRecord!]!
+  weightKg: [FloatRecord!]!
+  tag: [StringRecord!]!
   business: Business @connection(fields: ["businessID"])
   businessID: ID!
   # color: [StringArrayRecord!]!
@@ -78,6 +81,11 @@ type Product @model
 
 type IntRecord {
   value: Int!
+  createdAt: AWSDateTime!
+}
+
+type FloatRecord {
+  value: Float!
   createdAt: AWSDateTime!
 }
 

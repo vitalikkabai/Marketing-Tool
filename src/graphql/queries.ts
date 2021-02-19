@@ -108,6 +108,18 @@ export const getBusiness = /* GraphQL */ `
             createdAt
           }
           stage
+          dimentionsCm {
+            value
+            createdAt
+          }
+          weightKg {
+            value
+            createdAt
+          }
+          tag {
+            value
+            createdAt
+          }
           business {
             id
             companyName
@@ -345,6 +357,18 @@ export const listBusinesss = /* GraphQL */ `
               createdAt
             }
             stage
+            dimentionsCm {
+              value
+              createdAt
+            }
+            weightKg {
+              value
+              createdAt
+            }
+            tag {
+              value
+              createdAt
+            }
             business {
               id
               companyName
@@ -529,6 +553,18 @@ export const getEmployee = /* GraphQL */ `
               createdAt
             }
             stage
+            dimentionsCm {
+              value
+              createdAt
+            }
+            weightKg {
+              value
+              createdAt
+            }
+            tag {
+              value
+              createdAt
+            }
             business {
               id
               companyName
@@ -730,6 +766,18 @@ export const listEmployees = /* GraphQL */ `
                 createdAt
               }
               stage
+              dimentionsCm {
+                value
+                createdAt
+              }
+              weightKg {
+                value
+                createdAt
+              }
+              tag {
+                value
+                createdAt
+              }
               business {
                 id
                 companyName
@@ -907,6 +955,18 @@ export const getManager = /* GraphQL */ `
                 createdAt
               }
               stage
+              dimentionsCm {
+                value
+                createdAt
+              }
+              weightKg {
+                value
+                createdAt
+              }
+              tag {
+                value
+                createdAt
+              }
               business {
                 id
                 companyName
@@ -1098,6 +1158,18 @@ export const getProduct = /* GraphQL */ `
         createdAt
       }
       stage
+      dimentionsCm {
+        value
+        createdAt
+      }
+      weightKg {
+        value
+        createdAt
+      }
+      tag {
+        value
+        createdAt
+      }
       business {
         id
         companyName
@@ -1176,6 +1248,18 @@ export const getProduct = /* GraphQL */ `
               createdAt
             }
             stage
+            dimentionsCm {
+              value
+              createdAt
+            }
+            weightKg {
+              value
+              createdAt
+            }
+            tag {
+              value
+              createdAt
+            }
             business {
               id
               companyName
@@ -1328,6 +1412,18 @@ export const listProducts = /* GraphQL */ `
           createdAt
         }
         stage
+        dimentionsCm {
+          value
+          createdAt
+        }
+        weightKg {
+          value
+          createdAt
+        }
+        tag {
+          value
+          createdAt
+        }
         business {
           id
           companyName
@@ -1390,6 +1486,18 @@ export const listProducts = /* GraphQL */ `
                 createdAt
               }
               stage
+              dimentionsCm {
+                value
+                createdAt
+              }
+              weightKg {
+                value
+                createdAt
+              }
+              tag {
+                value
+                createdAt
+              }
               business {
                 id
                 companyName
@@ -1643,6 +1751,18 @@ export const byManagerAndCompany = /* GraphQL */ `
               createdAt
             }
             stage
+            dimentionsCm {
+              value
+              createdAt
+            }
+            weightKg {
+              value
+              createdAt
+            }
+            tag {
+              value
+              createdAt
+            }
             business {
               id
               companyName
@@ -1824,6 +1944,18 @@ export const employeeByBusinessAndName = /* GraphQL */ `
                 createdAt
               }
               stage
+              dimentionsCm {
+                value
+                createdAt
+              }
+              weightKg {
+                value
+                createdAt
+              }
+              tag {
+                value
+                createdAt
+              }
               business {
                 id
                 companyName
@@ -1965,6 +2097,18 @@ export const byBusiness = /* GraphQL */ `
           createdAt
         }
         stage
+        dimentionsCm {
+          value
+          createdAt
+        }
+        weightKg {
+          value
+          createdAt
+        }
+        tag {
+          value
+          createdAt
+        }
         business {
           id
           companyName
@@ -2027,6 +2171,18 @@ export const byBusiness = /* GraphQL */ `
                 createdAt
               }
               stage
+              dimentionsCm {
+                value
+                createdAt
+              }
+              weightKg {
+                value
+                createdAt
+              }
+              tag {
+                value
+                createdAt
+              }
               business {
                 id
                 companyName
