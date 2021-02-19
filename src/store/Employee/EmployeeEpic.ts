@@ -92,14 +92,12 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
         action$.pipe(
             filterAction('FETCH_EMPLOYEE_BY_ID'),
             mergeMap((action) => {
-                console.log('After filtering');
                 return from(
                     (API.graphql(
                         graphqlOperation(getEmployee, { id: action.payload })
                     ) as unknown) as Promise<any>
                 ).pipe(
                     mergeMap((res) => {
-                        console.log(res);
                         return [
                             fetchEmployeeSuccess(res.data.getEmployee),
                             updateProfileSuccess(res.data.getEmployee.profile),

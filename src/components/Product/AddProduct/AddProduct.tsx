@@ -141,9 +141,9 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
             websiteURLs: [{record: URLs, createdAt: currentTime}],
             stage: Stage.PRODUCTS,
             businessID: props.businessID ? props.businessID : "",
-            dimentionsCm: [],
-            weightKg: [],
-            tag: [],
+            dimentionsCm: [{value: inputValue.cm.value, createdAt: currentTime}],
+            weightKg: [{value: Number(inputValue.kgs.value), createdAt: currentTime}],
+            tag: [{value: inputValue.tag.value, createdAt: currentTime}],
             photos: [{
                 key: "",
                 createdAt: currentTime,
@@ -267,19 +267,19 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                                 items={[
                                                     <MenuItem
                                                         key={'menu_1'}
-                                                        value={"0"}
+                                                        value={"New"}
                                                     >
                                                         New
                                                     </MenuItem>,
                                                     <MenuItem
                                                         key={'menu_2'}
-                                                        value={"1"}
+                                                        value={"Best Seller"}
                                                     >
                                                         Best Seller
                                                     </MenuItem>,
                                                     <MenuItem
                                                         key={'menu_3'}
-                                                        value={"2"}
+                                                        value={"Hot"}
                                                     >
                                                         Hot
                                                     </MenuItem>
@@ -297,7 +297,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                             marginRight: '24px',
                                         }}>
                                         <CustomInput
-                                            label={'LxWxH, cm'}
+                                            label={'Dimensions, cm'}
                                             fullWidth
                                             type={"number"}
                                             value={inputValue.cm.value}
@@ -318,7 +318,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                             marginRight: '24px',
                                         }}>
                                         <CustomInput
-                                            label={'LxWxH, inch'}
+                                            label={'Dimensions, inch'}
                                             fullWidth
                                             type={"number"}
                                             value={inputValue.inch.value}

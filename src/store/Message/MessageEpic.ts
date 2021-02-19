@@ -1,6 +1,6 @@
 import { BehaviorSubject, concat, Observable } from 'rxjs';
-import { UpdateMessageInput, OnUpdateMessageSubscriptionVariables } from './../../API';
-import { createMessage, updateMessage } from './../../graphql/mutations';
+import { UpdateMessageInput, OnUpdateMessageSubscriptionVariables } from '../../API';
+import { createMessage, updateMessage } from '../../graphql/mutations';
 
 import { Epic } from 'redux-observable';
 import { catchError, combineAll, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
@@ -107,14 +107,12 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                             },
                             limit: 7,
                         };
-                        console.log('quering for convo', params, userID, interlocutorID);
                         return from(
                             (API.graphql(
                                 graphqlOperation(getConversation, params)
                             ) as unknown) as Promise<any>
                         ).pipe(
                             mergeMap((res) => {
-                                console.log('got convo', res);
                                 const messages: CreateMessageInput[] =
                                     res.data.getConversation.items;
                                 const updateMessageActions: ActionTypes[] = [];
@@ -134,7 +132,6 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                                     sharedID: state.MessageReducer.sharedID,
                                     messages
                                 }
-                                console.log('returnning dialogue',returnDialogue)
                                 return [
                                     subscribeOnMessageUpdated(),
                                     loadDialogueSuccess(returnDialogue),
@@ -187,7 +184,6 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                         );
                         return messageCreatedSubject.pipe(
                             map((res) => {
-                                console.log(res);
                                 return res;
                             }),
                             catchError((err) => {
@@ -218,11 +214,6 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
             filterAction('SUBSCRIBE_ON_MESSAGE_UPDATED'),
             switchMap(() => {
                 if (!state$.value.MessageReducer.interlocutor) throw 'no interlocutor';
-                console.log(
-                    'onMess updaged',
-                    state$.value.ProfileReducer.profile.id,
-                    state$.value.MessageReducer.interlocutor.id
-                );
                 const params: OnUpdateMessageSubscriptionVariables = {
                     senderID: state$.value.ProfileReducer.profile.id,
                 };
@@ -230,7 +221,6 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                     graphqlOperation(onUpdateMessage, params)
                 ) as unknown) as Observable<any>;
                 const onUpdateMessageSubscription = onUpdateMessageObservable.subscribe((mes) => {
-                    console.log('message updated by subscription', mes);
                     messageUpdatedSubject.next(getUpdatedMessage(mes.value.data.onUpdateMessage));
                 });
                 const messageUpdatedSubject = new BehaviorSubject<ActionTypes>(
@@ -238,7 +228,6 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                 );
                 return messageUpdatedSubject.pipe(
                     map((res) => {
-                        console.log(res);
                         return res;
                     }),
                     catchError((err) => {

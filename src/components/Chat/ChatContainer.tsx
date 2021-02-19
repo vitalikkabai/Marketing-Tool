@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
 import { AppStateType } from '../../store/store';
 import Chat from './Chat';
-import { CreateMessageInput, CreateProfileInput, Stage } from '../../API';
+import { CreateMessageInput, Stage } from '../../API';
 import { clearDialogue, setDialogueSubject, sendMessage } from '../../store/Message/MessageActions';
 import { FunctionComponent } from 'react';
 import { MakeActiveDialogue } from '../../store/Message/MessageReducer';

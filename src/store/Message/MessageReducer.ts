@@ -1,4 +1,3 @@
-import { AppStateType } from './../store';
 import { createSelector, OutputSelector } from 'reselect';
 import { Subscription } from 'rxjs';
 import { CreateMessageInput, CreateProfileInput, Stage } from '../../API';
@@ -50,7 +49,6 @@ export const MakeActiveDialogue = (): OutputSelector<
     createSelector(
         [getSubjectID, getStage, getSharedID, getDialogues],
         (subjectID, stage, sharedID, dialogues) => {
-            console.log('Recalculating selector')
             const selectedDialogue = dialogues.find(
                 (dialogue) =>
                     dialogue.sharedID === sharedID &&
@@ -171,7 +169,6 @@ export const MessageReducer = (
             };
         }
         case 'LOAD_DIALOGUE_SUCCESS':{
-            console.log('load success')
             const newDialogues = [...state.dialogues];
             const updatedDialogueIndex = newDialogues.findIndex((dialogue) => {
                 return (
