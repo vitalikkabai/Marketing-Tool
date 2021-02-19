@@ -141,6 +141,9 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
             websiteURLs: [{record: URLs, createdAt: currentTime}],
             stage: Stage.PRODUCTS,
             businessID: props.businessID ? props.businessID : "",
+            dimentionsCm: [],
+            weightKg: [],
+            tag: [],
             photos: [{
                 key: "",
                 createdAt: currentTime,
