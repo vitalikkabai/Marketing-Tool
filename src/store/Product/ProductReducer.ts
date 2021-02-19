@@ -1,27 +1,48 @@
-import { CreateProductInput, Stage } from '../../API';
+import {CreateProductInput} from '../../API';
 import * as actions from './ProductActions';
 
-const initialState: CreateProductInput = {
-    itemNumber: [{value: 0, createdAt:""}],
-    itemName: [{value: "", createdAt:""}],
-    release: '',
-    websiteURLs: [{record:[], createdAt: ""}],
-    stage: Stage.PRODUCTS,
-    businessID: '',
-    dimentionsCm: [],
-    weightKg: [],
-    tag: [],
-    photos: [],
-    videos: [],
-    certifications: [],
-    marketingMaterials: []
+export type InitialStateType = typeof initialState;
+const initialState = {
+    product: {} as CreateProductInput,
+    productList: [] as CreateProductInput[],
+    isPending: false
 };
 
 export const ProductReducer = (
     state = initialState,
     action: ActionTypes
-): CreateProductInput => {
+): InitialStateType => {
     switch (action.type) {
+        case 'SET_PRODUCT_INFO': {
+            return {
+                ...state,
+                product: action.payload,
+            };
+        }
+        case 'CREATE_PRODUCT_REQUEST': {
+            return {
+                ...state,
+                isPending: true,
+            };
+        }
+        case 'CREATE_PRODUCT_SUCCESS': {
+            return {
+                ...state,
+                isPending: false,
+            };
+        }
+        case 'CREATE_PRODUCT_FAILED': {
+            return {
+                ...state,
+                isPending: false,
+            };
+        }
+        case 'GET_PRODUCT_LIST_SUCCESS': {
+            return {
+                ...state,
+                productList: action.payload,
+            };
+        }
         default:
             return {
                 ...state,

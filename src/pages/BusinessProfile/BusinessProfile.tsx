@@ -1,12 +1,12 @@
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 import classes from './BusinessProfile.module.scss';
 import CustomInput from '../../components/common/Input/CustomInput';
 import CustomButton from '../../components/common/Button/CustomButton';
 import RoleBoxes from '../../components/common/RoleBoxes/RoleBoxes';
-import { PropsFromRedux } from './BusinessProfileContainer';
+import {PropsFromRedux} from './BusinessProfileContainer';
 import WebLink from '../../components/common/webLink/webLink';
 
 const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
@@ -50,7 +50,7 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     const [companyName, setCompanyName] = useState(props.business.companyName);
     const [companyNameError, setCompanyNameError] = useState('');
     const [selectedRoleError, setSelectedRoleError] = useState('');
-    const [sellingURLs, setSellingURLs] = useState<string[]>(
+    const [storeURLs, setSellingURLs] = useState<string[]>(
         props.business.storeURLs
     );
     const [webInput, setWebInput] = useState('');
@@ -67,6 +67,8 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         props.updateBusinessInDB({
             id: props.business.id as string,
             companyName,
+            websiteURLs,
+            storeURLs
         });
     };
 
@@ -76,33 +78,74 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 
     useEffect(() => {
         setCompanyName(props.business.companyName);
-    },[props.business]);
+        setWebsiteURLs(props.business.websiteURLs);
+        setSellingURLs(props.business.storeURLs);
+    }, [props.business]);
+
+    useEffect(() => {
+        setSelectedRole(
+            [
+                {
+                    id: 'sales_role',
+                    title: 'Sales',
+                    selected: props.roleTags.sales,
+                },
+                {
+                    id: 'marketing_role',
+                    title: 'Marketing',
+                    selected: props.roleTags.marketing,
+                },
+                {
+                    id: 'logistic_role',
+                    title: 'Logistics',
+                    selected: props.roleTags.logistics,
+                },
+                {
+                    id: 'accounting_role',
+                    title: 'Accounting',
+                    selected: props.roleTags.accounting,
+                },
+                {
+                    id: 'production_role',
+                    title: 'Production',
+                    selected: props.roleTags.production,
+                },
+                {
+                    id: 'quality_role',
+                    title: 'QC',
+                    selected: props.roleTags.qualityControl,
+                }
+            ].sort((a, b) =>
+                a.selected < b.selected ? 1 : b.selected < a.selected ? -1 : 0
+            )
+        );
+    }, [props.roleTags]);
 
     useEffect(() => {
         // Check that any values do not differ from the analogues in the reducer
         if (
             companyName !== props.business.companyName ||
-            sellingURLs !== props.business.storeURLs ||
+            storeURLs !== props.business.storeURLs ||
             websiteURLs !== props.business.websiteURLs ||
             selectedRole.find((el) => el.id === 'sales_role')?.selected !==
-                props.roleTags.sales ||
+            props.roleTags.sales ||
             selectedRole.find((el) => el.id === 'marketing_role')?.selected !==
-                props.roleTags.marketing ||
+            props.roleTags.marketing ||
             selectedRole.find((el) => el.id === 'logistic_role')?.selected !==
-                props.roleTags.logistics ||
+            props.roleTags.logistics ||
             selectedRole.find((el) => el.id === 'accounting_role')?.selected !==
-                props.roleTags.accounting ||
+            props.roleTags.accounting ||
             selectedRole.find((el) => el.id === 'production_role')?.selected !==
-                props.roleTags.production ||
+            props.roleTags.production ||
             selectedRole.find((el) => el.id === 'quality_role')?.selected !==
-                props.roleTags.qualityControl
+            props.roleTags.qualityControl
         ) {
             setEdited(true);
         } // Set edited mode
         else {
             setEdited(false);
         }
-    }, [selectedRole, companyName, sellingURLs, websiteURLs]);
+    }, [selectedRole, companyName, storeURLs, websiteURLs]);
 
     return (
         <Box className={classes.component}>
@@ -125,9 +168,7 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 error={!!companyNameError}
                                 variant="outlined"
                                 onChange={(
-                                    event: React.ChangeEvent<
-                                        HTMLTextAreaElement | HTMLInputElement
-                                    >
+                                    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
                                 ) => setCompanyName(event.target.value)}/>
                         </Grid>
                         <Grid item xs={9} className={classes.saveButton}>
@@ -155,7 +196,7 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                         xs={12}
                         justify={'space-between'}
                         className={classes.linkGridItem}>
-                        <Grid item xs={6} style={{ paddingRight: '24px' }}>
+                        <Grid item xs={6} style={{paddingRight: '24px'}}>
                             <WebLink
                                 linkInput={webInput}
                                 linkURLs={websiteURLs}
@@ -166,10 +207,10 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 label={'Website URL address'}
                             />
                         </Grid>
-                        <Grid item xs={6} style={{ paddingLeft: '24px' }}>
+                        <Grid item xs={6} style={{paddingLeft: '24px'}}>
                             <WebLink
                                 linkInput={sellingInput}
-                                linkURLs={sellingURLs}
+                                linkURLs={storeURLs}
                                 linkErrorText={storeErrorText}
                                 setLinkInput={setSellingInput}
                                 setLinkURLs={setSellingURLs}

@@ -2,17 +2,17 @@ import { AppStateType } from '../../store/store';
 import { Dispatch } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
 import ProductPage from './ProductPage';
-import { signOut } from '../../store/Auth/AuthActions';
+import {getProductList} from "../../store/Product/ProductActions";
 
 function mapStateToProps(state: AppStateType) {
     return {
-        isAuth: state.AuthReducer.isAuth,
+        productList: state.ProductReducer.productList,
     };
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
     return {
-        signOut: () => dispatch(signOut()),
+        getProductList: () => dispatch(getProductList()),
     };
 }
 

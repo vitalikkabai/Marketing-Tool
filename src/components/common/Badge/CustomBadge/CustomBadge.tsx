@@ -1,6 +1,6 @@
 import React from 'react';
 import { Badge, makeStyles } from '@material-ui/core';
-import ToDoIcon from '../../../assets/images/ToDoListIcon.svg';
+import ToDoIcon from '../../../../assets/images/ToDoListIcon.svg';
 import styles from './CustomBadge.module.scss';
 
 type PropTypes = {

@@ -16,6 +16,7 @@ import MessageReducer from './Message/MessageReducer';
 import ManagerReducer from './Manager/ManagerReducer';
 import ProductReducer from './Product/ProductReducer';
 import { ActionTypes } from './storeTypes';
+import ProductEpic from "./Product/ProductEpic";
 
 const rootEpic = (action$: any, store$: any, dependencies: any) =>
     combineEpics(
@@ -24,6 +25,7 @@ const rootEpic = (action$: any, store$: any, dependencies: any) =>
         ...ProfileEpics,
         ...EmployeeEpics,
         ...MessageEpics,
+        ...ProductEpic,
         ...ManagerEpics
     )(action$, store$, dependencies).pipe(
         catchError((error, source) => {
