@@ -6,8 +6,11 @@ import {MaterialUiPickersDate} from "@material-ui/pickers/typings/date";
 
 type PropsType = {
     error?: boolean
-    value:  moment.Moment | null | undefined
+    value:  moment.Moment | string | null | undefined
     label: string
+    name?: string
+    helperText?: string | boolean
+    onBlur?: {(e: React.FocusEvent<unknown>): void, <T=unknown>(fieldOrEvent: T): T extends string ? ((e: unknown) => void) : void}
     onChange: (date: MaterialUiPickersDate) => void
 }
 
@@ -32,7 +35,15 @@ const CustomDatePicker: React.FC<PropsType> = (props) => {
                     : props.value
                         ? '#4285F4'
                         : ""
-            }
+            },
+            '& .MuiFormHelperText-contained': {
+                position: 'absolute',
+                bottom: '-20px',
+                marginLeft: '10px',
+                '&:after': {
+                    content: "''",
+                },
+            },
         },
         input: {
             fontFamily: 'Neue Haas Grotesk',
@@ -58,7 +69,7 @@ const CustomDatePicker: React.FC<PropsType> = (props) => {
                     : props.value
                         ? '#4285F4'
                         : "",
-            }
+            },
         },
         dialogue: {
             '& .MuiPickersToolbar-toolbar': {
@@ -85,11 +96,14 @@ const CustomDatePicker: React.FC<PropsType> = (props) => {
     const classes = useStyles();
 
     return <DatePicker
+        name={props.name}
         disableFuture
         autoOk
         focused={focus}
         openTo="year"
         fullWidth
+        error={props.error}
+        helperText={props.helperText}
         color={"secondary"}
         onOpen={()=>{setFocus(true)}}
         onClose={()=>{setFocus(false)}}
@@ -100,6 +114,7 @@ const CustomDatePicker: React.FC<PropsType> = (props) => {
         value={props.value}
         inputVariant="outlined"
         onChange={props.onChange}
+        onBlur={props.onBlur}
         DialogProps={{className: classes.dialogue}}
         InputProps={{className: classes.input}}
     />

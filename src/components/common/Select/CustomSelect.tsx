@@ -7,13 +7,16 @@ interface CustomInputProps {
         event: React.ChangeEvent<{ name?: string | undefined; value: unknown }>,
         child?: React.ReactNode
     ) => void | undefined;
-    value?: any;
-    items: any;
+    onBlur?: { (e: React.FocusEvent<unknown>): void, <T = unknown>(fieldOrEvent: T): T extends string ? ((e: unknown) => void) : void }
+    value?: string | number | undefined;
+    items: Array<unknown>;
     label?: string
     labelId?: string
     colored?: boolean
-    error?:boolean
-    color?:string
+    error?: boolean
+    helperText?: string | boolean
+    color?: string
+    name?: string
 }
 
 const CustomSelect: React.FC<CustomInputProps> = (props) => {
@@ -32,21 +35,32 @@ const CustomSelect: React.FC<CustomInputProps> = (props) => {
             '&.MuiSelect-select:focus': {
                 borderRadius: 10,
             },
+            '&.MuiList-padding': {
+                padding: "0"
+            }
         },
 
         icon: {
             color: '#4285F4',
         },
+
+        selectMenu: {
+            '&.MuiList-padding': {
+                padding: "0"
+            }
+        }
     });
 
     const classes = useStyles();
 
     return (
         <Select
+            name={props.name}
+            error={props.error}
             classes={{
                 root: classes.root,
                 icon: classes.icon,
-                outlined: styles.outlined,
+                selectMenu: classes.selectMenu
             }}
             labelId={props.labelId}
             MenuProps={{
@@ -58,14 +72,17 @@ const CustomSelect: React.FC<CustomInputProps> = (props) => {
             }}
             color={"secondary"}
             label={props.label}
-            className={props.colored || props.value? styles.selector : ""}
+            className={props.colored || props.error
+                ? styles.selectorWithError : props.value ? styles.selector : ""}
             style={{borderRadius: '10px'}}
             onChange={props.onChange}
+            onBlur={props.onBlur}
             value={props.value}
         >
-            {props.items.map((item: any) => item)}
+            {props.items.map((item: unknown) => item)}
         </Select>
     );
 };
+
 
 export default CustomSelect;

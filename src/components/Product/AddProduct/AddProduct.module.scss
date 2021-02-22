@@ -104,4 +104,12 @@
       }
     }
   }
+
+  .errorText {
+    position: absolute;
+    top: 278px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: #ea4335;
+  }
 }
