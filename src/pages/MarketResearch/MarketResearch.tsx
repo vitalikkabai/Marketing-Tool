@@ -37,8 +37,8 @@ const MarketResearch = () => {
                              className={classes.tasksTitle}
                          >
                              <Typography
-                                 variant={'body2'}
-                                 style={{textTransform: 'uppercase'}}
+                                 variant={'h2'}
+                                 // style={{textTransform: 'uppercase'}}
                              >
                                  Previous steps not completed
                              </Typography>

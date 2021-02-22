@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Tab, Badge, Hidden } from '@material-ui/core';
+import { Box, Grid, Typography, Tab, } from '@material-ui/core';
 import React from 'react';
 import moment from 'moment';
 import { useHistory } from 'react-router';
@@ -7,9 +7,6 @@ import TabPanel from '../../common/TabPanel/TabPanel';
 import Blob from '../../../assets/images/Blob.png';
 import CustomAppBar from '../../common/TabPanel/CustomAppBar';
 import CustomBadge from '../../common/Badge/CustomBadge/CustomBadge';
-import team1 from '../../../assets/images/Teammate1.svg';
-import team2 from '../../../assets/images/Teammate2.svg';
-import team3 from '../../../assets/images/Teammate3.svg';
 import team4 from '../../../assets/images/Teammate4.svg';
 import ChatContainer from '../../Chat/ChatContainer';
 
@@ -99,7 +96,7 @@ function UserDashboard() {
                 </Typography>
             </Box>
             <Box className={classes.agoTime}>
-                <Typography variant={'body1'}>
+                <Typography variant={'caption'}>
                     {moment(el.timeAgo).fromNow()}
                 </Typography>
             </Box>
@@ -141,7 +138,9 @@ function UserDashboard() {
                                             }>
                                             <Typography
                                                 color={'primary'}
-                                                variant={'body2'}>
+                                                variant={'h6'}
+                                                style={{fontWeight: 700}}
+                                            >
                                                 Products
                                             </Typography>
                                         </Box>
@@ -154,7 +153,9 @@ function UserDashboard() {
                                             }>
                                             <Typography
                                                 color={'primary'}
-                                                variant={'body2'}>
+                                                variant={'h6'}
+                                                style={{fontWeight: 700}}
+                                            >
                                                 Tasks
                                             </Typography>
                                         </Box>
@@ -179,7 +180,7 @@ function UserDashboard() {
                                         classes.leftTask
                                     }
                                     style={{ background: '#EDCD27' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         1
                                     </Typography>
                                 </Box>
@@ -191,7 +192,7 @@ function UserDashboard() {
                                         classes.rightTask
                                     }
                                     style={{ background: '#EDCD27' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         1
                                     </Typography>
                                 </Box>
@@ -213,7 +214,7 @@ function UserDashboard() {
                                         classes.leftTask
                                     }
                                     style={{ background: '#FFAB08' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         2
                                     </Typography>
                                 </Box>
@@ -225,7 +226,7 @@ function UserDashboard() {
                                         classes.rightTask
                                     }
                                     style={{ background: '#FFAB08' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         7
                                     </Typography>
                                 </Box>
@@ -247,7 +248,7 @@ function UserDashboard() {
                                         classes.leftTask
                                     }
                                     style={{ background: '#EE6B1D' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         1
                                     </Typography>
                                 </Box>
@@ -259,7 +260,7 @@ function UserDashboard() {
                                         classes.rightTask
                                     }
                                     style={{ background: '#EE6B1D' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         1
                                     </Typography>
                                 </Box>
@@ -293,7 +294,7 @@ function UserDashboard() {
                                         classes.rightTask
                                     }
                                     style={{ background: '#43A047' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         2
                                     </Typography>
                                 </Box>
@@ -316,7 +317,7 @@ function UserDashboard() {
                                         classes.leftTask
                                     }
                                     style={{ background: '#0097A6' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         {' '}
                                     </Typography>
                                 </Box>
@@ -328,7 +329,7 @@ function UserDashboard() {
                                         classes.rightTask
                                     }
                                     style={{ background: '#0097A6' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         {' '}
                                     </Typography>
                                 </Box>
@@ -352,7 +353,7 @@ function UserDashboard() {
                                         classes.leftTask
                                     }
                                     style={{ background: '#7B1FA2' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         {' '}
                                     </Typography>
                                 </Box>
@@ -364,7 +365,7 @@ function UserDashboard() {
                                         classes.rightTask
                                     }
                                     style={{ background: '#7B1FA2' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         {' '}
                                     </Typography>
                                 </Box>
@@ -386,7 +387,7 @@ function UserDashboard() {
                                         classes.leftTask
                                     }
                                     style={{ background: '#C2185B' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         6
                                     </Typography>
                                 </Box>
@@ -398,7 +399,7 @@ function UserDashboard() {
                                         classes.rightTask
                                     }
                                     style={{ background: '#C2185B' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         5
                                     </Typography>
                                 </Box>
@@ -424,7 +425,7 @@ function UserDashboard() {
                                         classes.leftTask
                                     }
                                     style={{ background: '#EA4335' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         {' '}
                                     </Typography>
                                 </Box>
@@ -436,7 +437,7 @@ function UserDashboard() {
                                         classes.rightTask
                                     }
                                     style={{ background: '#EA4335' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         {' '}
                                     </Typography>
                                 </Box>
@@ -456,7 +457,7 @@ function UserDashboard() {
                                 <Box className={classes.tasksTitle}>
                                     <Typography
                                         color={'primary'}
-                                        variant={'body2'}>
+                                        variant={'h6'}>
                                         Tasks
                                     </Typography>
                                 </Box>
@@ -477,7 +478,7 @@ function UserDashboard() {
                                 marginTop={'57px'}
                                 textAlign={'center'}
                                 className={classes.tasksTitle}>
-                                <Typography variant={'body2'}>
+                                <Typography variant={'subtitle2'}>
                                     OUR TEAM IS WAITING FOR YOU <br />
                                     TO COMPLETE YOUR TASKS
                                 </Typography>

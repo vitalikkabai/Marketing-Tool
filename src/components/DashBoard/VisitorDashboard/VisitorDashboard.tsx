@@ -1,10 +1,6 @@
 import { Box, Grid, Typography } from '@material-ui/core';
 import React from 'react';
 import classes from './VisitorDashboard.module.scss';
-import team1 from '../../../assets/images/Teammate1.svg';
-import team2 from '../../../assets/images/Teammate2.svg';
-import team3 from '../../../assets/images/Teammate3.svg';
-import team4 from '../../../assets/images/Teammate4.svg';
 import teamPhoto from '../../../assets/images/teamPhoto.png';
 import CustomButton from '../../common/Button/CustomButton';
 import PlayVideoIcon from '../../../assets/images/playVideoIcon.svg';
@@ -39,19 +35,25 @@ const VisitorDashboard = () => {
                                 <Box marginLeft="13px">
                                     <Typography
                                         color={'primary'}
-                                        variant={'body2'}>
+                                        variant={'h6'}
+                                        style={{fontWeight: 700}}
+                                    >
                                         Steps
                                     </Typography>
                                 </Box>
                                 <Box className={classes.checkJobBox}>
                                     <Typography
                                         color={'primary'}
-                                        variant={'body2'}>
+                                        variant={'h6'}
+                                        style={{fontWeight: 700}}
+                                    >
                                         Your job
                                     </Typography>
                                     <Typography
                                         color={'primary'}
-                                        variant={'body2'}>
+                                        variant={'h6'}
+                                        style={{fontWeight: 700}}
+                                    >
                                         Our job
                                     </Typography>
                                 </Box>
