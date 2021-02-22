@@ -14,6 +14,7 @@ import CustomLabel from "../../common/CustomLabel/CustomLabel";
 import moment from "moment";
 import {Stage} from "../../../API";
 import CustomDatePicker from "../../common/CustomDatePicker/CustomDatePicker";
+import {isNameNotValid, isNotEmpty, isNotPositive} from "../../../utils/validators/validators";
 
 const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
     const history = useHistory();
@@ -21,6 +22,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
     const [URLs, setURLs] = useState<string[]>([]);
     const [urlErrorText, setUrlErrorText] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
+    const [errors, setErrors] = useState([]);
     const [inputValue, setInputValue] = useState({
         //For input values
         itemNumber: {
@@ -132,6 +134,24 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
         });
     };
 
+    const isFormValid = (): boolean => {
+        const emptyMessage = 'The input fields cannot be empty';
+        Object.entries(inputValue).forEach((el) => {
+            if (isNotEmpty(el[1].value)) {
+                setInputValue((prevStyle) => ({
+                    ...prevStyle,
+                    itemName: {
+                        ...prevStyle.itemName,
+                        error: true,
+                        errorText: emptyMessage,
+                    },
+                }));
+            }
+        })
+        console.log(Object.entries(inputValue));
+        return true;
+    }
+
     const saveInputData = () => {
         const currentTime = moment().format();
         props.setProductInfo({
@@ -169,8 +189,9 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        saveInputData();
-        props.createProduct(() => history.push("/products"));
+        isFormValid();
+        //saveInputData();
+        //props.createProduct(() => history.push("/products"));
     }
 
     return (
@@ -181,7 +202,10 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                 </Grid>
             </Box>
             <Box className={classes.contentContainer}>
-                <GoBackButton onClick={() =>{saveInputData(); history.push('/products');} }/>
+                <GoBackButton onClick={() => {
+                    saveInputData();
+                    history.push('/products');
+                }}/>
                 <Grid item className={classes.contentBlockBox} xs={8} xl={9}>
                     <Box className={classes.whiteBox}/>
                     <form className={classes.addProductForm} onSubmit={handleSubmit}>
@@ -210,6 +234,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                                 )
                                             }
                                             fullWidth
+                                            validators={[isNotEmpty, isNotPositive]}
                                         />
                                     </Box>
                                     <Box
@@ -230,6 +255,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                                 )
                                             }
                                             fullWidth
+                                            validators={[isNotEmpty, isNameNotValid]}
                                         />
                                     </Box>
                                     <Box style={{width: '20%'}}>

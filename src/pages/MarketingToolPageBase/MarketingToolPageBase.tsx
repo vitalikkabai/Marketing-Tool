@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../store/store';
-import { compose } from 'redux';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { Route, Switch } from 'react-router';
 import SideBarMenu from '../../components/SideBarMenu/SideBarMenu';
@@ -13,6 +12,7 @@ import PersonalProfileContainer from '../PersonalProfile/PersonalProfileContaine
 import BusinessProfileContainer from '../BusinessProfile/BusinessProfileContainer';
 import ProductPageContainer from '../ProductPage/ProductPageContainer';
 import AddProductContainer from '../../components/Product/AddProduct/AddProductContainer';
+import MarketResearchContainer from "../MarketResearch/MarketResearchContainer";
 
 type PropsType = {
     isAuth: boolean;
@@ -52,7 +52,7 @@ const MarketingToolPageContainer: React.FunctionComponent<PropsType> = (
                             <Route
                                 path={'/market-research'}
                                 exact
-                                component={H1}
+                                component={MarketResearchContainer}
                             />
                             <Route
                                 path={'/brand-creation'}

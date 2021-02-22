@@ -14,7 +14,7 @@ import CustomSelect from '../../common/Select/CustomSelect';
 import GoBackButton from '../../common/Button/GoBackButton';
 import UxAssistant from '../UxAssistant/UxAssistant';
 import CustomButton from '../../common/Button/CustomButton';
-import {isValidUrl} from '../../../utils/validators/validators';
+import {isNotEmpty, isValidUrl} from '../../../utils/validators/validators';
 import WebLink from '../../common/webLink/webLink';
 
 const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
@@ -30,30 +30,42 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
     const [webErrorText, setWebErrorText] = useState('');
     const [storeErrorText, setStoreErrorText] = useState('');
 
+    const isFormValid = ():boolean => {
+        if (hasWebsite && websiteURLs.length === 0 && isNotEmpty(webInput) &&
+            hasExperienceSelling && sellingURLs.length === 0 && isNotEmpty(sellingInput)) {
+            setWebErrorText('Enter at least one URL');
+            setStoreErrorText('Enter at least one URL');
+            return false;
+        }
+        if (hasExperienceSelling && sellingURLs.length === 0 && isNotEmpty(sellingInput)) {
+            setStoreErrorText('Enter at least one URL');
+            return false;
+        }
+        if (hasWebsite && websiteURLs.length === 0 && isNotEmpty(webInput)) {
+            setWebErrorText('Enter at least one URL');
+            return false;
+        }
+        if (hasExperienceSelling && sellingURLs.length === 0 && isNotEmpty(sellingInput)) {
+            setStoreErrorText('Enter at least one URL');
+            return false;
+        }
+        if (hasWebsite && webInput && !isValidUrl(webInput)) {
+            setWebErrorText('Please enter valid URL');
+            return false;
+        }
+        if (hasExperienceSelling && sellingInput && !isValidUrl(sellingInput)) {
+            setStoreErrorText('Please enter valid URL');
+            return false;
+        }
+        return true;
+    }
+
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setWebErrorText('');
         setStoreErrorText(''); //hasWebsite && websiteURLs.length > 0
-        if (hasWebsite && websiteURLs.length === 0 && webInput.length === 0) {
-            setWebErrorText('Enter at least one URL');
-            return;
-        }
-        if (
-            hasExperienceSelling &&
-            sellingURLs.length === 0 &&
-            sellingInput.length === 0
-        ) {
-            setStoreErrorText('Enter at least one URL');
-            return;
-        }
-        if (hasWebsite && webInput && !isValidUrl(webInput)) {
-            setWebErrorText('Please enter valid URL');
-            return;
-        }
-        if (hasExperienceSelling && sellingInput && !isValidUrl(sellingInput)) {
-            setStoreErrorText('Please enter valid URL');
-            return;
-        } else {
+        if (isFormValid()) {
             props.setBusinessUrls(sellingURLs, websiteURLs);
             history.push('/register/2');
         }
@@ -182,10 +194,12 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
                                                             ? 1
                                                             : 0
                                                     }
-                                                    onChange={(e: any) =>
+                                                    onChange={(e: any) => {
                                                         setHasExperienceSelling(
                                                             !!e.target.value
                                                         )
+                                                        setStoreErrorText('');
+                                                    }
                                                     }
                                                     items={[
                                                         <MenuItem
