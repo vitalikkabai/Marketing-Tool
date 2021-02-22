@@ -11,12 +11,10 @@ import Box from '@material-ui/core/Box';
 type PropsType = {
     Items: any;
     className?: string;
+    position: string;
 };
 
-const CustomCarousel: React.FunctionComponent<PropsType> = ({
-    Items,
-    className,
-}) => {
+const CustomCarousel: React.FunctionComponent<PropsType> = ({ Items, className, position }) => {
     let slider = useRef() as any;
 
     const next = () => {
@@ -35,35 +33,60 @@ const CustomCarousel: React.FunctionComponent<PropsType> = ({
     //ToDo fix slick next event on items degrees
 
     return (
-        <div className={classes.sliderContainer + ' ' + className}>
-            <Box
-                onClick={previous}
-                className={classes.sliderArrow}
-                style={
-                    Items.length === 0 || Items.length < 3
-                        ? { display: 'none' }
-                        : {}
-                }>
-                <PrewArrow />
+        <div
+            style={
+                position === 'vertical'
+                    ? { display: 'flex', flexDirection: 'column' }
+                    : { display: 'flex', flexDirection: 'row' }
+            }
+            className={classes.sliderContainer + ' ' + className}>
+            <Box width="25px" height="25px">
+                <Box
+                    onClick={previous}
+                    className={
+                        classes.sliderArrow +
+                        ' ' +
+                        (position === 'vertical' ? classes.rotateArrow : '')
+                    }
+                    style={
+                        Items.length === 0 || Items.length < (position === 'vertical' ? 5 : 3)
+                            ? { display: 'none' }
+                            : {}
+                    }>
+                    <PrewArrow />
+                </Box>
             </Box>
             <Slider
                 dots={false}
                 infinite={false}
-                slidesToShow={2}
-                className={classes.carouselBox}
+                speed={200}
+                slidesToShow={position === 'vertical' ? 3 : 2}
+                vertical={position === 'vertical' ? true : false}
+                verticalSwiping={position === 'vertical' ? true : false}
+                className={
+                    position === 'vertical'
+                        ? classes.carouselBoxVertical
+                        : classes.carouselBoxHorizontal
+                }
                 arrows={false}
                 ref={(c) => (slider = c)}>
                 {Items.map((item: any) => item)}
             </Slider>
-            <Box
-                onClick={next}
-                className={classes.sliderArrow}
-                style={
-                    Items.length === 0 || Items.length < 3
-                        ? { display: 'none' }
-                        : {}
-                }>
-                <NextArrow />
+            <Box width="25px" height="25px">
+                <Box
+                    onClick={next}
+                    className={
+                        classes.sliderArrow +
+                        ' ' +
+                        (position === 'vertical' ? classes.rotateArrow : '')
+                    }
+                    style={
+                        Items.length === 0 || Items.length < (position === 'vertical' ? 5 : 3)
+                            ? { display: 'none' }
+                            : {}
+                    }>
+                    <NextArrow />
+                </Box>
             </Box>
         </div>
     );

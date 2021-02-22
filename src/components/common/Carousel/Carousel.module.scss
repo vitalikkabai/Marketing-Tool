@@ -1,23 +1,40 @@
 .carouselBox {
-    width: 256px;
-    margin: 0 10px;
+  margin: 0 10px;
+  width: 256px;
+}
+
+.carouselBoxVertical {
+  width: 90px;
+}
+
+.carouselBoxHorizontal {
+  width: 256px;
 }
 
 .outerBox {
-    margin-top: 10px;
-    margin-bottom: -20px;
+  margin-top: 10px;
+  margin-bottom: -20px;
 }
 
 .sliderContainer {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .sliderArrow {
-    cursor: pointer;
-    svg {
-        width: 15px;
-        height: 25px;
-    }
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  svg {
+    width: 15px;
+    height: 25px;
+  }
+}
 
+.rotateArrow {
+  svg {
+    transform: rotate(90deg);
+  }
 }
