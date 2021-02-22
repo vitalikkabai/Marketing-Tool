@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { makeStyles, TextField, ThemeProvider } from '@material-ui/core';
+import React, {useEffect, useState} from 'react';
+import {makeStyles, TextField, ThemeProvider} from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
-import { ReactComponent as Visibility } from '../../../assets/images/eye.svg';
-import { ReactComponent as VisibilityOff } from '../../../assets/images/eyeOff.svg';
+import {ReactComponent as Visibility} from '../../../assets/images/eye.svg';
+import {ReactComponent as VisibilityOff} from '../../../assets/images/eyeOff.svg';
+import {validateField} from "../../../utils/validators/validators";
 
 interface CustomInputProps {
     type?: string;
@@ -18,7 +19,6 @@ interface CustomInputProps {
     fullWidth?: boolean;
     error?: boolean;
     helperText?: string;
-    PassKey?: string;
     fontSize?: string;
     required?: boolean;
     variant?: 'filled' | 'standard' | 'outlined' | undefined;
@@ -28,10 +28,13 @@ interface CustomInputProps {
     paddingRight?: number;
     isShowPassword?: boolean;
     disabled?: boolean;
+
+    validators?: Array<(value: string) => string>
 }
 
 const CustomInput: React.FC<CustomInputProps> = (props) => {
     const [isShowPassword, setIsShowPassword] = useState(false);
+    const [errorMessages, setErrorMessages] = useState([] as string[]);
 
     const useStyles = makeStyles({
         root: {
@@ -49,8 +52,8 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                     borderColor: props.error
                         ? '#F44336 !important'
                         : (props.value && !props.disabled)
-                        ? '#4285F4'
-                        : props.color,
+                            ? '#4285F4'
+                            : props.color,
                     borderWidth: 1,
                 },
                 '& input': {
@@ -62,8 +65,8 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                     color: props.error
                         ? '#F44336 !important'
                         : (props.value && !props.disabled)
-                        ? '#4285F4'
-                        : props.color,
+                            ? '#4285F4'
+                            : props.color,
                 },
             },
             '& .MuiInputLabel-outlined': {
@@ -76,8 +79,8 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                 color: props.error
                     ? '#F44336 !important'
                     : (props.value && !props.disabled)
-                    ? '#4285F4'
-                    : props.color,
+                        ? '#4285F4'
+                        : props.color,
             },
             '& .MuiInputLabel-shrink': {
                 transform: 'translate(14px, -2px) scale(0.75)',
@@ -122,26 +125,41 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
         setIsShowPassword(!isShowPassword);
     };
 
+    const handleValidation = () => {
+        const errorArray = [] as string[];
+        if (props.validators) {
+            props.validators.forEach(function(callback) {
+                errorArray.push(callback(props.value? props.value : ""))
+            });
+        }
+        setErrorMessages(validateField(props.value, ...errorArray));
+    }
+
+    useEffect(() => {
+        if(errorMessages.length > 0)
+        console.log(errorMessages)
+    }, [errorMessages])
+
+
     return (
         <TextField
             color="secondary"
             error={props.error}
-            key={props.PassKey}
             disabled={props.disabled}
             type={
                 props.name === 'password'
                     ? isShowPassword
-                        ? 'text'
-                        : 'password'
+                    ? 'text'
+                    : 'password'
                     : props.type
             }
-            helperText={props.helperText}
+            helperText={errorMessages[0]}
             fullWidth={props.fullWidth}
             variant={props.variant ? props.variant : 'outlined'}
             label={props.label}
             autoFocus={props.autoFocus}
             required={props.required}
-            placeholder={props.placeholder} //ToDo remove placeholder from inputs with label
+            placeholder={props.placeholder}
             InputProps={{
                 endAdornment: (
                     <InputAdornment position="end">
@@ -151,9 +169,9 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                                 onClick={handleClickShowPassword}
                             >
                                 {isShowPassword ? (
-                                    <Visibility />
+                                    <Visibility/>
                                 ) : (
-                                    <VisibilityOff />
+                                    <VisibilityOff/>
                                 )}
                             </IconButton>
                         )}
@@ -171,6 +189,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
             classes={{
                 root: classes.root,
             }}
+            onBlur={handleValidation}
             onChange={props.onChange}
             value={props.value}
         />

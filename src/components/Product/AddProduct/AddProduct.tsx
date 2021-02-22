@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PropsFromRedux } from './AddProductContainer';
-import { Box, FormControl, Grid, InputLabel, MenuItem, Typography } from '@material-ui/core';
+import { Box, FormControl, Grid, MenuItem, Typography } from '@material-ui/core';
 import classes from './AddProduct.module.scss';
 import ChatContainer from '../../Chat/ChatContainer';
 import CustomButton from '../../common/Button/CustomButton';
@@ -11,12 +11,17 @@ import { useHistory } from 'react-router';
 import WebLink from '../../common/webLink/webLink';
 import CustomSelect from '../../common/Select/CustomSelect';
 import CustomLabel from '../../common/CustomLabel/CustomLabel';
+import moment from 'moment';
+import { Stage } from '../../../API';
+import { isNameNotValid, isNotEmpty, isNotPositive } from '../../../utils/validators/validators';
 
 const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
     const history = useHistory();
     const [urlInput, setUrlInput] = useState('');
     const [URLs, setURLs] = useState<string[]>([]);
     const [urlErrorText, setUrlErrorText] = useState('');
+    const [selectedDate, setSelectedDate] = useState(null);
+    const [errors, setErrors] = useState([]);
     const [inputValue, setInputValue] = useState({
         //For input values
         itemNumber: {
@@ -141,6 +146,74 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
         });
     };
 
+    const isFormValid = (): boolean => {
+        const emptyMessage = 'The input fields cannot be empty';
+        Object.entries(inputValue).forEach((el) => {
+            if (isNotEmpty(el[1].value)) {
+                setInputValue((prevStyle) => ({
+                    ...prevStyle,
+                    itemName: {
+                        ...prevStyle.itemName,
+                        error: true,
+                        errorText: emptyMessage,
+                    },
+                }));
+            }
+        });
+        console.log(Object.entries(inputValue));
+        return true;
+    };
+
+    const saveInputData = () => {
+        const currentTime = moment().format();
+        props.setProductInfo({
+            itemNumber: [{ value: Number(inputValue.itemNumber.value), createdAt: currentTime }],
+            itemName: [{ value: inputValue.itemName.value, createdAt: currentTime }],
+            release: moment(selectedDate).format(),
+            websiteURLs: [{ record: URLs, createdAt: currentTime }],
+            stage: Stage.PRODUCTS,
+            businessID: props.businessID ? props.businessID : '',
+            dimentionsCm: [{ value: inputValue.cm.value, createdAt: currentTime }],
+            weightKg: [{ value: Number(inputValue.kgs.value), createdAt: currentTime }],
+            tag: [{ value: inputValue.tag.value, createdAt: currentTime }],
+            photos: [
+                {
+                    key: '',
+                    createdAt: currentTime,
+                    deleted: false,
+                },
+            ],
+            videos: [
+                {
+                    key: '',
+                    createdAt: currentTime,
+                    deleted: false,
+                },
+            ],
+            certifications: [
+                {
+                    key: '',
+                    createdAt: currentTime,
+                    deleted: false,
+                },
+            ],
+            marketingMaterials: [
+                {
+                    key: '',
+                    createdAt: currentTime,
+                    deleted: false,
+                },
+            ],
+        });
+    };
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        isFormValid();
+        //saveInputData();
+        //props.createProduct(() => history.push("/products"));
+    };
+
     return (
         <Grid container className={classes.dashboard}>
             <Box className={classes.todoTitleBox}>
@@ -149,7 +222,12 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                 </Grid>
             </Box>
             <Box className={classes.contentContainer}>
-                <GoBackButton onClick={() => history.push('/products')} />
+                <GoBackButton
+                    onClick={() => {
+                        saveInputData();
+                        history.push('/products');
+                    }}
+                />
                 <Grid item className={classes.contentBlockBox} xs={8} xl={9}>
                     <Box className={classes.whiteBox} />
                     <form className={classes.addProductForm}>
@@ -170,6 +248,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                                 >
                                             ) => handleInput(event.target.value, 'ITEM_NUMBER')}
                                             fullWidth
+                                            validators={[isNotEmpty, isNotPositive]}
                                         />
                                     </Box>
                                     <Box
@@ -186,6 +265,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                                 >
                                             ) => handleInput(event.target.value, 'ITEM_NAME')}
                                             fullWidth
+                                            validators={[isNotEmpty, isNameNotValid]}
                                         />
                                     </Box>
                                     <Box style={{ width: '20%' }}>

@@ -12,7 +12,7 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
     props
 ) => {
     const history = useHistory();
-
+    const [errorText, setErrorText] = useState('');
     const [selectedRole, setSelectedRole] = useState([
         { id: 'sales_role', title: 'Sales', selected: props.roleTags.sales },
         {
@@ -70,8 +70,6 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
             qualityControl: qcRole ? qcRole.selected : false,
         });
     };
-
-    const [errorText, setErrorText] = useState('');
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
