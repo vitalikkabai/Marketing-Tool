@@ -71,6 +71,12 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
         });
     };
 
+    useEffect(() => {
+        const { websiteURLs, storeURLs, hasWebsite, hasExperienceSelling } = props;
+        // Redirect to first step if prev step values is empty
+        if ((hasWebsite && !websiteURLs.length) || (hasExperienceSelling && !storeURLs.length)) history.push('/register');
+    }, []);
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         handleDataInput();

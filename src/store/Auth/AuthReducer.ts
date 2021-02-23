@@ -24,6 +24,8 @@ const initialState = {
     isSendResetLinkSuccess: false,
     isResetPasswordSuccess: false,
     userAttributes: initialUserAttributes,
+    hasWebsite: true,
+    hasExperienceSelling: true,
     loginErrorMessage: {
         code: '',
         message: '',
@@ -128,6 +130,18 @@ export const AuthReducer = (
                 isSendResetLinkSuccess: false,
                 isResetPasswordSuccess: false,
             };
+        }
+        case 'SET_HAS_WEBSITE': {
+            return {
+                ...state,
+                hasWebsite: action.payload
+            }
+        }
+        case 'SET_HAS_EXPERIENCE_SELLING': {
+            return {
+                ...state,
+                hasExperienceSelling: action.payload
+            }
         }
         case 'CHANGE_PASSWORD_FAILED':
         case 'CHANGE_PASSWORD':
