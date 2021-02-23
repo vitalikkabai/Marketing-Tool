@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {makeStyles, TextField, ThemeProvider} from '@material-ui/core';
+import React, {useState} from 'react';
+import {makeStyles, TextField} from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import {ReactComponent as Visibility} from '../../../assets/images/eye.svg';
@@ -10,7 +10,7 @@ interface CustomInputProps {
     onChange?: (
         event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
     ) => void;
-    onBlur?: any;
+    onBlur?: { (e: React.FocusEvent<unknown>): void, <T = unknown>(fieldOrEvent: T): T extends string ? ((e: unknown) => void) : void };
     value?: string;
     color?: string;
     width?: number;
@@ -93,14 +93,14 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                     color: '#9E9E9E',
                 },
             },
-            '& .MuiFormHelperText-contained': {
+            /*'& .MuiFormHelperText-contained': {
                 position: 'absolute',
                 bottom: '-20px',
                 marginLeft: '10px',
                 '&:after': {
                     content: "''",
                 },
-            },
+            },*/
             '&.MuiOutlinedInput-input': {
                 paddingLeft: '35px',
             },

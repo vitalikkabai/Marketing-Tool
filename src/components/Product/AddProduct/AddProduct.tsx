@@ -5,7 +5,6 @@ import classes from './AddProduct.module.scss';
 import ChatContainer from '../../Chat/ChatContainer';
 import CustomButton from '../../common/Button/CustomButton';
 import CustomInput from '../../common/Input/CustomInput';
-import Dropzone from '../../common/Dropzone/Dropzone';
 import GoBackButton from '../../common/Button/GoBackButton';
 import {useHistory} from 'react-router';
 import WebLink from "../../common/webLink/webLink";
@@ -52,9 +51,9 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
         validationSchema: Yup.object({
             itemNumber: Yup.number()
                 .positive("The field value can't be negative")
-                .required("Required"),
+                .required("This is very long message to test how it displays"),
             itemName: Yup.string()
-                .max(35, "Must be 35 characters or less").trim("Spaces")
+                .max(35, "Must be 35 characters or less").trim()
                 .required("Required"),
             release: Yup.string()
                 .required("Required")
@@ -76,7 +75,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
         }),
         validateOnChange: false,
         validateOnBlur: true,
-        onSubmit: values => {
+        onSubmit: () => {
             saveInputData();
             props.createProduct(() => history.push("/products"));
         },
@@ -366,21 +365,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                              setLinkErrorText={setUrlErrorText}
                                              label={"URL"}/>
                                 </Grid>
-                                <Grid xs={12} item className={classes.dropZone}>
-                                    <Dropzone position={"vertical"} title={"Upload product photos & videos"}/>
-                                </Grid>
-                                <Grid xs={12} item>
-                                    <div className={classes.horizontalLine}/>
-                                </Grid>
-                                <Grid xs={12} item className={classes.dropZone}>
-                                    <Dropzone position={"horizontal"} title={"Upload certifications"}/>
-                                </Grid>
-                                <Grid xs={12} item>
-                                    <div className={classes.horizontalLine}/>
-                                </Grid>
-                                <Grid xs={12} item className={classes.dropZone}>
-                                    <Dropzone position={"vertical"} title={"Upload marketing materials"}/>
-                                </Grid>
+
                             </Grid>
                             <Grid
                                 item
