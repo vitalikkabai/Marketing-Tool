@@ -51,7 +51,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
         validationSchema: Yup.object({
             itemNumber: Yup.number()
                 .positive("The field value can't be negative")
-                .required("This is very long message to test how it displays"),
+                .required("Required"),
             itemName: Yup.string()
                 .max(35, "Must be 35 characters or less").trim()
                 .required("Required"),
@@ -181,6 +181,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                             onChange={e => {
                                                 formik.setFieldValue('release', e);
                                             }}
+                                            onFocus={()=>formik.setFieldError('release', "")}
                                             onBlur={formik.handleBlur}
                                         />
                                     </Box>
