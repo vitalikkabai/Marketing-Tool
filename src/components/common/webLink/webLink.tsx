@@ -10,24 +10,28 @@ type PropsType = {
     setLinkInput: React.Dispatch<React.SetStateAction<string>>;
     linkURLs: string[];
     setLinkURLs: React.Dispatch<React.SetStateAction<string[]>>;
-    linkErrorText: string;
+    linkErrorText?: string;
     setLinkErrorText: React.Dispatch<React.SetStateAction<string>>;
     setEdited?: React.Dispatch<React.SetStateAction<boolean>>;
     label: string;
     autoFocus?: boolean;
+    name?: string
+    error?: boolean
+    onBlur?: {(e: React.FocusEvent<unknown>): void, <T=unknown>(fieldOrEvent: T): T extends string ? ((e: unknown) => void) : void}
 };
 
 const WebLink: React.FunctionComponent<PropsType> = (props) => {
     return (
         <Box className={classes.linkBox}>
             <CustomInput
+                name={props.name}
                 type="text"
                 fullWidth={true}
-                name={props.label}
                 placeholder={props.label}
                 label={props.label}
                 value={props.linkInput}
                 error={!!props.linkErrorText}
+                helperText={props.linkErrorText}
                 onChange={(
                     event: React.ChangeEvent<
                         HTMLTextAreaElement | HTMLInputElement
@@ -37,6 +41,7 @@ const WebLink: React.FunctionComponent<PropsType> = (props) => {
                     if (props.setEdited) props.setEdited(false);
                     props.setLinkInput(event.target.value);
                 }}
+                onBlur={props.onBlur}
                 paddingRight={35}
                 autoFocus={props.autoFocus}
             />

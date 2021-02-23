@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {PropsFromRedux} from './AddProductContainer';
-import {Box, CircularProgress, FormControl, Grid, MenuItem, Typography} from '@material-ui/core';
+import {Box, CircularProgress, FormControl, FormHelperText, Grid, MenuItem, Typography} from '@material-ui/core';
 import classes from './AddProduct.module.scss';
 import ChatContainer from '../../Chat/ChatContainer';
 import CustomButton from '../../common/Button/CustomButton';
@@ -16,13 +16,25 @@ import {Stage} from "../../../API";
 import CustomDatePicker from "../../common/DatePicker/CustomDatePicker";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
-import { ReactComponent as HotPepper } from '../../../assets/images/HotPepper.svg';
+import {ReactComponent as HotPepper} from '../../../assets/images/HotPepper.svg';
 
 const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
     const history = useHistory();
-    const [urlInput, setUrlInput] = useState('');
     const [URLs, setURLs] = useState<string[]>([]);
     const [urlErrorText, setUrlErrorText] = useState('');
+
+    const validate = (values: any) => {
+        const errors = {} as Record<string, unknown>;
+        if (values.dimensionsCm.split("x").some(isNaN) ||
+            values.dimensionsCm.split("x").length !== 3) {
+            errors.dimensionsCm = 'Please enter valid dimensions';
+        }
+        if (values.dimensionsInch.split("x").some(isNaN) ||
+            values.dimensionsInch.split("x").length !== 3) {
+            errors.dimensionsInch = 'Please enter valid dimensions';
+        }
+        return errors;
+    };
 
     const formik = useFormik({
         initialValues: {
@@ -34,24 +46,24 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
             dimensionsInch: "",
             kgs: "",
             lbs: "",
+            url: ""
         },
+        validate,
         validationSchema: Yup.object({
             itemNumber: Yup.number()
                 .positive("The field value can't be negative")
                 .required("Required"),
             itemName: Yup.string()
-                .max(35, "Must be 35 characters or less")
+                .max(35, "Must be 35 characters or less").trim("Spaces")
                 .required("Required"),
             release: Yup.string()
                 .required("Required")
                 .nullable(),
             tag: Yup.string()
                 .required("Required"),
-            dimensionsCm: Yup.number()
-                .positive("The field value can't be negative")
+            dimensionsCm: Yup.string()
                 .required("Required"),
-            dimensionsInch: Yup.number()
-                .positive("The field value can't be negative")
+            dimensionsInch: Yup.string()
                 .required("Required"),
             kgs: Yup.number()
                 .positive("The field value can't be negative")
@@ -59,9 +71,11 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
             lbs: Yup.number()
                 .positive("The field value can't be negative")
                 .required("Required"),
+            url: Yup.string()
+                .url("Please enter valid URL")
         }),
         validateOnChange: false,
-        validateOnBlur: false,
+        validateOnBlur: true,
         onSubmit: values => {
             saveInputData();
             props.createProduct(() => history.push("/products"));
@@ -179,8 +193,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                         <FormControl
                                             variant="outlined"
                                             className={classes.formControl}
-                                            fullWidth
-                                        >
+                                            fullWidth>
                                             <CustomLabel value={"Tag"}
                                                          error={formik.touched.tag && Boolean(formik.errors.tag)}
                                                          inputValue={formik.values.tag}/>
@@ -232,10 +245,13 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                                         <Typography
                                                             variant={"subtitle1"}
                                                         >
-                                                            Hot&ensp;<HotPepper /><HotPepper /><HotPepper />
+                                                            Hot&ensp;<HotPepper/><HotPepper/><HotPepper/>
                                                         </Typography>
                                                     </MenuItem>
                                                 ]}/>
+                                            <FormHelperText error={formik.touched.tag && Boolean(formik.errors.tag)}>
+                                                {formik.touched.tag && formik.errors.tag}
+                                            </FormHelperText>
                                         </FormControl>
                                     </Box>
                                 </Grid>
@@ -251,19 +267,24 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                         <CustomInput
                                             name={"dimensionsCm"}
                                             label={'Dimensions, cm'}
+                                            placeholder={'30x30x60'}
                                             fullWidth
-                                            type={"number"}
-                                            error={formik.touched.dimensionsCm && Boolean(formik.errors.dimensionsCm)}
-                                            helperText={formik.touched.dimensionsCm && formik.errors.dimensionsCm}
+                                            type={"text"}
+                                            error={(formik.touched.dimensionsCm || formik.touched.dimensionsInch) && Boolean(formik.errors.dimensionsCm)}
+                                            helperText={(formik.touched.dimensionsCm || formik.touched.dimensionsInch) && formik.errors.dimensionsCm}
                                             value={formik.values.dimensionsCm}
                                             onChange={e => {
-                                                formik.setFieldValue('dimensionsCm', e.target.value);
-                                                formik.setFieldValue('dimensionsInch',
-                                                    String((Number(e.target.value) * 0.39370).toFixed(3))
-                                                );
+                                                if (/^[0-9.x]*$/.test(e.target.value)) {
+                                                    formik.setFieldValue('dimensionsCm', e.target.value);
+                                                    formik.setFieldValue('dimensionsInch',
+                                                        e.target.value.split("x").map(
+                                                            (e) =>
+                                                                Number(Number(e) * 0.39370).toFixed(3))
+                                                            .join("x")
+                                                    );
+                                                }
                                             }}
-                                            onBlur={formik.handleBlur}
-                                        />
+                                            onBlur={formik.handleBlur}/>
                                     </Box>
                                     <Box
                                         style={{
@@ -274,19 +295,23 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                             name={"dimensionsInch"}
                                             label={'Dimensions, inch'}
                                             fullWidth
-                                            type={"number"}
-                                            error={formik.touched.dimensionsInch && Boolean(formik.errors.dimensionsInch)}
-                                            helperText={formik.touched.dimensionsInch && formik.errors.dimensionsInch}
+                                            type={"text"}
+                                            error={(formik.touched.dimensionsCm || formik.touched.dimensionsInch) && Boolean(formik.errors.dimensionsInch)}
+                                            helperText={(formik.touched.dimensionsCm || formik.touched.dimensionsInch) && formik.errors.dimensionsInch}
                                             value={formik.values.dimensionsInch}
                                             onChange={e => {
-                                                formik.setFieldValue('dimensionsInch', e.target.value);
-                                                formik.setFieldValue('dimensionsCm',
-                                                    String((Number(e.target.value) / 0.39370).toFixed(3))
-                                                );
-                                            }
-                                            }
-                                            onBlur={formik.handleBlur}
-                                        />
+                                                if (/^[0-9.x]*$/.test(e.target.value)) {
+                                                    formik.setFieldValue('dimensionsInch', e.target.value);
+                                                    formik.setFieldValue('dimensionsCm',
+                                                        e.target.value.split("x").map(
+                                                            (e) =>
+                                                                Number(Number(e) / 0.39370).toFixed(3))
+                                                            .join("x")
+                                                        //String((Number(e.target.value) / 0.39370).toFixed(3))
+                                                    );
+                                                }
+                                            }}
+                                            onBlur={formik.handleBlur}/>
                                     </Box>
                                     <Box style={{width: '20%'}}>
                                         <CustomInput
@@ -294,8 +319,8 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                             label={'Kgs'}
                                             fullWidth
                                             type={"number"}
-                                            error={formik.touched.kgs && Boolean(formik.errors.kgs)}
-                                            helperText={formik.touched.kgs && formik.errors.kgs}
+                                            error={(formik.touched.kgs || formik.touched.lbs) && Boolean(formik.errors.kgs)}
+                                            helperText={(formik.touched.kgs || formik.touched.lbs) && formik.errors.kgs}
                                             value={formik.values.kgs}
                                             onChange={e => {
                                                 formik.setFieldValue('kgs', e.target.value);
@@ -303,8 +328,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                                     String((Number(e.target.value) / 0.45359237).toFixed(3))
                                                 );
                                             }}
-                                            onBlur={formik.handleBlur}
-                                        />
+                                            onBlur={formik.handleBlur}/>
                                     </Box>
                                     <Box
                                         style={{
@@ -316,8 +340,8 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                             label={'Lbs'}
                                             fullWidth
                                             type={"number"}
-                                            error={formik.touched.lbs && Boolean(formik.errors.lbs)}
-                                            helperText={formik.touched.lbs && formik.errors.lbs}
+                                            error={(formik.touched.kgs || formik.touched.lbs) && Boolean(formik.errors.lbs)}
+                                            helperText={(formik.touched.kgs || formik.touched.lbs) && formik.errors.lbs}
                                             value={formik.values.lbs}
                                             onChange={e => {
                                                 formik.setFieldValue('lbs', e.target.value);
@@ -332,10 +356,12 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                     xs={12}
                                     item
                                     className={classes.productUrlInputs}>
-                                    <WebLink linkInput={urlInput}
+                                    <WebLink name={"url"}
+                                             linkInput={formik.values.url}
                                              linkURLs={URLs}
-                                             linkErrorText={urlErrorText}
-                                             setLinkInput={setUrlInput}
+                                             linkErrorText={formik.errors.url}
+                                             setLinkInput={(e) => formik.setFieldValue('url', e)}
+                                             onBlur={formik.handleBlur}
                                              setLinkURLs={setURLs}
                                              setLinkErrorText={setUrlErrorText}
                                              label={"URL"}/>

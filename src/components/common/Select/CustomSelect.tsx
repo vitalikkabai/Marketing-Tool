@@ -48,7 +48,7 @@ const CustomSelect: React.FC<CustomInputProps> = (props) => {
         },
 
         icon: {
-            color: '#4285F4',
+            color: props.error? '#F44336' : '#4285F4',
         },
 
         selectMenu: {
