@@ -40,6 +40,13 @@ const CustomSelect: React.FC<CustomInputProps> = (props) => {
             }
         },
 
+        select: {
+            '& ul': {
+                paddingTop: 0,
+                paddingBottom: 0
+            }
+        },
+
         icon: {
             color: '#4285F4',
         },
@@ -64,6 +71,9 @@ const CustomSelect: React.FC<CustomInputProps> = (props) => {
             }}
             labelId={props.labelId}
             MenuProps={{
+                classes: {
+                  paper: classes.select
+                },
                 anchorOrigin: {
                     vertical: 'bottom',
                     horizontal: 'left',

@@ -1,4 +1,4 @@
-import { Box, Grid, Typography, Tab, Badge, Hidden } from '@material-ui/core';
+import { Box, Grid, Typography, Tab, Hidden } from '@material-ui/core';
 import React from 'react';
 import moment from 'moment';
 import classes from './ManagerDashboard.module.scss';
@@ -137,13 +137,15 @@ function UserDashboard() {
                                     <Box className={classes.checkJobBox}>
                                         <Typography
                                             color={'primary'}
-                                            variant={'body2'}
+                                            variant={'h6'}
+                                            style={{fontWeight: 700}}
                                         >
                                             Products
                                         </Typography>
                                         <Typography
                                             color={'primary'}
-                                            variant={'body2'}
+                                            variant={'h6'}
+                                            style={{fontWeight: 700}}
                                         >
                                             Tasks
                                         </Typography>
@@ -163,14 +165,14 @@ function UserDashboard() {
                                     </Typography>
                                     <Box className={classes.counterBox}>
                                         <Typography
-                                            variant={'subtitle2'}
+                                            variant={'h6'}
                                             className={classes.taskValue}
                                         >
                                             0
                                         </Typography>
                                         <Box className={classes.vl} />
                                         <Typography
-                                            variant={'subtitle2'}
+                                            variant={'h6'}
                                             className={classes.taskValue}
                                         >
                                             0
@@ -191,14 +193,14 @@ function UserDashboard() {
                                     </Typography>
                                     <Box className={classes.counterBox}>
                                         <Typography
-                                            variant={'subtitle2'}
+                                            variant={'h6'}
                                             className={classes.taskValue}
                                         >
                                             0
                                         </Typography>
                                         <Box className={classes.vl} />
                                         <Typography
-                                            variant={'subtitle2'}
+                                            variant={'h6'}
                                             className={classes.taskValue}
                                         >
                                             0
@@ -219,14 +221,14 @@ function UserDashboard() {
                                     </Typography>
                                     <Box className={classes.counterBox}>
                                         <Typography
-                                            variant={'subtitle2'}
+                                            variant={'h6'}
                                             className={classes.taskValue}
                                         >
                                             0
                                         </Typography>
                                         <Box className={classes.vl} />
                                         <Typography
-                                            variant={'subtitle2'}
+                                            variant={'h6'}
                                             className={classes.taskValue}
                                         >
                                             0
@@ -247,14 +249,14 @@ function UserDashboard() {
                                     </Typography>
                                     <Box className={classes.counterBox}>
                                         <Typography
-                                            variant={'subtitle2'}
+                                            variant={'h6'}
                                             className={classes.taskValue}
                                         >
                                             0
                                         </Typography>
                                         <Box className={classes.vl} />
                                         <Typography
-                                            variant={'subtitle2'}
+                                            variant={'h6'}
                                             className={classes.taskValue}
                                         >
                                             0
@@ -275,14 +277,14 @@ function UserDashboard() {
                                     </Typography>
                                     <Box className={classes.counterBox}>
                                         <Typography
-                                            variant={'subtitle2'}
+                                            variant={'h6'}
                                             className={classes.taskValue}
                                         >
                                             0
                                         </Typography>
                                         <Box className={classes.vl} />
                                         <Typography
-                                            variant={'subtitle2'}
+                                            variant={'h6'}
                                             className={classes.taskValue}
                                         >
                                             0
@@ -303,14 +305,14 @@ function UserDashboard() {
                                     </Typography>
                                     <Box className={classes.counterBox}>
                                         <Typography
-                                            variant={'subtitle2'}
+                                            variant={'h6'}
                                             className={classes.taskValue}
                                         >
                                             0
                                         </Typography>
                                         <Box className={classes.vl} />
                                         <Typography
-                                            variant={'subtitle2'}
+                                            variant={'h6'}
                                             className={classes.taskValue}
                                         >
                                             0
@@ -331,14 +333,14 @@ function UserDashboard() {
                                     </Typography>
                                     <Box className={classes.counterBox}>
                                         <Typography
-                                            variant={'subtitle2'}
+                                            variant={'h6'}
                                             className={classes.taskValue}
                                         >
                                             0
                                         </Typography>
                                         <Box className={classes.vl} />
                                         <Typography
-                                            variant={'subtitle2'}
+                                            variant={'h6'}
                                             className={classes.taskValue}
                                         >
                                             0
@@ -362,14 +364,14 @@ function UserDashboard() {
                                     </Typography>
                                     <Box className={classes.counterBox}>
                                         <Typography
-                                            variant={'subtitle2'}
+                                            variant={'h6'}
                                             className={classes.taskValue}
                                         >
                                             0
                                         </Typography>
                                         <Box className={classes.vl} />
                                         <Typography
-                                            variant={'subtitle2'}
+                                            variant={'h6'}
                                             className={classes.taskValue}
                                         >
                                             0
@@ -394,7 +396,7 @@ function UserDashboard() {
                                 <Box className={classes.tasksTitle}>
                                     <Typography
                                         color={'primary'}
-                                        variant={'body2'}
+                                        variant={'h6'}
                                     >
                                         Tasks
                                     </Typography>
@@ -419,7 +421,7 @@ function UserDashboard() {
                                 textAlign={'center'}
                                 className={classes.tasksTitle}
                             >
-                                <Typography variant={'body2'}>
+                                <Typography variant={'subtitle2'}>
                                     OUR TEAM IS WAITING FOR YOU <br />
                                     TO COMPLETE YOUR TASKS
                                 </Typography>

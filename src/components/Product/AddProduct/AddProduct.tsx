@@ -14,9 +14,9 @@ import CustomLabel from "../../common/Label/CustomLabel";
 import moment from "moment";
 import {Stage} from "../../../API";
 import CustomDatePicker from "../../common/DatePicker/CustomDatePicker";
-import {isNameNotValid, isNotEmpty, isNotPositive} from "../../../utils/validators/validators";
 import {useFormik} from "formik";
 import * as Yup from 'yup';
+import { ReactComponent as HotPepper } from '../../../assets/images/HotPepper.svg';
 
 const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
     const history = useHistory();
@@ -196,20 +196,44 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                                     <MenuItem
                                                         key={'menu_1'}
                                                         value={"New"}
+                                                        style={{
+                                                            backgroundColor: "#D8E7FF",
+                                                            color: "#4285F4"
+                                                        }}
                                                     >
-                                                        New
+                                                        <Typography
+                                                            variant={"subtitle1"}
+                                                        >
+                                                            New
+                                                        </Typography>
                                                     </MenuItem>,
                                                     <MenuItem
                                                         key={'menu_2'}
                                                         value={"Best Seller"}
+                                                        style={{
+                                                            backgroundColor: "#D2F5D3",
+                                                            color: "#43A047"
+                                                        }}
                                                     >
-                                                        Best Seller
+                                                        <Typography
+                                                            variant={"subtitle1"}
+                                                        >
+                                                            Best Seller
+                                                        </Typography>
                                                     </MenuItem>,
                                                     <MenuItem
                                                         key={'menu_3'}
                                                         value={"Hot"}
+                                                        style={{
+                                                            backgroundColor: "#FFC2BD",
+                                                            color: "#EA4335"
+                                                        }}
                                                     >
-                                                        Hot
+                                                        <Typography
+                                                            variant={"subtitle1"}
+                                                        >
+                                                            Hot&ensp;<HotPepper /><HotPepper /><HotPepper />
+                                                        </Typography>
                                                     </MenuItem>
                                                 ]}/>
                                         </FormControl>

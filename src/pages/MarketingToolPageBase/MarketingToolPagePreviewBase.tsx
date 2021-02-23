@@ -1,16 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../store/store';
-import { compose, Dispatch } from 'redux';
+import { Dispatch } from 'redux';
 import { signOut } from '../../store/Auth/AuthActions';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import VisitorDashboard from '../../components/DashBoard/VisitorDashboard/VisitorDashboard';
 import { Route, Switch } from 'react-router';
 import SideBarMenu from '../../components/SideBarMenu/SideBarMenu';
 import classes from './MarketingToolPageBase.module.scss';
 import { Box, Grid } from '@material-ui/core';
-import Chat from '../../components/Chat/Chat';
 import TopBarContainer from '../../components/TopBar/TopBarContainer';
+import MarketResearch from "../MarketResearch/MarketResearch";
+import AddProduct from "../../components/Product/AddProduct/AddProduct";
 
 const MarketingToolPagePreviewContainer = (props: any) => {
     return (
@@ -29,12 +29,12 @@ const MarketingToolPagePreviewContainer = (props: any) => {
                             <Route
                                 path={'/preview/products'}
                                 exact
-                                component={H1}
+                                component={AddProduct}
                             />
                             <Route
                                 path={'/preview/market-research'}
                                 exact
-                                component={H1}
+                                component={MarketResearch}
                             />
                             <Route
                                 path={'/preview/brand-creation'}
