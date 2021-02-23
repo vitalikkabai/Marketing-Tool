@@ -89,6 +89,17 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
     const [isPending, setPending] = useState(false);
 
     useEffect(() => {
+        let isThereTrue = 0;
+        const { employee: { roleTags } } = props;
+
+        for (const [key ,value] of Object.entries(roleTags)) {
+            if (value === true) isThereTrue = 1;
+        }
+
+        if (!isThereTrue) history.push('/register');
+    }, []);
+
+    useEffect(() => {
         if (props.businessNumber.code === '') props.getUserLocation();
     }, []);
 

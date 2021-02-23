@@ -9,8 +9,8 @@ import SideBarMenu from '../../components/SideBarMenu/SideBarMenu';
 import classes from './MarketingToolPageBase.module.scss';
 import { Box, Grid } from '@material-ui/core';
 import TopBarContainer from '../../components/TopBar/TopBarContainer';
-import MarketResearch from "../MarketResearch/MarketResearch";
 import AddProduct from "../../components/Product/AddProduct/AddProduct";
+import MarketResearch from "../MarketResearch/MarketResearch";
 
 const MarketingToolPagePreviewContainer = (props: any) => {
     return (

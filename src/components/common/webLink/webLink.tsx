@@ -60,8 +60,8 @@ const WebLink: React.FunctionComponent<PropsType> = (props) => {
                 alt={'plus'}
                 onClick={() => {
                     if (isValidUrl(props.linkInput)) {
-                        props.setLinkURLs((oldArray) => [
-                            ...oldArray,
+                        props.setLinkURLs([
+                            ...props.linkURLs,
                             props.linkInput,
                         ]);
                         props.setLinkInput('');

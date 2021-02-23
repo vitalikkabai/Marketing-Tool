@@ -8,6 +8,10 @@ import { RoleTags } from '../../../models';
 const mapStateToProps = (state: AppStateType) => {
     return {
         roleTags: state.EmployeeReducer.roleTags,
+        websiteURLs: state.BusinessReducer.websiteURLs,
+        storeURLs: state.BusinessReducer.storeURLs,
+        hasWebsite: state.AuthReducer.hasWebsite,
+        hasExperienceSelling: state.AuthReducer.hasExperienceSelling
     };
 };
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Grid,
     Link,
@@ -20,12 +20,12 @@ import WebLink from '../../common/webLink/webLink';
 const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
     props
 ) => {
+    const { hasWebsite, hasExperienceSelling, setHasWebsite, setHasExperienceSelling } = props;
+
     const history = useHistory();
-    const [hasExperienceSelling, setHasExperienceSelling] = useState(true);
     const [sellingURLs, setSellingURLs] = useState<string[]>(props.storeURLs);
     const [webInput, setWebInput] = useState('');
     const [sellingInput, setSellingInput] = useState('');
-    const [hasWebsite, setHasWebsite] = useState(true);
     const [websiteURLs, setWebsiteURLs] = useState<string[]>(props.websiteURLs);
     const [webErrorText, setWebErrorText] = useState('');
     const [storeErrorText, setStoreErrorText] = useState('');
@@ -70,6 +70,12 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
             history.push('/register/2');
         }
     };
+
+    useEffect(() => {
+        window.onbeforeunload = (e: BeforeUnloadEvent) => {
+            e.returnValue = '';
+        }
+    }, []);
 
     return (
         <Grid container justify="center" alignItems={'center'}>
