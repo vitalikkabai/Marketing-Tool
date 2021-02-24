@@ -155,8 +155,9 @@ const SideBarMenu = (props: any) => {
                     onClick={() => {
                         setSelected('5');
                         props.isAuth
-                            ? history.push('/customer-support')
-                            : history.push('/preview/customer-support');
+                            ? history.push('/sales-channels')
+                            : history.push('/preview/sales-channels');
+
                     }}>
                     <ListItemIcon classes={{ root: classes.listIconRoot }}>
                         <SaleIcon className={classes.svgIcon} />
@@ -178,8 +179,8 @@ const SideBarMenu = (props: any) => {
                     onClick={() => {
                         setSelected('6');
                         props.isAuth
-                            ? history.push('/sales-channels')
-                            : history.push('/preview/sales-channels');
+                            ? history.push('/customer-support')
+                            : history.push('/preview/customer-support');
                     }}>
                     <ListItemIcon classes={{ root: classes.listIconRoot }}>
                         <SmileIcon className={classes.svgIcon} />
