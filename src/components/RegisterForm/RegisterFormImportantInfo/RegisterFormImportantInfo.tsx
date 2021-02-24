@@ -89,21 +89,14 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
     const [isPending, setPending] = useState(false);
 
     useEffect(() => {
-        let isThereTrue = 0;
         const { employee: { roleTags } } = props;
-
-        for (const [key ,value] of Object.entries(roleTags)) {
-            if (value === true) isThereTrue = 1;
-        }
-
-        if (!isThereTrue) history.push('/register');
+        // Redirect to first step if prev step values is empty
+        if (!Object.values(roleTags).some(e => e === true)) history.push('/register');
+        if (props.businessNumber.code === '') props.getUserLocation(); //Fetch userLocation if CountyCode is empty
     }, []);
 
-    useEffect(() => {
-        if (props.businessNumber.code === '') props.getUserLocation();
-    }, []);
 
-    useEffect(() => {
+    useEffect(() => { //Validate async errors
         if (props.registerErrorText.code) setPending(false);
         switch (props.registerErrorText.code) {
             case 'UsernameExistsException': {
