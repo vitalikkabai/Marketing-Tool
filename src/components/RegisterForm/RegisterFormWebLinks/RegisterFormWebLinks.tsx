@@ -71,6 +71,10 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
         e.preventDefault();
         setWebErrorText('');
         setStoreErrorText(''); //hasWebsite && websiteURLs.length > 0
+
+        if (isValidUrl(webInput)) setWebsiteURLs([ ...websiteURLs, webInput ]);
+        if (isValidUrl(sellingInput)) setSellingURLs([ ...sellingURLs, sellingInput ]);
+
         if (isFormValid()) {
             props.setBusinessUrls(sellingURLs, websiteURLs);
             history.push('/register/2');
