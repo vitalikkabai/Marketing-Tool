@@ -415,6 +415,15 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
         return '';
     };
 
+    useEffect(() => { //Detect page refreshing
+        window.onbeforeunload = (e: BeforeUnloadEvent) => {
+            e.returnValue = '';
+        }
+        return () => {
+            onbeforeunload = null
+        }
+    }, []);
+
     return (
         <Grid container justify="center" alignItems={'center'}>
             <Grid

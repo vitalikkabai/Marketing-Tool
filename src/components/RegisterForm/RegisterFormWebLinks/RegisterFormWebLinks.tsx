@@ -20,7 +20,7 @@ import WebLink from '../../common/webLink/webLink';
 const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
     props
 ) => {
-    const { hasWebsite, hasExperienceSelling, setHasWebsite, setHasExperienceSelling } = props;
+    const {hasWebsite, hasExperienceSelling, setHasWebsite, setHasExperienceSelling} = props;
 
     const history = useHistory();
     const [sellingURLs, setSellingURLs] = useState<string[]>(props.storeURLs);
@@ -30,7 +30,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
     const [webErrorText, setWebErrorText] = useState('');
     const [storeErrorText, setStoreErrorText] = useState('');
 
-    const isFormValid = ():boolean => {
+    const isFormValid = (): boolean => {
         if (hasWebsite && websiteURLs.length === 0 && isNotEmpty(webInput) &&
             hasExperienceSelling && sellingURLs.length === 0 && isNotEmpty(sellingInput)) {
             setWebErrorText('Enter at least one URL');
@@ -71,9 +71,12 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
         }
     };
 
-    useEffect(() => {
+    useEffect(() => { //Detect page refreshing
         window.onbeforeunload = (e: BeforeUnloadEvent) => {
             e.returnValue = '';
+        }
+        return () => {
+            onbeforeunload = null
         }
     }, []);
 
@@ -121,7 +124,6 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
                                             >
                                                 <CustomSelect
                                                     value={hasWebsite ? 1 : 0}
-                                                    colored
                                                     onChange={(e: any) => {
                                                         setHasWebsite(
                                                             !!e.target.value

@@ -97,6 +97,15 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
         setErrorText('');
     }, [selectedRole]);
 
+    useEffect(() => { //Detect page refreshing
+        window.onbeforeunload = (e: BeforeUnloadEvent) => {
+            e.returnValue = '';
+        }
+        return () => {
+            onbeforeunload = null
+        }
+    }, []);
+
     const handleBackPressed = () => {
         handleDataInput();
         history.goBack();

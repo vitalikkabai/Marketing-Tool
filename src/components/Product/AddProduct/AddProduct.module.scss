@@ -15,11 +15,13 @@
   }
 
   .whiteBox {
-    width: 93%;
+    width: 100%;
     height: 54px;
-    background: white;
+    background: #ffffff;
     position: absolute;
     z-index: 3;
+    margin-left: -48px;
+    border-radius: 10px;
   }
 
 
@@ -49,8 +51,10 @@
       }
 
       .addProductForm {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
       }
 
       .formContent {
@@ -66,12 +70,6 @@
         .formInputs {
           width: 100%;
           flex: 0 1 auto;
-
-          .customTooltip {
-            width: 400px;
-            color: #333;
-            background: #828282;
-          }
 
           .productInfoInputs {
             display: flex;
@@ -130,5 +128,14 @@
       }
 
     }
+  }
+}
+
+  .errorText {
+    position: absolute;
+    top: 278px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: #ea4335;
   }
 }

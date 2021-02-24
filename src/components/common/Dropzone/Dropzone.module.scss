@@ -3,6 +3,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  .dropBox {
+    width: 100%;
+    height: 300px;
+    // max-height: 660px;
+  }
   .dropZone {
     outline: none;
     .dropZoneDashedBox {
@@ -19,22 +24,24 @@
     }
   }
   .photoSection {
-    margin-top: 46px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     .imgBox {
+      display: flex !important;
+      justify-content: center;
       position: relative;
       outline: none;
+      height: 100%;
       .videoContainer {
         margin: 10px 20px;
-        width: 100px !important;
-        height: 100px;
+        min-width: 60px;
+        height: 60px;
         overflow: hidden;
         position: relative;
         border-radius: 5px;
         video {
           position: absolute;
-          height: 100px;
+          height: 60px;
           left: -1000%;
           right: -1000%;
           top: -1000%;
@@ -43,30 +50,31 @@
           min-height: 100%;
           min-width: 100%;
           cursor: pointer;
+          object-fit: fill;
         }
         .svgPlay {
           position: absolute;
-          left: 37px;
-          top: 32px;
+          left: 19px;
+          top: 13px;
           z-index: 10;
         }
       }
       .svgDelete {
         position: absolute;
-        right: 2px;
+        right: 6px;
         top: 4px;
         z-index: 1;
       }
       .imgContainer {
         margin: 10px 20px;
-        width: 100px !important;
-        height: 100px;
+        min-width: 60px;
+        height: 60px;
         overflow: hidden;
         position: relative;
         border-radius: 5px;
         .photoItem {
           position: absolute;
-          height: 100px;
+          height: 60px;
           left: -1000%;
           right: -1000%;
           top: -1000%;
@@ -82,22 +90,33 @@
 }
 
 .videoBox {
+  display: flex;
+  justify-content: center;
   video {
     width: 100%;
     height: 100%;
+    max-height: 350px;
+    object-fit: contain;
   }
 }
 
 .photoBox {
+  display: flex;
+  justify-content: center;
   img {
     width: 100%;
     height: 100%;
+    max-height: 350px;
+    object-fit: contain;
   }
 }
 
 .dialogContent {
-  height: 80vh;
-  width: 80vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }
 
 .backDrop {

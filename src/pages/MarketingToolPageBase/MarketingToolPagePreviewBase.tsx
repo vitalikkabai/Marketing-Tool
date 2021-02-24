@@ -9,8 +9,8 @@ import SideBarMenu from '../../components/SideBarMenu/SideBarMenu';
 import classes from './MarketingToolPageBase.module.scss';
 import { Box, Grid } from '@material-ui/core';
 import TopBarContainer from '../../components/TopBar/TopBarContainer';
-import AddProduct from "../../components/Product/AddProduct/AddProduct";
-import MarketResearch from "../MarketResearch/MarketResearch";
+import MarketResearchContainer from "../MarketResearch/MarketResearchContainer";
+import AddProductContainer from "../../components/Product/AddProduct/AddProductContainer";
 
 const MarketingToolPagePreviewContainer = (props: any) => {
     return (
@@ -29,12 +29,12 @@ const MarketingToolPagePreviewContainer = (props: any) => {
                             <Route
                                 path={'/preview/products'}
                                 exact
-                                component={AddProduct}
+                                component={AddProductContainer}
                             />
                             <Route
                                 path={'/preview/market-research'}
                                 exact
-                                component={MarketResearch}
+                                component={MarketResearchContainer}
                             />
                             <Route
                                 path={'/preview/brand-creation'}
