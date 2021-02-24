@@ -12,24 +12,27 @@ import { useHistory } from 'react-router';
 import CustomInput from '../common/Input/CustomInput';
 import GoBackButton from '../common/Button/GoBackButton';
 import CustomButton from '../common/Button/CustomButton';
-import { isNotEmail, isNotEmpty } from '../../utils/validators/validators';
+import {useFormik} from "formik";
+import * as Yup from "yup";
 
 const LoginForm: React.FC<PropsFromRedux> = (props) => {
-    const [inputValue, setInputValue] = useState({
-        //For input values
-        username: {
-            value: '',
-            touched: false,
-            error: false,
-            errorText: '',
-            name: 'USER_NAME',
+    const formik = useFormik({
+        initialValues: {
+            username: "",
+            password: "",
         },
-        password: {
-            value: '',
-            touched: false,
-            error: false,
-            errorText: '',
-            name: 'PASSWORD',
+        validationSchema: Yup.object({
+            username: Yup.string()
+                .required("This field cannot be empty"),
+            password: Yup.string()
+                .trim()
+                .required("This field cannot be empty"),
+        }),
+        validateOnChange: false,
+        validateOnBlur: true,
+        onSubmit: () => {
+            setPending(true);
+            props.signIn(formik.values.username, formik.values.password);
         },
     });
     const [isPending, setPending] = useState(false);
@@ -40,113 +43,25 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
         if (props.errorText.code) setPending(false);
         switch (props.errorText.code) {
             case 'UserNotFoundException': {
-                setInputValue((prevStyle) => ({
-                    ...prevStyle,
-                    username: { ...prevStyle.username, error: true },
-                    password: { ...prevStyle.password, error: false },
-                }));
+                formik.setFieldError("username", props.errorText.message.replace(/\.$/, ''))
                 break;
             }
 
             case 'NotAuthorizedException': {
-                setInputValue((prevStyle) => ({
-                    ...prevStyle,
-                    username: { ...prevStyle.username, error: true },
-                    password: { ...prevStyle.password, error: true },
-                }));
+                formik.setFieldError("username", props.errorText.message.replace(/\.$/, ''))
+                formik.setFieldError("password", props.errorText.message.replace(/\.$/, ''))
                 break;
             }
         }
     }, [props.errorText]);
 
-    useEffect(() => {
-        //CleanErrors on unmount
+    useEffect(() => { //CleanErrors on unmount
         return function cleanup() {
             props.cleanErrors();
         };
     }, []);
 
-    const handleInput = (inputData: string, inputType: string) => {
-        props.cleanErrors();
-        setInputValue((prevInput) => {
-            const currInputValue = Object.assign({}, prevInput);
-            switch (inputType) {
-                case prevInput.username.name: {
-                    currInputValue.username.value = inputData;
-                    currInputValue.username.touched = true;
-                    const error = isNotEmpty(inputData);
-                    currInputValue.username.error = !!error;
-                    currInputValue.username.errorText = error;
-                    break;
-                }
-                case prevInput.password.name: {
-                    currInputValue.password.value = inputData;
-                    currInputValue.password.touched = true;
-                    const error = isNotEmpty(inputData);
-                    currInputValue.password.error = !!error;
-                    currInputValue.password.errorText = error;
-                    break;
-                }
-                default:
-                    break;
-            }
-            return currInputValue;
-        });
-    };
-
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
-        props.cleanErrors();
-        if (
-            inputValue.username.value &&
-            inputValue.password.value &&
-            !isNotEmail(inputValue.username.value)
-        ) {
-            setPending(true);
-            props.signIn(inputValue.username.value, inputValue.password.value);
-        } else {
-            //if fields is empty or email is invalid
-            if (isNotEmail(inputValue.username.value))
-                setInputValue((prevStyle) => ({
-                    ...prevStyle,
-                    username: {
-                        ...prevStyle.username,
-                        error: true,
-                        errorText: isNotEmail(inputValue.username.value),
-                    },
-                }));
-            if (!inputValue.username.value)
-                setInputValue((prevStyle) => ({
-                    ...prevStyle,
-                    username: {
-                        ...prevStyle.username,
-                        error: true,
-                        errorText: 'This field cannot be empty',
-                    },
-                }));
-            if (!inputValue.password.value)
-                setInputValue((prevStyle) => ({
-                    ...prevStyle,
-                    password: {
-                        ...prevStyle.password,
-                        error: true,
-                        errorText: 'This field cannot be empty',
-                    },
-                }));
-        }
-    };
-
-    const getErrorMessage = () => {
-        //Setting error messages
-        if (props.errorText.message)
-            return props.errorText.message.replace(/\.$/, '');
-        if (inputValue.username.errorText) return inputValue.username.errorText;
-        if (inputValue.password.errorText) return inputValue.password.errorText;
-        return '';
-    };
-
-    if (props.isAuth) {
-        //Redirect authorised user
+    if (props.isAuth) {//Redirect authorised user
         history.push('');
     }
 
@@ -159,36 +74,28 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                             history.push('/');
                         }}
                     />
-                    <Grid item>
-                        <Typography variant="h2" className={classes.header}>
-                            Login
-                        </Typography>
-                    </Grid>
                     <Grid item className={classes.formContainer}>
-                        <form onSubmit={handleSubmit}>
-                            <Grid container direction="column" spacing={2}>
+                        <form onSubmit={formik.handleSubmit} style={{height: "100%"}}>
+                            <Grid container direction="column" style={{height: "100%"}}>
                                 <Grid item>
+                                    <Typography variant="h2" className={classes.header}>
+                                        Login
+                                    </Typography>
+                                </Grid>
+                                <Grid item className={classes.usernameGridItem}>
                                     <CustomInput
                                         type="text"
                                         placeholder="Email"
                                         label="Email"
-                                        error={inputValue.username.error}
-                                        fullWidth
                                         name="username"
-                                        value={inputValue.username.value}
-                                        onChange={(
-                                            event: React.ChangeEvent<
-                                                | HTMLTextAreaElement
-                                                | HTMLInputElement
-                                            >
-                                        ) =>
-                                            handleInput(
-                                                event.target.value,
-                                                'USER_NAME'
-                                            )
-                                        }
+                                        error={formik.touched.username && Boolean(formik.errors.username)}
+                                        helperText={formik.touched.username && formik.errors.username}
+                                        value={formik.values.username}
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
                                         width={290}
                                         autoFocus
+                                        fullWidth
                                     />
                                 </Grid>
                                 <Grid item className={classes.passwordGridItem}>
@@ -196,71 +103,60 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                                         type="password"
                                         placeholder="Password"
                                         label="Password"
-                                        error={inputValue.password.error}
-                                        fullWidth
                                         name="password"
-                                        value={inputValue.password.value}
-                                        onChange={(
-                                            event: React.ChangeEvent<
-                                                | HTMLTextAreaElement
-                                                | HTMLInputElement
-                                            >
-                                        ) =>
-                                            handleInput(
-                                                event.target.value,
-                                                'PASSWORD'
-                                            )
-                                        }
+                                        error={formik.touched.password && Boolean(formik.errors.password)}
+                                        helperText={formik.touched.password && formik.errors.password}
+                                        value={formik.values.password}
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
                                         width={290}
+                                        fullWidth
                                     />
                                 </Grid>
-                                <Grid item className={classes.loginButton}>
-                                    <CustomButton
-                                        type={'submit'}
-                                        text={isPending ? '' : 'Log in'}
-                                        className={
-                                            isPending ? classes.disabledBtn : ''
-                                        }
-                                    />
-                                    {isPending && (
-                                        <CircularProgress
-                                            size={24}
-                                            className={classes.buttonProgress}
-                                            color="secondary"
+                                <Grid item container className={classes.buttonContainer}>
+                                    <Grid item className={classes.loginButton}>
+                                        <CustomButton
+                                            type={'submit'}
+                                            text={isPending ? '' : 'Log in'}
+                                            className={
+                                                isPending ? classes.disabledBtn : ''
+                                            }
                                         />
-                                    )}
+                                        {isPending && (
+                                            <CircularProgress
+                                                size={24}
+                                                className={classes.buttonProgress}
+                                                color="secondary"
+                                            />
+                                        )}
+                                    </Grid>
+                                    <Grid item className={classes.forgotPassword}>
+                                        <Typography
+                                            variant="subtitle1"
+                                            onClick={() => {
+                                                history.push('resetPassword');
+                                            }}
+                                        >
+                                            Forgot your password?
+                                        </Typography>
+                                    </Grid>
+                                    <Grid item className={classes.createAccount}>
+                                        <Typography variant={'subtitle1'}>
+                                            Don’t have an account yet?&nbsp;
+                                            <Link
+                                                variant={'subtitle1'}
+                                                className={classes.link}
+                                                onClick={() => {
+                                                    history.push('register');
+                                                }}
+                                            >
+                                                Register
+                                            </Link>
+                                        </Typography>
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </form>
-                    </Grid>
-                    <Grid item className={classes.forgotPassword}>
-                        <Typography
-                            variant="subtitle1"
-                            onClick={() => {
-                                history.push('resetPassword');
-                            }}
-                        >
-                            Forgot your password?
-                        </Typography>
-                    </Grid>
-                    <Grid item className={classes.errorText}>
-                        <Typography variant={'subtitle1'}>
-                            {getErrorMessage()}
-                        </Typography>
-                    </Grid>
-                    <Grid item className={classes.createAccount}>
-                        <Typography variant={'subtitle1'}>
-                            Don’t have an account yet?&nbsp;
-                            <Link
-                                variant={'subtitle1'}
-                                className={classes.link}
-                                onClick={() => {
-                                    history.push('register');
-                                }}
-                            >
-                                Register
-                            </Link>
-                        </Typography>
                     </Grid>
                 </Box>
             </Grid>

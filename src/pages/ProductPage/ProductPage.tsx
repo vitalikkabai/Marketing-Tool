@@ -77,7 +77,7 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 className={classes.tasksTitle}
                             >
                                 <Typography
-                                    variant={'body2'}
+                                    variant={'h2'}
                                     style={{textTransform: 'uppercase'}}
                                 >
                                     This page is not ready yet
@@ -109,7 +109,7 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 className={classes.tasksTitle}
                             >
                                 <Typography
-                                    variant={'body2'}
+                                    variant={'h2'}
                                     style={{textTransform: 'uppercase'}}
                                 >
                                     This page is not ready yet

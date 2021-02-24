@@ -140,3 +140,13 @@ export const changePersonalInfo = (name: string, email: string) => ({
     type: 'CHANGE_PERSONAL_INFO' as const,
     payload: { name, email },
 });
+
+export const setHasWebsite = (hasWebsite: boolean) => ({
+    type: 'SET_HAS_WEBSITE' as const,
+    payload: hasWebsite,
+});
+
+export const setHasExperienceSelling = (hasExperienceSelling: boolean) => ({
+    type: 'SET_HAS_EXPERIENCE_SELLING' as const,
+    payload: hasExperienceSelling
+})

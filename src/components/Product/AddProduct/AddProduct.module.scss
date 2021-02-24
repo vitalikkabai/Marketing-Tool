@@ -12,11 +12,13 @@
     }
   }
   .whiteBox {
-    width: 93%;
+    width: 100%;
     height: 54px;
-    background: white;
+    background: #ffffff;
     position: absolute;
     z-index: 3;
+    margin-left: -48px;
+    border-radius: 10px;
   }
   .contentContainer {
     height: calc(100vh - 228px);
@@ -103,5 +105,13 @@
         pointer-events: none;
       }
     }
+  }
+
+  .errorText {
+    position: absolute;
+    top: 278px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: #ea4335;
   }
 }

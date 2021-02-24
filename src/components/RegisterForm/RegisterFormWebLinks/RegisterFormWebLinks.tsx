@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Grid,
     Link,
@@ -20,17 +20,17 @@ import WebLink from '../../common/webLink/webLink';
 const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
     props
 ) => {
+    const {hasWebsite, hasExperienceSelling, setHasWebsite, setHasExperienceSelling} = props;
+
     const history = useHistory();
-    const [hasExperienceSelling, setHasExperienceSelling] = useState(true);
     const [sellingURLs, setSellingURLs] = useState<string[]>(props.storeURLs);
     const [webInput, setWebInput] = useState('');
     const [sellingInput, setSellingInput] = useState('');
-    const [hasWebsite, setHasWebsite] = useState(true);
     const [websiteURLs, setWebsiteURLs] = useState<string[]>(props.websiteURLs);
     const [webErrorText, setWebErrorText] = useState('');
     const [storeErrorText, setStoreErrorText] = useState('');
 
-    const isFormValid = ():boolean => {
+    const isFormValid = (): boolean => {
         if (hasWebsite && websiteURLs.length === 0 && isNotEmpty(webInput) &&
             hasExperienceSelling && sellingURLs.length === 0 && isNotEmpty(sellingInput)) {
             setWebErrorText('Enter at least one URL');
@@ -70,6 +70,15 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
             history.push('/register/2');
         }
     };
+
+    useEffect(() => { //Detect page refreshing
+        window.onbeforeunload = (e: BeforeUnloadEvent) => {
+            e.returnValue = '';
+        }
+        return () => {
+            onbeforeunload = null
+        }
+    }, []);
 
     return (
         <Grid container justify="center" alignItems={'center'}>
@@ -115,7 +124,6 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
                                             >
                                                 <CustomSelect
                                                     value={hasWebsite ? 1 : 0}
-                                                    colored
                                                     onChange={(e: any) => {
                                                         setHasWebsite(
                                                             !!e.target.value
