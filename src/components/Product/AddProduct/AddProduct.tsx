@@ -439,10 +439,12 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 </Grid>
                                 <Grid xs={12} item className={classes.productUrlInputs}>
                                     <WebLink
-                                        linkInput={urlInput}
+                                        name={'url'}
+                                        linkInput={formik.values.url}
                                         linkURLs={URLs}
-                                        linkErrorText={urlErrorText}
-                                        setLinkInput={setUrlInput}
+                                        linkErrorText={formik.errors.url}
+                                        setLinkInput={(e) => formik.setFieldValue('url', e)}
+                                        onBlur={formik.handleBlur}
                                         setLinkURLs={setURLs}
                                         setLinkErrorText={setUrlErrorText}
                                         label={'URL'}
