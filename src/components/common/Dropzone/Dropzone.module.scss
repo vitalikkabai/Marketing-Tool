@@ -5,8 +5,7 @@
   align-items: center;
   .dropBox {
     width: 100%;
-    height: 300px;
-    // max-height: 660px;
+    height: 350px;
   }
   .dropZone {
     outline: none;
@@ -61,7 +60,7 @@
       }
       .svgDelete {
         position: absolute;
-        right: 6px;
+        right: 5px;
         top: 4px;
         z-index: 1;
       }
@@ -122,4 +121,37 @@
 .backDrop {
   background: rgba(242, 247, 255, 0.1);
   backdrop-filter: blur(6px)
+}
+
+.pdfBox {
+  display: flex;
+  justify-content: center;
+  * {
+    width: 100% !important;
+    height: 100% !important;
+  }
+   :last-child {
+     :last-child {
+      height: 0px !important;
+    }
+  }
+  canvas {
+    max-height: 350px;
+    object-fit: contain;
+  }
+}
+
+.fileContainer {
+  margin: 10px 20px;
+  min-width: 60px;
+  height: 60px;
+  overflow: hidden;
+  position: relative;
+  border-radius: 5px;
+  .fileItem {
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+  }
 }

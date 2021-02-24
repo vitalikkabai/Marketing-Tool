@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import classes from './Dropzone.module.scss';
 import { Box, Typography } from '@material-ui/core';
+import { Document, Page, pdfjs } from 'react-pdf';
 import { ReactComponent as ClipIcon } from '../../../assets/images/clip.svg';
 import CustomCarousel from '../Carousel/CustomCarousel';
 import playIcon from '../../../assets/images/playButton.svg';
 import deleteIcon from '../../../assets/images/deleteIcon.svg';
-import { useEffect } from 'react';
-import { AnyCnameRecord } from 'dns';
 
 type PropsType = {
     title: string;
@@ -17,15 +16,20 @@ type PropsType = {
 const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
     const [videos, setVideos] = useState<any[]>([]);
     const [photos, setPhotos] = useState<any[]>([]);
+    const [files, setFiles] = useState<any[]>([]);
     const [contentPreview, setContentPreview] = useState<any>(null);
+    pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
     const { getRootProps, getInputProps } = useDropzone({
-        accept: 'image/*, video/*',
+        accept:
+            props.position === 'vertical'
+                ? 'image/*, video/*'
+                : props.position === 'horizontal'
+                ? '.pdf'
+                : 'image/*, video/*, .pdf',
         onDrop: (acceptedFiles) => {
-            console.log(acceptedFiles);
             // @ts-ignore
             acceptedFiles.map((item) => {
                 if (item.type.includes('video')) {
-                    console.log(videos);
                     // @ts-ignore
                     setVideos((oldArray) => [
                         ...oldArray,
@@ -34,9 +38,17 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
                         }),
                     ]);
                 } else if (item.type.includes('image')) {
-                    console.log(photos);
                     // @ts-ignore
                     setPhotos((oldArray) => [
+                        ...oldArray,
+                        Object.assign(item, {
+                            preview: URL.createObjectURL(item),
+                        }),
+                    ]);
+                } else if (item.type.includes('application/pdf')) {
+                    console.log(files);
+                    // @ts-ignore
+                    setFiles((oldArray) => [
                         ...oldArray,
                         Object.assign(item, {
                             preview: URL.createObjectURL(item),
@@ -48,15 +60,20 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
     });
 
     const createPreview = (index: any, type: any) => {
-        console.log();
         setContentPreview(
             type.includes('video') ? (
                 <Box className={classes.videoBox}>
                     <video src={videos[index].preview} controls />
                 </Box>
-            ) : (
+            ) : type.includes('image') ? (
                 <Box className={classes.photoBox}>
                     <img src={photos[index].preview} alt="Products Photo" />
+                </Box>
+            ) : (
+                <Box className={classes.photoBox}>
+                    <Document file={files[index].preview} className={classes.pdfBox}>
+                        <Page pageNumber={1} />
+                    </Document>
                 </Box>
             )
         );
@@ -67,6 +84,8 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
             setVideos([...videos.slice(0, index).concat(videos.slice(index + 1, videos.length))]);
         } else if (type.includes('image')) {
             setPhotos([...photos.slice(0, index).concat(photos.slice(index + 1, photos.length))]);
+        } else if (type.includes('pdf')) {
+            setFiles([...files.slice(0, index).concat(files.slice(index + 1, files.length))]);
         }
     };
 
@@ -99,6 +118,22 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
         </Box>
     ));
 
+    const FilesItem = files.map((file: any, index) => (
+        <Box className={classes.imgBox} key={file.name + ' ' + index}>
+            <img
+                src={deleteIcon}
+                onClick={() => deleteFile(index, file.type)}
+                className={classes.svgDelete}
+            />
+            <div onClick={() => createPreview(index, file.type)} className={classes.fileContainer}>
+                <Document file={file.preview} className={classes.fileItem}>
+                    <Page pageNumber={1} />
+                </Document>
+                {/* <iframe src={file.preview}></iframe> */}
+            </div>
+        </Box>
+    ));
+
     // useEffect(
     //     () => () => {
     //         videos.forEach((item: any) => URL.revokeObjectURL(item.preview));
@@ -117,7 +152,7 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
 
     return (
         <Box className={classes.dropZoneSection}>
-            <Box {...getRootProps()} className={classes.dropZone}>
+            <Box {...getRootProps()} className={classes.dropZone} onDrop={() => console.log('hi')}>
                 <input {...getInputProps()} />
                 <Box className={classes.dropZoneDashedBox}>
                     <Box className={classes.dropZoneIcon}>
@@ -141,7 +176,11 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
             </Box>
             <Box
                 marginTop="46px"
-                display="flex"
+                display={
+                    videos.length !== 0 || photos.length !== 0 || files.length !== 0
+                        ? 'flex'
+                        : 'none'
+                }
                 className={classes.dropBox}
                 justifyContent={
                     videos.length === 0 || photos.length === 0 ? 'center' : 'space-between'
@@ -149,16 +188,27 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
                 <Box
                     className={classes.photoSection}
                     style={photos.length === 0 ? { display: 'none' } : {}}>
-                    <CustomCarousel position={props.position} Items={PhotosItem} />
+                    <CustomCarousel position="vertical" Items={PhotosItem} />
                 </Box>
                 <Box className={classes.dialogContent}>{contentPreview}</Box>
                 <Box
                     className={classes.photoSection}
                     style={videos.length === 0 ? { display: 'none' } : {}}>
-                    <CustomCarousel position={props.position} Items={VideosItem} />
+                    <CustomCarousel position="vertical" Items={VideosItem} />
                 </Box>
             </Box>
-            {/*  */}
+            <Box
+                display={
+                    videos.length !== 0 || photos.length !== 0 || files.length !== 0
+                        ? 'flex'
+                        : 'none'
+                }>
+                <Box
+                    className={classes.photoSection}
+                    style={files.length === 0 ? { display: 'none' } : {}}>
+                    <CustomCarousel position="horizontal" Items={FilesItem} />
+                </Box>
+            </Box>
         </Box>
     );
 };
