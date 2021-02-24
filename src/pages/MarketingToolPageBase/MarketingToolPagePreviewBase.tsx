@@ -10,7 +10,7 @@ import classes from './MarketingToolPageBase.module.scss';
 import { Box, Grid } from '@material-ui/core';
 import TopBarContainer from '../../components/TopBar/TopBarContainer';
 import MarketResearchContainer from "../MarketResearch/MarketResearchContainer";
-import AddProductContainer from "../../components/Product/AddProduct/AddProductContainer";
+import ProductPageContainer from "../ProductPage/ProductPageContainer";
 
 const MarketingToolPagePreviewContainer = (props: any) => {
     return (
@@ -29,7 +29,7 @@ const MarketingToolPagePreviewContainer = (props: any) => {
                             <Route
                                 path={'/preview/products'}
                                 exact
-                                component={AddProductContainer}
+                                component={ProductPageContainer}
                             />
                             <Route
                                 path={'/preview/market-research'}

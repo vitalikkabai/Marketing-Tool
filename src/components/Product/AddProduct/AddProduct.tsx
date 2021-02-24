@@ -25,6 +25,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { ReactComponent as HotPepper } from '../../../assets/images/HotPepper.svg';
 import Dropzone from '../../common/Dropzone/Dropzone';
+import CustomTooltip from "../../common/Tooltip/CustomTooltip";
 
 const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
     const history = useHistory();
@@ -148,332 +149,356 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                         <Grid container className={classes.formContent}>
                             <Grid item xs={12} className={classes.formInputs}>
                                 <Grid xs={12} item className={classes.productInfoInputs}>
-                                    <Box
-                                        style={{
-                                            width: '20%',
-                                            marginRight: '24px',
-                                        }}>
-                                        <CustomInput
-                                            name={'itemNumber'}
-                                            label={'Item №'}
-                                            type={'number'}
-                                            error={
-                                                formik.touched.itemNumber &&
-                                                Boolean(formik.errors.itemNumber)
-                                            }
-                                            helperText={
-                                                formik.touched.itemNumber &&
-                                                formik.errors.itemNumber
-                                            }
-                                            value={formik.values.itemNumber}
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            fullWidth
-                                        />
-                                    </Box>
-                                    <Box
-                                        style={{
-                                            width: '30%',
-                                            marginRight: '24px',
-                                        }}>
-                                        <CustomInput
-                                            name={'itemName'}
-                                            label={'Item name'}
-                                            error={
-                                                formik.touched.itemName &&
-                                                Boolean(formik.errors.itemName)
-                                            }
-                                            helperText={
-                                                formik.touched.itemName && formik.errors.itemName
-                                            }
-                                            value={formik.values.itemName}
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            fullWidth
-                                        />
-                                    </Box>
-                                    <Box style={{ width: '20%' }}>
-                                        <CustomDatePicker
-                                            name={'release'}
-                                            value={formik.values.release}
-                                            error={
-                                                formik.touched.release &&
-                                                Boolean(formik.errors.release)
-                                            }
-                                            helperText={
-                                                formik.touched.release && formik.errors.release
-                                            }
-                                            label={'Release'}
-                                            onChange={(e) => {
-                                                formik.setFieldValue('release', e);
-                                            }}
-                                            onFocus={() => formik.setFieldError('release', '')}
-                                            onBlur={formik.handleBlur}
-                                        />
-                                    </Box>
-                                    <Box
-                                        style={{
-                                            width: '30%',
-                                            marginLeft: '48px',
-                                        }}>
-                                        <FormControl
-                                            variant="outlined"
-                                            className={classes.formControl}
-                                            fullWidth>
-                                            <CustomLabel
-                                                value={'Tag'}
+                                    <CustomTooltip title='Add product number, e.g. "123"'>
+                                        <Box
+                                            style={{
+                                                width: '20%',
+                                                marginRight: '24px',
+                                            }}>
+                                            <CustomInput
+                                                name={'itemNumber'}
+                                                label={'Item №'}
+                                                type={'number'}
                                                 error={
-                                                    formik.touched.tag && Boolean(formik.errors.tag)
+                                                    formik.touched.itemNumber &&
+                                                    Boolean(formik.errors.itemNumber)
                                                 }
-                                                inputValue={formik.values.tag}
-                                            />
-                                            <CustomSelect
-                                                name={'tag'}
-                                                label={'Tag'}
-                                                error={
-                                                    formik.touched.tag && Boolean(formik.errors.tag)
+                                                helperText={
+                                                    formik.touched.itemNumber &&
+                                                    formik.errors.itemNumber
                                                 }
-                                                value={formik.values.tag}
+                                                value={formik.values.itemNumber}
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleBlur}
-                                                helperText={formik.touched.tag && formik.errors.tag}
-                                                items={[
-                                                    <MenuItem
-                                                        key={'menu_1'}
-                                                        value={'New'}
-                                                        style={{
-                                                            backgroundColor: '#D8E7FF',
-                                                            color: '#4285F4',
-                                                        }}>
-                                                        <Typography variant={'subtitle1'}>
-                                                            New
-                                                        </Typography>
-                                                    </MenuItem>,
-                                                    <MenuItem
-                                                        key={'menu_2'}
-                                                        value={'Best Seller'}
-                                                        style={{
-                                                            backgroundColor: '#D2F5D3',
-                                                            color: '#43A047',
-                                                        }}>
-                                                        <Typography variant={'subtitle1'}>
-                                                            Best Seller
-                                                        </Typography>
-                                                    </MenuItem>,
-                                                    <MenuItem
-                                                        key={'menu_3'}
-                                                        value={'Hot'}
-                                                        style={{
-                                                            backgroundColor: '#FFC2BD',
-                                                            color: '#EA4335',
-                                                        }}>
-                                                        <Typography variant={'subtitle1'}>
-                                                            Hot&ensp;
-                                                            <HotPepper />
-                                                            <HotPepper />
-                                                            <HotPepper />
-                                                        </Typography>
-                                                    </MenuItem>,
-                                                ]}
+                                                fullWidth
                                             />
-                                            <FormHelperText
+                                        </Box>
+                                    </CustomTooltip>
+                                    <CustomTooltip title='Add product name, e.g. "Pencil"'>
+                                        <Box
+                                            style={{
+                                                width: '30%',
+                                                marginRight: '24px',
+                                            }}>
+                                            <CustomInput
+                                                name={'itemName'}
+                                                label={'Item name'}
                                                 error={
-                                                    formik.touched.tag && Boolean(formik.errors.tag)
-                                                }>
-                                                {formik.touched.tag && formik.errors.tag}
-                                            </FormHelperText>
-                                        </FormControl>
-                                    </Box>
+                                                    formik.touched.itemName &&
+                                                    Boolean(formik.errors.itemName)
+                                                }
+                                                helperText={
+                                                    formik.touched.itemName && formik.errors.itemName
+                                                }
+                                                value={formik.values.itemName}
+                                                onChange={formik.handleChange}
+                                                onBlur={formik.handleBlur}
+                                                fullWidth
+                                            />
+                                        </Box>
+                                    </CustomTooltip>
+                                    <CustomTooltip title='Add product release, e.g. "07/04/21"'>
+                                        <Box style={{ width: '20%' }}>
+                                            <CustomDatePicker
+                                                name={'release'}
+                                                value={formik.values.release}
+                                                error={
+                                                    formik.touched.release &&
+                                                    Boolean(formik.errors.release)
+                                                }
+                                                helperText={
+                                                    formik.touched.release && formik.errors.release
+                                                }
+                                                label={'Release'}
+                                                onChange={(e) => {
+                                                    formik.setFieldValue('release', e);
+                                                }}
+                                                onFocus={() => formik.setFieldError('release', '')}
+                                                onBlur={formik.handleBlur}
+                                            />
+                                        </Box>
+                                    </CustomTooltip>
+                                    <CustomTooltip title='Add a tag for the product, e.g. "Best Seller"'>
+                                        <Box
+                                            style={{
+                                                width: '30%',
+                                                marginLeft: '48px',
+                                            }}>
+                                            <FormControl
+                                                variant="outlined"
+                                                className={classes.formControl}
+                                                fullWidth>
+                                                <CustomLabel
+                                                    value={'Tag'}
+                                                    error={
+                                                        formik.touched.tag && Boolean(formik.errors.tag)
+                                                    }
+                                                    inputValue={formik.values.tag}
+                                                />
+                                                <CustomSelect
+                                                    name={'tag'}
+                                                    label={'Tag'}
+                                                    error={
+                                                        formik.touched.tag && Boolean(formik.errors.tag)
+                                                    }
+                                                    value={formik.values.tag}
+                                                    onChange={formik.handleChange}
+                                                    onBlur={formik.handleBlur}
+                                                    helperText={formik.touched.tag && formik.errors.tag}
+                                                    items={[
+                                                        <MenuItem
+                                                            key={'menu_1'}
+                                                            value={'New'}
+                                                            style={{
+                                                                backgroundColor: '#D8E7FF',
+                                                                color: '#4285F4',
+                                                            }}>
+                                                            <Typography variant={'subtitle1'}>
+                                                                New
+                                                            </Typography>
+                                                        </MenuItem>,
+                                                        <MenuItem
+                                                            key={'menu_2'}
+                                                            value={'Best Seller'}
+                                                            style={{
+                                                                backgroundColor: '#D2F5D3',
+                                                                color: '#43A047',
+                                                            }}>
+                                                            <Typography variant={'subtitle1'}>
+                                                                Best Seller
+                                                            </Typography>
+                                                        </MenuItem>,
+                                                        <MenuItem
+                                                            key={'menu_3'}
+                                                            value={'Hot'}
+                                                            style={{
+                                                                backgroundColor: '#FFC2BD',
+                                                                color: '#EA4335',
+                                                            }}>
+                                                            <Typography variant={'subtitle1'}>
+                                                                Hot&ensp;
+                                                                <HotPepper />
+                                                                <HotPepper />
+                                                                <HotPepper />
+                                                            </Typography>
+                                                        </MenuItem>,
+                                                    ]}
+                                                />
+                                                <FormHelperText
+                                                    error={
+                                                        formik.touched.tag && Boolean(formik.errors.tag)
+                                                    }>
+                                                    {formik.touched.tag && formik.errors.tag}
+                                                </FormHelperText>
+                                            </FormControl>
+                                        </Box>
+                                    </CustomTooltip>
                                 </Grid>
                                 <Grid xs={12} item className={classes.additionalInfo}>
-                                    <Box
-                                        style={{
-                                            width: '30%',
-                                            marginRight: '24px',
-                                        }}>
-                                        <CustomInput
-                                            name={'dimensionsCm'}
-                                            label={'Dimensions, cm'}
-                                            placeholder={'30x30x60'}
-                                            fullWidth
-                                            type={'text'}
-                                            error={
-                                                (formik.touched.dimensionsCm ||
-                                                    formik.touched.dimensionsInch) &&
-                                                Boolean(formik.errors.dimensionsCm)
-                                            }
-                                            helperText={
-                                                (formik.touched.dimensionsCm ||
-                                                    formik.touched.dimensionsInch) &&
-                                                formik.errors.dimensionsCm
-                                            }
-                                            value={formik.values.dimensionsCm}
-                                            onChange={(e) => {
-                                                if (/^[0-9.x]*$/.test(e.target.value)) {
-                                                    formik.setFieldValue(
-                                                        'dimensionsCm',
-                                                        e.target.value
-                                                    );
-                                                    formik.setFieldValue(
-                                                        'dimensionsInch',
-                                                        e.target.value
-                                                            .split('x')
-                                                            .map((e) =>
-                                                                Number(Number(e) * 0.3937).toFixed(
-                                                                    3
-                                                                )
-                                                            )
-                                                            .join('x')
-                                                    );
+                                    <CustomTooltip title='Add product dimensions in cm, e.g. "20x30x40"'>
+                                        <Box
+                                            style={{
+                                                width: '30%',
+                                                marginRight: '24px',
+                                            }}>
+                                            <CustomInput
+                                                name={'dimensionsCm'}
+                                                label={'Dimensions, cm'}
+                                                placeholder={'30x30x60'}
+                                                fullWidth
+                                                type={'text'}
+                                                error={
+                                                    (formik.touched.dimensionsCm ||
+                                                        formik.touched.dimensionsInch) &&
+                                                    Boolean(formik.errors.dimensionsCm)
                                                 }
-                                            }}
-                                            onBlur={formik.handleBlur}
-                                        />
-                                    </Box>
-                                    <Box
-                                        style={{
-                                            width: '30%',
-                                            marginRight: '24px',
-                                        }}>
-                                        <CustomInput
-                                            name={'dimensionsInch'}
-                                            label={'Dimensions, inch'}
-                                            fullWidth
-                                            type={'text'}
-                                            error={
-                                                (formik.touched.dimensionsCm ||
-                                                    formik.touched.dimensionsInch) &&
-                                                Boolean(formik.errors.dimensionsInch)
-                                            }
-                                            helperText={
-                                                (formik.touched.dimensionsCm ||
-                                                    formik.touched.dimensionsInch) &&
-                                                formik.errors.dimensionsInch
-                                            }
-                                            value={formik.values.dimensionsInch}
-                                            onChange={(e) => {
-                                                if (/^[0-9.x]*$/.test(e.target.value)) {
-                                                    formik.setFieldValue(
-                                                        'dimensionsInch',
-                                                        e.target.value
-                                                    );
-                                                    formik.setFieldValue(
-                                                        'dimensionsCm',
-                                                        e.target.value
-                                                            .split('x')
-                                                            .map((e) =>
-                                                                Number(Number(e) / 0.3937).toFixed(
-                                                                    3
-                                                                )
-                                                            )
-                                                            .join('x')
-                                                        //String((Number(e.target.value) / 0.39370).toFixed(3))
-                                                    );
+                                                helperText={
+                                                    (formik.touched.dimensionsCm ||
+                                                        formik.touched.dimensionsInch) &&
+                                                    formik.errors.dimensionsCm
                                                 }
-                                            }}
-                                            onBlur={formik.handleBlur}
-                                        />
-                                    </Box>
-                                    <Box style={{ width: '20%' }}>
-                                        <CustomInput
-                                            name={'kgs'}
-                                            label={'Kgs'}
-                                            fullWidth
-                                            type={'number'}
-                                            error={
-                                                (formik.touched.kgs || formik.touched.lbs) &&
-                                                Boolean(formik.errors.kgs)
-                                            }
-                                            helperText={
-                                                (formik.touched.kgs || formik.touched.lbs) &&
-                                                formik.errors.kgs
-                                            }
-                                            value={formik.values.kgs}
-                                            onChange={(e) => {
-                                                formik.setFieldValue('kgs', e.target.value);
-                                                formik.setFieldValue(
-                                                    'lbs',
-                                                    String(
-                                                        (
-                                                            Number(e.target.value) / 0.45359237
-                                                        ).toFixed(3)
-                                                    )
-                                                );
-                                            }}
-                                            onBlur={formik.handleBlur}
-                                        />
-                                    </Box>
-                                    <Box
-                                        style={{
-                                            width: '20%',
-                                            marginLeft: '48px',
-                                        }}>
-                                        <CustomInput
-                                            name={'lbs'}
-                                            label={'Lbs'}
-                                            fullWidth
-                                            type={'number'}
-                                            error={
-                                                (formik.touched.kgs || formik.touched.lbs) &&
-                                                Boolean(formik.errors.lbs)
-                                            }
-                                            helperText={
-                                                (formik.touched.kgs || formik.touched.lbs) &&
-                                                formik.errors.lbs
-                                            }
-                                            value={formik.values.lbs}
-                                            onChange={(e) => {
-                                                formik.setFieldValue('lbs', e.target.value);
-                                                formik.setFieldValue(
-                                                    'kgs',
-                                                    String(
-                                                        (
-                                                            Number(e.target.value) * 0.45359237
-                                                        ).toFixed(3)
-                                                    )
-                                                );
-                                            }}
-                                            onBlur={formik.handleBlur}
-                                        />
-                                    </Box>
+                                                value={formik.values.dimensionsCm}
+                                                onChange={(e) => {
+                                                    if (/^[0-9.x]*$/.test(e.target.value)) {
+                                                        formik.setFieldValue(
+                                                            'dimensionsCm',
+                                                            e.target.value
+                                                        );
+                                                        formik.setFieldValue(
+                                                            'dimensionsInch',
+                                                            e.target.value
+                                                                .split('x')
+                                                                .map((e) =>
+                                                                    Number(Number(e) * 0.3937).toFixed(
+                                                                        3
+                                                                    )
+                                                                )
+                                                                .join('x')
+                                                        );
+                                                    }
+                                                }}
+                                                onBlur={formik.handleBlur}
+                                            />
+                                        </Box>
+                                    </CustomTooltip>
+                                    <CustomTooltip title='Add product dimensions in inch, e.g. "20x30x40"'>
+                                        <Box
+                                            style={{
+                                                width: '30%',
+                                                marginRight: '24px',
+                                            }}>
+                                            <CustomInput
+                                                name={'dimensionsInch'}
+                                                label={'Dimensions, inch'}
+                                                fullWidth
+                                                type={'text'}
+                                                error={
+                                                    (formik.touched.dimensionsCm ||
+                                                        formik.touched.dimensionsInch) &&
+                                                    Boolean(formik.errors.dimensionsInch)
+                                                }
+                                                helperText={
+                                                    (formik.touched.dimensionsCm ||
+                                                        formik.touched.dimensionsInch) &&
+                                                    formik.errors.dimensionsInch
+                                                }
+                                                value={formik.values.dimensionsInch}
+                                                onChange={(e) => {
+                                                    if (/^[0-9.x]*$/.test(e.target.value)) {
+                                                        formik.setFieldValue(
+                                                            'dimensionsInch',
+                                                            e.target.value
+                                                        );
+                                                        formik.setFieldValue(
+                                                            'dimensionsCm',
+                                                            e.target.value
+                                                                .split('x')
+                                                                .map((e) =>
+                                                                    Number(Number(e) / 0.3937).toFixed(
+                                                                        3
+                                                                    )
+                                                                )
+                                                                .join('x')
+                                                            //String((Number(e.target.value) / 0.39370).toFixed(3))
+                                                        );
+                                                    }
+                                                }}
+                                                onBlur={formik.handleBlur}
+                                            />
+                                        </Box>
+                                    </CustomTooltip>
+                                    <CustomTooltip title='Add product weight in kgs, e.g. "2". Will be automatically converted to pounds'>
+                                        <Box style={{ width: '20%' }}>
+                                            <CustomInput
+                                                name={'kgs'}
+                                                label={'Kgs'}
+                                                fullWidth
+                                                type={'number'}
+                                                error={
+                                                    (formik.touched.kgs || formik.touched.lbs) &&
+                                                    Boolean(formik.errors.kgs)
+                                                }
+                                                helperText={
+                                                    (formik.touched.kgs || formik.touched.lbs) &&
+                                                    formik.errors.kgs
+                                                }
+                                                value={formik.values.kgs}
+                                                onChange={(e) => {
+                                                    formik.setFieldValue('kgs', e.target.value);
+                                                    formik.setFieldValue(
+                                                        'lbs',
+                                                        String(
+                                                            (
+                                                                Number(e.target.value) / 0.45359237
+                                                            ).toFixed(3)
+                                                        )
+                                                    );
+                                                }}
+                                                onBlur={formik.handleBlur}
+                                            />
+                                        </Box>
+                                    </CustomTooltip>
+                                    <CustomTooltip title='Add product weight in lbs, e.g. "20". Will be automatically converted to kilograms'>
+                                        <Box
+                                            style={{
+                                                width: '20%',
+                                                marginLeft: '48px',
+                                            }}>
+                                            <CustomInput
+                                                name={'lbs'}
+                                                label={'Lbs'}
+                                                fullWidth
+                                                type={'number'}
+                                                error={
+                                                    (formik.touched.kgs || formik.touched.lbs) &&
+                                                    Boolean(formik.errors.lbs)
+                                                }
+                                                helperText={
+                                                    (formik.touched.kgs || formik.touched.lbs) &&
+                                                    formik.errors.lbs
+                                                }
+                                                value={formik.values.lbs}
+                                                onChange={(e) => {
+                                                    formik.setFieldValue('lbs', e.target.value);
+                                                    formik.setFieldValue(
+                                                        'kgs',
+                                                        String(
+                                                            (
+                                                                Number(e.target.value) * 0.45359237
+                                                            ).toFixed(3)
+                                                        )
+                                                    );
+                                                }}
+                                                onBlur={formik.handleBlur}
+                                            />
+                                        </Box>
+                                    </CustomTooltip>
                                 </Grid>
-                                <Grid xs={12} item className={classes.productUrlInputs}>
-                                    <WebLink
-                                        name={'url'}
-                                        linkInput={formik.values.url}
-                                        linkURLs={URLs}
-                                        linkErrorText={formik.errors.url}
-                                        setLinkInput={(e) => formik.setFieldValue('url', e)}
-                                        onBlur={formik.handleBlur}
-                                        setLinkURLs={setURLs}
-                                        setLinkErrorText={setUrlErrorText}
-                                        label={'URL'}
-                                    />
-                                </Grid>
-                                <Grid xs={12} item className={classes.dropZone}>
-                                    <Dropzone
-                                        position={'vertical'}
-                                        title={'Upload product photos & videos'}
-                                    />
-                                </Grid>
+                                <CustomTooltip title='If the product is sold anywhere add a URL'>
+                                    <Grid xs={12} item className={classes.productUrlInputs}>
+                                        <WebLink
+                                            name={'url'}
+                                            linkInput={formik.values.url}
+                                            linkURLs={URLs}
+                                            linkErrorText={formik.errors.url}
+                                            setLinkInput={(e) => formik.setFieldValue('url', e)}
+                                            onBlur={formik.handleBlur}
+                                            setLinkURLs={setURLs}
+                                            setLinkErrorText={setUrlErrorText}
+                                            label={'URL'}
+                                        />
+                                    </Grid>
+                                </CustomTooltip>
+                                <CustomTooltip title='Products only'>
+                                    <Grid xs={12} item className={classes.dropZone}>
+                                        <Dropzone
+                                            position={'vertical'}
+                                            title={'Upload product photos & videos'}
+                                        />
+                                    </Grid>
+                                </CustomTooltip>
                                 <Grid xs={12} item>
                                     <div className={classes.horizontalLine} />
                                 </Grid>
-                                <Grid xs={12} item className={classes.dropZone}>
-                                    <Dropzone
-                                        position={'horizontal'}
-                                        title={'Upload certifications'}
-                                    />
-                                </Grid>
+                                <CustomTooltip title='Product certifications only'>
+                                    <Grid xs={12} item className={classes.dropZone}>
+                                        <Dropzone
+                                            position={'horizontal'}
+                                            title={'Upload certifications'}
+                                        />
+                                    </Grid>
+                                </CustomTooltip>
                                 <Grid xs={12} item>
                                     <div className={classes.horizontalLine} />
                                 </Grid>
-                                <Grid xs={12} item className={classes.dropZone}>
-                                    <Dropzone
-                                        position={'mixed'}
-                                        title={'Upload marketing materials'}
-                                    />
-                                </Grid>
+                                <CustomTooltip title='Marketing materials only'>
+                                    <Grid xs={12} item className={classes.dropZone}>
+                                        <Dropzone
+                                            position={'mixed'}
+                                            title={'Upload marketing materials'}
+                                        />
+                                    </Grid>
+                                </CustomTooltip>
                             </Grid>
                             <Grid item container xs={12} className={classes.nextButtonContainer}>
                                 <Box className={classes.nextButtonBox}>

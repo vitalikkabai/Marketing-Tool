@@ -9,6 +9,7 @@ import {ReactComponent as PlusSVG} from '../../assets/images/formPlus.svg';
 import {useHistory} from 'react-router';
 import StepCounter from './../../components/common/StepCounter/StepCounter';
 import ProductItem from "../../components/Product/ProductItem/ProductItem";
+import CustomTooltip from "../../components/common/Tooltip/CustomTooltip";
 
 
 const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
@@ -52,8 +53,12 @@ const ProductPage: React.FunctionComponent<PropsFromRedux> = (props) => {
                 <Grid item className={classes.contentBox} container xs={12}>
                     <CustomAppBar value={value} setValue={setValue}>
                         <Tab label="Added" color={'primary'}/>
-                        <Tab label="Edited" color={'primary'}/>
-                        <Tab label="Sales" color={'primary'}/>
+                        <CustomTooltip title="This will be available when you reach the 3 step">
+                            <Tab label="Edited" color={'primary'}/>
+                        </CustomTooltip>
+                        <CustomTooltip title="This will be available when you reach the 7 step">
+                            <Tab label="Sales" color={'primary'}/>
+                        </CustomTooltip>
                     </CustomAppBar>
                     <TabPanel
                         className={classes.tabPanelBox}
