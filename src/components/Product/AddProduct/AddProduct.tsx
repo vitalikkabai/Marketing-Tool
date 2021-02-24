@@ -417,7 +417,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 </Grid>
                                 <Grid xs={12} item className={classes.dropZone}>
                                     <Dropzone
-                                        position={'vertical'}
+                                        position={'mixed'}
                                         title={'Upload marketing materials'}
                                     />
                                 </Grid>

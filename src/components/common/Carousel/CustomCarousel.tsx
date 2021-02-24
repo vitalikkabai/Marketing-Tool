@@ -36,8 +36,8 @@ const CustomCarousel: React.FunctionComponent<PropsType> = ({ Items, className, 
         <div
             style={
                 position === 'vertical'
-                    ? { display: 'flex', flexDirection: 'column' }
-                    : { display: 'flex', flexDirection: 'row' }
+                    ? { flexDirection: 'column' }
+                    : { flexDirection: 'row', marginTop: '20px' }
             }
             className={classes.sliderContainer + ' ' + className}>
             <Box width="25px" height="25px">
@@ -49,7 +49,7 @@ const CustomCarousel: React.FunctionComponent<PropsType> = ({ Items, className, 
                         (position === 'vertical' ? classes.rotateArrow : '')
                     }
                     style={
-                        Items.length === 0 || Items.length < (position === 'vertical' ? 5 : 3)
+                        Items.length === 0 || Items.length < (position === 'vertical' ? 4 : 5)
                             ? { display: 'none' }
                             : {}
                     }>
@@ -60,7 +60,7 @@ const CustomCarousel: React.FunctionComponent<PropsType> = ({ Items, className, 
                 dots={false}
                 infinite={false}
                 speed={200}
-                slidesToShow={position === 'vertical' ? 3 : 2}
+                slidesToShow={position === 'vertical' ? 3 : 4}
                 vertical={position === 'vertical' ? true : false}
                 verticalSwiping={position === 'vertical' ? true : false}
                 className={
@@ -81,7 +81,7 @@ const CustomCarousel: React.FunctionComponent<PropsType> = ({ Items, className, 
                         (position === 'vertical' ? classes.rotateArrow : '')
                     }
                     style={
-                        Items.length === 0 || Items.length < (position === 'vertical' ? 5 : 3)
+                        Items.length === 0 || Items.length < (position === 'vertical' ? 4 : 5)
                             ? { display: 'none' }
                             : {}
                     }>
