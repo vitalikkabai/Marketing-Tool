@@ -52,11 +52,16 @@
     }
 }
 
+.inputFieldBox {
+    margin-bottom: 32px;
+}
+
 .phoneContainer {
     position: relative;
+    display: flex;
     .flagBox {
         position: absolute;
-        left: 10px;
+        left: 21px;
         top: 10px;
         width: 27px;
         height: 27px;

@@ -124,7 +124,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
             disabled={props.disabled}
             name={props.name}
             type={
-                props.name === 'password'
+                (props.name === 'password' || props.name === 'confirmPassword' )
                     ? isShowPassword
                     ? 'text'
                     : 'password'
@@ -140,7 +140,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
             InputProps={{
                 endAdornment: (
                     <InputAdornment position="end">
-                        {props.name === 'password' && (
+                        {(props.name === 'password' || props.name === 'confirmPassword' ) && (
                             <IconButton
                                 aria-label="toggle password visibility"
                                 onClick={handleClickShowPassword}

@@ -5,6 +5,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 interface CustomInputProps {
     type?: string;
     onChange?: any;
+    onBlur?: any;
     width?: number;
     name?: string;
     value?: any;
@@ -123,6 +124,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
             renderInput={(params) => (
                 <div ref={params.InputProps.ref}>
                     <TextField
+                        name={props.name}
                         variant={'outlined'}
                         fullWidth
                         error={props.error}
