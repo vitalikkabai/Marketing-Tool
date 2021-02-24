@@ -67,6 +67,12 @@
           width: 100%;
           flex: 0 1 auto;
 
+          .customTooltip {
+            width: 400px;
+            color: #333;
+            background: #828282;
+          }
+
           .productInfoInputs {
             display: flex;
             margin-top: 69px;

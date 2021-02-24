@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {PropsFromRedux} from './AddProductContainer';
-import {Box, CircularProgress, FormControl, Grid, MenuItem, Typography} from '@material-ui/core';
+import {Box, CircularProgress, FormControl, Grid, MenuItem, Typography, Tooltip} from '@material-ui/core';
 import classes from './AddProduct.module.scss';
 import ChatContainer from '../../Chat/ChatContainer';
 import CustomButton from '../../common/Button/CustomButton';
@@ -216,239 +216,263 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                     xs={12}
                                     item
                                     className={classes.productInfoInputs}>
-                                    <Box
-                                        style={{
-                                            width: '20%',
-                                            marginRight: '24px',
-                                        }}>
-                                        <CustomInput
-                                            label={'Item №'}
-                                            type={"number"}
-                                            value={inputValue.itemNumber.value}
-                                            onChange={(
-                                                event: React.ChangeEvent<| HTMLTextAreaElement
-                                                    | HTMLInputElement>
-                                            ) =>
-                                                handleInput(
-                                                    event.target.value,
-                                                    'ITEM_NUMBER'
-                                                )
-                                            }
-                                            fullWidth
-                                            validators={[isNotEmpty, isNotPositive]}
-                                        />
-                                    </Box>
-                                    <Box
-                                        style={{
-                                            width: '30%',
-                                            marginRight: '24px',
-                                        }}>
-                                        <CustomInput
-                                            label={'Item name'}
-                                            value={inputValue.itemName.value}
-                                            onChange={(
-                                                event: React.ChangeEvent<| HTMLTextAreaElement
-                                                    | HTMLInputElement>
-                                            ) =>
-                                                handleInput(
-                                                    event.target.value,
-                                                    'ITEM_NAME'
-                                                )
-                                            }
-                                            fullWidth
-                                            validators={[isNotEmpty, isNameNotValid]}
-                                        />
-                                    </Box>
-                                    <Box style={{width: '20%'}}>
-                                        <CustomDatePicker
-                                            value={selectedDate}
-                                            label={"Release"}
-                                            onChange={
-                                                (date: any) => setSelectedDate(date)
-                                            }
-                                        />
-                                    </Box>
-                                    <Box
-                                        style={{
-                                            width: '30%',
-                                            marginLeft: '48px',
-                                        }}>
-                                        <FormControl
-                                            variant="outlined"
-                                            className={classes.formControl}
-                                            fullWidth
-                                        >
-                                            <CustomLabel value={"Tag"} inputValue={inputValue.tag.value}/>
-                                            <CustomSelect
-                                                label={'Tag'}
-                                                value={inputValue.tag.value}
-                                                onChange={(e: any) => {
-                                                    setInputValue((prevStyle) => ({
-                                                        ...prevStyle,
-                                                        tag: {
-                                                            ...prevStyle.tag,
-                                                            value: e.target.value
-                                                        },
-                                                    }));
-                                                }}
-                                                items={[
-                                                    <MenuItem
-                                                        key={'menu_1'}
-                                                        value={"New"}
-                                                        style={{
-                                                            backgroundColor: "#D8E7FF",
-                                                            color: "#4285F4"
-                                                        }}
-                                                    >
-                                                        <Typography
-                                                            variant={"subtitle1"}
+                                    <Tooltip arrow classes={{ tooltip: classes.customTooltip }} placement="top" title='Add product number, e.g. "123"'>
+                                        <Box
+                                            style={{
+                                                width: '20%',
+                                                marginRight: '24px',
+                                            }}>
+                                            <CustomInput
+                                                label={'Item №'}
+                                                type={"number"}
+                                                value={inputValue.itemNumber.value}
+                                                onChange={(
+                                                    event: React.ChangeEvent<| HTMLTextAreaElement
+                                                        | HTMLInputElement>
+                                                ) =>
+                                                    handleInput(
+                                                        event.target.value,
+                                                        'ITEM_NUMBER'
+                                                    )
+                                                }
+                                                fullWidth
+                                                validators={[isNotEmpty, isNotPositive]}
+                                            />
+                                        </Box>
+                                    </Tooltip>
+                                    <Tooltip arrow placement="top" title='Add product name, e.g. "Pencil"'>
+                                        <Box
+                                            style={{
+                                                width: '30%',
+                                                marginRight: '24px',
+                                            }}>
+                                            <CustomInput
+                                                label={'Item name'}
+                                                value={inputValue.itemName.value}
+                                                onChange={(
+                                                    event: React.ChangeEvent<| HTMLTextAreaElement
+                                                        | HTMLInputElement>
+                                                ) =>
+                                                    handleInput(
+                                                        event.target.value,
+                                                        'ITEM_NAME'
+                                                    )
+                                                }
+                                                fullWidth
+                                                validators={[isNotEmpty, isNameNotValid]}
+                                            />
+                                        </Box>
+                                    </Tooltip>
+                                    <Tooltip arrow placement="top" title='Add product release date, e.g. "07/04/21"'>
+                                        <Box style={{width: '20%'}}>
+                                            <CustomDatePicker
+                                                value={selectedDate}
+                                                label={"Release"}
+                                                onChange={
+                                                    (date: any) => setSelectedDate(date)
+                                                }
+                                            />
+                                        </Box>
+                                    </Tooltip>
+                                    <Tooltip arrow placement="top" title='Add a tag for the product, e.g. "Best Seller"'>
+                                        <Box
+                                            style={{
+                                                width: '30%',
+                                                marginLeft: '48px',
+                                            }}>
+                                            <FormControl
+                                                variant="outlined"
+                                                className={classes.formControl}
+                                                fullWidth
+                                            >
+                                                <CustomLabel value={"Tag"} inputValue={inputValue.tag.value}/>
+                                                <CustomSelect
+                                                    label={'Tag'}
+                                                    value={inputValue.tag.value}
+                                                    onChange={(e: any) => {
+                                                        setInputValue((prevStyle) => ({
+                                                            ...prevStyle,
+                                                            tag: {
+                                                                ...prevStyle.tag,
+                                                                value: e.target.value
+                                                            },
+                                                        }));
+                                                    }}
+                                                    items={[
+                                                        <MenuItem
+                                                            key={'menu_1'}
+                                                            value={"New"}
+                                                            style={{
+                                                                backgroundColor: "#D8E7FF",
+                                                                color: "#4285F4"
+                                                            }}
                                                         >
-                                                            New
-                                                        </Typography>
-                                                    </MenuItem>,
-                                                    <MenuItem
-                                                        key={'menu_2'}
-                                                        value={"Best Seller"}
-                                                        style={{
-                                                            backgroundColor: "#D2F5D3",
-                                                            color: "#43A047"
-                                                        }}
-                                                    >
-                                                        <Typography
-                                                            variant={"subtitle1"}
+                                                            <Typography
+                                                                variant={"subtitle1"}
+                                                            >
+                                                                New
+                                                            </Typography>
+                                                        </MenuItem>,
+                                                        <MenuItem
+                                                            key={'menu_2'}
+                                                            value={"Best Seller"}
+                                                            style={{
+                                                                backgroundColor: "#D2F5D3",
+                                                                color: "#43A047"
+                                                            }}
                                                         >
-                                                            Best Seller
-                                                        </Typography>
-                                                    </MenuItem>,
-                                                    <MenuItem
-                                                        key={'menu_3'}
-                                                        value={"Hot"}
-                                                        style={{
-                                                            backgroundColor: "#FFC2BD",
-                                                            color: "#EA4335"
-                                                        }}
-                                                    >
-                                                        <Typography
-                                                            variant={"subtitle1"}
+                                                            <Typography
+                                                                variant={"subtitle1"}
+                                                            >
+                                                                Best Seller
+                                                            </Typography>
+                                                        </MenuItem>,
+                                                        <MenuItem
+                                                            key={'menu_3'}
+                                                            value={"Hot"}
+                                                            style={{
+                                                                backgroundColor: "#FFC2BD",
+                                                                color: "#EA4335"
+                                                            }}
                                                         >
-                                                            Hot&ensp;<HotPepper /><HotPepper /><HotPepper />
-                                                        </Typography>
-                                                    </MenuItem>
-                                                ]}/>
-                                        </FormControl>
-                                    </Box>
+                                                            <Typography
+                                                                variant={"subtitle1"}
+                                                            >
+                                                                Hot&ensp;<HotPepper /><HotPepper /><HotPepper />
+                                                            </Typography>
+                                                        </MenuItem>
+                                                    ]}/>
+                                            </FormControl>
+                                        </Box>
+                                    </Tooltip>
                                 </Grid>
                                 <Grid
                                     xs={12}
                                     item
                                     className={classes.additionalInfo}>
-                                    <Box
-                                        style={{
-                                            width: '30%',
-                                            marginRight: '24px',
-                                        }}>
-                                        <CustomInput
-                                            label={'Dimensions, cm'}
-                                            fullWidth
-                                            type={"number"}
-                                            value={inputValue.cm.value}
-                                            onChange={(
-                                                event: React.ChangeEvent<| HTMLTextAreaElement
-                                                    | HTMLInputElement>
-                                            ) =>
-                                                handleInput(
-                                                    event.target.value,
-                                                    'CM'
-                                                )
-                                            }
-                                        />
-                                    </Box>
-                                    <Box
-                                        style={{
-                                            width: '30%',
-                                            marginRight: '24px',
-                                        }}>
-                                        <CustomInput
-                                            label={'Dimensions, inch'}
-                                            fullWidth
-                                            type={"number"}
-                                            value={inputValue.inch.value}
-                                            onChange={(
-                                                event: React.ChangeEvent<| HTMLTextAreaElement
-                                                    | HTMLInputElement>
-                                            ) =>
-                                                handleInput(
-                                                    event.target.value,
-                                                    'INCH'
-                                                )
-                                            }
-                                        />
-                                    </Box>
-                                    <Box style={{width: '20%'}}>
-                                        <CustomInput
-                                            label={'Kgs'}
-                                            fullWidth
-                                            type={"number"}
-                                            value={inputValue.kgs.value}
-                                            onChange={(
-                                                event: React.ChangeEvent<| HTMLTextAreaElement
-                                                    | HTMLInputElement>
-                                            ) =>
-                                                handleInput(
-                                                    event.target.value,
-                                                    'KGS'
-                                                )
-                                            }
-                                        />
-                                    </Box>
-                                    <Box
-                                        style={{
-                                            width: '20%',
-                                            marginLeft: '48px',
-                                        }}>
-                                        <CustomInput
-                                            label={'Lbs'}
-                                            fullWidth
-                                            type={"number"}
-                                            value={inputValue.lbs.value}
-                                            onChange={(
-                                                event: React.ChangeEvent<| HTMLTextAreaElement
-                                                    | HTMLInputElement>
-                                            ) =>
-                                                handleInput(
-                                                    event.target.value,
-                                                    'LBS'
-                                                )
-                                            }/>
-                                    </Box>
+                                    <Tooltip arrow placement="top" title='Add product dimensions in cm, e.g. "20x30x40"'>
+                                        <Box
+                                            style={{
+                                                width: '30%',
+                                                marginRight: '24px',
+                                            }}>
+                                            <CustomInput
+                                                label={'Dimensions, cm'}
+                                                fullWidth
+                                                type={"number"}
+                                                value={inputValue.cm.value}
+                                                onChange={(
+                                                    event: React.ChangeEvent<| HTMLTextAreaElement
+                                                        | HTMLInputElement>
+                                                ) =>
+                                                    handleInput(
+                                                        event.target.value,
+                                                        'CM'
+                                                    )
+                                                }
+                                            />
+                                        </Box>
+                                    </Tooltip>
+                                    <Tooltip arrow placement="top" title='Add product dimensions in inch, e.g. "20x30x40"'>
+                                        <Box
+                                            style={{
+                                                width: '30%',
+                                                marginRight: '24px',
+                                            }}>
+                                            <CustomInput
+                                                label={'Dimensions, inch'}
+                                                fullWidth
+                                                type={"number"}
+                                                value={inputValue.inch.value}
+                                                onChange={(
+                                                    event: React.ChangeEvent<| HTMLTextAreaElement
+                                                        | HTMLInputElement>
+                                                ) =>
+                                                    handleInput(
+                                                        event.target.value,
+                                                        'INCH'
+                                                    )
+                                                }
+                                            />
+                                        </Box>
+                                    </Tooltip>
+                                    <Tooltip arrow placement="top" title='Add product weight in kgs, e.g. "2". Will be automatically converted to pounds'>
+                                        <Box style={{width: '20%'}}>
+                                            <CustomInput
+                                                label={'Kgs'}
+                                                fullWidth
+                                                type={"number"}
+                                                value={inputValue.kgs.value}
+                                                onChange={(
+                                                    event: React.ChangeEvent<| HTMLTextAreaElement
+                                                        | HTMLInputElement>
+                                                ) =>
+                                                    handleInput(
+                                                        event.target.value,
+                                                        'KGS'
+                                                    )
+                                                }
+                                            />
+                                        </Box>
+                                    </Tooltip>
+                                    <Tooltip arrow placement="top" title='Add product weight in lbs, e.g. "20". Will be automatically converted to kilograms'>
+                                        <Box
+                                            style={{
+                                                width: '20%',
+                                                marginLeft: '48px',
+                                            }}>
+                                            <CustomInput
+                                                label={'Lbs'}
+                                                fullWidth
+                                                type={"number"}
+                                                value={inputValue.lbs.value}
+                                                onChange={(
+                                                    event: React.ChangeEvent<| HTMLTextAreaElement
+                                                        | HTMLInputElement>
+                                                ) =>
+                                                    handleInput(
+                                                        event.target.value,
+                                                        'LBS'
+                                                    )
+                                                }/>
+                                        </Box>
+                                    </Tooltip>
                                 </Grid>
-                                <Grid
-                                    xs={12}
-                                    item
-                                    className={classes.productUrlInputs}>
-                                    <WebLink linkInput={urlInput}
-                                             linkURLs={URLs}
-                                             linkErrorText={urlErrorText}
-                                             setLinkInput={setUrlInput}
-                                             setLinkURLs={setURLs}
-                                             setLinkErrorText={setUrlErrorText}
-                                             label={"URL"}/>
-                                </Grid>
-                                <Grid xs={12} item className={classes.dropZone}>
-                                    <Dropzone title={"Upload product photos & videos"}/>
-                                </Grid>
+                                <Tooltip arrow placement="top" title='If the product is sold anywhere add a URL'>
+                                    <Grid
+                                        xs={12}
+                                        item
+                                        className={classes.productUrlInputs}>
+                                        <WebLink linkInput={urlInput}
+                                                 linkURLs={URLs}
+                                                 linkErrorText={urlErrorText}
+                                                 setLinkInput={setUrlInput}
+                                                 setLinkURLs={setURLs}
+                                                 setLinkErrorText={setUrlErrorText}
+                                                 label={"URL"}/>
+                                    </Grid>
+                                </Tooltip>
+                                <Tooltip arrow placement="top" title='Products only'>
+                                    <Grid xs={12} item className={classes.dropZone}>
+                                        <Dropzone title={"Upload product photos & videos"}/>
+                                    </Grid>
+                                </Tooltip>
                                 <Grid xs={12} item>
                                     <div className={classes.horizontalLine}/>
                                 </Grid>
-                                <Grid xs={12} item className={classes.dropZone}>
-                                    <Dropzone title={"Upload certifications"}/>
-                                </Grid>
+                                <Tooltip arrow placement="top" title='Product certifications only'>
+                                    <Grid xs={12} item className={classes.dropZone}>
+                                        <Dropzone title={"Upload certifications"}/>
+                                    </Grid>
+                                </Tooltip>
                                 <Grid xs={12} item>
                                     <div className={classes.horizontalLine}/>
                                 </Grid>
-                                <Grid xs={12} item className={classes.dropZone}>
-                                    <Dropzone title={"Upload marketing materials"}/>
-                                </Grid>
+                                <Tooltip arrow placement="top" title='Marketing material only'>
+                                    <Grid xs={12} item className={classes.dropZone}>
+                                        <Dropzone title={"Upload marketing materials"}/>
+                                    </Grid>
+                                </Tooltip>
                             </Grid>
                             <Grid
                                 item
