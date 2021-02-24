@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
 import { AppStateType } from '../../../store/store';
 import { setBusinessName } from '../../../store/Business/BusinessActions';
-import { signUp } from '../../../store/Auth/AuthActions';
+import {cleanErrors, signUp} from '../../../store/Auth/AuthActions';
 import RegisterFormImportantInfo from './RegisterFormImportantInfo';
 import { setProfile } from '../../../store/Profile/ProfileActions';
 import { CreateEmployeeInput, CreateProfileInput } from '../../../API';
@@ -33,6 +33,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         setEmployee: (employee: CreateEmployeeInput) =>
             dispatch(setEmployee(employee)),
         getUserLocation: () => dispatch(getUserLocation()),
+        cleanErrors: () => dispatch(cleanErrors())
     };
 };
 

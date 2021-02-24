@@ -83,7 +83,7 @@ const CustomSelect: React.FC<CustomInputProps> = (props) => {
             color={"secondary"}
             label={props.label}
             className={props.colored || props.error
-                ? styles.selectorWithError : props.value ? styles.selector : ""}
+                ? styles.selectorWithError : (props.value !== "") ? styles.selector : ""}
             style={{borderRadius: '10px'}}
             onChange={props.onChange}
             onBlur={props.onBlur}
