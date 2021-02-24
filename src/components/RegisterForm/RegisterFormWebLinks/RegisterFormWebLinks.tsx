@@ -72,14 +72,28 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
         setWebErrorText('');
         setStoreErrorText(''); //hasWebsite && websiteURLs.length > 0
 
-        if (isValidUrl(webInput)) setWebsiteURLs([ ...websiteURLs, webInput ]);
-        if (isValidUrl(sellingInput)) setSellingURLs([ ...sellingURLs, sellingInput ]);
-
         if (isFormValid()) {
-            props.setBusinessUrls(sellingURLs, websiteURLs);
+            if (isValidUrl(webInput)) {
+                if (isValidUrl(sellingInput)) {
+                    props.setBusinessUrls([...sellingURLs, sellingInput], [...websiteURLs, webInput]);
+                } else {
+                    props.setBusinessUrls(sellingURLs, [...websiteURLs, webInput]);
+                }
+            } else if (isValidUrl(sellingInput)) {
+                props.setBusinessUrls([...sellingURLs, sellingInput], websiteURLs);
+            } else {
+                props.setBusinessUrls(sellingURLs, websiteURLs);
+            }
             history.push('/register/2');
         }
     };
+
+    // const goToNextPage = () => {
+    //     if (isFormValid()) {
+    //         props.setBusinessUrls(sellingURLs, websiteURLs);
+    //         history.push('/register/2');
+    //     }
+    // }
 
     useEffect(() => { //Detect page refreshing
         window.onbeforeunload = (e: BeforeUnloadEvent) => {
