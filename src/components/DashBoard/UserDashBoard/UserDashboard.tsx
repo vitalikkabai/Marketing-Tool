@@ -282,7 +282,7 @@ function UserDashboard() {
                                         classes.leftTask
                                     }
                                     style={{ background: '#43A047' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         1
                                     </Typography>
                                 </Box>

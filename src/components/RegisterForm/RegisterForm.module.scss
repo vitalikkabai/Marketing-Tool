@@ -1,173 +1,146 @@
-.registrationSheet {
-    box-shadow: 0 4px 15px rgba(40, 47, 43, 0.1);
-    background: #fff;
-    border-radius: 10px;
+.registerForm {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 0;
-    padding-bottom: 24px;
-    min-height: 735px;
 
-    .header {
-        margin-top: 40px;
-    }
-
-    .registerForm {
+    .registrationSheet {
+        box-shadow: 0 4px 15px rgba(40, 47, 43, 0.1);
+        background: #fff;
+        border-radius: 10px;
         position: relative;
-    }
-    /* Scroll container for first step */
-
-    .scrollGradient {
-        position: absolute;
-        bottom: 150px;
-        height: 35px;
-        width: 100%;
-        background: linear-gradient(
-            rgba(255, 255, 255, 0),
-            rgba(255, 255, 254, 1)
-        );
-        left: 50%;
-        transform: translate(-50%, 0);
-    }
-
-    .formContainer {
-        width: 100%;
-        margin-top: 60px;
-    }
-
-    .formSecondTitle {
-        margin-top: 40px;
-    }
-
-    .inputBox {
-        margin-top: 8px;
-        display: flex;
-        align-items: flex-start;
-    }
-
-    .formControl {
-        margin-right: 24px;
-    }
-}
-
-.inputFieldBox {
-    margin-bottom: 32px;
-}
-
-.phoneContainer {
-    position: relative;
-    display: flex;
-    .flagBox {
-        position: absolute;
-        left: 21px;
-        top: 10px;
-        width: 27px;
-        height: 27px;
-        overflow: hidden;
-        border-radius: 50%;
-    }
-}
-
-.assistantContainer {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    img {
-        width: 98px;
-        height: 98px;
-    }
-
-    .assistantText {
-        margin-top: 16px;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        max-width: 230px;
+        align-items: center;
+        z-index: 0;
+        padding-bottom: 24px;
+        min-height: 735px;
+
+        .stepCounter {
+            margin-top: 22px;
+        }
+
+        .assistantContainer {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                width: 98px;
+                height: 98px;
+            }
+
+            .assistantText {
+                margin-top: 16px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                max-width: 230px;
+            }
+        }
+
+        .infoForm {
+            height: 494px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .formContainer {
+            width: 100%;
+            margin-top: 60px;
+
+            .formText {
+                padding-left: 100px;
+                padding-right: 100px;
+
+                .inputBox {
+                    margin-top: 8px;
+                    display: flex;
+                    align-items: flex-start;
+
+                    .formControl {
+                        margin-right: 24px;
+                    }
+
+                    .inputContainer {
+                        width: 100%;
+                    }
+                }
+
+                .formSecondTitle {
+                    margin-top: 40px;
+                }
+
+                .selectTextBox {
+                    width: 100%;
+                    height: 45px;
+                    padding: 8px 24px;
+                    border-radius: 10px;
+                    color: white;
+                }
+            }
+
+            .phoneContainer {
+                position: relative;
+                display: flex;
+
+                .flagBox {
+                    position: absolute;
+                    left: 21px;
+                    top: 10px;
+                    width: 27px;
+                    height: 27px;
+                    overflow: hidden;
+                    border-radius: 50%;
+                }
+            }
+        }
+
+        .nextContainer {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            &.webLinks {
+                margin-top: 128px;
+            }
+
+            &.roles {
+                margin-top: 47px;
+            }
+
+            .link {
+                cursor: pointer;
+            }
+
+            .buttonBlock {
+                margin-bottom: 16px;
+            }
+
+            .disabledBtn {
+                pointer-events: none;
+            }
+
+            .buttonProgress {
+                position: absolute;
+                top: 25%;
+                left: 50%;
+                margin-top: -12px;
+                margin-left: -12px;
+                color: white;
+            }
+        }
+
+        .errorText {
+            position: absolute;
+            bottom: 115px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            color: #ea4335;
+        }
     }
 }
 
-.nextContainer {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
-    &.webLinks {
-        margin-top: 128px;
-    }
 
-    &.roles {
-        margin-top: 47px;
-    }
-
-    .link {
-        cursor: pointer;
-    }
-
-    .buttonBlock {
-        margin-bottom: 16px;
-    }
-
-    .disabledBtn {
-        pointer-events: none;
-    }
-
-    .buttonProgress {
-        position: absolute;
-        top: 25%;
-        left: 50%;
-        margin-top: -12px;
-        margin-left: -12px;
-        color: white;
-    }
-}
-
-.formText {
-    padding-left: 100px;
-    padding-right: 100px;
-}
-
-.infoForm {
-    height: 494px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.inputContainer {
-    width: 100%;
-}
-
-.scrollBox {
-    max-height: 60px;
-    overflow: auto;
-}
-
-.selectTextBox {
-    width: 100%;
-    height: 45px;
-    padding: 8px 24px;
-    border-radius: 10px;
-    color: white;
-}
-
-.thirdFromInput {
-    margin-bottom: 16px;
-}
-
-.errorText {
-    position: absolute;
-    bottom: 115px;
-    left: 50%;
-    transform: translate(-50%, 0);
-    color: #ea4335;
-}
-
-.stepCounter {
-    margin-top: 22px;
-}

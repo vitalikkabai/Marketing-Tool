@@ -169,7 +169,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                                     </Grid>
                                     <Grid item xs={6}
                                           style={{paddingLeft:"12px"}}
-                                        className={classes.phoneContainer}>
+                                          className={classes.phoneContainer}>
                                         <Grid item xs={4}>
                                             <AutocompleteCustomInput
                                                 label={'Country'}
