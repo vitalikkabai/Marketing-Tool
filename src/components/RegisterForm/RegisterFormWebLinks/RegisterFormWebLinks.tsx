@@ -88,13 +88,6 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
         }
     };
 
-    // const goToNextPage = () => {
-    //     if (isFormValid()) {
-    //         props.setBusinessUrls(sellingURLs, websiteURLs);
-    //         history.push('/register/2');
-    //     }
-    // }
-
     useEffect(() => { //Detect page refreshing
         window.onbeforeunload = (e: BeforeUnloadEvent) => {
             e.returnValue = '';
