@@ -152,7 +152,13 @@ const TopBar = (props: PropsFromRedux) => {
                         <Typography variant="h3" align="center">
                             Are you sure you want to <br /> log out?
                         </Typography>
-                        <img src={logOutIcon} alt="image" />
+                        <Box className={classes.logOutImageBox}>
+                            <img
+                                src={logOutIcon}
+                                alt="image"
+                            />
+                        </Box>
+
                         <Box className={classes.buttonBox}>
                             <CustomButton
                                 color
