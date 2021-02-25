@@ -121,6 +121,7 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                                             className={
                                                 isPending ? classes.disabledBtn : ''
                                             }
+                                            borderRadius={"10px"}
                                         />
                                         {isPending && (
                                             <CircularProgress

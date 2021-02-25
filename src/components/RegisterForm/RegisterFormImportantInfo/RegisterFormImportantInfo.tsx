@@ -147,7 +147,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                         assistantText={'Tell us about yourself'}
                         stepNumber={3}
                     />
-                    <form onSubmit={formik.handleSubmit}>
+                    <form onSubmit={formik.handleSubmit} className={classes.infoForm}>
                         <Grid className={classes.formContainer}>
                                 <Grid
                                     container
