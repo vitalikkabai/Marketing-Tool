@@ -469,36 +469,33 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                         />
                                     </Grid>
                                 </CustomTooltip>
-                                <CustomTooltip title='Products only'>
-                                    <Grid xs={12} item className={classes.dropZone}>
-                                        <Dropzone
-                                            position={'vertical'}
-                                            title={'Upload product photos & videos'}
-                                        />
-                                    </Grid>
-                                </CustomTooltip>
+                                <Grid xs={12} item className={classes.dropZone}>
+                                    <Dropzone
+                                        position={'vertical'}
+                                        title={'Upload product photos & videos'}
+                                        tooltipTitle={'Product only'}
+                                    />
+                                </Grid>
                                 <Grid xs={12} item>
                                     <div className={classes.horizontalLine} />
                                 </Grid>
-                                <CustomTooltip title='Product certifications only'>
-                                    <Grid xs={12} item className={classes.dropZone}>
-                                        <Dropzone
-                                            position={'horizontal'}
-                                            title={'Upload certifications'}
-                                        />
-                                    </Grid>
-                                </CustomTooltip>
+                                <Grid xs={12} item className={classes.dropZone}>
+                                    <Dropzone
+                                        position={'horizontal'}
+                                        title={'Upload certifications'}
+                                        tooltipTitle={'Product certifications only'}
+                                    />
+                                </Grid>
                                 <Grid xs={12} item>
                                     <div className={classes.horizontalLine} />
                                 </Grid>
-                                <CustomTooltip title='Marketing materials only'>
-                                    <Grid xs={12} item className={classes.dropZone}>
-                                        <Dropzone
-                                            position={'mixed'}
-                                            title={'Upload marketing materials'}
-                                        />
-                                    </Grid>
-                                </CustomTooltip>
+                                <Grid xs={12} item className={classes.dropZone}>
+                                    <Dropzone
+                                        position={'mixed'}
+                                        title={'Upload marketing materials'}
+                                        tooltipTitle={'Marketing materials only'}
+                                    />
+                                </Grid>
                             </Grid>
                             <Grid item container xs={12} className={classes.nextButtonContainer}>
                                 <Box className={classes.nextButtonBox}>

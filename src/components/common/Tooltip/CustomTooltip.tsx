@@ -43,13 +43,13 @@ const CustomTooltip: React.FC<CustomInputProps> = (props) => {
             placement={props.placement ? props.placement : "top"}
             arrow
             open={hover && !focus}
-            onMouseOver={() => {setHover(true)}}
-            onMouseOut={() => {setHover(false)}}
+            onMouseEnter={() => {setHover(true)}}
+            onMouseLeave={() => {setHover(false)}}
             onFocus={() => {setFocus(true)}}
             onBlur={() => {setFocus(false)}}
+            disableHoverListener
             disableFocusListener
             disableTouchListener
-            disableHoverListener
             classes={{
                 tooltip: classes.tooltip,
                 arrow: classes.arrow
