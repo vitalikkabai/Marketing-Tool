@@ -106,10 +106,10 @@ const CustomDatePicker: React.FC<PropsType> = (props) => {
         error={props.error}
         helperText={props.helperText}
         color={"secondary"}
+        onFocus={props.onFocus}
         onOpen={() => {
             setFocus(true)
         }}
-        onFocus={props.onFocus}
         onClose={() => {
             setFocus(false)
         }}

@@ -69,7 +69,7 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                 .max(35, 'Must be 35 characters or less')
                 .trim()
                 .required('Required'),
-            release: Yup.string().required('Required').nullable(),
+            release: Yup.string().nullable().required('Required'),
             tag: Yup.string().required('Required'),
             dimensionsCm: Yup.string().required('Required'),
             dimensionsInch: Yup.string().required('Required'),
@@ -208,7 +208,6 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                                 formik.setFieldValue('release', e);
                                             }}
                                             onFocus={() => formik.setFieldError('release', '')}
-                                            onBlur={formik.handleBlur}
                                         />
                                     </Box>
                                     <Box
