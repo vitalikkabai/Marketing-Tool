@@ -1,26 +1,53 @@
-import React from 'react';
-import { Box, Grid, Typography, Container } from '@material-ui/core';
+import React, {useEffect} from 'react';
+import {Box, Grid, Typography, Container} from '@material-ui/core';
 import classes from './ResetPasswordForm.module.scss';
-import { useHistory } from 'react-router';
+import {useHistory} from 'react-router';
 import CustomInput from '../common/Input/CustomInput';
 import GoBackButton from '../common/Button/GoBackButton';
 import CustomButton from '../common/Button/CustomButton';
+import {useFormik} from "formik";
+import * as Yup from "yup";
 
 type PropsType = {
-    email: {
-        value: string;
-        touched: boolean;
-        error: boolean;
-        errorText: string;
-        name: string;
-    };
-    errorMessage: string;
-    handleInput: (inputData: string, inputType: string) => void;
-    handleSubmit: (event: React.FormEvent<Element>) => void;
+    isNewPasswordEntered: boolean;
+    isEmailEntered: boolean
+    sendEmail: (value: string) => void
+    errorText: {code: string, message: string, name: string}
 };
 
 const SendResetLink: React.FC<PropsType> = (props) => {
     const history = useHistory();
+    const formik = useFormik({
+        initialValues: {
+            email: ''
+        },
+        validationSchema: Yup.object({
+            email: Yup.string()
+                .email("Invalid email address")
+                .required('Required'),
+        }),
+        validateOnChange: false,
+        validateOnBlur: true,
+        onSubmit: () => {
+            if (!props.isNewPasswordEntered && !props.isEmailEntered) {
+                props.sendEmail(formik.values.email);
+            }
+        },
+    });
+
+    useEffect(() => {
+        //Detect async error status
+        switch (props.errorText.code) {
+            case 'UserNotFoundException': {
+                formik.setFieldError("email", 'User not found')
+                break;
+            }
+            case 'LimitExceededException': {
+                formik.setFieldError("email", 'Attempt limit exceeded, try again later')
+                break;
+            }
+        }
+    }, [props.errorText]);
 
     return (
         <Container>
@@ -28,8 +55,7 @@ const SendResetLink: React.FC<PropsType> = (props) => {
                 container
                 justify="center"
                 alignItems="center"
-                className={classes.registrationContainer}
-            >
+                className={classes.registrationContainer}>
                 <Grid item sm={6}>
                     <Box className={classes.loginSheet}>
                         <GoBackButton
@@ -52,35 +78,21 @@ const SendResetLink: React.FC<PropsType> = (props) => {
                             </Typography>
                         </Grid>
                         <Grid item className={classes.formContainer}>
-                            <form onSubmit={props.handleSubmit}>
-                                <Grid container direction="column" spacing={2}>
+                            <form onSubmit={formik.handleSubmit} style={{height: "100%"}}>
+                                <Grid container direction="column" className={classes.gridContainer}>
                                     <Grid item>
                                         <CustomInput
                                             type="text"
                                             label="Company email"
-                                            fullWidth
-                                            error={props.email.error}
-                                            value={props.email.value}
                                             name="email"
-                                            onChange={(
-                                                event: React.ChangeEvent<
-                                                    | HTMLTextAreaElement
-                                                    | HTMLInputElement
-                                                >
-                                            ) =>
-                                                props.handleInput(
-                                                    event.target.value,
-                                                    'EMAIL'
-                                                )
-                                            }
+                                            fullWidth
+                                            error={formik.touched.email && Boolean(formik.errors.email)}
+                                            helperText={formik.touched.email && formik.errors.email}
+                                            value={formik.values.email}
+                                            onChange={formik.handleChange}
                                             width={290}
                                             autoFocus
                                         />
-                                    </Grid>
-                                    <Grid item className={classes.errorText}>
-                                        <Typography variant={'subtitle1'}>
-                                            {props.errorMessage}
-                                        </Typography>
                                     </Grid>
                                     <Grid item className={classes.nextButton}>
                                         <CustomButton

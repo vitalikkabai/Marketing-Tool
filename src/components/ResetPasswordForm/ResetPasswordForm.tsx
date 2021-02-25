@@ -1,40 +1,69 @@
-import React from 'react';
-import { Box, Grid, Typography, Container } from '@material-ui/core';
+import React, {useEffect} from 'react';
+import {Box, Grid, Typography, Container} from '@material-ui/core';
 import classes from './ResetPasswordForm.module.scss';
 import CustomInput from '../common/Input/CustomInput';
 import GoBackButton from '../common/Button/GoBackButton';
 import CustomButton from '../common/Button/CustomButton';
+import {useFormik} from "formik";
+import * as Yup from "yup";
 
 type PropsType = {
-    code: {
-        value: string;
-        touched: boolean;
-        error: boolean;
-        errorText: string;
-        name: string;
-    };
-    newPassword: {
-        value: string;
-        touched: boolean;
-        error: boolean;
-        errorText: string;
-        name: string;
-    };
-    retypePassword: {
-        value: string;
-        touched: boolean;
-        error: boolean;
-        errorText: string;
-        name: string;
-    };
-    errorMessage: string;
-    handleInput: (inputData: string, inputType: string) => void;
-    handleSubmit: (event: React.FormEvent<Element>) => void;
+    resetEmailAddress: string
     cleanSuccess: () => { type: string };
-    resetFieldErrors: () => void;
+    errorText: { code: string, message: string, name: string }
+    sendNewPassword: (email: string, code: string, newPassword: string) => { payload: { code: string, newPassword: string, email: string }, type: string }
 };
 
 const ResetPasswordForm: React.FC<PropsType> = (props) => {
+    const formik = useFormik({
+        initialValues: {
+            code: '',
+            password: '',
+            confirmPassword: ''
+        },
+        validationSchema: Yup.object({
+            code: Yup.string()
+                .required('Required'),
+            password: Yup.string()
+                .min(6,"The password must be at least 6 characters")
+                .required("Required"),
+            confirmPassword: Yup.string().when("password", {
+                is: (val:any) => (!!(val && val.length > 0)),
+                then: Yup.string().oneOf(
+                    [Yup.ref("password")],
+                    "Password mismatched"
+                )
+            }).required("Required")
+        }),
+        validateOnChange: false,
+        validateOnBlur: true,
+        onSubmit: () => {
+            props.sendNewPassword(
+                props.resetEmailAddress,
+                formik.values.code,
+                formik.values.password
+            );
+        },
+    });
+
+    useEffect(() => {
+        //Detect async error status
+        switch (props.errorText.code) {
+            case 'LimitExceededException': {
+                formik.setFieldError("code", 'Attempt limit exceeded, try again later')
+                break;
+            }
+            case 'CodeMismatchException': {
+                formik.setFieldError("code", 'Invalid verification code')
+                break;
+            }
+            case 'UserLambdaValidationException': {
+                formik.setFieldError("code", 'Server error occurred, try again later')
+                break;
+            }
+        }
+    }, [props.errorText]);
+
     return (
         <Container>
             <Grid
@@ -47,10 +76,6 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                     <Box className={classes.loginSheet}>
                         <GoBackButton
                             onClick={() => {
-                                props.handleInput('', 'CODE');
-                                props.handleInput('', 'NEW_PASSWORD');
-                                props.handleInput('', 'CONFIRM_PASSWORD');
-                                props.resetFieldErrors();
                                 props.cleanSuccess();
                             }}
                         />
@@ -60,87 +85,53 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                             </Typography>
                         </Grid>
                         <Grid item className={classes.formContainer}>
-                            <form onSubmit={props.handleSubmit}>
-                                <Grid container direction="column" spacing={2}>
-                                    <Grid item>
+                            <form onSubmit={formik.handleSubmit} style={{height: "100%"}}>
+                                <Grid container direction="column" style={{height: "100%"}}>
+                                    <Grid item style={{marginBottom: "24px"}}>
                                         <CustomInput
                                             type="text"
                                             label="Code"
                                             fullWidth
                                             name="code"
-                                            value={props.code.value}
-                                            onChange={(
-                                                event: React.ChangeEvent<
-                                                    | HTMLTextAreaElement
-                                                    | HTMLInputElement
-                                                >
-                                            ) =>
-                                                props.handleInput(
-                                                    event.target.value,
-                                                    'CODE'
-                                                )
-                                            }
+                                            value={formik.values.code}
+                                            helperText={formik.touched.code && formik.errors.code}
+                                            onChange={formik.handleChange}
                                             width={290}
-                                            error={props.code.error}
+                                            error={formik.touched.code && Boolean(formik.errors.code)}
                                             autoFocus
                                         />
                                     </Grid>
-                                    <Grid item>
+                                    <Grid item style={{marginBottom: "24px"}}>
                                         <CustomInput
                                             type="password"
                                             label="New password"
                                             fullWidth
                                             name="password"
-                                            onChange={(
-                                                event: React.ChangeEvent<
-                                                    | HTMLTextAreaElement
-                                                    | HTMLInputElement
-                                                >
-                                            ) =>
-                                                props.handleInput(
-                                                    event.target.value,
-                                                    'NEW_PASSWORD'
-                                                )
-                                            }
+                                            onChange={formik.handleChange}
                                             width={290}
-                                            error={props.newPassword.error}
-                                            value={props.newPassword.value}
+                                            helperText={formik.touched.password && formik.errors.password}
+                                            error={formik.touched.password && Boolean(formik.errors.password)}
+                                            value={formik.values.password}
                                         />
                                     </Grid>
-                                    <Grid item>
+                                    <Grid item style={{marginBottom: "24px"}}>
                                         <CustomInput
                                             type="password"
                                             label="Retype password"
                                             fullWidth
-                                            name="password"
-                                            onChange={(
-                                                event: React.ChangeEvent<
-                                                    | HTMLTextAreaElement
-                                                    | HTMLInputElement
-                                                >
-                                            ) =>
-                                                props.handleInput(
-                                                    event.target.value,
-                                                    'CONFIRM_PASSWORD'
-                                                )
-                                            }
+                                            name="confirmPassword"
+                                            onChange={formik.handleChange}
                                             width={290}
-                                            error={props.retypePassword.error}
-                                            value={props.retypePassword.value}
+                                            helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                                            error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+                                            value={formik.values.confirmPassword}
                                         />
                                     </Grid>
-                                    <Grid item className={classes.errorText}>
-                                        <Typography variant={'subtitle1'}>
-                                            {props.errorMessage}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid
-                                        item
-                                        className={classes.resetButtonSubmit}
-                                    >
+                                    <Grid item className={classes.nextButton}>
                                         <CustomButton
+                                            className={classes.buttonBlock}
                                             type="submit"
-                                            text="Send"
+                                            text="Reset"
                                         />
                                     </Grid>
                                 </Grid>
