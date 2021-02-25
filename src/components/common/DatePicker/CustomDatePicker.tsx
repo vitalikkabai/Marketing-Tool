@@ -73,22 +73,26 @@ const CustomDatePicker: React.FC<PropsType> = (props) => {
             },
         },
         dialogue: {
+            // TODO Fix white borders
+            // '& .MuiPickersModal-dialogRoot': {
+            //     borderRadius: '10px'
+            // },
             '& .MuiPickersToolbar-toolbar': {
-                backgroundColor: theme.palette.secondary.main,
+                backgroundColor: theme.palette.primary.main,
                 color: "white"
             },//.
             '& .MuiPickersDay-daySelected': {
-                backgroundColor: theme.palette.secondary.main,
+                backgroundColor: theme.palette.primary.main,
                 color: "white"
             },
             '& .MuiPickersToolbarText-toolbarTxt': {
                 color: "white"
             },
             '& .MuiPickersYear-yearSelected, & .MuiButton-textPrimary, & .MuiPickersMonth-monthSelected, & .MuiPickersDay-current': {
-                color: theme.palette.secondary.main
+                color: theme.palette.primary.main
             },
             '& .MuiPickersMonth-root:focus, & .MuiPickersYear-root:focus': {
-                color: theme.palette.secondary.main
+                color: theme.palette.primary.main
             }
 
         }

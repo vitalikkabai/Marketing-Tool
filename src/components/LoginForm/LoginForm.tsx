@@ -117,19 +117,10 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                                     <Grid item className={classes.loginButton}>
                                         <CustomButton
                                             type={'submit'}
-                                            text={isPending ? '' : 'Log in'}
-                                            className={
-                                                isPending ? classes.disabledBtn : ''
-                                            }
+                                            text={'Log in'}
                                             borderRadius={"10px"}
+                                            isPending={isPending}
                                         />
-                                        {isPending && (
-                                            <CircularProgress
-                                                size={24}
-                                                className={classes.buttonProgress}
-                                                color="secondary"
-                                            />
-                                        )}
                                     </Grid>
                                     <Grid item className={classes.forgotPassword}>
                                         <Typography

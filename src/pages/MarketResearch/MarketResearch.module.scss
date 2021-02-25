@@ -37,8 +37,15 @@
           justify-content: center;
           flex-direction: column;
           .stepLine {
+            display: flex;
+            justify-content: center;
+          }
+          .stepLine {
             margin-top: 53px;
             margin-bottom: 34px;
+          }
+          img {
+            margin: 77px 0;
           }
         }
       }

@@ -13,3 +13,16 @@
 .circleBox {
     background: #FAD61E;
 }
+
+.buttonProgress {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -12px;
+    margin-left: -12px;
+    color: white;
+}
+
+.disabledBtn {
+    pointer-events: none;
+}

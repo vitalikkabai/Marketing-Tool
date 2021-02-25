@@ -144,11 +144,12 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                             <IconButton
                                 aria-label="toggle password visibility"
                                 onClick={handleClickShowPassword}
+                                color={"secondary"}
                             >
                                 {isShowPassword ? (
-                                    <Visibility/>
+                                    <Visibility fill={props.error ? "red" : "#9E9E9E"} />
                                 ) : (
-                                    <VisibilityOff/>
+                                    <VisibilityOff fill={props.error ? "red" : "#9E9E9E"} />
                                 )}
                             </IconButton>
                         )}

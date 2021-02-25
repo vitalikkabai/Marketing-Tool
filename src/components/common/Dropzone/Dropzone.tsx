@@ -7,10 +7,12 @@ import { ReactComponent as ClipIcon } from '../../../assets/images/clip.svg';
 import CustomCarousel from '../Carousel/CustomCarousel';
 import playIcon from '../../../assets/images/playButton.svg';
 import deleteIcon from '../../../assets/images/deleteIcon.svg';
+import CustomTooltip from "../Tooltip/CustomTooltip";
 
 type PropsType = {
     title: string;
     position: string;
+    tooltipTitle?: string;
 };
 
 const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
@@ -152,28 +154,30 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
 
     return (
         <Box className={classes.dropZoneSection}>
-            <Box {...getRootProps()} className={classes.dropZone} onDrop={() => console.log('hi')}>
-                <input {...getInputProps()} />
-                <Box className={classes.dropZoneDashedBox}>
-                    <Box className={classes.dropZoneIcon}>
-                        <ClipIcon />
-                    </Box>
-                    <Box className={classes.dropZoneText}>
-                        <Typography
-                            variant={'subtitle1'}
-                            align={'center'}
-                            style={{ color: '#4285F4' }}>
-                            {props.title}
-                        </Typography>
-                        <Typography
-                            variant={'subtitle1'}
-                            align={'center'}
-                            style={{ color: '#9f9f9f' }}>
-                            or drop files here
-                        </Typography>
+            <CustomTooltip title={props.tooltipTitle ? props.tooltipTitle : ''}>
+                <Box {...getRootProps()} className={classes.dropZone} onDrop={() => console.log('hi')}>
+                    <input {...getInputProps()} />
+                    <Box className={classes.dropZoneDashedBox}>
+                        <Box className={classes.dropZoneIcon}>
+                            <ClipIcon />
+                        </Box>
+                        <Box className={classes.dropZoneText}>
+                            <Typography
+                                variant={'subtitle1'}
+                                align={'center'}
+                                style={{ color: '#4285F4' }}>
+                                {props.title}
+                            </Typography>
+                            <Typography
+                                variant={'subtitle1'}
+                                align={'center'}
+                                style={{ color: '#9f9f9f' }}>
+                                or drop files here
+                            </Typography>
+                        </Box>
                     </Box>
                 </Box>
-            </Box>
+            </CustomTooltip>
             <Box
                 marginTop="46px"
                 display={

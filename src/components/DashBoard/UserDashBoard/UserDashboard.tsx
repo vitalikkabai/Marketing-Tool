@@ -96,7 +96,7 @@ function UserDashboard() {
                 </Typography>
             </Box>
             <Box className={classes.agoTime}>
-                <Typography variant={'caption'}>
+                <Typography variant={'caption'} className={classes.coloredTaskBoxTimeAgo}>
                     {moment(el.timeAgo).fromNow()}
                 </Typography>
             </Box>
@@ -282,7 +282,7 @@ function UserDashboard() {
                                         classes.leftTask
                                     }
                                     style={{ background: '#43A047' }}>
-                                    <Typography variant={'subtitle2'}>
+                                    <Typography variant={'h6'}>
                                         1
                                     </Typography>
                                 </Box>
