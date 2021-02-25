@@ -1,6 +1,5 @@
 import {
     Box,
-    CircularProgress,
     Grid,
     Link,
     Typography,
@@ -335,22 +334,10 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                             }>
                             <CustomButton
                                 type={'submit'}
-                                text={isPending ? '' : 'Save'}
-                                className={
-                                    isPending
-                                        ? classes.disabledBtn +
-                                        ' ' +
-                                        classes.buttonBlock
-                                        : classes.buttonBlock
-                                }
+                                text={'Save'}
+                                className={classes.buttonBlock}
+                                isPending={isPending}
                             />
-                            {isPending && (
-                                <CircularProgress
-                                    size={24}
-                                    className={classes.buttonProgress}
-                                    color="secondary"
-                                />
-                            )}
                             <Typography variant={'subtitle1'}>
                                 Have an account already?&nbsp;
                                 <Link

@@ -78,7 +78,7 @@ const CustomDatePicker: React.FC<PropsType> = (props) => {
             //     borderRadius: '10px'
             // },
             '& .MuiPickersToolbar-toolbar': {
-                backgroundColor: theme.palette.secondary.main,
+                backgroundColor: theme.palette.primary.main,
                 color: "white"
             },//.
             '& .MuiPickersDay-daySelected': {

@@ -501,9 +501,9 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 <Box className={classes.nextButtonBox}>
                                     <CustomButton
                                         type={'submit'}
-                                        text={props.isPending ? '' : 'Save'}
+                                        text={'Save'}
                                         borderRadius={'10px'}
-                                        className={props.isPending ? classes.disabledBtn : ''}
+                                        isPending={props.isPending}
                                     />
                                     {props.isPending && (
                                         <CircularProgress

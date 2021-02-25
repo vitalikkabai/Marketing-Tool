@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core';
+import { Button, CircularProgress } from '@material-ui/core';
 import classes from './CustomButton.module.scss';
 import React from 'react';
 
@@ -12,6 +12,7 @@ interface PropTypes {
     onClick?: () => void;
     borderRadius?: string;
     color?: boolean;
+    isPending?: boolean;
 }
 
 const CustomButton: React.FC<PropTypes> = (props) => {
@@ -20,11 +21,11 @@ const CustomButton: React.FC<PropTypes> = (props) => {
             style={
                 props.color
                     ? {
-                          width: props.width,
-                          borderRadius: props.borderRadius,
-                          background: '#4285F4',
-                          color: 'white',
-                      }
+                        width: props.width,
+                        borderRadius: props.borderRadius,
+                        background: '#4285F4',
+                        color: 'white',
+                    }
                     : { width: props.width, borderRadius: props.borderRadius }
             }
             endIcon={props.endIcon}
@@ -32,10 +33,22 @@ const CustomButton: React.FC<PropTypes> = (props) => {
             color={props.color ? 'default' : 'primary'}
             type={props.type}
             disabled={props.disabled}
-            className={classes.customButton + ' ' + props.className}
+            className={
+                (classes.customButton + ' ' + props.className)
+                + " " + (props.isPending ? classes.disabledBtn : "")
+            }
             onClick={props.onClick}
         >
-            {props.text}
+            {
+                props.isPending ?
+                    <CircularProgress
+                        size={24}
+                        className={classes.buttonProgress}
+                        color="secondary"
+                    />
+                    :
+                    props.text
+            }
         </Button>
     );
 };
