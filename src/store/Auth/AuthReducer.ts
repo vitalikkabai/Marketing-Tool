@@ -23,6 +23,7 @@ const initialState = {
     initialized: false,
     isSendResetLinkSuccess: false,
     isResetPasswordSuccess: false,
+    resetEmailAddress: "",
     userAttributes: initialUserAttributes,
     hasWebsite: true,
     hasExperienceSelling: true,
@@ -100,10 +101,17 @@ export const AuthReducer = (
                 initialized: true,
             };
 
+        case 'SEND-RESET-LINK': {
+            return {
+                ...state,
+                resetEmailAddress: action.payload.email,
+            };
+        }
+
         case 'RESET-LINK-SUCCESS': {
             return {
                 ...state,
-                isSendResetLinkSuccess: true,
+                isSendResetLinkSuccess: true
             };
         }
         case 'RESET-LINK-FAILED': {

@@ -7,7 +7,6 @@ import CustomButton from '../../components/common/Button/CustomButton';
 
 type PropsType = {
     cleanSuccess: () => { type: string };
-    resetFieldErrors: () => void;
 };
 
 const ResetsIsDone: React.FC<PropsType> = (props) => {
@@ -29,6 +28,7 @@ const ResetsIsDone: React.FC<PropsType> = (props) => {
                             <Typography
                                 variant="h2"
                                 className={classes.checkHeadline}
+                                align={"center"}
                             >
                                 Password Resent link was sent to your email
                             </Typography>
@@ -36,7 +36,6 @@ const ResetsIsDone: React.FC<PropsType> = (props) => {
                         <Grid item className={classes.closeButton}>
                             <CustomButton
                                 onClick={() => {
-                                    props.resetFieldErrors();
                                     history.push('/login');
                                     props.cleanSuccess();
                                 }}
