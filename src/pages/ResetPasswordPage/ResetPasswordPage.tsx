@@ -11,10 +11,41 @@ import {
     validateField,
 } from '../../utils/validators/validators';
 import { PropsFromRedux } from './ResetPasswordPageContainer';
+import {useFormik} from "formik";
+import * as Yup from "yup";
 
 const ResetPasswordPage: React.FC<PropsFromRedux> = (props) => {
     const [isEmailEntered, setEmailEntered] = useState(false);
     const [isNewPasswordEntered, setIsNewPasswordEntered] = useState(false);
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            code: '',
+            newPassword: '',
+            confirmPassword: ''
+        },
+        validationSchema: Yup.object({
+            itemNumber: Yup.number()
+                .positive("The field value can't be negative")
+                .required('Required'),
+            itemName: Yup.string()
+                .max(35, 'Must be 35 characters or less')
+                .trim()
+                .required('Required'),
+            release: Yup.string().required('Required').nullable(),
+            tag: Yup.string().required('Required'),
+            dimensionsCm: Yup.string().required('Required'),
+            dimensionsInch: Yup.string().required('Required'),
+            kgs: Yup.number().positive("The field value can't be negative").required('Required'),
+            lbs: Yup.number().positive("The field value can't be negative").required('Required'),
+            url: Yup.string().url('Please enter valid URL'),
+        }),
+        validateOnChange: false,
+        validateOnBlur: true,
+        onSubmit: () => {
+            props.sendEmail(formik.values.email);
+        },
+    });
     const [inputValue, setInputValue] = useState({
         //For input values
         email: {

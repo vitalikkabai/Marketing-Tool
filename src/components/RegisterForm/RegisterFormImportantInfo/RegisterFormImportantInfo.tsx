@@ -259,7 +259,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                                     xs={12}
                                     style={{marginBottom: "24px"}}
                                     >
-                                    <Grid xs={6} style={{paddingRight:"12px"}}>
+                                    <Grid item xs={6} style={{paddingRight:"12px"}}>
                                         <CustomInput
                                             label="Company Name"
                                             placeholder={'Company Name'}
@@ -273,7 +273,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                                             variant="outlined"
                                         />
                                     </Grid>
-                                    <Grid xs={6} style={{paddingLeft:"12px"}}>
+                                    <Grid item xs={6} style={{paddingLeft:"12px"}}>
                                         <CustomInput
                                             type="text"
                                             label="Company email"
@@ -294,7 +294,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                                     item
                                     xs={12}
                                 >
-                                    <Grid xs={6} style={{paddingRight:"12px"}}>
+                                    <Grid item xs={6} style={{paddingRight:"12px"}}>
                                         <CustomInput
                                             type="password"
                                             label="Password"
@@ -309,7 +309,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                                             onBlur={formik.handleBlur}
                                         />
                                     </Grid>
-                                    <Grid xs={6} style={{paddingLeft:"12px"}}>
+                                    <Grid item xs={6} style={{paddingLeft:"12px"}}>
                                         <CustomInput
                                             type="password"
                                             label="Repeat Password"
