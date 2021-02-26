@@ -32,6 +32,7 @@ type PropsType = {
     handleSubmit: (event: React.FormEvent<Element>) => void;
     cleanSuccess: () => { type: string };
     resetFieldErrors: () => void;
+    isPending: boolean;
 };
 
 const ResetPasswordForm: React.FC<PropsType> = (props) => {
@@ -140,7 +141,8 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                                     >
                                         <CustomButton
                                             type="submit"
-                                            text="Send"
+                                            text="Reset"
+                                            isPending={props.isPending}
                                         />
                                     </Grid>
                                 </Grid>

@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 import CustomInput from '../common/Input/CustomInput';
 import GoBackButton from '../common/Button/GoBackButton';
 import CustomButton from '../common/Button/CustomButton';
+import {bool} from "yup";
 
 type PropsType = {
     email: {
@@ -14,6 +15,7 @@ type PropsType = {
         errorText: string;
         name: string;
     };
+    isPending: boolean;
     errorMessage: string;
     handleInput: (inputData: string, inputType: string) => void;
     handleSubmit: (event: React.FormEvent<Element>) => void;
@@ -87,6 +89,7 @@ const SendResetLink: React.FC<PropsType> = (props) => {
                                             className={classes.buttonBlock}
                                             type="submit"
                                             text="Send"
+                                            isPending={props.isPending}
                                         />
                                     </Grid>
                                 </Grid>

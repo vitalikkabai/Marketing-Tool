@@ -308,6 +308,7 @@ const ResetPasswordPage: React.FC<PropsFromRedux> = (props) => {
                     handleInput={handleInput}
                     handleSubmit={handleSubmit}
                     errorMessage={getErrorMessage()}
+                    isPending={props.isPending}
                 />
             )}
             {isEmailEntered && !isNewPasswordEntered && (
@@ -320,6 +321,7 @@ const ResetPasswordPage: React.FC<PropsFromRedux> = (props) => {
                     errorMessage={getErrorMessage()}
                     resetFieldErrors={resetFieldErrors}
                     cleanSuccess={props.cleanSuccess}
+                    isPending={props.isPending}
                 />
             )}
             {isNewPasswordEntered && (
