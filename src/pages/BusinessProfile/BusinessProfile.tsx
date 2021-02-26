@@ -42,9 +42,10 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                 title: 'QC',
                 selected: props.roleTags.qualityControl,
             },
-        ].sort((a, b) =>
-            a.selected < b.selected ? 1 : b.selected < a.selected ? -1 : 0
-        )
+        ]
+        // .sort((a, b) =>
+        //     a.selected < b.selected ? 1 : b.selected < a.selected ? -1 : 0
+        // )
     );// Sorting by selected status
 
     const [companyName, setCompanyName] = useState(props.business.companyName);
@@ -70,7 +71,18 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
             websiteURLs,
             storeURLs
         });
+
+        props.setRoleTags(getNewSelectedRoleObject());
     };
+
+    const getNewSelectedRoleObject = () => ({
+        sales: selectedRole.find((el) => el.id === 'sales_role')?.selected || false,
+        marketing: selectedRole.find((el) => el.id === 'marketing_role')?.selected || false,
+        logistics: selectedRole.find((el) => el.id === 'logistic_role')?.selected || false,
+        accounting: selectedRole.find((el) => el.id === 'accounting_role')?.selected || false,
+        production: selectedRole.find((el) => el.id === 'production_role')?.selected || false,
+        qualityControl: selectedRole.find((el) => el.id === 'quality_role')?.selected || false
+    });
 
     useEffect(() => {
         setSelectedRoleError('');
@@ -115,30 +127,26 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                     title: 'QC',
                     selected: props.roleTags.qualityControl,
                 }
-            ].sort((a, b) =>
-                a.selected < b.selected ? 1 : b.selected < a.selected ? -1 : 0
-            )
+            ]
+            // .sort((a, b) =>
+            //     a.selected < b.selected ? 1 : b.selected < a.selected ? -1 : 0
+            // )
         );
     }, [props.roleTags]);
 
     useEffect(() => {
+        const selectedRoleValues = getNewSelectedRoleObject();
         // Check that any values do not differ from the analogues in the reducer
         if (
             companyName !== props.business.companyName ||
             storeURLs !== props.business.storeURLs ||
             websiteURLs !== props.business.websiteURLs ||
-            selectedRole.find((el) => el.id === 'sales_role')?.selected !==
-            props.roleTags.sales ||
-            selectedRole.find((el) => el.id === 'marketing_role')?.selected !==
-            props.roleTags.marketing ||
-            selectedRole.find((el) => el.id === 'logistic_role')?.selected !==
-            props.roleTags.logistics ||
-            selectedRole.find((el) => el.id === 'accounting_role')?.selected !==
-            props.roleTags.accounting ||
-            selectedRole.find((el) => el.id === 'production_role')?.selected !==
-            props.roleTags.production ||
-            selectedRole.find((el) => el.id === 'quality_role')?.selected !==
-            props.roleTags.qualityControl
+            selectedRoleValues.sales !== props.roleTags.sales ||
+            selectedRoleValues.marketing !== props.roleTags.marketing ||
+            selectedRoleValues.logistics !== props.roleTags.logistics ||
+            selectedRoleValues.accounting !== props.roleTags.accounting ||
+            selectedRoleValues.production !== props.roleTags.production ||
+            selectedRoleValues.qualityControl !== props.roleTags.qualityControl
         ) {
             setEdited(true);
         } // Set edited mode

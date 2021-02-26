@@ -1,9 +1,10 @@
 import { AppStateType } from '../../store/store';
 import { Dispatch } from 'redux';
-import { UpdateBusinessInput } from '../../API';
+import {RoleTagsInput, UpdateBusinessInput} from '../../API';
 import { updateBusinessInDB } from '../../store/Business/BusinessActions';
 import { connect, ConnectedProps } from 'react-redux';
 import BusinessProfile from './BusinessProfile';
+import {setRoleTags} from "../../store/Employee/EmployeeActions";
 
 function mapStateToProps(state: AppStateType) {
     return {
@@ -17,6 +18,8 @@ function mapDispatchToProps(dispatch: Dispatch) {
     return {
         updateBusinessInDB: (business: UpdateBusinessInput) =>
             dispatch(updateBusinessInDB(business)),
+        setRoleTags: (roleTags: RoleTagsInput) =>
+            dispatch(setRoleTags(roleTags))
     };
 }
 
