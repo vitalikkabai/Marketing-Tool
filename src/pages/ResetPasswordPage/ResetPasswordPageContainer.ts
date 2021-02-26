@@ -14,7 +14,8 @@ const mapStateToProps = (state: AppStateType) => {
         errorText: state.AuthReducer.sendResetLinkError,
         isSendResetLinkSuccess: state.AuthReducer.isSendResetLinkSuccess,
         isResetPasswordSuccess: state.AuthReducer.isResetPasswordSuccess,
-        resetEmailAddress: state.AuthReducer.resetEmailAddress
+        resetEmailAddress: state.AuthReducer.resetEmailAddress,
+        isPending: state.AuthReducer.isPending
     };
 };
 

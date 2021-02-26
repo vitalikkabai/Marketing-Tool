@@ -20,6 +20,7 @@ const initialUserAttributes: UserAttributes = {
 
 const initialState = {
     isAuth: false,
+    isPending: false,
     initialized: false,
     isSendResetLinkSuccess: false,
     isResetPasswordSuccess: false,
@@ -105,31 +106,42 @@ export const AuthReducer = (
             return {
                 ...state,
                 resetEmailAddress: action.payload.email,
+                isPending: true
             };
         }
 
         case 'RESET-LINK-SUCCESS': {
             return {
                 ...state,
-                isSendResetLinkSuccess: true
+                isSendResetLinkSuccess: true,
+                isPending: false
             };
         }
         case 'RESET-LINK-FAILED': {
             return {
                 ...state,
                 sendResetLinkError: action.payload.resetPasswordError,
+                isPending: false
             };
+        }
+        case 'SEND-NEW-PASSWORD': {
+            return {
+                ...state,
+                isPending: true
+            }
         }
         case 'SEND-NEW-PASSWORD-SUCCESS': {
             return {
                 ...state,
                 isResetPasswordSuccess: true,
+                isPending: false
             };
         }
         case 'SEND-NEW-PASSWORD-FAILED': {
             return {
                 ...state,
                 sendResetLinkError: action.payload.resetPasswordError,
+                isPending: false
             };
         }
         case 'CLEAR-SUCCESS': {

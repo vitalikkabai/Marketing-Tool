@@ -21,7 +21,8 @@ const ResetPasswordPage: React.FC<PropsFromRedux> = (props) => {
                 <SendResetLink isNewPasswordEntered={isNewPasswordEntered}
                                isEmailEntered={isEmailEntered}
                                sendEmail={props.sendEmail}
-                               errorText={props.errorText}/>
+                               errorText={props.errorText}
+                               isPending={props.isPending}/>
             )}
             {isEmailEntered && !isNewPasswordEntered && (
                 <ResetPasswordForm
@@ -29,6 +30,7 @@ const ResetPasswordPage: React.FC<PropsFromRedux> = (props) => {
                     errorText={props.errorText}
                     resetEmailAddress={props.resetEmailAddress}
                     sendNewPassword={props.sendNewPassword}
+                    isPending={props.isPending}
                 />
             )}
             {isNewPasswordEntered && (

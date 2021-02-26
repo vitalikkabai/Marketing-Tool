@@ -12,6 +12,7 @@ type PropsType = {
     cleanSuccess: () => { type: string };
     errorText: { code: string, message: string, name: string }
     sendNewPassword: (email: string, code: string, newPassword: string) => { payload: { code: string, newPassword: string, email: string }, type: string }
+    isPending: boolean;
 };
 
 const ResetPasswordForm: React.FC<PropsType> = (props) => {
@@ -132,6 +133,7 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                                             className={classes.buttonBlock}
                                             type="submit"
                                             text="Reset"
+                                            isPending={props.isPending}
                                         />
                                     </Grid>
                                 </Grid>

@@ -13,6 +13,7 @@ type PropsType = {
     isEmailEntered: boolean
     sendEmail: (value: string) => void
     errorText: {code: string, message: string, name: string}
+    isPending: boolean;
 };
 
 const SendResetLink: React.FC<PropsType> = (props) => {
@@ -99,6 +100,7 @@ const SendResetLink: React.FC<PropsType> = (props) => {
                                             className={classes.buttonBlock}
                                             type="submit"
                                             text="Send"
+                                            isPending={props.isPending}
                                         />
                                     </Grid>
                                 </Grid>
