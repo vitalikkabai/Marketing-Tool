@@ -28,7 +28,7 @@ moment.updateLocale('en', {
     },
 });
 
-function UserDashboard() {
+const UserDashboard: React.FC<void> = () => {
     const [value, setValue] = React.useState(0);
     const history = useHistory();
 
@@ -83,7 +83,7 @@ function UserDashboard() {
         },
     ];
 
-    const TabTasks = tasks.map((el, i) => (
+    const TabTasks = tasks.map((el) => (
         <Grid key={el.id} item xs={12} xl={12} className={classes.stepRow}>
             <Box
                 onClick={() => history.push(getLink(el.taskType))}

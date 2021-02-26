@@ -30,18 +30,39 @@ import CustomTooltip from "../../common/Tooltip/CustomTooltip";
 const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
     const history = useHistory();
     const [URLs, setURLs] = useState<string[]>([]);
-    const [urlErrorText, setUrlErrorText] = useState('');
 
-    const validate = (values: any) => {
+    // {
+    //     itemNumber: string,
+    //     itemName: string,
+    //     release: null,
+    //     tag: string,
+    //     dimensionsCm: string,
+    //     dimensionsInch: string,
+    //     kgs: string,
+    //     lbs: string,
+    //     url: string,
+    // }
+
+    const validate = (values: {
+        itemNumber: string,
+        itemName: string,
+        release: null,
+        tag: string,
+        dimensionsCm: string,
+        dimensionsInch: string,
+        kgs: string,
+        lbs: string,
+        url: string,
+    }) => {
         const errors = {} as Record<string, unknown>;
         if (
-            values.dimensionsCm.split('x').some(isNaN) ||
+            values.dimensionsCm.split('x').map(item => parseInt(item)).some(isNaN) ||
             values.dimensionsCm.split('x').length !== 3
         ) {
             errors.dimensionsCm = 'Please enter valid dimensions';
         }
         if (
-            values.dimensionsInch.split('x').some(isNaN) ||
+            values.dimensionsInch.split('x').map(item => parseInt(item)).some(isNaN) ||
             values.dimensionsInch.split('x').length !== 3
         ) {
             errors.dimensionsInch = 'Please enter valid dimensions';
@@ -465,7 +486,6 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                             setLinkInput={(e) => formik.setFieldValue('url', e)}
                                             onBlur={formik.handleBlur}
                                             setLinkURLs={setURLs}
-                                            setLinkErrorText={setUrlErrorText}
                                             label={'URL'}
                                         />
                                     </Grid>

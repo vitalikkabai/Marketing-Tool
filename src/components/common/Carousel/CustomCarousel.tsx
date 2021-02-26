@@ -3,13 +3,13 @@ import classes from './Carousel.module.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { ReactComponent as NextArrow } from '../../../assets/images/arrowRight.svg';
-import { ReactComponent as PrewArrow } from '../../../assets/images/arrowLeft.svg';
+import { ReactComponent as PrevArrow } from '../../../assets/images/arrowLeft.svg';
 
 import Slider from 'react-slick';
 import Box from '@material-ui/core/Box';
 
 type PropsType = {
-    Items: any;
+    Items: any[];
     className?: string;
     position: string;
 };
@@ -53,7 +53,7 @@ const CustomCarousel: React.FunctionComponent<PropsType> = ({ Items, className, 
                             ? { display: 'none' }
                             : {}
                     }>
-                    <PrewArrow />
+                    <PrevArrow />
                 </Box>
             </Box>
             <Slider
@@ -61,8 +61,8 @@ const CustomCarousel: React.FunctionComponent<PropsType> = ({ Items, className, 
                 infinite={false}
                 speed={200}
                 slidesToShow={position === 'vertical' ? 3 : 4}
-                vertical={position === 'vertical' ? true : false}
-                verticalSwiping={position === 'vertical' ? true : false}
+                vertical={position === 'vertical'}
+                verticalSwiping={position === 'vertical'}
                 className={
                     position === 'vertical'
                         ? classes.carouselBoxVertical

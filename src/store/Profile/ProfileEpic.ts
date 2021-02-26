@@ -1,4 +1,4 @@
-import { UpdateProfileInput } from './../../API';
+import { UpdateProfileInput } from '../../API';
 
 import { Epic, ofType } from 'redux-observable';
 import { catchError, map, mergeMap } from 'rxjs/operators';
@@ -33,9 +33,9 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                         graphqlOperation(createBusiness, {
                             input: businessData,
                         })
-                    ) as unknown) as Promise<any>
+                    ) as unknown) as Promise<unknown>
                 ).pipe(
-                    mergeMap((res) => {
+                    mergeMap((/*res*/) => {
                         const profile = state$.value.ProfileReducer;
 
                         return from(
@@ -103,7 +103,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                         }
                     )
                 ).pipe(
-                    mergeMap((res) => {
+                    mergeMap((/*res*/) => {
                         const profileAvatar = {
                             id: state$.value.ProfileReducer.profile.id,
                             avatar: action.payload.s3,
@@ -165,7 +165,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
             ),
             mergeMap(() => {
                 const avatar = state$.value.ProfileReducer.profile.avatar;
-                const id = state$.value.ProfileReducer.profile.id || '';
+                // const id = state$.value.ProfileReducer.profile.id || '';
                 if (!avatar)
                     return [
                         setAvatarUrl(''),

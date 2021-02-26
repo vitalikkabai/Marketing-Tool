@@ -5,7 +5,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 interface CustomInputProps {
     type?: string;
     onChange?: any;
-    onBlur?: any;
+    onBlur?: () => void;
     width?: number;
     name?: string;
     value?: any;
@@ -14,12 +14,12 @@ interface CustomInputProps {
     fullWidth?: boolean;
     error?: boolean;
     helperText?: string;
-    defaultValue?: any;
+    defaultValue?: unknown;
     fontSize?: string;
     label?: string;
     margin?: string;
     data?: Record<string, unknown>;
-    option: any[];
+    option: Record<string, unknown>[];
     getOption: (option: any) => string;
     renderOption?: any;
     onInputChange?: (event: any, value: string, reason: string) => void;

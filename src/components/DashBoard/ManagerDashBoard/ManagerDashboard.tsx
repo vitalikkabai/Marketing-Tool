@@ -30,7 +30,7 @@ moment.updateLocale('en', {
     },
 });
 
-function UserDashboard() {
+const UserDashboard: React.FC<void> = () => {
     const [value, setValue] = React.useState(0);
 
     const getBackgroundColor = (colorId: number) => {

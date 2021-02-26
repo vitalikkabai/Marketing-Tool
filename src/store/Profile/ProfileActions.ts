@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { CreateProfileInput } from '../../API';
-import { Profile, RoleTags, S3Object } from '../../models';
+import { RoleTags, S3Object } from '../../models';
 
 export const setProfile = (profileData: CreateProfileInput) => ({
     type: 'SET_PROFILE_DATA' as const,

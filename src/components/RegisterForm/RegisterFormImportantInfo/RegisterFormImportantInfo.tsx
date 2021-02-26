@@ -57,7 +57,7 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                 .min(6,"The password must be at least 6 characters")
                 .required("Required"),
             confirmPassword: Yup.string().when("password", {
-                is: (val:any) => (!!(val && val.length > 0)),
+                is: (val:string) => (!!(val && val.length > 0)),
                 then: Yup.string().oneOf(
                     [Yup.ref("password")],
                     "Password mismatched"
@@ -189,7 +189,11 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                                                         );
                                                     else return option.phone;
                                                 }}
-                                                renderOption={(option: any) => (
+                                                renderOption={(option: {
+                                                    code: string,
+                                                    label: string,
+                                                    phone: string
+                                                }) => (
                                                     <React.Fragment>
                                                         <ReactCountryFlag
                                                             countryCode={
@@ -208,7 +212,11 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                                                 onChange={(
                                                     event: Record<string,
                                                         unknown>,
-                                                    value: any
+                                                    value: {
+                                                        code: string,
+                                                        label: string,
+                                                        phone: string
+                                                    }
                                                 ) => {
                                                     if (value) {
                                                         formik.setFieldValue('countryCode', value);

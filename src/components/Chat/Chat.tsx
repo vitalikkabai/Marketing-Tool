@@ -82,7 +82,7 @@ const Chat: FunctionComponent<ChatProps> = ({ ...props }) => {
     });
 
     const [inputValue, setInputValue] = useState('');
-    const [searchInputValue, setSearchInputValue] = useState('');
+    // const [searchInputValue, setSearchInputValue] = useState('');
     const scrollRef = useRef(document.createElement('div'));
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

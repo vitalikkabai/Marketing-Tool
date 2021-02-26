@@ -2,7 +2,6 @@ import { Box, Grid } from '@material-ui/core';
 import React from 'react';
 import { Route, Switch } from 'react-router';
 import ManagerDashboard from '../../components/DashBoard/ManagerDashBoard/ManagerDashboard';
-import ManagersSideBarMenu from '../../components/ManagersSideBarMenu/ManagersSideBarMenu';
 import ManagersSideBarMenuContainer from '../../components/ManagersSideBarMenu/ManagersSideBarMenuContainer';
 import TopBarContainer from '../../components/TopBar/TopBarContainer';
 import PersonalProfileContainer from '../PersonalProfile/PersonalProfileContainer';

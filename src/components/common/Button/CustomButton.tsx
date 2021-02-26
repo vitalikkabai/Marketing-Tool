@@ -1,11 +1,11 @@
 import { Button, CircularProgress } from '@material-ui/core';
 import classes from './CustomButton.module.scss';
-import React from 'react';
+import React, {ReactElement} from 'react';
 
 interface PropTypes {
     width?: string;
     type: 'submit' | 'button';
-    text: any;
+    text: string | ReactElement;
     className?: string;
     disabled?: boolean;
     endIcon?: React.ReactNode;

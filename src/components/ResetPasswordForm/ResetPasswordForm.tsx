@@ -29,7 +29,7 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                 .min(6,"The password must be at least 6 characters")
                 .required("Required"),
             confirmPassword: Yup.string().when("password", {
-                is: (val:any) => (!!(val && val.length > 0)),
+                is: (val:string) => (!!(val && val.length > 0)),
                 then: Yup.string().oneOf(
                     [Yup.ref("password")],
                     "Password mismatched"

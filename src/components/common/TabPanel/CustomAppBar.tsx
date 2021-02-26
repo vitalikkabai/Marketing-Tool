@@ -3,19 +3,19 @@ import { Tabs, AppBar, useTheme } from '@material-ui/core';
 import classes from './Tab.module.scss';
 
 interface AppBarProps {
-    setValue?: any;
+    setValue?: (value: number) => void;
     children?: React.ReactNode;
-    value?: any;
+    value?: number;
 }
 
-const CustomAppBar = (props: AppBarProps) => {
+const CustomAppBar: React.FC<any> = (props: AppBarProps) => {
     const { children } = props;
 
     const handleChange = (
         event: React.ChangeEvent<Record<string, never>>,
         newValue: number
     ) => {
-        props.setValue(newValue);
+        props.setValue && props.setValue(newValue);
     };
     const theme = useTheme();
 
