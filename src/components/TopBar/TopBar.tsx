@@ -1,19 +1,16 @@
 import {
     Box,
     Button,
-    Dialog,
-    DialogContent,
     Grid,
     Typography,
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import CustomButton from '../common/Button/CustomButton';
 import classes from './TopBar.module.scss';
 import clock from '../../assets/images/clock.svg';
-import logOutIcon from '../../assets/images/logOutConfirmIcon.svg';
 import { useHistory } from 'react-router';
 import AvatarSection from './AvatarSection/AvatarSection';
 import { PropsFromRedux } from './TopBarContainer';
+import CustomDialog from "../common/Dialog/CustomDialog";
 
 const TopBar: React.FC<any> = (props: PropsFromRedux) => {
     const israelTimeArr: string[] = new Date()
@@ -140,45 +137,13 @@ const TopBar: React.FC<any> = (props: PropsFromRedux) => {
                         </Box>
                     )}
                 </Grid>
-                <Dialog
-                    open={isOpen}
-                    onClose={() => setIsOpen(false)}
-                    BackdropProps={{
-                        classes: {
-                            root: classes.backDrop,
-                        },
-                    }}>
-                    <DialogContent className={classes.logOutDialog}>
-                        <Typography variant="h3" align="center">
-                            Are you sure you want to <br /> log out?
-                        </Typography>
-                        <Box className={classes.logOutImageBox}>
-                            <img
-                                src={logOutIcon}
-                                alt="image"
-                            />
-                        </Box>
-
-                        <Box className={classes.buttonBox}>
-                            <CustomButton
-                                color
-                                type="button"
-                                onClick={() => {
-                                    setIsOpen(!isOpen);
-                                }}
-                                text="NO"
-                            />
-                            <CustomButton
-                                color
-                                type="button"
-                                onClick={() => {
-                                    props.signOut();
-                                }}
-                                text="YES"
-                            />
-                        </Box>
-                    </DialogContent>
-                </Dialog>
+                <CustomDialog
+                    text={"Are you sure you want to <br /> log out?"}
+                    iconType={"logout"}
+                    isOpen={isOpen}
+                    closeDialog={() => setIsOpen(false)}
+                    confirmButtonClick={() => props.signOut()}
+                />
             </Grid>
         </Box>
     );
