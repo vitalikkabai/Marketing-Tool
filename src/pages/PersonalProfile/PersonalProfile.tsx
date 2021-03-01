@@ -14,6 +14,8 @@ import {PropsFromRedux} from './PersonalProfileContainer';
 import avatarHover from '../../assets/images/avatarHover.svg';
 import AutocompleteCustomInput from "../../components/common/AutocompleteCustomInput/AutocompleteCustomInput";
 import data from "../../assets/dataset/country/countries";
+import {useFormik} from "formik";
+import * as Yup from "yup";
 // @ts-ignore
 import ReactCountryFlag from 'react-country-flag';
 
@@ -26,114 +28,98 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [isPersonalInfoEdited, setPersonalInfoEdited] = useState(false);
     const [isPasswordEdited, setPasswordEdited] = useState(false);
-    const [inputValue, setInputValue] = useState({
-        countryCode: {
-            value: {
+    const [isPending, setPending] = useState(false);
+    const personalInfoFormik = useFormik({
+        initialValues: {
+            ownerName: props.profile.name,
+            ownerEmail: props.profile.email,
+            countryCode: {
                 code: props.employee.countryCode.code,
                 label: props.employee.countryCode.label,
                 phone: props.employee.countryCode.phone,
             },
-            touched: false,
-            error: false,
-            errorText: '',
-            name: 'COUNTRY_CODE',
+            phoneNumber: props.employee.phoneNumber,
         },
-        phoneNumber: {
-            value: props.employee.phoneNumber,
-            touched: false,
-            error: false,
-            errorText: '',
-            name: 'PHONE_NUMBER',
-        },
-        ownerName: {
-            value: props.profile.name,
-            touched: false,
-            error: false,
-            errorText: '',
-            name: 'OWNER_NAME',
-        },
-        ownerEmail: {
-            value: props.profile.email,
-            touched: false,
-            error: false,
-            errorText: '',
-            name: 'OWNER_EMAIL',
-        },
-        oldPassword: {
-            value: '',
-            touched: false,
-            error: false,
-            errorText: '',
-            name: 'OLD_PASSWORD',
-        },
-        newPassword: {
-            value: '',
-            touched: false,
-            error: false,
-            errorText: '',
-            name: 'NEW_PASSWORD',
-        },
-        confirmPassword: {
-            value: '',
-            touched: false,
-            error: false,
-            errorText: '',
-            name: 'CONFIRM_PASSWORD',
+        validationSchema: Yup.object({
+            phoneNumber: Yup.string()
+                .max(15, "Invalid phone number")
+                .min(6, "Invalid phone number")
+                .trim()
+                .required("Required"),
+            ownerName: Yup.string()
+                .trim()
+                .required("Required"),
+            ownerEmail: Yup.string()
+                .trim()
+                .email("Invalid email address")
+                .required("Required"),
+        }),
+        validateOnChange: false,
+        validateOnBlur: true,
+        onSubmit: () => {
+            props.changePersonalInfo(personalInfoFormik.values.ownerName, personalInfoFormik.values.ownerEmail);
         },
     });
 
-    const handleInput = (inputData: string, inputType: string) => {
-        setInputValue((prevInput) => {
-            const currInputValue = Object.assign({}, prevInput);
-            switch (inputType) {
-                case prevInput.phoneNumber.name: {
-                    currInputValue.phoneNumber.value = inputData;
-                    currInputValue.phoneNumber.touched = true;
-                    currInputValue.phoneNumber.error = false;
-                    currInputValue.phoneNumber.errorText = '';
-                    break;
-                }
-                case prevInput.ownerName.name: {
-                    currInputValue.ownerName.value = inputData;
-                    currInputValue.ownerName.touched = true;
-                    currInputValue.ownerName.error = false;
-                    currInputValue.ownerName.errorText = '';
-                    break;
-                }
-                case prevInput.ownerEmail.name: {
-                    currInputValue.ownerEmail.value = inputData;
-                    currInputValue.ownerEmail.touched = true;
-                    currInputValue.ownerEmail.error = false;
-                    currInputValue.ownerEmail.errorText = '';
-                    break;
-                }
-                case prevInput.newPassword.name: {
-                    currInputValue.newPassword.value = inputData;
-                    currInputValue.newPassword.touched = true;
-                    currInputValue.newPassword.error = false;
-                    currInputValue.newPassword.errorText = '';
-                    break;
-                }
-                case prevInput.oldPassword.name: {
-                    currInputValue.oldPassword.value = inputData;
-                    currInputValue.oldPassword.touched = true;
-                    currInputValue.oldPassword.error = false;
-                    currInputValue.oldPassword.errorText = '';
-                    break;
-                }
-                case prevInput.confirmPassword.name: {
-                    currInputValue.confirmPassword.value = inputData;
-                    currInputValue.confirmPassword.touched = true;
-                    currInputValue.confirmPassword.error = false;
-                    currInputValue.confirmPassword.errorText = '';
-                    break;
-                }
-                default:
-                    break;
+    const passwordFormik = useFormik({
+        initialValues: {
+            oldPassword: "",
+            password: "",
+            confirmPassword: ""
+        },
+        validationSchema: Yup.object({
+            oldPassword: Yup.string()
+                .min(6,"Incorrect password")
+                .required("Required"),
+            password: Yup.string()
+                .min(6,"The password must be at least 6 characters")
+                .required("Required"),
+            confirmPassword: Yup.string().when("password", {
+                is: (val:any) => (!!(val && val.length > 0)),
+                then: Yup.string().oneOf(
+                    [Yup.ref("password")],
+                    "Password mismatched"
+                )
+            }).required("Required")
+        }),
+        validateOnChange: false,
+        validateOnBlur: true,
+        onSubmit: () => {
+            props.changePassword(
+                passwordFormik.values.oldPassword,
+                passwordFormik.values.password,
+                changePasswordSuccessCallback
+            );
+        },
+    });
+
+    useEffect(() => { //Validate async errors
+        if (props.changeInfoErrorMessage.code) setPending(false);
+        switch (props.changeInfoErrorMessage.code) {
+            case 'AliasExistsException': {
+                personalInfoFormik.setFieldError("ownerEmail", 'An account with the given email already exists')
+                break;
             }
-            return currInputValue;
-        });
-    };
+            case 'LimitExceededException': {
+                personalInfoFormik.setFieldError("ownerEmail", 'Attempt limit exceeded, try again later')
+                break;
+            }
+        }
+    }, [props.changeInfoErrorMessage]);
+
+    useEffect(() => { //Validate async errors
+        if (props.sendResetLinkError.code) setPending(false);
+        switch (props.sendResetLinkError.code) {
+            case 'NotAuthorizedException': {
+                passwordFormik.setFieldError("oldPassword", 'Incorrect password')
+                break;
+            }
+            case 'LimitExceededException': {
+                passwordFormik.setFieldError("oldPassword", 'Attempt limit exceeded, try again later')
+                break;
+            }
+        }
+    }, [props.sendResetLinkError]);
 
     const saveImage = async (imageBase64: string) => {
         const base64Data = Buffer.from(
@@ -154,106 +140,50 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     };
 
     const changePasswordSuccessCallback = () => {
-        setInputValue((prevStyle) => ({
-            ...prevStyle,
-            oldPassword: {
-                ...prevStyle.oldPassword,
-                value: "",
-            },
-        }));
-        setInputValue((prevStyle) => ({
-            ...prevStyle,
-            newPassword: {
-                ...prevStyle.newPassword,
-                value: "",
-            },
-        }));
-        setInputValue((prevStyle) => ({
-            ...prevStyle,
-            confirmPassword: {
-                ...prevStyle.confirmPassword,
-                value: "",
-            },
-        }));
+        passwordFormik.setFieldValue("oldPassword", "");
+        passwordFormik.setFieldValue("password", "");
+        passwordFormik.setFieldValue("confirmPassword", "");
         alert('Password Changed!');
     };
 
     useEffect(() => { // Set new input values on profile name & email update in redux
-        setInputValue((prevStyle) => ({
-            ...prevStyle,
-            ownerName: {
-                ...prevStyle.ownerName,
-                value: props.profile.name,
-            },
-        }));
-        setInputValue((prevStyle) => ({
-            ...prevStyle,
-            ownerEmail: {
-                ...prevStyle.ownerEmail,
-                value: props.profile.email,
-            },
-        }));
+        personalInfoFormik.setFieldValue("ownerName", props.profile.name);
+        personalInfoFormik.setFieldValue("ownerEmail", props.profile.email);
     }, [props.profile]);
 
     useEffect(() => { // Set new input values on employee country code and phone number update in redux
-        setInputValue((prevStyle) => ({
-            ...prevStyle,
-            countryCode: {
-                ...prevStyle.countryCode,
-                value: props.employee.countryCode,
-            },
-        }));
-        setInputValue((prevStyle) => ({
-            ...prevStyle,
-            phoneNumber: {
-                ...prevStyle.phoneNumber,
-                value: props.employee.phoneNumber,
-            },
-        }));
+        personalInfoFormik.setFieldValue("countryCode", props.employee.countryCode);
+        personalInfoFormik.setFieldValue("phoneNumber", props.employee.phoneNumber);
     }, [props.employee]);
 
     useEffect(() => {
         // Check that any values do not differ from the analogues in the reducer
         if (
-            inputValue.ownerName.value !== props.profile.name ||
-            inputValue.ownerEmail.value !== props.profile.email ||
-            inputValue.countryCode.value !== props.employee.countryCode ||
-            inputValue.phoneNumber.value !== props.employee.phoneNumber
+            personalInfoFormik.values.ownerName !== props.profile.name ||
+            personalInfoFormik.values.ownerEmail !== props.profile.email ||
+            personalInfoFormik.values.countryCode !== props.employee.countryCode ||
+            personalInfoFormik.values.phoneNumber !== props.employee.phoneNumber
         ) {
             setPersonalInfoEdited(true);
         } // Set edited mode
         else {
             setPersonalInfoEdited(false);
         }
-    }, [inputValue]);
+    }, [personalInfoFormik.values]);
 
     useEffect(() => {
         // Check that all password fields is not empty
         if (
-            inputValue.newPassword.value !== "" &&
-            inputValue.oldPassword.value !== "" &&
-            inputValue.confirmPassword.value !== ""
+            passwordFormik.values.password !== "" &&
+            passwordFormik.values.oldPassword !== "" &&
+            passwordFormik.values.confirmPassword !== ""
         ) {
             setPasswordEdited(true);
         } // Set edited mode
         else {
             setPasswordEdited(false);
         }
-    }, [inputValue.newPassword.value, inputValue.oldPassword.value, inputValue.confirmPassword.value]);
-
-    const handleProfileInfoSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        props.changePersonalInfo(inputValue.ownerName.value, inputValue.ownerEmail.value);
-    };
-
-    const handlePasswordSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        props.changePassword(
-            inputValue.oldPassword.value,
-            inputValue.newPassword.value,
-            changePasswordSuccessCallback
-        );
-    };
+    }, [passwordFormik.values]);
 
     return (
         <Grid container className={classes.component} spacing={3}>
@@ -268,53 +198,36 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                     </Box>
                     <Box className={classes.contentBox}>
                         <form
-                            onSubmit={handleProfileInfoSubmit}
-                            className={classes.contentContainer}
-                        >
+                            onSubmit={personalInfoFormik.handleSubmit}
+                            className={classes.contentContainer}>
                             <Grid item md={10} lg={8}>
-                                <Grid item>
+                                <Grid item style={{marginBottom: "24px"}}>
                                     <CustomInput
                                         label="Name"
                                         variant="outlined"
                                         placeholder={'Name'}
                                         fullWidth={true}
-                                        value={inputValue.ownerName.value}
-                                        // error={inputValue.ownerName.error}
-                                        margin={'0 0 32px 0'}
-                                        onChange={(
-                                            event: React.ChangeEvent<
-                                                | HTMLTextAreaElement
-                                                | HTMLInputElement
-                                                >
-                                        ) =>
-                                            handleInput(
-                                                event.target.value,
-                                                'OWNER_NAME'
-                                            )
-                                        }
+                                        name={"ownerName"}
+                                        value={personalInfoFormik.values.ownerName}
+                                        error={personalInfoFormik.touched.ownerName && Boolean(personalInfoFormik.errors.ownerName)}
+                                        helperText={personalInfoFormik.touched.ownerName && personalInfoFormik.errors.ownerName}
+                                        onChange={personalInfoFormik.handleChange}
+                                        onBlur={personalInfoFormik.handleBlur}
                                     />
                                 </Grid>
-                                <Grid item>
+                                <Grid item style={{marginBottom: "24px"}}>
                                     <CustomInput
                                         type="text"
                                         label="Email"
                                         variant="outlined"
                                         placeholder={'email'}
                                         fullWidth={true}
-                                        value={inputValue.ownerEmail.value}
-                                        // error={inputValue.ownerEmail.error}
-                                        margin={'0 0 32px 0'}
-                                        onChange={(
-                                            event: React.ChangeEvent<
-                                                | HTMLTextAreaElement
-                                                | HTMLInputElement
-                                                >
-                                        ) =>
-                                            handleInput(
-                                                event.target.value,
-                                                'OWNER_EMAIL'
-                                            )
-                                        }
+                                        name={"ownerEmail"}
+                                        value={personalInfoFormik.values.ownerEmail}
+                                        error={personalInfoFormik.touched.ownerEmail && Boolean(personalInfoFormik.errors.ownerEmail)}
+                                        helperText={personalInfoFormik.touched.ownerEmail && personalInfoFormik.errors.ownerEmail}
+                                        onChange={personalInfoFormik.handleChange}
+                                        onBlur={personalInfoFormik.handleBlur}
                                     />
                                 </Grid>
                                 <Grid
@@ -327,7 +240,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                             disabled={true}
                                             option={data}
                                             value={
-                                                inputValue.countryCode.value
+                                                personalInfoFormik.values.countryCode
                                             }
                                             getOption={(option: {
                                                 code: string;
@@ -335,8 +248,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                                 label: string;
                                             }) => {
                                                 if (
-                                                    inputValue.countryCode
-                                                        .value.phone
+                                                    personalInfoFormik.values.countryCode.phone
                                                 )
                                                     return (
                                                         '+' + option.phone
@@ -357,7 +269,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                                 </React.Fragment>
                                             )}
                                             error={
-                                                inputValue.countryCode.error
+                                                Boolean(personalInfoFormik.errors.countryCode)
                                             }
                                             onChange={(
                                                 event: Record<string,
@@ -365,15 +277,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                                 value: any
                                             ) => {
                                                 if (value) {
-                                                    setInputValue(
-                                                        (prevStyle) => ({
-                                                            ...prevStyle,
-                                                            countryCode: {
-                                                                ...prevStyle.countryCode,
-                                                                value: value,
-                                                            },
-                                                        })
-                                                    );
+                                                    personalInfoFormik.setFieldValue('countryCode', value);
                                                 }
                                             }}
                                         />
@@ -386,32 +290,19 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                             placeholder={'Phone number'}
                                             fullWidth={true}
                                             disabled={true}
-                                            value={
-                                                inputValue.phoneNumber.value
-                                            }
-                                            error={
-                                                inputValue.phoneNumber.error
-                                            }
-                                            onChange={(
-                                                event: React.ChangeEvent<
-                                                    | HTMLTextAreaElement
-                                                    | HTMLInputElement
-                                                    >
-                                            ) =>
-                                                handleInput(
-                                                    event.target.value,
-                                                    'PHONE_NUMBER'
-                                                )
-                                            }
+                                            name={"phoneNumber"}
+                                            value={personalInfoFormik.values.phoneNumber}
+                                            error={personalInfoFormik.touched.phoneNumber && Boolean(personalInfoFormik.errors.phoneNumber)}
+                                            helperText={personalInfoFormik.touched.phoneNumber && personalInfoFormik.errors.phoneNumber}
+                                            onChange={personalInfoFormik.handleChange}
+                                            onBlur={personalInfoFormik.handleBlur}
                                         />
                                     </Grid>
                                     <Box className={classes.flagBox}>
-                                        {inputValue.countryCode.value
-                                            .code && (
+                                        {personalInfoFormik.values.countryCode.code && (
                                             <ReactCountryFlag
                                                 countryCode={
-                                                    inputValue.countryCode
-                                                        .value.code
+                                                    personalInfoFormik.values.countryCode.code
                                                 }
                                                 svg
                                                 style={{
@@ -421,15 +312,13 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                                     marginBottom: '10px',
                                                 }}
                                                 title={
-                                                    inputValue.countryCode
-                                                        .value.code
+                                                    personalInfoFormik.values.countryCode.code
                                                 }
                                             />
                                         )}
                                     </Box>
                                 </Grid>
                             </Grid>
-                            <Grid item xs={4}/>
                             <Box className={classes.buttonBox}>
                                 <CustomButton type="submit" text="Edit" disabled={!isPersonalInfoEdited}/>
                             </Box>
@@ -443,81 +332,52 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 
                     <Box className={classes.contentBox}>
                         <form
-                            onSubmit={handlePasswordSubmit}
-                            className={classes.contentContainer}
-                        >
+                            onSubmit={passwordFormik.handleSubmit}
+                            className={classes.contentContainer}>
                             <Grid item xs={8}>
-                                <Grid item>
+                                <Grid item style={{marginBottom: "24px"}}>
                                     <CustomInput
                                         type="password"
                                         label="Old Password"
                                         fullWidth
-                                        name="password"
-                                        required
-                                        value={inputValue.oldPassword.value}
-                                        margin={'0 0 32px 0'}
-                                        onChange={(
-                                            event: React.ChangeEvent<
-                                                | HTMLTextAreaElement
-                                                | HTMLInputElement
-                                                >
-                                        ) =>
-                                            handleInput(
-                                                event.target.value,
-                                                'OLD_PASSWORD'
-                                            )
-                                        }
+                                        name="oldPassword"
+                                        value={passwordFormik.values.oldPassword}
+                                        error={passwordFormik.touched.oldPassword && Boolean(passwordFormik.errors.oldPassword)}
+                                        helperText={passwordFormik.touched.oldPassword && passwordFormik.errors.oldPassword}
+                                        onChange={passwordFormik.handleChange}
+                                        onBlur={passwordFormik.handleBlur}
                                         width={290}
                                     />
                                 </Grid>
-                                <Grid item>
+                                <Grid item style={{marginBottom: "24px"}}>
                                     <CustomInput
                                         type="password"
                                         label="New password"
                                         fullWidth
                                         name="password"
-                                        value={inputValue.newPassword.value}
-                                        margin={'0 0 32px 0'}
-                                        onChange={(
-                                            event: React.ChangeEvent<
-                                                | HTMLTextAreaElement
-                                                | HTMLInputElement
-                                                >
-                                        ) =>
-                                            handleInput(
-                                                event.target.value,
-                                                'NEW_PASSWORD'
-                                            )
-                                        }
+                                        value={passwordFormik.values.password}
+                                        error={passwordFormik.touched.password && Boolean(passwordFormik.errors.password)}
+                                        helperText={passwordFormik.touched.password && passwordFormik.errors.password}
+                                        onChange={passwordFormik.handleChange}
+                                        onBlur={passwordFormik.handleBlur}
                                         width={290}
-                                        required
                                     />
                                 </Grid>
-                                <Grid item>
+                                <Grid item style={{marginBottom: "24px"}}>
                                     <CustomInput
                                         type="password"
                                         label="Retype password"
                                         fullWidth
-                                        name="password"
-                                        value={inputValue.confirmPassword.value}
-                                        margin={'0 0 32px 0'}
-                                        onChange={(
-                                            event: React.ChangeEvent<
-                                                | HTMLTextAreaElement
-                                                | HTMLInputElement
-                                                >
-                                        ) =>
-                                            handleInput(
-                                                event.target.value,
-                                                'CONFIRM_PASSWORD'
-                                            )
-                                        }
+                                        name="confirmPassword"
+                                        value={passwordFormik.values.confirmPassword}
+                                        error={passwordFormik.touched.confirmPassword && Boolean(passwordFormik.errors.confirmPassword)}
+                                        helperText={passwordFormik.touched.confirmPassword && passwordFormik.errors.confirmPassword}
+                                        onChange={passwordFormik.handleChange}
+                                        onBlur={passwordFormik.handleBlur}
                                         width={290}
-                                        required
                                     />
                                 </Grid>
                             </Grid>
-                            <Grid item xs={4}/>
                             <Box className={classes.buttonBox}>
                                 <CustomButton type="submit" text="Send" disabled={!isPasswordEdited}/>
                             </Box>

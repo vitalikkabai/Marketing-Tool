@@ -43,6 +43,11 @@ const initialState = {
         message: '',
         name: '',
     },
+    changeInfoErrorMessage: {
+        code: '',
+        message: '',
+        name: '',
+    },
 };
 
 export const AuthReducer = (
@@ -161,6 +166,12 @@ export const AuthReducer = (
             return {
                 ...state,
                 hasExperienceSelling: action.payload
+            }
+        }
+        case 'CHANGE_PERSONAL_INFO_FAILED': {
+            return {
+                ...state,
+                changeInfoErrorMessage: action.payload.error
             }
         }
         case 'CHANGE_PASSWORD_FAILED':

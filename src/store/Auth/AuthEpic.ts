@@ -13,7 +13,7 @@ import {
     ResetLinkFailed,
     sendNewPasswordSuccess,
     sendNewPasswordFailed,
-    afterSignOut,
+    afterSignOut, changePersonalInfoFailed,
 } from './AuthActions';
 import { ActionTypes } from '../storeTypes';
 import { from, of } from 'rxjs';
@@ -227,7 +227,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                         action.payload.callback();
                         return sendNewPasswordSuccess();
                     }),
-                    catchError((err) => of(signInFailed(err)))
+                    catchError((err) => {console.log(err); return of(sendNewPasswordFailed(err))})
                 );
             })
         ),
@@ -246,7 +246,6 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                         ),
                     ];
                 }
-
                 return from(Auth.currentAuthenticatedUser()).pipe(
                     mergeMap((user) => {
                         return from(
@@ -264,8 +263,8 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                             ),
                         ];
                     }),
-                    catchError((err) => of(signInFailed(err)))
+                    catchError((err) =>{console.log(err); return of(changePersonalInfoFailed(err))})
                 );
-            })
+            }), catchError((err) => {console.log(err); return of(changePersonalInfoFailed(err))})
         ),
 ];

@@ -141,6 +141,15 @@ export const changePersonalInfo = (name: string, email: string) => ({
     payload: { name, email },
 });
 
+export const changePersonalInfoSuccess = () => ({
+    type: 'CHANGE_PERSONAL_INFO_SUCCESS' as const,
+});
+
+export const changePersonalInfoFailed = (error: errorType) => ({
+    type: 'CHANGE_PERSONAL_INFO_FAILED' as const,
+    payload: { error },
+});
+
 export const setHasWebsite = (hasWebsite: boolean) => ({
     type: 'SET_HAS_WEBSITE' as const,
     payload: hasWebsite,
