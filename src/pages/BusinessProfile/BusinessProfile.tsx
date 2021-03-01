@@ -49,8 +49,8 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     );// Sorting by selected status
 
     const [companyName, setCompanyName] = useState(props.business.companyName);
-    const [companyNameError, setCompanyNameError] = useState('');
-    const [selectedRoleError, setSelectedRoleError] = useState('');
+    // const [companyNameError, setCompanyNameError] = useState('');
+    // const [selectedRoleError, setSelectedRoleError] = useState('');
     const [storeURLs, setSellingURLs] = useState<string[]>(
         props.business.storeURLs
     );
@@ -84,9 +84,9 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         qualityControl: selectedRole.find((el) => el.id === 'quality_role')?.selected || false
     });
 
-    useEffect(() => {
-        setSelectedRoleError('');
-    });
+    // useEffect(() => {
+    //     setSelectedRoleError('');
+    // });
 
     useEffect(() => {
         setCompanyName(props.business.companyName);
@@ -173,7 +173,7 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 placeholder={'Company Name'}
                                 fullWidth={true}
                                 value={companyName}
-                                error={!!companyNameError}
+                                error={/*!!companyNameError*/ false}
                                 variant="outlined"
                                 onChange={(
                                     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>

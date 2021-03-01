@@ -62,14 +62,14 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                                     graphqlOperation(createProfile, {
                                         input: profile,
                                     })
-                                ) as unknown) as Promise<any>
+                                ) as unknown) as Promise<unknown>
                             ),
                             from(
                                 (API.graphql(
                                     graphqlOperation(createEmployee, {
                                         input: employee,
                                     })
-                                ) as unknown) as Promise<any>
+                                ) as unknown) as Promise<unknown>
                             ),
                         ]);
                     }),

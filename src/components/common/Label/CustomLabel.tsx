@@ -1,6 +1,5 @@
-import {FormControl, InputLabel, makeStyles} from "@material-ui/core";
+import { InputLabel, makeStyles} from "@material-ui/core";
 import React from "react";
-import styles from "../Select/CustomSelect.module.scss";
 
 interface CustomInputProps {
     value: string;

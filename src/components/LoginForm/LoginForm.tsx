@@ -3,7 +3,6 @@ import classes from './LoginForm.module.scss';
 import { PropsFromRedux } from './LoginFormContainer';
 import {
     Box,
-    CircularProgress,
     Grid,
     Link,
     Typography,

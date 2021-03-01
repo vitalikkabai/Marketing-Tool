@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {BaseSyntheticEvent, useEffect, useState} from 'react';
 import {
     Grid,
     Link,
@@ -141,7 +141,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
                                             >
                                                 <CustomSelect
                                                     value={hasWebsite ? 1 : 0}
-                                                    onChange={(e: any) => {
+                                                    onChange={(e: BaseSyntheticEvent) => {
                                                         setHasWebsite(
                                                             !!e.target.value
                                                         );
@@ -219,7 +219,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
                                                             ? 1
                                                             : 0
                                                     }
-                                                    onChange={(e: any) => {
+                                                    onChange={(e: BaseSyntheticEvent) => {
                                                         setHasExperienceSelling(
                                                             !!e.target.value
                                                         )

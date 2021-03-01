@@ -255,7 +255,11 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                                     );
                                                 else return option.phone;
                                             }}
-                                            renderOption={(option: any) => (
+                                            renderOption={(option: {
+                                                code: string;
+                                                phone: string;
+                                                label: string;
+                                            }) => (
                                                 <React.Fragment>
                                                     <ReactCountryFlag
                                                         countryCode={
@@ -274,7 +278,11 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                             onChange={(
                                                 event: Record<string,
                                                     unknown>,
-                                                value: any
+                                                value: {
+                                                    code: string,
+                                                    label: string,
+                                                    phone: string
+                                                }
                                             ) => {
                                                 if (value) {
                                                     personalInfoFormik.setFieldValue('countryCode', value);

@@ -13,13 +13,13 @@ const initialState: ProfileReducerType = {
     avatarURL: '',
 };
 
-const initialPresetState: ProfileReducerType = {
-    profile: {
-        email: 'def@ault.email',
-        name: 'Default name',
-    },
-    avatarURL: '',
-};
+// const initialPresetState: ProfileReducerType = {
+//     profile: {
+//         email: 'def@ault.email',
+//         name: 'Default name',
+//     },
+//     avatarURL: '',
+// };
 
 export const ProfileReducer = (
     state: ProfileReducerType = initialState,

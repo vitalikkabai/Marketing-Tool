@@ -22,7 +22,7 @@ import { ReactComponent as SpeakIcon } from '../../assets/images/menuIcons/Speak
 import { ReactComponent as StonksIcon } from '../../assets/images/menuIcons/StonksIcon.svg';
 import { useHistory } from 'react-router';
 
-const SideBarMenu = (props: any) => {
+const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
     const theme = useTheme();
     const history = useHistory();
     const getCurrentLocation = () => {

@@ -92,7 +92,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                             password: action.payload.password,
                         });
                     }),
-                    mergeMap((response: any) => {
+                    mergeMap((response) => {
                         return [
                             // setProfileID(response.attributes.sub),
                             signInSuccess({

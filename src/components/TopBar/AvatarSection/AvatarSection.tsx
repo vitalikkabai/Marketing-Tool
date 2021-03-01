@@ -20,23 +20,23 @@ const AvatarSection: React.FunctionComponent<{
     profile: CreateProfileInput;
     avatarURL: string;
     signOut: () => void;
-    userAttributes: any;
+    userAttributes: { userID: string, occupation: number };
 }> = (props) => {
     const history = useHistory();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef<HTMLDivElement>(null);
     const theme = useTheme();
 
-    const handleClose = (event: React.MouseEvent<EventTarget>) => {
-        if (
-            anchorRef.current &&
-            anchorRef.current.contains(event.target as HTMLElement)
-        ) {
-            return;
-        }
-
-        setOpen(false);
-    };
+    // const handleClose = (event: React.MouseEvent<EventTarget>) => {
+    //     if (
+    //         anchorRef.current &&
+    //         anchorRef.current.contains(event.target as HTMLElement)
+    //     ) {
+    //         return;
+    //     }
+    //
+    //     setOpen(false);
+    // };
 
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -45,7 +45,7 @@ const AvatarSection: React.FunctionComponent<{
     const writeInitials = (): string => {
         if (props.profile.avatar) return '';
         const nameWords = props.profile.name.split(' ');
-        let initials = '';
+        let initials: string;
         if (nameWords.length > 1) {
             initials = nameWords[0]
                 .charAt(0)
