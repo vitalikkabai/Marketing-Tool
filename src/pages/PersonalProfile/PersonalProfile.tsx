@@ -28,7 +28,6 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     const [dialogOpen, setDialogOpen] = useState(false);
     const [isPersonalInfoEdited, setPersonalInfoEdited] = useState(false);
     const [isPasswordEdited, setPasswordEdited] = useState(false);
-    const [isPending, setPending] = useState(false);
     const personalInfoFormik = useFormik({
         initialValues: {
             ownerName: props.profile.name,
@@ -94,7 +93,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     });
 
     useEffect(() => { //Validate async errors
-        if (props.changeInfoErrorMessage.code) setPending(false);
+        if (props.changeInfoErrorMessage.code)
         switch (props.changeInfoErrorMessage.code) {
             case 'AliasExistsException': {
                 personalInfoFormik.setFieldError("ownerEmail", 'An account with the given email already exists')
@@ -108,7 +107,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     }, [props.changeInfoErrorMessage]);
 
     useEffect(() => { //Validate async errors
-        if (props.sendResetLinkError.code) setPending(false);
+        if (props.sendResetLinkError.code)
         switch (props.sendResetLinkError.code) {
             case 'NotAuthorizedException': {
                 passwordFormik.setFieldError("oldPassword", 'Incorrect password')
@@ -169,7 +168,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         else {
             setPersonalInfoEdited(false);
         }
-    }, [personalInfoFormik.values]);
+    }, [personalInfoFormik.values, props.profile]);
 
     useEffect(() => {
         // Check that all password fields is not empty
@@ -328,7 +327,10 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 </Grid>
                             </Grid>
                             <Box className={classes.buttonBox}>
-                                <CustomButton type="submit" text="Edit" disabled={!isPersonalInfoEdited}/>
+                                <CustomButton type="submit"
+                                              text="Edit"
+                                              disabled={!isPersonalInfoEdited}
+                                              isPending={props.isProfilePending}/>
                             </Box>
                         </form>
                     </Box>
@@ -387,7 +389,10 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 </Grid>
                             </Grid>
                             <Box className={classes.buttonBox}>
-                                <CustomButton type="submit" text="Send" disabled={!isPasswordEdited}/>
+                                <CustomButton type="submit"
+                                              text="Send"
+                                              isPending={props.isPasswordPending}
+                                              disabled={!isPasswordEdited}/>
                             </Box>
                         </form>
                     </Box>

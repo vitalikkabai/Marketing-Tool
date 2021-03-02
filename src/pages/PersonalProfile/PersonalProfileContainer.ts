@@ -19,6 +19,8 @@ function mapStateToProps(state: AppStateType) {
             phoneNumber: state.EmployeeReducer.phoneNumber,
         },
         avatarURL: state.ProfileReducer.avatarURL,
+        isProfilePending: state.ProfileReducer.isPending,
+        isPasswordPending: state.AuthReducer.isPending
     };
 }
 

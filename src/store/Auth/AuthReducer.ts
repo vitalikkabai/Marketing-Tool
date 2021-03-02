@@ -174,8 +174,14 @@ export const AuthReducer = (
                 changeInfoErrorMessage: action.payload.error
             }
         }
+        case 'CHANGE_PASSWORD': {
+            return {
+                ...state,
+                isPending: true
+            }
+        }
+
         case 'CHANGE_PASSWORD_FAILED':
-        case 'CHANGE_PASSWORD':
         case 'CHANGE_PASSWORD_SUCCESS':
         case 'CHANGE_PERSONAL_INFO':
         case 'CLEAN-ERROR-FIELDS':
