@@ -13,46 +13,42 @@ import { useEffect } from 'react';
 
 type PropsType = {
     title: string;
-    position: string;
+    position: "vertical" | "horizontal" | "mixed";
     tooltipTitle?: string;
 };
 
 const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
-    const [videos, setVideos] = useState<any[]>([]);
-    const [photos, setPhotos] = useState<any[]>([]);
-    const [files, setFiles] = useState<any[]>([]);
-    const [contentPreview, setContentPreview] = useState<any>(null);
+    const [videos, setVideos] = useState<any[]>([]); //Array for videos
+    const [photos, setPhotos] = useState<any[]>([]); //Array for photos
+    const [documents, setDocuments] = useState<any[]>([]); //Array for pdf docs
+    const [contentPreview, setContentPreview] = useState<any>(null); //Array for pdf docs
     pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
     const { getRootProps, getInputProps } = useDropzone({
         accept:
-            props.position === 'vertical'
+            props.position === 'vertical' //Filer images & videos if position is vertical
                 ? 'image/*, video/*'
-                : props.position === 'horizontal'
+                : props.position === 'horizontal' //Filer pdf if position is horizontal
                 ? '.pdf'
-                : 'image/*, video/*, .pdf',
+                : 'image/*, video/*, .pdf', //Filer img, video & pdf if position is mixed
         onDrop: (acceptedFiles) => {
-            // @ts-ignore
             acceptedFiles.map((item) => {
-                if (item.type.includes('video')) {
-                    // @ts-ignore
+                if (item.type.includes('video')) { //Set all video files to videos array
                     setVideos((oldArray) => [
                         ...oldArray,
                         Object.assign(item, {
                             preview: URL.createObjectURL(item),
                         }),
                     ]);
-                } else if (item.type.includes('image')) {
-                    // @ts-ignore
+                } else if (item.type.includes('image')) { //Set all image files to photos array
                     setPhotos((oldArray) => [
                         ...oldArray,
                         Object.assign(item, {
                             preview: URL.createObjectURL(item),
                         }),
                     ]);
-                } else if (item.type.includes('application/pdf')) {
-                    console.log(files);
-                    // @ts-ignore
-                    setFiles((oldArray) => [
+                } else if (item.type.includes('application/pdf')) { //Set all pdf files to documents array
+                    console.log(documents);
+                    setDocuments((oldArray) => [
                         ...oldArray,
                         Object.assign(item, {
                             preview: URL.createObjectURL(item),
@@ -63,24 +59,24 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
         },
     });
 
-    useEffect(() => {
-        if (photos.length === 1 && videos.length === 0 && files.length === 0) {
+    useEffect(() => { //Automatically set the first dropped item for preview
+        if (photos.length === 1 && videos.length === 0 && documents.length === 0) {
             createPreview(0, 'image');
-        } else if (videos.length === 1 && files.length === 0 && photos.length === 0) {
+        } else if (videos.length === 1 && documents.length === 0 && photos.length === 0) {
             createPreview(0, 'video');
-        } else if (files.length === 1 && videos.length === 0 && photos.length === 0) {
+        } else if (documents.length === 1 && videos.length === 0 && photos.length === 0) {
             createPreview(0, 'file');
         }
-    }, [files, photos, videos]);
+    }, [documents, photos, videos]);
 
     const deleteFile = (index: number, type: string) => {
         if (type.includes('video')) {
             setVideos([...videos.slice(0, index).concat(videos.slice(index + 1, videos.length))]);
-            if (videos.length === 1) {
+            if (videos.length === 1) { // Set video or pdf to preview if photos is empty after delete
                 if (photos.length > 0) {
                     createPreview(0, 'image');
                 } else {
-                    if (files.length > 0) {
+                    if (documents.length > 0) {
                         createPreview(0, 'file');
                     } else {
                         setContentPreview(null);
@@ -90,11 +86,11 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
         }
         if (type.includes('image')) {
             setPhotos([...photos.slice(0, index).concat(photos.slice(index + 1, photos.length))]);
-            if (photos.length === 1) {
+            if (photos.length === 1) { // Set image or pdf to preview if videos is empty after delete
                 if (videos.length > 0) {
                     createPreview(0, 'video');
                 } else {
-                    if (files.length > 0) {
+                    if (documents.length > 0) {
                         createPreview(0, 'file');
                     } else {
                         setContentPreview(null);
@@ -103,8 +99,8 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
             } else createPreview(index === 0 ? 1 : 0, 'image');
         }
         if (type.includes('pdf')) {
-            setFiles([...files.slice(0, index).concat(files.slice(index + 1, files.length))]);
-            if (files.length === 1) {
+            setDocuments([...documents.slice(0, index).concat(documents.slice(index + 1, documents.length))]);
+            if (documents.length === 1) { // Set video or image to preview if documents is empty after delete
                 if (photos.length > 0) {
                     createPreview(0, 'photo');
                 } else {
@@ -115,27 +111,27 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
                     }
                 }
             } else createPreview(index === 0 ? 1 : 0, 'file');
+            //If there is more than 1 item in the array, just set the first item to preview
         }
     };
 
-    const createPreview = (index: number, type: string) => {
+    const createPreview = (index: number, type: string) => { // Function to set preview HTML content
         setContentPreview(
-            type.includes('video') ? (
+            type.includes('video') ? ( //Set video preview HTML
                 <Box className={classes.videoBox}>
                     <video src={videos[index].preview} controls />
                 </Box>
-            ) : type.includes('image') ? (
+            ) : type.includes('image') ? ( //Set image preview HTML
                 <Box className={classes.photoBox}>
                     <Magnifier
                         mgShape={'square'}
                         className={classes.bibosh}
                         src={photos[index].preview}
                     />
-                    {/* <img src={photos[index].preview} alt="Products Photo" /> */}
                 </Box>
-            ) : (
+            ) : ( //Set pdf preview HTML
                 <Box className={classes.photoBox}>
-                    <Document file={files[index].preview} className={classes.pdfBox}>
+                    <Document file={documents[index].preview} className={classes.pdfBox}>
                         <Page pageNumber={1} />
                     </Document>
                 </Box>
@@ -143,47 +139,49 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
         );
     };
 
-    const VideosItem = videos.map((videos: any, index) => (
+    const VideosCarouselItems = videos.map((videos: any, index) => (//Preparing video HTML items for carousel
         <Box className={classes.imgBox} key={videos.name + ' ' + index}>
             <img
                 src={deleteIcon}
                 onClick={() => deleteFile(index, videos.type)}
                 className={classes.svgDelete}
+                alt={"image"}
             />
             <div
                 onClick={() => createPreview(index, videos.type)}
                 className={classes.videoContainer}>
-                <img src={playIcon} className={classes.svgPlay} />
+                <img src={playIcon} className={classes.svgPlay} alt={"image"}/>
                 <video src={videos.preview} />
             </div>
         </Box>
     ));
 
-    const PhotosItem = photos.map((photo: any, index) => (
+    const PhotosCarouselItems = photos.map((photo: any, index) => (//Preparing image HTML items for carousel
         <Box className={classes.imgBox} key={photo.name + ' ' + index}>
             <img
                 src={deleteIcon}
                 onClick={() => deleteFile(index, photo.type)}
                 className={classes.svgDelete}
+                alt={"image"}
             />
             <div onClick={() => createPreview(index, photo.type)} className={classes.imgContainer}>
-                <img src={photo.preview} className={classes.photoItem} />
+                <img src={photo.preview} className={classes.photoItem} alt={"image"}/>
             </div>
         </Box>
     ));
 
-    const FilesItem = files.map((file: any, index) => (
+    const DocumentsCarouselItems = documents.map((file: any, index) => (//Preparing pdf HTML items for carousel
         <Box className={classes.imgBox} key={file.name + ' ' + index}>
             <img
                 src={deleteIcon}
                 onClick={() => deleteFile(index, file.type)}
                 className={classes.svgDelete}
+                alt={"image"}
             />
             <div onClick={() => createPreview(index, file.type)} className={classes.fileContainer}>
                 <Document file={file.preview} className={classes.fileItem}>
                     <Page pageNumber={1} />
                 </Document>
-                {/* <iframe src={file.preview}></iframe> */}
             </div>
         </Box>
     ));
@@ -236,7 +234,7 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
             <Box
                 marginTop="46px"
                 display={
-                    videos.length !== 0 || photos.length !== 0 || files.length !== 0
+                    videos.length !== 0 || photos.length !== 0 || documents.length !== 0
                         ? 'flex'
                         : 'none'
                 }
@@ -247,25 +245,25 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
                 <Box
                     className={classes.photoSection}
                     style={photos.length === 0 ? { display: 'none' } : {}}>
-                    <CustomCarousel position="vertical" Items={PhotosItem} />
+                    <CustomCarousel position="vertical" Items={PhotosCarouselItems} />
                 </Box>
                 <Box className={classes.dialogContent}>{contentPreview}</Box>
                 <Box
                     className={classes.photoSection}
                     style={videos.length === 0 ? { display: 'none' } : {}}>
-                    <CustomCarousel position="vertical" Items={VideosItem} />
+                    <CustomCarousel position="vertical" Items={VideosCarouselItems} />
                 </Box>
             </Box>
             <Box
                 display={
-                    videos.length !== 0 || photos.length !== 0 || files.length !== 0
+                    videos.length !== 0 || photos.length !== 0 || documents.length !== 0
                         ? 'flex'
                         : 'none'
                 }>
                 <Box
                     className={classes.photoSection}
-                    style={files.length === 0 ? { display: 'none' } : {}}>
-                    <CustomCarousel position="horizontal" Items={FilesItem} />
+                    style={documents.length === 0 ? { display: 'none' } : {}}>
+                    <CustomCarousel position="horizontal" Items={DocumentsCarouselItems} />
                 </Box>
             </Box>
         </Box>
