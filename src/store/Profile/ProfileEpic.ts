@@ -145,6 +145,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                     ) as unknown) as Promise<any>
                 ).pipe(
                     map((res) => {
+                        alert("Profile info updated successfully")
                         return updateProfileSuccess(res.data.updateProfile);
                     }),
                     catchError((err) => {

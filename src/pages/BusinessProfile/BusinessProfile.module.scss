@@ -38,10 +38,18 @@
         }
 
         .roleBoxesGridItem {
+            position: relative;
             margin-top: 32px;
 
             .roleBoxText {
                 margin-bottom: 16px;
+            }
+
+            .errorText {
+                position: absolute;
+                bottom: -24px;
+                left: 40%;
+                color: red;
             }
         }
 

@@ -1,13 +1,15 @@
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import React, {FormEvent, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import classes from './BusinessProfile.module.scss';
 import CustomInput from '../../components/common/Input/CustomInput';
 import CustomButton from '../../components/common/Button/CustomButton';
 import RoleBoxes from '../../components/common/RoleBoxes/RoleBoxes';
 import {PropsFromRedux} from './BusinessProfileContainer';
 import WebLink from '../../components/common/webLink/webLink';
+import {useFormik} from "formik";
+import * as Yup from "yup";
 
 const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     const [selectedRole, setSelectedRole] = useState(
@@ -47,10 +49,42 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         //     a.selected < b.selected ? 1 : b.selected < a.selected ? -1 : 0
         // )
     );// Sorting by selected status
+    const [selectedRoleError, setSelectedRoleError] = useState(false)
 
-    const [companyName, setCompanyName] = useState(props.business.companyName);
-    // const [companyNameError, setCompanyNameError] = useState('');
-    // const [selectedRoleError, setSelectedRoleError] = useState('');
+    const formik = useFormik({
+        initialValues: {
+            companyName: props.business.companyName,
+            ownerEmail: props.profile.email,
+        },
+        validationSchema: Yup.object({
+            companyName: Yup.string()
+                .trim()
+                .required("Required")
+        }),
+        validateOnChange: false,
+        validateOnBlur: true,
+        onSubmit: () => {
+            setSelectedRoleError(false)
+            const rolesArray = Object.entries(selectedRole);
+            const selectedRoles: Array<string> = [];
+            rolesArray.forEach((el, index) => {
+                if (rolesArray[index][1].selected)
+                    selectedRoles.push(rolesArray[index][0]);
+            });
+            if (selectedRoles[0]){
+                props.updateBusinessInDB({
+                    id: props.business.id as string,
+                    companyName: formik.values.companyName,
+                    websiteURLs,
+                    storeURLs
+                });
+                props.setRoleTags(getNewSelectedRoleObject());
+            } else {
+                setSelectedRoleError(true)
+            }
+        },
+    });
+
     const [storeURLs, setSellingURLs] = useState<string[]>(
         props.business.storeURLs
     );
@@ -63,18 +97,6 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
     const [storeErrorText, setStoreErrorText] = useState('');
     const [edited, setEdited] = useState(false);
 
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault();
-        props.updateBusinessInDB({
-            id: props.business.id as string,
-            companyName,
-            websiteURLs,
-            storeURLs
-        });
-
-        props.setRoleTags(getNewSelectedRoleObject());
-    };
-
     const getNewSelectedRoleObject = () => ({
         sales: selectedRole.find((el) => el.id === 'sales_role')?.selected || false,
         marketing: selectedRole.find((el) => el.id === 'marketing_role')?.selected || false,
@@ -84,12 +106,8 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         qualityControl: selectedRole.find((el) => el.id === 'quality_role')?.selected || false
     });
 
-    // useEffect(() => {
-    //     setSelectedRoleError('');
-    // });
-
     useEffect(() => {
-        setCompanyName(props.business.companyName);
+        formik.setFieldValue("companyName", props.business.companyName);
         setWebsiteURLs(props.business.websiteURLs);
         setSellingURLs(props.business.storeURLs);
     }, [props.business]);
@@ -138,7 +156,7 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         const selectedRoleValues = getNewSelectedRoleObject();
         // Check that any values do not differ from the analogues in the reducer
         if (
-            companyName !== props.business.companyName ||
+            formik.values.companyName !== props.business.companyName ||
             storeURLs !== props.business.storeURLs ||
             websiteURLs !== props.business.websiteURLs ||
             selectedRoleValues.sales !== props.roleTags.sales ||
@@ -153,14 +171,14 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         else {
             setEdited(false);
         }
-    }, [selectedRole, companyName, storeURLs, websiteURLs]);
+    }, [selectedRole, formik.values.companyName, storeURLs, websiteURLs]);
 
     return (
         <Box className={classes.component}>
             <Box className={classes.headTitle}>
                 <Typography variant={'h2'}>Business Profile</Typography>
             </Box>
-            <form onSubmit={handleSubmit} className={classes.formContainer}>
+            <form onSubmit={formik.handleSubmit} className={classes.formContainer}>
                 <Grid container className={classes.formContentContainer}>
                     <Grid
                         item
@@ -172,19 +190,19 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 label="Company Name"
                                 placeholder={'Company Name'}
                                 fullWidth={true}
-                                value={companyName}
-                                error={/*!!companyNameError*/ false}
+                                name={"companyName"}
+                                value={formik.values.companyName}
+                                error={formik.touched.companyName && Boolean(formik.errors.companyName)}
+                                helperText={formik.touched.companyName && formik.errors.companyName}
                                 variant="outlined"
-                                onChange={(
-                                    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-                                ) => setCompanyName(event.target.value)}/>
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}/>
                         </Grid>
                         <Grid item xs={9} className={classes.saveButton}>
                             <CustomButton
                                 type={'submit'}
                                 text={'Save'}
-                                disabled={!edited}
-                            />
+                                disabled={!edited}/>
                         </Grid>
                     </Grid>
                     <Grid item xs={12} className={classes.roleBoxesGridItem}>
@@ -197,6 +215,9 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                             selectedRole={selectedRole}
                             setSelectedRole={setSelectedRole}
                             displayInRow/>
+                        {selectedRoleError && <Typography variant={"subtitle1"} className={classes.errorText}>
+                            You must select at least one option
+                        </Typography>}
                     </Grid>
                     <Grid
                         item
@@ -212,8 +233,7 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 setLinkInput={setWebInput}
                                 setLinkURLs={setWebsiteURLs}
                                 setLinkErrorText={setWebErrorText}
-                                label={'Website URL address'}
-                            />
+                                label={'Website URL address'}/>
                         </Grid>
                         <Grid item xs={6} style={{paddingLeft: '24px'}}>
                             <WebLink
@@ -223,8 +243,7 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 setLinkInput={setSellingInput}
                                 setLinkURLs={setSellingURLs}
                                 setLinkErrorText={setStoreErrorText}
-                                label={'Store URL address'}
-                            />
+                                label={'Store URL address'}/>
                         </Grid>
                     </Grid>
                 </Grid>

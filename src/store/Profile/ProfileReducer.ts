@@ -4,6 +4,7 @@ import * as actions from './ProfileActions';
 type ProfileReducerType = {
     profile: CreateProfileInput;
     avatarURL: string;
+    isPending: boolean
 };
 const initialState: ProfileReducerType = {
     profile: {
@@ -11,6 +12,7 @@ const initialState: ProfileReducerType = {
         email: '',
     },
     avatarURL: '',
+    isPending: false,
 };
 
 // const initialPresetState: ProfileReducerType = {
@@ -32,11 +34,11 @@ export const ProfileReducer = (
                 profile: { ...action.payload },
             };
 
-        // case 'SET_ROLE_TAGS':
-        //     return {
-        //         ...state,
-        //         roleTags: action.payload
-        //     };
+        case 'UPDATE_PERSONAL_INFO':
+            return {
+                ...state,
+                isPending: true
+            };
 
         case 'SET_PROFILE_ID':
         case 'FETCH_PROFILE_BY_ID':
@@ -51,6 +53,12 @@ export const ProfileReducer = (
             return {
                 ...state,
                 profile: { ...action.payload },
+                isPending: false
+            };
+        case 'SAVE_PROFILE_TO_DB_FAILED':
+            return {
+                ...state,
+                isPending: false
             };
         case 'SET_PROFILE_AVATAR_URL':
             return {
@@ -58,8 +66,6 @@ export const ProfileReducer = (
                 avatarURL: action.payload,
             };
         case 'SET_PROFILE_IMAGE':
-        case 'SAVE_PROFILE_TO_DB_FAILED':
-        case 'UPDATE_PERSONAL_INFO':
         case 'SET_PROFILE_AVATAR_URL_FAILED':
         default:
             return {
