@@ -47,11 +47,11 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 return;
             }
             if (location.pathname.includes('customer-support')) {
-                setColor('#43A047');
+                setColor('#0097A6');
                 return;
             }
             if (location.pathname.includes('sales-channels')) {
-                setColor('#0097A6');
+                setColor('#43A047');
                 return;
             }
             if (location.pathname.includes('brand-awareness')) {
