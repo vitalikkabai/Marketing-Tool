@@ -7,8 +7,7 @@ import StepCounter from "../../components/common/StepCounter/StepCounter";
 import BoredCat from "../../assets/images/Bored.svg";
 
 
-const MarketResearch = () => {
-
+const MarketResearch: React.FC<void> = () => {
     const [value, setValue] = React.useState(0);
     return (
      <Grid container className={classes.dashboard}>

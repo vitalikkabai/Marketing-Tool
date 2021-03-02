@@ -62,7 +62,7 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
         },
     });
 
-    const createPreview = (index: any, type: any) => {
+    const createPreview = (index: number, type: string) => {
         setContentPreview(
             type.includes('video') ? (
                 <Box className={classes.videoBox}>
@@ -83,7 +83,7 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
         );
     };
 
-    const deleteFile = (index: any, type: any) => {
+    const deleteFile = (index: number, type: string) => {
         if (type.includes('video')) {
             setVideos([...videos.slice(0, index).concat(videos.slice(index + 1, videos.length))]);
         } else if (type.includes('image')) {

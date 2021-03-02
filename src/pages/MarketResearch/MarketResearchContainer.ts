@@ -1,15 +1,15 @@
-import { AppStateType } from '../../store/store';
-import { Dispatch } from 'redux';
+// import { AppStateType } from '../../store/store';
+// import { Dispatch } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
 import MarketResearch from "./MarketResearch";
 
-function mapStateToProps(state: AppStateType) {
+function mapStateToProps(/*state: AppStateType*/) {
     return {
 
     };
 }
 
-function mapDispatchToProps(dispatch: Dispatch) {
+function mapDispatchToProps(/*dispatch: Dispatch*/) {
     return {
 
     };

@@ -20,23 +20,23 @@ const initialState: CreateEmployeeInput = {
     },
 };
 
-const initialPresetState: CreateEmployeeInput = {
-    businessID: '',
-    roleTags: {
-        sales: false,
-        marketing: false,
-        logistics: true,
-        accounting: true,
-        production: false,
-        qualityControl: false,
-    },
-    phoneNumber: '3434343434',
-    countryCode: {
-        code: '',
-        label: '',
-        phone: '',
-    },
-};
+// const initialPresetState: CreateEmployeeInput = {
+//     businessID: '',
+//     roleTags: {
+//         sales: false,
+//         marketing: false,
+//         logistics: true,
+//         accounting: true,
+//         production: false,
+//         qualityControl: false,
+//     },
+//     phoneNumber: '3434343434',
+//     countryCode: {
+//         code: '',
+//         label: '',
+//         phone: '',
+//     },
+// };
 
 export const EmployeeReducer = (
     state = initialState,

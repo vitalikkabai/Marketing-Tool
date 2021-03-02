@@ -12,7 +12,7 @@ type PropsType = {
     helperText?: string | boolean
     onBlur?: { (e: React.FocusEvent<unknown>): void, <T = unknown>(fieldOrEvent: T): T extends string ? ((e: unknown) => void) : void }
     onChange: (date: MaterialUiPickersDate) => void
-    onFocus?: any
+    onFocus?: () => void
 }
 
 const CustomDatePicker: React.FC<PropsType> = (props) => {

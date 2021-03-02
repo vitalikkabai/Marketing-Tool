@@ -11,7 +11,7 @@ type PropsType = {
     linkURLs: string[];
     setLinkURLs: React.Dispatch<React.SetStateAction<string[]>>;
     linkErrorText?: string;
-    setLinkErrorText: React.Dispatch<React.SetStateAction<string>>;
+    setLinkErrorText?: React.Dispatch<React.SetStateAction<string>>;
     setEdited?: React.Dispatch<React.SetStateAction<boolean>>;
     label: string;
     autoFocus?: boolean;
@@ -37,7 +37,7 @@ const WebLink: React.FunctionComponent<PropsType> = (props) => {
                         HTMLTextAreaElement | HTMLInputElement
                     >
                 ) => {
-                    props.setLinkErrorText('');
+                    props.setLinkErrorText && props.setLinkErrorText('');
                     if (props.setEdited) props.setEdited(false);
                     props.setLinkInput(event.target.value);
                 }}
@@ -71,7 +71,7 @@ const WebLink: React.FunctionComponent<PropsType> = (props) => {
                         ]);
                         props.setLinkInput('');
                     } else {
-                        props.setLinkErrorText('Please enter valid URL');
+                        props.setLinkErrorText && props.setLinkErrorText('Please enter valid URL');
                     }
                 }}
             />

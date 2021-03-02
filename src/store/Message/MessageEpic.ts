@@ -3,7 +3,7 @@ import { UpdateMessageInput, OnUpdateMessageSubscriptionVariables } from '../../
 import { createMessage, updateMessage } from '../../graphql/mutations';
 
 import { Epic } from 'redux-observable';
-import { catchError, combineAll, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, switchMap, take } from 'rxjs/operators';
 import {
     sendMessageSuccess,
     sendMessageFailure,
@@ -96,7 +96,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                         const interlocutorID = state.MessageReducer.interlocutor.id;
                         // const sharedID = state.MessageReducer.sharedID;
                         // const subjectID = state.MessageReducer.subjectID;
-                        const stage = state.MessageReducer.stage;
+                        // const stage = state.MessageReducer.stage;
                         const params: GetConversationQueryVariables = {
                             sharedID: getSharedIndex(userID, interlocutorID),
                             subjectIDStageCreatedAt: {
@@ -273,7 +273,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                         graphqlOperation(updateMessage, { input: message })
                     ) as unknown) as Promise<any>
                 ).pipe(
-                    map((res) => {
+                    map((/*res*/) => {
                         return updateMessageSuccess();
                     }),
                     catchError((err) => {

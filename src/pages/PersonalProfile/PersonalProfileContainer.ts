@@ -12,6 +12,8 @@ import PersonalProfile from './PersonalProfile';
 function mapStateToProps(state: AppStateType) {
     return {
         profile: state.ProfileReducer.profile,
+        sendResetLinkError: state.AuthReducer.sendResetLinkError,
+        changeInfoErrorMessage: state.AuthReducer.changeInfoErrorMessage,
         employee: {
             countryCode: state.EmployeeReducer.countryCode,
             phoneNumber: state.EmployeeReducer.phoneNumber,

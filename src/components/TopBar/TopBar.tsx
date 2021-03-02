@@ -15,7 +15,7 @@ import { useHistory } from 'react-router';
 import AvatarSection from './AvatarSection/AvatarSection';
 import { PropsFromRedux } from './TopBarContainer';
 
-const TopBar = (props: PropsFromRedux) => {
+const TopBar: React.FC<any> = (props: PropsFromRedux) => {
     const israelTimeArr: string[] = new Date()
         .toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem' })
         .split(', ')[1]

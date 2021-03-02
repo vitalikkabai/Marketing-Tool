@@ -6,7 +6,7 @@ import CustomButton from '../../common/Button/CustomButton';
 import PlayVideoIcon from '../../../assets/images/playVideoIcon.svg';
 import { ReactComponent as CheckMark } from '../../../assets/images/checkMark.svg';
 
-const VisitorDashboard = () => {
+const VisitorDashboard: React.FC<void> = () => {
     return (
         <Grid container className={classes.dashboard}>
             <Box className={classes.todoTitleBox}>
@@ -89,7 +89,7 @@ const VisitorDashboard = () => {
                                     classes.taskValue + ' ' + classes.rightTask
                                 }
                                 style={{ background: '#EDCD27' }}>
-                                <Typography variant={'subtitle2'}></Typography>
+                                <Typography variant={'subtitle2'}/>
                             </Box>
                         </Grid>
                         <Grid item xs={12} className={classes.stepRow}>
@@ -112,7 +112,7 @@ const VisitorDashboard = () => {
                                     classes.taskValue + ' ' + classes.leftTask
                                 }
                                 style={{ background: '#FFAB08' }}>
-                                <Typography variant={'subtitle2'}></Typography>
+                                <Typography variant={'subtitle2'}/>
                             </Box>
 
                             <Box
@@ -145,7 +145,7 @@ const VisitorDashboard = () => {
                                     classes.taskValue + ' ' + classes.leftTask
                                 }
                                 style={{ background: '#EE6B1D' }}>
-                                <Typography variant={'subtitle2'}></Typography>
+                                <Typography variant={'subtitle2'}/>
                             </Box>
 
                             <Box
@@ -178,7 +178,7 @@ const VisitorDashboard = () => {
                                     classes.taskValue + ' ' + classes.leftTask
                                 }
                                 style={{ background: '#43A047' }}>
-                                <Typography variant={'subtitle2'}></Typography>
+                                <Typography variant={'subtitle2'}/>
                             </Box>
 
                             <Box

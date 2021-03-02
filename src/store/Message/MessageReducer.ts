@@ -66,7 +66,7 @@ export const MakeActiveDialogue = (): OutputSelector<
             return newDialogue;
         }
     );
-const getActiveDialogue = MakeActiveDialogue();
+// const getActiveDialogue = MakeActiveDialogue();
 
 export const MessageReducer = (
     state: MessageReducerType = initialState,
