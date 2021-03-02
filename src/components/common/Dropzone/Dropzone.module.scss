@@ -145,6 +145,8 @@
   * {
     width: 100% !important;
     height: 100% !important;
+    overflow: hidden;
+    pointer-events: none;
   }
    :last-child {
      :last-child {
@@ -154,6 +156,9 @@
   canvas {
     max-height: 350px;
     object-fit: contain;
+    div {
+      span {}
+    }
   }
 }
 

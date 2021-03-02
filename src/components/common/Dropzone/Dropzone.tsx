@@ -9,6 +9,7 @@ import playIcon from '../../../assets/images/playButton.svg';
 import deleteIcon from '../../../assets/images/deleteIcon.svg';
 import CustomTooltip from '../Tooltip/CustomTooltip';
 import Magnifier from 'react-magnifier';
+import { useEffect } from 'react';
 
 type PropsType = {
     title: string;
@@ -62,6 +63,61 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
         },
     });
 
+    useEffect(() => {
+        if (photos.length === 1 && videos.length === 0 && files.length === 0) {
+            createPreview(0, 'image');
+        } else if (videos.length === 1 && files.length === 0 && photos.length === 0) {
+            createPreview(0, 'video');
+        } else if (files.length === 1 && videos.length === 0 && photos.length === 0) {
+            createPreview(0, 'file');
+        }
+    }, [files, photos, videos]);
+
+    const deleteFile = (index: number, type: string) => {
+        if (type.includes('video')) {
+            setVideos([...videos.slice(0, index).concat(videos.slice(index + 1, videos.length))]);
+            if (videos.length === 1) {
+                if (photos.length > 0) {
+                    createPreview(0, 'image');
+                } else {
+                    if (files.length > 0) {
+                        createPreview(0, 'file');
+                    } else {
+                        setContentPreview(null);
+                    }
+                }
+            } else createPreview(index === 0 ? 1 : 0, 'video');
+        }
+        if (type.includes('image')) {
+            setPhotos([...photos.slice(0, index).concat(photos.slice(index + 1, photos.length))]);
+            if (photos.length === 1) {
+                if (videos.length > 0) {
+                    createPreview(0, 'video');
+                } else {
+                    if (files.length > 0) {
+                        createPreview(0, 'file');
+                    } else {
+                        setContentPreview(null);
+                    }
+                }
+            } else createPreview(index === 0 ? 1 : 0, 'image');
+        }
+        if (type.includes('pdf')) {
+            setFiles([...files.slice(0, index).concat(files.slice(index + 1, files.length))]);
+            if (files.length === 1) {
+                if (photos.length > 0) {
+                    createPreview(0, 'photo');
+                } else {
+                    if (videos.length > 0) {
+                        createPreview(0, 'video');
+                    } else {
+                        setContentPreview(null);
+                    }
+                }
+            } else createPreview(index === 0 ? 1 : 0, 'file');
+        }
+    };
+
     const createPreview = (index: number, type: string) => {
         setContentPreview(
             type.includes('video') ? (
@@ -85,16 +141,6 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
                 </Box>
             )
         );
-    };
-
-    const deleteFile = (index: number, type: string) => {
-        if (type.includes('video')) {
-            setVideos([...videos.slice(0, index).concat(videos.slice(index + 1, videos.length))]);
-        } else if (type.includes('image')) {
-            setPhotos([...photos.slice(0, index).concat(photos.slice(index + 1, photos.length))]);
-        } else if (type.includes('pdf')) {
-            setFiles([...files.slice(0, index).concat(files.slice(index + 1, files.length))]);
-        }
     };
 
     const VideosItem = videos.map((videos: any, index) => (
