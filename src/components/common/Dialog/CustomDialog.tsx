@@ -1,27 +1,32 @@
 import React from 'react';
 import {Box, Dialog, DialogContent, Typography} from '@material-ui/core';
-import logOutIcon from "../../../assets/images/logOutConfirmIcon.svg";
+import {ReactComponent as TrashIcon} from "../../../assets/images/trash.svg";
 import CustomButton from "../Button/CustomButton";
 import classes from "./CustomDialog.module.scss";
+import LogOutConfirmIcon from "../LogOutConfirmIcon/LogOutConfirmIcon";
+import { useTheme } from '@material-ui/core/styles';
 
 type CustomDialogProps = {
     text: string,
-    iconType: "logout",
+    iconType: "logout" | "delete",
     isOpen: boolean,
     closeDialog: () => void,
     confirmButtonClick: () => void
 };
 
-const imageSrc = (iconType: string) => {
+const imageSrc = (iconType: string, color: string) => {
     switch (iconType) {
         case "logout":
-            return logOutIcon;
+            return <LogOutConfirmIcon color={color} />;
+        case "delete":
+            return <TrashIcon fill={color} />;
         default:
             return "";
     }
 }
 
 const CustomDialog: React.FC<any> = (props: CustomDialogProps) => {
+    const theme = useTheme();
     return (
         <Dialog
             open={props.isOpen}
@@ -36,15 +41,11 @@ const CustomDialog: React.FC<any> = (props: CustomDialogProps) => {
                     { props.text }
                 </Typography>
                 <Box className={classes.logOutImageBox}>
-                    <img
-                        src={imageSrc(props.iconType)}
-                        alt="image"
-                    />
+                    { imageSrc(props.iconType, theme.palette.primary.main) }
                 </Box>
 
                 <Box className={classes.buttonBox}>
                     <CustomButton
-                        color
                         type="button"
                         onClick={() => {
                             props.closeDialog()
@@ -52,11 +53,12 @@ const CustomDialog: React.FC<any> = (props: CustomDialogProps) => {
                         text="NO"
                     />
                     <CustomButton
-                        color
                         type="button"
                         onClick={() => {
                             props.confirmButtonClick();
+                            props.closeDialog();
                         }}
+                        inverted={props.iconType === "delete"}
                         text="YES"
                     />
                 </Box>

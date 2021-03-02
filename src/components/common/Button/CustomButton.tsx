@@ -7,6 +7,7 @@ interface PropTypes {
     type: 'submit' | 'button';
     text: string | ReactElement;
     className?: string;
+    inverted?: boolean;
     disabled?: boolean;
     endIcon?: React.ReactNode;
     onClick?: () => void;
@@ -29,7 +30,7 @@ const CustomButton: React.FC<PropTypes> = (props) => {
                     : { width: props.width, borderRadius: props.borderRadius }
             }
             endIcon={props.endIcon}
-            variant="contained"
+            variant={props.inverted ? "outlined" : "contained"}
             color={props.color ? 'default' : 'primary'}
             type={props.type}
             disabled={props.disabled}

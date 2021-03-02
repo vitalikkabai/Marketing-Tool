@@ -138,7 +138,7 @@ const TopBar: React.FC<any> = (props: PropsFromRedux) => {
                     )}
                 </Grid>
                 <CustomDialog
-                    text={"Are you sure you want to <br /> log out?"}
+                    text={"Are you sure you want to log out?"}
                     iconType={"logout"}
                     isOpen={isOpen}
                     closeDialog={() => setIsOpen(false)}

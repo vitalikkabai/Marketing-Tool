@@ -9,6 +9,7 @@ import playIcon from '../../../assets/images/playButton.svg';
 import deleteIcon from '../../../assets/images/deleteIcon.svg';
 import CustomTooltip from '../Tooltip/CustomTooltip';
 import Magnifier from 'react-magnifier';
+import CustomDialog from "../Dialog/CustomDialog";
 
 type PropsType = {
     title: string;
@@ -20,6 +21,8 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
     const [videos, setVideos] = useState<any[]>([]);
     const [photos, setPhotos] = useState<any[]>([]);
     const [files, setFiles] = useState<any[]>([]);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [fileToDelete, setFileToDelete] = useState<{index: number, type: string}>({index: 0, type: ""});
     const [contentPreview, setContentPreview] = useState<any>(null);
     pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
     const { getRootProps, getInputProps } = useDropzone({
@@ -101,7 +104,10 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
         <Box className={classes.imgBox} key={videos.name + ' ' + index}>
             <img
                 src={deleteIcon}
-                onClick={() => deleteFile(index, videos.type)}
+                onClick={() => {
+                    setFileToDelete({index, type: videos.type});
+                    setIsOpen(true);
+                }}
                 className={classes.svgDelete}
             />
             <div
@@ -117,7 +123,10 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
         <Box className={classes.imgBox} key={photo.name + ' ' + index}>
             <img
                 src={deleteIcon}
-                onClick={() => deleteFile(index, photo.type)}
+                onClick={() => {
+                    setFileToDelete({index, type: photo.type});
+                    setIsOpen(true);
+                }}
                 className={classes.svgDelete}
             />
             <div onClick={() => createPreview(index, photo.type)} className={classes.imgContainer}>
@@ -130,7 +139,10 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
         <Box className={classes.imgBox} key={file.name + ' ' + index}>
             <img
                 src={deleteIcon}
-                onClick={() => deleteFile(index, file.type)}
+                onClick={() => {
+                    setFileToDelete({index, type: file.type});
+                    setIsOpen(true);
+                }}
                 className={classes.svgDelete}
             />
             <div onClick={() => createPreview(index, file.type)} className={classes.fileContainer}>
@@ -222,6 +234,16 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
                     <CustomCarousel position="horizontal" Items={FilesItem} />
                 </Box>
             </Box>
+            <CustomDialog
+                text={"Are you sure you want to delete?"}
+                iconType={"delete"}
+                isOpen={isOpen}
+                closeDialog={() => setIsOpen(false)}
+                confirmButtonClick={() => {
+                    deleteFile(fileToDelete.index, fileToDelete.type);
+                    setFileToDelete({index: 0, type: ""});
+                }}
+            />
         </Box>
     );
 };
