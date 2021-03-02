@@ -7,7 +7,8 @@ import { ReactComponent as ClipIcon } from '../../../assets/images/clip.svg';
 import CustomCarousel from '../Carousel/CustomCarousel';
 import playIcon from '../../../assets/images/playButton.svg';
 import deleteIcon from '../../../assets/images/deleteIcon.svg';
-import CustomTooltip from "../Tooltip/CustomTooltip";
+import CustomTooltip from '../Tooltip/CustomTooltip';
+import Magnifier from 'react-magnifier';
 
 type PropsType = {
     title: string;
@@ -69,7 +70,8 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
                 </Box>
             ) : type.includes('image') ? (
                 <Box className={classes.photoBox}>
-                    <img src={photos[index].preview} alt="Products Photo" />
+                    <Magnifier mgShape={'square'} src={photos[index].preview} />
+                    {/* <img src={photos[index].preview} alt="Products Photo" /> */}
                 </Box>
             ) : (
                 <Box className={classes.photoBox}>
@@ -155,7 +157,10 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
     return (
         <Box className={classes.dropZoneSection}>
             <CustomTooltip title={props.tooltipTitle ? props.tooltipTitle : ''}>
-                <Box {...getRootProps()} className={classes.dropZone} onDrop={() => console.log('hi')}>
+                <Box
+                    {...getRootProps()}
+                    className={classes.dropZone}
+                    onDrop={() => console.log('hi')}>
                     <input {...getInputProps()} />
                     <Box className={classes.dropZoneDashedBox}>
                         <Box className={classes.dropZoneIcon}>
