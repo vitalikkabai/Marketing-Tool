@@ -27,11 +27,12 @@ const CustomButton: React.FC<PropTypes> = (props) => {
                         background: '#4285F4',
                         color: 'white',
                     }
-                    : { width: props.width, borderRadius: props.borderRadius }
+                    : props.inverted ? { width: props.width, borderRadius: props.borderRadius } :
+                    { width: props.width, borderRadius: props.borderRadius, color: 'white' }
             }
             endIcon={props.endIcon}
             variant={props.inverted ? "outlined" : "contained"}
-            color={props.color ? 'default' : 'primary'}
+            color={props.color && !props.inverted ? 'default' : 'primary'}
             type={props.type}
             disabled={props.disabled}
             className={
