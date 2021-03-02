@@ -70,7 +70,11 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
                 </Box>
             ) : type.includes('image') ? (
                 <Box className={classes.photoBox}>
-                    <Magnifier mgShape={'square'} src={photos[index].preview} />
+                    <Magnifier
+                        mgShape={'square'}
+                        className={classes.bibosh}
+                        src={photos[index].preview}
+                    />
                     {/* <img src={photos[index].preview} alt="Products Photo" /> */}
                 </Box>
             ) : (

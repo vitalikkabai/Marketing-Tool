@@ -58,8 +58,8 @@ const CustomCarousel: React.FunctionComponent<PropsType> = ({ Items, className, 
             </Box>
             <Slider
                 dots={false}
-                infinite={false}
-                speed={200}
+                infinite={Items.length < (position === 'vertical' ? 4 : 5) ? false : true}
+                speed={50}
                 slidesToShow={position === 'vertical' ? 3 : 4}
                 vertical={position === 'vertical'}
                 verticalSwiping={position === 'vertical'}
