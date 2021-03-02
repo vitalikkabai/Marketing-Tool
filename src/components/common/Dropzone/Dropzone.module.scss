@@ -108,6 +108,12 @@
     max-height: 350px;
     object-fit: contain;
   }
+  .reactZoom {
+    background-color: #EDCD27;
+    &:last-child {
+      z-index: 100;
+    }
+  }
 }
 
 .dialogContent {
