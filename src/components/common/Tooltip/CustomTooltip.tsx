@@ -46,7 +46,10 @@ const CustomTooltip: React.FC<CustomInputProps> = (props) => {
             onMouseEnter={() => {setHover(true)}}
             onMouseLeave={() => {setHover(false)}}
             onFocus={() => {setFocus(true)}}
-            onBlur={() => {setFocus(false)}}
+            onBlur={() => {
+                setHover(false);
+                setFocus(false);
+            }}
             disableHoverListener
             disableFocusListener
             disableTouchListener

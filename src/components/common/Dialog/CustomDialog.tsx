@@ -58,7 +58,7 @@ const CustomDialog: React.FC<any> = (props: CustomDialogProps) => {
                             props.confirmButtonClick();
                             props.closeDialog();
                         }}
-                        inverted={props.iconType === "delete"}
+                        inverted={props.iconType === "delete" || props.iconType === "logout"}
                         text="YES"
                     />
                 </Box>

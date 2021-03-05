@@ -240,7 +240,6 @@ const AddProduct: React.FunctionComponent<PropsFromRedux> = (props) => {
                                     </Box>
                                     </CustomTooltip>
                                     <CustomTooltip title='Add a tag for the product, e.g. "Best Seller"'>
-
                                     <Box
                                         style={{
                                             width: '30%',

@@ -1,7 +1,7 @@
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import React, {FormEvent, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import AvatarSelector from './AvatarSelector/AvatarSelector';
 import classes from './PersonalProfile.module.scss';
 import config from '../../aws-exports';
