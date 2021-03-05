@@ -145,11 +145,12 @@
   * {
     width: 100% !important;
     height: 100% !important;
+    overflow: hidden;
+    pointer-events: none;
   }
-   :last-child {
-     :last-child {
-      height: 0px !important;
-    }
+  span {
+    overflow: hidden;
+    pointer-events: none !important;
   }
   canvas {
     max-height: 350px;
