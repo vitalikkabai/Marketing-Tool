@@ -16,7 +16,7 @@ const LoginPage: FunctionComponent = () => {
                     alignItems="center"
                     className={classes.loginContainer}
                 >
-                    <Grid item sm={6}>
+                    <Grid item xs={12} sm={6}>
                         <LoginFormContainer />
                     </Grid>
                 </Grid>

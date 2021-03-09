@@ -6,4 +6,23 @@
     justify-content: flex-start;
     box-shadow: 0 4px 15px rgba(40, 47, 43, 0.1);
     background: #fff;
+    
+    @media (max-width: 600px) {
+        background: transparent;
+        box-shadow: none;
+        padding-left: 16px;
+    }
+
+    .headerContainerImgDesktop {
+        @media (max-width: 600px) {
+            display: none;
+        }
+    }
+
+    .headerContainerImgMobile {
+        display: none;
+        @media (max-width: 600px) {
+            display: block;
+        }
+    }
 }

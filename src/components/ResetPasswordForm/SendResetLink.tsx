@@ -91,7 +91,7 @@ const SendResetLink: React.FC<PropsType> = (props) => {
                                             helperText={formik.touched.email && formik.errors.email}
                                             value={formik.values.email}
                                             onChange={formik.handleChange}
-                                            width={290}
+                                            // width={290}
                                             autoFocus
                                         />
                                     </Grid>

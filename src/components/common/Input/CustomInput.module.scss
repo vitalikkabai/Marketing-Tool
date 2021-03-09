@@ -1,4 +1,8 @@
 .customInput {
     height: 45px;
-    width: 233px;
+    width: 290px;
+
+    @media (max-width: 600px) {
+        width: 263px;;
+    }
 }

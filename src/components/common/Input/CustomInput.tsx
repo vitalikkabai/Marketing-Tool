@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {makeStyles, TextField} from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
+import styles from './CustomInput.module.scss'
 import {ReactComponent as Visibility} from '../../../assets/images/eye.svg';
 import {ReactComponent as VisibilityOff} from '../../../assets/images/eyeOff.svg';
 
@@ -14,6 +15,7 @@ interface CustomInputProps {
     value?: string;
     color?: string;
     width?: number;
+    widthForMobile?: number;
     name?: string;
     placeholder?: string;
     fullWidth?: boolean;
@@ -40,6 +42,9 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                 minWidth: props.width,
                 borderRadius: 10,
                 padding: 0,
+                '@media (max-width:600px)': {
+                    minWidth: props.widthForMobile,
+                },
                 '& .MuiOutlinedInput-input': {
                     paddingLeft: 10,
                     paddingRight: props.paddingRight,
@@ -167,6 +172,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
             classes={{
                 root: classes.root,
             }}
+            className={styles.customInput}
             onBlur={props.onBlur}
             onChange={props.onChange}
             value={props.value}

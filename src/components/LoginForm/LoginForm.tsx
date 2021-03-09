@@ -82,7 +82,7 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                                     </Typography>
                                 </Grid>
                                 <Grid item className={classes.usernameGridItem}>
-                                    <CustomInput
+                                    <CustomInput 
                                         type="text"
                                         placeholder="Email"
                                         label="Email"
@@ -92,7 +92,8 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                                         value={formik.values.username}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
-                                        width={290}
+                                        // width={290}
+                                        // widthForMobile={263}
                                         autoFocus
                                         fullWidth
                                     />
@@ -108,7 +109,8 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                                         value={formik.values.password}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
-                                        width={290}
+                                        // width={290}
+                                        // widthForMobile={263}
                                         fullWidth
                                     />
                                 </Grid>

@@ -97,7 +97,7 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                                             value={formik.values.code}
                                             helperText={formik.touched.code && formik.errors.code}
                                             onChange={formik.handleChange}
-                                            width={290}
+                                            // width={290}
                                             error={formik.touched.code && Boolean(formik.errors.code)}
                                             autoFocus
                                         />
@@ -109,7 +109,7 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                                             fullWidth
                                             name="password"
                                             onChange={formik.handleChange}
-                                            width={290}
+                                            // width={290}
                                             helperText={formik.touched.password && formik.errors.password}
                                             error={formik.touched.password && Boolean(formik.errors.password)}
                                             value={formik.values.password}
@@ -122,7 +122,7 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                                             fullWidth
                                             name="confirmPassword"
                                             onChange={formik.handleChange}
-                                            width={290}
+                                            // width={290}
                                             helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
                                             error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
                                             value={formik.values.confirmPassword}
