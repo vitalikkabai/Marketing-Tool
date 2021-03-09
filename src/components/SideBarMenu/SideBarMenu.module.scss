@@ -1,0 +1,168 @@
+$menuItemColor1: #4285F4;
+$menuItemColor2: #EDCD27;
+$menuItemColor3: #FFAB08;
+$menuItemColor4: #E26921;
+$menuItemColor5: #5CAE10;
+$menuItemColor6: #4A949F;
+$menuItemColor7: #7B1FA2;
+$menuItemColor8: #DA4B7B;
+$menuItemColor9: #EA4335;
+$menuItemDisabled: #000;
+@for $i from 1 through 9 {
+  .active#{$i},
+  .item#{$i}:hover {
+    color: #FFF;
+    position: relative;
+    white-space: nowrap;
+    padding-left: 38px !important;
+    h6 {
+      font-size: 18px !important;
+    }
+    .listIconRoot {
+      position: absolute;
+      background: #FFF;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+      width: 47px;
+      height: 47px;
+      border-radius: 20px 20px 0px 20px;
+      left: -22px;
+      svg {
+        margin-right: 0 !important;
+        height: 28px;
+        width: 28px;
+      }
+    }
+  }
+  .item#{$i} {
+    padding-left: 0;
+    width: 100%;
+    height: 60px;
+    min-height: 60px;
+    border-radius: 20px 0 0 20px;
+    margin-bottom: 4px;
+    svg {
+      width: 20px;
+    }
+  }
+}
+
+.menu {
+  width: 236px;
+  height: 100%;
+  margin-right: 24px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background: #FFF;
+  .gridItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .logo {
+    width: 141px;
+    height: 54px;
+    margin-top: 12px;
+  }
+  .rootList::-webkit-scrollbar {
+    display: none;
+  }
+  .rootList {
+    margin-top: 48px;
+    height: calc(100% - 257px);
+    overflow: auto;
+    padding-left: 44px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+  .rootList:hover {
+    width: 240px;
+    overflow-y: scroll;
+    -ms-overflow-style: initial;
+    /* IE and Edge */
+    scrollbar-width: initial;
+    /* Firefox */
+    &::-webkit-scrollbar {
+      display: block;
+      width: 4px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #DFDFDF;
+      border-radius: 51px;
+    }
+  }
+  .listIconRoot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    svg {
+      margin-right: 10px;
+    }
+  }
+  .bottomText {
+    padding-bottom: 32px;
+    color: #9E9E9E;
+  }
+  .active1 {
+    background: $menuItemColor1;
+  }
+  .active2 {
+    background: $menuItemColor2;
+  }
+  .active3 {
+    background: $menuItemColor3;
+  }
+  .active4 {
+    background: $menuItemColor4;
+  }
+  .active5 {
+    background: $menuItemColor5;
+  }
+  .active6 {
+    background: $menuItemColor6;
+  }
+  .active7 {
+    background: $menuItemColor7;
+  }
+  .active8 {
+    background: $menuItemColor8;
+  }
+  .active9 {
+    background: $menuItemColor9;
+  }
+  .item1:hover {
+    background: $menuItemColor1;
+  }
+  .item2:hover {
+    background: $menuItemColor2;
+  }
+  .item3:hover {
+    background: $menuItemColor3;
+  }
+  .item4:hover {
+    background: $menuItemColor4;
+  }
+  .item5:hover {
+    background: $menuItemColor5;
+  }
+  .item6:hover {
+    background: $menuItemColor6;
+  }
+  .item7:hover {
+    background: $menuItemColor7;
+  }
+  .item8:hover {
+    background: $menuItemColor8;
+  }
+  .item9:hover {
+    background: $menuItemColor9;
+  }
+}

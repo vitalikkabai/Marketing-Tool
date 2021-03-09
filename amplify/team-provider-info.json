@@ -1,0 +1,90 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-marketingtool-dev-104149-authRole",
+      "UnauthRoleArn": "arn:aws:iam::756472502459:role/amplify-marketingtool-dev-104149-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::756472502459:role/amplify-marketingtool-dev-104149-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-marketingtool-dev-104149-deployment",
+      "UnauthRoleName": "amplify-marketingtool-dev-104149-unauthRole",
+      "StackName": "amplify-marketingtool-dev-104149",
+      "StackId": "arn:aws:cloudformation:eu-central-1:756472502459:stack/amplify-marketingtool-dev-104149/026406c0-5969-11eb-9bd3-028bc49454f2",
+      "AmplifyAppId": "dnf5wc8byga7o"
+    },
+    "categories": {
+      "auth": {
+        "marketingtoolcc44d25a": {},
+        "marketingtool2598d37e": {},
+        "userPoolGroups": {}
+      },
+      "function": {
+        "marketingtool2598d37ePreSignup": {},
+        "marketingtool2598d37ePostConfirmation": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dnf5wc8byga7o",
+          "type": "manual"
+        }
+      }
+    }
+  },
+  "stage": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-marketingtool-stage-121331-authRole",
+      "UnauthRoleArn": "arn:aws:iam::756472502459:role/amplify-marketingtool-stage-121331-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::756472502459:role/amplify-marketingtool-stage-121331-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-marketingtool-stage-121331-deployment",
+      "UnauthRoleName": "amplify-marketingtool-stage-121331-unauthRole",
+      "StackName": "amplify-marketingtool-stage-121331",
+      "StackId": "arn:aws:cloudformation:eu-central-1:756472502459:stack/amplify-marketingtool-stage-121331/79692ec0-6608-11eb-adde-065992713752",
+      "AmplifyAppId": "dnf5wc8byga7o"
+    },
+    "categories": {
+      "auth": {
+        "marketingtool2598d37e": {},
+        "userPoolGroups": {}
+      },
+      "function": {
+        "marketingtool2598d37ePreSignup": {},
+        "marketingtool2598d37ePostConfirmation": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dnf5wc8byga7o",
+          "type": "manual"
+        }
+      }
+    }
+  },
+  "test": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-marketingtool-test-112523-authRole",
+      "UnauthRoleArn": "arn:aws:iam::756472502459:role/amplify-marketingtool-test-112523-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::756472502459:role/amplify-marketingtool-test-112523-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-marketingtool-test-112523-deployment",
+      "UnauthRoleName": "amplify-marketingtool-test-112523-unauthRole",
+      "StackName": "amplify-marketingtool-test-112523",
+      "StackId": "arn:aws:cloudformation:eu-central-1:756472502459:stack/amplify-marketingtool-test-112523/e9460840-66ca-11eb-8510-0a341c5d7b1a",
+      "AmplifyAppId": "dnf5wc8byga7o"
+    },
+    "categories": {
+      "auth": {
+        "marketingtool2598d37e": {},
+        "userPoolGroups": {}
+      },
+      "function": {
+        "marketingtool2598d37ePreSignup": {},
+        "marketingtool2598d37ePostConfirmation": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "dnf5wc8byga7o",
+          "type": "manual"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,152 @@
+.component {
+  height: 100%;
+  overflow: auto;
+  .gridItem {
+    height: 100%;
+    .contentBox {
+      height: calc(100% - 45px);
+    }
+    .avatarContainer {
+      background: #fff;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 14px 0;
+      margin-right: 24px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      button {
+        border-radius: 10px;
+      }
+      .avatarBox {
+        width: 180px;
+        height: 180px;
+        display: flex;
+        justify-content: center;
+        position: relative;
+        border-radius: 50%;
+        cursor: pointer;
+        .avatarHover {
+          z-index: 1;
+        }
+        &:hover {
+          .avatar {
+            z-index: 0;
+          }
+        }
+        .avatar {
+          transition: linear 0.2s;
+          position: absolute;
+          width: 180px;
+          height: 180px;
+          color: white;
+          z-index: 2;
+          font-size: 52px;
+        }
+      }
+    }
+  }
+  .contentItem {
+    display: flex;
+    flex-direction: row;
+    .gridItem:first-child {
+      margin-right: 12px;
+    }
+    .gridItem:last-child {
+      margin-left: 12px;
+    }
+  }
+  .mainTitleBox {
+    margin-left: 48px;
+    margin-bottom: 12px;
+  }
+  .contentContainer {
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 42px 48px 34px 48px;
+    margin-right: 24px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+  }
+  .phoneContainer {
+    position: relative;
+    .flagBox {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      width: 27px;
+      height: 27px;
+      overflow: hidden;
+      border-radius: 50%;
+    }
+    .phoneNumberItem {
+      margin-left: 24px;
+      flex-grow: 1;
+    }
+  }
+  .logOutDialog {
+    height: 553px;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    .closeAccountBox {
+      height: 144px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .closeAccTypography {
+        color: #9e9e9e;
+      }
+    }
+    .resetButtonSubmit {
+      align-items: flex-end;
+    }
+  }
+}
+
+.logOutDialog {
+  height: 553px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  padding: 56px 97px 0 97px !important;
+  img {
+    margin-bottom: 58px;
+    margin-top: 32px;
+  }
+}
+
+.buttonBox {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 auto;
+  button {
+    border-radius: 10px;
+  }
+  .closeAccButton {
+    opacity: 0.3;
+  }
+}
+
+.backDrop {
+  backdrop-filter: blur(6px);
+  background: rgba(242, 247, 255, 0.1);
+}
+
+.logInBox {
+  display: flex;
+  align-items: center;
+  .logInText {
+    cursor: pointer;
+    margin-right: 48px;
+  }
+}

@@ -1,0 +1,88 @@
+.bubbleWrapper {
+    padding: 10px 15px;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    color: #fff;
+
+    img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .nextDayText {
+        color: #616161;
+        margin: 10px 0;
+    }
+}
+
+.bubbleWrapper:first-child {
+    margin-top: auto;
+}
+
+.messageInfoBox {
+    display: inline-flex;
+    align-items: baseline;
+}
+
+.senderName {
+    margin: 0;
+    padding-top: 10px;
+    padding-right: 10px;
+}
+
+.message {
+    margin: 0;
+    padding-top: 12px;
+}
+
+.messageTime {
+    margin-bottom: 10px;
+}
+
+.recipientContainer {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    text-align: right;
+
+    .messageTime {
+        text-align: left;
+    }
+}
+
+.senderContainer {
+    display: inline-flex;
+    text-align: left;
+
+    .messageTime {
+        text-align: right;
+    }
+}
+
+.recipientContainer .bubble {
+    min-width: 130px;
+    max-width: 80%;
+    padding: 0 18px;
+    margin: 0 8px;
+    background-color: #fff;
+    color: #333333;
+    border-radius: 12px 0px 12px 12px;
+    border: none;
+}
+
+.senderContainer .bubble {
+    min-width: 130px;
+    max-width: 80%;
+    padding: 0 18px;
+    margin: 0 8px;
+    color: #fff;
+    background-color: #333333;
+    border-radius: 0 12px 12px 12px;
+    border: none;
+}
+
+.checkSVG {
+    margin-left: 6px;
+    width: 12px;
+    height: 10px;
+}

@@ -1,0 +1,230 @@
+$role1ActiveBackColor: #0097a6;
+$role2ActiveBackColor: #f8d000;
+$role3ActiveBackColor: #ee6b1d;
+$role4ActiveBackColor: #c2185b;
+$role5ActiveBackColor: #43a047;
+$role6ActiveBackColor: #7b1fa2;
+
+$role1ActiveHoverColor: #d7fbff;
+$role2ActiveHoverColor: #fffacb;
+$role3ActiveHoverColor: #ffe7d7;
+$role4ActiveHoverColor: #ffeef5;
+$role5ActiveHoverColor: #dcffdd;
+$role6ActiveHoverColor: #f9ebff;
+
+$role1HoverColor: #f6f8f9;
+$role2HoverColor: #f6f8f9;
+$role3HoverColor: #f6f8f9;
+$role4HoverColor: #f6f8f9;
+$role5HoverColor: #f6f8f9;
+$role6HoverColor: #f6f8f9;
+
+$role1BackColor: #e2fcff;
+$role2BackColor: #fffacb;
+$role3BackColor: #ffecdf;
+$role4BackColor: #ffeef5;
+$role5BackColor: #dcffdd;
+$role6BackColor: #f9ebff;
+
+@mixin roleBoxParams {
+    width: 99px;
+    height: 99px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e5e5e5;
+}
+
+@mixin whiteSvg {
+    svg {
+        path {
+            fill: #fff;
+        }
+    }
+}
+
+.roleGridItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.roleContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 130px;
+    height: 160px;
+    margin: 0 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none;
+    transition-duration: 0.2s;
+
+    .roleTitle {
+        margin-top: 10px;
+    }
+}
+
+.role1Hover:hover {
+    background: $role1HoverColor;
+    transform: translate3d(0, -10px, 0);
+
+    .roleBox {
+        background: $role1ActiveHoverColor;
+
+        svg {
+            path {
+                fill: $role1ActiveBackColor;
+            }
+        }
+    }
+}
+
+.role2Hover:hover {
+    background: $role2HoverColor;
+    transform: translate3d(0, -10px, 0);
+
+    .roleBox {
+        background: $role2ActiveHoverColor;
+
+        svg {
+            path {
+                fill: $role2ActiveBackColor;
+            }
+        }
+    }
+}
+
+.role3Hover:hover {
+    background: $role3HoverColor;
+    transform: translate3d(0, -10px, 0);
+
+    .roleBox {
+        background: $role3ActiveHoverColor;
+
+        svg {
+            path {
+                fill: $role3ActiveBackColor;
+            }
+        }
+    }
+}
+
+.role4Hover:hover {
+    background: $role4HoverColor;
+    transform: translate3d(0, -10px, 0);
+
+    .roleBox {
+        background: $role4ActiveHoverColor;
+
+        svg {
+            path {
+                fill: $role4ActiveBackColor;
+            }
+        }
+    }
+}
+
+.role5Hover:hover {
+    background: $role5HoverColor;
+    transform: translate3d(0, -10px, 0);
+
+    .roleBox {
+        background: $role5ActiveHoverColor;
+
+        svg {
+            path {
+                fill: $role5ActiveBackColor;
+            }
+        }
+    }
+}
+
+.role6Hover:hover {
+    background: $role6HoverColor;
+    transform: translate3d(0, -10px, 0);
+
+    .roleBox {
+        background: $role6ActiveHoverColor;
+
+        svg {
+            path {
+                fill: $role6ActiveBackColor;
+            }
+        }
+    }
+}
+
+.roleContainer1Active {
+    background: $role1ActiveHoverColor;
+    transform: translate3d(0, -10px, 0);
+}
+
+.roleContainer2Active {
+    background: $role2ActiveHoverColor;
+    transform: translate3d(0, -10px, 0);
+}
+
+.roleContainer3Active {
+    background: $role3ActiveHoverColor;
+    transform: translate3d(0, -10px, 0);
+}
+
+.roleContainer4Active {
+    background: $role4ActiveHoverColor;
+    transform: translate3d(0, -10px, 0);
+}
+
+.roleContainer5Active {
+    background: $role5ActiveHoverColor;
+    transform: translate3d(0, -10px, 0);
+}
+
+.roleContainer6Active {
+    background: $role6ActiveHoverColor;
+    transform: translate3d(0, -10px, 0);
+}
+
+.roleBox {
+    @include roleBoxParams;
+}
+
+.roleBox1Active {
+    @include roleBoxParams;
+    @include whiteSvg;
+    background: $role1ActiveBackColor;
+}
+
+.roleBox2Active {
+    @include roleBoxParams;
+    @include whiteSvg;
+    background: $role2ActiveBackColor;
+}
+
+.roleBox3Active {
+    @include roleBoxParams;
+    @include whiteSvg;
+    background: $role3ActiveBackColor;
+}
+
+.roleBox4Active {
+    @include roleBoxParams;
+    @include whiteSvg;
+    background: $role4ActiveBackColor;
+}
+
+.roleBox5Active {
+    @include roleBoxParams;
+    @include whiteSvg;
+    background: $role5ActiveBackColor;
+}
+
+.roleBox6Active {
+    @include roleBoxParams;
+    @include whiteSvg;
+    background: $role6ActiveBackColor;
+}

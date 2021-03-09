@@ -1,0 +1,53 @@
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.chatContainer {
+    height: 100%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background: #fff;
+}
+
+.messagesBox {
+    flex: 1 1 auto;
+    overflow-y: scroll;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 150px);
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.messagesBox::-webkit-scrollbar {
+    display: none;
+}
+
+.chatInputGrid {
+    width: 100%;
+}
+
+.searchInputGrid {
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 15px 15px;
+}
+
+.chatInputBox {
+    flex: 0 1 auto;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 15px 15px;
+    box-shadow: 0 -5px 15px -5px rgba(0, 0, 0, 0.1);
+    button {
+        margin-left: 24px;
+    }
+}

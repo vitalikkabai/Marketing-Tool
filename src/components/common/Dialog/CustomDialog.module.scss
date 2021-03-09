@@ -1,0 +1,40 @@
+.backDrop {
+  backdrop-filter: blur(6px);
+  background: rgba(242, 247, 255, 0.1);
+}
+
+.logOutDialog {
+  height: 553px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  padding: 0 97px !important;
+
+  h3 {
+    max-width: 280px;
+  }
+
+  .logOutImageBox {
+    height: 186px;
+    width: 187px;
+    margin-bottom: 58px;
+    margin-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .buttonBox {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+}

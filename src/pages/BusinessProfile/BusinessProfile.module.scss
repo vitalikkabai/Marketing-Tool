@@ -1,0 +1,60 @@
+.component {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+
+    .headTitle {
+        flex: 0 1 auto;
+        margin-bottom: 14px;
+        padding-left: 48px;
+    }
+
+    .formContainer {
+        height: calc(100vh - 212px);
+        background: #fff;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: auto;
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
+    .formContainer::-webkit-scrollbar {
+        display: none;
+    }
+
+    .formContentContainer {
+        padding: 36px 48px;
+        width: 100%;
+
+        .mainInputGridItem {
+            display: flex;
+            justify-content: space-between;
+
+            .saveButton {
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
+
+        .roleBoxesGridItem {
+            position: relative;
+            margin-top: 32px;
+
+            .roleBoxText {
+                margin-bottom: 16px;
+            }
+
+            .errorText {
+                position: absolute;
+                bottom: -24px;
+                left: 40%;
+                color: red;
+            }
+        }
+
+        .linkGridItem {
+            margin-top: 56px;
+        }
+    }
+}

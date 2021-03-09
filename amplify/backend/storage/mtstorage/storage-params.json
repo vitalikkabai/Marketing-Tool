@@ -1,0 +1,24 @@
+{
+    "groupPermissionMap": {
+        "Admins": [
+            "create/update",
+            "read",
+            "delete"
+        ],
+        "Managers": [
+            "create/update",
+            "read",
+            "delete"
+        ],
+        "Freelancers": [
+            "create/update",
+            "read",
+            "delete"
+        ],
+        "Employees": [
+            "create/update",
+            "read",
+            "delete"
+        ]
+    }
+}

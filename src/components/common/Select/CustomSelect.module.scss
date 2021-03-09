@@ -1,0 +1,19 @@
+.selector {
+    fieldset {
+        border-color: rgb(25, 116, 252) !important;
+    }
+
+    label {
+        color: rgb(25, 116, 252) !important;
+    }
+}
+
+.selectorWithError {
+    fieldset {
+        border-color: #F44336 !important;
+    }
+
+    label {
+        color: #F44336 !important;
+    }
+}

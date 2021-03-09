@@ -1,0 +1,172 @@
+type Business @model
+    @key(name: "byManager", fields: ["managerID", "companyName"], queryField: "byManagerAndCompany")
+    @auth(rules: [
+          { allow: owner },
+          { allow: private, operations: [read] },
+      ]) {
+  id: ID!
+  companyName: String!
+  storeURLs: [String!]!
+  websiteURLs: [String!]!
+  employees: [Employee] @connection(keyName: "byBusiness", fields: ["id"])
+  products: [Product] @connection(keyName: "byBusiness", fields: ["id"])
+  manager: Manager @connection(fields: ["managerID"])
+  managerID: ID!
+}
+
+type Employee @model
+    @key(name: "byBusiness", fields: ["businessID"], queryField: "employeeByBusinessAndName")
+    @auth(rules: [
+      { allow: owner, ownerField: "id" },
+      { allow: private, operations: [read] },
+    ])  {
+  id: ID!
+  profile: Profile @connection(fields: ["id"])
+  business: Business @connection(fields: ["businessID"])
+  businessID: ID!
+  roleTags: RoleTags!
+  countryCode: CountryCode!
+  phoneNumber: String!
+}
+
+type Manager @model
+    @auth(rules: [
+      { allow: owner, ownerField: "id" },
+      { allow: private, operations: [read] },
+      ])  {
+  id: ID!
+  profile: Profile @connection(fields: ["id"])
+  businesses: [Business] @connection(keyName: "byManager", fields: ["id"])
+}
+
+type Profile @model
+    @auth(rules: [
+      { allow: owner, ownerField: "id" },
+      { allow: public, operations: [read]},
+      { allow: private, operations: [read] },
+    ])  {
+  id: ID!
+  email: String!
+  name: String!
+  avatar: S3Object
+
+}
+
+type Product @model
+    @key(name: "byBusiness", fields: ["businessID"], queryField: "byBusiness")
+    @auth(rules: [
+          { allow: owner },
+          { allow: private, operations: [read] },
+      ]) {
+  id: ID!
+  itemNumber: [IntRecord!]!
+  itemName: [StringRecord!]!
+  release: AWSDateTime!
+  websiteURLs: [StringArrayRecord!]!
+  stage: Stage!
+  dimentionsCm: [StringRecord!]!
+  weightKg: [FloatRecord!]!
+  tag: [StringRecord!]!
+  business: Business @connection(fields: ["businessID"])
+  businessID: ID!
+  # color: [StringArrayRecord!]!
+  # material: [StringArrayRecord!]!
+  photos: [S3ObjectTrack!]!
+  videos: [S3ObjectTrack!]!
+  certifications: [S3ObjectTrack!]!
+  marketingMaterials: [S3ObjectTrack!]!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type IntRecord {
+  value: Int!
+  createdAt: AWSDateTime!
+}
+
+type FloatRecord {
+  value: Float!
+  createdAt: AWSDateTime!
+}
+
+type StringRecord {
+  value: String!
+  createdAt: AWSDateTime!
+}
+
+type S3ObjectTrack {
+  key: String!
+  createdAt: AWSDateTime!
+  deleted: Boolean!
+  deletedAt: AWSDateTime
+}
+
+type StringArrayRecord {
+  record: [String!]!
+  createdAt: AWSDateTime!
+}
+
+type Message @model(subscriptions: null)
+    @key(name: "getIncomingMessages", fields: ["receiverID", "status"], queryField:"getIncomingMessages")
+    @key(name: "getDialogue", fields: ["sharedID", "subjectID","stage"], queryField: "getDialogue")
+    @key(name: "getConversation", fields: ["sharedID", "subjectID","stage","createdAt"], queryField: "getConversation")
+    @auth(rules: [
+      { allow: private }
+      ])  {
+  id: ID!
+  stage: Stage!
+  subjectID: ID!
+  senderID: ID!
+  receiverID: ID!
+  sharedID: ID!
+  content: String!
+  status: MessageStatus!
+  attachment: S3Object
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type Subscription {
+  onCreateMessage(receiverID: ID): Message @aws_subscribe(mutations: ["createMessage"])
+  onUpdateMessage(senderID: ID): Message @aws_subscribe(mutations: ["updateMessage"])
+  onDeleteMessage(receiverID: ID): Message @aws_subscribe(mutations: ["deleteMessage"])
+}
+
+enum MessageStatus {
+  CREATED
+  SENT
+  RECEIVED
+}
+
+type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
+}
+
+type RoleTags {
+  sales: Boolean!
+  marketing: Boolean!
+  logistics: Boolean!
+  accounting: Boolean!
+  production: Boolean!
+  qualityControl: Boolean!
+}
+
+type CountryCode {
+  code: String!
+  label: String!
+  phone: String!
+}
+
+enum Stage {
+    UNASSIGNED
+    PRODUCTS
+    MARKET_RESEARCH
+    BRAND_CREATION
+    SALES_CHANNELS
+    CUSTOMER_SUPPORT
+    BRAND_AWARENESS
+    SALES_STATISTICS
+    IMPROVEMENTS
+}

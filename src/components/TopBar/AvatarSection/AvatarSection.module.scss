@@ -1,0 +1,23 @@
+.avatarSectionContainer {
+    .avatarBox {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .menu {
+        li {
+            font-size: 16px;
+        }
+    }
+
+    .InitialsAvatar {
+        background-color: #4285f4;
+    }
+    .imageText {
+        font-weight: normal;
+    }
+    .greetingText {
+        margin-right: 24px;
+    }
+}

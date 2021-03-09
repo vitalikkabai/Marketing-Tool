@@ -1,0 +1,45 @@
+.carouselBox {
+  margin: 0 10px;
+}
+
+.carouselBoxVertical {
+  width: 90px;
+  max-height: 246px;
+}
+
+.slick-track {
+  min-height: 246px !important;
+}
+
+.carouselBoxHorizontal {
+  width: 320px;
+}
+
+.outerBox {
+  margin-top: 10px;
+  margin-bottom: -20px;
+}
+
+.sliderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sliderArrow {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  svg {
+    width: 15px;
+    height: 25px;
+  }
+}
+
+.rotateArrow {
+  svg {
+    transform: rotate(90deg);
+  }
+}

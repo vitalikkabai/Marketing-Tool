@@ -1,0 +1,88 @@
+.dashboard {
+  .todoTitleBox {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 56px;
+
+    .titleBox {
+      margin-right: 24px;
+    }
+
+    .addProductButton {
+      height: 56px;
+      border: 2px solid #FAD61E;
+      width: 212px;
+      padding: 0 22px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #FFF;
+      cursor: pointer;
+      border-radius: 10px;
+
+      svg{
+        margin-right: 10px;
+        path {
+          fill: #F8D000;
+        }
+      }
+    }
+
+    .addProductButton:hover {
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border: 2px solid #E9C924;
+      background: #fdfdfd;
+    }
+  }
+
+  .contentContainer {
+    height: calc(100vh - 228px);
+    margin-top: 20px;
+    display: flex;
+    width: 100%;
+
+    .contentBox {
+      background: #fff;
+      border-radius: 10px;
+      display: block;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+      .tabPanelBox {
+        height: calc(100% - 57px);
+        overflow: auto;
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+
+        .taskContainer {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          .stepLine {
+            margin-top: 53px;
+            margin-bottom: 34px;
+          }
+        }
+
+        .productItems {
+          display: flex;
+          align-items: center;
+
+          .productItem {
+            margin-top: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
+      .tabPanelBox::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+}

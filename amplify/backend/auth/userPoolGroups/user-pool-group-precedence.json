@@ -1,0 +1,18 @@
+[
+    {
+        "groupName": "Admins",
+        "precedence": 1
+    },
+    {
+        "groupName": "Managers",
+        "precedence": 2
+    },
+    {
+        "groupName": "Freelancers",
+        "precedence": 3
+    },
+    {
+        "groupName": "Employees",
+        "precedence": 4
+    }
+]

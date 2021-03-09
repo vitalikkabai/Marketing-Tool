@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "mtgqlapi",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authmarketingtool2598d37e",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

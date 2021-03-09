@@ -1,0 +1,46 @@
+.topBarContainer {
+  height: 79px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-right: 24px;
+  box-shadow: 0 4px 15px rgba(40, 47, 43, 0.1);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.logInButton {
+  font-size: 14px;
+  text-transform: initial;
+  color: #fff;
+}
+
+.TopBarContent {
+  .clockContainer {
+    display: flex;
+    .clock {
+      margin-left: 23px;
+      text-transform: capitalize;
+      .timeContainer {
+        display: flex;
+        align-items: flex-end;
+        margin-top: 4px;
+        .time {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+  .personalInfo {
+    margin-right: 24px;
+  }
+}
+
+.logInBox {
+  display: flex;
+  align-items: center;
+  .logInText {
+    cursor: pointer;
+    margin-right: 48px;
+  }
+}
