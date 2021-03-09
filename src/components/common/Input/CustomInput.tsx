@@ -15,7 +15,6 @@ interface CustomInputProps {
     value?: string;
     color?: string;
     width?: number;
-    widthForMobile?: number;
     name?: string;
     placeholder?: string;
     fullWidth?: boolean;
@@ -42,9 +41,6 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                 minWidth: props.width,
                 borderRadius: 10,
                 padding: 0,
-                '@media (max-width:600px)': {
-                    minWidth: props.widthForMobile,
-                },
                 '& .MuiOutlinedInput-input': {
                     paddingLeft: 10,
                     paddingRight: props.paddingRight,
