@@ -92,7 +92,6 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                                         value={formik.values.username}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
-                                        // width={290}
                                         autoFocus
                                         fullWidth
                                     />
@@ -108,7 +107,6 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                                         value={formik.values.password}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
-                                        // width={290}
                                         fullWidth
                                     />
                                 </Grid>

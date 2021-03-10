@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Header.module.scss';
 import headerLogo from '../../assets/images/headerLogo.svg';
-import headerLogoForMobile from '../../assets/images/logo-mob.svg';
+import headerLogoForMobile from '../../assets/images/logoMob.svg';
 import { useHistory } from 'react-router';
 
 const Header: React.FC<Record<string, unknown>> = () => {

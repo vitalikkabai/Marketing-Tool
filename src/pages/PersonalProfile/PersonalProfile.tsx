@@ -356,7 +356,6 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                         helperText={passwordFormik.touched.oldPassword && passwordFormik.errors.oldPassword}
                                         onChange={passwordFormik.handleChange}
                                         onBlur={passwordFormik.handleBlur}
-                                        // width={290}
                                     />
                                 </Grid>
                                 <Grid item style={{marginBottom: "24px"}}>
@@ -370,7 +369,6 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                         helperText={passwordFormik.touched.password && passwordFormik.errors.password}
                                         onChange={passwordFormik.handleChange}
                                         onBlur={passwordFormik.handleBlur}
-                                        // width={290}
                                     />
                                 </Grid>
                                 <Grid item style={{marginBottom: "24px"}}>
@@ -384,7 +382,6 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                         helperText={passwordFormik.touched.confirmPassword && passwordFormik.errors.confirmPassword}
                                         onChange={passwordFormik.handleChange}
                                         onBlur={passwordFormik.handleBlur}
-                                        // width={290}
                                     />
                                 </Grid>
                             </Grid>
