@@ -11,13 +11,18 @@ import { Box, Grid } from '@material-ui/core';
 import TopBarContainer from '../../components/TopBar/TopBarContainer';
 import MarketResearchContainer from "../MarketResearch/MarketResearchContainer";
 import ProductPageContainer from "../ProductPage/ProductPageContainer";
+import TimeBar from "../../components/TimeBar/TimeBar";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const MarketingToolPagePreviewContainer = (props: any) => {
+    const isSmallScreen = useMediaQuery((theme: any) => theme.breakpoints.between(0, 600));
+
     return (
         <Box className={classes.wrapper}>
             <SideBarMenu isAuth={props.isAuth} />
             <Box className={classes.marketingContainer}>
                 <TopBarContainer />
+                {isSmallScreen ? <TimeBar /> : null}
                 <Grid container className={classes.contentContainer}>
                     <Grid xs={12} xl={12} item className={classes.content}>
                         <Switch>
