@@ -12,11 +12,13 @@ import AvatarSection from './AvatarSection/AvatarSection';
 import { PropsFromRedux } from './TopBarContainer';
 import CustomDialog from "../common/Dialog/CustomDialog";
 import TimeBar from "../TimeBar/TimeBar";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-const TopBar: React.FC<any> = (props: PropsFromRedux) => {
-    const isSmallScreen = useMediaQuery((theme: any) => theme.breakpoints.between(0, 600));
-    const elementToRender = isSmallScreen ?
+type OwnProps = {
+    small?: boolean
+}
+
+const TopBar: React.FC<any> = (props: PropsFromRedux & OwnProps) => {
+    const elementToRender = props.small ?
         <Grid item className={classes.logoContainer}>
             <img src={mobileLogo} alt='diff' />
         </Grid>

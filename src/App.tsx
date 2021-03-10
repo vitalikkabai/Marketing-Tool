@@ -14,14 +14,18 @@ import {getAuthData} from './store/Auth/AuthActions';
 import MarketingToolPageContainer from './pages/MarketingToolPageBase/MarketingToolPageBase';
 import ResetPasswordPageContainer from './pages/ResetPasswordPage/ResetPasswordPageContainer';
 import MarketingToolPagePreviewContainer from './pages/MarketingToolPageBase/MarketingToolPagePreviewBase';
+import MarketingToolPagePreviewMobileContainer from "./pages/MarketingToolPageMobile/MarketingToolPagePreviewMobile";
 import {Occupation} from './store/Auth/AuthReducer';
 import ManagerPageBase from './pages/MarketingToolPageBase/ManagerPageBase';
 import MomentUtils from '@date-io/moment';
 import {MuiPickersUtilsProvider} from "@material-ui/pickers";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 Amplify.configure(awsconfig);
 
 function App(props: AppProps): ReactElement {
+    const isSmallScreen = useMediaQuery((theme: any) => theme.breakpoints.between(0, 600));
+
     useEffect(() => {
         // Start initialization
         props.getAuthData();
@@ -40,10 +44,17 @@ function App(props: AppProps): ReactElement {
                 path="/resetPassword"
                 component={ResetPasswordPageContainer}
             />
-            <Route
-                path="/preview"
-                component={MarketingToolPagePreviewContainer}
-            />
+            {
+                isSmallScreen ?
+                    <Route
+                        path="/preview"
+                        component={MarketingToolPagePreviewMobileContainer}
+                    />
+                    : <Route
+                        path="/preview"
+                        component={MarketingToolPagePreviewContainer}
+                    />
+            }
             {props.occupation === Occupation.MANAGER ? (
                 <Route path="/" component={ManagerPageBase}/>
             ) : null}

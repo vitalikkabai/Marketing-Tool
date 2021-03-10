@@ -5,20 +5,19 @@ import { Dispatch } from 'redux';
 import { signOut } from '../../store/Auth/AuthActions';
 import VisitorDashboard from '../../components/DashBoard/VisitorDashboard/VisitorDashboard';
 import { Route, Switch } from 'react-router';
-import SideBarMenu from '../../components/SideBarMenu/SideBarMenu';
-import classes from './MarketingToolPageBase.module.scss';
+import classes from './MarketingToolPageMobile.module.scss';
 import { Box, Grid } from '@material-ui/core';
 import TopBarContainer from '../../components/TopBar/TopBarContainer';
 import MarketResearchContainer from "../MarketResearch/MarketResearchContainer";
 import ProductPageContainer from "../ProductPage/ProductPageContainer";
+import TimeBar from "../../components/TimeBar/TimeBar";
 
-
-const MarketingToolPagePreviewContainer = (props: any) => {
+const MarketingToolPagePreviewMobileContainer = () => {
     return (
         <Box className={classes.wrapper}>
-            <SideBarMenu isAuth={props.isAuth} />
             <Box className={classes.marketingContainer}>
-                <TopBarContainer />
+                <TopBarContainer small />
+                <TimeBar />
                 <Grid container className={classes.contentContainer}>
                     <Grid xs={12} xl={12} item className={classes.content}>
                         <Switch>
@@ -105,4 +104,4 @@ const H1 = () => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(MarketingToolPagePreviewContainer);
+)(MarketingToolPagePreviewMobileContainer);

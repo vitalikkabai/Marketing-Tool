@@ -32,6 +32,12 @@
 
 .logoContainer {
   margin-left: 16px;
+  width: 45px;
+  height: 33px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -44,6 +50,9 @@
 
   .TopBarContent {
     align-items: flex-start;
+    .personalInfo {
+      margin-right: 16px;
+    }
   }
 
   .logInBox {
