@@ -2,6 +2,10 @@
     height: 39px;
     width: 186px;
     min-width: 20px;
+
+    @media (max-width: 600px) {
+        width: 167px;
+    }
 }
 
 .buttonWithCircleBox {
