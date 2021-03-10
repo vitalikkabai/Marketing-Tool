@@ -11,6 +11,8 @@ const initialState: CreateEmployeeInput = {
         accounting: false,
         production: false,
         qualityControl: false,
+        admin: false,
+        all: false,
     },
     phoneNumber: '',
     countryCode: {

@@ -14,21 +14,25 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
     const history = useHistory();
     const [errorText, setErrorText] = useState('');
     const [selectedRole, setSelectedRole] = useState([
-        { id: 'sales_role', title: 'Sales', selected: props.roleTags.sales },
         {
             id: 'marketing_role',
-            title: 'Marketing',
+            title: 'Design',
             selected: props.roleTags.marketing,
+        },
+        {
+            id: 'accounting_role',
+            title: 'Accounting',
+            selected: props.roleTags.accounting,
         },
         {
             id: 'logistic_role',
             title: 'Logistics',
             selected: props.roleTags.logistics,
         },
-        {
-            id: 'accounting_role',
-            title: 'Accounting',
-            selected: props.roleTags.accounting,
+        { 
+            id: 'sales_role', 
+            title: 'Sales', 
+            selected: props.roleTags.sales 
         },
         {
             id: 'production_role',
@@ -39,6 +43,16 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
             id: 'quality_role',
             title: 'QC',
             selected: props.roleTags.qualityControl,
+        },
+        {
+            id: 'admin_role',
+            title: 'Admin',
+            selected: props.roleTags.admin,
+        },
+        {
+            id: 'all_role',
+            title: 'All',
+            selected: props.roleTags.all,
         },
     ]);
 
@@ -61,6 +75,12 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
         const qcRole = selectedRole.find(
             (element) => element.id === 'quality_role'
         );
+        const adminRole = selectedRole.find(
+            (element) => element.id === 'admin_role'
+        );
+        const allRole = selectedRole.find(
+            (element) => element.id === 'all_role'
+        );
         props.setRoleTags({
             sales: saleRole ? saleRole.selected : false,
             marketing: marketingRole ? marketingRole.selected : false,
@@ -68,6 +88,8 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
             accounting: accountRole ? accountRole.selected : false,
             production: productRole ? productRole.selected : false,
             qualityControl: qcRole ? qcRole.selected : false,
+            admin: adminRole ? adminRole.selected : false,
+            all: allRole ? allRole.selected : false,
         });
     };
 

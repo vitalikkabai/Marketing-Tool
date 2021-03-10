@@ -103,7 +103,9 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         logistics: selectedRole.find((el) => el.id === 'logistic_role')?.selected || false,
         accounting: selectedRole.find((el) => el.id === 'accounting_role')?.selected || false,
         production: selectedRole.find((el) => el.id === 'production_role')?.selected || false,
-        qualityControl: selectedRole.find((el) => el.id === 'quality_role')?.selected || false
+        qualityControl: selectedRole.find((el) => el.id === 'quality_role')?.selected || false,
+        admin: selectedRole.find((el) => el.id === 'admin_role')?.selected || false,
+        all: selectedRole.find((el) => el.id === 'all_role')?.selected || false,
     });
 
     useEffect(() => {

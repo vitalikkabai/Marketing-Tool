@@ -283,7 +283,7 @@ export const schema = {
                     "type": "Boolean",
                     "isRequired": true,
                     "attributes": []
-                }
+                },
             }
         },
         "CountryCode": {

@@ -45,6 +45,11 @@ const RoleBoxes: React.FC<PropsType> = ({
                     setSelectedRole={setSelectedRole}
                     setEdited={setEdited}
                 />
+                <RoleBox
+                    roleItem={selectedRole[6]}
+                    setSelectedRole={setSelectedRole}
+                    setEdited={setEdited}
+                />
             </Grid>
             <Grid
                 item
@@ -63,6 +68,11 @@ const RoleBoxes: React.FC<PropsType> = ({
                 />
                 <RoleBox
                     roleItem={selectedRole[5]}
+                    setSelectedRole={setSelectedRole}
+                    setEdited={setEdited}
+                />
+                <RoleBox
+                    roleItem={selectedRole[7]}
                     setSelectedRole={setSelectedRole}
                     setEdited={setEdited}
                 />

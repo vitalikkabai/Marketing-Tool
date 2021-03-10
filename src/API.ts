@@ -116,6 +116,8 @@ export type RoleTagsInput = {
   accounting: boolean,
   production: boolean,
   qualityControl: boolean,
+  admin: boolean;
+  all: boolean;
 };
 
 export type CountryCodeInput = {

@@ -16,6 +16,8 @@ export declare class RoleTags {
   readonly accounting: boolean;
   readonly production: boolean;
   readonly qualityControl: boolean;
+  readonly admin: boolean;
+  readonly all: boolean;
   constructor(init: ModelInit<RoleTags>);
 }
 
