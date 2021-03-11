@@ -6,7 +6,6 @@ import {
     ListItemIcon,
     ListItemText,
     Typography,
-    useTheme,
 } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import classes from './SideBarMenu.module.scss';
@@ -23,7 +22,6 @@ import { ReactComponent as StonksIcon } from '../../assets/images/menuIcons/Ston
 import { useHistory } from 'react-router';
 
 const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
-    const theme = useTheme();
     const history = useHistory();
     const getCurrentLocation = () => {
         if (history.location.pathname.includes('product')) return '2';
@@ -34,6 +32,8 @@ const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
         if (history.location.pathname.includes('brand-awareness')) return '7';
         if (history.location.pathname.includes('improvements')) return '8';
         if (history.location.pathname.includes('sales-statistics')) return '9';
+        if (history.location.pathname === '/preview/') return '1';
+        if (history.location.pathname === '/preview') return '1';
         if (history.location.pathname === '/') return '1';
         return '0';
     };
@@ -64,7 +64,6 @@ const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
                         props.isAuth
                             ? history.push('/')
                             : history.push('/preview/');
-                        theme.palette.primary.main;
                     }}>
                     <ListItemIcon classes={{ root: classes.listIconRoot }}>
                         <CubeIcon className={classes.svgIcon} />
