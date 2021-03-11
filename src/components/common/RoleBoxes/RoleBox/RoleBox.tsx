@@ -108,8 +108,15 @@ const RoleBox: React.FC<PropsType> = ({
                     roles.map((elem) => {
                         if(roleItem.id === 'all_role') {
                             !roleItem.selected ? elem.selected = true : elem.selected = false;
-                        } else if (elem.id === roleItem.id)
+                        } else if (elem.id === roleItem.id) {
                             elem.selected = !elem.selected;
+                            
+                            if(roleItem.id != 'all_role') {
+                                roles.find((el) => {
+                                    el.id === 'all_role'? el.selected = false : true;
+                                });
+                            }
+                        }
                         if (setEdited) setEdited(false);
                         
                         return elem;
