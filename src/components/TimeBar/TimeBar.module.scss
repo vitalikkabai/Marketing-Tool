@@ -19,7 +19,8 @@
 
 @media screen and (max-width: 600px) {
   .clockContainer {
-    margin-top: 28px;
+    margin: 28px 16px 22px;
+    justify-content: flex-start;
     .ml23 {
       margin-left: 16px;
     }

@@ -87,6 +87,10 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 fontSize: '36px',
                 lineHeight: '54px',
                 textTransform: 'uppercase',
+                '@media (max-width:600px)': {
+                    fontSize: '33px',
+                    lineHeight: '150%',
+                },
             },
             h2: {
                 fontFamily: 'Neue Haas Grotesk',
@@ -94,6 +98,9 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 fontWeight: 'bold',
                 fontSize: '30px',
                 lineHeight: '150%',
+                '@media (max-width:600px)': {
+                    fontSize: '24px',
+                },
             },
             h3: {
                 fontFamily: 'Neue Haas Grotesk',
@@ -102,6 +109,9 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 fontSize: '24px',
                 lineHeight: '150%',
                 letterSpacing: '0.0015em',
+                '@media (max-width:600px)': {
+                    fontSize: '20px',
+                },
             },
             h4: {
                 fontFamily: 'Neue Haas Grotesk',
@@ -111,6 +121,9 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 lineHeight: '150%',
                 letterSpacing: '0.0015em',
                 textTransform: 'uppercase',
+                '@media (max-width:600px)': {
+                    fontSize: '18px',
+                },
             },
             h5: {
                 fontFamily: '"Neue Haas Grotesk"',
@@ -122,6 +135,10 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 '@media (max-width:960px)': {
                     fontSize: '14px',
                 },
+                '@media (max-width:600px)': {
+                    fontSize: '18px',
+                    letterSpacing: '0.015em',
+                },
             },
             h6: {
                 fontFamily: '"Neue Haas Grotesk"',
@@ -129,6 +146,9 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 fontWeight: 'normal',
                 fontSize: '18px',
                 lineHeight: '150%',
+                '@media (max-width:600px)': {
+                    fontSize: '16px',
+                },
             },
             button: {
                 fontFamily: '"Neue Haas Grotesk"',
@@ -137,6 +157,9 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 fontSize: '18px',
                 lineHeight: '150%',
                 textTransform: 'uppercase',
+                '@media (max-width:600px)': {
+                    fontSize: '18px',
+                },
             },
             subtitle1: {
                 fontFamily: '"Neue Haas Grotesk"',
@@ -145,6 +168,9 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 fontSize: '16px',
                 lineHeight: '150%',
                 letterSpacing: '0.005em',
+                '@media (max-width:600px)': {
+                    fontSize: '14px',
+                },
             },
             subtitle2: {
                 fontFamily: '"Neue Haas Grotesk"',
@@ -153,6 +179,9 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 fontSize: '14px',
                 lineHeight: '142%',
                 letterSpacing: '0.005em',
+                '@media (max-width:600px)': {
+                    fontSize: '13px',
+                },
             },
             body1: {
                 fontFamily: '"Neue Haas Grotesk"',
@@ -161,6 +190,9 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 fontSize: '13px',
                 lineHeight: '150%',
                 letterSpacing: '0.015em',
+                '@media (max-width:600px)': {
+                    fontSize: '13px',
+                },
             },
             body2: {
                 fontFamily: '"Neue Haas Grotesk"',
@@ -169,6 +201,12 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 fontSize: '18px',
                 lineHeight: '150%',
                 letterSpacing: '0.015em',
+                '@media (max-width:600px)': {
+                    fontSize: '14px',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden'
+                },
             },
             caption: {
                 fontFamily: 'Neue Haas Grotesk',
@@ -177,6 +215,9 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 fontSize: '12px',
                 lineHeight: '150%',
                 letterSpacing: '0.03em',
+                '@media (max-width:600px)': {
+                    fontSize: '12px',
+                },
             },
             overline: {
                 fontFamily: 'Neue Haas Grotesk',
@@ -186,6 +227,9 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 lineHeight: '150%',
                 letterSpacing: '0.02em',
                 textTransform: 'none',
+                '@media (max-width:600px)': {
+                    fontSize: '10px',
+                },
             },
         },
         palette: {

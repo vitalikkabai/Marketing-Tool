@@ -140,7 +140,7 @@ const MobileMenu: React.FC<any> = () => {
                     </ListItemIcon>
                     <ListItemText
                         primary={
-                            <Typography variant='h6'>
+                            <Typography noWrap variant='h6'>
                                 Customer Support
                             </Typography>
                         }

@@ -39,6 +39,7 @@
     }
   }
 }
+
 .stepsContentItem {
   background: #fff;
   border-radius: 10px;
@@ -132,16 +133,40 @@
     max-width: 100%;
     margin-left: 0;
     padding: 15px;
+    border-radius: 5px;
     .stepRow {
       margin-bottom: 8px;
       width: 100%;
+      .rightTask {
+        border-radius: 5px;
+      }
+      .tableTitleBox {
+        margin: 0 5px;
+        :first-child {
+          margin-left: 0;
+        }
+        .checkJobBox {
+          display: flex;
+          width: 50%;
+          justify-content: flex-end;
+          h6:last-child {
+            width: 36%;
+          }
+        }
+      }
       .taskValue {
         height: 27px;
         width: 18%;
+        .checkIcon {
+          width: 18px;
+          height: 15px;
+        }
       }
       .coloredBox {
         height: 27px;
         width: 64%;
+        padding: 0 10px 0 30px;
+        border-radius: 5px;
       }
     }
     .sloganBox {

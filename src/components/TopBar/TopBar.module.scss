@@ -50,8 +50,9 @@
 
   .TopBarContent {
     align-items: flex-start;
+    margin: 0 16px;
     .personalInfo {
-      margin-right: 16px;
+      margin-right: 0;
     }
   }
 
@@ -59,5 +60,9 @@
     .logInText {
       margin-right: 34px;
     }
+  }
+
+  .logoContainer {
+    margin-left: 0;
   }
 }
