@@ -109,7 +109,6 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
 
     const classes = useStyles();
 
-    //ToDo Fix bug with country code color
     return (
         <Autocomplete
             id="custom-input-demo"

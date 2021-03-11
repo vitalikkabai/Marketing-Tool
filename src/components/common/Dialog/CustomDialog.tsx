@@ -1,9 +1,9 @@
 import React from 'react';
-import {Box, Dialog, DialogContent, Typography} from '@material-ui/core';
+import {Box, Dialog, DialogContent, makeStyles, Typography} from '@material-ui/core';
 import {ReactComponent as TrashIcon} from "../../../assets/images/trash.svg";
 import CustomButton from "../Button/CustomButton";
 import classes from "./CustomDialog.module.scss";
-import LogOutConfirmIcon from "../LogOutConfirmIcon/LogOutConfirmIcon";
+import {ReactComponent as LogOutConfirmIcon} from "../../../assets/images/logOutConfirmIcon.svg";
 import { useTheme } from '@material-ui/core/styles';
 
 type CustomDialogProps = {
@@ -14,19 +14,34 @@ type CustomDialogProps = {
     confirmButtonClick: () => void
 };
 
-const imageSrc = (iconType: string, color: string) => {
-    switch (iconType) {
-        case "logout":
-            return <LogOutConfirmIcon color={color} />;
-        case "delete":
-            return <TrashIcon fill={color} />;
-        default:
-            return "";
-    }
-}
-
 const CustomDialog: React.FC<any> = (props: CustomDialogProps) => {
+
     const theme = useTheme();
+    const useStyles = makeStyles({
+        logOutSvg: {
+            "& circle": {
+                stroke: theme.palette.primary.main
+            },
+            "& path": {
+                fill: theme.palette.primary.main
+            }
+        }
+    });
+
+    const styles = useStyles();
+
+    const imageSrc = (iconType: string, color: string) => {
+
+        switch (iconType) {
+            case "logout":
+                return <LogOutConfirmIcon className={styles.logOutSvg} />;
+            case "delete":
+                return <TrashIcon fill={color} />;
+            default:
+                return "";
+        }
+    }
+
     return (
         <Dialog
             open={props.isOpen}

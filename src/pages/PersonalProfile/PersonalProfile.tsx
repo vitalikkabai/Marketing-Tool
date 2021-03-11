@@ -1,7 +1,7 @@
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import React, { useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AvatarSelector from './AvatarSelector/AvatarSelector';
 import classes from './PersonalProfile.module.scss';
 import config from '../../aws-exports';
@@ -68,13 +68,13 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
         },
         validationSchema: Yup.object({
             oldPassword: Yup.string()
-                .min(6,"Incorrect password")
+                .min(6, "Incorrect password")
                 .required("Required"),
             password: Yup.string()
-                .min(6,"The password must be at least 6 characters")
+                .min(6, "The password must be at least 6 characters")
                 .required("Required"),
             confirmPassword: Yup.string().when("password", {
-                is: (val:any) => (!!(val && val.length > 0)),
+                is: (val: any) => (!!(val && val.length > 0)),
                 then: Yup.string().oneOf(
                     [Yup.ref("password")],
                     "Password mismatched"
@@ -94,30 +94,30 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
 
     useEffect(() => { //Validate async errors
         if (props.changeInfoErrorMessage.code)
-        switch (props.changeInfoErrorMessage.code) {
-            case 'AliasExistsException': {
-                personalInfoFormik.setFieldError("ownerEmail", 'An account with the given email already exists')
-                break;
+            switch (props.changeInfoErrorMessage.code) {
+                case 'AliasExistsException': {
+                    personalInfoFormik.setFieldError("ownerEmail", 'An account with the given email already exists')
+                    break;
+                }
+                case 'LimitExceededException': {
+                    personalInfoFormik.setFieldError("ownerEmail", 'Attempt limit exceeded, try again later')
+                    break;
+                }
             }
-            case 'LimitExceededException': {
-                personalInfoFormik.setFieldError("ownerEmail", 'Attempt limit exceeded, try again later')
-                break;
-            }
-        }
     }, [props.changeInfoErrorMessage]);
 
     useEffect(() => { //Validate async errors
         if (props.sendResetLinkError.code)
-        switch (props.sendResetLinkError.code) {
-            case 'NotAuthorizedException': {
-                passwordFormik.setFieldError("oldPassword", 'Incorrect password')
-                break;
+            switch (props.sendResetLinkError.code) {
+                case 'NotAuthorizedException': {
+                    passwordFormik.setFieldError("oldPassword", 'Incorrect password')
+                    break;
+                }
+                case 'LimitExceededException': {
+                    passwordFormik.setFieldError("oldPassword", 'Attempt limit exceeded, try again later')
+                    break;
+                }
             }
-            case 'LimitExceededException': {
-                passwordFormik.setFieldError("oldPassword", 'Attempt limit exceeded, try again later')
-                break;
-            }
-        }
     }, [props.sendResetLinkError]);
 
     const saveImage = async (imageBase64: string) => {
@@ -386,10 +386,11 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                                 </Grid>
                             </Grid>
                             <Box className={classes.buttonBox}>
-                                <CustomButton type="submit"
-                                              text="Send"
-                                              isPending={props.isPasswordPending}
-                                              disabled={!isPasswordEdited}/>
+                                <CustomButton
+                                    type="submit"
+                                    text="Send"
+                                    isPending={props.isPasswordPending}
+                                    disabled={!isPasswordEdited}/>
                             </Box>
                         </form>
                     </Box>
@@ -398,8 +399,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
             <Grid
                 className={classes.contentItem + ' ' + classes.bottomContainer}
                 item
-                xs={12}
-            >
+                xs={12}>
                 <Grid item xs={6} className={classes.gridItem}>
                     <Box className={classes.mainTitleBox}>
                         <Typography variant="h2">Personal Profile</Typography>
@@ -407,23 +407,19 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                     <Box
                         className={
                             classes.contentContainer + ' ' + classes.contentBox
-                        }
-                    >
+                        }>
                         <Box className={classes.closeAccountBox}>
                             <Typography
                                 variant="subtitle1"
-                                className={classes.closeAccTypography}
-                            >
+                                className={classes.closeAccTypography}>
                                 Your account will be closed permanently.
                             </Typography>
                             <Box className={classes.buttonBox}>
                                 <CustomButton
-                                    // TODO: Set normal width to this button
                                     width="196px"
                                     type={'button'}
                                     text="CLOSE ACCOUNT"
-                                    className={classes.closeAccButton}
-                                />
+                                    className={classes.closeAccButton}/>
                             </Box>
                         </Box>
                     </Box>
@@ -435,22 +431,18 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                     <Box
                         className={
                             classes.avatarContainer + ' ' + classes.contentBox
-                        }
-                    >
+                        }>
                         <Box
                             className={classes.avatarBox}
-                            onClick={() => setDialogOpen(true)}
-                        >
+                            onClick={() => setDialogOpen(true)}>
                             <img
                                 src={avatarHover}
                                 alt="avatarHover"
-                                className={classes.avatarHover}
-                            />
+                                className={classes.avatarHover}/>
                             <Avatar
                                 alt="avatar"
                                 className={classes.avatar}
-                                src={props.avatarURL}
-                            />
+                                src={props.avatarURL}/>
                         </Box>
                     </Box>
                 </Grid>
@@ -462,8 +454,7 @@ const PersonalProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                     classes: {
                         root: classes.backDrop,
                     },
-                }}
-            >
+                }}>
                 <DialogContent className={classes.logOutDialog}>
                     <Typography variant="h3" align="center">
                         Upload your photo
