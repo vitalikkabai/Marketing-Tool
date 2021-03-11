@@ -111,9 +111,27 @@ const RoleBox: React.FC<PropsType> = ({
                         } else if (elem.id === roleItem.id) {
                             elem.selected = !elem.selected;
                             
-                            if(roleItem.id != 'all_role') {
+                            if (roleItem.id != 'all_role') {
                                 roles.find((el) => {
                                     el.id === 'all_role'? el.selected = false : true;
+                                });
+                            }
+
+                            const arrRoleSelect = []as Array<boolean>;
+                            
+                            roles.map((el)=> {
+                                if (el.selected === true) {
+                                    arrRoleSelect.push(el.selected)
+                                }
+                                return arrRoleSelect
+                            })
+
+                            if (arrRoleSelect.length === roles.length - 1) {
+                                roles.find((el) => {
+                                    if (el.id === 'all_role') {
+                                       el.selected = true;
+                                    }
+
                                 });
                             }
                         }
