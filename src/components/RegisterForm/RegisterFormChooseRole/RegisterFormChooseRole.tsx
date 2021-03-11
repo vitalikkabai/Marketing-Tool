@@ -150,7 +150,7 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
                     <form onSubmit={handleSubmit}>
                         <Box
                             className={classes.formContainer}
-                            style={{ marginTop: '24px' }}
+                            style={{ marginTop: '40px' }}
                         >
                             <RoleBoxes
                                 selectedRole={selectedRole}
