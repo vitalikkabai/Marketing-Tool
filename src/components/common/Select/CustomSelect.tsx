@@ -31,6 +31,9 @@ const CustomSelect: React.FC<CustomInputProps> = (props) => {
             lineHeight: '150%',
             '&.MuiSelect-outlined.MuiSelect-outlined': {
                 paddingRight: '75px',
+                '@media (max-width:600px)': {
+                    paddingRight: '43px',
+                },
             },
             '&.MuiSelect-select:focus': {
                 borderRadius: 10,

@@ -19,7 +19,7 @@ const RegistrationPage: FunctionComponent = () => {
                     alignItems="center"
                     className={classes.registrationContainer}
                 >
-                    <Grid item sm={8} className={classes.registerItem}>
+                    <Grid item xs={12} sm={8} className={classes.registerItem}>
                         <Switch>
                             <Route
                                 exact

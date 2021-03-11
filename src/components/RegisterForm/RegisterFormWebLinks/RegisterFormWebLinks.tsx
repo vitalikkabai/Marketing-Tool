@@ -205,7 +205,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
                                 >
                                     <Typography variant={'h6'}>
                                         Is there any brand that you would like
-                                        to be like?
+                                       <br/> to be like?
                                     </Typography>
                                     <Box className={classes.inputBox}>
                                         <Box>

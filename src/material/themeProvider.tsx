@@ -224,6 +224,7 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 lineHeight: '150%',
                 letterSpacing: '0.02em',
                 textTransform: 'none',
+                
                 '@media (max-width:600px)': {
                     fontSize: '10px',
                 },

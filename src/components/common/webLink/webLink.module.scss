@@ -21,6 +21,18 @@
         text-overflow: ellipsis;
         padding: 21.5px 10px 21.5px 0;
 
+        @media (max-width: 600px) {
+            width: calc(100% + 98px);
+            position: relative;
+            transform: translateX(-98px);
+            max-width: none;
+        }
+
+        @media (max-width: 360px) {
+            width: 100%;
+            transform: translateX(0);
+        }
+
         span {
             max-width: 450px;
             font-weight: normal;
