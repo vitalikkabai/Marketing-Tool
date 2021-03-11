@@ -19,6 +19,8 @@ import { ReactComponent as SmileIcon } from '../../assets/images/menuIcons/Smile
 import { ReactComponent as SpeakIcon } from '../../assets/images/menuIcons/SpeakIcon.svg';
 import { ReactComponent as StonksIcon } from '../../assets/images/menuIcons/StonksIcon.svg';
 import StepsContent from "../DashBoard/VisitorDashboard/StepsContent";
+import VideoContent from "../DashBoard/VisitorDashboard/VideoContent";
+import DashboardCarousel from "../common/Carousel/DashboardCarousel";
 
 const MobileMenu: React.FC<any> = () => {
     const [open, setOpen] = useState(0);
@@ -59,7 +61,9 @@ const MobileMenu: React.FC<any> = () => {
                     timeout="auto"
                     classes={{ container: classes.container, wrapper: classes.wrapper }}
                 >
-                    <StepsContent />
+                    <DashboardCarousel
+                        Items={[ <VideoContent small key={1} />, <StepsContent key={2} />]}
+                    />
                 </Collapse>
 
                 <ListItem
@@ -78,6 +82,15 @@ const MobileMenu: React.FC<any> = () => {
                         }
                     />
                 </ListItem>
+                <Collapse
+                    in={open === 2}
+
+                    classes={{ container: classes.container, wrapper: classes.wrapper }}
+                >
+                    <DashboardCarousel
+                        Items={[ <VideoContent small key={1} />, <StepsContent key={2} />]}
+                    />
+                </Collapse>
 
                 <ListItem
                     button
@@ -140,7 +153,7 @@ const MobileMenu: React.FC<any> = () => {
                     </ListItemIcon>
                     <ListItemText
                         primary={
-                            <Typography noWrap variant='h6'>
+                            <Typography variant='h6'>
                                 Customer Support
                             </Typography>
                         }

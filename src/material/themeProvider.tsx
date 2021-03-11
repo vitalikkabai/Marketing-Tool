@@ -203,9 +203,6 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 letterSpacing: '0.015em',
                 '@media (max-width:600px)': {
                     fontSize: '14px',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden'
                 },
             },
             caption: {

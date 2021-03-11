@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import classes from './Carousel.module.scss';
+import classes from './DropzoneCarousel.module.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { ReactComponent as NextArrow } from '../../../assets/images/arrowRight.svg';
@@ -12,9 +12,10 @@ type PropsType = {
     Items: any[];
     className?: string;
     position: string;
+    small?: boolean;
 };
 
-const CustomCarousel: React.FunctionComponent<PropsType> = ({ Items, className, position }) => {
+const DropzoneCarousel: React.FunctionComponent<PropsType> = ({ Items, className, position }) => {
     let slider = useRef() as any;
 
     const next = () => {
@@ -58,7 +59,7 @@ const CustomCarousel: React.FunctionComponent<PropsType> = ({ Items, className, 
             </Box>
             <Slider
                 dots={false}
-                infinite={Items.length < (position === 'vertical' ? 4 : 5) ? false : true}
+                infinite={Items.length >= (position === 'vertical' ? 4 : 5)}
                 speed={50}
                 slidesToShow={position === 'vertical' ? 3 : 4}
                 vertical={position === 'vertical'}
@@ -92,4 +93,4 @@ const CustomCarousel: React.FunctionComponent<PropsType> = ({ Items, className, 
     );
 };
 
-export default CustomCarousel;
+export default DropzoneCarousel;

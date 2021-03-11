@@ -125,6 +125,7 @@
     max-width: 100%;
     width: 100%;
     padding: 20px;
+    height: 100%;
     .teamPhotoContainer {
       margin-bottom: 16px;
     }
@@ -133,7 +134,8 @@
     max-width: 100%;
     margin-left: 0;
     padding: 15px;
-    border-radius: 5px;
+    border-radius: 10px;
+    height: 100%;
     .stepRow {
       margin-bottom: 8px;
       width: 100%;
@@ -167,6 +169,7 @@
         width: 64%;
         padding: 0 10px 0 30px;
         border-radius: 5px;
+        min-width: 190px;
       }
     }
     .sloganBox {

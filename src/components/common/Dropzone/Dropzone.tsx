@@ -4,7 +4,7 @@ import classes from './Dropzone.module.scss';
 import { Box, Typography } from '@material-ui/core';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { ReactComponent as ClipIcon } from '../../../assets/images/clip.svg';
-import CustomCarousel from '../Carousel/CustomCarousel';
+import DropzoneCarousel from '../Carousel/DropzoneCarousel';
 import playIcon from '../../../assets/images/playButton.svg';
 import deleteIcon from '../../../assets/images/deleteIcon.svg';
 import CustomTooltip from '../Tooltip/CustomTooltip';
@@ -257,13 +257,13 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
                 <Box
                     className={classes.photoSection}
                     style={photos.length === 0 ? { display: 'none' } : {}}>
-                    <CustomCarousel position="vertical" Items={PhotosCarouselItems} />
+                    <DropzoneCarousel position="vertical" Items={PhotosCarouselItems} />
                 </Box>
                 <Box className={classes.dialogContent}>{contentPreview}</Box>
                 <Box
                     className={classes.photoSection}
                     style={videos.length === 0 ? { display: 'none' } : {}}>
-                    <CustomCarousel position="vertical" Items={VideosCarouselItems} />
+                    <DropzoneCarousel position="vertical" Items={VideosCarouselItems} />
                 </Box>
             </Box>
             <Box
@@ -275,7 +275,7 @@ const FileDropzone: React.FunctionComponent<PropsType> = (props) => {
                 <Box
                     className={classes.photoSection}
                     style={documents.length === 0 ? { display: 'none' } : {}}>
-                    <CustomCarousel position="horizontal" Items={DocumentsCarouselItems} />
+                    <DropzoneCarousel position="horizontal" Items={DocumentsCarouselItems} />
                 </Box>
             </Box>
             <CustomDialog
