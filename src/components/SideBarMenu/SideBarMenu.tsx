@@ -58,7 +58,7 @@ const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
                 <ListItem
                     button
                     selected={selected === '1'}
-                    classes={{ root: classes.item1, selected: classes.active1 }}
+                    classes={{ root: classes.item1, selected: classes.activeu }}
                     onClick={() => {
                         setSelected('1');
                         props.isAuth

@@ -1,0 +1,102 @@
+$menuItemColors: #4285F4, #EDCD27, #FFAB08, #E26921, #5CAE10, #4A949F, #7B1FA2, #DA4B7B, #EA4335;
+$menuItemDisabled: #000;
+
+@for $i from 1 through 9 {
+  .item#{$i} {
+    color: #FFF;
+    background: nth($menuItemColors, $i);
+    position: relative;
+    white-space: nowrap;
+    padding-left: 38px !important;
+    width: 100%;
+    height: 60px;
+    min-height: 60px;
+    border-radius: 20px 0 0 20px;
+    margin-bottom: 4px;
+    h6 {
+      font-size: 18px !important;
+    }
+    svg {
+      width: 20px;
+    }
+    .listIconRoot {
+      position: absolute;
+      background: #FFF;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+      width: 47px;
+      height: 47px;
+      border-radius: 20px 20px 0 20px;
+      left: -22px;
+      svg {
+        margin-right: 0 !important;
+        height: 28px;
+        width: 28px;
+      }
+    }
+  }
+
+  .item#{$i}:hover {
+    background: nth($menuItemColors, $i);
+  }
+}
+
+.menu {
+  width: 100%;
+  height: auto;
+  margin-right: 24px;
+  .container {
+    width: 100%;
+    margin-right: 16px;
+  }
+  .wrapper {
+    width: 100%;
+    height: auto;
+    margin: 12px 0 16px 0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background: #fff;
+  }
+  .gridItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .logo {
+    width: 141px;
+    height: 54px;
+    margin-top: 12px;
+  }
+  .rootList::-webkit-scrollbar {
+    display: none;
+  }
+  .rootList {
+    margin-top: 22px;
+    height: 100%;
+    overflow: auto;
+    padding-left: 44px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    -ms-overflow-style: none;
+  }
+  .rootList:hover {
+    overflow-y: scroll;
+    -ms-overflow-style: initial;
+  }
+  .listIconRoot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    svg {
+      margin-right: 10px;
+    }
+  }
+  .bottomText {
+    padding-bottom: 32px;
+    color: #9E9E9E;
+  }
+}

@@ -21,10 +21,10 @@ $menuItemDisabled: #000;
     .listIconRoot {
       position: absolute;
       background: #FFF;
-      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
       width: 47px;
       height: 47px;
-      border-radius: 20px 20px 0px 20px;
+      border-radius: 20px 20px 0 20px;
       left: -22px;
       svg {
         margin-right: 0 !important;
@@ -111,7 +111,7 @@ $menuItemDisabled: #000;
     padding-bottom: 32px;
     color: #9E9E9E;
   }
-  .active1 {
+  .activeu {
     background: $menuItemColor1;
   }
   .active2 {

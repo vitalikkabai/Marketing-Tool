@@ -3,72 +3,19 @@ import { connect } from 'react-redux';
 import { AppStateType } from '../../store/store';
 import { Dispatch } from 'redux';
 import { signOut } from '../../store/Auth/AuthActions';
-import VisitorDashboard from '../../components/DashBoard/VisitorDashboard/VisitorDashboard';
-import { Route, Switch } from 'react-router';
 import classes from './MarketingToolPageMobile.module.scss';
-import { Box, Grid } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import TopBarContainer from '../../components/TopBar/TopBarContainer';
-import MarketResearchContainer from "../MarketResearch/MarketResearchContainer";
-import ProductPageContainer from "../ProductPage/ProductPageContainer";
 import TimeBar from "../../components/TimeBar/TimeBar";
+import MobileMenu from "../../components/MobileMenu/MobileMenu";
 
 const MarketingToolPagePreviewMobileContainer = () => {
     return (
         <Box className={classes.wrapper}>
             <Box className={classes.marketingContainer}>
                 <TopBarContainer small />
-                <TimeBar />
-                <Grid container className={classes.contentContainer}>
-                    <Grid xs={12} xl={12} item className={classes.content}>
-                        <Switch>
-                            <Route
-                                path={'/preview/'}
-                                exact
-                                component={VisitorDashboard}
-                            />
-                            <Route
-                                path={'/preview/products'}
-                                exact
-                                component={ProductPageContainer}
-                            />
-                            <Route
-                                path={'/preview/market-research'}
-                                exact
-                                component={MarketResearchContainer}
-                            />
-                            <Route
-                                path={'/preview/brand-creation'}
-                                exact
-                                component={H1}
-                            />
-                            <Route
-                                path={'/preview/sales-channels'}
-                                exact
-                                component={H1}
-                            />
-                            <Route
-                                path={'/preview/customer-support'}
-                                exact
-                                component={H1}
-                            />
-                            <Route
-                                path={'/preview/brand-awareness'}
-                                exact
-                                component={H1}
-                            />
-                            <Route
-                                path={'/preview/sales-statistics'}
-                                exact
-                                component={H1}
-                            />
-                            <Route
-                                path={'/preview/improvements'}
-                                exact
-                                component={H1}
-                            />
-                        </Switch>
-                    </Grid>
-                </Grid>
+                <TimeBar small />
+                <MobileMenu />
             </Box>
         </Box>
     );

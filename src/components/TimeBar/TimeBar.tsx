@@ -5,7 +5,11 @@ import clock from "../../assets/images/clock.svg";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import exchange from '../../assets/images/exchange.svg';
 
-const TimeBar = () => {
+type CustomProps = {
+    small?: boolean
+}
+
+const TimeBar = (props: CustomProps) => {
     const isSmallScreen = useMediaQuery((theme: any) => theme.breakpoints.between(0, 600));
     const clocksText = isSmallScreen ? {
         firstClock: 'Israel',
@@ -48,7 +52,7 @@ const TimeBar = () => {
 
     return (
         <Grid item className={classes.clockContainer}>
-            <Grid className={classes.clock}>
+            <Grid className={classes.clock + ' ' + (!props.small && classes.ml23)}>
                 <Typography variant="body1">{clocksText?.firstClock}</Typography>
                 <Box className={classes.timeContainer}>
                     <img src={clock} alt="clock" />
@@ -67,7 +71,7 @@ const TimeBar = () => {
                     ) : null}
                 </Box>
             </Grid>
-            <Grid className={classes.clock}>
+            <Grid className={classes.clock + ' ' + classes.ml23}>
                 <Typography variant="body1">{clocksText?.timeDiff}</Typography>
                 <Box className={classes.timeContainer}>
                     <img src={clock} alt="clock" />
@@ -82,7 +86,7 @@ const TimeBar = () => {
                     </Typography>
                 </Box>
             </Grid>
-            <Grid className={classes.clock}>
+            <Grid className={classes.clock + ' ' + classes.ml23}>
                 <Typography variant="body1">{clocksText?.secondClock}</Typography>
                 <Box className={classes.timeContainer}>
                     <img src={clock} alt="clock" />
