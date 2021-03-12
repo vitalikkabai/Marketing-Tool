@@ -48,6 +48,10 @@ function* authDataWorker(): unknown {
             const occupation = Number(
                 response.attributes['custom:occupation']
             );
+            yield put(getAuthDataSuccess({
+                userID: response.username,
+                occupation,
+            }))
             switch (occupation) {
                 case 0:
                     yield put(fetchEmployeeById(
@@ -62,14 +66,10 @@ function* authDataWorker(): unknown {
                 default:
                     yield put(getAuthDataFailed());
             }
-            yield put(getAuthDataSuccess({
-                userID: response.username,
-                occupation,
-            }))
         }
-
+        else ( yield put(getAuthDataFailed()) )
     } catch (err) {
-        yield getAuthDataFailed()
+        yield put(getAuthDataFailed())
     }
     return 0;
 }
