@@ -67,14 +67,14 @@ function* authDataWorker(): unknown {
                     yield put(getAuthDataFailed());
             }
         }
-
+        else ( yield put(getAuthDataFailed()) )
     } catch (err) {
-        yield getAuthDataFailed()
+        yield put(getAuthDataFailed())
     }
     return 0;
 }
 
 export function* authWatcher() {
     yield takeEvery('SIGN-IN-REQUEST', authUserWorker)
-    /*yield takeEvery('AUTH-DATA-REQUEST', authDataWorker)*/
+    yield takeEvery('AUTH-DATA-REQUEST', authDataWorker)
 }
