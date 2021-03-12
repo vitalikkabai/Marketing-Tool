@@ -17,6 +17,10 @@ import ManagerReducer from './Manager/ManagerReducer';
 import ProductReducer from './Product/ProductReducer';
 import { ActionTypes } from './storeTypes';
 import ProductEpic from "./Product/ProductEpic";
+import createSagaMiddleware from 'redux-saga';
+import {rootWatcher} from "./saga";
+
+const sagaMiddleware= createSagaMiddleware();
 
 const rootEpic = (action$: any, store$: any, dependencies: any) =>
     combineEpics(
@@ -64,10 +68,11 @@ const composeEnhancers =
 
 const store = createStore(
     rootReducer,
-    composeEnhancers(applyMiddleware(epicMiddleware))
+    composeEnhancers(applyMiddleware(epicMiddleware, sagaMiddleware))
 );
 
 epicMiddleware.run(rootEpic);
+sagaMiddleware.run(rootWatcher);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (window as any).store = store;
