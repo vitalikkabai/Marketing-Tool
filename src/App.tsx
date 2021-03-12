@@ -1,27 +1,31 @@
-import React, {ReactElement, useEffect} from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import './App.css';
 import Amplify from 'aws-amplify';
 import awsconfig from './aws-exports';
-import store, {AppStateType} from './store/store';
-import {connect, ConnectedProps, Provider} from 'react-redux';
-import {BrowserRouter} from 'react-router-dom';
-import {Route, Switch} from 'react-router';
+import store, { AppStateType } from './store/store';
+import { connect, ConnectedProps, Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router';
 import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import OverridesCss from './material/themeProvider';
-import {Dispatch} from 'redux';
-import {getAuthData} from './store/Auth/AuthActions';
+import { Dispatch } from 'redux';
+import { getAuthData } from './store/Auth/AuthActions';
 import MarketingToolPageContainer from './pages/MarketingToolPageBase/MarketingToolPageBase';
 import ResetPasswordPageContainer from './pages/ResetPasswordPage/ResetPasswordPageContainer';
 import MarketingToolPagePreviewContainer from './pages/MarketingToolPageBase/MarketingToolPagePreviewBase';
-import {Occupation} from './store/Auth/AuthReducer';
+import MarketingToolPagePreviewMobileContainer from './pages/MarketingToolPageMobile/MarketingToolPagePreviewMobile';
+import { Occupation } from './store/Auth/AuthReducer';
 import ManagerPageBase from './pages/MarketingToolPageBase/ManagerPageBase';
 import MomentUtils from '@date-io/moment';
-import {MuiPickersUtilsProvider} from "@material-ui/pickers";
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 Amplify.configure(awsconfig);
 
 function App(props: AppProps): ReactElement {
+    const isSmallScreen = useMediaQuery((theme: any) => theme.breakpoints.between(0, 600));
+
     useEffect(() => {
         // Start initialization
         props.getAuthData();
@@ -29,25 +33,23 @@ function App(props: AppProps): ReactElement {
 
     if (!props.initialized) {
         //Show empty page while initialization isn't completed
-        return <div/>;
+        return <div />;
     }
 
     return (
         <Switch>
-            <Route path="/login" component={LoginPage}/>
-            <Route path="/register" component={RegistrationPage}/>
-            <Route
-                path="/resetPassword"
-                component={ResetPasswordPageContainer}
-            />
-            <Route
-                path="/preview"
-                component={MarketingToolPagePreviewContainer}
-            />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/register" component={RegistrationPage} />
+            <Route path="/resetPassword" component={ResetPasswordPageContainer} />
+            {isSmallScreen ? (
+                <Route path="/preview" component={MarketingToolPagePreviewMobileContainer} />
+            ) : (
+                <Route path="/preview" component={MarketingToolPagePreviewContainer} />
+            )}
             {props.occupation === Occupation.MANAGER ? (
-                <Route path="/" component={ManagerPageBase}/>
+                <Route path="/" component={ManagerPageBase} />
             ) : null}
-            <Route path="/" component={MarketingToolPageContainer}/>
+            <Route path="/" component={MarketingToolPageContainer} />
         </Switch>
     );
 }
@@ -77,7 +79,7 @@ const AppWithRouter: React.FunctionComponent = () => {
             <OverridesCss>
                 <MuiPickersUtilsProvider utils={MomentUtils}>
                     <Provider store={store}>
-                        <AppContainer/>
+                        <AppContainer />
                     </Provider>
                 </MuiPickersUtilsProvider>
             </OverridesCss>

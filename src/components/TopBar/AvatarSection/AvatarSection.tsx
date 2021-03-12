@@ -20,8 +20,9 @@ const AvatarSection: React.FunctionComponent<{
     profile: CreateProfileInput;
     avatarURL: string;
     signOut: () => void;
-    userAttributes: { userID: string, occupation: number };
+    userAttributes: { userID: string; occupation: number };
 }> = (props) => {
+    const profileName = props.profile.name ? props.profile.name : 'Unknown User';
     const history = useHistory();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef<HTMLDivElement>(null);
@@ -44,13 +45,10 @@ const AvatarSection: React.FunctionComponent<{
 
     const writeInitials = (): string => {
         if (props.profile.avatar) return '';
-        const nameWords = props.profile.name.split(' ');
+        const nameWords = profileName.split(' ');
         let initials: string;
         if (nameWords.length > 1) {
-            initials = nameWords[0]
-                .charAt(0)
-                .concat(nameWords[1].charAt(0))
-                .toUpperCase();
+            initials = nameWords[0].charAt(0).concat(nameWords[1].charAt(0)).toUpperCase();
         } else {
             initials = nameWords[0].charAt(0).toUpperCase();
         }
@@ -65,41 +63,32 @@ const AvatarSection: React.FunctionComponent<{
                 role={undefined}
                 transition
                 disablePortal
-                style={{ zIndex: 10 }}
-            >
+                style={{ zIndex: 10 }}>
                 {({ TransitionProps, placement }) => (
                     <Grow
                         {...TransitionProps}
                         style={{
                             transformOrigin:
-                                placement === 'bottom'
-                                    ? 'center top'
-                                    : 'center bottom',
-                        }}
-                    >
+                                placement === 'bottom' ? 'center top' : 'center bottom',
+                        }}>
                         <Paper>
-                            <ClickAwayListener
-                                onClickAway={() => setOpen(false)}
-                            >
+                            <ClickAwayListener onClickAway={() => setOpen(false)}>
                                 <MenuList
                                     autoFocusItem={open}
                                     id="menu-list-grow"
-                                    className={classes.menu}
-                                >
+                                    className={classes.menu}>
                                     <MenuItem
                                         onClick={() => {
                                             history.push('/business-profile');
                                             setOpen(false);
-                                        }}
-                                    >
+                                        }}>
                                         Business Profile
                                     </MenuItem>
                                     <MenuItem
                                         onClick={() => {
                                             history.push('/personal-profile');
                                             setOpen(false);
-                                        }}
-                                    >
+                                        }}>
                                         Personal Profile
                                     </MenuItem>
                                     <MenuItem onClick={() => setOpen(false)}>
@@ -107,8 +96,7 @@ const AvatarSection: React.FunctionComponent<{
                                     </MenuItem>
                                     <MenuItem
                                         onClick={() => props.setDialogueSubject(true)}
-                                        style={{ color: '#9E9E9E' }}
-                                    >
+                                        style={{ color: '#9E9E9E' }}>
                                         Log Out
                                     </MenuItem>
                                 </MenuList>
@@ -121,9 +109,8 @@ const AvatarSection: React.FunctionComponent<{
                 <Typography
                     variant={'subtitle2'}
                     color={'primary'}
-                    className={classes.greetingText}
-                >
-                    Hi, {props.profile.name}
+                    className={classes.greetingText}>
+                    Hi, {profileName}
                 </Typography>
                 <div ref={anchorRef}>
                     {props.profile.avatar ? (
@@ -132,12 +119,8 @@ const AvatarSection: React.FunctionComponent<{
                         <Avatar
                             style={{
                                 backgroundColor: theme.palette.primary.main,
-                            }}
-                        >
-                            <Typography
-                                variant={'subtitle2'}
-                                className={classes.imageText}
-                            >
+                            }}>
+                            <Typography variant={'subtitle2'} className={classes.imageText}>
                                 {writeInitials()}
                             </Typography>
                         </Avatar>

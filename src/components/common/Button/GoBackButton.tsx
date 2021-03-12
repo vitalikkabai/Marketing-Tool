@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './GoBackButton.module.scss';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import {ReactComponent as BackArrowMob} from '../../../assets/images/backArrowMob.svg';
+import { ReactComponent as BackArrowMob } from '../../../assets/images/backArrowMob.svg';
 import { Box, Typography } from '@material-ui/core';
 
 interface PropTypes {

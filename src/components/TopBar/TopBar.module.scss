@@ -16,21 +16,6 @@
 }
 
 .TopBarContent {
-  .clockContainer {
-    display: flex;
-    .clock {
-      margin-left: 23px;
-      text-transform: capitalize;
-      .timeContainer {
-        display: flex;
-        align-items: flex-end;
-        margin-top: 4px;
-        .time {
-          margin-left: 5px;
-        }
-      }
-    }
-  }
   .personalInfo {
     margin-right: 24px;
   }
@@ -42,5 +27,39 @@
   .logInText {
     cursor: pointer;
     margin-right: 48px;
+  }
+}
+
+.logoContainer {
+  margin-left: 16px;
+  width: 45px;
+  height: 33px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .topBarContainer {
+    height: auto;
+    box-shadow: none;
+    background: none;
+    margin-right: 0;
+  }
+  .TopBarContent {
+    align-items: flex-start;
+    margin: 0 16px;
+    .personalInfo {
+      margin-right: 0;
+    }
+  }
+  .logInBox {
+    .logInText {
+      margin-right: 34px;
+    }
+  }
+  .logoContainer {
+    margin-left: 0;
   }
 }

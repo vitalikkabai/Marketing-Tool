@@ -1,26 +1,17 @@
-import React, {BaseSyntheticEvent, useEffect, useState} from 'react';
-import {
-    Grid,
-    Link,
-    Typography,
-    Box,
-    FormControl,
-    MenuItem,
-} from '@material-ui/core';
+import React, { BaseSyntheticEvent, useEffect, useState } from 'react';
+import { Grid, Link, Typography, Box, FormControl, MenuItem } from '@material-ui/core';
 import classes from '../RegisterForm.module.scss';
-import {useHistory} from 'react-router';
-import {FormContainerType} from './RegisterFormWebLinksContainer';
+import { useHistory } from 'react-router';
+import { FormContainerType } from './RegisterFormWebLinksContainer';
 import CustomSelect from '../../common/Select/CustomSelect';
 import GoBackButton from '../../common/Button/GoBackButton';
 import UxAssistant from '../UxAssistant/UxAssistant';
 import CustomButton from '../../common/Button/CustomButton';
-import {isNotEmpty, isValidUrl} from '../../../utils/validators/validators';
+import { isNotEmpty, isValidUrl } from '../../../utils/validators/validators';
 import WebLink from '../../common/webLink/webLink';
 
-const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
-    props
-) => {
-    const {hasWebsite, hasExperienceSelling, setHasWebsite, setHasExperienceSelling} = props;
+const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props) => {
+    const { hasWebsite, hasExperienceSelling, setHasWebsite, setHasExperienceSelling } = props;
 
     const history = useHistory();
     const [sellingURLs, setSellingURLs] = useState<string[]>(props.storeURLs);
@@ -31,8 +22,14 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
     const [storeErrorText, setStoreErrorText] = useState('');
 
     const isFormValid = (): boolean => {
-        if (hasWebsite && websiteURLs.length === 0 && isNotEmpty(webInput) &&
-            hasExperienceSelling && sellingURLs.length === 0 && isNotEmpty(sellingInput)) {
+        if (
+            hasWebsite &&
+            websiteURLs.length === 0 &&
+            isNotEmpty(webInput) &&
+            hasExperienceSelling &&
+            sellingURLs.length === 0 &&
+            isNotEmpty(sellingInput)
+        ) {
             setWebErrorText('Enter at least one URL');
             setStoreErrorText('Enter at least one URL');
             return false;
@@ -49,8 +46,14 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
             setStoreErrorText('Enter at least one URL');
             return false;
         }
-        if (hasWebsite && webInput && !isValidUrl(webInput) &&
-            hasExperienceSelling && sellingInput && !isValidUrl(sellingInput)) {
+        if (
+            hasWebsite &&
+            webInput &&
+            !isValidUrl(webInput) &&
+            hasExperienceSelling &&
+            sellingInput &&
+            !isValidUrl(sellingInput)
+        ) {
             setWebErrorText('Please enter valid URL');
             setStoreErrorText('Please enter valid URL');
             return false;
@@ -64,8 +67,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
             return false;
         }
         return true;
-    }
-
+    };
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -75,7 +77,10 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
         if (isFormValid()) {
             if (isValidUrl(webInput)) {
                 if (isValidUrl(sellingInput)) {
-                    props.setBusinessUrls([...sellingURLs, sellingInput], [...websiteURLs, webInput]);
+                    props.setBusinessUrls(
+                        [...sellingURLs, sellingInput],
+                        [...websiteURLs, webInput]
+                    );
                 } else {
                     props.setBusinessUrls(sellingURLs, [...websiteURLs, webInput]);
                 }
@@ -88,46 +93,33 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
         }
     };
 
-    useEffect(() => { //Detect page refreshing
+    useEffect(() => {
+        //Detect page refreshing
         window.onbeforeunload = (e: BeforeUnloadEvent) => {
             e.returnValue = '';
-        }
+        };
         return () => {
-            onbeforeunload = null
-        }
+            onbeforeunload = null;
+        };
     }, []);
 
     return (
         <Grid container justify="center" alignItems={'center'}>
-            <Grid
-                container
-                direction="column"
-                justify="center"
-                className={classes.registerForm}
-            >
+            <Grid container direction="column" justify="center" className={classes.registerForm}>
                 <Box className={classes.registrationSheet}>
                     <GoBackButton
                         onClick={() => {
                             history.push('/login');
                         }}
                     />
-                    <UxAssistant
-                        assistantText={'Hey there, I’m Vika:)'}
-                        stepNumber={1}
-                    />
+                    <UxAssistant assistantText={'Hey there, I’m Vika:)'} stepNumber={1} />
                     <Grid
                         item
                         container
                         alignItems={'center'}
                         justify={'center'}
-                        className={classes.formContainer}
-                    >
-                        <Grid
-                            container
-                            item
-                            direction={'column'}
-                            className={classes.formText}
-                        >
+                        className={classes.formContainer}>
+                        <Grid container item direction={'column'} className={classes.formText}>
                             <form onSubmit={handleSubmit}>
                                 <Grid item xs={12}>
                                     <Typography variant={'h6'}>
@@ -137,27 +129,18 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
                                         <Box>
                                             <FormControl
                                                 variant="outlined"
-                                                className={classes.formControl}
-                                            >
+                                                className={classes.formControl}>
                                                 <CustomSelect
                                                     value={hasWebsite ? 1 : 0}
                                                     onChange={(e: BaseSyntheticEvent) => {
-                                                        setHasWebsite(
-                                                            !!e.target.value
-                                                        );
+                                                        setHasWebsite(!!e.target.value);
                                                         setWebErrorText('');
                                                     }}
                                                     items={[
-                                                        <MenuItem
-                                                            key={'menu_1_2'}
-                                                            value={1}
-                                                        >
+                                                        <MenuItem key={'menu_1_2'} value={1}>
                                                             Yes
                                                         </MenuItem>,
-                                                        <MenuItem
-                                                            key={'menu_1_1'}
-                                                            value={0}
-                                                        >
+                                                        <MenuItem key={'menu_1_1'} value={0}>
                                                             No
                                                         </MenuItem>,
                                                     ]}
@@ -173,70 +156,44 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
                                                     setLinkInput={setWebInput}
                                                     setLinkURLs={setWebsiteURLs}
                                                     autoFocus
-                                                    setLinkErrorText={
-                                                        setWebErrorText
-                                                    }
-                                                    label={
-                                                        'Website URL address'
-                                                    }
+                                                    setLinkErrorText={setWebErrorText}
+                                                    label={'Website URL address'}
                                                 />
                                             ) : (
                                                 <Box
-                                                    className={
-                                                        classes.selectTextBox
-                                                    }
+                                                    className={classes.selectTextBox}
                                                     style={{
                                                         background: '#EE6B1D',
-                                                    }}
-                                                >
+                                                    }}>
                                                     <Typography variant={'h6'}>
-                                                        We will get you there in
-                                                        3 steps.
+                                                        We will get you there in 3 steps.
                                                     </Typography>
                                                 </Box>
                                             )}
                                         </Box>
                                     </Box>
                                 </Grid>
-                                <Grid
-                                    item
-                                    xs={12}
-                                    className={classes.formSecondTitle}
-                                >
+                                <Grid item xs={12} className={classes.formSecondTitle}>
                                     <Typography variant={'h6'}>
                                         Is there any brand that you would like
-                                       <br/> to be like?
+                                        <br /> to be like?
                                     </Typography>
                                     <Box className={classes.inputBox}>
                                         <Box>
                                             <FormControl
                                                 variant="outlined"
-                                                className={classes.formControl}
-                                            >
+                                                className={classes.formControl}>
                                                 <CustomSelect
-                                                    value={
-                                                        hasExperienceSelling
-                                                            ? 1
-                                                            : 0
-                                                    }
+                                                    value={hasExperienceSelling ? 1 : 0}
                                                     onChange={(e: BaseSyntheticEvent) => {
-                                                        setHasExperienceSelling(
-                                                            !!e.target.value
-                                                        )
+                                                        setHasExperienceSelling(!!e.target.value);
                                                         setStoreErrorText('');
-                                                    }
-                                                    }
+                                                    }}
                                                     items={[
-                                                        <MenuItem
-                                                            key={'menu_2_2'}
-                                                            value={1}
-                                                        >
+                                                        <MenuItem key={'menu_2_2'} value={1}>
                                                             Yes
                                                         </MenuItem>,
-                                                        <MenuItem
-                                                            key={'menu_2_1'}
-                                                            value={0}
-                                                        >
+                                                        <MenuItem key={'menu_2_1'} value={0}>
                                                             No
                                                         </MenuItem>,
                                                     ]}
@@ -248,30 +205,20 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
                                                 <WebLink
                                                     linkInput={sellingInput}
                                                     linkURLs={sellingURLs}
-                                                    linkErrorText={
-                                                        storeErrorText
-                                                    }
-                                                    setLinkInput={
-                                                        setSellingInput
-                                                    }
+                                                    linkErrorText={storeErrorText}
+                                                    setLinkInput={setSellingInput}
                                                     setLinkURLs={setSellingURLs}
-                                                    setLinkErrorText={
-                                                        setStoreErrorText
-                                                    }
+                                                    setLinkErrorText={setStoreErrorText}
                                                     label={'Brand URL address'}
                                                 />
                                             ) : (
                                                 <Box
-                                                    className={
-                                                        classes.selectTextBox
-                                                    }
+                                                    className={classes.selectTextBox}
                                                     style={{
                                                         background: '#EA4335',
-                                                    }}
-                                                >
+                                                    }}>
                                                     <Typography variant={'h6'}>
-                                                        Don’t worry, leave that
-                                                        up to us:)
+                                                        Don’t worry, leave that up to us:)
                                                     </Typography>
                                                 </Box>
                                             )}
@@ -287,12 +234,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
                                 </Grid>*/}
                                 <Grid
                                     item
-                                    className={
-                                        classes.nextContainer +
-                                        ' ' +
-                                        classes.webLinks
-                                    }
-                                >
+                                    className={classes.nextContainer + ' ' + classes.webLinks}>
                                     <CustomButton
                                         type={'submit'}
                                         className={classes.buttonBlock}
@@ -304,8 +246,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (
                                             className={classes.link}
                                             onClick={() => {
                                                 history.push('/login');
-                                            }}
-                                        >
+                                            }}>
                                             Log in
                                         </Link>
                                     </Typography>

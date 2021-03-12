@@ -14,8 +14,7 @@ const LoginPage: FunctionComponent = () => {
                     container
                     justify="center"
                     alignItems="center"
-                    className={classes.loginContainer}
-                >
+                    className={classes.loginContainer}>
                     <Grid item xs={12} sm={6}>
                         <LoginFormContainer />
                     </Grid>

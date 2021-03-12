@@ -6,7 +6,6 @@ import {
     ListItemIcon,
     ListItemText,
     Typography,
-    useTheme,
 } from '@material-ui/core';
 import React, { useEffect } from 'react';
 import classes from './SideBarMenu.module.scss';
@@ -23,7 +22,6 @@ import { ReactComponent as StonksIcon } from '../../assets/images/menuIcons/Ston
 import { useHistory } from 'react-router';
 
 const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
-    const theme = useTheme();
     const history = useHistory();
     const getCurrentLocation = () => {
         if (history.location.pathname.includes('product')) return '2';
@@ -34,6 +32,8 @@ const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
         if (history.location.pathname.includes('brand-awareness')) return '7';
         if (history.location.pathname.includes('improvements')) return '8';
         if (history.location.pathname.includes('sales-statistics')) return '9';
+        if (history.location.pathname === '/preview/') return '1';
+        if (history.location.pathname === '/preview') return '1';
         if (history.location.pathname === '/') return '1';
         return '0';
     };
@@ -43,11 +43,7 @@ const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
 
     const [selected, setSelected] = React.useState(getCurrentLocation());
     return (
-        <Grid
-            container
-            direction={'column'}
-            alignItems={'flex-start'}
-            className={classes.menu}>
+        <Grid container direction={'column'} alignItems={'flex-start'} className={classes.menu}>
             <Box className={classes.gridItem}>
                 <img src={logo} alt="logo" className={classes.logo} />
             </Box>
@@ -61,18 +57,14 @@ const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
                     classes={{ root: classes.item1, selected: classes.active1 }}
                     onClick={() => {
                         setSelected('1');
-                        props.isAuth
-                            ? history.push('/')
-                            : history.push('/preview/');
-                        theme.palette.primary.main;
+                        props.isAuth ? history.push('/') : history.push('/preview/');
                     }}>
                     <ListItemIcon classes={{ root: classes.listIconRoot }}>
                         <CubeIcon className={classes.svgIcon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={
-                            <Typography
-                                variant={selected === '1' ? 'h6' : 'subtitle1'}>
+                            <Typography variant={selected === '1' ? 'h6' : 'subtitle1'}>
                                 Dashboard
                             </Typography>
                         }
@@ -94,8 +86,7 @@ const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
                     </ListItemIcon>
                     <ListItemText
                         primary={
-                            <Typography
-                                variant={selected === '2' ? 'h6' : 'subtitle1'}>
+                            <Typography variant={selected === '2' ? 'h6' : 'subtitle1'}>
                                 Products
                             </Typography>
                         }
@@ -117,8 +108,7 @@ const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
                     </ListItemIcon>
                     <ListItemText
                         primary={
-                            <Typography
-                                variant={selected === '3' ? 'h6' : 'subtitle1'}>
+                            <Typography variant={selected === '3' ? 'h6' : 'subtitle1'}>
                                 Market Research
                             </Typography>
                         }
@@ -140,8 +130,7 @@ const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
                     </ListItemIcon>
                     <ListItemText
                         primary={
-                            <Typography
-                                variant={selected === '4' ? 'h6' : 'subtitle1'}>
+                            <Typography variant={selected === '4' ? 'h6' : 'subtitle1'}>
                                 Brand Creation
                             </Typography>
                         }
@@ -157,15 +146,13 @@ const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
                         props.isAuth
                             ? history.push('/sales-channels')
                             : history.push('/preview/sales-channels');
-
                     }}>
                     <ListItemIcon classes={{ root: classes.listIconRoot }}>
                         <SaleIcon className={classes.svgIcon} />
                     </ListItemIcon>
                     <ListItemText
                         primary={
-                            <Typography
-                                variant={selected === '5' ? 'h6' : 'subtitle1'}>
+                            <Typography variant={selected === '5' ? 'h6' : 'subtitle1'}>
                                 Sales Channels
                             </Typography>
                         }
@@ -187,8 +174,7 @@ const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
                     </ListItemIcon>
                     <ListItemText
                         primary={
-                            <Typography
-                                variant={selected === '6' ? 'h6' : 'subtitle1'}>
+                            <Typography variant={selected === '6' ? 'h6' : 'subtitle1'}>
                                 Customer Support
                             </Typography>
                         }
@@ -210,8 +196,7 @@ const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
                     </ListItemIcon>
                     <ListItemText
                         primary={
-                            <Typography
-                                variant={selected === '7' ? 'h6' : 'subtitle1'}>
+                            <Typography variant={selected === '7' ? 'h6' : 'subtitle1'}>
                                 Brand Awareness
                             </Typography>
                         }
@@ -233,8 +218,7 @@ const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
                     </ListItemIcon>
                     <ListItemText
                         primary={
-                            <Typography
-                                variant={selected === '8' ? 'h6' : 'subtitle1'}>
+                            <Typography variant={selected === '8' ? 'h6' : 'subtitle1'}>
                                 Sales Statistics
                             </Typography>
                         }
@@ -256,8 +240,7 @@ const SideBarMenu: React.FC<any> = (props: { isAuth: boolean }) => {
                     </ListItemIcon>
                     <ListItemText
                         primary={
-                            <Typography
-                                variant={selected === '9' ? 'h6' : 'subtitle1'}>
+                            <Typography variant={selected === '9' ? 'h6' : 'subtitle1'}>
                                 Improvements
                             </Typography>
                         }

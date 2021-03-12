@@ -23,7 +23,7 @@ interface CustomInputProps {
     getOption: (option: any) => string;
     renderOption?: any;
     onInputChange?: (event: any, value: string, reason: string) => void;
-    disabled?: boolean
+    disabled?: boolean;
 }
 
 const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
@@ -39,7 +39,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
                 '& fieldset': {
                     borderColor: props.error
                         ? '#F44336'
-                        : (props.value.code && !props.disabled)
+                        : props.value.code && !props.disabled
                         ? '#4285F4'
                         : props.color,
                     borderRadius: 10,
@@ -53,7 +53,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
                 '& label': {
                     color: props.error
                         ? '#F44336'
-                        : (props.value.code && !props.disabled)
+                        : props.value.code && !props.disabled
                         ? '#4285F4'
                         : props.color,
                 },
@@ -67,7 +67,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
                 top: '-9px',
                 color: props.error
                     ? '#F44336'
-                    :  (props.value.code && !props.disabled)
+                    : props.value.code && !props.disabled
                     ? '#4285F4'
                     : props.color,
             },
@@ -136,7 +136,7 @@ const AutocompleteCustomInput: React.FC<CustomInputProps> = (props) => {
                                 fontWeight: 'normal',
                                 fontSize: '16px',
                                 lineHeight: '150%',
-                                minWidth: "100px"
+                                minWidth: '100px',
                             },
                         }}
                         classes={{

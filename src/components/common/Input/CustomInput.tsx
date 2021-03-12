@@ -1,17 +1,18 @@
-import React, {useState} from 'react';
-import {makeStyles, TextField} from '@material-ui/core';
+import React, { useState } from 'react';
+import { makeStyles, TextField } from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
-import styles from './CustomInput.module.scss'
-import {ReactComponent as Visibility} from '../../../assets/images/eye.svg';
-import {ReactComponent as VisibilityOff} from '../../../assets/images/eyeOff.svg';
+import styles from './CustomInput.module.scss';
+import { ReactComponent as Visibility } from '../../../assets/images/eye.svg';
+import { ReactComponent as VisibilityOff } from '../../../assets/images/eyeOff.svg';
 
 interface CustomInputProps {
     type?: string;
-    onChange?: (
-        event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-    ) => void;
-    onBlur?: { (e: React.FocusEvent<unknown>): void, <T = unknown>(fieldOrEvent: T): T extends string ? ((e: unknown) => void) : void };
+    onChange?: (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => void;
+    onBlur?: {
+        (e: React.FocusEvent<unknown>): void;
+        <T = unknown>(fieldOrEvent: T): T extends string ? (e: unknown) => void : void;
+    };
     value?: string;
     color?: string;
     width?: number;
@@ -49,9 +50,9 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                     borderRadius: 10,
                     borderColor: props.error
                         ? '#F44336 !important'
-                        : (props.value && !props.disabled)
-                            ? '#4285F4'
-                            : props.color,
+                        : props.value && !props.disabled
+                        ? '#4285F4'
+                        : props.color,
                     borderWidth: 1,
                 },
                 '& input': {
@@ -62,9 +63,9 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                 '& label': {
                     color: props.error
                         ? '#F44336 !important'
-                        : (props.value && !props.disabled)
-                            ? '#4285F4'
-                            : props.color,
+                        : props.value && !props.disabled
+                        ? '#4285F4'
+                        : props.color,
                 },
             },
             '& .MuiInputLabel-outlined': {
@@ -76,9 +77,9 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                 top: '-9px',
                 color: props.error
                     ? '#F44336 !important'
-                    : (props.value && !props.disabled)
-                        ? '#4285F4'
-                        : props.color,
+                    : props.value && !props.disabled
+                    ? '#4285F4'
+                    : props.color,
             },
             '& .MuiInputLabel-shrink': {
                 transform: 'translate(14px, -2px) scale(0.75)',
@@ -125,10 +126,12 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
             disabled={props.disabled}
             name={props.name}
             type={
-                (props.name === 'password' || props.name === 'confirmPassword' || props.name === 'oldPassword' )
+                props.name === 'password' ||
+                props.name === 'confirmPassword' ||
+                props.name === 'oldPassword'
                     ? isShowPassword
-                    ? 'text'
-                    : 'password'
+                        ? 'text'
+                        : 'password'
                     : props.type
             }
             helperText={props.helperText}
@@ -141,16 +144,17 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
             InputProps={{
                 endAdornment: (
                     <InputAdornment position="end">
-                        {(props.name === 'password' || props.name === 'confirmPassword' || props.name === 'oldPassword' ) && (
+                        {(props.name === 'password' ||
+                            props.name === 'confirmPassword' ||
+                            props.name === 'oldPassword') && (
                             <IconButton
                                 aria-label="toggle password visibility"
                                 onClick={handleClickShowPassword}
-                                color={"secondary"}
-                            >
+                                color={'secondary'}>
                                 {isShowPassword ? (
-                                    <Visibility fill={props.error ? "red" : "#9E9E9E"} />
+                                    <Visibility fill={props.error ? 'red' : '#9E9E9E'} />
                                 ) : (
-                                    <VisibilityOff fill={props.error ? "red" : "#9E9E9E"} />
+                                    <VisibilityOff fill={props.error ? 'red' : '#9E9E9E'} />
                                 )}
                             </IconButton>
                         )}

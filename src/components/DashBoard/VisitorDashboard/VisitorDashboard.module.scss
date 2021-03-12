@@ -14,106 +14,166 @@
     margin-top: 20px;
     display: flex;
     width: 100%;
-    .videoContentItem {
+  }
+}
+
+.videoContentItem {
+  display: flex;
+  align-items: center;
+  padding: 34px;
+  background: #fff;
+  border-radius: 10px;
+  flex-direction: column;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-right: 12px;
+  .teamPhotoContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #f5f5f5;
+    margin-bottom: 38px;
+    border-radius: 10px;
+    img {
+      max-width: 500px;
+      width: 100%;
+    }
+  }
+}
+
+.stepsContentItem {
+  background: #fff;
+  border-radius: 10px;
+  display: block;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-left: 12px;
+  padding: 28px;
+  .stepRow {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 16px;
+    .taskValue {
+      width: 90px;
+      height: 45px;
+      margin-left: 4px;
       display: flex;
+      justify-content: center;
       align-items: center;
-      padding: 34px;
-      background: #fff;
-      border-radius: 10px;
-      flex-direction: column;
-      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-      margin-right: 12px;
-      .teamPhotoContainer {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        background: #f5f5f5;
-        margin-bottom: 38px;
-        border-radius: 10px;
-        img {
-          max-width: 500px;
-          width: 100%;
-        }
+      color: #FFF;
+      .checkIcon {
+        width: 24px;
+        height: 19px;
+      }
+      h6 {
+        font-weight: bold;
       }
     }
-    .stepsContentItem {
-      background: #fff;
-      border-radius: 10px;
-      display: block;
-      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-      margin-left: 12px;
-      padding: 28px;
-      .stepRow {
-        width: 100%;
+    .leftTask {
+      border-radius: 5px;
+    }
+    .rightTask {
+      border-radius: 5px 10px 10px 5px;
+    }
+    .indexNum {
+      margin-right: 14px;
+    }
+    .tableTitleBox {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 5px;
+      width: 100%;
+      .checkJobBox {
         display: flex;
-        justify-content: flex-start;
-        margin-bottom: 16px;
-        .taskValue {
+        width: 184px;
+        justify-content: space-between;
+        p {
           width: 90px;
-          height: 45px;
-          margin-left: 4px;
+        }
+      }
+      .checkJobBox * {
+        width: 80px;
+        text-align: center;
+      }
+    }
+    .coloredBox {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px 0 45px;
+      border-radius: 10px 5px 5px 10px;
+      color: white;
+      flex-grow: 1;
+      height: 45px;
+      position: relative;
+      .indexNum {
+        position: absolute;
+        left: 10px;
+      }
+    }
+  }
+  .sloganBox {
+    height: calc(100% - 515px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .videoContentItem {
+    max-width: 100%;
+    width: 100%;
+    padding: 20px;
+    height: 100%;
+    .teamPhotoContainer {
+      margin-bottom: 16px;
+    }
+  }
+  .stepsContentItem {
+    max-width: 100%;
+    margin-left: 0;
+    padding: 15px;
+    border-radius: 10px;
+    height: 100%;
+    .stepRow {
+      margin-bottom: 8px;
+      width: 100%;
+      .rightTask {
+        border-radius: 5px;
+      }
+      .tableTitleBox {
+        margin: 0 5px;
+         :first-child {
+          margin-left: 0;
+        }
+        .checkJobBox {
           display: flex;
-          justify-content: center;
-          align-items: center;
-          color: #FFF;
-          .checkIcon {
-            width: 24px;
-            height: 19px;
-          }
-          h6 {
-            font-weight: bold;
-          }
-        }
-        .leftTask {
-          border-radius: 5px;
-        }
-        .rightTask {
-          border-radius: 5px 10px 10px 5px;
-        }
-        .indexNum {
-          margin-right: 14px;
-        }
-        .tableTitleBox {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          border-radius: 5px;
-          width: 100%;
-          .checkJobBox {
-            display: flex;
-            width: 184px;
-            justify-content: space-between;
-            p {
-              width: 90px;
-            }
-          }
-          .checkJobBox * {
-            width: 80px;
-            text-align: center;
-          }
-        }
-        .coloredBox {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 0 10px 0 45px;
-          border-radius: 10px 5px 5px 10px;
-          color: white;
-          flex-grow: 1;
-          height: 45px;
-          position: relative;
-          .indexNum {
-            position: absolute;
-            left: 10px;
+          width: 50%;
+          justify-content: flex-end;
+          h6:last-child {
+            width: 36%;
           }
         }
       }
-      .sloganBox {
-        height: calc(100% - 515px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      .taskValue {
+        height: 27px;
+        width: 18%;
+        .checkIcon {
+          width: 18px;
+          height: 15px;
+        }
       }
+      .coloredBox {
+        height: 27px;
+        width: 64%;
+        padding: 0 10px 0 30px;
+        border-radius: 5px;
+        min-width: 190px;
+      }
+    }
+    .sloganBox {
+      margin: 16px 0 10px;
     }
   }
 }

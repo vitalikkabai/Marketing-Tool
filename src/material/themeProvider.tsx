@@ -13,20 +13,13 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
 
     const getPrimaryColor = () => {
         if (history.location.pathname.includes('product')) return '#EDCD27';
-        if (history.location.pathname.includes('market-research'))
-            return '#FFAB08';
-        if (history.location.pathname.includes('brand-creation'))
-            return '#EE6B1D';
-        if (history.location.pathname.includes('sales-channels'))
-            return '#43A047';
-        if (history.location.pathname.includes('customer-support'))
-            return '#0097A6';
-        if (history.location.pathname.includes('brand-awareness'))
-            return '#7B1FA2';
-        if (history.location.pathname.includes('improvements'))
-            return '#DA4B7B';
-        if (history.location.pathname.includes('sales-statistics'))
-            return '#EA4335';
+        if (history.location.pathname.includes('market-research')) return '#FFAB08';
+        if (history.location.pathname.includes('brand-creation')) return '#EE6B1D';
+        if (history.location.pathname.includes('sales-channels')) return '#43A047';
+        if (history.location.pathname.includes('customer-support')) return '#0097A6';
+        if (history.location.pathname.includes('brand-awareness')) return '#7B1FA2';
+        if (history.location.pathname.includes('improvements')) return '#DA4B7B';
+        if (history.location.pathname.includes('sales-statistics')) return '#EA4335';
         return '#4285F4';
     };
 
@@ -224,7 +217,6 @@ const OverridesCss: React.FunctionComponent = ({ children }) => {
                 lineHeight: '150%',
                 letterSpacing: '0.02em',
                 textTransform: 'none',
-                
                 '@media (max-width:600px)': {
                     fontSize: '10px',
                 },

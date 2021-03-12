@@ -1,5 +1,5 @@
 import React from 'react';
-import {makeStyles, Select} from '@material-ui/core';
+import { makeStyles, Select } from '@material-ui/core';
 import styles from './CustomSelect.module.scss';
 
 interface CustomInputProps {
@@ -7,16 +7,19 @@ interface CustomInputProps {
         event: React.ChangeEvent<{ name?: string | undefined; value: unknown }>,
         child?: React.ReactNode
     ) => void | undefined;
-    onBlur?: { (e: React.FocusEvent<unknown>): void, <T = unknown>(fieldOrEvent: T): T extends string ? ((e: unknown) => void) : void }
+    onBlur?: {
+        (e: React.FocusEvent<unknown>): void;
+        <T = unknown>(fieldOrEvent: T): T extends string ? (e: unknown) => void : void;
+    };
     value?: string | number | undefined;
     items: Array<unknown>;
-    label?: string
-    labelId?: string
-    colored?: boolean
-    error?: boolean
-    helperText?: string | boolean
-    color?: string
-    name?: string
+    label?: string;
+    labelId?: string;
+    colored?: boolean;
+    error?: boolean;
+    helperText?: string | boolean;
+    color?: string;
+    name?: string;
 }
 
 const CustomSelect: React.FC<CustomInputProps> = (props) => {
@@ -39,26 +42,26 @@ const CustomSelect: React.FC<CustomInputProps> = (props) => {
                 borderRadius: 10,
             },
             '&.MuiList-padding': {
-                padding: "0"
-            }
+                padding: '0',
+            },
         },
 
         select: {
             '& ul': {
                 paddingTop: 0,
-                paddingBottom: 0
-            }
+                paddingBottom: 0,
+            },
         },
 
         icon: {
-            color: props.error? '#F44336' : '#4285F4',
+            color: props.error ? '#F44336' : '#4285F4',
         },
 
         selectMenu: {
             '&.MuiList-padding': {
-                padding: "0"
-            }
-        }
+                padding: '0',
+            },
+        },
     });
 
     const classes = useStyles();
@@ -70,12 +73,12 @@ const CustomSelect: React.FC<CustomInputProps> = (props) => {
             classes={{
                 root: classes.root,
                 icon: classes.icon,
-                selectMenu: classes.selectMenu
+                selectMenu: classes.selectMenu,
             }}
             labelId={props.labelId}
             MenuProps={{
                 classes: {
-                  paper: classes.select
+                    paper: classes.select,
                 },
                 anchorOrigin: {
                     vertical: 'bottom',
@@ -83,19 +86,22 @@ const CustomSelect: React.FC<CustomInputProps> = (props) => {
                 },
                 getContentAnchorEl: null,
             }}
-            color={"secondary"}
+            color={'secondary'}
             label={props.label}
-            className={props.colored || props.error
-                ? styles.selectorWithError : (props.value !== "") ? styles.selector : ""}
-            style={{borderRadius: '10px'}}
+            className={
+                props.colored || props.error
+                    ? styles.selectorWithError
+                    : props.value !== ''
+                    ? styles.selector
+                    : ''
+            }
+            style={{ borderRadius: '10px' }}
             onChange={props.onChange}
             onBlur={props.onBlur}
-            value={props.value}
-        >
+            value={props.value}>
             {props.items.map((item: unknown) => item)}
         </Select>
     );
 };
-
 
 export default CustomSelect;

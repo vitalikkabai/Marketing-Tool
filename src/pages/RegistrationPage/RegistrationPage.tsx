@@ -17,15 +17,10 @@ const RegistrationPage: FunctionComponent = () => {
                     container
                     justify="center"
                     alignItems="center"
-                    className={classes.registrationContainer}
-                >
+                    className={classes.registrationContainer}>
                     <Grid item xs={12} sm={8} className={classes.registerItem}>
                         <Switch>
-                            <Route
-                                exact
-                                path="/register"
-                                component={RegisterFormContainer}
-                            />
+                            <Route exact path="/register" component={RegisterFormContainer} />
                             <Route
                                 exact
                                 path="/register/2"

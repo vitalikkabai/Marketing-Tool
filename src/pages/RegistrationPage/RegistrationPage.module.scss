@@ -1,11 +1,9 @@
 .registrationContainer {
-    padding-top: 80px;
-    padding-bottom: 32px;
-
-    @media (max-width: 600px) {
-        padding-top: 0;
-    }
+  padding-top: 80px;
+  padding-bottom: 32px;
+  @media (max-width: 600px) {
+    padding-top: 0;
+  }
 }
 
-.registerItem {
-}
+.registerItem {}

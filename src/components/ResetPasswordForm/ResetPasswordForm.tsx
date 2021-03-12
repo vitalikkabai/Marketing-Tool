@@ -1,17 +1,21 @@
-import React, {useEffect} from 'react';
-import {Box, Grid, Typography, Container} from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { Box, Grid, Typography, Container } from '@material-ui/core';
 import classes from './ResetPasswordForm.module.scss';
 import CustomInput from '../common/Input/CustomInput';
 import GoBackButton from '../common/Button/GoBackButton';
 import CustomButton from '../common/Button/CustomButton';
-import {useFormik} from "formik";
-import * as Yup from "yup";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 type PropsType = {
-    resetEmailAddress: string
+    resetEmailAddress: string;
     cleanSuccess: () => { type: string };
-    errorText: { code: string, message: string, name: string }
-    sendNewPassword: (email: string, code: string, newPassword: string) => { payload: { code: string, newPassword: string, email: string }, type: string }
+    errorText: { code: string; message: string; name: string };
+    sendNewPassword: (
+        email: string,
+        code: string,
+        newPassword: string
+    ) => { payload: { code: string; newPassword: string; email: string }; type: string };
     isPending: boolean;
 };
 
@@ -20,21 +24,19 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
         initialValues: {
             code: '',
             password: '',
-            confirmPassword: ''
+            confirmPassword: '',
         },
         validationSchema: Yup.object({
-            code: Yup.string()
-                .required('Required'),
+            code: Yup.string().required('Required'),
             password: Yup.string()
-                .min(6,"The password must be at least 6 characters")
-                .required("Required"),
-            confirmPassword: Yup.string().when("password", {
-                is: (val:string) => (!!(val && val.length > 0)),
-                then: Yup.string().oneOf(
-                    [Yup.ref("password")],
-                    "Password mismatched"
-                )
-            }).required("Required")
+                .min(6, 'The password must be at least 6 characters')
+                .required('Required'),
+            confirmPassword: Yup.string()
+                .when('password', {
+                    is: (val: string) => !!(val && val.length > 0),
+                    then: Yup.string().oneOf([Yup.ref('password')], 'Password mismatched'),
+                })
+                .required('Required'),
         }),
         validateOnChange: false,
         validateOnBlur: true,
@@ -51,15 +53,15 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
         //Detect async error status
         switch (props.errorText.code) {
             case 'LimitExceededException': {
-                formik.setFieldError("code", 'Attempt limit exceeded, try again later')
+                formik.setFieldError('code', 'Attempt limit exceeded, try again later');
                 break;
             }
             case 'CodeMismatchException': {
-                formik.setFieldError("code", 'Invalid verification code')
+                formik.setFieldError('code', 'Invalid verification code');
                 break;
             }
             case 'UserLambdaValidationException': {
-                formik.setFieldError("code", 'Server error occurred, try again later')
+                formik.setFieldError('code', 'Server error occurred, try again later');
                 break;
             }
         }
@@ -71,8 +73,7 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                 container
                 justify="center"
                 alignItems="center"
-                className={classes.registrationContainer}
-            >
+                className={classes.registrationContainer}>
                 <Grid item sm={6}>
                     <Box className={classes.loginSheet}>
                         <GoBackButton
@@ -86,9 +87,9 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                             </Typography>
                         </Grid>
                         <Grid item className={classes.formContainer}>
-                            <form onSubmit={formik.handleSubmit} style={{height: "100%"}}>
-                                <Grid container direction="column" style={{height: "100%"}}>
-                                    <Grid item style={{marginBottom: "24px"}}>
+                            <form onSubmit={formik.handleSubmit} style={{ height: '100%' }}>
+                                <Grid container direction="column" style={{ height: '100%' }}>
+                                    <Grid item style={{ marginBottom: '24px' }}>
                                         <CustomInput
                                             type="text"
                                             label="Code"
@@ -97,31 +98,36 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                                             value={formik.values.code}
                                             helperText={formik.touched.code && formik.errors.code}
                                             onChange={formik.handleChange}
-                                            error={formik.touched.code && Boolean(formik.errors.code)}
+                                            error={
+                                                formik.touched.code && Boolean(formik.errors.code)
+                                            }
                                             autoFocus
                                         />
                                     </Grid>
-                                    <Grid item style={{marginBottom: "24px"}}>
+                                    <Grid item style={{ marginBottom: '24px' }}>
                                         <CustomInput
                                             type="password"
                                             label="New password"
                                             fullWidth
                                             name="password"
                                             onChange={formik.handleChange}
-                                            helperText={formik.touched.password && formik.errors.password}
-                                            error={formik.touched.password && Boolean(formik.errors.password)}
-                                            value={formik.values.password}
                                         />
                                     </Grid>
-                                    <Grid item style={{marginBottom: "24px"}}>
+                                    <Grid item style={{ marginBottom: '24px' }}>
                                         <CustomInput
                                             type="password"
                                             label="Retype password"
                                             fullWidth
                                             name="confirmPassword"
                                             onChange={formik.handleChange}
-                                            helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
-                                            error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+                                            helperText={
+                                                formik.touched.confirmPassword &&
+                                                formik.errors.confirmPassword
+                                            }
+                                            error={
+                                                formik.touched.confirmPassword &&
+                                                Boolean(formik.errors.confirmPassword)
+                                            }
                                             value={formik.values.confirmPassword}
                                         />
                                     </Grid>

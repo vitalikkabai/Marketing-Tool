@@ -10,7 +10,6 @@ import { ReactComponent as ProductionRoleIcon } from '../../../../assets/images/
 import { ReactComponent as QcRoleIcon } from '../../../../assets/images/roles/qcRoleIcon.svg';
 import { ReactComponent as AllRoleIcon } from '../../../../assets/images/roles/allRoleIcon.svg';
 
-
 type PropsType = {
     setSelectedRole: React.Dispatch<
         React.SetStateAction<{ id: string; title: string; selected: boolean }[]>
@@ -19,11 +18,7 @@ type PropsType = {
     setEdited?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const RoleBox: React.FC<PropsType> = ({
-    setSelectedRole,
-    roleItem,
-    setEdited,
-}) => {
+const RoleBox: React.FC<PropsType> = ({ setSelectedRole, roleItem, setEdited }) => {
     const [roleHoverClass, setRoleHoverClass] = useState('');
     const [roleActiveClass, setRoleActiveClass] = useState('');
     const [roleSelectClass, setRoleSelectClass] = useState('');
@@ -102,58 +97,50 @@ const RoleBox: React.FC<PropsType> = ({
 
     return (
         <Box
-            className={roleItem.selected ? classes.roleContainer + ' '+ roleSelectClass + ' ' + roleHoverClass : classes.roleContainer + ' ' + roleHoverClass}
+            className={
+                roleItem.selected
+                    ? classes.roleContainer + ' ' + roleSelectClass + ' ' + roleHoverClass
+                    : classes.roleContainer + ' ' + roleHoverClass
+            }
             onClick={() => {
                 setSelectedRole((roles) =>
                     roles.map((elem) => {
-                        if(roleItem.id === 'all_role') {
-                            !roleItem.selected ? elem.selected = true : elem.selected = false;
+                        if (roleItem.id === 'all_role') {
+                            !roleItem.selected ? (elem.selected = true) : (elem.selected = false);
                         } else if (elem.id === roleItem.id) {
                             elem.selected = !elem.selected;
-                            
+
                             if (roleItem.id != 'all_role') {
                                 roles.find((el) => {
-                                    el.id === 'all_role'? el.selected = false : true;
+                                    el.id === 'all_role' ? (el.selected = false) : true;
                                 });
                             }
 
-                            const arrRoleSelect = []as Array<boolean>;
-                            
-                            roles.map((el)=> {
+                            const arrRoleSelect = [] as Array<boolean>;
+
+                            roles.map((el) => {
                                 if (el.selected === true) {
-                                    arrRoleSelect.push(el.selected)
+                                    arrRoleSelect.push(el.selected);
                                 }
-                                return arrRoleSelect
-                            })
+                                return arrRoleSelect;
+                            });
 
                             if (arrRoleSelect.length === roles.length - 1) {
                                 roles.find((el) => {
                                     if (el.id === 'all_role') {
-                                       el.selected = true;
+                                        el.selected = true;
                                     }
-
                                 });
                             }
                         }
                         if (setEdited) setEdited(false);
-                        
+
                         return elem;
                     })
                 );
-            }}
-        >
-            <Box
-                className={
-                    roleItem.selected ? roleActiveClass : classes.roleBox
-                }
-            >
-                {roleIcon}
-            </Box>
-            <Typography
-                variant={'h6'}
-                align={'center'}
-                className={classes.roleTitle}
-            >
+            }}>
+            <Box className={roleItem.selected ? roleActiveClass : classes.roleBox}>{roleIcon}</Box>
+            <Typography variant={'h6'} align={'center'} className={classes.roleTitle}>
                 {roleItem.title}
             </Typography>
         </Box>

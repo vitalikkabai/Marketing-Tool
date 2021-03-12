@@ -6,7 +6,6 @@ $role5ActiveBackColor: #43a047;
 $role6ActiveBackColor: #7b1fa2;
 $role7ActiveBackColor: #DE493C;
 $role8ActiveBackColor: #4285F4;
-
 $role1ActiveHoverColor: #d7fbff;
 $role2ActiveHoverColor: #fffacb;
 $role3ActiveHoverColor: #ffe7d7;
@@ -15,7 +14,6 @@ $role5ActiveHoverColor: #dcffdd;
 $role6ActiveHoverColor: #f9ebff;
 $role7ActiveHoverColor: #FFDDDA;
 $role8ActiveHoverColor: #BEDCFF;
-
 $role1HoverColor: #F4FEFF;
 $role2HoverColor: #FFFDEF;
 $role3HoverColor: #FFF8F3;
@@ -24,7 +22,6 @@ $role5HoverColor: #F5FFF6;
 $role6HoverColor: #FCF5FF;
 $role7HoverColor: #FFF3F2;
 $role8HoverColor: #ECF5FF;
-
 $role1BackColor: #e2fcff;
 $role2BackColor: #fffacb;
 $role3BackColor: #ffecdf;
@@ -33,7 +30,6 @@ $role5BackColor: #dcffdd;
 $role6BackColor: #f9ebff;
 $role7BackColor: #f9ebff;
 $role8BackColor: #BEDCFF;
-
 $roleSelect1BackColor: #D7FBFF;
 $roleSelect2BackColor: #fffacb;
 $roleSelect3BackColor: #FFE7D7;
@@ -42,331 +38,306 @@ $roleSelect5BackColor: #DCFFDD;
 $roleSelect6BackColor: #F9EBFF;
 $roleSelect7BackColor: #FFDDDA;
 $roleSelect8BackColor: #4285F4;
-
-
 @mixin roleBoxParams {
-    width: 99px;
-    height: 99px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #e5e5e5;
+  width: 99px;
+  height: 99px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e5e5e5;
 }
 
 @mixin whiteSvg {
-    svg {
-        path {
-            fill: #fff;
-        }
+  svg {
+    path {
+      fill: #fff;
     }
+  }
 }
 
 .roleGridItem {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .roleContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 130px;
-    height: 160px;
-    margin: 0 13px;
-    border-radius: 10px;
-    cursor: pointer;
-    user-select: none;
-    transition-duration: 0.2s;
-
-    .roleTitle {
-        margin-top: 10px;
-    }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 130px;
+  height: 160px;
+  margin: 0 13px;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  transition-duration: 0.2s;
+  .roleTitle {
+    margin-top: 10px;
+  }
 }
 
 .role1Hover:hover {
-    background: $role1HoverColor;
-    transform: translate3d(0, -10px, 0);
-
-    .roleBox {
-        background: $role1ActiveHoverColor;
-
-        svg {
-            path {
-                fill: $role1ActiveBackColor;
-            }
-        }
+  background: $role1HoverColor;
+  transform: translate3d(0, -10px, 0);
+  .roleBox {
+    background: $role1ActiveHoverColor;
+    svg {
+      path {
+        fill: $role1ActiveBackColor;
+      }
     }
+  }
 }
 
 .role2Hover:hover {
-    background: $role2HoverColor;
-    transform: translate3d(0, -10px, 0);
-
-    .roleBox {
-        background: $role2ActiveHoverColor;
-
-        svg {
-            path {
-                fill: $role2ActiveBackColor;
-            }
-        }
+  background: $role2HoverColor;
+  transform: translate3d(0, -10px, 0);
+  .roleBox {
+    background: $role2ActiveHoverColor;
+    svg {
+      path {
+        fill: $role2ActiveBackColor;
+      }
     }
+  }
 }
 
 .role3Hover:hover {
-    background: $role3HoverColor;
-    transform: translate3d(0, -10px, 0);
-
-    .roleBox {
-        background: $role3ActiveHoverColor;
-
-        svg {
-            path {
-                fill: $role3ActiveBackColor;
-            }
-        }
+  background: $role3HoverColor;
+  transform: translate3d(0, -10px, 0);
+  .roleBox {
+    background: $role3ActiveHoverColor;
+    svg {
+      path {
+        fill: $role3ActiveBackColor;
+      }
     }
+  }
 }
 
 .role4Hover:hover {
-    background: $role4HoverColor;
-    transform: translate3d(0, -10px, 0);
-
-    .roleBox {
-        background: $role4ActiveHoverColor;
-
-        svg {
-            path {
-                fill: $role4ActiveBackColor;
-            }
-        }
+  background: $role4HoverColor;
+  transform: translate3d(0, -10px, 0);
+  .roleBox {
+    background: $role4ActiveHoverColor;
+    svg {
+      path {
+        fill: $role4ActiveBackColor;
+      }
     }
+  }
 }
 
 .role5Hover:hover {
-    background: $role5HoverColor;
-    transform: translate3d(0, -10px, 0);
-
-    .roleBox {
-        background: $role5ActiveHoverColor;
-
-        svg {
-            path {
-                fill: $role5ActiveBackColor;
-            }
-        }
+  background: $role5HoverColor;
+  transform: translate3d(0, -10px, 0);
+  .roleBox {
+    background: $role5ActiveHoverColor;
+    svg {
+      path {
+        fill: $role5ActiveBackColor;
+      }
     }
+  }
 }
 
 .role6Hover:hover {
-    background: $role6HoverColor;
-    transform: translate3d(0, -10px, 0);
-
-    .roleBox {
-        background: $role6ActiveHoverColor;
-
-        svg {
-            path {
-                fill: $role6ActiveBackColor;
-            }
-        }
+  background: $role6HoverColor;
+  transform: translate3d(0, -10px, 0);
+  .roleBox {
+    background: $role6ActiveHoverColor;
+    svg {
+      path {
+        fill: $role6ActiveBackColor;
+      }
     }
+  }
 }
 
 .role7Hover:hover {
-    background: $role7HoverColor;
-    transform: translate3d(0, -10px, 0);
-
-    .roleBox {
-        background: $role7ActiveHoverColor;
-
-        svg {
-            path {
-                fill: $role7ActiveBackColor;
-            }
-        }
+  background: $role7HoverColor;
+  transform: translate3d(0, -10px, 0);
+  .roleBox {
+    background: $role7ActiveHoverColor;
+    svg {
+      path {
+        fill: $role7ActiveBackColor;
+      }
     }
+  }
 }
 
 .role8Hover:hover {
-    background: $role8HoverColor;
-    transform: translate3d(0, -10px, 0);
-
-    .roleBox {
-        background: $role8ActiveHoverColor;
-        
-        svg {
-            #path-1-inside-1 {
-                stroke: red;
-            }
-
-            path {
-                fill: $role8ActiveBackColor;
-            } 
-            
-            g {
-                mask {
-                    path {
-                        stroke-width: 0;
-                    }
-                }
-                path {
-                    stroke: $role8ActiveBackColor;
-                    fill: revert;
-                }
-            }
+  background: $role8HoverColor;
+  transform: translate3d(0, -10px, 0);
+  .roleBox {
+    background: $role8ActiveHoverColor;
+    svg {
+      #path-1-inside-1 {
+        stroke: red;
+      }
+      path {
+        fill: $role8ActiveBackColor;
+      }
+      g {
+        mask {
+          path {
+            stroke-width: 0;
+          }
         }
+        path {
+          stroke: $role8ActiveBackColor;
+          fill: revert;
+        }
+      }
     }
+  }
 }
 
 .roleContainer1Active {
-    background: $role1ActiveHoverColor;
-    transform: translate3d(0, -10px, 0);
+  background: $role1ActiveHoverColor;
+  transform: translate3d(0, -10px, 0);
 }
 
 .roleContainer2Active {
-    background: $role2ActiveHoverColor;
-    transform: translate3d(0, -10px, 0);
+  background: $role2ActiveHoverColor;
+  transform: translate3d(0, -10px, 0);
 }
 
 .roleContainer3Active {
-    background: $role3ActiveHoverColor;
-    transform: translate3d(0, -10px, 0);
+  background: $role3ActiveHoverColor;
+  transform: translate3d(0, -10px, 0);
 }
 
 .roleContainer4Active {
-    background: $role4ActiveHoverColor;
-    transform: translate3d(0, -10px, 0);
+  background: $role4ActiveHoverColor;
+  transform: translate3d(0, -10px, 0);
 }
 
 .roleContainer5Active {
-    background: $role5ActiveHoverColor;
-    transform: translate3d(0, -10px, 0);
+  background: $role5ActiveHoverColor;
+  transform: translate3d(0, -10px, 0);
 }
 
 .roleContainer6Active {
-    background: $role6ActiveHoverColor;
-    transform: translate3d(0, -10px, 0);
+  background: $role6ActiveHoverColor;
+  transform: translate3d(0, -10px, 0);
 }
 
 .roleContainer7Active {
-    background: $role7ActiveHoverColor;
-    transform: translate3d(0, -10px, 0);
+  background: $role7ActiveHoverColor;
+  transform: translate3d(0, -10px, 0);
 }
 
 .roleContainer8Active {
-    background: $role8ActiveHoverColor;
-    transform: translate3d(0, -10px, 0);
+  background: $role8ActiveHoverColor;
+  transform: translate3d(0, -10px, 0);
 }
 
-
 .roleBox {
-    @include roleBoxParams;
+  @include roleBoxParams;
 }
 
 .roleBox1Active {
-    @include roleBoxParams;
-    @include whiteSvg;
-    background: $role1ActiveBackColor;
+  @include roleBoxParams;
+  @include whiteSvg;
+  background: $role1ActiveBackColor;
 }
 
 .roleBox2Active {
-    @include roleBoxParams;
-    @include whiteSvg;
-    background: $role2ActiveBackColor;
+  @include roleBoxParams;
+  @include whiteSvg;
+  background: $role2ActiveBackColor;
 }
 
 .roleBox3Active {
-    @include roleBoxParams;
-    @include whiteSvg;
-    background: $role3ActiveBackColor;
+  @include roleBoxParams;
+  @include whiteSvg;
+  background: $role3ActiveBackColor;
 }
 
 .roleBox4Active {
-    @include roleBoxParams;
-    @include whiteSvg;
-    background: $role4ActiveBackColor;
+  @include roleBoxParams;
+  @include whiteSvg;
+  background: $role4ActiveBackColor;
 }
 
 .roleBox5Active {
-    @include roleBoxParams;
-    @include whiteSvg;
-    background: $role5ActiveBackColor;
+  @include roleBoxParams;
+  @include whiteSvg;
+  background: $role5ActiveBackColor;
 }
 
 .roleBox6Active {
-    @include roleBoxParams;
-    @include whiteSvg;
-    background: $role6ActiveBackColor;
+  @include roleBoxParams;
+  @include whiteSvg;
+  background: $role6ActiveBackColor;
 }
 
 .roleBox7Active {
-    @include roleBoxParams;
-    @include whiteSvg;
-    background: $role7ActiveBackColor;
+  @include roleBoxParams;
+  @include whiteSvg;
+  background: $role7ActiveBackColor;
 }
 
 .roleBox8Active {
-    @include roleBoxParams;
-    @include whiteSvg;
-    position: relative;
-    svg {
-        display: none;
-    }
-    background: $role8ActiveBackColor;
-
-    &::after {
-        content: '';
-        position: absolute;
-        width: 36px;
-        height: 36px;
-        background: url(../../../assets/images/roles/selectAllRoleIcon.svg) center (center / auto) no-repeat;
-    }
+  @include roleBoxParams;
+  @include whiteSvg;
+  position: relative;
+  svg {
+    display: none;
+  }
+  background: $role8ActiveBackColor;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    background: url(../../../assets/images/roles/selectAllRoleIcon.svg) center (center / auto) no-repeat;
+  }
 }
 
 .roleBox1Select {
-    background-color: $roleSelect1BackColor;
+  background-color: $roleSelect1BackColor;
 }
 
 .roleBox2Select {
-    background-color: $roleSelect2BackColor;
+  background-color: $roleSelect2BackColor;
 }
 
 .roleBox3Select {
-    background-color: $roleSelect3BackColor;
+  background-color: $roleSelect3BackColor;
 }
 
 .roleBox4Select {
-    background-color: $roleSelect4BackColor;
+  background-color: $roleSelect4BackColor;
 }
 
 .roleBox5Select {
-    background-color: $roleSelect5BackColor;
+  background-color: $roleSelect5BackColor;
 }
 
 .roleBox6Select {
-    background-color: $roleSelect6BackColor;
+  background-color: $roleSelect6BackColor;
 }
 
 .roleBox7Select {
-    background-color: $roleSelect7BackColor;
+  background-color: $roleSelect7BackColor;
 }
 
 .roleBox8Select {
-    background-color: $roleSelect8BackColor;
-
-    h6 {
-        color: #fff;
-    }
+  background-color: $roleSelect8BackColor;
+  h6 {
+    color: #fff;
+  }
 }
 
 .roleBox8Select.role8Hover {
-    &:hover {
-        background-color: $roleSelect8BackColor;
-    }
+  &:hover {
+    background-color: $roleSelect8BackColor;
+  }
 }
-

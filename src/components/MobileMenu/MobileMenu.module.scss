@@ -1,0 +1,102 @@
+$menuItemColors: #4285F4, #EDCD27, #FFAB08, #E26921, #5CAE10, #4A949F, #7B1FA2, #DA4B7B, #EA4335;
+$menuItemDisabled: #000;
+
+@for $i from 1 through 9 {
+  .item#{$i} {
+    color: #FFF;
+    background: nth($menuItemColors, $i);
+    position: relative;
+    white-space: nowrap;
+    padding-left: 0 !important;
+    width: calc(100% - 16px);
+    height: 60px;
+    min-height: 60px;
+    border-radius: 20px 0 0 20px;
+    margin-bottom: 4px;
+    h6 {
+      margin-left: 40px;
+    }
+    svg {
+      width: 20px;
+    }
+    .listIconRoot {
+      position: absolute;
+      background: #FFF;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+      width: 47px;
+      height: 47px;
+      border-radius: 20px 20px 0 20px;
+      left: -22px;
+      svg {
+        margin-right: 0 !important;
+        height: 28px;
+        width: 28px;
+      }
+    }
+  }
+
+  .item#{$i}:hover {
+    background: nth($menuItemColors, $i);
+  }
+}
+
+.menu {
+  width: 100%;
+  height: auto;
+  margin-right: 24px;
+  position: relative;
+  .container {
+    margin-right: 16px;
+    width: calc(100% - 16px);
+  }
+  .wrapper {
+    padding: 12px 0 34px;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  .gridItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .logo {
+    width: 141px;
+    height: 54px;
+    margin-top: 12px;
+  }
+  .rootList::-webkit-scrollbar {
+    display: none;
+  }
+  .rootList {
+    height: 100%;
+    overflow: auto;
+    padding: 0 0 0 16px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    -ms-overflow-style: none;
+  }
+  .rootList:hover {
+    overflow-y: scroll;
+    -ms-overflow-style: initial;
+  }
+  .listIconRoot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    position: absolute;
+    left: -16px;
+    svg {
+      margin-right: 10px;
+    }
+  }
+  .bottomText {
+    padding-bottom: 32px;
+    color: #9E9E9E;
+  }
+}

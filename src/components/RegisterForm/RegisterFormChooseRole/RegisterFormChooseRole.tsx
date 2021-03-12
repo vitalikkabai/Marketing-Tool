@@ -8,9 +8,7 @@ import CustomButton from '../../common/Button/CustomButton';
 import RoleBoxes from '../../common/RoleBoxes/RoleBoxes';
 import { ChooseRoleProps } from './RegisterFormChooseRoleContainer';
 
-const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
-    props
-) => {
+const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (props) => {
     const history = useHistory();
     const [errorText, setErrorText] = useState('');
     const [selectedRole, setSelectedRole] = useState([
@@ -29,10 +27,10 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
             title: 'Logistics',
             selected: props.roleTags.logistics,
         },
-        { 
-            id: 'sales_role', 
-            title: 'Sales', 
-            selected: props.roleTags.sales 
+        {
+            id: 'sales_role',
+            title: 'Sales',
+            selected: props.roleTags.sales,
         },
         {
             id: 'production_role',
@@ -57,30 +55,14 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
     ]);
 
     const handleDataInput = () => {
-        const saleRole = selectedRole.find(
-            (element) => element.id === 'sales_role'
-        );
-        const marketingRole = selectedRole.find(
-            (element) => element.id === 'marketing_role'
-        );
-        const logisticRole = selectedRole.find(
-            (element) => element.id === 'logistic_role'
-        );
-        const accountRole = selectedRole.find(
-            (element) => element.id === 'accounting_role'
-        );
-        const productRole = selectedRole.find(
-            (element) => element.id === 'production_role'
-        );
-        const qcRole = selectedRole.find(
-            (element) => element.id === 'quality_role'
-        );
-        const adminRole = selectedRole.find(
-            (element) => element.id === 'admin_role'
-        );
-        const allRole = selectedRole.find(
-            (element) => element.id === 'all_role'
-        );
+        const saleRole = selectedRole.find((element) => element.id === 'sales_role');
+        const marketingRole = selectedRole.find((element) => element.id === 'marketing_role');
+        const logisticRole = selectedRole.find((element) => element.id === 'logistic_role');
+        const accountRole = selectedRole.find((element) => element.id === 'accounting_role');
+        const productRole = selectedRole.find((element) => element.id === 'production_role');
+        const qcRole = selectedRole.find((element) => element.id === 'quality_role');
+        const adminRole = selectedRole.find((element) => element.id === 'admin_role');
+        const allRole = selectedRole.find((element) => element.id === 'all_role');
         props.setRoleTags({
             sales: saleRole ? saleRole.selected : false,
             marketing: marketingRole ? marketingRole.selected : false,
@@ -96,7 +78,8 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
     useEffect(() => {
         const { websiteURLs, storeURLs, hasWebsite, hasExperienceSelling } = props;
         // Redirect to first step if prev step values is empty
-        if ((hasWebsite && !websiteURLs.length) || (hasExperienceSelling && !storeURLs.length)) history.push('/register');
+        if ((hasWebsite && !websiteURLs.length) || (hasExperienceSelling && !storeURLs.length))
+            history.push('/register');
     }, []);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -105,8 +88,7 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
         const rolesArray = Object.entries(selectedRole);
         const selectedRoles: Array<string> = [];
         rolesArray.forEach((el, index) => {
-            if (rolesArray[index][1].selected)
-                selectedRoles.push(rolesArray[index][0]);
+            if (rolesArray[index][1].selected) selectedRoles.push(rolesArray[index][0]);
         });
         if (selectedRoles[0]) {
             history.push('/register/3');
@@ -119,13 +101,14 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
         setErrorText('');
     }, [selectedRole]);
 
-    useEffect(() => { //Detect page refreshing
+    useEffect(() => {
+        //Detect page refreshing
         window.onbeforeunload = (e: BeforeUnloadEvent) => {
             e.returnValue = '';
-        }
+        };
         return () => {
-            onbeforeunload = null
-        }
+            onbeforeunload = null;
+        };
     }, []);
 
     const handleBackPressed = () => {
@@ -135,39 +118,21 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
 
     return (
         <Grid container justify="center" alignItems={'center'}>
-            <Grid
-                container
-                direction="column"
-                justify="center"
-                className={classes.registerForm}
-            >
+            <Grid container direction="column" justify="center" className={classes.registerForm}>
                 <Box className={classes.registrationSheet}>
                     <GoBackButton onClick={handleBackPressed} />
-                    <UxAssistant
-                        assistantText={'What are you in charge of?'}
-                        stepNumber={2}
-                    />
+                    <UxAssistant assistantText={'What are you in charge of?'} stepNumber={2} />
                     <form onSubmit={handleSubmit}>
-                        <Box
-                            className={classes.formContainer}
-                            style={{ marginTop: '40px' }}
-                        >
+                        <Box className={classes.formContainer} style={{ marginTop: '40px' }}>
                             <RoleBoxes
                                 selectedRole={selectedRole}
                                 setSelectedRole={setSelectedRole}
                             />
                         </Box>
                         <Grid item className={classes.errorText}>
-                            <Typography variant={'subtitle1'}>
-                                {errorText}
-                            </Typography>
+                            <Typography variant={'subtitle1'}>{errorText}</Typography>
                         </Grid>
-                        <Grid
-                            item
-                            className={
-                                classes.nextContainer + ' ' + classes.roles
-                            }
-                        >
+                        <Grid item className={classes.nextContainer + ' ' + classes.roles}>
                             <CustomButton
                                 type={'submit'}
                                 className={classes.buttonBlock}
@@ -179,8 +144,7 @@ const RegisterFormChooseRole: React.FunctionComponent<ChooseRoleProps> = (
                                     className={classes.link}
                                     onClick={() => {
                                         history.push('/login');
-                                    }}
-                                >
+                                    }}>
                                     Log in
                                 </Link>
                             </Typography>

@@ -1,0 +1,32 @@
+.clockContainer {
+  display: flex;
+  justify-content: center;
+  .ml23 {
+    margin-left: 23px;
+  }
+  .clock {
+    text-transform: capitalize;
+    .timeContainer {
+      display: flex;
+      align-items: flex-end;
+      margin-top: 4px;
+      .time {
+        margin-left: 5px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .clockContainer {
+    margin: 28px 16px 22px;
+    justify-content: flex-start;
+    .ml23 {
+      margin-left: 16px;
+    }
+    .clock {
+      text-align: center;
+    }
+  }
+}
+

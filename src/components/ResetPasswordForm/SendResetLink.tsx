@@ -1,18 +1,18 @@
-import React, {useEffect} from 'react';
-import {Box, Grid, Typography, Container} from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { Box, Grid, Typography, Container } from '@material-ui/core';
 import classes from './ResetPasswordForm.module.scss';
-import {useHistory} from 'react-router';
+import { useHistory } from 'react-router';
 import CustomInput from '../common/Input/CustomInput';
 import GoBackButton from '../common/Button/GoBackButton';
 import CustomButton from '../common/Button/CustomButton';
-import {useFormik} from "formik";
-import * as Yup from "yup";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 type PropsType = {
     isNewPasswordEntered: boolean;
-    isEmailEntered: boolean
-    sendEmail: (value: string) => void
-    errorText: {code: string, message: string, name: string}
+    isEmailEntered: boolean;
+    sendEmail: (value: string) => void;
+    errorText: { code: string; message: string; name: string };
     isPending: boolean;
 };
 
@@ -20,12 +20,10 @@ const SendResetLink: React.FC<PropsType> = (props) => {
     const history = useHistory();
     const formik = useFormik({
         initialValues: {
-            email: ''
+            email: '',
         },
         validationSchema: Yup.object({
-            email: Yup.string()
-                .email("Invalid email address")
-                .required('Required'),
+            email: Yup.string().email('Invalid email address').required('Required'),
         }),
         validateOnChange: false,
         validateOnBlur: true,
@@ -40,11 +38,11 @@ const SendResetLink: React.FC<PropsType> = (props) => {
         //Detect async error status
         switch (props.errorText.code) {
             case 'UserNotFoundException': {
-                formik.setFieldError("email", 'User not found')
+                formik.setFieldError('email', 'User not found');
                 break;
             }
             case 'LimitExceededException': {
-                formik.setFieldError("email", 'Attempt limit exceeded, try again later')
+                formik.setFieldError('email', 'Attempt limit exceeded, try again later');
                 break;
             }
         }
@@ -70,24 +68,25 @@ const SendResetLink: React.FC<PropsType> = (props) => {
                             </Typography>
                         </Grid>
                         <Grid item className={classes.gridItem}>
-                            <Typography
-                                variant="subtitle1"
-                                className={classes.subtitle}
-                            >
-                                Enter your email address and we will send you a
-                                reset link.
+                            <Typography variant="subtitle1" className={classes.subtitle}>
+                                Enter your email address and we will send you a reset link.
                             </Typography>
                         </Grid>
                         <Grid item className={classes.formContainer}>
-                            <form onSubmit={formik.handleSubmit} style={{height: "100%"}}>
-                                <Grid container direction="column" className={classes.gridContainer}>
+                            <form onSubmit={formik.handleSubmit} style={{ height: '100%' }}>
+                                <Grid
+                                    container
+                                    direction="column"
+                                    className={classes.gridContainer}>
                                     <Grid item>
                                         <CustomInput
                                             type="text"
                                             label="Company email"
                                             name="email"
                                             fullWidth
-                                            error={formik.touched.email && Boolean(formik.errors.email)}
+                                            error={
+                                                formik.touched.email && Boolean(formik.errors.email)
+                                            }
                                             helperText={formik.touched.email && formik.errors.email}
                                             value={formik.values.email}
                                             onChange={formik.handleChange}

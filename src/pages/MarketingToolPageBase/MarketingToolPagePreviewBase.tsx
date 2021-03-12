@@ -9,8 +9,8 @@ import SideBarMenu from '../../components/SideBarMenu/SideBarMenu';
 import classes from './MarketingToolPageBase.module.scss';
 import { Box, Grid } from '@material-ui/core';
 import TopBarContainer from '../../components/TopBar/TopBarContainer';
-import MarketResearchContainer from "../MarketResearch/MarketResearchContainer";
-import ProductPageContainer from "../ProductPage/ProductPageContainer";
+import MarketResearchContainer from '../MarketResearch/MarketResearchContainer';
+import ProductPageContainer from '../ProductPage/ProductPageContainer';
 
 const MarketingToolPagePreviewContainer = (props: any) => {
     return (
@@ -21,11 +21,7 @@ const MarketingToolPagePreviewContainer = (props: any) => {
                 <Grid container className={classes.contentContainer}>
                     <Grid xs={12} xl={12} item className={classes.content}>
                         <Switch>
-                            <Route
-                                path={'/preview/'}
-                                exact
-                                component={VisitorDashboard}
-                            />
+                            <Route path={'/preview/'} exact component={VisitorDashboard} />
                             <Route
                                 path={'/preview/products'}
                                 exact
@@ -36,36 +32,12 @@ const MarketingToolPagePreviewContainer = (props: any) => {
                                 exact
                                 component={MarketResearchContainer}
                             />
-                            <Route
-                                path={'/preview/brand-creation'}
-                                exact
-                                component={H1}
-                            />
-                            <Route
-                                path={'/preview/sales-channels'}
-                                exact
-                                component={H1}
-                            />
-                            <Route
-                                path={'/preview/customer-support'}
-                                exact
-                                component={H1}
-                            />
-                            <Route
-                                path={'/preview/brand-awareness'}
-                                exact
-                                component={H1}
-                            />
-                            <Route
-                                path={'/preview/sales-statistics'}
-                                exact
-                                component={H1}
-                            />
-                            <Route
-                                path={'/preview/improvements'}
-                                exact
-                                component={H1}
-                            />
+                            <Route path={'/preview/brand-creation'} exact component={H1} />
+                            <Route path={'/preview/sales-channels'} exact component={H1} />
+                            <Route path={'/preview/customer-support'} exact component={H1} />
+                            <Route path={'/preview/brand-awareness'} exact component={H1} />
+                            <Route path={'/preview/sales-statistics'} exact component={H1} />
+                            <Route path={'/preview/improvements'} exact component={H1} />
                         </Switch>
                     </Grid>
                 </Grid>
@@ -95,13 +67,9 @@ const H1 = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-            }}
-        >
+            }}>
             Coming soon...
         </h1>
     );
 };
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MarketingToolPagePreviewContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(MarketingToolPagePreviewContainer);
