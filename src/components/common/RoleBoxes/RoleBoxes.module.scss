@@ -61,6 +61,15 @@ $roleSelect8BackColor: #4285F4;
   display: flex;
   justify-content: center;
   align-items: center;
+  &:first-child {
+    padding-bottom: 26px;
+    @media (max-width: 600px) {
+      padding-bottom: 23px;
+    }
+  }
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
 }
 
 .roleContainer {
@@ -339,5 +348,23 @@ $roleSelect8BackColor: #4285F4;
 .roleBox8Select.role8Hover {
   &:hover {
     background-color: $roleSelect8BackColor;
+  }
+}
+
+.roleGroupItem {
+  display: flex;
+  @media (max-width: 600px) {
+    &:nth-child(odd) {
+      margin-bottom: 23px;
+    }
+  }
+  @media (max-width: 360px) {
+    flex-wrap: wrap;
+    justify-content: center;
+    .roleContainer {
+      &:nth-child(odd) {
+        margin-bottom: 23px;
+      }
+    }
   }
 }

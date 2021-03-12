@@ -150,6 +150,16 @@ const BusinessProfile: React.FunctionComponent<PropsFromRedux> = (props) => {
                     title: 'QC',
                     selected: props.roleTags.qualityControl,
                 },
+                {
+                    id: 'admin_role',
+                    title: 'Admin',
+                    selected: props.roleTags.admin,
+                },
+                {
+                    id: 'all_role',
+                    title: 'All',
+                    selected: props.roleTags.all,
+                },
             ]
             // .sort((a, b) =>
             //     a.selected < b.selected ? 1 : b.selected < a.selected ? -1 : 0
