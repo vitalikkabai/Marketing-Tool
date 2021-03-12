@@ -22,6 +22,7 @@ const AvatarSection: React.FunctionComponent<{
     signOut: () => void;
     userAttributes: { userID: string, occupation: number };
 }> = (props) => {
+    const profileName = props.profile.name ? props.profile.name : 'Unknown User';
     const history = useHistory();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef<HTMLDivElement>(null);
@@ -44,7 +45,7 @@ const AvatarSection: React.FunctionComponent<{
 
     const writeInitials = (): string => {
         if (props.profile.avatar) return '';
-        const nameWords = props.profile.name.split(' ');
+        const nameWords = profileName.split(' ');
         let initials: string;
         if (nameWords.length > 1) {
             initials = nameWords[0]
@@ -123,7 +124,7 @@ const AvatarSection: React.FunctionComponent<{
                     color={'primary'}
                     className={classes.greetingText}
                 >
-                    Hi, {props.profile.name}
+                    Hi, {profileName}
                 </Typography>
                 <div ref={anchorRef}>
                     {props.profile.avatar ? (
