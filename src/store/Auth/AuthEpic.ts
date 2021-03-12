@@ -132,7 +132,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
             })
         ),
 
-    /*(action$: ActionsObservable<ActionTypes>) =>
+    (action$: ActionsObservable<ActionTypes>) =>
         action$.pipe(
             filterAction('AUTH-DATA-REQUEST'),
             mergeMap(() => {
@@ -169,7 +169,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                     })
                 );
             })
-        ),*/
+        ),
 
     (action$) =>
         action$.pipe(

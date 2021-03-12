@@ -48,6 +48,10 @@ function* authDataWorker(): unknown {
             const occupation = Number(
                 response.attributes['custom:occupation']
             );
+            yield put(getAuthDataSuccess({
+                userID: response.username,
+                occupation,
+            }))
             switch (occupation) {
                 case 0:
                     yield put(fetchEmployeeById(
@@ -62,10 +66,6 @@ function* authDataWorker(): unknown {
                 default:
                     yield put(getAuthDataFailed());
             }
-            yield put(getAuthDataSuccess({
-                userID: response.username,
-                occupation,
-            }))
         }
 
     } catch (err) {
@@ -76,5 +76,5 @@ function* authDataWorker(): unknown {
 
 export function* authWatcher() {
     yield takeEvery('SIGN-IN-REQUEST', authUserWorker)
-    yield takeEvery('AUTH-DATA-REQUEST', authDataWorker)
+    /*yield takeEvery('AUTH-DATA-REQUEST', authDataWorker)*/
 }
