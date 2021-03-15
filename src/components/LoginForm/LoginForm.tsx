@@ -78,8 +78,8 @@ const LoginForm: React.FC<PropsFromRedux> = (props) => {
                                 <Grid item className={classes.usernameGridItem}>
                                     <CustomInput
                                         type="text"
-                                        placeholder="Email"
-                                        label="Email"
+                                        placeholder="Company email"
+                                        label="Company email"
                                         name="username"
                                         error={
                                             formik.touched.username &&
