@@ -71,7 +71,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                 );
             })
         ),*/
-    (action$, state$) =>
+    /*(action$, state$) =>
         action$.pipe(
             filterAction('SIGN-UP-REQUEST'),
             mergeMap((action) => {
@@ -111,7 +111,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                     })
                 );
             })
-        ),
+        ),*/
     (action$) =>
         action$.pipe(
             filterAction('SIGN-OUT-REQUEST'),
