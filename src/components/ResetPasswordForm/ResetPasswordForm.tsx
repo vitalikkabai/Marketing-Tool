@@ -74,7 +74,7 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                 justify="center"
                 alignItems="center"
                 className={classes.registrationContainer}>
-                <Grid item sm={6}>
+                <Grid item xs={12} sm={6}>
                     <Box className={classes.loginSheet}>
                         <GoBackButton
                             onClick={() => {
@@ -86,7 +86,7 @@ const ResetPasswordForm: React.FC<PropsType> = (props) => {
                                 Reset password
                             </Typography>
                         </Grid>
-                        <Grid item className={classes.formContainer}>
+                        <Grid item className={classes.formContainer + ' ' + classes.formContainerSecondStep}>
                             <form onSubmit={formik.handleSubmit} style={{ height: '100%' }}>
                                 <Grid container direction="column" style={{ height: '100%' }}>
                                     <Grid item style={{ marginBottom: '24px' }}>

@@ -19,7 +19,7 @@ const ResetsIsDone: React.FC<PropsType> = (props) => {
                 alignItems="center"
                 className={classes.registrationContainer}
             >
-                <Grid item sm={6}>
+                <Grid item xs={12} sm={6}>
                     <Box className={classes.loginSheet}>
                         <Grid item className={classes.bigCheckMark}>
                             <BigCheckMark />
@@ -30,7 +30,7 @@ const ResetsIsDone: React.FC<PropsType> = (props) => {
                                 className={classes.checkHeadline}
                                 align={"center"}
                             >
-                                Password Resent link was sent to your email
+                                Resent link <br/> was sent to your email
                             </Typography>
                         </Grid>
                         <Grid item className={classes.closeButton}>

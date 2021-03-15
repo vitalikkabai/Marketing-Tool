@@ -55,7 +55,7 @@ const SendResetLink: React.FC<PropsType> = (props) => {
                 justify="center"
                 alignItems="center"
                 className={classes.registrationContainer}>
-                <Grid item sm={6}>
+                <Grid item xs={12} sm={6}>
                     <Box className={classes.loginSheet}>
                         <GoBackButton
                             onClick={() => {

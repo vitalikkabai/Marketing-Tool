@@ -2,6 +2,9 @@
   height: 39px;
   width: 186px;
   min-width: 20px;
+  border-radius: 10px;
+  box-shadow: none;
+
   @media (max-width: 600px) {
     width: 167px;
   }
@@ -9,7 +12,6 @@
 
 .buttonWithCircleBox {
   border: 2px solid #FAD61E;
-  ;
   border-radius: 10px;
   color: #FAD61E;
 }
