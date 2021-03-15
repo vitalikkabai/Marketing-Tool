@@ -147,192 +147,179 @@ const RegisterFormImportantInfo: React.FunctionComponent<PropsFromRedux> = (
                         stepNumber={3}
                     />
                     <form onSubmit={formik.handleSubmit} className={classes.infoForm}>
-                        <Grid className={classes.formContainer}>
-                                <Grid
-                                    container
-                                    item
-                                    xs={12} style={{marginBottom: "24px"}}>
-                                    <Grid item xs={6} style={{paddingRight:"12px"}}>
+                        <Grid container className={classes.formContainer + ' ' + classes.formContainerInfo}> 
+                            <Grid className={classes.formInputName} item xs={12} sm={6}>
+                            <CustomInput
+                                label="Your name"
+                                variant="outlined"
+                                placeholder={'Name'}
+                                fullWidth={true}
+                                name={"ownerName"}
+                                value={formik.values.ownerName}
+                                error={formik.touched.ownerName && Boolean(formik.errors.ownerName)}
+                                helperText={formik.touched.ownerName && formik.errors.ownerName}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                            />
+                            </Grid>
+                            <Grid item xs={12} sm={6} 
+                                className={classes.phoneContainer + ' ' + classes.formInputPhone}>
+                                <Grid item xs={4}>
+                                    <AutocompleteCustomInput
+                                        label={'Country'}
+                                        option={data}
+                                        value={
+                                            formik.values.countryCode
+                                        }
+                                        getOption={(option: {
+                                            code: string;
+                                            phone: string;
+                                            label: string;
+                                        }) => {
+                                            if (
+                                                formik.values.countryCode.phone
+                                            )
+                                                return (
+                                                    '+' + option.phone
+                                                );
+                                            else return option.phone;
+                                        }}
+                                        renderOption={(option: {
+                                            code: string,
+                                            label: string,
+                                            phone: string
+                                        }) => (
+                                            <React.Fragment>
+                                                <ReactCountryFlag
+                                                    countryCode={
+                                                        option.code
+                                                    }
+                                                    svg
+                                                    title={option.code}
+                                                />
+                                                &nbsp;
+                                                {option.phone}
+                                            </React.Fragment>
+                                        )}
+                                        error={
+                                            Boolean(formik.errors.countryCode)
+                                        }
+                                        onChange={(
+                                            event: Record<string,
+                                                unknown>,
+                                            value: {
+                                                code: string,
+                                                label: string,
+                                                phone: string
+                                            }
+                                        ) => {
+                                            if (value) {
+                                                formik.setFieldValue('countryCode', value);
+                                            }
+                                        }}
+                                    />
+                                </Grid>
+                                <Grid item xs={1}/>
+                                <Grid item xs={7}>
                                     <CustomInput
-                                        label="Your name"
+                                        label="Phone Number"
                                         variant="outlined"
-                                        placeholder={'Name'}
+                                        placeholder={'Phone number'}
                                         fullWidth={true}
-                                        name={"ownerName"}
-                                        value={formik.values.ownerName}
-                                        error={formik.touched.ownerName && Boolean(formik.errors.ownerName)}
-                                        helperText={formik.touched.ownerName && formik.errors.ownerName}
+                                        name={"phoneNumber"}
+                                        value={formik.values.phoneNumber}
+                                        error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
+                                        helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
                                     />
-                                    </Grid>
-                                    <Grid item xs={6}
-                                          style={{paddingLeft:"12px"}}
-                                          className={classes.phoneContainer}>
-                                        <Grid item xs={4}>
-                                            <AutocompleteCustomInput
-                                                label={'Country'}
-                                                option={data}
-                                                value={
-                                                    formik.values.countryCode
-                                                }
-                                                getOption={(option: {
-                                                    code: string;
-                                                    phone: string;
-                                                    label: string;
-                                                }) => {
-                                                    if (
-                                                        formik.values.countryCode.phone
-                                                    )
-                                                        return (
-                                                            '+' + option.phone
-                                                        );
-                                                    else return option.phone;
-                                                }}
-                                                renderOption={(option: {
-                                                    code: string,
-                                                    label: string,
-                                                    phone: string
-                                                }) => (
-                                                    <React.Fragment>
-                                                        <ReactCountryFlag
-                                                            countryCode={
-                                                                option.code
-                                                            }
-                                                            svg
-                                                            title={option.code}
-                                                        />
-                                                        &nbsp;
-                                                        {option.phone}
-                                                    </React.Fragment>
-                                                )}
-                                                error={
-                                                    Boolean(formik.errors.countryCode)
-                                                }
-                                                onChange={(
-                                                    event: Record<string,
-                                                        unknown>,
-                                                    value: {
-                                                        code: string,
-                                                        label: string,
-                                                        phone: string
-                                                    }
-                                                ) => {
-                                                    if (value) {
-                                                        formik.setFieldValue('countryCode', value);
-                                                    }
-                                                }}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={1}/>
-                                        <Grid item xs={7}>
-                                            <CustomInput
-                                                label="Phone Number"
-                                                variant="outlined"
-                                                placeholder={'Phone number'}
-                                                fullWidth={true}
-                                                name={"phoneNumber"}
-                                                value={formik.values.phoneNumber}
-                                                error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
-                                                helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                            />
-                                        </Grid>
-                                        <Box className={classes.flagBox}>
-                                            {formik.values.countryCode.code && (
-                                                <ReactCountryFlag
-                                                    countryCode={
-                                                        formik.values.countryCode.code
-                                                    }
-                                                    svg
-                                                    style={{
-                                                        width: 'auto',
-                                                        height: '100%',
-                                                        marginLeft: '-4px',
-                                                        marginBottom: '10px',
-                                                    }}
-                                                    title={
-                                                        formik.values.countryCode.code
-                                                    }
-                                                />
-                                            )}
-                                        </Box>
-                                    </Grid>
                                 </Grid>
-                                <Grid
-                                    container
-                                    item
-                                    xs={12}
-                                    style={{marginBottom: "24px"}}
-                                    >
-                                    <Grid item xs={6} style={{paddingRight:"12px"}}>
-                                        <CustomInput
-                                            label="Company Name"
-                                            placeholder={'Company Name'}
-                                            fullWidth={true}
-                                            name={"companyName"}
-                                            value={formik.values.companyName}
-                                            error={formik.touched.companyName && Boolean(formik.errors.companyName)}
-                                            helperText={formik.touched.companyName && formik.errors.companyName}
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                            variant="outlined"
+                                <Box className={classes.flagBox}>
+                                    {formik.values.countryCode.code && (
+                                        <ReactCountryFlag
+                                            countryCode={
+                                                formik.values.countryCode.code
+                                            }
+                                            svg
+                                            style={{
+                                                width: 'auto',
+                                                height: '100%',
+                                                marginLeft: '-4px',
+                                                marginBottom: '10px',
+                                            }}
+                                            title={
+                                                formik.values.countryCode.code
+                                            }
                                         />
-                                    </Grid>
-                                    <Grid item xs={6} style={{paddingLeft:"12px"}}>
-                                        <CustomInput
-                                            type="text"
-                                            label="Company email"
-                                            variant="outlined"
-                                            placeholder={'email'}
-                                            fullWidth={true}
-                                            name={"ownerEmail"}
-                                            value={formik.values.ownerEmail}
-                                            error={formik.touched.ownerEmail && Boolean(formik.errors.ownerEmail)}
-                                            helperText={formik.touched.ownerEmail && formik.errors.ownerEmail}
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
-                                        />
-                                    </Grid>
+                                    )}
+                                </Box>
+                            </Grid>
+                                <Grid className={classes.formInputCompany} item xs={12} sm={6}>
+                                    <CustomInput
+                                        label="Company Name"
+                                        placeholder={'Company Name'}
+                                        fullWidth={true}
+                                        name={"companyName"}
+                                        value={formik.values.companyName}
+                                        error={formik.touched.companyName && Boolean(formik.errors.companyName)}
+                                        helperText={formik.touched.companyName && formik.errors.companyName}
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        variant="outlined"
+                                    />
                                 </Grid>
-                                <Grid
-                                    container
-                                    item
-                                    xs={12}
-                                >
-                                    <Grid item xs={6} style={{paddingRight:"12px"}}>
-                                        <CustomInput
-                                            type="password"
-                                            label="Password"
-                                            variant="outlined"
-                                            name="password"
-                                            placeholder={'Password'}
-                                            fullWidth={true}
-                                            value={formik.values.password}
-                                            error={formik.touched.password && Boolean(formik.errors.password)}
-                                            helperText={formik.touched.password && formik.errors.password}
-                                            onChange={(e)=>formik.setFieldValue('password',e.target.value.replace(/\s/,""))}
-                                            onBlur={formik.handleBlur}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6} style={{paddingLeft:"12px"}}>
-                                        <CustomInput
-                                            type="password"
-                                            label="Repeat Password"
-                                            variant="outlined"
-                                            placeholder={'Confirm password'}
-                                            fullWidth={true}
-                                            name={"confirmPassword"}
-                                            value={formik.values.confirmPassword}
-                                            error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-                                            helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
-                                            onChange={(e)=>formik.setFieldValue('confirmPassword',e.target.value.replace(/\s/,""))}
-                                            onBlur={formik.handleBlur}
-                                        />
-                                    </Grid>
+                                <Grid className={classes.formInputEmail} item xs={12} sm={6}>
+                                    <CustomInput
+                                        type="text"
+                                        label="Company email"
+                                        variant="outlined"
+                                        placeholder={'email'}
+                                        fullWidth={true}
+                                        name={"ownerEmail"}
+                                        value={formik.values.ownerEmail}
+                                        error={formik.touched.ownerEmail && Boolean(formik.errors.ownerEmail)}
+                                        helperText={formik.touched.ownerEmail && formik.errors.ownerEmail}
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                    />
                                 </Grid>
-                        </Grid>
+                            </Grid>
+                            <Grid
+                                container
+                                item
+                                xs={12}
+                            >
+                                <Grid item xs={12} sm={6} className={classes.formInputPassword}>
+                                    <CustomInput
+                                        type="password"
+                                        label="Password"
+                                        variant="outlined"
+                                        name="password"
+                                        placeholder={'Password'}
+                                        fullWidth={true}
+                                        value={formik.values.password}
+                                        error={formik.touched.password && Boolean(formik.errors.password)}
+                                        helperText={formik.touched.password && formik.errors.password}
+                                        onChange={(e)=>formik.setFieldValue('password',e.target.value.replace(/\s/,""))}
+                                        onBlur={formik.handleBlur}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6} className={classes.formInputPasswordRepeat}>
+                                    <CustomInput
+                                        type="password"
+                                        label="Repeat Password"
+                                        variant="outlined"
+                                        placeholder={'Confirm password'}
+                                        fullWidth={true}
+                                        name={"confirmPassword"}
+                                        value={formik.values.confirmPassword}
+                                        error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+                                        helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                                        onChange={(e)=>formik.setFieldValue('confirmPassword',e.target.value.replace(/\s/,""))}
+                                        onBlur={formik.handleBlur}
+                                    />
+                                </Grid>
+                            </Grid>
                         <Grid
                             item
                             className={

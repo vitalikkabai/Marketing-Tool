@@ -118,7 +118,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                         container
                         alignItems={'center'}
                         justify={'center'}
-                        className={classes.formContainer}>
+                        className={classes.formContainer + ' ' + classes.formContainerWebLinks}>
                         <Grid container item direction={'column'} className={classes.formText}>
                             <form onSubmit={handleSubmit}>
                                 <Grid item xs={12}>

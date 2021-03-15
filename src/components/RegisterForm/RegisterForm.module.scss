@@ -40,6 +40,13 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      max-width: 604px;
+      width: 100%;
+
+      @media (max-width: 600px) {
+        max-width: 263px;
+        height: auto;
+      }
     }
     .formContainer {
       width: 100%;
@@ -116,7 +123,36 @@
           height: 27px;
           overflow: hidden;
           border-radius: 50%;
+
+          @media (max-width: 600px) {
+            left: 13px;
+          }
         }
+      }
+    }
+
+    // FIX Design
+    .formContainerWebLinks {
+      margin-top: 60px;
+
+      @media (max-width: 600px) {
+        margin-top: 38px;
+      }
+    }
+
+    .formContainerChooseRole {
+      margin-top: 40px;
+
+      @media (max-width: 600px) {
+        margin-top: 51px;
+      }
+    }
+
+    .formContainerInfo {
+      margin-top: 60px;
+
+      @media (max-width: 600px) {
+        margin-top: 52px;
       }
     }
     .nextContainer {
@@ -131,6 +167,7 @@
         }
         @media (max-width: 600px) {
           margin-top: 48px;
+          margin-bottom: 32px;
         }
       }
       &.roles {
@@ -166,6 +203,61 @@
       left: 50%;
       transform: translate(-50%, 0);
       color: #ea4335;
+
+      @media (max-width: 600px) {
+        width: 100%;
+        text-align: center;
+      }
     }
+  }
+}
+.formInputName,
+.formInputCompany,
+.formInputEmail,
+.formInputPhone {
+  margin-bottom: 24px;
+}
+
+.formInputEmail,
+.formInputPhone,
+.formInputPasswordRepeat {
+  padding-left: 12px;
+}
+
+.formInputName,
+.formInputCompany,
+.formInputPassword {
+  padding-right: 12px;
+}
+
+@media (max-width: 600px) {
+  .formInputName {
+    order: 1;
+    padding-right: 0;
+  }
+
+  .formInputCompany {
+    order: 2;
+    padding-right: 0;
+  }
+
+  .formInputEmail {
+    order: 3;
+    padding-left: 0;
+  }
+
+  .formInputPhone {
+    order: 4;
+    padding-left: 0;
+  }
+
+  .formInputPasswordRepeat {
+    padding-left: 0;
+    margin-bottom: 40px;
+  }
+
+  .formInputPassword {
+    padding-right: 0;
+    margin-bottom: 24px;
   }
 }
