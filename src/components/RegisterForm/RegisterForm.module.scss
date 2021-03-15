@@ -13,12 +13,13 @@
     min-height: 735px;
     @media (max-width: 600px) {
       min-height: auto;
+      max-width: 100%;
     }
     .stepCounter {
       margin-top: 22px;
     }
     .assistantContainer {
-      margin-top: 20px;
+      margin-top: 22px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -33,6 +34,10 @@
         flex-direction: column;
         justify-content: center;
         max-width: 230px;
+
+        @media (max-width: 600px) {
+          margin-top: 22px;
+        }
       }
     }
     .infoForm {
@@ -76,8 +81,14 @@
           }
           .inputContainer {
             width: 100%;
+
+            @media (max-width: 600px) {
+              max-width: 70%;
+            }
+
             @media (max-width: 360px) {
               margin-top: 16px;
+              max-width: 100%;
             }
           }
         }

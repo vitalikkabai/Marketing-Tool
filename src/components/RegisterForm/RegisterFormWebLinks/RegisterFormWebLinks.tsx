@@ -120,7 +120,7 @@ const RegisterFormWebLinks: React.FunctionComponent<FormContainerType> = (props)
                         justify={'center'}
                         className={classes.formContainer + ' ' + classes.formContainerWebLinks}>
                         <Grid container item direction={'column'} className={classes.formText}>
-                            <form onSubmit={handleSubmit}>
+                            <form onSubmit={handleSubmit} style={{maxWidth: '100%'}}>
                                 <Grid item xs={12}>
                                     <Typography variant={'h6'}>
                                         Do you already have a website?

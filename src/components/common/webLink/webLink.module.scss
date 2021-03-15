@@ -10,6 +10,11 @@
   display: flex;
   flex-direction: column;
   position: relative;
+
+  @media (max-width: 600px) {
+   max-width: 100%;
+  }
+
   .chip {
     display: flex;
     justify-content: space-between;
@@ -23,7 +28,7 @@
       width: calc(100% + 98px);
       position: relative;
       transform: translateX(-98px);
-      max-width: none;
+      max-width: 143%;
     }
     @media (max-width: 360px) {
       width: 100%;
@@ -40,6 +45,12 @@
     svg {
       height: 23px;
       width: 23px;
+    }
+  }
+
+  .customInput {
+    @media (max-width: 600px) {
+      max-width: 100%;
     }
   }
 }
