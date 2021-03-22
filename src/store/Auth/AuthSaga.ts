@@ -97,7 +97,7 @@ function* signUpWorker(action: any): unknown {
 }
 
 export function* authWatcher() {
-    yield takeEvery('SIGN-IN-REQUEST', authUserWorker)
+    /*yield takeEvery('SIGN-IN-REQUEST', authUserWorker)
     yield takeEvery('AUTH-DATA-REQUEST', authDataWorker)
-    yield takeEvery('SIGN-UP-REQUEST', signUpWorker)
+    yield takeEvery('SIGN-UP-REQUEST', signUpWorker)*/
 }

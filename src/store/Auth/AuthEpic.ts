@@ -28,7 +28,7 @@ import { filterAction } from '../../utils/backendUtils';
 import { subscribeOnMessageCreated, unsubscribeOnMessageCreated } from '../Message/MessageActions';
 
 export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
-    /*(action$) =>
+    (action$) =>
         action$.pipe(
             filterAction('SIGN-IN-REQUEST'),
             mergeMap((action) => {
@@ -70,8 +70,8 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                     catchError((err) => [signInFailed(err)])
                 );
             })
-        ),*/
-    /*(action$, state$) =>
+        ),
+    (action$, state$) =>
         action$.pipe(
             filterAction('SIGN-UP-REQUEST'),
             mergeMap((action) => {
@@ -111,7 +111,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                     })
                 );
             })
-        ),*/
+        ),
     (action$) =>
         action$.pipe(
             filterAction('SIGN-OUT-REQUEST'),
@@ -132,7 +132,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
             })
         ),
 
-    /*(action$: ActionsObservable<ActionTypes>) =>
+    (action$: ActionsObservable<ActionTypes>) =>
         action$.pipe(
             filterAction('AUTH-DATA-REQUEST'),
             mergeMap(() => {
@@ -169,7 +169,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                     })
                 );
             })
-        ),*/
+        ),
 
     (action$) =>
         action$.pipe(

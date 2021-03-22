@@ -55,7 +55,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                     }),
                     catchError((err) => {
                         console.log(err);
-                        return [getProductListFailed()];
+                        return [getProductListFailed(), getProductListSuccess(err.data.listProducts.items),];
                     })
                 );
             })
