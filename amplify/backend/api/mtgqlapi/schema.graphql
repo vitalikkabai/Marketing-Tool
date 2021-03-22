@@ -5,7 +5,7 @@ type Business
     fields: ["managerID", "companyName"]
     queryField: "byManagerAndCompany"
   )
-  @auth(rules: [{ allow: owner }]) {
+  @auth(rules: [{ allow: private }]) {
   id: ID!
   companyName: String!
   storeURLs: [String!]!
@@ -14,6 +14,7 @@ type Business
   products: [Product] @connection(keyName: "byBusiness", fields: ["id"])
   manager: Manager @connection(fields: ["managerID"])
   managerID: ID!
+  owner: String
 }
 
 type Employee
@@ -172,6 +173,8 @@ type RoleTags {
   accounting: Boolean!
   production: Boolean!
   qualityControl: Boolean!
+  admin: Boolean!
+  all: Boolean!
 }
 
 type CountryCode {
