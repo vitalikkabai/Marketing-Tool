@@ -1,9 +1,10 @@
-import {put, takeEvery, call} from "redux-saga/effects";
+import {put, takeEvery, call, select} from "redux-saga/effects";
 import {Auth} from "aws-amplify";
-import {getAuthDataFailed, getAuthDataSuccess, signInFailed, signInSuccess} from "./AuthActions";
+import {getAuthDataFailed, getAuthDataSuccess, signIn, signInFailed, signInSuccess, signUpFailed} from "./AuthActions";
 import {fetchEmployeeById} from "../Employee/EmployeeActions";
 import {fetchManagerById} from "../Manager/ManagerActions";
 import {ActionTypes} from '../storeTypes';
+import {Simulate} from "react-dom/test-utils";
 
 function* authUserWorker(action: any): unknown {
     try {
@@ -74,7 +75,29 @@ function* authDataWorker(): unknown {
     return 0;
 }
 
+function* signUpWorker(action: any): unknown {
+    try {
+        const state = yield select();
+        const response = yield call([Auth, 'signUp'], {
+            username: action.payload.email,
+            password: action.payload.password,
+            attributes: {
+                email: action.payload.email,
+                given_name: action.payload.username,
+                'custom:occupation': state.AuthReducer.userAttributes.occupation.toString(),
+            },
+        })
+        console.log(response)
+        yield put(signIn(action.payload.email, action.payload.password));
+    } catch (err) {
+        console.log(err)
+        yield put(signUpFailed(err))
+    }
+    return 0;
+}
+
 export function* authWatcher() {
-    yield takeEvery('SIGN-IN-REQUEST', authUserWorker)
+    /*yield takeEvery('SIGN-IN-REQUEST', authUserWorker)
     yield takeEvery('AUTH-DATA-REQUEST', authDataWorker)
+    yield takeEvery('SIGN-UP-REQUEST', signUpWorker)*/
 }

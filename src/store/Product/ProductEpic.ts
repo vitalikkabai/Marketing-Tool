@@ -28,7 +28,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                     mergeMap((res) => {
                         action.payload.callback();
                         return [
-                            createProductSuccess(res.data.getProfile),
+                          createProductSuccess(res.data.getProfile),
                         ];
                     }),
                     catchError((err) => {
@@ -55,7 +55,7 @@ export default <Epic<ActionTypes, ActionTypes, AppStateType>[]>[
                     }),
                     catchError((err) => {
                         console.log(err);
-                        return [getProductListFailed()];
+                        return [getProductListFailed(), getProductListSuccess(err.data.listProducts.items),];
                     })
                 );
             })

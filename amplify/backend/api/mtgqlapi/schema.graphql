@@ -1,9 +1,11 @@
-type Business @model
-    @key(name: "byManager", fields: ["managerID", "companyName"], queryField: "byManagerAndCompany")
-    @auth(rules: [
-          { allow: owner },
-          { allow: private, operations: [read] },
-      ]) {
+type Business
+  @model
+  @key(
+    name: "byManager"
+    fields: ["managerID", "companyName"]
+    queryField: "byManagerAndCompany"
+  )
+  @auth(rules: [{ allow: private }]) {
   id: ID!
   companyName: String!
   storeURLs: [String!]!
@@ -12,14 +14,17 @@ type Business @model
   products: [Product] @connection(keyName: "byBusiness", fields: ["id"])
   manager: Manager @connection(fields: ["managerID"])
   managerID: ID!
+  owner: String
 }
 
-type Employee @model
-    @key(name: "byBusiness", fields: ["businessID"], queryField: "employeeByBusinessAndName")
-    @auth(rules: [
-      { allow: owner, ownerField: "id" },
-      { allow: private, operations: [read] },
-    ])  {
+type Employee
+  @model
+  @key(
+    name: "byBusiness"
+    fields: ["businessID"]
+    queryField: "employeeByBusinessAndName"
+  )
+  @auth(rules: [{ allow: owner, ownerField: "id" }]) {
   id: ID!
   profile: Profile @connection(fields: ["id"])
   business: Business @connection(fields: ["businessID"])
@@ -29,35 +34,38 @@ type Employee @model
   phoneNumber: String!
 }
 
-type Manager @model
-    @auth(rules: [
-      { allow: owner, ownerField: "id" },
-      { allow: private, operations: [read] },
-      ])  {
+type Manager
+  @model
+  @auth(
+    rules: [
+      { allow: owner, ownerField: "id" }
+      { allow: private, operations: [read] }
+    ]
+  ) {
   id: ID!
   profile: Profile @connection(fields: ["id"])
   businesses: [Business] @connection(keyName: "byManager", fields: ["id"])
 }
 
-type Profile @model
-    @auth(rules: [
-      { allow: owner, ownerField: "id" },
-      { allow: public, operations: [read]},
-      { allow: private, operations: [read] },
-    ])  {
+type Profile
+  @model
+  @auth(
+    rules: [
+      { allow: owner, ownerField: "id" }
+      { allow: public, operations: [read] }
+      { allow: private, operations: [read] }
+    ]
+  ) {
   id: ID!
   email: String!
   name: String!
   avatar: S3Object
-
 }
 
-type Product @model
-    @key(name: "byBusiness", fields: ["businessID"], queryField: "byBusiness")
-    @auth(rules: [
-          { allow: owner },
-          { allow: private, operations: [read] },
-      ]) {
+type Product
+  @model
+  @key(name: "byBusiness", fields: ["businessID"], queryField: "byBusiness")
+  @auth(rules: [{ allow: owner }, { allow: private, operations: [read] }]) {
   id: ID!
   itemNumber: [IntRecord!]!
   itemName: [StringRecord!]!
@@ -106,13 +114,24 @@ type StringArrayRecord {
   createdAt: AWSDateTime!
 }
 
-type Message @model(subscriptions: null)
-    @key(name: "getIncomingMessages", fields: ["receiverID", "status"], queryField:"getIncomingMessages")
-    @key(name: "getDialogue", fields: ["sharedID", "subjectID","stage"], queryField: "getDialogue")
-    @key(name: "getConversation", fields: ["sharedID", "subjectID","stage","createdAt"], queryField: "getConversation")
-    @auth(rules: [
-      { allow: private }
-      ])  {
+type Message
+  @model(subscriptions: null)
+  @key(
+    name: "getIncomingMessages"
+    fields: ["receiverID", "status"]
+    queryField: "getIncomingMessages"
+  )
+  @key(
+    name: "getDialogue"
+    fields: ["sharedID", "subjectID", "stage"]
+    queryField: "getDialogue"
+  )
+  @key(
+    name: "getConversation"
+    fields: ["sharedID", "subjectID", "stage", "createdAt"]
+    queryField: "getConversation"
+  )
+  @auth(rules: [{ allow: private }]) {
   id: ID!
   stage: Stage!
   subjectID: ID!
@@ -127,9 +146,12 @@ type Message @model(subscriptions: null)
 }
 
 type Subscription {
-  onCreateMessage(receiverID: ID): Message @aws_subscribe(mutations: ["createMessage"])
-  onUpdateMessage(senderID: ID): Message @aws_subscribe(mutations: ["updateMessage"])
-  onDeleteMessage(receiverID: ID): Message @aws_subscribe(mutations: ["deleteMessage"])
+  onCreateMessage(receiverID: ID): Message
+    @aws_subscribe(mutations: ["createMessage"])
+  onUpdateMessage(senderID: ID): Message
+    @aws_subscribe(mutations: ["updateMessage"])
+  onDeleteMessage(receiverID: ID): Message
+    @aws_subscribe(mutations: ["deleteMessage"])
 }
 
 enum MessageStatus {
@@ -151,6 +173,8 @@ type RoleTags {
   accounting: Boolean!
   production: Boolean!
   qualityControl: Boolean!
+  admin: Boolean!
+  all: Boolean!
 }
 
 type CountryCode {
@@ -160,13 +184,13 @@ type CountryCode {
 }
 
 enum Stage {
-    UNASSIGNED
-    PRODUCTS
-    MARKET_RESEARCH
-    BRAND_CREATION
-    SALES_CHANNELS
-    CUSTOMER_SUPPORT
-    BRAND_AWARENESS
-    SALES_STATISTICS
-    IMPROVEMENTS
+  UNASSIGNED
+  PRODUCTS
+  MARKET_RESEARCH
+  BRAND_CREATION
+  SALES_CHANNELS
+  CUSTOMER_SUPPORT
+  BRAND_AWARENESS
+  SALES_STATISTICS
+  IMPROVEMENTS
 }
