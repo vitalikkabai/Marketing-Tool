@@ -38,6 +38,23 @@
     align-items: center;
     width: 100%;
     padding: 15px 15px;
+    position: relative;
+
+    .searchBox {
+
+    }
+
+    .searchInput {
+
+    }
+
+    .searchSvg {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 25px;
+        z-index: 1;
+    }
 }
 
 .chatInputBox {
@@ -49,5 +66,23 @@
     box-shadow: 0 -5px 15px -5px rgba(0, 0, 0, 0.1);
     button {
         margin-left: 24px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .mainContainer {
+        min-height: 200px;
+    }
+
+    .chatContainer {
+        min-height: 559px;
+    }
+
+    .searchInputGrid {
+        background: rgb(216, 231, 255);
+    }
+
+    .messagesBox {
+        background: rgb(216, 231, 255);
     }
 }

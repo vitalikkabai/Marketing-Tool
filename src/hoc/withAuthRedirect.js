@@ -12,7 +12,7 @@ export const withAuthRedirect = (Component) => {
     //HOC for redirecting to login screen if user not authorized
     class RedirectComponent extends React.Component {
         render() {
-            if (!this.props.isAuth) return <Redirect to={'/preview'} />;
+            if (!this.props.isAuth) return <Redirect to={'/login'} />;
             return <Component {...this.props} />;
         }
     }

@@ -20,11 +20,12 @@ import ManagerPageBase from './pages/MarketingToolPageBase/ManagerPageBase';
 import MomentUtils from '@date-io/moment';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import MarketingToolPageMobile from "./pages/MarketingToolPageMobile/MarketingToolPageMobile";
 
 Amplify.configure(awsconfig);
 
 function App(props: AppProps): ReactElement {
-    const isSmallScreen = useMediaQuery((theme: any) => theme.breakpoints.between(0, 600));
+    const isSmallScreen = useMediaQuery((theme: any) => theme.breakpoints.between(0, 601));
 
     useEffect(() => {
         // Start initialization
@@ -49,7 +50,11 @@ function App(props: AppProps): ReactElement {
             {props.occupation === Occupation.MANAGER ? (
                 <Route path="/" component={ManagerPageBase} />
             ) : null}
-            <Route path="/" component={MarketingToolPageContainer} />
+            {
+                isSmallScreen ?
+                    <Route path="/" component={MarketingToolPageMobile} />
+                    : <Route path="/" component={MarketingToolPageContainer} />
+            }
         </Switch>
     );
 }

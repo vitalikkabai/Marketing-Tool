@@ -30,6 +30,8 @@ interface CustomInputProps {
     paddingRight?: number;
     isShowPassword?: boolean;
     disabled?: boolean;
+    paddingLeft?: string;
+    borderNone?: string;
 }
 
 const CustomInput: React.FC<CustomInputProps> = (props) => {
@@ -43,17 +45,17 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                 borderRadius: 10,
                 padding: 0,
                 '& .MuiOutlinedInput-input': {
-                    paddingLeft: 10,
+                    paddingLeft: props.paddingLeft || "10px",
                     paddingRight: props.paddingRight,
                 },
                 '& fieldset': {
                     borderRadius: 10,
-                    borderColor: props.error
+                    borderColor: props.borderNone ? "transparent" : props.error
                         ? '#F44336 !important'
                         : props.value && !props.disabled
-                        ? '#4285F4'
-                        : props.color,
-                    borderWidth: 1,
+                            ? '#4285F4'
+                            : props.color,
+                    borderWidth: 1
                 },
                 '& input': {
                     borderRadius: 10,

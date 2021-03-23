@@ -2,7 +2,7 @@ import { Dispatch } from "redux";
 import LoginForm from "./LoginForm";
 import {connect, ConnectedProps} from "react-redux";
 import { AppStateType } from "../../store/store";
-import {cleanErrors, getAuthData, signIn} from "../../store/Auth/AuthActions";
+import { cleanErrors, getAuthData, signIn } from "../../store/Auth/AuthActions";
 
 const mapStateToProps = (state: AppStateType) => {
 	return {

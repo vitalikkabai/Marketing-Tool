@@ -10,6 +10,7 @@ import { ChatProps } from './ChatContainer';
 import { MessageStatus, Stage } from '../../API';
 import { getSharedIndex } from '../../utils/backendUtils';
 import { v4 as uuid } from 'uuid';
+import { ReactComponent as SearchSVG } from '../../assets/images/search.svg';
 
 const Chat: FunctionComponent<ChatProps> = ({ ...props }) => {
     // let interlocutor: CreateProfileInput = {

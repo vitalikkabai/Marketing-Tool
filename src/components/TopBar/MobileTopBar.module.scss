@@ -1,0 +1,27 @@
+.topBarContainer {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background: #fff;
+  margin: 0 16px 24px;
+
+  .TopBarContent {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .topBarButton {
+      padding: 0;
+      background-color: transparent;
+      box-shadow: none;
+      min-width: 0;
+      width: 16px;
+      height: auto;
+    }
+
+    .topBarText {
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+  }
+}
