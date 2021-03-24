@@ -24,7 +24,7 @@ const MarketingToolPageMobileContainer: React.FunctionComponent<PropsType> = (
             <Box className={classes.marketingContainer}>
                 <MobileTopBar />
 
-                <Box className={classes.box}>
+                <Box className={classes.box} style={{ height: "559px" }}>
                     {
                         active === 1 ?
                             <DashboardSteps />
