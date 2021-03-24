@@ -31,7 +31,8 @@ interface CustomInputProps {
     isShowPassword?: boolean;
     disabled?: boolean;
     paddingLeft?: string;
-    borderNone?: string;
+    borderColor?: string;
+    hidden?: boolean;
 }
 
 const CustomInput: React.FC<CustomInputProps> = (props) => {
@@ -50,7 +51,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
                 },
                 '& fieldset': {
                     borderRadius: 10,
-                    borderColor: props.borderNone ? "transparent" : props.error
+                    borderColor: props.borderColor ? props.borderColor : props.error
                         ? '#F44336 !important'
                         : props.value && !props.disabled
                             ? '#4285F4'
@@ -123,6 +124,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
 
     return (
         <TextField
+            style={props.hidden ? { display: "none" } : { display: "block" }}
             color="secondary"
             error={props.error}
             disabled={props.disabled}

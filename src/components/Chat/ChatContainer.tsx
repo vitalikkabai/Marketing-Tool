@@ -49,6 +49,7 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type OwnProps = {
     backGroundColor?: string;
+    mobile?: boolean;
 };
 
 export type ChatProps = ConnectedProps<typeof connector> & OwnProps;

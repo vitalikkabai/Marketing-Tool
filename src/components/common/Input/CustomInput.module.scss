@@ -3,6 +3,10 @@
   /*    max-width: 290px;
 */
   @media (max-width: 600px) {
+    .dispayNone {
+      display: none;
+    }
+
     p {
       margin-top: 0;
     }

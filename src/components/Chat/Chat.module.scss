@@ -41,20 +41,25 @@
     position: relative;
 
     .searchBox {
+        width: 45px;
+        height: 45px;
+        position: relative;
+        background: #FFF;
+        border: 1px solid #4285F4;
+        box-sizing: border-box;
+        border-radius: 10px;
 
+        .searchSvg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     }
+}
 
-    .searchInput {
-
-    }
-
-    .searchSvg {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 25px;
-        z-index: 1;
-    }
+.hidden {
+    display: none;
 }
 
 .chatInputBox {
@@ -80,6 +85,13 @@
 
     .searchInputGrid {
         background: rgb(216, 231, 255);
+
+        .searchBox {
+
+            .searchSvg {
+
+            }
+        }
     }
 
     .messagesBox {

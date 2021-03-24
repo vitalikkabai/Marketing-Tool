@@ -1,18 +1,18 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
-import { Box, Grid } from '@material-ui/core';
+import React, {FunctionComponent, useEffect, useRef, useState} from 'react';
+import {Box, Grid} from '@material-ui/core';
 import classes from './Chat.module.scss';
 import CustomInput from '../common/Input/CustomInput';
 import CustomButton from '../common/Button/CustomButton';
 import sendIcon from '../../assets/images/send.svg';
 import Message from './Message/Message';
 import moment from 'moment';
-import { ChatProps } from './ChatContainer';
-import { MessageStatus, Stage } from '../../API';
-import { getSharedIndex } from '../../utils/backendUtils';
-import { v4 as uuid } from 'uuid';
-import { ReactComponent as SearchSVG } from '../../assets/images/search.svg';
+import {ChatProps} from './ChatContainer';
+import {MessageStatus, Stage} from '../../API';
+import {getSharedIndex} from '../../utils/backendUtils';
+import {v4 as uuid} from 'uuid';
+import {ReactComponent as SearchSVG} from '../../assets/images/search.svg';
 
-const Chat: FunctionComponent<ChatProps> = ({ ...props }) => {
+const Chat: FunctionComponent<ChatProps> = ({...props}) => {
     // let interlocutor: CreateProfileInput = {
     //     id: '0f580759-6129-423b-a2cd-55409f687b8d',
     //     email: 'def@ault.email',
@@ -112,12 +112,14 @@ const Chat: FunctionComponent<ChatProps> = ({ ...props }) => {
 
     useEffect(() => {
         //Auto scrolling to bottom on messages obj update
-        scrollRef.current.scrollIntoView({ behavior: 'smooth' });
+        scrollRef.current.scrollIntoView({behavior: 'smooth'});
     }, [props.messages]);
 
     useEffect(() => {
         //Auto scrolling to bottom on messages obj update
     }, [props.thisProfile]);
+
+    const [isSearchVisible, setIsSearchVisible] = useState(false);
 
     return (
         <Box className={classes.mainContainer}>
@@ -130,8 +132,14 @@ const Chat: FunctionComponent<ChatProps> = ({ ...props }) => {
                 <Grid
                     item
                     className={classes.searchInputGrid}
-                    style={{ background: props.backGroundColor }}>
+                    style={{background: props.backGroundColor}}>
+                    <Box className={classes.searchBox + " " + ((isSearchVisible || !props.mobile) ? classes.hidden : "")}>
+                        <SearchSVG className={classes.searchSvg}
+                                   onClick={() => setIsSearchVisible(true)}
+                        />
+                    </Box>
                     <CustomInput
+                        hidden={props.mobile ? !isSearchVisible : false}
                         fullWidth
                         placeholder={'search...'}
                         onChange={(
@@ -142,13 +150,14 @@ const Chat: FunctionComponent<ChatProps> = ({ ...props }) => {
                 <Grid
                     item
                     className={classes.messagesBox}
-                    style={{ background: props.backGroundColor }}>
+                    style={{background: props.backGroundColor}}>
                     {Messages}
-                    <div ref={scrollRef} />
+                    <div ref={scrollRef}/>
                 </Grid>
                 <Grid item className={classes.chatInputGrid}>
                     <form className={classes.chatInputBox} onSubmit={handleSubmit}>
                         <CustomInput
+                            borderColor={props.mobile ? "transparent" : ""}
                             fullWidth
                             placeholder={'Message Here'}
                             value={inputValue}
@@ -158,7 +167,7 @@ const Chat: FunctionComponent<ChatProps> = ({ ...props }) => {
                         />
                         <CustomButton
                             type={'submit'}
-                            text={<img src={sendIcon} alt={'send'} />}
+                            text={<img src={sendIcon} alt={'send'}/>}
                             width={'40px'}
                             borderRadius={'10px'}
                             disabled={!inputValue}

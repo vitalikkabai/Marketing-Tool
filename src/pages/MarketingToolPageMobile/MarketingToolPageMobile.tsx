@@ -28,7 +28,7 @@ const MarketingToolPageMobileContainer: React.FunctionComponent<PropsType> = (
                     {
                         active === 1 ?
                             <DashboardSteps />
-                            : <ChatContainer />
+                            : <ChatContainer mobile />
                     }
                 </Box>
 
