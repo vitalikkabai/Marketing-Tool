@@ -2,6 +2,7 @@
     height: calc(100vh - 32px);
     margin: 16px 0;
     display: flex;
+    transition: filter 1s;
 
     .marketingContainer {
         width: 100%;
@@ -12,6 +13,7 @@
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
             background: #fff;
+            overflow: hidden;
 
             &.switcherContainer {
                 margin: 17px 16px 0;
@@ -48,8 +50,6 @@
     }
 }
 
-@media screen and (max-width: 600px) {
-    .box {
-        overflow: hidden;
-    }
+.blur {
+    filter: blur(25px);
 }

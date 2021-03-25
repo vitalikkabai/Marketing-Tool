@@ -33,21 +33,6 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     };
 };
 
-const H1 = () => {
-    return (
-        <h1
-            style={{
-                width: '100%',
-                height: '10vh',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}
-        >
-            Coming soon...
-        </h1>
-    );
-};
 export default connect(
     mapStateToProps,
     mapDispatchToProps

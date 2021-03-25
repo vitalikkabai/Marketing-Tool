@@ -4,7 +4,7 @@ import {Box, Button, Grid, Typography} from "@material-ui/core";
 import { ReactComponent as MobileSidebarIcon } from '../../assets/images/mobileSidebarIcon.svg';
 import { ReactComponent as MobileUserIcon } from '../../assets/images/mobileUserIcon.svg';
 
-const MobileTopBar = () => {
+const MobileTopBar = (props: any) => {
     return (
         <Box className={classes.topBarContainer}>
             <Grid
@@ -16,6 +16,7 @@ const MobileTopBar = () => {
                         color="primary"
                         type="submit"
                         className={classes.topBarButton}
+                        onClick={() => props.showSideBar()}
                     >
                         <MobileSidebarIcon />
                     </Button>

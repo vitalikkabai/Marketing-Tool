@@ -21,6 +21,7 @@ import MomentUtils from '@date-io/moment';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import MarketingToolPageMobile from "./pages/MarketingToolPageMobile/MarketingToolPageMobile";
+import MobileSideBar from "./components/SideBarMenu/MobileSideBar/MobileSideBar";
 
 Amplify.configure(awsconfig);
 
